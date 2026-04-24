@@ -1,3 +1,4 @@
+#to do：从PR中筛选出test的部分，搜索对PR分类相关论文。
 from __future__ import annotations
 
 import argparse
@@ -250,7 +251,7 @@ def save_raw_records(records: list[PullRequestRecord], path: Path) -> None:
 
 def collect_pr_data_from_file(source: Path) -> list[PullRequestRecord]:
     prs = load_sample_prs(source)
-    print(f"[1/6] Collected {len(prs)} PR records from {source}")
+    print(f"[1/5] Collected {len(prs)} PR records from {source}")
     return prs
 
 
@@ -300,7 +301,7 @@ def collect_pr_data_from_github(owner: str, repo: str, limit: int, state: str) -
     ensure_output_dir()
     raw_path = OUTPUT_DIR / f"raw_prs_{owner}_{repo}.json"
     save_raw_records(records, raw_path)
-    print(f"[1/6] Collected {len(records)} PR records from GitHub and cached them to {raw_path}")
+    print(f"[1/5] Collected {len(records)} PR records from GitHub and cached them to {raw_path}")
     return records
 
 
@@ -311,87 +312,6 @@ def is_code_file(filename: str) -> bool:
 def is_doc_file(filename: str) -> bool:
     lowered = filename.lower()
     return lowered.endswith(".md") or lowered.startswith("docs/") or "/docs/" in lowered
-
-
-def score_candidate(pr: PullRequestRecord) -> tuple[int, list[str]]:
-    score = 0
-    reasons: list[str] = []
-
-    if not pr.merged:
-        score -= 5
-        reasons.append("not merged")
-    # if pr.merged:
-    #     score  +=2
-    #     reasons.append("merged")
-    if pr.ci_status == "success":
-        score += 3
-        reasons.append("ci_success")
-    if any(is_code_file(file["filename"]) for file in pr.changed_files):
-        score += 2
-        reasons.append("contains_python_code")
-    if len(pr.title.split()) >= 4 or len(pr.body.split()) >= 12:
-        score += 2
-        reasons.append("has_meaningful_description")
-    if len(pr.changed_files) <= 10:
-        score += 1
-        reasons.append("small_or_medium_pr")
-    if pr.language == "Python":
-        score += 1
-        reasons.append("python_repo_or_pr")
-    if pr.changed_files and all(is_doc_file(file["filename"]) for file in pr.changed_files):
-        score -= 5
-        reasons.append("docs_only")
-
-    return score, reasons
-
-
-def filter_candidate_prs(prs: list[PullRequestRecord], score_threshold: int = 5) -> list[dict[str, Any]]:
-    candidates = []
-    for pr in prs:
-        score, reasons = score_candidate(pr)
-        if score >= score_threshold:
-            candidates.append(
-                {
-                    "repo": pr.repo,
-                    "pr_id": pr.pr_id,
-                    "score": score,
-                    "reasons": reasons,
-                    "record": pr,
-                }
-            )
-    print(f"[2/6] Retained {len(candidates)} candidate PRs after initial filtering")
-    return candidates
-
-
-def verify_runnable(candidate: dict[str, Any]) -> dict[str, Any]:
-    pr: PullRequestRecord = candidate["record"]
-    has_python_file = any(is_code_file(file["filename"]) for file in pr.changed_files)
-    has_test_file = any("test" in file["filename"].lower() for file in pr.changed_files)
-
-    if pr.ci_status == "success" and pr.merged and has_python_file and has_test_file:
-        status = "PASS"
-        evidence = ["ci_success", "merged_pr", "contains_test_changes"]
-    elif pr.ci_status == "success" and pr.merged and has_python_file:
-        status = "PARTIAL_PASS"
-        evidence = ["ci_success", "merged_pr", "python_module_detected"]
-    else:
-        status = "FAIL"
-        evidence = ["insufficient_runtime_evidence"]
-
-    return {
-        "repo": pr.repo,
-        "pr_id": pr.pr_id,
-        "status": status,
-        "evidence": evidence,
-        "record": pr,
-    }
-
-
-def verify_candidates(candidates: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    results = [verify_runnable(candidate) for candidate in candidates]
-    runnable_count = sum(1 for item in results if item["status"] in {"PASS", "PARTIAL_PASS"})
-    print(f"[3/6] Verified runnable status for {len(results)} PRs, {runnable_count} considered runnable")
-    return results
 
 
 def split_patch_into_hunks(patch: str) -> list[str]:
@@ -411,17 +331,13 @@ def split_patch_into_hunks(patch: str) -> list[str]:
     return hunks
 
 
-def extract_runnable_parts(verified: list[dict[str, Any]]) -> list[dict[str, Any]]:
+def extract_runnable_parts(kept: list[dict[str, Any]]) -> list[dict[str, Any]]:
     fragments: list[dict[str, Any]] = []
-    for item in verified:
-        if item["status"] not in {"PASS", "PARTIAL_PASS"}:
-            continue
-
+    for item in kept:
         pr: PullRequestRecord = item["record"]
         for file in pr.changed_files:
             if not is_code_file(file["filename"]):
                 continue
-            file_status = "runnable" if item["status"] == "PASS" else "probably_runnable"
             hunks = split_patch_into_hunks(file.get("patch", ""))
             fragments.append(
                 {
@@ -429,13 +345,12 @@ def extract_runnable_parts(verified: list[dict[str, Any]]) -> list[dict[str, Any
                     "pr_id": pr.pr_id,
                     "filename": file["filename"],
                     "fragment_type": "file",
-                    "runnable_label": file_status,
                     "hunks": hunks,
                     "added_lines": file.get("additions", 0),
                     "deleted_lines": file.get("deletions", 0),
                 }
             )
-    print(f"[4/6] Extracted {len(fragments)} runnable code fragments")
+    print(f"[3/5] Extracted {len(fragments)} runnable code fragments")
     return fragments
 
 
@@ -466,6 +381,16 @@ def _is_substantive(text: str) -> bool:
     return not _BOILERPLATE_RE.match(stripped)
 
 
+# Stricter test-file detection than `"test" in filename` to avoid false matches
+# on names like ``best.py`` or ``latest.py``.
+_TEST_PATH_RE = re.compile(r"(^|/)tests?/", re.IGNORECASE)
+_TEST_FILENAME_RE = re.compile(r"(^|/)test_[^/]+\.py$|(^|/)[^/]+_test\.py$", re.IGNORECASE)
+
+
+def _is_test_file(filename: str) -> bool:
+    return bool(_TEST_PATH_RE.search(filename) or _TEST_FILENAME_RE.search(filename))
+
+
 # Closing keywords recognised by GitHub for auto-linking issues.
 # https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue
 _CLOSING_KEYWORDS_RE = r"clos(?:e[sd]?|ing)|fix(?:e[sd]|ing)?|resolv(?:e[sd]?|ing)|address(?:e[sd]|ing)?"
@@ -489,6 +414,57 @@ _ISSUE_REF_RE = re.compile(
     """,
     re.IGNORECASE | re.VERBOSE,
 )
+
+
+def _extract_issue_refs(text: str, default_repo: str | None = None) -> list[dict[str, Any]]:
+    """Extract issue / PR references from a piece of text (commit message, body, comment).
+
+    Returns a list of dicts ordered by first appearance and deduplicated by
+    ``(external_repo, number)``. Each dict has keys:
+
+    * ``number``        – issue / PR number (int)
+    * ``closes``        – True when the reference is preceded by a closing keyword
+    * ``external_repo`` – ``"owner/repo"`` for cross-repo refs, else ``None``
+
+    A reference whose ``owner/repo`` matches ``default_repo`` is normalised to a
+    same-repo reference (``external_repo=None``).
+    """
+    if not text:
+        return []
+
+    refs: list[dict[str, Any]] = []
+    seen: set[tuple[str | None, int]] = set()
+
+    for match in _ISSUE_REF_RE.finditer(text):
+        if match.group("url_num"):
+            number = int(match.group("url_num"))
+            ext_repo = match.group("url_repo")
+        elif match.group("x_num"):
+            number = int(match.group("x_num"))
+            ext_repo = match.group("x_repo")
+        elif match.group("num"):
+            number = int(match.group("num"))
+            ext_repo = None
+        else:
+            continue
+
+        if ext_repo and default_repo and ext_repo.lower() == default_repo.lower():
+            ext_repo = None
+
+        key = (ext_repo, number)
+        if key in seen:
+            continue
+        seen.add(key)
+
+        refs.append(
+            {
+                "number": number,
+                "closes": match.group("closing") is not None,
+                "external_repo": ext_repo,
+            }
+        )
+
+    return refs
 
 
 def _fetch_closing_issues_from_github(
@@ -550,63 +526,9 @@ def _fetch_closing_issues_from_github(
     return result
 
 
-def _extract_issue_refs(text: str, default_repo: str | None = None) -> list[dict[str, Any]]:
-    """Extract issue / PR references from a piece of text (commit message, body, comment).
-
-    Returns a list of dicts ordered by first appearance and deduplicated by
-    ``(external_repo, number)``. Each dict has keys:
-
-    * ``number``        – issue / PR number (int)
-    * ``closes``        – True when the reference is preceded by a closing keyword
-    * ``external_repo`` – ``"owner/repo"`` for cross-repo refs, else ``None``
-
-    A reference whose ``owner/repo`` matches ``default_repo`` is normalised to a
-    same-repo reference (``external_repo=None``).
-    """
-    if not text:
-        return []
-
-    refs: list[dict[str, Any]] = []
-    seen: set[tuple[str | None, int]] = set()
-
-    for match in _ISSUE_REF_RE.finditer(text):
-        if match.group("url_num"):
-            number = int(match.group("url_num"))
-            ext_repo = match.group("url_repo")
-        elif match.group("x_num"):
-            number = int(match.group("x_num"))
-            ext_repo = match.group("x_repo")
-        elif match.group("num"):
-            number = int(match.group("num"))
-            ext_repo = None
-        else:
-            continue
-
-        if ext_repo and default_repo and ext_repo.lower() == default_repo.lower():
-            ext_repo = None
-
-        key = (ext_repo, number)
-        if key in seen:
-            continue
-        seen.add(key)
-
-        refs.append(
-            {
-                "number": number,
-                "closes": match.group("closing") is not None,
-                "external_repo": ext_repo,
-            }
-        )
-
-    return refs
-
-
-def align_descriptions(verified: list[dict[str, Any]]) -> list[dict[str, Any]]:
+def align_descriptions(kept: list[dict[str, Any]]) -> list[dict[str, Any]]:
     aligned: list[dict[str, Any]] = []
-    for item in verified:
-        if item["status"] not in {"PASS", "PARTIAL_PASS"}:
-            continue
-
+    for item in kept:
         pr: PullRequestRecord = item["record"]
         cleaned_title = clean_text(pr.title)
         cleaned_body = clean_text(pr.body)
@@ -638,78 +560,55 @@ def align_descriptions(verified: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 "nl_commits": nl_commits,
                 "nl_description": cleaned_description,
                 "nl_description_extended": extended_description,
-                "alignment_level": "pr_level",
             }
         )
-    print(f"[5/6] Cleaned and aligned {len(aligned)} natural language descriptions")
+    print(f"[4/5] Cleaned and aligned {len(aligned)} natural language descriptions")
     return aligned
 
 
 # ---------------------------------------------------------------------------
-# PR validity judgement
+# Layer A — hard filter (3 dimensions)
+# Layer B — annotations (soft signals, no filtering)
 # ---------------------------------------------------------------------------
+# to do: 判断是否相关不需过滤，应重新考虑
+# to do： 判断相关需重新考虑新方法
 
-# Empirically derived from 800 merged PRs across pandas/requests/django/sklearn.
-# See NL_THRESHOLD_ANALYSIS.md and analyze_nl_thresholds.py for the derivation.
-# - title >= 4  matches the 25th percentile (keeps the previous behaviour).
-# - body  >= 14 is mu - sigma on the log-normal fit of body_words,
-#   tighter than the old 10 which admitted too many near-empty bodies.
-# - commits fallback uses mu - sigma on commits_words (6 words).
+# Word-count thresholds derived empirically from 800 merged PRs across
+# pandas/requests/django/sklearn (see NL_THRESHOLD_ANALYSIS.md):
+# - title >= 4  matches the 25th percentile.
+# - body  >= 14 is mu - sigma on the log-normal fit of body_words.
+# - commits >= 6 is mu - sigma on commits_words (an alternative when body is short).
 _MIN_TITLE_WORDS = 4
 _MIN_BODY_WORDS = 14
-_MIN_COMMIT_WORDS_FALLBACK = 6
-_MAX_CHANGED_FILES = 30  # PRs touching more than this are probably too noisy
+_MIN_COMMITS_WORDS = 6
 
 
-def is_valid_pr(pr: PullRequestRecord) -> tuple[bool, list[str]]:
-    """Determine whether a PR record is valid for NL↔code dataset construction.
+def filter_pr(pr: PullRequestRecord) -> tuple[bool, list[str]]:
+    """Three-dimension hard filter for NL↔code dataset construction.
 
-    Validity is assessed on four dimensions:
+    A PR is kept only when *all three* dimensions pass:
 
-    1. **Merge quality** – the PR was accepted (merged) and CI passed.  A
-       merged + green PR is the strongest available signal that the change is
-       correct and intentional.
+    1. **merge_quality**  — merged AND CI green.
+    2. **code_presence**  — at least one Python file changed AND not all-docs.
+    3. **nl_quality**     — title >= _MIN_TITLE_WORDS AND
+                            (body >= _MIN_BODY_WORDS OR commits >= _MIN_COMMITS_WORDS).
 
-    2. **Code presence** – at least one Python source file was modified.
-       Documentation-only changes are explicitly excluded because they
-       contain no diff to align with.
-
-    3. **PR scope sanity** – the change is neither trivially small (< 3 net
-       lines of code) nor explosively large (> MAX_CHANGED_FILES files).
-       Very large PRs tend to be bulk refactors whose descriptions poorly
-       cover individual changes.
-
-    4. **NL description quality** – the combined natural language text
-       (title + body + substantive comments + commit messages) must be
-       meaningful.  Thresholds are empirically derived from 800 merged
-       PRs (see NL_THRESHOLD_ANALYSIS.md):
-       - title_words >= _MIN_TITLE_WORDS (=4, the 25th percentile).
-       - at least one of:
-           body_words     >= _MIN_BODY_WORDS           (=14, log-normal mu-sigma)
-           commits_words  >= _MIN_COMMIT_WORDS_FALLBACK (=6, log-normal mu-sigma)
-           a substantive comment/review/commit message (>= 8 non-boilerplate words).
-
-    Returns
-    -------
-    (valid, reasons)
-        ``valid`` is True only when *all four* dimensions pass.
-        ``reasons`` lists every individual check that was run, prefixed with
-        '+' (pass) or '-' (fail) so callers can inspect partial scores.
+    Returns ``(passed, reasons)``. ``reasons`` lists every check that was run,
+    prefixed with ``+`` (pass) or ``-`` (fail) for easy debugging.
     """
     reasons: list[str] = []
     passes = 0
-    total = 4
 
-    # --- 1. Merge quality ---
+    # --- 1. merge_quality ---
     if pr.merged and pr.ci_status == "success":
         reasons.append("+merge_quality: merged and CI green")
         passes += 1
     elif pr.merged:
-        reasons.append("-merge_quality: merged but CI not green (ci_status=" + pr.ci_status + ")")
+        reasons.append(f"-merge_quality: merged but CI not green (ci_status={pr.ci_status})")
     else:
         reasons.append("-merge_quality: PR was not merged")
 
-    # --- 2. Code presence ---
+    # --- 2. code_presence ---
     code_files = [f for f in pr.changed_files if is_code_file(f["filename"])]
     all_docs = pr.changed_files and all(is_doc_file(f["filename"]) for f in pr.changed_files)
     if code_files and not all_docs:
@@ -718,72 +617,87 @@ def is_valid_pr(pr: PullRequestRecord) -> tuple[bool, list[str]]:
     else:
         reasons.append("-code_presence: no Python source files changed (docs-only or empty)")
 
-    # --- 3. PR scope sanity ---
-    net_lines = sum(f.get("additions", 0) - f.get("deletions", 0) for f in code_files)
-    num_files = len(pr.changed_files)
-    if 3 <= num_files <= _MAX_CHANGED_FILES or abs(net_lines) >= 3:
-        if num_files <= _MAX_CHANGED_FILES:
-            reasons.append(f"+scope_sanity: {num_files} files changed, {net_lines:+d} net lines")
-            passes += 1
-        else:
-            reasons.append(f"-scope_sanity: too many files changed ({num_files} > {_MAX_CHANGED_FILES})")
-    else:
-        reasons.append(f"-scope_sanity: trivially small change ({abs(net_lines)} net lines)")
-
-    # --- 4. NL description quality ---
+    # --- 3. nl_quality ---
     title_words = len(pr.title.split())
     body_words = len(clean_text(pr.body).split())
     commits_words = sum(len(clean_text(m).split()) for m in pr.commit_messages)
-    substantive_extra = any(
-        _is_substantive(t) for t in pr.commit_messages + pr.comments + pr.review_comments
-    )
     if title_words >= _MIN_TITLE_WORDS and (
-        body_words >= _MIN_BODY_WORDS
-        or commits_words >= _MIN_COMMIT_WORDS_FALLBACK
-        or substantive_extra
+        body_words >= _MIN_BODY_WORDS or commits_words >= _MIN_COMMITS_WORDS
     ):
         reasons.append(
             f"+nl_quality: title={title_words} words, body={body_words} words, "
             f"commits={commits_words} words"
-            + (" + supplementary NL" if substantive_extra else "")
         )
         passes += 1
     else:
         reasons.append(
             f"-nl_quality: insufficient description "
-            f"(title={title_words} words, body={body_words} words, commits={commits_words} words)"
+            f"(title={title_words}, body={body_words}, commits={commits_words})"
         )
 
-    valid = passes == total
-    return valid, reasons
+    return passes == 3, reasons
+
+
+def filter_prs(prs: list[PullRequestRecord]) -> list[dict[str, Any]]:
+    """Apply Layer A to every PR; only keep those that pass all three dimensions."""
+    kept: list[dict[str, Any]] = []
+    for pr in prs:
+        passed, reasons = filter_pr(pr)
+        if passed:
+            kept.append(
+                {
+                    "repo": pr.repo,
+                    "pr_id": pr.pr_id,
+                    "filter_reasons": reasons,
+                    "record": pr,
+                }
+            )
+    print(f"[2/5] Filtered to {len(kept)} valid PRs (out of {len(prs)})")
+    return kept
+
+
+def annotate_pr(pr: PullRequestRecord) -> dict[str, Any]:
+    """Layer B — soft quality signals attached to every kept PR.
+
+    Pure annotation, no filtering. Downstream consumers can sub-select samples
+    using these fields without re-running the pipeline.
+    """
+    title_words = len(pr.title.split())
+    body_words = len(clean_text(pr.body).split())
+    commits_words = sum(len(clean_text(m).split()) for m in pr.commit_messages)
+    return {
+        "has_test_changes": any(_is_test_file(f["filename"]) for f in pr.changed_files),
+        "closes_issue_count": len(pr.closing_issue_refs),
+        "title_words": title_words,
+        "body_words": body_words,
+        "commits_words": commits_words,
+    }
 
 
 def build_dataset(
-    verified: list[dict[str, Any]],
+    kept: list[dict[str, Any]],
     fragments: list[dict[str, Any]],
     descriptions: list[dict[str, Any]],
 ) -> list[dict[str, Any]]:
     description_index = {(item["repo"], item["pr_id"]): item for item in descriptions}
-    verified_index = {(item["repo"], item["pr_id"]): item for item in verified}
+    kept_index = {(item["repo"], item["pr_id"]): item for item in kept}
+    annotation_index = {
+        (item["repo"], item["pr_id"]): annotate_pr(item["record"]) for item in kept
+    }
 
     dataset: list[dict[str, Any]] = []
     for fragment in fragments:
         key = (fragment["repo"], fragment["pr_id"])
         description = description_index[key]
-        verification = verified_index[key]
-        pr: PullRequestRecord = verification["record"]
-        pr_valid, pr_validity_reasons = is_valid_pr(pr)
+        kept_item = kept_index[key]
         dataset.append(
             {
                 "repo": fragment["repo"],
                 "pr_id": fragment["pr_id"],
                 "filename": fragment["filename"],
                 "fragment_type": fragment["fragment_type"],
-                "runnable_label": fragment["runnable_label"],
-                "validation_status": verification["status"],
-                "validation_evidence": verification["evidence"],
-                "pr_valid": pr_valid,
-                "pr_validity_reasons": pr_validity_reasons,
+                "filter_reasons": kept_item["filter_reasons"],
+                "annotations": annotation_index[key],
                 "diff_hunks": fragment["hunks"],
                 "nl_title": description["nl_title"],
                 "nl_body": description["nl_body"],
@@ -793,7 +707,7 @@ def build_dataset(
                 "nl_description_extended": description["nl_description_extended"],
             }
         )
-    print(f"[6/6] Built dataset with {len(dataset)} final samples")
+    print(f"[5/5] Built dataset with {len(dataset)} final samples")
     return dataset
 
 
@@ -802,13 +716,14 @@ def quality_check(dataset: list[dict[str, Any]]) -> dict[str, Any]:
     empty_extended = sum(1 for item in dataset if not item["nl_description_extended"])
     empty_hunks = sum(1 for item in dataset if not item["diff_hunks"])
     unique_keys = {(item["repo"], item["pr_id"], item["filename"]) for item in dataset}
-    valid_count = sum(1 for item in dataset if item["pr_valid"])
+    with_test = sum(1 for item in dataset if item["annotations"]["has_test_changes"])
+    with_closing = sum(1 for item in dataset if item["annotations"]["closes_issue_count"] > 0)
 
     return {
         "sample_count": len(dataset),
         "unique_sample_count": len(unique_keys),
-        "valid_pr_count": valid_count,
-        "invalid_pr_count": len(dataset) - valid_count,
+        "with_test_changes": with_test,
+        "with_closing_issues": with_closing,
         "empty_text_count": empty_text,
         "empty_extended_text_count": empty_extended,
         "empty_hunks_count": empty_hunks,
@@ -872,11 +787,10 @@ def main() -> None:
     else:
         prs = collect_pr_data_from_file(args.source)
 
-    candidates = filter_candidate_prs(prs)
-    verified = verify_candidates(candidates)
-    fragments = extract_runnable_parts(verified)
-    descriptions = align_descriptions(verified)
-    dataset = build_dataset(verified, fragments, descriptions)
+    kept = filter_prs(prs)
+    fragments = extract_runnable_parts(kept)
+    descriptions = align_descriptions(kept)
+    dataset = build_dataset(kept, fragments, descriptions)
     report = quality_check(dataset)
     write_outputs(dataset, report)
 
