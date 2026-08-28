@@ -13,9 +13,9 @@ statistically grounded cut-offs.
 
 Method
 ------
-1. Load every cached ``output/raw_prs_*.json`` produced by
-   ``demo_pipeline.py`` and, optionally, fetch additional PRs from GitHub
-   via ``--fetch owner/repo``.
+1. Load every cached ``output/raw_prs/<owner>__<repo>.jsonl`` produced by
+   the collector and, optionally, fetch additional PRs from GitHub via
+   ``--fetch owner/repo``.
 2. For each PR compute four length features (word counts).
 3. Summarise each feature with:
      - mean / stdev / median / min / max
@@ -44,17 +44,8 @@ import statistics
 from pathlib import Path
 from typing import Any
 
-from demo_pipeline import (
-    OUTPUT_DIR,
-    PullRequestRecord,
-    build_github_headers,
-    clean_text,
-    fetch_pull_request_record,
-    paginate_github,
-    BASE_URL,
-    save_raw_records,
-    ensure_output_dir,
-)
+from collector import PullRequestRecord, collect_prs, load_records, raw_prs_dir
+from demo_pipeline import OUTPUT_DIR, clean_text
 
 
 REPORT_PATH = OUTPUT_DIR / "nl_threshold_report.json"
@@ -67,12 +58,10 @@ TEXT_REPORT_PATH = OUTPUT_DIR / "nl_threshold_report.txt"
 
 
 def load_cached_records(output_dir: Path) -> list[PullRequestRecord]:
-    """Load every ``raw_prs_*.json`` already produced by demo_pipeline."""
+    """Load every ``raw_prs/<owner>__<repo>.jsonl`` produced by the collector."""
     records: list[PullRequestRecord] = []
-    for path in sorted(output_dir.glob("raw_prs_*.json")):
-        payload = json.loads(path.read_text(encoding="utf-8"))
-        for item in payload:
-            records.append(PullRequestRecord(**item))
+    for path in sorted(raw_prs_dir(output_dir).glob("*.jsonl")):
+        records.extend(load_records(path))
     return records
 
 
@@ -87,38 +76,22 @@ def fetch_additional_records(
             "Drop the flag to analyse cached records only."
         )
 
-    headers = build_github_headers(token)
     all_records: list[PullRequestRecord] = []
-    ensure_output_dir()
-
     for spec in specs:
         if "/" not in spec:
             raise ValueError(f"--fetch expects owner/repo, got {spec!r}")
         owner, repo = spec.split("/", 1)
         print(f"[fetch] pulling up to {limit_per_repo} merged PRs from {spec} ...")
 
-        summaries = paginate_github(
-            f"{BASE_URL}/repos/{owner}/{repo}/pulls",
-            headers,
-            {
-                "state": state,
-                "sort": "updated",
-                "direction": "desc",
-                "per_page": 100,
-            },
+        repo_records = collect_prs(
+            owner=owner,
+            repo=repo,
+            limit=limit_per_repo,
+            state=state,
+            output_dir=OUTPUT_DIR,
+            resume=True,
         )
-        merged = [p for p in summaries if p.get("merged_at")][:limit_per_repo]
-
-        repo_records: list[PullRequestRecord] = []
-        for idx, pull in enumerate(merged, start=1):
-            print(f"  [{idx}/{len(merged)}] PR #{pull['number']}")
-            repo_records.append(
-                fetch_pull_request_record(owner, repo, pull["number"], headers)
-            )
-
-        cache_path = OUTPUT_DIR / f"raw_prs_{owner}_{repo}.json"
-        save_raw_records(repo_records, cache_path)
-        print(f"[fetch] cached {len(repo_records)} records -> {cache_path}")
+        print(f"[fetch] cached {len(repo_records)} records for {spec}")
         all_records.extend(repo_records)
 
     return all_records
@@ -415,7 +388,7 @@ def main() -> None:
     rows = extract_features(records)
     report = build_report(rows)
 
-    ensure_output_dir()
+    OUTPUT_DIR.mkdir(exist_ok=True)
     REPORT_PATH.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
     text = format_text_report(report, rows)
     TEXT_REPORT_PATH.write_text(text, encoding="utf-8")

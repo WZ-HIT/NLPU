@@ -152,23 +152,31 @@ def _normalize_raw_pr(pr: dict[str, Any]) -> list[dict[str, Any]]:
 
 
 def load_dataset(path: Path) -> list[dict[str, Any]]:
-    """Load dataset.jsonl (JSONL) or raw_prs_*.json (JSON array), auto-detected."""
-    text = path.read_text(encoding="utf-8").lstrip()
-    if text.startswith("["):
-        # Raw JSON array of PullRequestRecord dicts
-        raw_prs: list[dict[str, Any]] = json.loads(text)
-        records: list[dict[str, Any]] = []
-        for pr in raw_prs:
-            records.extend(_normalize_raw_pr(pr))
-        print(f"Loaded {len(raw_prs)} PR(s) from raw JSON → {len(records)} file-level record(s)")
-        return records
-    # JSONL format
-    records = []
-    for line in text.splitlines():
-        line = line.strip()
-        if line:
-            records.append(json.loads(line))
-    print(f"Loaded {len(records)} record(s) from JSONL dataset")
+    """Load a JSONL file of dataset records or raw collector records.
+
+    Raw collector records (identified by a top-level ``changed_files`` key)
+    are expanded into file-level records; dataset records are used as-is.
+    """
+    records: list[dict[str, Any]] = []
+    raw_pr_count = 0
+    with path.open(encoding="utf-8") as handle:
+        for line in handle:
+            line = line.strip()
+            if not line:
+                continue
+            item = json.loads(line)
+            if "changed_files" in item:
+                raw_pr_count += 1
+                records.extend(_normalize_raw_pr(item))
+            else:
+                records.append(item)
+
+    if raw_pr_count:
+        print(
+            f"Loaded {raw_pr_count} raw PR record(s) -> {len(records)} file-level record(s)"
+        )
+    else:
+        print(f"Loaded {len(records)} record(s) from JSONL dataset")
     return records
 
 

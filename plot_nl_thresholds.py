@@ -1,8 +1,8 @@
 """Visualise the NL length distributions used by analyze_nl_thresholds.py.
 
-Loads every cached ``output/raw_prs_*.json`` (produced by
-``demo_pipeline.py`` / ``analyze_nl_thresholds.py --fetch``) and renders
-a multi-panel figure per feature so you can eyeball:
+Loads every cached ``output/raw_prs/<owner>__<repo>.jsonl`` (produced by
+the collector / ``analyze_nl_thresholds.py --fetch``) and renders a
+multi-panel figure per feature so you can eyeball:
 
   - raw histogram + KDE-ish smoothing + vertical threshold markers
   - log-scale histogram (word counts are right-skewed, log makes the
@@ -23,13 +23,13 @@ Requires matplotlib (``pip install matplotlib``).  Nothing else.
 from __future__ import annotations
 
 import argparse
-import json
 import math
 import statistics
 from pathlib import Path
 from typing import Any
 
-from demo_pipeline import OUTPUT_DIR, PullRequestRecord, clean_text
+from collector import PullRequestRecord, load_records, raw_prs_dir
+from demo_pipeline import OUTPUT_DIR, clean_text
 
 try:
     import matplotlib.pyplot as plt
@@ -53,10 +53,8 @@ CURRENT_THRESHOLDS = {"title_words": 4, "body_words": 10}
 
 def load_rows(output_dir: Path) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
-    for path in sorted(output_dir.glob("raw_prs_*.json")):
-        payload = json.loads(path.read_text(encoding="utf-8"))
-        for item in payload:
-            pr = PullRequestRecord(**item)
+    for path in sorted(raw_prs_dir(output_dir).glob("*.jsonl")):
+        for pr in load_records(path):
             rows.append(
                 {
                     "repo": pr.repo,
@@ -296,7 +294,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument(
         "--input-dir", type=Path, default=OUTPUT_DIR,
-        help="Directory containing raw_prs_*.json files (default: output/).",
+        help="Directory containing raw_prs/<owner>__<repo>.jsonl files (default: output/).",
     )
     parser.add_argument(
         "--figure-dir", type=Path, default=None,

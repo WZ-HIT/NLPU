@@ -1,308 +1,22 @@
-#to do：从PR中筛选出test的部分，搜索对PR分类相关论文。
+"""PR runnable filtering demo — downstream pipeline.
+
+Collection now lives in the ``collector`` package. This module consumes the
+JSONL it produces and applies the three-dimension hard filter, code-fragment
+extraction, NL description alignment, dataset building and quality checks.
+"""
+
 from __future__ import annotations
 
 import argparse
 import json
-import os
 import re
-import time
-from dataclasses import dataclass, field
-from http.client import HTTPException
 from pathlib import Path
 from typing import Any
-from urllib.error import HTTPError, URLError
-from urllib.parse import urlencode
-from urllib.request import Request, urlopen
 
+from collector import PullRequestRecord, collect_prs
 
 ROOT = Path(__file__).resolve().parent
-DATA_DIR = ROOT / "data"
 OUTPUT_DIR = ROOT / "output"
-API_VERSION = "2022-11-28"
-BASE_URL = "https://api.github.com"
-TRANSIENT_HTTP_CODES = {500, 502, 503, 504}
-
-
-@dataclass
-class PullRequestRecord:
-    repo: str
-    pr_id: int
-    title: str
-    body: str
-    merged: bool
-    ci_status: str
-    language: str
-    changed_files: list[dict[str, Any]]
-    # Natural language description sources collected from GitHub
-    comments: list[str] = field(default_factory=list)         # PR-level discussion comments
-    review_comments: list[str] = field(default_factory=list)  # Inline code review comments
-    commit_messages: list[str] = field(default_factory=list)  # Commit messages within the PR
-    # Issue / PR references parsed from each commit message, parallel to commit_messages.
-    # Each inner list holds dicts: {"number": int, "closes": bool, "external_repo": str | None}
-    commit_issue_refs: list[list[dict[str, Any]]] = field(default_factory=list)
-    # Issue / PR references parsed from the PR body itself (deduplicated, same dict shape).
-    body_issue_refs: list[dict[str, Any]] = field(default_factory=list)
-    # Authoritative set of issues this PR closes, fetched from GitHub GraphQL
-    # (`closingIssuesReferences`). Combines PR body keywords, manual sidebar
-    # links, and commit-keyword closes resolved by GitHub itself, so it
-    # catches refs the regex misses (e.g. a commit that says "#123" without
-    # a closing keyword but whose PR is still officially closing #123).
-    # Each item: {"number": int, "external_repo": str | None}
-    closing_issue_refs: list[dict[str, Any]] = field(default_factory=list)
-
-
-def ensure_output_dir() -> None:
-    OUTPUT_DIR.mkdir(exist_ok=True)
-
-
-def load_sample_prs(path: Path) -> list[PullRequestRecord]:
-    raw = json.loads(path.read_text(encoding="utf-8"))
-    return [PullRequestRecord(**item) for item in raw]
-
-
-def build_github_headers(token: str) -> dict[str, str]:
-    return {
-        "Accept": "application/vnd.github+json",
-        "Authorization": f"Bearer {token}",
-        "User-Agent": "nlpu-pr-demo",
-        "X-GitHub-Api-Version": API_VERSION,
-    }
-
-
-def github_get_json(url: str, headers: dict[str, str], params: dict[str, Any] | None = None) -> tuple[Any, dict[str, str]]:
-    if params:
-        url = f"{url}?{urlencode(params)}"
-
-    request = Request(url, headers=headers, method="GET")
-    max_attempts = 4
-
-    for attempt in range(1, max_attempts + 1):
-        try:
-            with urlopen(request, timeout=30) as response:
-                body = response.read().decode("utf-8")
-                response_headers = dict(response.headers.items())
-                return json.loads(body), response_headers
-        except HTTPError as exc:
-            error_body = exc.read().decode("utf-8", errors="replace")
-            if exc.code in TRANSIENT_HTTP_CODES and attempt < max_attempts:
-                wait_seconds = attempt * 2
-                print(f"  GitHub API temporary error {exc.code}, retrying in {wait_seconds}s...")
-                time.sleep(wait_seconds)
-                continue
-            raise RuntimeError(f"GitHub API request failed: {exc.code} {exc.reason} | {error_body}") from exc
-        except URLError as exc:
-            if attempt < max_attempts:
-                wait_seconds = attempt * 2
-                print(f"  Network error while calling GitHub API, retrying in {wait_seconds}s...")
-                time.sleep(wait_seconds)
-                continue
-            raise RuntimeError(f"Network error while calling GitHub API: {exc.reason}") from exc
-        except (HTTPException, ConnectionError, TimeoutError) as exc:
-            if attempt < max_attempts:
-                wait_seconds = attempt * 2
-                print(f"  Connection dropped ({type(exc).__name__}), retrying in {wait_seconds}s...")
-                time.sleep(wait_seconds)
-                continue
-            raise RuntimeError(f"Connection error while calling GitHub API: {exc}") from exc
-
-    raise RuntimeError("GitHub API request failed after retries.")
-
-
-def parse_next_link(link_header: str | None) -> str | None:
-    if not link_header:
-        return None
-
-    for part in link_header.split(","):
-        section = part.strip()
-        if 'rel="next"' in section:
-            match = re.search(r"<([^>]+)>", section)
-            if match:
-                return match.group(1)
-    return None
-
-
-def paginate_github(url: str, headers: dict[str, str], params: dict[str, Any] | None = None) -> list[dict[str, Any]]:
-    results: list[dict[str, Any]] = []
-    next_url = url
-    next_params = params
-
-    while next_url:
-        payload, response_headers = github_get_json(next_url, headers, next_params)
-        if not isinstance(payload, list):
-            raise RuntimeError(f"Expected list payload from {next_url}, got {type(payload).__name__}")
-        results.extend(payload)
-        next_url = parse_next_link(response_headers.get("Link"))
-        next_params = None
-        time.sleep(0.2)
-
-    return results
-
-
-def infer_language(changed_files: list[dict[str, Any]]) -> str:
-    for file in changed_files:
-        filename = file["filename"].lower()
-        if filename.endswith(".py"):
-            return "Python"
-    return "Unknown"
-
-
-def fetch_pull_request_record(owner: str, repo: str, pull_number: int, headers: dict[str, str]) -> PullRequestRecord:
-    pr_url = f"{BASE_URL}/repos/{owner}/{repo}/pulls/{pull_number}"
-    files_url = f"{BASE_URL}/repos/{owner}/{repo}/pulls/{pull_number}/files"
-    comments_url = f"{BASE_URL}/repos/{owner}/{repo}/issues/{pull_number}/comments"
-    review_comments_url = f"{BASE_URL}/repos/{owner}/{repo}/pulls/{pull_number}/comments"
-    commits_url = f"{BASE_URL}/repos/{owner}/{repo}/pulls/{pull_number}/commits"
-
-    pr_payload, _ = github_get_json(pr_url, headers)
-    files_payload = paginate_github(files_url, headers, {"per_page": 100})
-    head_sha = pr_payload["head"]["sha"]
-    status_payload, _ = github_get_json(f"{BASE_URL}/repos/{owner}/{repo}/commits/{head_sha}/status", headers)
-
-    # Collect NL description sources: PR-level comments, inline review comments, commit messages
-    comments_payload = paginate_github(comments_url, headers, {"per_page": 100})
-    review_comments_payload = paginate_github(review_comments_url, headers, {"per_page": 100})
-    commits_payload = paginate_github(commits_url, headers, {"per_page": 100})
-
-    comments = [item["body"] for item in comments_payload if item.get("body", "").strip()]
-    review_comments = [item["body"] for item in review_comments_payload if item.get("body", "").strip()]
-    commit_messages = [
-        item["commit"]["message"]
-        for item in commits_payload
-        if item.get("commit", {}).get("message", "").strip()
-    ]
-    commit_issue_refs = [
-        _extract_issue_refs(msg, default_repo=f"{owner}/{repo}")
-        for msg in commit_messages
-    ]
-    body_issue_refs = _extract_issue_refs(
-        pr_payload.get("body") or "", default_repo=f"{owner}/{repo}"
-    )
-
-    # Override the regex-based `closes` flag with GitHub's authoritative answer.
-    # A commit can reference `#123` without a closing keyword and still close it
-    # (e.g. when the PR body or another commit carries the keyword, or when the
-    # ref is linked manually). `closingIssuesReferences` is the source of truth.
-    closing_set = _fetch_closing_issues_from_github(owner, repo, pull_number, headers)
-    if closing_set:
-        for ref_list in commit_issue_refs:
-            for ref in ref_list:
-                if (ref["external_repo"], ref["number"]) in closing_set:
-                    ref["closes"] = True
-        for ref in body_issue_refs:
-            if (ref["external_repo"], ref["number"]) in closing_set:
-                ref["closes"] = True
-    closing_issue_refs = [
-        {"number": number, "external_repo": ext_repo}
-        for ext_repo, number in sorted(closing_set, key=lambda item: (item[0] or "", item[1]))
-    ]
-
-    changed_files = [
-        {
-            "filename": item["filename"],
-            "status": item["status"],
-            "additions": item["additions"],
-            "deletions": item["deletions"],
-            "changes": item["changes"],
-            "patch": item.get("patch", ""),
-        }
-        for item in files_payload
-    ]
-
-    return PullRequestRecord(
-        repo=f"{owner}/{repo}",
-        pr_id=pr_payload["number"],
-        title=pr_payload.get("title", ""),
-        body=pr_payload.get("body") or "",
-        merged=bool(pr_payload.get("merged_at")),
-        ci_status=status_payload.get("state", "unknown"),
-        language=infer_language(changed_files),
-        changed_files=changed_files,
-        comments=comments,
-        review_comments=review_comments,
-        commit_messages=commit_messages,
-        commit_issue_refs=commit_issue_refs,
-        body_issue_refs=body_issue_refs,
-        closing_issue_refs=closing_issue_refs,
-    )
-
-
-def save_raw_records(records: list[PullRequestRecord], path: Path) -> None:
-    payload = [
-        {
-            "repo": record.repo,
-            "pr_id": record.pr_id,
-            "title": record.title,
-            "body": record.body,
-            "merged": record.merged,
-            "ci_status": record.ci_status,
-            "language": record.language,
-            "changed_files": record.changed_files,
-            "comments": record.comments,
-            "review_comments": record.review_comments,
-            "commit_messages": record.commit_messages,
-            "commit_issue_refs": record.commit_issue_refs,
-            "body_issue_refs": record.body_issue_refs,
-            "closing_issue_refs": record.closing_issue_refs,
-        }
-        for record in records
-    ]
-    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-
-
-def collect_pr_data_from_file(source: Path) -> list[PullRequestRecord]:
-    prs = load_sample_prs(source)
-    print(f"[1/5] Collected {len(prs)} PR records from {source}")
-    return prs
-
-
-def collect_pr_data_from_github(owner: str, repo: str, limit: int, state: str) -> list[PullRequestRecord]:
-    token = os.getenv("GITHUB_TOKEN")
-    if not token:
-        raise RuntimeError("GITHUB_TOKEN is not set. Please export a GitHub personal access token first.")
-
-    headers = build_github_headers(token)
-    pulls_url = f"{BASE_URL}/repos/{owner}/{repo}/pulls"
-
-    # Paginate the PR list lazily and stop as soon as `limit` merged PRs are
-    # collected. Without this, large repos (pandas has ~57k closed PRs) force
-    # the script to walk every page before slicing, which looks like a hang.
-    merged_prs: list[dict[str, Any]] = []
-    next_url: str | None = pulls_url
-    next_params: dict[str, Any] | None = {
-        "state": state,
-        "sort": "updated",
-        "direction": "desc",
-        "per_page": 100,
-    }
-    page = 0
-    while next_url and len(merged_prs) < limit:
-        page += 1
-        payload, response_headers = github_get_json(next_url, headers, next_params)
-        if not isinstance(payload, list):
-            raise RuntimeError(f"Expected list payload from {next_url}, got {type(payload).__name__}")
-        page_merged = [item for item in payload if item.get("merged_at")]
-        merged_prs.extend(page_merged)
-        print(
-            f"  PR list page {page}: {len(payload)} returned, "
-            f"{len(page_merged)} merged (running total: {len(merged_prs)}/{limit})"
-        )
-        next_url = parse_next_link(response_headers.get("Link"))
-        next_params = None
-        time.sleep(0.2)
-
-    selected = merged_prs[:limit]
-
-    records: list[PullRequestRecord] = []
-    for index, pull in enumerate(selected, start=1):
-        pr_number = pull["number"]
-        print(f"  Fetching PR {pr_number} ({index}/{len(selected)})")
-        records.append(fetch_pull_request_record(owner, repo, pr_number, headers))
-
-    ensure_output_dir()
-    raw_path = OUTPUT_DIR / f"raw_prs_{owner}_{repo}.json"
-    save_raw_records(records, raw_path)
-    print(f"[1/5] Collected {len(records)} PR records from GitHub and cached them to {raw_path}")
-    return records
 
 
 def is_code_file(filename: str) -> bool:
@@ -389,141 +103,6 @@ _TEST_FILENAME_RE = re.compile(r"(^|/)test_[^/]+\.py$|(^|/)[^/]+_test\.py$", re.
 
 def _is_test_file(filename: str) -> bool:
     return bool(_TEST_PATH_RE.search(filename) or _TEST_FILENAME_RE.search(filename))
-
-
-# Closing keywords recognised by GitHub for auto-linking issues.
-# https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue
-_CLOSING_KEYWORDS_RE = r"clos(?:e[sd]?|ing)|fix(?:e[sd]|ing)?|resolv(?:e[sd]?|ing)|address(?:e[sd]|ing)?"
-
-# Matches issue / PR references in four shapes:
-#   1. https://github.com/owner/repo/issues/123 or .../pull/123
-#   2. owner/repo#123                              (cross-repo bare)
-#   3. GH-123                                      (legacy style used by some projects)
-#   4. #123                                        (same-repo, must follow non-word char)
-# Optionally preceded by a closing keyword (Fixes / Closes / Resolves / Addresses).
-_ISSUE_REF_RE = re.compile(
-    rf"""
-    (?:(?P<closing>{_CLOSING_KEYWORDS_RE})[\s:]+)?
-    (?:
-        https?://github\.com/(?P<url_repo>[\w.-]+/[\w.-]+)/(?:issues|pull)/(?P<url_num>\d+)
-      |
-        (?P<x_repo>[\w.-]+/[\w.-]+)\#(?P<x_num>\d+)
-      |
-        (?<![\w/])(?:GH-|\#)(?P<num>\d+)
-    )
-    """,
-    re.IGNORECASE | re.VERBOSE,
-)
-
-
-def _extract_issue_refs(text: str, default_repo: str | None = None) -> list[dict[str, Any]]:
-    """Extract issue / PR references from a piece of text (commit message, body, comment).
-
-    Returns a list of dicts ordered by first appearance and deduplicated by
-    ``(external_repo, number)``. Each dict has keys:
-
-    * ``number``        – issue / PR number (int)
-    * ``closes``        – True when the reference is preceded by a closing keyword
-    * ``external_repo`` – ``"owner/repo"`` for cross-repo refs, else ``None``
-
-    A reference whose ``owner/repo`` matches ``default_repo`` is normalised to a
-    same-repo reference (``external_repo=None``).
-    """
-    if not text:
-        return []
-
-    refs: list[dict[str, Any]] = []
-    seen: set[tuple[str | None, int]] = set()
-
-    for match in _ISSUE_REF_RE.finditer(text):
-        if match.group("url_num"):
-            number = int(match.group("url_num"))
-            ext_repo = match.group("url_repo")
-        elif match.group("x_num"):
-            number = int(match.group("x_num"))
-            ext_repo = match.group("x_repo")
-        elif match.group("num"):
-            number = int(match.group("num"))
-            ext_repo = None
-        else:
-            continue
-
-        if ext_repo and default_repo and ext_repo.lower() == default_repo.lower():
-            ext_repo = None
-
-        key = (ext_repo, number)
-        if key in seen:
-            continue
-        seen.add(key)
-
-        refs.append(
-            {
-                "number": number,
-                "closes": match.group("closing") is not None,
-                "external_repo": ext_repo,
-            }
-        )
-
-    return refs
-
-
-def _fetch_closing_issues_from_github(
-    owner: str, repo: str, pull_number: int, headers: dict[str, str]
-) -> set[tuple[str | None, int]]:
-    """Return the canonical set of (external_repo, number) issues a PR closes.
-
-    Hits GitHub's GraphQL ``closingIssuesReferences`` field, which is the
-    authoritative source for "which issues will be closed when this PR
-    merges". Cross-repo closes return their full ``owner/repo``;
-    same-repo closes return ``external_repo=None``.
-
-    Returns an empty set on any error so callers can keep the regex-based
-    closes flag as a graceful fallback.
-    """
-    query = (
-        "query($owner:String!,$name:String!,$number:Int!){"
-        " repository(owner:$owner,name:$name){"
-        "  pullRequest(number:$number){"
-        "   closingIssuesReferences(first:50){"
-        "    nodes{ number repository{ nameWithOwner } }"
-        "   }"
-        "  }"
-        " }"
-        "}"
-    )
-    payload = json.dumps(
-        {"query": query, "variables": {"owner": owner, "name": repo, "number": pull_number}}
-    ).encode("utf-8")
-    request = Request(
-        f"{BASE_URL}/graphql",
-        data=payload,
-        headers={**headers, "Content-Type": "application/json"},
-        method="POST",
-    )
-    try:
-        with urlopen(request, timeout=30) as response:
-            body = json.loads(response.read().decode("utf-8"))
-    except (HTTPError, URLError, HTTPException, ConnectionError, TimeoutError) as exc:
-        print(f"  GraphQL closingIssues lookup failed for PR #{pull_number}: {exc}; falling back to keyword detection only")
-        return set()
-
-    nodes = (
-        ((body.get("data") or {}).get("repository") or {})
-        .get("pullRequest", {})
-        .get("closingIssuesReferences", {})
-        .get("nodes")
-        or []
-    )
-    same_repo = f"{owner}/{repo}".lower()
-    result: set[tuple[str | None, int]] = set()
-    for node in nodes:
-        n = node.get("number")
-        if n is None:
-            continue
-        repo_full = (node.get("repository") or {}).get("nameWithOwner")
-        ext = repo_full if repo_full and repo_full.lower() != same_repo else None
-        result.add((ext, n))
-    return result
 
 
 def align_descriptions(kept: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -730,11 +309,13 @@ def quality_check(dataset: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
-def write_outputs(dataset: list[dict[str, Any]], report: dict[str, Any]) -> None:
-    ensure_output_dir()
+def write_outputs(
+    dataset: list[dict[str, Any]], report: dict[str, Any], output_dir: Path = OUTPUT_DIR
+) -> None:
+    output_dir.mkdir(exist_ok=True)
 
-    jsonl_path = OUTPUT_DIR / "dataset.jsonl"
-    report_path = OUTPUT_DIR / "quality_report.json"
+    jsonl_path = output_dir / "dataset.jsonl"
+    report_path = output_dir / "quality_report.json"
 
     with jsonl_path.open("w", encoding="utf-8") as handle:
         for item in dataset:
@@ -747,32 +328,34 @@ def write_outputs(dataset: list[dict[str, Any]], report: dict[str, Any]) -> None
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Demo pipeline for PR filtering and NL description extraction")
-    parser.add_argument(
-        "--mode",
-        choices=["sample", "github"],
-        default="sample",
-        help="Use local sample data or fetch real PRs from GitHub",
+    parser = argparse.ArgumentParser(
+        description="Demo pipeline for PR filtering and NL description extraction"
     )
-    parser.add_argument(
-        "--source",
-        type=Path,
-        default=DATA_DIR / "sample_prs.json",
-        help="Path to local sample PR JSON file when mode=sample",
-    )
-    parser.add_argument("--owner", help="GitHub repo owner when mode=github")
-    parser.add_argument("--repo", help="GitHub repo name when mode=github")
+    parser.add_argument("--owner", required=True, help="GitHub repo owner")
+    parser.add_argument("--repo", required=True, help="GitHub repo name")
     parser.add_argument(
         "--limit",
         type=int,
         default=10,
-        help="Maximum number of merged PRs to fetch when mode=github",
+        help="Maximum number of merged PRs to collect (default: 10)",
     )
     parser.add_argument(
         "--state",
-        choices=["open", "closed", "all"],
+        choices=["closed", "all"],
         default="closed",
         help="PR state to query from GitHub before filtering merged PRs",
+    )
+    parser.add_argument(
+        "--output-dir",
+        type=Path,
+        default=OUTPUT_DIR,
+        help="Directory for outputs (default: output/)",
+    )
+    parser.add_argument(
+        "--resume",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Skip PRs already collected (default: True)",
     )
     return parser.parse_args()
 
@@ -780,19 +363,25 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
 
-    if args.mode == "github":
-        if not args.owner or not args.repo:
-            raise RuntimeError("Please provide --owner and --repo when mode=github.")
-        prs = collect_pr_data_from_github(args.owner, args.repo, args.limit, args.state)
-    else:
-        prs = collect_pr_data_from_file(args.source)
+    print(
+        f"[1/5] Collecting merged PRs from {args.owner}/{args.repo} "
+        f"(limit={args.limit})"
+    )
+    prs = collect_prs(
+        owner=args.owner,
+        repo=args.repo,
+        limit=args.limit,
+        state=args.state,
+        output_dir=args.output_dir,
+        resume=args.resume,
+    )
 
     kept = filter_prs(prs)
     fragments = extract_runnable_parts(kept)
     descriptions = align_descriptions(kept)
     dataset = build_dataset(kept, fragments, descriptions)
     report = quality_check(dataset)
-    write_outputs(dataset, report)
+    write_outputs(dataset, report, args.output_dir)
 
 
 if __name__ == "__main__":
