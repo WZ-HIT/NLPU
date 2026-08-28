@@ -1,0 +1,49 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# --- Virtual environments ---
+.venv/
+venv/
+env/
+
+# --- Editor / IDE ---
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# --- OS junk ---
+Thumbs.db
+.DS_Store
+
+# --- Secrets (NEVER commit your GitHub PAT or .env) ---
+.env
+.env.*
+*.token
+secrets/
+
+# --- Generated / cached data (re-fetchable from GitHub or re-derivable) ---
+# Keep `data/` (small fixtures) tracked, but ignore the GitHub API cache and
+# downstream dataset/report artifacts in `output/`.
+output/
+data/
+
+# --- Local SQLite / DuckDB if you add one later ---
+*.sqlite
+*.sqlite3
+*.db
+*.duckdb
+
+# --- Logs ---
+*.log
+Log/
+# --- Tooling caches ---
+.claude/
