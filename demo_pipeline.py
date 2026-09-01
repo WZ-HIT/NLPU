@@ -18,9 +18,10 @@ import argparse
 import json
 import re
 from pathlib import Path
-from typing import Any
+from typing import TYPE_CHECKING, Any, Sequence
 
-from collector import PullRequestRecord, collect_prs
+if TYPE_CHECKING:
+    from collector import PullRequestRecord
 
 ROOT = Path(__file__).resolve().parent
 OUTPUT_DIR = ROOT / "output"
@@ -264,6 +265,24 @@ Code change (unified diff):
 Write the test cases now. Return only Python code, no explanation.
 """
 
+DEFAULT_PROMPT_FIELDS = ("repo", "pr_id", "filename", "prompt")
+PROMPT_FIELDS = (
+    "repo",
+    "pr_id",
+    "filename",
+    "fragment_type",
+    "filter_reasons",
+    "annotations",
+    "diff_hunks",
+    "nl_title",
+    "nl_body",
+    "nl_comments",
+    "nl_commits",
+    "nl_description",
+    "nl_description_extended",
+    "prompt",
+)
+
 
 def build_test_case_prompt(entry: dict[str, Any]) -> str:
     """Map one dataset sample to a prompt an LLM can turn into test cases."""
@@ -275,17 +294,22 @@ def build_test_case_prompt(entry: dict[str, Any]) -> str:
     )
 
 
-def build_prompts(dataset: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    """Return one prompt per dataset sample, with metadata for traceability."""
-    return [
-        {
-            "repo": entry["repo"],
-            "pr_id": entry["pr_id"],
-            "filename": entry["filename"],
-            "prompt": build_test_case_prompt(entry),
-        }
-        for entry in dataset
-    ]
+def build_prompts(
+    dataset: list[dict[str, Any]],
+    keep_fields: Sequence[str] = DEFAULT_PROMPT_FIELDS,
+) -> list[dict[str, Any]]:
+    """Build prompts and retain only the requested output fields."""
+    unknown = set(keep_fields) - set(PROMPT_FIELDS)
+    if unknown:
+        raise ValueError(f"Unknown prompt field(s): {', '.join(sorted(unknown))}")
+    if not keep_fields:
+        raise ValueError("At least one prompt field must be retained")
+
+    prompts: list[dict[str, Any]] = []
+    for entry in dataset:
+        complete_entry = {**entry, "prompt": build_test_case_prompt(entry)}
+        prompts.append({field: complete_entry[field] for field in keep_fields})
+    return prompts
 
 
 # ---------------------------------------------------------------------------
@@ -347,6 +371,8 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> None:
+    from collector import collect_prs
+
     args = parse_args()
 
     print(f"[1/5] Collecting merged PRs from {args.owner}/{args.repo} (limit={args.limit})")

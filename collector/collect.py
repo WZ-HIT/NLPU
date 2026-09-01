@@ -10,7 +10,8 @@ from pathlib import Path
 from typing import Any, Iterator
 
 from .github_client import BASE_URL, GitHubClient
-from .issues import extract_issue_refs, fetch_closing_issues
+from .issues import extract_issue_refs
+from .metadata import fetch_pr_metadata
 from .models import SCHEMA_VERSION, PullRequestRecord
 
 RAW_DIR_NAME = "raw_prs"
@@ -90,8 +91,8 @@ def fetch_pull_request_record(
     pr_payload, _ = client.get_json(pr_url)
     files_payload = client.paginate(files_url, {"per_page": 100})
     head_sha = pr_payload["head"]["sha"]
-    status_payload, _ = client.get_json(
-        f"{BASE_URL}/repos/{owner}/{repo}/commits/{head_sha}/status"
+    metadata = fetch_pr_metadata(
+        client, owner, repo, pull_number, head_sha
     )
 
     comments_payload = client.paginate(comments_url, {"per_page": 100})
@@ -114,7 +115,7 @@ def fetch_pull_request_record(
         pr_payload.get("body") or "", default_repo=f"{owner}/{repo}"
     )
 
-    closing_set = fetch_closing_issues(client, owner, repo, pull_number)
+    closing_set = metadata.closing_issues
     if closing_set:
         for ref_list in commit_issue_refs:
             for ref in ref_list:
@@ -146,7 +147,7 @@ def fetch_pull_request_record(
         title=pr_payload.get("title", ""),
         body=pr_payload.get("body") or "",
         merged=bool(pr_payload.get("merged_at")),
-        ci_status=status_payload.get("state", "unknown"),
+        ci_status=metadata.ci.status,
         language=infer_language(changed_files),
         changed_files=changed_files,
         comments=comments,
@@ -155,6 +156,11 @@ def fetch_pull_request_record(
         commit_issue_refs=commit_issue_refs,
         body_issue_refs=body_issue_refs,
         closing_issue_refs=closing_issue_refs,
+        head_sha=head_sha,
+        ci_source=metadata.ci.source,
+        ci_rollup_state=metadata.ci.rollup_state,
+        ci_check_run_count=metadata.ci.check_run_count,
+        ci_status_context_count=metadata.ci.status_context_count,
     )
 
 
@@ -238,6 +244,7 @@ def collect_prs(
 
     manifest = _read_manifest(output_dir)
     repo_key = f"{owner}__{repo}"
+    manifest["schema_version"] = SCHEMA_VERSION
     manifest["repos"][repo_key] = {
         "file": f"{repo_key}.jsonl",
         "pr_count": len(records),

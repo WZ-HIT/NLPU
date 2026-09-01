@@ -17,6 +17,10 @@ TRANSIENT_HTTP_CODES = {500, 502, 503, 504}
 _MAX_ATTEMPTS = 4
 
 
+class GitHubGraphQLError(RuntimeError):
+    """Raised when a GitHub GraphQL request or response is invalid."""
+
+
 class GitHubClient:
     """Minimal GitHub API client used by the collector.
 
@@ -87,7 +91,7 @@ class GitHubClient:
             time.sleep(0.2)
         return results
 
-    def post_graphql(self, query: str, variables: dict[str, Any]) -> Any:
+    def post_graphql(self, query: str, variables: dict[str, Any]) -> dict[str, Any]:
         payload = json.dumps({"query": query, "variables": variables}).encode("utf-8")
         request = Request(
             f"{self.base_url}/graphql",
@@ -95,9 +99,64 @@ class GitHubClient:
             headers={**self.headers, "Content-Type": "application/json"},
             method="POST",
         )
-        with urlopen(request, timeout=self.timeout) as response:
-            return json.loads(response.read().decode("utf-8"))
 
+        for attempt in range(1, _MAX_ATTEMPTS + 1):
+            try:
+                with urlopen(request, timeout=self.timeout) as response:
+                    body = json.loads(response.read().decode("utf-8"))
+            except HTTPError as exc:
+                error_body = exc.read().decode("utf-8", errors="replace")
+                if exc.code in TRANSIENT_HTTP_CODES and attempt < _MAX_ATTEMPTS:
+                    self._backoff(attempt, f"GraphQL temporary error {exc.code}")
+                    continue
+                raise GitHubGraphQLError(
+                    f"GitHub GraphQL request failed: "
+                    f"{exc.code} {exc.reason} | {error_body}"
+                ) from exc
+            except URLError as exc:
+                if attempt < _MAX_ATTEMPTS:
+                    self._backoff(attempt, "GraphQL network error")
+                    continue
+                raise GitHubGraphQLError(
+                    f"Network error while calling GitHub GraphQL: {exc.reason}"
+                ) from exc
+            except (HTTPException, ConnectionError, TimeoutError) as exc:
+                if attempt < _MAX_ATTEMPTS:
+                    self._backoff(
+                        attempt,
+                        f"GraphQL connection dropped ({type(exc).__name__})",
+                    )
+                    continue
+                raise GitHubGraphQLError(
+                    f"Connection error while calling GitHub GraphQL: {exc}"
+                ) from exc
+            except (json.JSONDecodeError, UnicodeDecodeError) as exc:
+                raise GitHubGraphQLError(
+                    f"Invalid JSON from GitHub GraphQL: {exc}"
+                ) from exc
+
+            if not isinstance(body, dict):
+                raise GitHubGraphQLError(
+
+                    f"Expected GraphQL object, got {type(body).__name__}"
+                )
+            if body.get("errors"):
+                messages = "; ".join(
+                    error.get("message", str(error))
+                    for error in body["errors"]
+                )
+                raise GitHubGraphQLError(
+                    f"GitHub GraphQL errors: {messages}"
+                )
+            if "data" not in body:
+                raise GitHubGraphQLError(
+                    "GitHub GraphQL response has no data"
+                )
+            return body
+
+        raise GitHubGraphQLError(
+            "GitHub GraphQL request failed after retries"
+        )
     @staticmethod
     def parse_next_link(link_header: str | None) -> str | None:
         if not link_header:

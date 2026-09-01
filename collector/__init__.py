@@ -15,15 +15,20 @@ from .collect import (
     raw_prs_dir,
     record_file_path,
 )
-from .github_client import BASE_URL, GitHubClient
+from .github_client import BASE_URL, GitHubClient, GitHubGraphQLError
+from .metadata import CIStatus, PullRequestMetadata, fetch_pr_metadata
 from .models import SCHEMA_VERSION, PullRequestRecord
 
 __all__ = [
     "BASE_URL",
+    "CIStatus",
     "GitHubClient",
+    "GitHubGraphQLError",
     "PullRequestRecord",
+    "PullRequestMetadata",
     "SCHEMA_VERSION",
     "collect_prs",
+    "fetch_pr_metadata",
     "iter_records",
     "load_records",
     "manifest_path",
