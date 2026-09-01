@@ -30,10 +30,8 @@ Thumbs.db
 *.token
 secrets/
 
-# --- Generated / cached data (re-fetchable from GitHub or re-derivable) ---
-# Keep `data/` (small fixtures) tracked, but ignore the GitHub API cache and
-# downstream dataset/report artifacts in `output/`.
-output/
+# --- Generated / cached data ---
+# Keep output artifacts tracked for reproducible datasets and reports.
 data/
 
 # --- Local SQLite / DuckDB if you add one later ---

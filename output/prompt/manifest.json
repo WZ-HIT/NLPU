@@ -1,0 +1,25 @@
+{
+  "schema_version": 2,
+  "generated_at": "2026-08-31T15:16:27Z",
+  "source_files": [
+    "/workspace/project/NLPU/output/raw_prs/psf__requests.jsonl",
+    "/workspace/project/NLPU/output/raw_prs/scrapy__scrapy.jsonl"
+  ],
+  "raw_pr_count": 52,
+  "kept_pr_count": 22,
+  "prompt_count": 56,
+  "keep_fields": [
+    "repo",
+    "pr_id",
+    "filename",
+    "prompt"
+  ],
+  "prompt_files": {
+    "psf/requests": "psf__requests.json",
+    "scrapy/scrapy": "scrapy__scrapy.json"
+  },
+  "prompt_counts": {
+    "psf/requests": 1,
+    "scrapy/scrapy": 55
+  }
+}

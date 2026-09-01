@@ -1,0 +1,138 @@
+{
+  "sample_size": 2,
+  "features": {
+    "title_words": {
+      "count": 2,
+      "min": 6,
+      "max": 9,
+      "mean": 7.5,
+      "stdev": 1.5,
+      "skewness": 0.0,
+      "percentiles": {
+        "p5": 6.15,
+        "p10": 6.3,
+        "p25": 6.75,
+        "p50": 7.5,
+        "p75": 8.25,
+        "p90": 8.7,
+        "p95": 8.85
+      },
+      "lognormal": {
+        "log_mean": 2.124,
+        "log_stdev": 0.178,
+        "lower_mu_minus_1sigma": 6.0,
+        "lower_mu_minus_2sigma": 4.857
+      },
+      "threshold_suggestions": {
+        "p10": 7,
+        "p25": 7,
+        "mean_minus_1sigma_normal": 6,
+        "mean_minus_1sigma_lognormal": 7
+      }
+    },
+    "body_words": {
+      "count": 2,
+      "min": 23,
+      "max": 48,
+      "mean": 35.5,
+      "stdev": 12.5,
+      "skewness": 0.0,
+      "percentiles": {
+        "p5": 24.25,
+        "p10": 25.5,
+        "p25": 29.25,
+        "p50": 35.5,
+        "p75": 41.75,
+        "p90": 45.5,
+        "p95": 46.75
+      },
+      "lognormal": {
+        "log_mean": 3.535,
+        "log_stdev": 0.357,
+        "lower_mu_minus_1sigma": 23.0,
+        "lower_mu_minus_2sigma": 15.797
+      },
+      "threshold_suggestions": {
+        "p10": 26,
+        "p25": 30,
+        "mean_minus_1sigma_normal": 23,
+        "mean_minus_1sigma_lognormal": 24
+      }
+    },
+    "comments_words": {
+      "count": 2,
+      "min": 63,
+      "max": 180,
+      "mean": 121.5,
+      "stdev": 58.5,
+      "skewness": 0.0,
+      "percentiles": {
+        "p5": 68.85,
+        "p10": 74.7,
+        "p25": 92.25,
+        "p50": 121.5,
+        "p75": 150.75,
+        "p90": 168.3,
+        "p95": 174.15
+      },
+      "lognormal": {
+        "log_mean": 4.679,
+        "log_stdev": 0.52,
+        "lower_mu_minus_1sigma": 63.0,
+        "lower_mu_minus_2sigma": 37.057
+      },
+      "threshold_suggestions": {
+        "p10": 75,
+        "p25": 93,
+        "mean_minus_1sigma_normal": 63,
+        "mean_minus_1sigma_lognormal": 63
+      }
+    },
+    "commits_words": {
+      "count": 2,
+      "min": 14,
+      "max": 46,
+      "mean": 30.0,
+      "stdev": 16.0,
+      "skewness": 0.0,
+      "percentiles": {
+        "p5": 15.6,
+        "p10": 17.2,
+        "p25": 22.0,
+        "p50": 30.0,
+        "p75": 38.0,
+        "p90": 42.8,
+        "p95": 44.4
+      },
+      "lognormal": {
+        "log_mean": 3.279,
+        "log_stdev": 0.571,
+        "lower_mu_minus_1sigma": 14.0,
+        "lower_mu_minus_2sigma": 7.474
+      },
+      "threshold_suggestions": {
+        "p10": 18,
+        "p25": 22,
+        "mean_minus_1sigma_normal": 14,
+        "mean_minus_1sigma_lognormal": 14
+      }
+    }
+  },
+  "recommended_thresholds": {
+    "percentile_based": {
+      "title_words_min": 7,
+      "body_words_min": 30,
+      "note": "Title floor at the 10th percentile (drop the shortest 10%), body floor at the 25th percentile (drop the shortest 25%). Rationale: word counts are right-skewed, so percentiles are more robust than mean +/- sigma."
+    },
+    "lognormal_based": {
+      "title_words_min": 7,
+      "body_words_min": 24,
+      "note": "Threshold = exp(mu_log - sigma_log) - 1, i.e. the lower-1-sigma point after log(1+x) normalisation.  Keeps roughly the central 84% of the distribution."
+    },
+    "current_hardcoded": {
+      "title_words_min": 4,
+      "body_words_min": 10,
+      "note": "The baseline in demo_pipeline.is_valid_pr, no empirical basis."
+    }
+  }
+}
