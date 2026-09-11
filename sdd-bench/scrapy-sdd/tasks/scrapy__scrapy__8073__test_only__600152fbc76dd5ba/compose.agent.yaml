@@ -1,0 +1,221 @@
+name: scrapy-sdd-8073-600152fbc76dd5ba-agent
+
+x-agent-common: &agent-common
+  image: scrapy-sdd-agent:base-11079cb1c85b-codex-0.153.4-node-24.20.0-uv-0.12.10-official-bwrap-path-candidate
+  pull_policy: never
+  platform: linux/amd64
+  init: true
+  user: "1007:1007"
+  working_dir: /workspace
+  read_only: true
+  restart: "no"
+  command: ["sleep", "infinity"]
+  cpus: 4.0
+  mem_limit: 8g
+  memswap_limit: 8g
+  pids_limit: 512
+  stop_grace_period: 30s
+  cap_drop: ["ALL"]
+  security_opt:
+    - no-new-privileges:true
+    - seccomp=/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/seccomp-bubblewrap-0.12.0-moby-0.2.3-amd64.draft.json
+    - apparmor=scrapy_sdd_codex_parent_11079cb1c85b
+  environment: &agent-environment
+    HOME: /home/bench
+    CODEX_HOME: /home/bench/.codex
+    PATH: /home/bench/.local/bin:/home/bench/tools/npm/bin:/opt/agent/bwrap/bin:/opt/agent/bin:/opt/agent/node/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin
+    LANG: C.UTF-8
+    PIP_DISABLE_PIP_VERSION_CHECK: "1"
+    PIP_CACHE_DIR: /home/bench/.cache/pip
+    PYTHONDONTWRITEBYTECODE: "1"
+    PYTHONUNBUFFERED: "1"
+    PYTHONPYCACHEPREFIX: /home/bench/.cache/pycache
+    TOX_WORK_DIR: /home/bench/.cache/tox
+    UV_CACHE_DIR: /home/bench/.cache/uv
+    UV_TOOL_DIR: /home/bench/tools/uv
+    UV_TOOL_BIN_DIR: /home/bench/.local/bin
+    NPM_CONFIG_CACHE: /home/bench/.cache/npm
+    NPM_CONFIG_PREFIX: /home/bench/tools/npm
+  tmpfs:
+    - /tmp:rw,nosuid,nodev,mode=1777,uid=1007,gid=1007,size=2147483648
+  secrets:
+    - deepseek_api_key
+
+x-agent-common-config: &agent-common-config
+  type: bind
+  source: ../../environments/agent-runtime/codex-0.153.4_node-24.20.0_uv-0.12.10_linux-amd64/config-templates/config.toml
+  target: /home/bench/.codex/config.toml
+  read_only: true
+  bind:
+    create_host_path: false
+
+x-agent-profile-config: &agent-profile-config
+  type: bind
+  source: ../../environments/agent-runtime/codex-0.153.4_node-24.20.0_uv-0.12.10_linux-amd64/config-templates/deepseek-v4-pro.config.toml
+  target: /home/bench/.codex/deepseek-v4-pro.config.toml
+  read_only: true
+  bind:
+    create_host_path: false
+
+x-agent-model-catalog: &agent-model-catalog
+  type: bind
+  source: ../../environments/agent-runtime/codex-0.153.4_node-24.20.0_uv-0.12.10_linux-amd64/config-templates/model-catalogs/deepseek-v4-pro/models.json
+  target: /home/bench/.codex/model-catalogs/deepseek-v4-pro/models.json
+  read_only: true
+  bind:
+    create_host_path: false
+
+x-egress-common: &egress-common
+  image: haproxy@sha256:6343ce34a132a5dceaa24767d739df2bd519f8f7c1079ae39e4821334e8eb42e
+  pull_policy: never
+  platform: linux/amd64
+  user: "99:99"
+  read_only: true
+  restart: "no"
+  cpus: 0.25
+  mem_limit: 128m
+  memswap_limit: 128m
+  pids_limit: 64
+  stop_grace_period: 5s
+  cap_drop: ["ALL"]
+  security_opt:
+    - no-new-privileges:true
+  volumes:
+    - type: bind
+      source: ../../environments/network/haproxy-3.2.23/deepseek-tls-egress.cfg
+      target: /usr/local/etc/haproxy/haproxy.cfg
+      read_only: true
+      bind:
+        create_host_path: false
+  tmpfs:
+    - /run:rw,nosuid,nodev,noexec,mode=0755,size=16777216
+    - /tmp:rw,nosuid,nodev,noexec,mode=1777,size=16777216
+  healthcheck:
+    test: ["CMD", "haproxy", "-c", "-f", "/usr/local/etc/haproxy/haproxy.cfg"]
+    interval: 10s
+    timeout: 5s
+    retries: 6
+    start_period: 10s
+
+services:
+  openspec-agent:
+    <<: *agent-common
+    extra_hosts:
+      - "api.deepseek.com=172.28.11.2"
+    depends_on:
+      openspec-egress:
+        condition: service_healthy
+    networks:
+      openspec-private:
+        ipv4_address: 172.28.11.3
+    volumes:
+      - type: bind
+        source: ./runs/openspec/scrapy
+        target: /workspace
+        bind:
+          create_host_path: false
+      - type: volume
+        source: openspec-home
+        target: /home/bench
+      - *agent-common-config
+      - *agent-profile-config
+      - *agent-model-catalog
+
+  openspec-egress:
+    <<: *egress-common
+    networks:
+      openspec-uplink:
+        gw_priority: 100
+      openspec-private:
+        ipv4_address: 172.28.11.2
+
+  speckit-agent:
+    <<: *agent-common
+    extra_hosts:
+      - "api.deepseek.com=172.28.12.2"
+    depends_on:
+      speckit-egress:
+        condition: service_healthy
+    networks:
+      speckit-private:
+        ipv4_address: 172.28.12.3
+    volumes:
+      - type: bind
+        source: ./runs/speckit/scrapy
+        target: /workspace
+        bind:
+          create_host_path: false
+      - type: volume
+        source: speckit-home
+        target: /home/bench
+      - *agent-common-config
+      - *agent-profile-config
+      - *agent-model-catalog
+
+  speckit-egress:
+    <<: *egress-common
+    networks:
+      speckit-uplink:
+        gw_priority: 100
+      speckit-private:
+        ipv4_address: 172.28.12.2
+
+  cc-sdd-agent:
+    <<: *agent-common
+    extra_hosts:
+      - "api.deepseek.com=172.28.13.2"
+    depends_on:
+      cc-sdd-egress:
+        condition: service_healthy
+    networks:
+      cc-sdd-private:
+        ipv4_address: 172.28.13.3
+    volumes:
+      - type: bind
+        source: ./runs/cc-sdd/scrapy
+        target: /workspace
+        bind:
+          create_host_path: false
+      - type: volume
+        source: cc-sdd-home
+        target: /home/bench
+      - *agent-common-config
+      - *agent-profile-config
+      - *agent-model-catalog
+
+  cc-sdd-egress:
+    <<: *egress-common
+    networks:
+      cc-sdd-uplink:
+        gw_priority: 100
+      cc-sdd-private:
+        ipv4_address: 172.28.13.2
+
+secrets:
+  deepseek_api_key:
+    file: ${DEEPSEEK_API_KEY_FILE:?set DEEPSEEK_API_KEY_FILE to an absolute host path outside Git}
+
+volumes:
+  openspec-home: {}
+  speckit-home: {}
+  cc-sdd-home: {}
+
+networks:
+  openspec-private:
+    internal: true
+    ipam:
+      config:
+        - subnet: 172.28.11.0/24
+  openspec-uplink: {}
+  speckit-private:
+    internal: true
+    ipam:
+      config:
+        - subnet: 172.28.12.0/24
+  speckit-uplink: {}
+  cc-sdd-private:
+    internal: true
+    ipam:
+      config:
+        - subnet: 172.28.13.0/24
+  cc-sdd-uplink: {}

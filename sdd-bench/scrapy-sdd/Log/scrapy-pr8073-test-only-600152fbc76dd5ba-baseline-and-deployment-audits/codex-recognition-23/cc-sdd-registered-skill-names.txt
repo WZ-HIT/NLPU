@@ -1,0 +1,17 @@
+kiro-debug
+kiro-discovery
+kiro-impl
+kiro-review
+kiro-spec-batch
+kiro-spec-design
+kiro-spec-init
+kiro-spec-quick
+kiro-spec-requirements
+kiro-spec-status
+kiro-spec-tasks
+kiro-steering
+kiro-steering-custom
+kiro-validate-design
+kiro-validate-gap
+kiro-validate-impl
+kiro-verify-completion

@@ -1,0 +1,56 @@
+# Scrapy SDD benchmark: provider-independent template for Codex CLI 0.153.4.
+# Steps 06a and 07b: NOT deployed into any experiment HOME yet.
+# Later place identical bytes at /home/bench/.codex/config.toml in each
+# isolated service. Never mount the host user's Codex configuration or state.
+# Reference: https://learn.chatgpt.com/docs/config-file/config-reference
+
+# Model/provider/auth/reasoning/catalog belong ONLY to a named profile.
+# Select it explicitly with --profile; this template alone is not a run config.
+# The future launcher must reject missing profiles and any unapproved overrides.
+# Keep secrets out of templates, Git, images, command arguments and logs.
+
+# Never request escalation; operations outside the sandbox must fail.
+approval_policy = "never"
+sandbox_mode = "workspace-write"
+web_search = "disabled"
+check_for_update_on_startup = false
+
+# Give model-generated commands only the compact core environment. Apply Codex's
+# automatic secret-name exclusions and explicit case-insensitive glob filters.
+# These filters protect spawned commands; provider authentication remains a
+# separate parent-process and container-secret concern.
+[shell_environment_policy]
+inherit = "core"
+ignore_default_excludes = false
+
+[shell_environment_policy.filters]
+"*KEY*" = "exclude"
+"*SECRET*" = "exclude"
+"*TOKEN*" = "exclude"
+
+[sandbox_workspace_write]
+# Restricts sandboxed commands, NOT the Codex process's model API connection.
+# Provider-only container egress must be enforced separately before live runs.
+network_access = false
+writable_roots = []
+
+[features]
+multi_agent = false
+memories = false
+
+# Codex CLI 0.153.4 uses explicit remaining-token reminder thresholds. This
+# differs from the interval-based key in the current rolling documentation.
+# Keep this schema pinned to the CLI version used by the benchmark image.
+[features.rollout_budget]
+enabled = true
+limit_tokens = 100000
+reminder_at_remaining_tokens = [25000, 10000]
+prefill_token_weight = 1.0
+sampling_token_weight = 1.0
+
+# Pending outside this file: CPU/memory/PID limits, isolated HOME/cache volumes,
+# credential injection, provider egress policy, timeout and cost budget.
+# A matching profile and fresh session are required for all three SDD services.
+# No automatic provider fallback or model changes within an experiment run.
+# These are configuration defaults, not tamper-proof enforcement. Profile,
+# project and CLI overrides must be audited by the future launcher.

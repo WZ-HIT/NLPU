@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "step": "21",
+  "title": "Independent cc-sdd deployment audit",
+  "completed_at_utc": "2026-09-10T08:03:28Z",
+  "status": "PASS",
+  "task": {
+    "sample_id": "scrapy__scrapy__8073__test_only__600152fbc76dd5ba",
+    "pull_request": 8073,
+    "base_sha": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+    "tree_sha": "0b9ebb13cca2038ecf5f84ba1f3e7efd6e1cebf2"
+  },
+  "environment": {
+    "image_id": "sha256:5331d81398045534dfca13267402e4f97dad9d6ad43524a62b05286741e960a9",
+    "runtime_user": "1007:1007",
+    "home_volume": "scrapy-sdd-8073-600152fbc76dd5ba-agent_cc-sdd-home",
+    "python_version": "3.11.15",
+    "node_version": "24.20.0",
+    "npm_version": "11.19.0",
+    "system_python_package_count": 69,
+    "system_python_normalized_freeze_sha256": "570e1651694fe0e30bbd07a231c2f70cccf09cd18503b8ead34fdfd50f5f3abd",
+    "system_python_pip_check": "PASS"
+  },
+  "tool": {
+    "name": "cc-sdd",
+    "version_output": "cc-sdd v3.0.2",
+    "private_install_root": "/home/bench/tools/npm",
+    "installed_tree_sha256": "573c2b2c33bb43161c8762972726a5efd830408bec4977de8236f2707a66c21c",
+    "npm_ls": "PASS",
+    "direct_dependency_count": 1,
+    "transitive_runtime_dependency_count": 0,
+    "help_check": "PASS"
+  },
+  "generated_content": {
+    "file_count": 68,
+    "generated_manifest_sha256": "3be430c9092a6396aa0d9f5ae4be85f9d66ac33ee3cb986c175334503abf4cca",
+    "formal_step_20_hashes_reverified": true,
+    "skill_directory_count": 17,
+    "skill_tree_file_count": 50,
+    "skill_md_count": 17,
+    "skill_validation": "PASS",
+    "codex_agent": ".codex/agents/spec-reviewer.toml",
+    "codex_agent_toml_validation": "PASS",
+    "kiro_settings_file_count": 16,
+    "kiro_specs_created_by_initialization": false
+  },
+  "repository": {
+    "branch": "experiment/cc-sdd",
+    "head": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+    "tree": "0b9ebb13cca2038ecf5f84ba1f3e7efd6e1cebf2",
+    "reachable_commit_count": 1,
+    "remote_count": 0,
+    "untracked_file_count": 68,
+    "tracked_diff_count": 0,
+    "staged_diff_count": 0,
+    "protected_index_sha256": "9c5323c4165074b47ab2c251d6b9c1592988a8af673437e6d4234a9b79043446",
+    "protected_content_sha256": "1f95cbf691bb680c1ee6850a290af03b85df40d294297e08a3460b0fb68f09f6"
+  },
+  "isolation": {
+    "same_image_for_all_agents": true,
+    "distinct_home_volumes": true,
+    "distinct_workspace_mounts": true,
+    "home_write_probe_absent_from_other_services": true,
+    "each_home_contains_only_matching_sdd": true,
+    "probe_removed": true,
+    "cross_repository_generated_file_counts": {
+      "openspec": 10,
+      "speckit": 30,
+      "cc-sdd": 68
+    },
+    "all_repository_heads_and_trees_equal": true,
+    "all_repository_remotes_absent": true,
+    "all_protected_diffs_empty": true
+  },
+  "smoke_test": {
+    "argv": [
+      "/usr/local/bin/python",
+      "-m",
+      "pytest",
+      "-q",
+      "-p",
+      "no:cacheprovider",
+      "--basetemp=/tmp/pytest-smoke-cc-sdd-21",
+      "tests/test_http_headers.py::test_basics"
+    ],
+    "workspace": "/tmp/cc-sdd-smoke-21",
+    "independent_tmpfs_copy": true,
+    "exit_code": 0,
+    "result": "1 passed in 0.18s",
+    "stderr_empty": true,
+    "temporary_repository_removed": true,
+    "basetemp_removed": true,
+    "real_repository_unchanged_after": true,
+    "stdout_sha256": "fa8e3e1f0a4b084326a7027307e5cc3a94f799f9733ea598c3b878fa3c70f37c"
+  },
+  "provider_or_model_request_made": false,
+  "supporting_files": {
+    "environment": "environment.txt",
+    "npm_tree": "npm-ls.json",
+    "generated_hashes": "generated-files.sha256",
+    "structure": "structure-and-files.txt",
+    "isolation": "isolation.txt",
+    "repositories": "cross-repositories.txt",
+    "smoke_stdout": "smoke-stdout.txt",
+    "smoke_stderr": "smoke-stderr.txt"
+  },
+  "next_step": "Perform a symmetric cross-tool deployment comparison now that all three independent tool audits have passed."
+}

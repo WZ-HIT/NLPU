@@ -1,0 +1,4 @@
+group	expected_repo_skills	registered_repo_skills	parse_errors	prompt_visible_repo_skills	root_agents_md_loaded	foreign_repo_skills
+openspec	6	6	0	6	no	0
+speckit	10	10	0	10	no	0
+cc-sdd	17	17	0	1	yes	0

@@ -1,0 +1,3 @@
+openspec branch=experiment/openspec generated_files=10 protected_diff=0 head=11079cb1c85b9e75a39a7269943c69d1a975d485 tree=0b9ebb13cca2038ecf5f84ba1f3e7efd6e1cebf2 remotes=0
+speckit branch=experiment/speckit generated_files=30 protected_diff=0 head=11079cb1c85b9e75a39a7269943c69d1a975d485 tree=0b9ebb13cca2038ecf5f84ba1f3e7efd6e1cebf2 remotes=0
+cc-sdd branch=experiment/cc-sdd generated_files=68 protected_diff=0 head=11079cb1c85b9e75a39a7269943c69d1a975d485 tree=0b9ebb13cca2038ecf5f84ba1f3e7efd6e1cebf2 remotes=0

@@ -1,0 +1,4 @@
+group	branch	head	tree	reachable	remotes	tracked_diff	staged_diff	untracked
+openspec	experiment/openspec	11079cb1c85b9e75a39a7269943c69d1a975d485	0b9ebb13cca2038ecf5f84ba1f3e7efd6e1cebf2	1	0	0	0	10
+speckit	experiment/speckit	11079cb1c85b9e75a39a7269943c69d1a975d485	0b9ebb13cca2038ecf5f84ba1f3e7efd6e1cebf2	1	0	0	0	30
+cc-sdd	experiment/cc-sdd	11079cb1c85b9e75a39a7269943c69d1a975d485	0b9ebb13cca2038ecf5f84ba1f3e7efd6e1cebf2	1	0	0	0	68

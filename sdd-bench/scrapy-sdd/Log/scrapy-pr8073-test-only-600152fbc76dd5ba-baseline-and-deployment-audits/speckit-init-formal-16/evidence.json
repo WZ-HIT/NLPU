@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "step": "16-a..16-k",
+  "status": "passed",
+  "task_id": "scrapy__scrapy__8073__test_only__600152fbc76dd5ba",
+  "tool": {
+    "name": "Spec Kit",
+    "package": "specify-cli",
+    "version": "1.0.4",
+    "source_commit": "cb610277fdea781fcfa83d20522c2db37c94068d",
+    "executable": "/home/bench/tools/python/speckit-1.0.4/bin/specify"
+  },
+  "repository_prestate": {
+    "path": "runs/speckit/scrapy",
+    "workspace": "/workspace",
+    "branch": "experiment/speckit",
+    "head": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+    "tree": "0b9ebb13cca2038ecf5f84ba1f3e7efd6e1cebf2",
+    "remote_count": 0,
+    "git_status_count": 0,
+    "repository_content_sha256": "278497380e2678b73cc3bb6bed853f5daf95a2872324dcab6d50edbc96e97238"
+  },
+  "command": {
+    "argv": [
+      "/home/bench/tools/python/speckit-1.0.4/bin/specify",
+      "init",
+      "--here",
+      "--force",
+      "--non-interactive",
+      "--script",
+      "sh",
+      "--integration",
+      "codex",
+      "--integration-options=--skills"
+    ],
+    "working_directory": "/workspace",
+    "container_entry_method": "direct docker exec process entry",
+    "exit_code": 0,
+    "stdout_bytes": 6799,
+    "stdout_sha256": "31f00fd2228ca0c2270ff5ffe37ef5ee741fd687386bbf484da9ea47e4be4a3b",
+    "stderr_bytes": 0,
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "provider_or_model_request_made": false
+  },
+  "generated_output": {
+    "file_count": 30,
+    "total_size_bytes": 233759,
+    "git_status_count": 30,
+    "tracked_modified_count": 0,
+    "staged_count": 0,
+    "deleted_count": 0,
+    "generated_roots": [".agents/skills/", ".specify/"],
+    "full_patch": "initialization-files.patch",
+    "full_patch_bytes": 245223,
+    "full_patch_sha256": "2fe8756e573c12dd66846d4009b8453d233565dc1ea39bae150d169386c34bb0",
+    "generated_hash_manifest": "generated-files.sha256",
+    "generated_hash_manifest_sha256": "404c4d70c695f254aa9bd372bf0f0b508ce53c6f3ab4f8f8446931eda6c0ce34",
+    "untracked_file_list_sha256": "302736477dd034fe99f04badd2a272c27931cbe23bda60d391357ca7bca7b217"
+  },
+  "preview_comparison": {
+    "preview_evidence": "../speckit-init-preview-15/evidence.json",
+    "preview_evidence_sha256": "2ea2efc6b397e71591984a9f1bff17a4ef0c11b28b7bb917e8fcbeac9ad7fd11",
+    "path_set_match": true,
+    "exact_file_matches": 27,
+    "timestamp_only_file_count": 3,
+    "timestamp_only_files": [
+      ".specify/integrations/codex.manifest.json",
+      ".specify/integrations/speckit.manifest.json",
+      ".specify/workflows/workflow-registry.json"
+    ],
+    "timestamp_fields": ["installed_at", "updated_at"],
+    "other_content_differences": false,
+    "normalized_preview_patch_sha256": "6eda2ec4019724601cbc52d30a103e846097305883708b23af8934678a0fcff2",
+    "normalized_formal_patch_sha256": "6eda2ec4019724601cbc52d30a103e846097305883708b23af8934678a0fcff2",
+    "normalized_patch_match": true,
+    "comparison_record": "preview-comparison.txt",
+    "full_raw_difference": "preview-vs-formal.patch",
+    "full_raw_difference_sha256": "fabcbce293cfee034748fef1e85558c025c7e7b64be38280c38afdee2ad8110d"
+  },
+  "structure": {
+    "specify_file_count": 20,
+    "codex_skill_count": 10,
+    "nonempty_skill_count": 10,
+    "skills_have_name_and_description_frontmatter": true,
+    "executable_shell_script_count": 6,
+    "codex_manifest_hashes_valid": true,
+    "speckit_manifest_hashes_valid": true,
+    "integration": "codex",
+    "script": "sh",
+    "integration_skills_enabled": true,
+    "specs_directory_created_by_init": false,
+    "specs_directory_note": "Spec Kit 1.0.4 creates specs/ when the first concrete specification is authored."
+  },
+  "protected_paths": {
+    "paths": ["scrapy/", "tests/"],
+    "index_sha256_before": "322e0d04dae482ca9192e0298259db168bea785444137c9d49f54ff1787f18e4",
+    "index_sha256_after": "322e0d04dae482ca9192e0298259db168bea785444137c9d49f54ff1787f18e4",
+    "content_sha256_before": "516acd77bd7b2fa9ec5e30bc4a8a25613f4f1cd04f5a7102994c265ea0465990",
+    "content_sha256_after": "516acd77bd7b2fa9ec5e30bc4a8a25613f4f1cd04f5a7102994c265ea0465990",
+    "git_status_count": 0,
+    "unchanged": true
+  },
+  "cross_sdd_check": {
+    "openspec_directory_generated": false,
+    "kiro_directory_generated": false,
+    "unexpected_sdd_files_generated": false
+  },
+  "repository_poststate": {
+    "branch": "experiment/speckit",
+    "head": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+    "tree": "0b9ebb13cca2038ecf5f84ba1f3e7efd6e1cebf2",
+    "remote_count": 0,
+    "git_status_count": 30,
+    "untracked_count": 30,
+    "tracked_modified_count": 0,
+    "staged_count": 0,
+    "deleted_count": 0
+  },
+  "evidence_files": {
+    "init_stdout": "init-stdout.txt",
+    "init_stderr": "init-stderr.txt",
+    "init_exit_code": "init-exit-code.txt",
+    "prestate": "prestate.txt",
+    "poststate": "poststate.txt",
+    "git_status": "git-status.txt",
+    "tracked_diff": "tracked.patch",
+    "staged_diff": "staged.patch",
+    "untracked_patch": "initialization-files.patch",
+    "untracked_files": "untracked-files.txt",
+    "generated_hashes": "generated-files.sha256",
+    "protected_index_after": "protected-index.after",
+    "protected_content_after": "protected-content.after",
+    "structure_and_skills": "structure-and-skills.txt",
+    "preview_comparison": "preview-comparison.txt",
+    "preview_raw_difference": "preview-vs-formal.patch"
+  },
+  "scope": {
+    "formal_initialization_complete": true,
+    "independent_spec_kit_audit_pending": true,
+    "cc_sdd_installation_pending": true,
+    "formal_run_ready": false
+  }
+}

@@ -1,0 +1,163 @@
+{
+  "schema_version": 1,
+  "step": "06p-6b",
+  "checked_date_utc": "2026-09-08",
+  "status": "official_codex_bwrap_artifact_verified_persisted_and_runtime_validated",
+  "target": {
+    "distribution": "Debian 13 (trixie)",
+    "architecture": "amd64",
+    "image_reference": "scrapy-sdd-agent@sha256:4e31d1759723319461745913e81fd37c0af4ad7343ef1b7ac80d6f085fce5330",
+    "python_and_dependency_policy": "Preserve baseline Python and all existing packages; no dependency upgrades."
+  },
+  "repository_verification": {
+    "inrelease_url": "https://deb.debian.org/debian-security/dists/trixie-security/InRelease",
+    "inrelease_sha256": "34d6348ed5336b4ffbd857078c76684daa86d09b61ca2721558b79c9369a1080",
+    "packages_url": "https://deb.debian.org/debian-security/dists/trixie-security/main/binary-amd64/Packages.xz",
+    "packages_sha256": "c177555e5c754ab70e43ddc4ebc1f305599f65483a0b2717af0319f1f8ac05b8",
+    "keyring_sha256": "506b815cbb32d9b6066b4a2aa524071e071761e7e7f68c3ac74f3061ba852017",
+    "gpgv_exit_code": 0,
+    "gpgv_status": "[GNUPG:] NEWSIG\n[GNUPG:] KEY_CONSIDERED 05AB90340C0C5E797F44A8C8254CF3B5AEC0A8F0 0\n[GNUPG:] SIG_ID 1E2RJaB/z+CkraE1JgcnIMCLvbE 2026-09-06 1788719400\n[GNUPG:] GOODSIG BDE6D2B9216EC7A8 Debian Security Archive Automatic Signing Key (12/bookworm) <ftpmaster@debian.org>\n[GNUPG:] VALIDSIG B0CAB9266E8C3929798B3EEEBDE6D2B9216EC7A8 2026-09-06 1788719400 0 4 0 1 8 01 05AB90340C0C5E797F44A8C8254CF3B5AEC0A8F0\n[GNUPG:] NEWSIG\n[GNUPG:] KEY_CONSIDERED 5E04A1E3223A19A20706E20F9904613D4CCE68C6 0\n[GNUPG:] SIG_ID Bdt+eV3jgfzSN+jI5X1RDg9RJ+Q 2026-09-06 1788719400\n[GNUPG:] GOODSIG 8E9F831205B4BA95 Debian Security Archive Automatic Signing Key (13/trixie) <ftpmaster@debian.org>\n[GNUPG:] VALIDSIG 89C87ACEA5DD6B8E6A7068808E9F831205B4BA95 2026-09-06 1788719400 0 4 0 1 8 01 5E04A1E3223A19A20706E20F9904613D4CCE68C6\n",
+    "release_dates": [
+      "Date: Sun, 06 Sep 2026 18:29:59 UTC",
+      "Valid-Until: Sun, 13 Sep 2026 18:29:59 UTC"
+    ],
+    "package_stanza": "Package: bubblewrap\nVersion: 0.12.0-1~deb13u1\nInstalled-Size: 142\nMaintainer: Utopia Maintenance Team <pkg-utopia-maintainers@lists.alioth.debian.org>\nArchitecture: amd64\nDepends: libc6 (>= 2.38), libcap2 (>= 1:2.10), libselinux1 (>= 3.1~)\nDescription: utility for unprivileged chroot and namespace manipulation\nHomepage: https://github.com/containers/bubblewrap\nDescription-md5: 8d0374e451b24b92bb7911ec002d9ed8\nMulti-Arch: foreign\nRecommends: procps\nSection: admin\nPriority: optional\nFilename: pool/updates/main/b/bubblewrap/bubblewrap_0.12.0-1~deb13u1_amd64.deb\nSize: 56876\nSHA256: 70aca4fa8daeacb677ec00e8063eb586f08ae3d94b1f11e684370b5524c43431",
+    "trust_anchor": "Debian archive keyring read from the fixed image; gpgv verification via in-memory file descriptors",
+    "chain": "Verified InRelease signature; Packages.xz hash and size matched signed release; package size and SHA256 matched index and downloaded bytes.",
+    "metadata_retention": "Repository metadata and deb inspected in memory only; hashes and signature results retained here."
+  },
+  "artifacts": [
+    {
+      "package": "bubblewrap",
+      "version": "0.12.0-1~deb13u1",
+      "architecture": "amd64",
+      "filename": "bubblewrap_0.12.0-1~deb13u1_amd64.deb",
+      "relative_path": "bubblewrap_0.12.0-1~deb13u1_amd64.deb",
+      "url": "https://security.debian.org/debian-security/pool/updates/main/b/bubblewrap/bubblewrap_0.12.0-1~deb13u1_amd64.deb",
+      "size_bytes": 56876,
+      "sha256": "70aca4fa8daeacb677ec00e8063eb586f08ae3d94b1f11e684370b5524c43431",
+      "byte_verification": "PASS; downloaded and hashed in memory; not saved or installed",
+      "disposition": "REJECTED for the formal Codex runtime after 06p-4: the binary is valid Debian bubblewrap 0.12.0, but Codex 0.153.4 rejects it because it is not the release-coupled bundled binary.",
+      "runtime_binary": {
+        "archive_path": "./usr/bin/bwrap",
+        "size_bytes": 80248,
+        "mode": "0755",
+        "sha256": "573236e5328ac2ebb08f59ae3a9805b4f8d12bdef14be8af4450d5463294985f"
+      },
+      "depends": "libc6 (>= 2.38), libcap2 (>= 1:2.10), libselinux1 (>= 3.1~)",
+      "recommends": "procps",
+      "maintainer_scripts": {
+        "postinst": "If sysctl exists, attempts sysctl --quiet --pattern '^kernel.unprivileged_userns_clone$' --system || :",
+        "executed": false
+      }
+    },
+    {
+      "package": "OpenAI Codex bundled bubblewrap",
+      "codex_version": "0.153.4",
+      "release_tag": "rust-v0.153.4",
+      "architecture": "x86_64-unknown-linux-musl",
+      "filename": "bwrap-x86_64-unknown-linux-musl.tar.gz",
+      "relative_path": "bwrap-x86_64-unknown-linux-musl.tar.gz",
+      "url": "https://github.com/openai/codex/releases/download/rust-v0.153.4/bwrap-x86_64-unknown-linux-musl.tar.gz",
+      "release_page": "https://github.com/openai/codex/releases/tag/rust-v0.153.4",
+      "created_at_utc": "2026-09-04T23:23:48Z",
+      "size_bytes": 261563,
+      "sha256": "e7d65c75e05637e42b93f6abf9222fa0d26b537648a7a34c122b75021d41756d",
+      "byte_verification": "PASS; persisted bytes match the digest returned by the GitHub release API.",
+      "runtime_binary": {
+        "archive_path": "bwrap-x86_64-unknown-linux-musl",
+        "size_bytes": 529776,
+        "mode": "0755",
+        "sha256": "77360cb751ccedc5971391444ac86a8a33c15b04d6b4a6fe45f5d25496e62c4c",
+        "version_output": "bubblewrap built for Codex"
+      },
+      "selection_reason": "The embedded integrity check in the pinned Codex 0.153.4 binary requires this exact runtime-binary digest. The independently downloaded same-release artifact matches it.",
+      "maintainer_scripts": {
+        "present": false,
+        "executed": false
+      }
+    }
+  ],
+  "existing_dependency_closure": [
+    {
+      "package": "libc6",
+      "version": "2.41-12+deb13u3",
+      "depends": "libgcc-s1",
+      "architecture": "amd64",
+      "source": "already installed in fixed image",
+      "additional_download_required": false
+    },
+    {
+      "package": "libcap2",
+      "version": "1:2.75-10+deb13u1+b1",
+      "depends": "libc6 (>= 2.38)",
+      "architecture": "amd64",
+      "source": "already installed in fixed image",
+      "additional_download_required": false
+    },
+    {
+      "package": "libselinux1",
+      "version": "3.8.1-1",
+      "depends": "libc6 (>= 2.38), libpcre2-8-0 (>= 10.22)",
+      "architecture": "amd64",
+      "source": "already installed in fixed image",
+      "additional_download_required": false
+    },
+    {
+      "package": "libpcre2-8-0",
+      "version": "10.46-1~deb13u1",
+      "depends": "libc6 (>= 2.34)",
+      "architecture": "amd64",
+      "source": "already installed in fixed image",
+      "additional_download_required": false
+    },
+    {
+      "package": "libgcc-s1",
+      "version": "14.2.0-19",
+      "depends": "gcc-14-base (= 14.2.0-19), libc6 (>= 2.35)",
+      "architecture": "amd64",
+      "source": "already installed in fixed image",
+      "additional_download_required": false
+    },
+    {
+      "package": "gcc-14-base",
+      "version": "14.2.0-19",
+      "depends": "",
+      "architecture": "amd64",
+      "source": "already installed in fixed image",
+      "additional_download_required": false
+    }
+  ],
+  "dependency_check": {
+    "status": "PASS",
+    "method": "dpkg-query for the dependency closure; dpkg --compare-versions for required version constraints",
+    "additional_required_dependency_artifacts": 0,
+    "recommended_packages_policy": "Do not add Recommends automatically; procps is not a required dependency.",
+    "scope": "Package-level dependency compatibility only; executable loading and actual sandbox startup remain pending."
+  },
+  "installation_constraints": {
+    "installation_approved": true,
+    "no_maintainer_scripts": true,
+    "no_sysctl_changes": true,
+    "no_host_security_changes": true,
+    "proposed_method": "Extract only the pinned same-release OpenAI bwrap binary into /opt/agent/bwrap/bin/bwrap and verify its archive hash, executable hash, mode, version output, and PATH resolution during the image build.",
+    "package_database_note": "The selected official Codex artifact is a standalone static release binary and is not registered in dpkg.",
+    "sandbox_policy_note": "The binary does not itself relax Docker controls. The separately pinned seccomp profile and loaded task-specific AppArmor profile remain mandatory."
+  },
+  "runtime_validation": {
+    "step": "06p",
+    "result": "PASS",
+    "image_id": "sha256:5331d81398045534dfca13267402e4f97dad9d6ad43524a62b05286741e960a9",
+    "apparmor_profile_sha256": "9af14cd898a11fa44178062e1854b059aeb5060dd3d5f4f0142ee57d3cf67123",
+    "seccomp_profile_sha256": "1a25ca5c611f8acd56d436b6bf61cce4dd4f9115291e22929152b50a9915ac25",
+    "permission_profile": ":workspace",
+    "results": {
+      "sandbox_startup": "PASS",
+      "workspace_write": "PASS",
+      "outside_write_denial": "PASS",
+      "network_isolation": "PASS"
+    },
+    "evidence": "Log/scrapy-pr8073-test-only-600152fbc76dd5ba-baseline-and-deployment-audits/agent-sandbox-bubblewrap-final-06p.json"
+  },
+  "next_step": "06q: verify the complete common agent dependency set and run the next approved smoke validation without installing any SDD tool."
+}

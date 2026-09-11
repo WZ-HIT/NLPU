@@ -1,0 +1,1298 @@
+diff --git a/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/runs/openspec/scrapy/.agents/skills/.openspec-target b/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/runs/openspec/scrapy/.agents/skills/.openspec-target
+new file mode 100644
+index 0000000..2695308
+--- /dev/null
++++ b/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/runs/openspec/scrapy/.agents/skills/.openspec-target
+@@ -0,0 +1 @@
++codex
+diff --git a/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/runs/openspec/scrapy/.agents/skills/openspec-apply-change/SKILL.md b/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/runs/openspec/scrapy/.agents/skills/openspec-apply-change/SKILL.md
+new file mode 100644
+index 0000000..d23f2b3
+--- /dev/null
++++ b/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/runs/openspec/scrapy/.agents/skills/openspec-apply-change/SKILL.md
+@@ -0,0 +1,188 @@
++---
++name: openspec-apply-change
++description: Implement tasks from an OpenSpec change. Use when the user wants to start implementing, continue implementation, or work through tasks.
++allowed-tools: Bash(openspec:*)
++license: MIT
++compatibility: Requires openspec CLI.
++metadata:
++  author: openspec
++  version: "1.0"
++  generatedBy: "1.12.0"
++---
++
++Implement tasks from an OpenSpec change.
++
++**Store selection:** If the user names a store (a store is a standalone OpenSpec repo registered on this machine) or the work lives in one, run `openspec store list --json` to discover registered store ids, then pass `--store <id>` on the commands that read or write specs and changes (`new change`, `status`, `instructions`, `list`, `show`, `validate`, `archive`, `doctor`, `context`, `schemas`, `view`). Once selected, treat `--store <id>` as sticky for the rest of the workflow. Every unscoped example of those commands below is shorthand: before running it, append the flag. For example, run `openspec status --change "<name>" --json --store "<id>"`, not the unscoped form shown below. Other commands do not take the flag. Hints printed by commands already carry the flag; keep it on follow-ups. Without a store, commands act on the nearest local `openspec/` root.
++
++**Input**: Optionally specify a change name (e.g., `$openspec-apply-change (Codex) or /openspec-apply-change (other agents) add-auth`). If omitted, check if it can be inferred from conversation context. If vague or ambiguous you MUST prompt for available changes.
++
++**Steps**
++
++1. **Select the change**
++
++   If a name is provided, use it. Otherwise:
++   - Infer from conversation context if the user mentioned a change
++   - Auto-select if only one active change exists
++   - If ambiguous, run `openspec list --json` to get available changes and ask the user to select one
++
++   Always announce: "Using change: <name>" and how to override (e.g., `$openspec-apply-change (Codex) or /openspec-apply-change (other agents) <other>`).
++
++2. **Check status to understand the schema**
++   ```bash
++   openspec status --change "<name>" --json
++   ```
++   Parse the JSON to understand:
++   - `schemaName`: The workflow being used (e.g., "spec-driven")
++   - `planningHome`, `changeRoot`, and `actionContext`: planning scope and edit constraints
++   - Which artifact contains the tasks (typically "tasks" for spec-driven, check status for others)
++
++3. **Get apply instructions**
++
++   ```bash
++   openspec instructions apply --change "<name>" --json
++   ```
++
++   This returns:
++   - `contextFiles`: artifact ID -> array of concrete file paths (varies by schema - could be proposal/specs/design/tasks or spec/tests/implementation/docs)
++   - Progress (total, complete, remaining)
++   - Task list with status
++   - Dynamic instruction based on current state
++   - Optional `context`: current required project instruction input from the selected root
++   - Optional `operationGuidance`: current advisory guidance for apply
++
++   **Handle states:**
++   - If `state: "blocked"` (missing artifacts): show message, suggest using `$openspec-continue-change (Codex) or /openspec-continue-change (other agents)` (if it is not installed, run `openspec status --change "<name>" --json` to see the next artifact and `openspec instructions <artifact-id> --change "<name>" --json` for how to create it)
++   - If `state: "all_done"`: congratulate, suggest archive
++   - Otherwise: proceed to implementation
++
++   Treat `context` as a required prompt-level input. Read and consider it, and
++   apply relevant project facts, conventions, and constraints while implementing.
++   Treat `operationGuidance` as optional additive advice. Read and consider every
++   entry, and follow entries that are applicable and compatible with the built-in
++   workflow.
++
++   Keep both fields separate from CLI-returned state, missing artifacts, tasks,
++   progress, `contextFiles`, and the built-in `instruction`. They are not
++   evidence of task completion, do not replace the built-in instruction, and do
++   not permit bypassing a blocked state. If context conflicts with the built-in
++   instruction, an explicit user choice, or a CLI-controlled value, report the
++   conflict and preserve the controlling value. If guidance is inapplicable or
++   conflicts with those controlling inputs, do not follow it and explain why.
++   These are prompt-level behavior contracts, not enforceable checks.
++
++4. **Read context files**
++
++   Read every file path listed under `contextFiles` from the apply instructions output.
++   The files depend on the schema being used:
++   - **spec-driven**: proposal, specs, design, tasks
++   - Other schemas: follow the contextFiles from CLI output
++
++   Do not copy `context` or `operationGuidance` verbatim into implementation
++   files or planning artifacts unless the user separately asks for that content.
++
++5. **Show current progress**
++
++   Display:
++   - Schema being used
++   - Progress: "N/M tasks complete"
++   - Remaining tasks overview
++   - Dynamic instruction from CLI
++
++6. **Implement tasks (loop until done or blocked)**
++
++   For each pending task:
++   - Show which task is being worked on
++   - Make the code changes required
++   - Keep changes minimal and focused
++   - Mark task complete in the tasks file: `- [ ]` → `- [x]`
++   - Continue to next task
++
++   **Pause if:**
++   - Task is unclear → ask for clarification
++   - Implementation reveals a design issue → suggest updating artifacts
++   - A task needs work beyond what the spec and tasks describe, or you are tempted to drop, narrow, defer, or accept exceptions to specified behavior to make it fit → surface the added scope and ask; do not absorb it silently
++   - Error or blocker encountered → report and wait for guidance
++   - User interrupts
++
++7. **On completion or pause, show status**
++
++   Display:
++   - Tasks completed this session
++   - Overall progress: "N/M tasks complete"
++   - If all done: suggest archive
++   - If paused: explain why and wait for guidance
++
++**Output During Implementation**
++
++```
++## Implementing: <change-name> (schema: <schema-name>)
++
++Working on task 3/7: <task description>
++[...implementation happening...]
++✓ Task complete
++
++Working on task 4/7: <task description>
++[...implementation happening...]
++✓ Task complete
++```
++
++**Output On Completion**
++
++```
++## Implementation Complete
++
++**Change:** <change-name>
++**Schema:** <schema-name>
++**Progress:** 7/7 tasks complete ✓
++
++### Completed This Session
++- [x] Task 1
++- [x] Task 2
++...
++
++All tasks complete! You can archive this change with `$openspec-archive-change (Codex) or /openspec-archive-change (other agents)`.
++```
++
++**Output On Pause (Issue Encountered)**
++
++```
++## Implementation Paused
++
++**Change:** <change-name>
++**Schema:** <schema-name>
++**Progress:** 4/7 tasks complete
++
++### Issue Encountered
++<description of the issue>
++
++**Options:**
++1. <option 1>
++2. <option 2>
++3. Other approach
++
++What would you like to do?
++```
++
++**Guardrails**
++- Keep going through tasks until done or blocked
++- Always read context files before starting (from the apply instructions output)
++- If task is ambiguous, pause and ask before implementing
++- If implementation reveals issues, pause and suggest artifact updates
++- Keep code changes minimal and scoped to each task
++- Update task checkbox immediately after completing each task
++- Pause on errors, blockers, or unclear requirements - don't guess
++- When a task needs work beyond what the spec describes, surface the added scope and pause - never silently narrow, defer, or simplify away specified behavior
++- Only mark a task `- [x]` when its specified behavior is fully implemented, not when it is partially done or deferred
++- Use contextFiles from CLI output, don't assume specific file names
++- Do not use context or operation guidance as proof that a task is complete
++- Apply relevant project context; report conflicts with controlling workflow inputs
++- Consider every guidance entry; explain any inapplicable or conflicting advice
++- Do not copy runtime context or operation guidance into implementation files or planning artifacts
++- Preserve CLI-controlled blocked/ready/all-done behavior and completion criteria
++
++**Fluid Workflow Integration**
++
++This skill supports the "actions on a change" model:
++
++- **Can be invoked anytime**: Before all artifacts are done (if tasks exist), after partial implementation, interleaved with other actions
++- **Allows artifact updates**: If implementation reveals design issues, suggest updating artifacts - not phase-locked, work fluidly
+diff --git a/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/runs/openspec/scrapy/.agents/skills/openspec-archive-change/SKILL.md b/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/runs/openspec/scrapy/.agents/skills/openspec-archive-change/SKILL.md
+new file mode 100644
+index 0000000..b83ab87
+--- /dev/null
++++ b/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/runs/openspec/scrapy/.agents/skills/openspec-archive-change/SKILL.md
+@@ -0,0 +1,182 @@
++---
++name: openspec-archive-change
++description: Archive a completed change in the experimental workflow. Use when the user wants to finalize and archive a change after implementation is complete.
++allowed-tools: Bash(openspec:*)
++license: MIT
++compatibility: Requires openspec CLI.
++metadata:
++  author: openspec
++  version: "1.0"
++  generatedBy: "1.12.0"
++---
++
++Archive a completed change in the experimental workflow.
++
++**Store selection:** If the user names a store (a store is a standalone OpenSpec repo registered on this machine) or the work lives in one, run `openspec store list --json` to discover registered store ids, then pass `--store <id>` on the commands that read or write specs and changes (`new change`, `status`, `instructions`, `list`, `show`, `validate`, `archive`, `doctor`, `context`, `schemas`, `view`). Once selected, treat `--store <id>` as sticky for the rest of the workflow. Every unscoped example of those commands below is shorthand: before running it, append the flag. For example, run `openspec status --change "<name>" --json --store "<id>"`, not the unscoped form shown below. Other commands do not take the flag. Hints printed by commands already carry the flag; keep it on follow-ups. Without a store, commands act on the nearest local `openspec/` root.
++
++`<capability-path>` is the spec directory relative to `specs/` (for example, `user-auth` or `identity/user-auth`). Preserve the full path from each delta spec when resolving its main spec.
++
++**Input**: Optionally specify a change name. If omitted, check if it can be inferred from conversation context. If vague or ambiguous you MUST prompt for available changes.
++
++**Steps**
++
++1. **Select the change**
++
++   If a name is provided, use it. Otherwise:
++   - Infer from conversation context if the user mentioned a change
++   - Auto-select if only one active change exists
++   - If ambiguous, run `openspec list --json` to get available changes and ask the user to select one
++
++   When prompting, show only active changes (not already archived).
++   Include the schema used for each change if available.
++
++   Always announce: "Using change: <name>" and how to override (e.g., `$openspec-archive-change (Codex) or /openspec-archive-change (other agents) <other>`).
++
++   **Load current archive inputs before the existing archive checks:**
++
++   After resolving the selected change and planning root, run:
++   ```bash
++   openspec instructions archive --change "<name>" --json
++   ```
++   Keep the same selected-root flags on this command. This lookup is advisory and
++   optional: it only supplies extra prompt inputs, so it must never block archiving.
++   If it exits non-zero or returns invalid JSON — for example on an older CLI that
++   does not support this command yet — continue the archive workflow with no
++   context and no operation guidance. Do not report an error and do not stop.
++
++   A successful response may omit both optional fields. Treat `context` as a
++   required prompt-level input: read and consider it, and apply relevant project
++   facts, conventions, and constraints. Treat `operationGuidance` as optional
++   additive advice: read and consider every entry, and follow entries that are
++   applicable and compatible with the built-in archive workflow.
++
++   Keep both fields separate from built-in steps, explicit user choices, resolved
++   paths, CLI checks, and command contracts. If context conflicts with one of those
++   controlling inputs, report the conflict and preserve the controlling value. If
++   guidance is inapplicable or conflicts with a controlling input, do not follow it
++   and explain why. Do not infer replacement paths, skipped prompts, or flags from
++   either field, and do not copy their text verbatim into specs, change artifacts,
++   or archive summaries unless the user separately asks for it. These are
++   prompt-level behavior contracts, not enforceable checks.
++
++2. **Check artifact completion status**
++
++   Run `openspec status --change "<name>" --json` to check artifact completion.
++
++   Parse the JSON to understand:
++   - `schemaName`: The workflow being used
++   - `planningHome`, `changeRoot`, `artifactPaths`, and `actionContext`: path and scope context
++   - `artifacts`: List of artifacts with their status (`done`, `skipped`, or other)
++
++   **If any artifacts are neither `done` nor `skipped`** (skipped artifacts satisfy the requirement - the change declares skip_specs):
++   - Display warning listing incomplete artifacts
++   - Ask the user to confirm they want to proceed
++   - Proceed if user confirms
++
++3. **Check task completion status**
++
++   Read the tasks file (typically `tasks.md`) to check for incomplete tasks.
++
++   Count tasks marked with `- [ ]` (incomplete) vs `- [x]` (complete).
++
++   **If incomplete tasks found:**
++   - Display warning showing count of incomplete tasks
++   - Ask the user to confirm they want to proceed
++   - Proceed if user confirms
++
++   **If no tasks file exists:** Proceed without task-related warning.
++
++4. **Assess delta spec sync state**
++
++   Use `artifactPaths.specs.existingOutputPaths` from status JSON as the only
++   delta-spec source. If the `specs` entry is missing or
++   `existingOutputPaths` is empty, proceed without a sync prompt and do not infer
++   delta specs from other artifacts.
++
++   **If delta specs exist:**
++   - Compare each delta spec with its corresponding main spec at `<planningHome.root>/openspec/specs/<capability-path>/spec.md` (use the store-aware `planningHome.root` from step 2, not a hardcoded repo path)
++   - Determine what changes would be applied (adds, modifications, removals, renames)
++   - Show a combined summary before prompting
++
++   **Prompt options:**
++   - If changes needed: "Sync now (recommended)", "Archive without syncing"
++   - If already synced: "Archive now", "Sync anyway", "Cancel"
++
++   Route on the answer:
++   - "Cancel" — stop, do not archive
++   - "Archive without syncing" or "Archive now" — proceed to archive
++   - "Sync now" or "Sync anyway" — sync, then verify (below)
++   - Anything else — ask again rather than archiving
++
++   Before a selected sync writes any main spec, run
++   `openspec instructions specs --change "<name>" --json` once with the same
++   selected-root flags. Require a zero exit status and valid artifact-instruction
++   JSON. If the lookup fails or returns invalid JSON, report the error and stop
++   before writing any main spec or moving the change. A valid response with omitted
++   `rules` is the no-rules case. Apply returned `rules` only to the content and
++   form of main specs produced by this merge; do not use them as archive guidance,
++   change CLI behavior, or copy the rule text into any output file.
++
++   Then run the `openspec-sync-specs` workflow inline (agent-driven intelligent merge) for change '<name>', passing the delta spec analysis and the fetched specs-rule snapshot from above, and wait for it to finish. The inline sync must reuse that snapshot without fetching `specs` instructions again. Do not delegate it to a background task — step 5 would move `changeRoot` out from under a sync that is still reading it, leaving the change archived and the main specs never updated. If your agent can only run it by delegation, delegate synchronously and wait for the result.
++
++   Then re-run the comparison from the top of this step against every capability that has a delta spec in `artifactPaths.specs.existingOutputPaths` — not only the ones the sync reports it touched. A successful sync leaves nothing left to apply, so each capability must now read as already synced:
++   - ADDED requirements present
++   - MODIFIED requirements carrying the scenario and description changes named in the delta, with their other scenarios intact
++   - REMOVED requirements gone — and where this sync retired a capability (removed its last requirement, leaving `## Requirements` empty), its main spec deleted rather than left empty; a spec the sync deliberately kept and reported is also a match
++   - RENAMED requirements present under the new name and absent under the old one
++
++   If the sync failed, or any capability does not match, report what differs and stop — do not archive. Nothing has moved and `changeRoot` is intact, so the user can fix the mismatch or re-run the sync and start the archive again.
++
++5. **Perform the archive**
++
++   Create an `archive` directory under `planningHome.changesDir` if it doesn't exist:
++   ```bash
++   mkdir -p "<planningHome.changesDir>/archive"
++   ```
++
++   Generate the target name: use the change name as-is when it already starts with a `YYYY-MM-DD-` prefix; otherwise prepend the current date as `YYYY-MM-DD-<change-name>`. Never stack a second date (same rule as `openspec archive`).
++
++   **Check if target already exists:**
++   - If yes: Fail with error, suggest renaming existing archive or using different date
++   - If no: Move `changeRoot` to the archive directory
++
++   ```bash
++   mv "<changeRoot>" "<planningHome.changesDir>/archive/<target-name>"
++   ```
++
++6. **Display summary**
++
++   Show archive completion summary including:
++   - Change name
++   - Schema that was used
++   - Archive location
++   - Whether specs were synced (if applicable)
++   - Note about any warnings (incomplete artifacts/tasks)
++
++**Output On Success**
++
++```markdown
++## Archive Complete
++
++**Change:** <change-name>
++**Schema:** <schema-name>
++**Archived to:** the archive path derived from `planningHome.changesDir`/<target-name>/
++**Specs:** <"✓ Synced to main specs" only if the step 4 verification passed; otherwise "No delta specs" or "Sync skipped">
++
++<"All artifacts complete. All tasks complete." — or, if archived with warnings, list them instead (e.g. "Archived with 2 incomplete tasks")>
++```
++
++**Guardrails**
++- Announce the selected change; prompt for selection when it is ambiguous
++- Use artifact graph (openspec status --json) for completion checking
++- Don't block archive on warnings - just inform and confirm
++- Preserve .openspec.yaml when moving to archive (it moves with the directory)
++- Show clear summary of what happened
++- If sync is requested, run the `openspec-sync-specs` workflow inline (agent-driven)
++- Never archive while a spec sync is still in flight — run the sync inline and verify the main specs before moving `changeRoot`
++- If delta specs exist, always run the sync assessment and show the combined summary before prompting
++- Apply relevant runtime context and report conflicts; operation guidance remains advisory
++- Consider every guidance entry and explain any inapplicable or conflicting advice
++- Existing CLI checks, resolved paths, prompts, and command contracts are unchanged
++- Artifact rules constrain only the specs being written and are never operation guidance
++- Never copy runtime context, operation guidance, or artifact-rule text verbatim into output files
+diff --git a/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/runs/openspec/scrapy/.agents/skills/openspec-explore/SKILL.md b/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/runs/openspec/scrapy/.agents/skills/openspec-explore/SKILL.md
+new file mode 100644
+index 0000000..28bb0ee
+--- /dev/null
++++ b/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/runs/openspec/scrapy/.agents/skills/openspec-explore/SKILL.md
+@@ -0,0 +1,335 @@
++---
++name: openspec-explore
++description: Enter explore mode - a thinking partner for exploring ideas, investigating problems, and clarifying requirements. Use when the user wants to think through something before or during a change.
++allowed-tools: Bash(openspec:*)
++license: MIT
++compatibility: Requires openspec CLI.
++metadata:
++  author: openspec
++  version: "1.0"
++  generatedBy: "1.12.0"
++---
++
++Enter explore mode. Think deeply. Visualize freely. Follow the conversation wherever it goes.
++
++**IMPORTANT: Explore mode is for thinking, not implementing.** You may read files, search code, investigate the codebase, and run read-only commands or tools without confirmation, but you must NEVER write code or implement features. If the user asks you to implement something, remind them to exit explore mode first and create a change proposal. You MAY create or update OpenSpec change artifacts (proposals, designs, specs) within a confirmed scope—that's capturing thinking, not implementing. Answering design or clarifying questions is never consent to write. Before the first write-capable action, name the artifacts or files you would change and what you would do, ask a direct yes/no question, and wait for the user's confirmation in a separate message. Confirmation covers only the scope you described; ask again before expanding it. For a new change, scaffold it first as described below.
++
++**This is a stance, not a workflow.** There are no fixed steps, no required sequence, no mandatory outputs. You're a thinking partner helping the user explore.
++
++**Store selection:** If the user names a store (a store is a standalone OpenSpec repo registered on this machine) or the work lives in one, run `openspec store list --json` to discover registered store ids, then pass `--store <id>` on the commands that read or write specs and changes (`new change`, `status`, `instructions`, `list`, `show`, `validate`, `archive`, `doctor`, `context`, `schemas`, `view`). Once selected, treat `--store <id>` as sticky for the rest of the workflow. Every unscoped example of those commands below is shorthand: before running it, append the flag. For example, run `openspec status --change "<name>" --json --store "<id>"`, not the unscoped form shown below. Other commands do not take the flag. Hints printed by commands already carry the flag; keep it on follow-ups. Without a store, commands act on the nearest local `openspec/` root.
++
++---
++
++## The Stance
++
++- **Curious, not prescriptive** - Ask questions that emerge naturally, don't follow a script
++- **Open threads, not interrogations** - Surface multiple interesting directions and let the user follow what resonates. Don't funnel them through a single path of questions.
++- **Visual** - Use ASCII diagrams liberally when they'd help clarify thinking
++- **Adaptive** - Follow interesting threads, pivot when new information emerges
++- **Patient** - Don't rush to conclusions, let the shape of the problem emerge
++- **Grounded** - Explore the actual codebase when relevant, don't just theorize
++
++---
++
++## Planning a Change
++
++When the user is planning a change, guide them toward shared understanding with focused discovery questions. For open-ended discussion, follow the conversation without imposing an interview or a required output.
++
++Before asking a factual question, follow the context discovery below and inspect relevant OpenSpec artifacts, source, tests, docs, and configuration. Do not ask the user to repeat facts you can verify. Summarize relevant findings without reproducing private context or rules. If evidence is missing, conflicting, or inaccessible, state that limitation and ask only for the clarification needed to proceed.
++
++- **Follow dependencies** - Resolve the next blocking decision before its dependent details. For example, clarify the user's outcome and scope before choosing an API or data model. Revisit downstream assumptions when an earlier answer changes. Skip branches that do not matter to this goal.
++- **Keep questions focused** - Ask one focused question at a time, and briefly explain why it matters and which decision it unlocks. Batch questions only if the user asks for a batch; keep them small and group related decisions.
++- **Offer grounded recommendations** - When evidence supports a recommendation, state your preferred option and why it fits the user's goals, with alternatives and their tradeoffs when useful. Do not invent intent, priorities, or external constraints: ask the user when only they can answer. Avoid a fixed question format.
++- **Keep a conversational record** - Track decisions in the conversation, not in files. Separate confirmed decisions from proposed defaults and unresolved questions. Silence is not acceptance. Accepting an answer or a batch of recommendations is not permission to write. Keep file-write confirmation separate from discovery questions and follow the guardrails below.
++
++Stop asking when the user has enough clarity. Let them pause, pivot, or defer a decision; do not exhaust every branch or force a proposal.
++
++For example, after inspecting the relevant code:
++
++```text
++The CLI already uses SQLite and has no remote service. Is sharing state
++across devices in scope? That determines whether local storage is enough.
++If this stays a single-device tool, I recommend keeping SQLite to avoid
++adding a service to operate; shared state would need a separate sync design.
++```
++
++---
++
++## What You Might Do
++
++Depending on what the user brings, you might:
++
++**Explore the problem space**
++- Ask clarifying questions that emerge from what they said
++- Challenge assumptions
++- Reframe the problem
++- Find analogies
++
++**Investigate the codebase**
++- Map existing architecture relevant to the discussion
++- Find integration points
++- Identify patterns already in use
++- Surface hidden complexity
++
++**Compare options**
++- Brainstorm multiple approaches
++- Build comparison tables
++- Sketch tradeoffs
++- Recommend a path (if asked)
++
++**Visualize**
++```
+++------------------------------------------+
++|     Use ASCII diagrams liberally         |
+++------------------------------------------+
++|                                          |
++|   [State A] -------> [State B]           |
++|       |                                  |
++|       v                                  |
++|   [State C]                              |
++|                                          |
++|   System diagrams, state machines,       |
++|   data flows, architecture sketches,     |
++|   dependency graphs, comparison tables   |
++|                                          |
+++------------------------------------------+
++```
++
++**Draw with plain ASCII only** — borders `+` `-` `|`, arrows `-->` `<--` `^` `v`, markers `*` `x`.
++Unicode diagram glyphs can render at different widths across terminals, fonts, and locales, so padded boxes and aligned tables can drift. Keep every diagram character ASCII.
++
++**Surface risks and unknowns**
++- Identify what could go wrong
++- Find gaps in understanding
++- Suggest spikes or investigations
++
++---
++
++## OpenSpec Awareness
++
++You have full context of the OpenSpec system. Use it naturally, don't force it.
++
++### Check for context
++
++At the start, quickly check what exists:
++```bash
++openspec list --json
++```
++
++This tells you:
++- If there are active changes
++- Their names, schemas, and status
++- What the user might be working on
++
++Then read the project's own context from the resolved root - `<root.path>/openspec/config.yaml` (or `config.yml`). Use the `root.path` returned above, and skip this if neither file exists:
++- `context`: project background - tech stack, conventions, constraints
++- `rules`: keyed by artifact id - the entries for an artifact apply only when you write that artifact
++
++Ground your thinking in these. They are constraints for you to follow, not content to reproduce: do NOT copy them into the conversation or into any artifact you create.
++
++### When no change exists
++
++Think freely. When insights crystallize, you might offer:
++
++- "This feels solid enough to start a change. Want me to create a proposal?"
++- Or keep exploring - no pressure to formalize
++
++If the user asks you to capture the exploration as a new change, transition seamlessly into the requested capture:
++
++1. Run `openspec new change "<name>"` (with `--store <id>` when applicable) before creating any artifacts. Never create a new change directory under `openspec/changes/` by hand; the CLI scaffold creates required metadata such as `.openspec.yaml`. Keep the selected `--store <id>` on every applicable follow-up `status` and `instructions` command.
++2. Run `openspec status --change "<name>" --json` (append the confirmed `--store "<id>"` only for a registered standalone store), then process the requested artifacts in dependency order. For each requested artifact that is `ready`, run `openspec instructions "<artifact-id>" --change "<name>" --json` (append the confirmed `--store "<id>"` only for a registered standalone store). Before creating a requested artifact, evaluate any condition in its own `instruction` against the explored change; record a deliberate skip instead when the condition does not apply. If a requested artifact is blocked by a direct prerequisite the user did not request, run `openspec instructions "<prerequisite-id>" --change "<name>" --json` (append the confirmed `--store "<id>"` only for a registered standalone store) for that prerequisite whether it is `ready` or `blocked`. If its own `instruction` states a condition, evaluate that condition against the explored change and record a deliberate skip only when the condition does not apply. If the condition applies, or the prerequisite is not conditional, treat it as a normal prerequisite and ask before expanding the capture. Do not create an unrequested prerequisite unless the user approves.
++3. Follow the returned `template` and `instruction` fields. Read completed dependency files listed in `dependencies`, and apply `context` and `rules` as constraints without copying them into the artifact. If the instruction delegates creation to a specific skill or command, invoke it; otherwise write the artifact to `resolvedOutputPath`, using the instruction to choose a concrete path when it is a glob. Verify that the selected concrete output exists.
++4. After creating each artifact, re-run `openspec status --change "<name>" --json` (append the confirmed `--store "<id>"` only for a registered standalone store) and continue until every requested artifact is `done`, `skipped`, or was deliberately skipped because its own `instruction` stated a condition that did not apply. Tell the user about a deliberate conditional skip, remember it, and do not reconsider it. Dependencies are enablers, not gates: if a requested artifact is still `blocked` only because you deliberately skipped a conditional prerequisite, run `openspec instructions "<artifact-id>" --change "<name>" --json` (append the confirmed `--store "<id>"` only for a registered standalone store) despite the blocked status, then create it using step 3 only when those recorded conditional skips are its sole missing dependencies. If a requested artifact is blocked by a prerequisite the user did not ask to capture and cannot be conditionally skipped, explain that dependency and ask before expanding the capture.
++
++Capture the artifact(s) the user requested without asking them to invoke another workflow command. If they asked only to start a change, stop after scaffolding and show its status.
++
++### When a change exists
++
++If the user mentions a change or you detect one is relevant:
++
++1. **Resolve and read existing artifacts for context**
++   - Run `openspec status --change "<name>" --json`.
++   - Use `changeRoot`, `artifactPaths`, and `actionContext` from the status JSON.
++   - Read existing files from `artifactPaths.<artifact>.existingOutputPaths`.
++
++2. **Reference them naturally in conversation**
++   - "Your design mentions using Redis, but we just realized SQLite fits better..."
++   - "The proposal scopes this to premium users, but we're now thinking everyone..."
++
++3. **Offer to capture when decisions are made**
++
++   `<capability-path>` is the spec directory relative to `specs/` (for example, `user-auth` or `identity/user-auth`). Preserve an existing capability's full path and follow the project's established organization for new capabilities.
++
++    | Insight Type               | Where to Capture                    |
++    |----------------------------|-------------------------------------|
++    | New requirement discovered | `specs/<capability-path>/spec.md` |
++    | Requirement changed        | `specs/<capability-path>/spec.md` |
++    | Design decision made       | `design.md`                       |
++    | Scope changed              | `proposal.md`                     |
++    | New work identified        | `tasks.md`                        |
++    | Assumption invalidated     | Relevant artifact                   |
++
++   Example offers:
++   - "That's a design decision. Capture it in design.md?"
++   - "This is a new requirement. Add it to specs?"
++   - "This changes scope. Update the proposal?"
++
++4. **The user decides** - Offer and move on. Don't pressure. Don't auto-capture.
++
++---
++
++## What You Don't Have To Do
++
++- Follow a script
++- Ask the same questions every time
++- Produce a specific artifact
++- Reach a conclusion
++- Stay on topic if a tangent is valuable
++- Be brief (this is thinking time)
++
++---
++
++## Handling Different Entry Points
++
++**User brings a vague idea:**
++```
++User: I'm thinking about adding real-time collaboration
++
++You: Real-time collab is a big space. Let me think about this...
++
++      COLLABORATION SPECTRUM
++      ============================================
++
++      Awareness          Coordination         Sync
++          |                   |                 |
++          v                   v                 v
++      +--------+         +--------+        +--------+
++      |Presence|         |Cursors |        |  CRDT  |
++      |  "3    |         | Multi  |        |Conflict|
++      |online" |         | select |        |  free  |
++      +--------+         +--------+        +--------+
++          |                   |                 |
++       trivial            moderate           complex
++
++      Where's your head at?
++```
++
++**User brings a specific problem:**
++```
++User: The auth system is a mess
++
++You: [reads codebase]
++
++     +---------------------------------------------+
++     |              CURRENT AUTH FLOW              |
++     +---------------------------------------------+
++                        |
++          +-------------+-------------+
++          v             v             v
++     +---------+  +---------+  +---------+
++     | Google  |  |  GitHub |  |  Email  |
++     |  OAuth  |  |  OAuth  |  |  Magic  |
++     +----+----+  +----+----+  +----+----+
++          |             |             |
++          +-------------+-------------+
++                        v
++                  +-----------+
++                  |  Session  |
++                  +-----+-----+
++                        |
++                        v
++                  +-----------+
++                  |   Perms   |
++                  +-----------+
++
++     I see three tangles. Which one's burning?
++```
++
++**User is stuck mid-implementation:**
++```
++User: $openspec-explore (Codex) or /openspec-explore (other agents) add-auth-system
++      The OAuth integration is more complex than expected
++
++You: [reads change artifacts]
++
++     You're on task 4: "Implement OAuth flow"
++
++     Let me trace what's involved...
++
++     [draws diagram, explores options, suggests paths]
++
++     Want to update the design to reflect this?
++     Or add a spike task to investigate?
++```
++
++**User wants to compare options:**
++```
++User: Should we use Postgres or SQLite?
++
++You: Generic answer is boring. What's the context?
++
++User: A CLI tool that tracks local dev environments
++
++You: That changes everything.
++
++     +-------------------------------------------------+
++     |          CLI TOOL DATA STORAGE                  |
++     +-------------------------------------------------+
++
++     Key constraints:
++     - No daemon running
++     - Must work offline
++     - Single user
++
++                  SQLite          Postgres
++     Deployment   embedded        needs server
++     Offline      yes             no
++     Single file  yes             no
++
++     SQLite. Not even close.
++
++     Unless... is there a sync component?
++```
++
++---
++
++## Ending Discovery
++
++There's no required ending. Discovery might:
++
++- **Flow into a proposal**: "Ready to start? I can create a change proposal."
++- **Result in artifact updates**: "Updated design.md with these decisions"
++- **Just provide clarity**: User has what they need, moves on
++- **Continue later**: "We can pick this up anytime"
++
++When it feels like things are crystallizing, you might summarize:
++
++```
++## What We Figured Out
++
++**The problem**: [crystallized understanding]
++
++**The approach**: [if one emerged]
++
++**Open questions**: [if any remain]
++
++**Next steps** (if ready):
++- Create a change proposal
++- Keep exploring: just keep talking
++```
++
++But this summary is optional. Sometimes the thinking IS the value.
++
++---
++
++## Guardrails
++
++- **Don't implement** - Never write code or implement features. Workflow configuration counts too: creating or editing schemas, templates, or `openspec/config.yaml` is a change, not thinking. Creating or updating OpenSpec change artifacts within the confirmed scope is fine, writing anything else is not.
++- **Don't fake understanding** - If something is unclear, dig deeper
++- **Don't rush** - Discovery is thinking time, not task time
++- **Don't force structure** - Let patterns emerge naturally
++- **Don't auto-capture** - Offer to save insights, don't just do it. Read-only commands and tools need no confirmation. Before the first write-capable action—including `openspec new change` or another command that writes files—name the artifacts or files and proposed changes, ask a direct yes/no question, and wait for explicit confirmation in a separate user message. That confirmation covers only the described scope; ask again before expanding it. Answers to design or clarifying questions are never consent to write.
++- **Don't manually scaffold changes** - Never create a new change directory under `openspec/changes/` by hand. Always use `openspec new change "<name>"` (with `--store <id>` when applicable) so required metadata such as `.openspec.yaml` is created before writing artifacts.
++- **Do visualize** - A good diagram is worth many paragraphs
++- **Do explore the codebase** - Ground discussions in reality
++- **Do question assumptions** - Including the user's and your own
+diff --git a/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/runs/openspec/scrapy/.agents/skills/openspec-propose/SKILL.md b/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/runs/openspec/scrapy/.agents/skills/openspec-propose/SKILL.md
+new file mode 100644
+index 0000000..0e4d83d
+--- /dev/null
++++ b/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/runs/openspec/scrapy/.agents/skills/openspec-propose/SKILL.md
+@@ -0,0 +1,153 @@
++---
++name: openspec-propose
++description: Propose a new change with all artifacts generated in one step. Use when the user wants to quickly describe what they want to build and get a complete proposal with design, specs, and tasks ready for implementation.
++allowed-tools: Bash(openspec:*)
++license: MIT
++compatibility: Requires openspec CLI.
++metadata:
++  author: openspec
++  version: "1.0"
++  generatedBy: "1.12.0"
++---
++
++Propose a new change - create the change and generate all artifacts in one step.
++
++**Planning boundary**: This workflow creates planning artifacts only. The user request that selected or triggered this workflow authorizes planning only, even if it asks to build or fix something. Do not edit project code. After the planning artifacts are complete, stop. Do not start implementation in the same response, even if the initial request asks for it. Wait for a new user request after the artifacts are presented; then start the apply workflow.
++
++I'll create a change with the artifacts your schema defines. With the default spec-driven schema that is:
++- proposal.md (what & why)
++- `specs/<capability-path>/spec.md` (what the system must do - a delta, not the main spec)
++- design.md (how)
++- tasks.md (implementation steps)
++
++`<capability-path>` is the spec directory relative to `specs/` (for example, `user-auth` or `identity/user-auth`). Preserve an existing capability's full path and follow the project's established organization for new capabilities.
++
++When the user is ready to implement, they must start the apply workflow explicitly.
++
++---
++
++**Store selection:** If the user names a store (a store is a standalone OpenSpec repo registered on this machine) or the work lives in one, run `openspec store list --json` to discover registered store ids, then pass `--store <id>` on the commands that read or write specs and changes (`new change`, `status`, `instructions`, `list`, `show`, `validate`, `archive`, `doctor`, `context`, `schemas`, `view`). Once selected, treat `--store <id>` as sticky for the rest of the workflow. Every unscoped example of those commands below is shorthand: before running it, append the flag. For example, run `openspec status --change "<name>" --json --store "<id>"`, not the unscoped form shown below. Other commands do not take the flag. Hints printed by commands already carry the flag; keep it on follow-ups. Without a store, commands act on the nearest local `openspec/` root.
++
++**Input**: The user's request should include a change name (kebab-case) OR a description of what they want to build.
++
++**Steps**
++
++1. **Understand the request and clarify material ambiguity**
++
++   If no clear input is provided, ask the user (open-ended, no preset options):
++   > "What change do you want to work on? Describe what you want to build or fix."
++
++   From their description, derive a kebab-case name (e.g., "add user authentication" → `add-user-auth`).
++
++   **IMPORTANT**: Do NOT proceed without understanding what the user wants to build.
++
++   If the request contains ambiguity that would materially affect scope, externally observable behavior, compatibility, or acceptance criteria, ask the user before creating the change. For minor details, make a reasonable assumption and record it in the planning artifacts.
++
++2. **Determine the workflow schema**
++
++   Use the configured default schema unless the user explicitly requests a different workflow.
++
++   **Use a different schema only if the user:**
++   - Explicitly requests a specific schema by name → use `--schema <schema-name>`
++   - Asks to "show workflows" or asks "what workflows" exist → resolve the authoritative root by running `openspec context --json` from the current working directory. If the user explicitly selected a registered store, use `openspec context --json --store "<store-id>"`. Then run `openspec schemas --json` with its working directory set to the returned `root.path` and let them choose. This preserves roots selected by a local `store:` pointer or the global `defaultStore`; when a registered store was explicitly selected, append `--store "<store-id>"` to `openspec schemas --json` as well. If context reports only `no_openspec_root`, run `openspec schemas --json` from the current working directory instead. Do not use this fallback for invalid or unavailable stores.
++
++   Otherwise, omit `--schema` to preserve the configured default.
++
++3. **Create the change directory**
++
++   Choose one schema form below. If a registered store is selected, append `--store "<store-id>"` to that command and each later OpenSpec command shown below that accepts `--store`.
++
++   Using the configured default:
++   ```bash
++   openspec new change "<name>"
++   ```
++
++   Using an explicitly requested schema:
++   ```bash
++   openspec new change "<name>" --schema "<schema-name>"
++   ```
++   This creates a scaffolded change in the planning home resolved by the CLI with `.openspec.yaml`.
++
++4. **Get the artifact build order**
++   ```bash
++   openspec status --change "<name>" --json
++   ```
++   Parse the JSON to get:
++   - `applyRequires`: array of artifact IDs needed before implementation (e.g., `["tasks"]`)
++   - `artifacts`: list of all artifacts, each with its `status` and its `requires` edges (the artifact IDs it directly depends on)
++   - `planningHome`, `changeRoot`, `artifactPaths`, and `actionContext`: path and scope context. Use these instead of assuming repo-local paths.
++
++5. **Create every artifact in the required set**
++
++   Use a todo list to track progress through the artifacts.
++
++   Loop through artifacts in dependency order (artifacts with no pending dependencies first):
++
++   a. **For each artifact that is `ready` (dependencies satisfied)**:
++      - Get instructions:
++        ```bash
++        openspec instructions <artifact-id> --change "<name>" --json
++        ```
++      - The instructions JSON includes:
++        - `context`: Project background (constraints for you - do NOT include in output)
++        - `rules`: Artifact-specific rules (constraints for you - do NOT include in output)
++        - `template`: The structure to use for your output file
++        - `instruction`: Schema-specific guidance for this artifact type
++        - `skipped`/`warning`: present when the change declares skip_specs and this artifact must NOT be created - stop and pick another artifact
++        - `resolvedOutputPath`: Resolved path or pattern to write the artifact
++        - `dependencies`: Completed artifacts to read for context
++      - Read any completed dependency files for context - always re-read them from disk, even if you saw them earlier in the conversation (the user may have edited them)
++      - **Inspect the relevant project before drafting**: Read `context` and `rules` first, then inspect relevant implementation, nearby tests, configuration, and documentation outside `openspec/`. Keep inspection read-only and proportional to the change; reuse findings for later artifacts and inspect more only as needed.
++        - Identify the target project from the request and project context; the planning home may be separate from the code. If the target is unclear, ask. For greenfield or non-code changes, inspect the available structure and relevant documents. If source is unavailable, state the limitation and ask when it materially affects the plan.
++        - Ground scope, approach, and tasks in what you find. Distinguish observed behavior from assumptions and proposed additions; surface conflicts with existing specs instead of silently deciding which is correct.
++        - Do this discovery now, rather than leaving generic "explore the codebase" or "make a plan" tasks for implementation. Keep any necessary follow-up investigation specific to an unresolved question.
++      - If the `instruction` field delegates creation to a specific skill or command, invoke it to produce the artifact instead of writing the file yourself, then verify the artifact file exists at `resolvedOutputPath`
++      - Otherwise create the artifact file using `template` as the structure and write it to `resolvedOutputPath`. If `resolvedOutputPath` is a glob, follow `instruction` to choose the concrete file path
++      - Apply `context` and `rules` as constraints - but do NOT copy them into the file
++      - Show brief progress: "Created <artifact-id>"
++
++   b. **Continue until every artifact in the required set exists (not just `apply.requires`)**
++      - After creating each artifact, re-run `openspec status --change "<name>" --json`
++      - The required set is `applyRequires` plus every artifact reachable from those by following the `requires` edges in `status --json` - walk them transitively (spec-driven closes over proposal, specs, design, tasks). Leave artifacts outside that set alone
++      - `status` is file-existence only, so an `applyRequires` artifact reading `done` does NOT mean its dependencies exist - writing `tasks.md` early marks `tasks` done while `specs` was never written. Use each artifact's `requires` edges, not its `status`, to build the required set: a `done` artifact still lists what it depends on
++      - An artifact already reading `status: "skipped"` is satisfied: the change declares `skip_specs` in `.openspec.yaml`, so its files must NOT exist. Never try to create one
++      - Create every artifact in the required set that is missing, then re-check - creating one can unblock others
++      - Skip one only when `status` already reports it `skipped`, or when its own `instruction` says it is conditional: run `openspec instructions <artifact-id> --change "<name>" --json` and skip only if its `instruction` field marks it optional (e.g. "create only if..."). Spec-driven's `design.md` qualifies; `specs` qualifies only via the `skipped` status above, never by your own judgment. Tell the user, and do not reconsider it
++      - Dependencies are enablers, not gates: if a required artifact is still `blocked` only because you skipped a conditional dependency, write it anyway
++      - Stop when every artifact in the required set is `done`, `skipped`, or was deliberately skipped
++
++   c. **If an artifact requires user input** (unclear context):
++      - Ask the user to clarify
++      - Then continue with creation
++
++6. **Show final status**
++   ```bash
++   openspec status --change "<name>"
++   ```
++
++**Output**
++
++After completing all artifacts, summarize:
++- Change name and location
++- List of artifacts created with brief descriptions, plus any conditional artifact you skipped and why
++- What's ready: "All artifacts needed for implementation are ready."
++- Prompt: "The artifacts are ready for review. When you are ready, run `$openspec-apply-change (Codex) or /openspec-apply-change (other agents)` or ask me to apply this change."
++
++**Artifact Creation Guidelines**
++
++- Follow the `instruction` field from `openspec instructions` for each artifact type - it is the authoritative guidance, even for familiar artifact names
++- If the `instruction` field directs you to use a specific skill or command to create the artifact, invoke it instead of writing the artifact directly
++- The schema defines what each artifact should contain - follow it
++- Read dependency artifacts for context before creating new ones
++- Use `template` as the structure for your output file - fill in its sections
++- **IMPORTANT**: `context` and `rules` are constraints for YOU, not content for the file
++  - Do NOT copy `<context>`, `<rules>`, `<project_context>` blocks into the artifact
++  - These guide what you write, but should never appear in the output
++
++**Guardrails**
++- The request that invoked this workflow authorizes planning only. Any implementation or apply instruction in that request does not carry forward. Do NOT implement the change, start the apply workflow, or edit project code during this workflow. After presenting the artifacts, stop and wait for a new user request to start the apply workflow
++- Create every artifact the apply phase transitively depends on, not just the ids listed in `apply.requires`
++- Always read dependency artifacts before creating a new one - re-read from disk, not from conversation memory (files may have changed since you last saw them)
++- Ask about ambiguities that would materially change scope, externally observable behavior, compatibility, or acceptance criteria; for minor details, make reasonable assumptions and record them
++- If a change with that name already exists, ask if user wants to continue it or create a new one
++- Verify each artifact file exists after writing before proceeding to next
+diff --git a/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/runs/openspec/scrapy/.agents/skills/openspec-sync-specs/SKILL.md b/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/runs/openspec/scrapy/.agents/skills/openspec-sync-specs/SKILL.md
+new file mode 100644
+index 0000000..d399e02
+--- /dev/null
++++ b/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/runs/openspec/scrapy/.agents/skills/openspec-sync-specs/SKILL.md
+@@ -0,0 +1,262 @@
++---
++name: openspec-sync-specs
++description: Sync delta specs from a change to main specs. Use when the user wants to update main specs with changes from a delta spec, without archiving the change.
++allowed-tools: Bash(openspec:*)
++license: MIT
++compatibility: Requires openspec CLI.
++metadata:
++  author: openspec
++  version: "1.0"
++  generatedBy: "1.12.0"
++---
++
++Sync delta specs from a change to main specs.
++
++This is an **agent-driven** operation - you will read delta specs and directly edit main specs to apply the changes. This allows intelligent merging (e.g., adding a scenario without copying the entire requirement).
++
++**Store selection:** If the user names a store (a store is a standalone OpenSpec repo registered on this machine) or the work lives in one, run `openspec store list --json` to discover registered store ids, then pass `--store <id>` on the commands that read or write specs and changes (`new change`, `status`, `instructions`, `list`, `show`, `validate`, `archive`, `doctor`, `context`, `schemas`, `view`). Once selected, treat `--store <id>` as sticky for the rest of the workflow. Every unscoped example of those commands below is shorthand: before running it, append the flag. For example, run `openspec status --change "<name>" --json --store "<id>"`, not the unscoped form shown below. Other commands do not take the flag. Hints printed by commands already carry the flag; keep it on follow-ups. Without a store, commands act on the nearest local `openspec/` root.
++
++`<capability-path>` is the spec directory relative to `specs/` (for example, `user-auth` or `identity/user-auth`). Preserve the full path from each delta spec when resolving its main spec.
++
++**Input**: Optionally specify a change name. If omitted, check if it can be inferred from conversation context. If vague or ambiguous you MUST prompt for available changes.
++
++**Steps**
++
++1. **Select the change**
++
++   If a name is provided, use it. Otherwise:
++   - Infer from conversation context if the user mentioned a change
++   - Auto-select if only one active change exists
++   - If ambiguous, run `openspec list --json` to get available changes and ask the user to select one
++
++   When prompting, show changes that have delta specs (under `specs/` directory).
++
++   Always announce: "Using change: <name>" and how to override (e.g., `$openspec-sync-specs (Codex) or /openspec-sync-specs (other agents) <other>`).
++
++2. **Resolve change context**
++
++   Run:
++   ```bash
++   openspec status --change "<name>" --json
++   ```
++
++   The JSON includes `planningHome.root`. Main specs live under `<planningHome.root>/openspec/specs/` — use that (store-aware) root for every main-spec path below, not a hardcoded repo path. When a store is selected it points at the store, not the current repository.
++
++3. **Find delta specs**
++
++   Use `artifactPaths.specs.existingOutputPaths` from the status JSON as the
++   only source of delta spec paths. If the `specs` entry is missing or
++   `existingOutputPaths` is empty, report that there are no delta specs to sync,
++   do not infer them from other artifacts, and stop without requesting artifact
++   instructions or writing a main spec.
++
++   Sync every path in `existingOutputPaths` unless the caller narrowed the set.
++   A caller narrows it by naming an explicit list of complete entries from
++   `existingOutputPaths` — copy those absolute values verbatim. Archive does
++   this inline, and a user can too (for example, by selecting the entry ending
++   in `/specs/billing/invoices/spec.md`).
++   Then sync only the named paths and leave the remaining delta specs untouched:
++   bulk archive excludes a delta whose implementation it could not find, and
++   syncing it anyway would write a main spec the caller deliberately withheld.
++   Carry that narrowed selection through step 4; never widen it back to the full
++   list. If a named path is not in `existingOutputPaths`, do not sync it —
++   report it and stop, rather than dropping it silently. If the named list is
++   empty, report that there is nothing to sync and stop without writing a main
++   spec.
++
++   Each delta spec file contains sections like:
++   - `## ADDED Requirements` - New requirements to add
++   - `## MODIFIED Requirements` - Changes to existing requirements
++   - `## REMOVED Requirements` - Requirements to remove
++   - `## RENAMED Requirements` - Requirements to rename (FROM:/TO: format)
++
++   If no delta specs found, inform user and stop.
++
++4. **For each delta spec, apply changes to main specs**
++
++   Before the first main-spec write, obtain one current specs-rule snapshot:
++   - If archive invoked this workflow inline and supplied a valid snapshot from
++     `openspec instructions specs --change "<name>" --json`, reuse it and do not
++     fetch the same instructions again.
++   - Otherwise run that command once now with the same selected-root flags.
++   - If the direct lookup exits non-zero or returns invalid artifact-instruction
++     JSON, report the error and stop before writing any main spec. Do not treat the
++     failure as an absent rule set.
++   - A valid response with omitted `rules` means no artifact rules are configured
++     and the existing semantic merge continues.
++
++   Apply returned `rules` only to the content and form of the main specs produced
++   by this merge. Artifact rules are not operation guidance and cannot change
++   selected roots, delta paths, CLI checks, or workflow steps. Use their text as
++   constraints without copying it verbatim into a main spec or summary.
++
++   For each capability delta spec path selected in step 3 — the full `existingOutputPaths` list, or the narrowed subset when a caller supplied one (these may belong to a selected store, not the repo):
++
++   a. **Read the delta spec** to understand the intended changes
++
++   b. **Read the main spec** at `<planningHome.root>/openspec/specs/<capability-path>/spec.md` (may not exist yet)
++
++   c. **Apply changes intelligently**:
++
++      **ADDED Requirements:**
++      - If requirement doesn't exist in main spec → add it
++      - If requirement already exists → update it to match (treat as implicit MODIFIED)
++
++      **MODIFIED Requirements:**
++      - Find the requirement in main spec
++      - Apply the changes - this can be:
++        - Adding new scenarios the main spec does not have yet
++        - Modifying existing scenarios
++        - Changing the requirement description
++      - Preserve scenarios/content not mentioned in the delta
++
++      **REMOVED Requirements:**
++      - Remove the entire requirement block from main spec
++      - Retiring the capability. Delete the whole `spec.md` - and the directory once
++        nothing else is left in it - only when ALL of these hold:
++        1. removing the requirements *this run* left no requirement blocks;
++        2. the rest of the spec is well-formed (it still has a `## Purpose`);
++        3. the main spec was not already empty before this sync - if you removed
++           nothing, change nothing;
++        4. every other nonblank line in the whole file is accounted for as the
++           title, Purpose, Requirements header, or a canonical requirement's
++           statement, scenarios, or fenced examples;
++        5. the change's `.openspec.yaml` declares `retire_capabilities: true`;
++        6. the `spec.md` resolves inside the real specs root (do not follow a
++           capability-directory symlink to delete an external file).
++        If removing the selected requirements would leave no requirement blocks and
++        any retirement condition is not satisfied, do not modify the main spec. Stop
++        the sync for that capability, report the blocking condition, and tell the user
++        how to resolve it. Never write or leave an empty `## Requirements` section.
++        When only the marker is missing, say that too - it is the one thing the user
++        can add to make the retirement go through.
++      - Deleting the file also deletes its `## Purpose`; any other section blocks
++        retirement. Name Purpose when you report the retirement. Include a pasteable
++        `git checkout` only when the spec lived in the caller's checkout;
++        otherwise give checkout-scoped recovery guidance.
++
++      **RENAMED Requirements:**
++      - Find the FROM requirement, rename to TO
++
++      **`## Purpose` in the delta:**
++      - The main spec already has one and it is authoritative - leave it alone
++        (this is what `openspec archive` does; it warns and moves on)
++
++   d. **Create new main spec** if capability doesn't exist yet:
++      - Create `<planningHome.root>/openspec/specs/<capability-path>/spec.md`
++      - Add Purpose section: copy the delta's `## Purpose` body verbatim when it has one
++        (this is what `openspec archive` does); only write a brief TBD placeholder when it does not
++      - Add Requirements section with the ADDED requirements
++      - Follow the **Main Spec Format Reference** below
++
++5. **Validate updated main specs**
++
++   Run `openspec validate --specs` with the same selected-root flags used earlier.
++   If validation fails, report the problems and do not claim the sync succeeded.
++
++6. **Show summary**
++
++   After applying all changes, summarize:
++   - Which capabilities were updated
++   - What changes were made (requirements added/modified/removed/renamed)
++   - Any new main spec left with a TBD Purpose placeholder, so it gets written
++     now rather than lingering
++   - Any capability retired, naming the deleted `spec.md`, its Purpose, and
++     either a pasteable `git checkout` or checkout-scoped recovery guidance
++
++**Delta Spec Format Reference**
++
++```markdown
++## Purpose
++
++Only on a delta that introduces a brand-new capability. Seeds the new main spec.
++
++## ADDED Requirements
++
++### Requirement: New Feature
++The system SHALL do something new.
++
++#### Scenario: Basic case
++- **WHEN** user does X
++- **THEN** system does Y
++
++## MODIFIED Requirements
++
++### Requirement: Existing Feature
++The system SHALL keep doing the existing thing, now also handling A.
++
++#### Scenario: Scenario the main spec already has
++- **WHEN** user does X
++- **THEN** system does Y
++
++#### Scenario: New scenario to add
++- **WHEN** user does A
++- **THEN** system does B
++
++## REMOVED Requirements
++
++### Requirement: Deprecated Feature
++
++## RENAMED Requirements
++
++- FROM: `### Requirement: Old Name`
++- TO: `### Requirement: New Name`
++```
++
++**Main Spec Format Reference**
++
++Main specs are what the delta merges INTO. They must never contain delta operation headers (`## ADDED/MODIFIED/REMOVED/RENAMED Requirements`) - after syncing, every requirement lives under a single `## Requirements` section:
++
++```markdown
++# <capability> Specification
++
++## Purpose
++Short description of what this capability does and why it exists.
++
++## Requirements
++
++### Requirement: New Feature
++The system SHALL do something new.
++
++#### Scenario: Basic case
++- **WHEN** user does X
++- **THEN** system does Y
++```
++
++**Key Principle: Intelligent Merging**
++
++Unlike programmatic merging, you merge rather than overwrite:
++- A MODIFIED block carries the whole requirement - body plus every scenario that survives the change. `openspec validate` and `openspec archive` both reject one that drops a scenario the main spec still has.
++- Keep anything the delta does not mention, in the main spec's existing order
++- Use your judgment to merge changes sensibly
++
++**Output On Success**
++
++```markdown
++## Specs Synced: <change-name>
++
++Updated main specs:
++
++**<capability-1>**:
++- Added requirement: "New Feature"
++- Modified requirement: "Existing Feature" (added 1 scenario)
++
++**<capability-2>**:
++- Created new spec file
++- Added requirement: "Another Feature"
++
++Main specs are now updated. The change remains active - archive when implementation is complete.
++```
++
++**Guardrails**
++- Read both delta and main specs before making changes
++- Preserve existing content not mentioned in delta
++- Never copy a delta file into a main spec as-is - merge its content so the main spec keeps the Main Spec Format Reference structure, with no delta operation headers
++- If something is unclear, ask for clarification
++- Show what you're changing as you go
++- The operation should be idempotent - running twice should give same result
++- Use only `artifactPaths.specs.existingOutputPaths`; never infer delta specs from unrelated artifacts
++- Honor a caller-supplied subset of `existingOutputPaths`; never widen it back to the full list
++- Fetch specs instructions once for direct sync, or reuse the archive-supplied snapshot inline
++- Stop before every main-spec write on a non-zero or invalid JSON specs-instruction response
++- Artifact rules constrain only the specs being written and are never copied into output files
+diff --git a/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/runs/openspec/scrapy/.agents/skills/openspec-update-change/SKILL.md b/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/runs/openspec/scrapy/.agents/skills/openspec-update-change/SKILL.md
+new file mode 100644
+index 0000000..e4a5dab
+--- /dev/null
++++ b/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/runs/openspec/scrapy/.agents/skills/openspec-update-change/SKILL.md
+@@ -0,0 +1,91 @@
++---
++name: openspec-update-change
++description: Update an OpenSpec change by revising its existing planning artifacts and keeping them coherent with one another. Use when the user wants to revise a change's plan, fold new decisions into it, or reconcile its artifacts after an edit. Never edits code.
++allowed-tools: Bash(openspec:*)
++license: MIT
++compatibility: Requires openspec CLI.
++metadata:
++  author: openspec
++  version: "1.0"
++  generatedBy: "1.12.0"
++---
++
++Revise a change's existing planning artifacts and keep them coherent. Never edit code.
++
++**Store selection:** If the user names a store (a store is a standalone OpenSpec repo registered on this machine) or the work lives in one, run `openspec store list --json` to discover registered store ids, then pass `--store <id>` on the commands that read or write specs and changes (`new change`, `status`, `instructions`, `list`, `show`, `validate`, `archive`, `doctor`, `context`, `schemas`, `view`). Once selected, treat `--store <id>` as sticky for the rest of the workflow. Every unscoped example of those commands below is shorthand: before running it, append the flag. For example, run `openspec status --change "<name>" --json --store "<id>"`, not the unscoped form shown below. Other commands do not take the flag. Hints printed by commands already carry the flag; keep it on follow-ups. Without a store, commands act on the nearest local `openspec/` root.
++
++**Input**: Optionally specify a change name. If omitted, check if it can be inferred from conversation context. If vague or ambiguous you MUST prompt for available changes.
++
++`$openspec-continue-change (Codex) or /openspec-continue-change (other agents)` is an optional workflow and may not be installed. Before suggesting it anywhere below, verify that it is available. If it is unavailable, `openspec status --change "<name>" --json` shows the next artifact and `openspec instructions "<artifact-id>" --change "<name>" --json` explains how to create it.
++
++**Steps**
++
++1. **Select the change**
++
++   If a name is provided, use it. Otherwise:
++   - Infer from conversation context if the user mentioned a change
++   - Auto-select if only one active change exists
++   - If ambiguous, run `openspec list --json` to get available changes sorted by most recently modified, and ask the user to select one
++
++   When prompting, present the top 3-4 most recently modified changes as options, showing:
++   - Change name
++   - Schema (from `schema` field if present, otherwise "spec-driven")
++   - Status (e.g., "0/5 tasks", "complete", "no tasks")
++   - How recently it was modified (from `lastModified` field)
++
++   Mark the most recently modified change as "(Recommended)" since it's likely what the user wants to update.
++
++   Always announce: "Using change: <name>" and how to override (e.g., `$openspec-update-change (Codex) or /openspec-update-change (other agents) <other>`).
++
++2. **Get the change's artifacts**
++   ```bash
++   openspec status --change "<name>" --json
++   ```
++   Parse the JSON to understand current state. The response includes:
++   - `schemaName`: The workflow schema being used (e.g., "spec-driven")
++   - `artifacts`: Array of artifacts with their status ("done", "skipped", "ready", "blocked")
++   - `isPlanningComplete`: Boolean indicating if all planning artifacts are complete. Older CLI versions expose the same value as `isComplete`.
++   - `planningHome`, `changeRoot`, `artifactPaths`, and `actionContext`: path and scope context. Use these instead of assuming repo-local paths.
++
++   The artifact ids and paths come from the active schema - do NOT assume them, and do NOT branch on hardcoded artifact names. Custom schemas must work unchanged.
++
++   The files to edit are `artifactPaths.<id>.existingOutputPaths` - the concrete files that exist on disk, already glob-expanded for glob artifacts (e.g. `specs/**/*.md`). Do NOT write to `resolvedOutputPath`: for a glob artifact it is still the glob pattern, not a real file.
++
++3. **Understand the request**
++   - If the user asked for a specific revision ("the design now uses X"), that is the starting edit.
++   - If they only said "update" / "make this coherent", treat it as a coherence review: read the existing artifacts and check them against each other for contradictions, gaps, and duplication.
++
++4. **Read and reconcile**
++   - Read the artifact(s) the request touches and the change's other existing artifacts.
++   - Apply the requested edit. Then check every other existing artifact against it - in ANY direction: an edit to a later artifact may require revising an earlier one, not only the other way around. Build order is a useful reading order, not a constraint on which artifacts may be revised.
++   - Note everything that is now inconsistent, missing, or contradictory.
++   - Revise only files that already exist (`existingOutputPaths`). Do NOT create artifacts that don't exist yet, and do NOT invent new files under a glob artifact - note them and point the user to `$openspec-continue-change (Codex) or /openspec-continue-change (other agents)` to create them.
++   - If the change is already coherent, say so and make no edits.
++
++5. **Confirm and apply, one artifact at a time**
++   - Show each proposed revision and why. Write only after the user confirms.
++   - If the user rejects a revision, do not write it - leave that artifact unchanged.
++   - When a substantial rewrite is needed, get that artifact's rules and template first:
++     ```bash
++     openspec instructions "<artifact-id>" --change "<name>" --json
++     ```
++
++6. **Point to the next step (guidance only - NEVER act on it)**
++   - Artifacts still missing -> suggest `$openspec-continue-change (Codex) or /openspec-continue-change (other agents)` to create them.
++   - Change already implemented (tasks checked off / already applied) -> the code may no longer match the revised plan; suggest `$openspec-apply-change (Codex) or /openspec-apply-change (other agents)` to carry the delta into code.
++   - Everything done and implemented -> suggest `$openspec-archive-change (Codex) or /openspec-archive-change (other agents)`.
++
++**Output**
++
++After each invocation, show:
++- Which artifacts were revised (and which proposed revisions were rejected)
++- Anything deferred to `$openspec-continue-change (Codex) or /openspec-continue-change (other agents)` (not-yet-created artifacts or files)
++- Where the change stands and the recommended next command
++
++**Guardrails**
++- Planning artifacts only - NEVER edit implementation code. If the revised plan implies code changes, stop and point to `$openspec-apply-change (Codex) or /openspec-apply-change (other agents)`.
++- Use the artifact ids and paths reported by `openspec status`; never branch on hardcoded artifact names.
++- Edit only the concrete files in `existingOutputPaths`; never write to a glob `resolvedOutputPath`.
++- Do not advance the build frontier: no new artifacts, no new files under glob artifacts - that is `$openspec-continue-change (Codex) or /openspec-continue-change (other agents)`'s job.
++- Confirm every edit with the user before writing.
++- If the request changes the change's *intent* rather than refining it, first verify whether the optional `$openspec-new-change (Codex) or /openspec-new-change (other agents)` workflow is available. If it is, recommend starting fresh with `$openspec-new-change (Codex) or /openspec-new-change (other agents)` (the "Update vs. Start Fresh" heuristic). If it is unavailable, ask for a distinct unused change name and recommend `openspec new change "<new-change-name>"` instead.
+diff --git a/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/runs/openspec/scrapy/openspec/changes/archive/.gitkeep b/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/runs/openspec/scrapy/openspec/changes/archive/.gitkeep
+new file mode 100644
+index 0000000..e69de29
+diff --git a/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/runs/openspec/scrapy/openspec/config.yaml b/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/runs/openspec/scrapy/openspec/config.yaml
+new file mode 100644
+index 0000000..c4d34ac
+--- /dev/null
++++ b/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/runs/openspec/scrapy/openspec/config.yaml
+@@ -0,0 +1,32 @@
++schema: spec-driven
++
++# Project context (optional)
++# This is shown to AI when creating artifacts.
++# Add your tech stack, conventions, style guides, domain knowledge, etc.
++# Example:
++#   context: |
++#     Tech stack: TypeScript, React, Node.js
++#     We use conventional commits
++#     Domain: e-commerce platform
++
++# Per-artifact rules (optional)
++# Add custom rules for specific artifacts.
++# Example:
++#   rules:
++#     proposal:
++#       - Keep proposals under 500 words
++#       - Always include a "Non-goals" section
++#     tasks:
++#       - Break tasks into chunks of max 2 hours
++
++# Per-operation guidance (optional)
++# Add advisory guidance for how apply and archive work should be conducted.
++# This is separate from artifact rules above.
++# Example:
++#   operations:
++#     apply:
++#       guidance:
++#         - Keep test summaries concise
++#     archive:
++#       guidance:
++#         - Summarize the archive outcome before finishing
+diff --git a/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/runs/openspec/scrapy/openspec/specs/.gitkeep b/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/runs/openspec/scrapy/openspec/specs/.gitkeep
+new file mode 100644
+index 0000000..e69de29

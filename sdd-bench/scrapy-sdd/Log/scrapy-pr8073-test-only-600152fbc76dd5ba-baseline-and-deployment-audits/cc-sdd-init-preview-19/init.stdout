@@ -1,0 +1,24 @@
+
+────────────────────────────────
+  cc-sdd v3.0.2 / Codex Skills
+────────────────────────────────
+
+  Installed:
+    Skills  50 file(s) → .agents/skills/  new
+    Other  1 file(s)  new
+    Project Memory document  1 file(s) → AGENTS.md  new
+    Settings templates and rules  16 file(s) → .kiro/settings/  new
+
+  68/68 files written
+
+  Recommended models:
+    Planning / review: gpt-5.4 high or xhigh
+    Implementation: gpt-5.4
+
+  Get started:
+    1. If you are not sure whether the work should become one spec, many specs, or no spec at all, start with `$kiro-discovery <idea>`.
+    2. Launch Codex Skills and run `$kiro-spec-init <what-to-build>` to create a new specification.
+    3. Tip: Steering holds persistent project knowledge (patterns, standards, org-wide policies). Kick off `$kiro-steering` (essential for existing projects) and `$kiro-steering-custom <what-to-create-custom-steering-document>`. Maintain regularly.
+    4. Tip: Update `{{KIRO_DIR}}/settings/templates/` like `requirements.md`, `design.md`, and `tasks.md` so the generated steering and specs follow your team's and project's development process.
+    5. Use `$kiro-spec-quick <what-to-build> [--auto]` only when you intentionally want the fast path for a single spec.
+

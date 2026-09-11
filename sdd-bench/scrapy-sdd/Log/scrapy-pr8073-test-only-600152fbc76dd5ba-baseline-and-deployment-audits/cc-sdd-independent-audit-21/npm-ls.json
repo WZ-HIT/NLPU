@@ -1,0 +1,11 @@
+{
+  "version": "1.0.0",
+  "name": "scrapy-sdd-cc-sdd-runtime",
+  "dependencies": {
+    "cc-sdd": {
+      "version": "3.0.2",
+      "resolved": "https://registry.npmjs.org/cc-sdd/-/cc-sdd-3.0.2.tgz",
+      "overridden": false
+    }
+  }
+}

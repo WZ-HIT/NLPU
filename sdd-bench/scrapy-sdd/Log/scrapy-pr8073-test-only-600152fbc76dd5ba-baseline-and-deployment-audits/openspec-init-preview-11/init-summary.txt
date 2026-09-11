@@ -1,0 +1,13 @@
+init_exit_code=0
+stdout_bytes=405
+stderr_bytes=175
+status_count=5
+changed_protected=0
+tracked_diff_files=0
+untracked_files=13
+generated_top_level:
+?? .agents/
+?? .before-tree.tsv
+?? .init-stderr.txt
+?? .init-stdout.txt
+?? openspec/

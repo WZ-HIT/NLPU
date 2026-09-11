@@ -1,0 +1,13 @@
+{
+  "tool": "cc-sdd",
+  "package_lock_sha256": "933c67ed634facbb5a724d45cb05089b0ac7bb31e7664489879a9ca9cf300000",
+  "artifacts": [
+    {
+      "file": "ae5a247b357e61139d1f154dcdc67996e5da783f931c99dd450cf03569441fe4.tgz",
+      "url": "https://registry.npmjs.org/cc-sdd/-/cc-sdd-3.0.2.tgz",
+      "integrity": "sha512-7r9hyUhY35aeKVoqhViad28/JTT5SdDH3pPhGccY8nFpmT25+EP6vywetUwVL8wUCi3deJQBg/YcFU2gNnhC6w==",
+      "size_bytes": 455146,
+      "sha256": "ae5a247b357e61139d1f154dcdc67996e5da783f931c99dd450cf03569441fe4"
+    }
+  ]
+}

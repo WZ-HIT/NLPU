@@ -1,0 +1,162 @@
+# Build from this task directory; keep common and sandbox inputs separate:
+# docker build --pull=false --network=none -f "$PWD/Dockerfile.agent" \
+#   --build-context sandbox-artifacts=../../environments/agent-runtime/codex-0.153.4_node-24.20.0_uv-0.12.10_linux-amd64/artifacts/sandbox \
+#   ../../environments/agent-runtime/codex-0.153.4_node-24.20.0_uv-0.12.10_linux-amd64/artifacts/common
+# On this server also supply the baseline digest's local OCI --build-context
+# mapping recorded in the Step 05 build evidence; the command above is abbreviated.
+# No project files are copied. Build a new candidate tag, retaining the old image.
+# No remote ADD is used; archive SHA256 values are checked before extraction below.
+FROM scrapy-sdd-scrapy@sha256:f59cdcb1f1be58c9ee0becf4eff13ea4979aea617aa5bf2c4619ae2c13c4adfa AS agent-artifacts
+
+USER root
+WORKDIR /opt/agent-build
+
+COPY node-v24.20.0-linux-x64.tar.xz node.tar.xz
+COPY codex-x86_64-unknown-linux-musl.tar.gz codex.tar.gz
+COPY uv-x86_64-unknown-linux-gnu.tar.gz uv.tar.gz
+COPY --from=sandbox-artifacts bwrap-x86_64-unknown-linux-musl.tar.gz bwrap.tar.gz
+COPY --from=sandbox-artifacts bubblewrap_0.12.0-1~deb13u1_amd64.deb bubblewrap.deb
+
+# Python's standard library handles xz/gzip without adding OS or Python packages.
+RUN python - <<'PY'
+import hashlib
+import io
+import pathlib
+import shutil
+import subprocess
+import tarfile
+
+artifacts = {
+    "node.tar.xz": "2f2c0da162318f0de47665410c7c8c2ed3d36c8f3105de4bbc61176c70a7cbf2",
+    "codex.tar.gz": "f479424eca092484dc40d87ae28c44f4cc40234a60045d6131e493800d814a30",
+    "uv.tar.gz": "173d95a0c32d18c896c46ba6fafbf3cf9c14ab74b033f81b76c883ef492a976b",
+    "bwrap.tar.gz": "e7d65c75e05637e42b93f6abf9222fa0d26b537648a7a34c122b75021d41756d",
+}
+for filename, expected in artifacts.items():
+    with open(filename, "rb") as source:
+        actual = hashlib.file_digest(source, "sha256").hexdigest()
+    if actual != expected:
+        raise RuntimeError(f"Checksum mismatch: {filename}")
+    with tarfile.open(filename) as archive:
+        archive.extractall(path="extracted", filter="data")
+
+target = pathlib.Path("/opt/agent")
+(target / "bin").mkdir(parents=True)
+shutil.move("extracted/node-v24.20.0-linux-x64", target / "node")
+shutil.copy2("extracted/codex-x86_64-unknown-linux-musl", target / "bin/codex")
+for name in ("uv", "uvx"):
+    shutil.copy2(f"extracted/uv-x86_64-unknown-linux-gnu/{name}", target / "bin" / name)
+bwrap_target = target / "bwrap/bin/bwrap"
+bwrap_target.parent.mkdir(parents=True)
+shutil.copy2("extracted/bwrap-x86_64-unknown-linux-musl", bwrap_target)
+if hashlib.sha256(bwrap_target.read_bytes()).hexdigest() != "77360cb751ccedc5971391444ac86a8a33c15b04d6b4a6fe45f5d25496e62c4c":
+    raise RuntimeError("Codex-coupled bubblewrap executable checksum mismatch")
+bwrap_target.chmod(0o755)
+
+# Use the separately verified Debian artifact only for its copyright notice.
+# Its bwrap executable is deliberately not installed because Codex 0.153.4
+# accepts only the integrity-coupled binary from the same OpenAI release.
+# Never run maintainer scripts or copy the package's sysctl configuration.
+deb = pathlib.Path("bubblewrap.deb").read_bytes()
+if len(deb) != 56876 or hashlib.sha256(deb).hexdigest() != "70aca4fa8daeacb677ec00e8063eb586f08ae3d94b1f11e684370b5524c43431":
+    raise RuntimeError("bubblewrap package checksum or size mismatch")
+for field, expected in {"Package": "bubblewrap", "Version": "0.12.0-1~deb13u1", "Architecture": "amd64"}.items():
+    actual = subprocess.check_output(["dpkg-deb", "--field", "bubblewrap.deb", field], text=True).strip()
+    if actual != expected:
+        raise RuntimeError(f"Unexpected bubblewrap {field}: {actual}")
+payload = subprocess.check_output(["dpkg-deb", "--fsys-tarfile", "bubblewrap.deb"])
+with tarfile.open(fileobj=io.BytesIO(payload)) as archive:
+    allowed_files = {
+        "./usr/share/doc/bubblewrap/copyright": (target / "share/doc/bubblewrap/copyright", 0o644),
+    }
+    for source, (destination, mode) in allowed_files.items():
+        matches = [entry for entry in archive.getmembers() if entry.name == source]
+        if len(matches) != 1 or not matches[0].isfile():
+            raise RuntimeError(f"Expected one regular payload file: {source}")
+        data = archive.extractfile(matches[0]).read()
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.write_bytes(data)
+        destination.chmod(mode)
+# Preserve the full license texts referenced by the Debian copyright notice.
+for name in ("LGPL-2", "LGPL-2.1"):
+    shutil.copyfile(f"/usr/share/common-licenses/{name}", target / "share/doc/bubblewrap" / name)
+PY
+
+FROM scrapy-sdd-scrapy@sha256:f59cdcb1f1be58c9ee0becf4eff13ea4979aea617aa5bf2c4619ae2c13c4adfa
+
+LABEL bench.agent="codex" \
+      bench.agent-version="0.153.4" \
+      bench.node-version="24.20.0" \
+      bench.uv-version="0.12.10" \
+      bench.bubblewrap-source="openai-codex-release-rust-v0.153.4" \
+      bench.bubblewrap-artifact-sha256="e7d65c75e05637e42b93f6abf9222fa0d26b537648a7a34c122b75021d41756d" \
+      bench.deployment-purpose="Shared Agent runtime; no SDD tools"
+
+COPY --from=agent-artifacts /opt/agent /opt/agent
+
+# Keep pinned common tools and baseline Python ahead of per-service tool bins.
+ENV PATH="/opt/agent/bwrap/bin:/opt/agent/bin:/opt/agent/node/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin:/home/bench/tools/npm/bin:/home/bench/.local/bin" \
+    NPM_CONFIG_UPDATE_NOTIFIER=false \
+    NPM_CONFIG_AUDIT=false \
+    NPM_CONFIG_FUND=false \
+    NPM_CONFIG_PREFIX=/home/bench/tools/npm \
+    NPM_CONFIG_CACHE=/home/bench/.cache/npm \
+    UV_TOOL_DIR=/home/bench/tools/uv \
+    UV_TOOL_BIN_DIR=/home/bench/.local/bin \
+    UV_CACHE_DIR=/home/bench/.cache/uv \
+    UV_PYTHON_DOWNLOADS=never \
+    UV_PYTHON=/usr/local/bin/python
+
+USER 1007:1007
+WORKDIR /workspace
+
+# Fail the build on a version mismatch or changed Scrapy test dependency set.
+RUN python - <<'PY'
+import hashlib
+import pathlib
+import shutil
+import stat
+import subprocess
+import sys
+
+if sys.version_info[:3] != (3, 11, 15):
+    raise RuntimeError("Python baseline changed")
+expected_versions = {
+    "node": "v24.20.0",
+    "npm": "11.19.0",
+    "codex": "codex-cli 0.153.4",
+    "bwrap": "bubblewrap built for Codex",
+}
+for command, expected in expected_versions.items():
+    actual = subprocess.check_output([command, "--version"], text=True).strip()
+    if actual != expected:
+        raise RuntimeError(f"Unexpected {command} version: {actual}")
+bwrap = pathlib.Path("/opt/agent/bwrap/bin/bwrap")
+if shutil.which("bwrap") != str(bwrap):
+    raise RuntimeError("Unexpected bubblewrap PATH resolution")
+if hashlib.sha256(bwrap.read_bytes()).hexdigest() != "77360cb751ccedc5971391444ac86a8a33c15b04d6b4a6fe45f5d25496e62c4c":
+    raise RuntimeError("Installed bubblewrap checksum mismatch")
+if stat.S_IMODE(bwrap.stat().st_mode) != 0o755:
+    raise RuntimeError("bubblewrap must be executable without setuid/setgid")
+for name in ("copyright", "LGPL-2", "LGPL-2.1"):
+    if not (pathlib.Path("/opt/agent/share/doc/bubblewrap") / name).is_file():
+        raise RuntimeError(f"Missing bubblewrap license: {name}")
+# Version checks do not prove sandbox functionality. Test sandbox execution
+# separately under the approved runtime security policy; never relax it here.
+uv_version = subprocess.check_output(["uv", "--version"], text=True).split()
+if uv_version[:2] != ["uv", "0.12.10"]:
+    raise RuntimeError(f"Unexpected uv version: {uv_version}")
+freeze = subprocess.check_output([sys.executable, "-m", "pip", "freeze", "--all"])
+entries = sorted(freeze.splitlines())
+normalized = b"\n".join(entries) + b"\n"
+expected_hash = "570e1651694fe0e30bbd07a231c2f70cccf09cd18503b8ead34fdfd50f5f3abd"
+if len(entries) != 69 or hashlib.sha256(normalized).hexdigest() != expected_hash:
+    raise RuntimeError("Scrapy test dependency baseline changed")
+subprocess.run([sys.executable, "-m", "pip", "check"], check=True)
+for command in ("openspec", "specify", "cc-sdd"):
+    if shutil.which(command):
+        raise RuntimeError(f"Unexpected SDD tool in common image: {command}")
+print("Common runtime versions and Scrapy dependency baseline verified")
+PY
+
+CMD ["sleep", "infinity"]

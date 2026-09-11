@@ -1,0 +1,5 @@
+workspace_device=64512
+smoke_copy_device=199
+independent_tmpfs_copy=true
+repo_copy=/tmp/cc-sdd-smoke-21
+basetemp=/tmp/pytest-smoke-cc-sdd-21

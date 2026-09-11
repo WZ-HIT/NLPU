@@ -1,0 +1,66 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile.agent
+#1 transferring dockerfile: 4.39kB done
+#1 DONE 0.0s
+
+#2 [context scrapy-sdd-scrapy@sha256:f59cdcb1f1be58c9ee0becf4eff13ea4979aea617aa5bf2c4619ae2c13c4adfa] load metadata for docker.io/library/scrapy-sdd-scrapy@sha256:f59cdcb1f1be58c9ee0becf4eff13ea4979aea617aa5bf2c4619ae2c13c4adfa
+#2 DONE 0.1s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.1s
+
+#4 [internal] load build context
+#4 DONE 0.0s
+
+#5 [context scrapy-sdd-scrapy@sha256:f59cdcb1f1be58c9ee0becf4eff13ea4979aea617aa5bf2c4619ae2c13c4adfa] OCI load from client
+#5 resolve docker.io/library/scrapy-sdd-scrapy@sha256:f59cdcb1f1be58c9ee0becf4eff13ea4979aea617aa5bf2c4619ae2c13c4adfa 0.1s done
+#5 DONE 0.5s
+
+#4 [internal] load build context
+#4 transferring context: 149.79MB 0.5s done
+#4 DONE 1.4s
+
+#6 [agent-artifacts 1/6] WORKDIR /opt/agent-build
+#6 DONE 1.1s
+
+#7 [agent-artifacts 2/6] COPY node-v24.20.0-linux-x64.tar.xz node.tar.xz
+#7 DONE 0.4s
+
+#8 [agent-artifacts 3/6] COPY codex-x86_64-unknown-linux-musl.tar.gz codex.tar.gz
+#8 DONE 0.8s
+
+#9 [agent-artifacts 4/6] COPY uv-x86_64-unknown-linux-gnu.tar.gz uv.tar.gz
+#9 DONE 0.4s
+
+#10 [agent-artifacts 5/6] RUN python - <<'PY'
+#10 DONE 9.5s
+
+#11 [stage-1 1/4] COPY --from=agent-artifacts /opt/agent /opt/agent
+#11 DONE 4.1s
+
+#12 [stage-1 2/4] WORKDIR /workspace
+#12 DONE 0.4s
+
+#13 [stage-1 3/4] RUN python - <<'PY'
+#13 3.556 No broken requirements found.
+#13 3.607 Common runtime versions and Scrapy dependency baseline verified
+#13 DONE 3.7s
+
+#14 exporting to image
+#14 exporting layers
+#14 exporting layers 24.2s done
+#14 exporting manifest sha256:1a7f339fa3216086a57383dc93dc5de18617771517a7e9729fc6d3c062156e5d 0.1s done
+#14 exporting config sha256:baec84440440901342ee9e5a551e4a138a9eaa56698122584335f336067ab190 0.1s done
+#14 exporting attestation manifest sha256:d4bb1009713a6ff76accea0627c8a4e2d182b4b261c2167b9878aa32424f8804
+#14 exporting attestation manifest sha256:d4bb1009713a6ff76accea0627c8a4e2d182b4b261c2167b9878aa32424f8804 0.1s done
+#14 exporting manifest list sha256:4e31d1759723319461745913e81fd37c0af4ad7343ef1b7ac80d6f085fce5330 0.1s done
+#14 naming to docker.io/library/scrapy-sdd-agent:base-11079cb1c85b-codex-0.153.4-node-24.20.0-uv-0.12.10
+#14 naming to docker.io/library/scrapy-sdd-agent:base-11079cb1c85b-codex-0.153.4-node-24.20.0-uv-0.12.10 0.0s done
+#14 unpacking to docker.io/library/scrapy-sdd-agent:base-11079cb1c85b-codex-0.153.4-node-24.20.0-uv-0.12.10
+#14 unpacking to docker.io/library/scrapy-sdd-agent:base-11079cb1c85b-codex-0.153.4-node-24.20.0-uv-0.12.10 3.2s done
+#14 DONE 28.0s
+
+#15 resolving provenance for metadata file
+#15 DONE 0.0s

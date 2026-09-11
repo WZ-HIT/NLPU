@@ -1,0 +1,4 @@
+group	exit_code	final_message	input_tokens	cached_input_tokens	cache_write_input_tokens	output_tokens	reasoning_output_tokens	tool_or_file_events	turn_failed_events	stderr_bytes	observed_wall_seconds
+openspec	0	BENCH_API_OK	8875	0	0	6	0	0	0	0	9.570
+speckit	0	BENCH_API_OK	8949	0	0	6	0	0	0	0	10.315
+cc-sdd	0	BENCH_API_OK	10244	0	0	6	0	0	0	0	9.576

@@ -1,0 +1,21 @@
+specify_files=20
+codex_skills=10
+executable_scripts=6
+specs_directory=absent_until_first_spec
+.agents/skills/speckit-analyze/SKILL.md	name: "speckit-analyze"	11665 bytes
+.agents/skills/speckit-checklist/SKILL.md	name: "speckit-checklist"	22282 bytes
+.agents/skills/speckit-clarify/SKILL.md	name: "speckit-clarify"	19218 bytes
+.agents/skills/speckit-constitution/SKILL.md	name: "speckit-constitution"	9963 bytes
+.agents/skills/speckit-converge/SKILL.md	name: "speckit-converge"	12662 bytes
+.agents/skills/speckit-implement/SKILL.md	name: "speckit-implement"	12711 bytes
+.agents/skills/speckit-plan/SKILL.md	name: "speckit-plan"	7861 bytes
+.agents/skills/speckit-specify/SKILL.md	name: "speckit-specify"	18268 bytes
+.agents/skills/speckit-tasks/SKILL.md	name: "speckit-tasks"	10982 bytes
+.agents/skills/speckit-taskstoissues/SKILL.md	name: "speckit-taskstoissues"	7694 bytes
+executable paths:
+.specify/scripts/bash/check-prerequisites.sh
+.specify/scripts/bash/common.sh
+.specify/scripts/bash/create-new-feature.sh
+.specify/scripts/bash/resolve-template.sh
+.specify/scripts/bash/setup-plan.sh
+.specify/scripts/bash/setup-tasks.sh

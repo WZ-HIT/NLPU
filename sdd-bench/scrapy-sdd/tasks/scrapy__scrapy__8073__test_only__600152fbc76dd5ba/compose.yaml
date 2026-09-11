@@ -1,0 +1,58 @@
+name: scrapy-sdd-8073-600152fbc76dd5ba
+
+x-scrapy-common: &scrapy-common
+  image: scrapy-sdd-scrapy:base-11079cb1c85b-py311
+  pull_policy: never
+  init: true
+  user: "1007:1007"
+  working_dir: /workspace
+  read_only: true
+  network_mode: none
+  command: ["sleep", "infinity"]
+  environment:
+    HOME: /home/bench
+    PIP_CACHE_DIR: /tmp/pip-cache
+    PYTHONPYCACHEPREFIX: /tmp/pycache
+    TOX_WORK_DIR: /tmp/tox
+    XDG_CACHE_HOME: /home/bench/.cache
+  tmpfs:
+    - /tmp:rw,nosuid,nodev,mode=1777
+
+services:
+  openspec:
+    <<: *scrapy-common
+    container_name: scrapy-sdd-8073-600152fbc76dd5ba-openspec
+    volumes:
+      - type: bind
+        source: ./runs/openspec/scrapy
+        target: /workspace
+      - type: volume
+        source: openspec-home
+        target: /home/bench
+
+  speckit:
+    <<: *scrapy-common
+    container_name: scrapy-sdd-8073-600152fbc76dd5ba-speckit
+    volumes:
+      - type: bind
+        source: ./runs/speckit/scrapy
+        target: /workspace
+      - type: volume
+        source: speckit-home
+        target: /home/bench
+
+  cc-sdd:
+    <<: *scrapy-common
+    container_name: scrapy-sdd-8073-600152fbc76dd5ba-cc-sdd
+    volumes:
+      - type: bind
+        source: ./runs/cc-sdd/scrapy
+        target: /workspace
+      - type: volume
+        source: cc-sdd-home
+        target: /home/bench
+
+volumes:
+  openspec-home: {}
+  speckit-home: {}
+  cc-sdd-home: {}

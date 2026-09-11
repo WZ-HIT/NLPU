@@ -1,0 +1,151 @@
+{
+  "schema_version": 1,
+  "step": "08-all",
+  "task_id": "scrapy__scrapy__8073__test_only__600152fbc76dd5ba",
+  "checked_at_utc": "2026-09-09T07:14:25Z",
+  "status": "PASS",
+  "scope": "Launcher authoring and offline/static validation only; no live provider request, SDD installation, SDD initialization, formal deployment service creation, baseline-container stop, or experiment-repository write.",
+  "launcher": {
+    "path": "../../tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/run-agent.sh",
+    "sha256": "9af901cb00277ec85ba8c256c29e9fdc0986e3c6dfb22cbdda44c673a1022803",
+    "mode": "0755",
+    "owner": "wangzuohit:wangzuohit",
+    "interface": [
+      "verify-static",
+      "preflight",
+      "up",
+      "verify",
+      "status",
+      "run <openspec|speckit|cc-sdd> <prompt-file> [run-id]"
+    ]
+  },
+  "fixed_execution_policy": {
+    "profile": "deepseek-v4-pro",
+    "codex_version": "0.153.4",
+    "codex_argv": [
+      "codex",
+      "exec",
+      "--strict-config",
+      "--profile",
+      "deepseek-v4-pro",
+      "--ephemeral",
+      "--json",
+      "--color",
+      "never",
+      "-C",
+      "/workspace",
+      "-"
+    ],
+    "timeout": {
+      "location": "inside the selected Agent container",
+      "implementation": "GNU coreutils timeout",
+      "foreground": true,
+      "seconds": 2700,
+      "initial_signal": "TERM",
+      "kill_after_seconds": 30,
+      "timeout_exit_code": 124
+    },
+    "execution_order": "sequential",
+    "concurrency_control": {
+      "implementation": "non-blocking flock held for the full Codex process",
+      "lock_path": "/tmp/scrapy-sdd-8073-600152fbc76dd5ba-agent.run.lock",
+      "shared_by_variants": true
+    },
+    "arbitrary_codex_overrides_accepted": false,
+    "session_persistence": "disabled by --ephemeral",
+    "stdout_format": "Codex JSONL",
+    "output_directory": "../../Log/scrapy-pr8073-test-only-600152fbc76dd5ba-baseline-and-deployment-audits/agent-runs",
+    "output_permissions": "launcher umask 077",
+    "stderr_captured_separately": true
+  },
+  "variant_mapping": {
+    "openspec": {
+      "agent": "openspec-agent",
+      "proxy": "openspec-egress",
+      "branch": "experiment/openspec"
+    },
+    "speckit": {
+      "agent": "speckit-agent",
+      "proxy": "speckit-egress",
+      "branch": "experiment/speckit"
+    },
+    "cc-sdd": {
+      "agent": "cc-sdd-agent",
+      "proxy": "cc-sdd-egress",
+      "branch": "experiment/cc-sdd"
+    }
+  },
+  "preflight_controls": {
+    "fixed_file_sha256_checks": [
+      "compose.agent.yaml",
+      "common Codex config",
+      "DeepSeek profile",
+      "model catalog",
+      "HAProxy config",
+      "Seccomp profile",
+      "AppArmor profile source"
+    ],
+    "normalized_compose_sha256": "455d1731c2556901836e6b98f91852c9d9939cf892a9ad4ecff0eeb39d6843cb",
+    "agent_image_id": "sha256:5331d81398045534dfca13267402e4f97dad9d6ad43524a62b05286741e960a9",
+    "proxy_image_id": "sha256:6343ce34a132a5dceaa24767d739df2bd519f8f7c1079ae39e4821334e8eb42e",
+    "apparmor_enabled_required": true,
+    "docker_apparmor_and_seccomp_required": true,
+    "subnet_overlap_detection": "Python stdlib ipaddress comparison against every existing Docker network",
+    "target_subnets": [
+      "172.28.11.0/24",
+      "172.28.12.0/24",
+      "172.28.13.0/24"
+    ],
+    "repository_checks_before_up": [
+      "HEAD equals 11079cb1c85b9e75a39a7269943c69d1a975d485",
+      "expected experiment branch",
+      "no Git remote",
+      "clean worktree"
+    ],
+    "secret_checks": [
+      "required absolute path",
+      "canonical existing regular file",
+      "not a symbolic link",
+      "readable and non-empty",
+      "outside the benchmark Git tree",
+      "owned by invoking user",
+      "no group or other permissions"
+    ],
+    "secret_content_logged": false,
+    "old_baseline_containers_must_be_stopped_before_up": true,
+    "deployment_project_must_be_absent_before_up": true
+  },
+  "validation": {
+    "bash_syntax": "PASS",
+    "help_interface": "PASS",
+    "verify_static": "PASS",
+    "valid_fake_secret_preflight": "PASS; temporary 0600 file under /tmp, removed by EXIT trap",
+    "missing_secret_rejected": "PASS; exit 1",
+    "missing_run_arguments_rejected": "PASS; exit 2",
+    "unknown_variant_rejected": "PASS; exit 1",
+    "unexpected_verify_argument_rejected": "PASS; exit 1",
+    "up_with_old_baseline_containers": "PASS; refused before Compose creation with exit 1",
+    "fixed_image_codex_exec_help": "PASS",
+    "fixed_image_gnu_timeout_help": "PASS",
+    "docker_client_version": "29.7.1",
+    "docker_server_version": "29.7.1",
+    "docker_compose_version": "5.4.0",
+    "bash_version": "5.2.21(1)-release",
+    "git_version": "2.43.0",
+    "host_python_version": "3.12.3"
+  },
+  "post_validation_state": {
+    "deployment_containers": 0,
+    "deployment_networks": 0,
+    "deployment_volumes": 0,
+    "old_baseline_containers_running": 3,
+    "experiment_repositories_clean": true,
+    "experiment_repositories_remote_free": true,
+    "sdd_tools_installed_or_initialized": false
+  },
+  "pending": [
+    "Step 09 operator supplies the real secret path without storing it in Git.",
+    "Step 09 stops the three old baseline containers, invokes launcher up, and performs the full live mount, volume, network, resource and security audit.",
+    "A later separately approved check performs the first live model API request."
+  ]
+}

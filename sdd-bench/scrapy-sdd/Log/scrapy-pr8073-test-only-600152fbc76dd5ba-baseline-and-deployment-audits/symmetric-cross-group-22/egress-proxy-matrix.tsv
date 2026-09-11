@@ -1,0 +1,4 @@
+group	state	health	image_id	nanocpus	memory	memory_swap	pids	readonly_root	cap_drop	security_sha256	network_count
+openspec	running	healthy	sha256:6343ce34a132a5dceaa24767d739df2bd519f8f7c1079ae39e4821334e8eb42e	250000000	134217728	134217728	64	true	["ALL"]	1020b17a73c96bf894e66f2c20f28e8a4ccd4dced2eaec1ee736d853c93c0e1c	2
+speckit	running	healthy	sha256:6343ce34a132a5dceaa24767d739df2bd519f8f7c1079ae39e4821334e8eb42e	250000000	134217728	134217728	64	true	["ALL"]	1020b17a73c96bf894e66f2c20f28e8a4ccd4dced2eaec1ee736d853c93c0e1c	2
+cc-sdd	running	healthy	sha256:6343ce34a132a5dceaa24767d739df2bd519f8f7c1079ae39e4821334e8eb42e	250000000	134217728	134217728	64	true	["ALL"]	1020b17a73c96bf894e66f2c20f28e8a4ccd4dced2eaec1ee736d853c93c0e1c	2

@@ -1,0 +1,7 @@
+/scrapy-sdd-8073-600152fbc76dd5ba-agent-openspec-agent-1|home=scrapy-sdd-8073-600152fbc76dd5ba-agent_openspec-home|workspace=/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/runs/openspec/scrapy|image=sha256:5331d81398045534dfca13267402e4f97dad9d6ad43524a62b05286741e960a9
+/scrapy-sdd-8073-600152fbc76dd5ba-agent-speckit-agent-1|home=scrapy-sdd-8073-600152fbc76dd5ba-agent_speckit-home|workspace=/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/runs/speckit/scrapy|image=sha256:5331d81398045534dfca13267402e4f97dad9d6ad43524a62b05286741e960a9
+/scrapy-sdd-8073-600152fbc76dd5ba-agent-cc-sdd-agent-1|home=scrapy-sdd-8073-600152fbc76dd5ba-agent_cc-sdd-home|workspace=/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/runs/cc-sdd/scrapy|image=sha256:5331d81398045534dfca13267402e4f97dad9d6ad43524a62b05286741e960a9
+cc_home_probe_absent_from_openspec=true
+cc_home_probe_absent_from_speckit=true
+each_home_contains_only_matching_sdd=true
+probe_removed=true

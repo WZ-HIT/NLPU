@@ -1,0 +1,1 @@
+This is a provider compatibility probe only. Do not invoke any skill or tool. Do not read, inspect, create, modify, move, or delete any file. Do not execute commands. Reply with exactly BENCH_API_OK and no other text.

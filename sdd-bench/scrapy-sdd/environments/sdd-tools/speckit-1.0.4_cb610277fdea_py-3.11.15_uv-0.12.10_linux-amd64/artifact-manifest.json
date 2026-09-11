@@ -1,0 +1,126 @@
+{
+  "source_commit": "cb610277fdea781fcfa83d20522c2db37c94068d",
+  "python": "3.11.15",
+  "uv": "0.12.10",
+  "source_date_epoch": 315532800,
+  "offline_build": true,
+  "repeat_build_identical": true,
+  "runtime_execution": "not performed",
+  "artifacts": [
+    {
+      "path": "build-requirements.txt",
+      "size_bytes": 1492,
+      "sha256": "a5f09e3b9036010eb56e77edc99d2b2a5a98cedb4588491a2d99957608ef3579"
+    },
+    {
+      "path": "dist/specify_cli-1.0.4-py3-none-any.whl",
+      "size_bytes": 868888,
+      "sha256": "6dea3ff784224dde35fd02d265462ddb3c4bfc97d1184127fcc71106a233d880"
+    },
+    {
+      "path": "install-requirements.txt",
+      "size_bytes": 2033,
+      "sha256": "82bf7f378fb41407beae68fbe90e21995c41e234e8343a30448b89067419562b"
+    },
+    {
+      "path": "runtime-requirements.txt",
+      "size_bytes": 9474,
+      "sha256": "631128e038adffe782a0b6cbc1c3686da2075f8891983952de93daa9663368a1"
+    },
+    {
+      "path": "source.tar.gz",
+      "size_bytes": 4208613,
+      "sha256": "56fe27f2ec576f91e8459f1e5001434980924dc58a090d2e4ed207c676dccb0b"
+    },
+    {
+      "path": "wheels/annotated_doc-0.0.5-py3-none-any.whl",
+      "size_bytes": 5302,
+      "sha256": "117bac03a25ede5df5440e855b32d556049ca169ead221505badf432fed4b101"
+    },
+    {
+      "path": "wheels/click-8.5.0-py3-none-any.whl",
+      "size_bytes": 125251,
+      "sha256": "255bc9599cf7748b4b1a446ccc735421bd08a2ae529a8b88597d3de5664ee360"
+    },
+    {
+      "path": "wheels/hatchling-1.32.0-py3-none-any.whl",
+      "size_bytes": 78435,
+      "sha256": "0e17c9c3b9aa7c625acc8d0f5b622f107d5049af9ecf5ada4de1aada5be7cdbc"
+    },
+    {
+      "path": "wheels/json5-0.15.0-py3-none-any.whl",
+      "size_bytes": 36570,
+      "sha256": "56636a30c0e8a4665fe2179c0212f32eae3796dea89ea6f649b9436ecdb39618"
+    },
+    {
+      "path": "wheels/markdown_it_py-4.2.0-py3-none-any.whl",
+      "size_bytes": 91687,
+      "sha256": "9f7ebbcd14fe59494226453aed97c1070d83f8d24b6fc3a3bcf9a38092641c4a"
+    },
+    {
+      "path": "wheels/mdurl-0.1.2-py3-none-any.whl",
+      "size_bytes": 9979,
+      "sha256": "84008a41e51615a49fc9966191ff91509e3c40b939176e643fd50a5c2196b8f8"
+    },
+    {
+      "path": "wheels/packaging-26.3-py3-none-any.whl",
+      "size_bytes": 129956,
+      "sha256": "d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c"
+    },
+    {
+      "path": "wheels/pathspec-1.1.1-py3-none-any.whl",
+      "size_bytes": 57328,
+      "sha256": "a00ce642f577bf7f473932318056212bc4f8bfdf53128c78bbd5af0b9b20b189"
+    },
+    {
+      "path": "wheels/platformdirs-4.11.7-py3-none-any.whl",
+      "size_bytes": 23938,
+      "sha256": "8a02cb259042c79d1cd0450facc2fe6dc9d303ae7901afbe33bf8ea0b188cef6"
+    },
+    {
+      "path": "wheels/pluggy-1.6.0-py3-none-any.whl",
+      "size_bytes": 20538,
+      "sha256": "e920276dd6813095e9377c0bc5566d94c932c33b27a3e3945d8389c374dd4746"
+    },
+    {
+      "path": "wheels/pygments-2.21.0-py3-none-any.whl",
+      "size_bytes": 1250147,
+      "sha256": "2363c69b61c4a97c838da3b130dcd6468f4848992b21a82f2a63ec34377137d9"
+    },
+    {
+      "path": "wheels/pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "size_bytes": 806638,
+      "sha256": "b8bb0864c5a28024fac8a632c443c87c5aa6f215c0b126c449ae1a150412f31d"
+    },
+    {
+      "path": "wheels/readchar-4.2.2-py3-none-any.whl",
+      "size_bytes": 9401,
+      "sha256": "92daf7e42c52b0787e6c75d01ecfb9a94f4ceff3764958b570c1dddedd47b200"
+    },
+    {
+      "path": "wheels/rich-15.0.0-py3-none-any.whl",
+      "size_bytes": 310654,
+      "sha256": "33bd4ef74232fb73fe9279a257718407f169c09b78a87ad3d296f548e27de0bb"
+    },
+    {
+      "path": "wheels/shellingham-1.5.4-py2.py3-none-any.whl",
+      "size_bytes": 9755,
+      "sha256": "7ecfff8f2fd72616f7481040475a65b2bf8af90a56c89140852d1120324e8686"
+    },
+    {
+      "path": "wheels/tomlkit-0.15.1-py3-none-any.whl",
+      "size_bytes": 49449,
+      "sha256": "177a05aece5a8ca5266fd3c448abb47b8d352f09d477d3ca8332db4d89b24304"
+    },
+    {
+      "path": "wheels/trove_classifiers-2026.6.1.19-py3-none-any.whl",
+      "size_bytes": 14211,
+      "sha256": "ab4c4ec93cc4a4e7815fa759906e05e6bb3f2fbd92ea0f897288c6a43efd15b3"
+    },
+    {
+      "path": "wheels/typer-0.27.2-py3-none-any.whl",
+      "size_bytes": 123130,
+      "sha256": "b3a5fc4342d5fc8fda8fc3010b1cf117e9249aab7fae800c2eff62fd3842d97d"
+    }
+  ]
+}

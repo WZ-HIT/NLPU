@@ -1,0 +1,23 @@
+# Server-local nested Git worktrees. Their exact commits and generated patches
+# are recorded in deployment-lock.json and Log/ evidence.
+environments/scrapy__scrapy__base_*/baseline/scrapy/
+tasks/*/runs/*/scrapy/
+
+# Reconstructible large common runtime payloads. The source URLs and SHA256
+# values remain in deployment-lock.json and artifact manifests.
+environments/agent-runtime/*/artifacts/common/
+environments/agent-runtime/*/base-*-oci/
+
+# Runtime state must never be committed or shared across experiments.
+**/.venv/
+**/.tox/
+**/__pycache__/
+**/.pytest_cache/
+**/.cache/
+**/sessions/
+**/shell_snapshots/
+*.key
+*.pem
+*.token
+.env
+.env.*

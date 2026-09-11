@@ -1,0 +1,184 @@
+message
+msg_01a08a84-bfa3-7ff1-8e6b-877cf60ff9f6
+developer
+input_text
+<skills_instructions>
+## Skills
+A skill is a set of local instructions to follow that is stored in a `SKILL.md` file. Below is the list of skills that can be used. Each entry includes a name, description, and a short path that can be expanded into an absolute path using the skill roots table.
+### Skill roots
+- `r0` = `/home/bench/.codex/skills/.system`
+- `r1` = `/workspace/.agents/skills`
+### Available skills
+- imagegen: Generate or edit raster images when the task benefits from AI-created bitmap visuals such as photos, illustrations, textures, sprites, mockups, or transparent-background cutouts. Use when Codex should create a brand-new image, transform an existing image, or derive visual variants from references, and the output should be a bitmap asset rather than repo-native code or vector. Do not use when the task is better handled by editing existing SVG/vector/code-native assets, extending an established icon or logo system, or building the visual directly in HTML/CSS/canvas. (file: r0/imagegen/SKILL.md)
+- openai-docs: Use for Codex models/pricing, scheduled tasks, skills, settings, setup, troubleshooting, customization, automations, and self-knowledge—including 'you,' 'your,' 'this app,' or 'this coding agent' when they refer to Codex—and for OpenAI APIs/products and ChatGPT Work. Also use for model choice/migration, prompting, SDKs, Responses, Realtime, agents, evals, and Chat/Work/Codex comparisons. Do not use for generic app/software tasks that merely mention Codex. (file: r0/openai-docs/SKILL.md)
+- plugin-creator: Create and scaffold plugin directories for Codex with a required `.codex-plugin/plugin.json`, optional plugin folders/files, valid manifest defaults, and personal-marketplace entries by default. Use when Codex needs to create a new personal plugin, add optional plugin structure, generate or update marketplace entries for plugin ordering and availability metadata, or update an existing local plugin during development with the CLI-driven cachebuster and reinstall flow. (file: r0/plugin-creator/SKILL.md)
+- skill-creator: Create or update a Codex skill with appropriately scoped instructions and any needed supporting resources. (file: r0/skill-creator/SKILL.md)
+- skill-installer: Install Codex skills into $CODEX_HOME/skills from a curated list or a GitHub repo path. Use when a user asks to list installable skills, install a curated skill, or install a skill from another repo (including private repos). (file: r0/skill-installer/SKILL.md)
+- kiro-spec-batch: Create complete specs (requirements, design, tasks) for all features in roadmap.md using parallel sub-agent dispatch by dependency wave. (file: r1/kiro-spec-batch/SKILL.md)
+</skills_instructions>
+input_text
+<permissions instructions>
+Filesystem sandboxing defines which files can be read or written. `sandbox_mode` is `workspace-write`: The sandbox permits reading files, and editing files in `cwd` and `writable_roots`. Editing files in other directories requires approval. Network access is restricted.
+Approval policy is currently never. Do not provide the `sandbox_permissions` for any reason, commands will be rejected.
+ The writable roots are `/tmp`, `/workspace`.
+</permissions instructions>
+auto-compact-0
+host_skills.instructions
+permissions.instructions
+message
+msg_01a08a84-bfa3-7ff1-8e6b-878cf86d56a0
+developer
+input_text
+You are `/root`, the primary agent in a team of agents collaborating to fulfill the user's goals.
+
+At the start of your turn, you are the active agent.
+You can spawn sub-agents to handle subtasks, and those sub-agents can spawn their own sub-agents.
+All agents in the team, including the agents that you can assign tasks to, are equally intelligent and capable, and have access to the same set of tools.
+
+You can use `spawn_agent` to create a new agent, `followup_task` to give an existing agent a new task and trigger a turn, and `send_message` to pass a message to a running agent without triggering a turn.
+Child agents can also spawn their own sub-agents.
+You can decide how much context you want to propagate to your sub-agents with the `fork_turns` parameter.
+
+You will receive messages in the analysis channel in the form:
+```
+Message Type: MESSAGE | FINAL_ANSWER
+Task name: <recipient>
+Sender: <author>
+Payload:
+<payload text>
+```
+They may be addressed as to=/root
+
+Note that collaboration tools cannot be called from inside `functions.exec`. Call `spawn_agent`, `send_message`, `followup_task`, `wait_agent`, `interrupt_agent`, and `list_agents` only as direct tool calls using the recipient shown in their tool definitions, such as `to=functions.collaboration.spawn_agent`, since they are intentionally absent from the `functions.exec` `tools.*` namespace. Available tools in `functions.exec` are explicitly described with a `tools` namespace in the developer message.
+
+All agents share the same directory. In detail:
+- All agents have access to the same container and filesystem as you.
+- All agents use the same current working directory.
+- As a result, edits made by one agent are immediately visible to all other agents.
+
+When calling `wait_agent`, prefer longer waits (minutes) to avoid busy polling.
+
+There are 4 available concurrency slots, meaning that up to 4 agents can be active at once, including you.
+
+Full-history forks (`fork_turns` omitted or `"all"`) inherit the parent model and reasoning effort and do not accept overrides. Only set `model` or `reasoning_effort` when explicitly requested by the user, applicable `AGENTS.md` instructions, or skill instructions; when doing so, set `fork_turns` to `"none"` or a positive integer string.
+auto-compact-0
+multi_agent.usage_hint
+message
+msg_01a08a84-bfa3-7ff1-8e6b-87913f94b378
+developer
+input_text
+<multi_agent_mode>Any earlier instruction enabling proactive multi-agent delegation no longer applies. Do not spawn sub-agents unless the user or applicable AGENTS.md/skill instructions explicitly ask for sub-agents, delegation, or parallel agent work.</multi_agent_mode>
+auto-compact-0
+multi_agent.mode_instructions
+message
+msg_01a08a84-bfa3-7ff1-8e6b-87aad0ee50fd
+user
+input_text
+# AGENTS.md instructions for /workspace
+
+<INSTRUCTIONS>
+# Agentic SDLC and Spec-Driven Development
+
+Kiro-style Spec-Driven Development on an agentic SDLC
+
+## Project Memory
+Project memory keeps persistent guidance (steering, specs notes, component docs) so Codex honors your standards each run. Treat it as the long-lived source of truth for patterns, conventions, and decisions.
+
+- Use `.kiro/steering/` for project-wide policies: architecture principles, naming schemes, security constraints, tech stack decisions, api standards, etc.
+- Use local `AGENTS.md` files for feature or library context (e.g. `src/lib/payments/AGENTS.md`): describe domain assumptions, API contracts, or testing conventions specific to that folder. Codex auto-loads these when working in the matching path.
+- Specs notes stay with each spec (under `.kiro/specs/`) to guide specification-level workflows.
+
+## Project Context
+
+### Paths
+- Steering: `.kiro/steering/`
+- Specs: `.kiro/specs/`
+
+### Steering vs Specification
+
+**Steering** (`.kiro/steering/`) - Guide AI with project-wide rules and context
+**Specs** (`.kiro/specs/`) - Formalize development process for individual features
+
+### Active Specifications
+- Check `.kiro/specs/` for active specifications
+- Use `$kiro-spec-status [feature-name]` to check progress
+
+## Development Guidelines
+- Think in English, generate responses in English. All Markdown content written to project files (e.g., requirements.md, design.md, tasks.md, research.md, validation reports) MUST be written in the target language configured for this specification (see spec.json.language).
+
+## Minimal Workflow
+- Phase 0 (optional): `$kiro-steering`, `$kiro-steering-custom`
+- Discovery: `$kiro-discovery "idea"` — determines action path, writes brief.md + roadmap.md for multi-spec projects
+- Phase 1 (Specification):
+  - Single spec: `$kiro-spec-quick {feature} [--auto]` or step by step:
+    - `$kiro-spec-init "description"`
+    - `$kiro-spec-requirements {feature}`
+    - `$kiro-validate-gap {feature}` (optional: for existing codebase)
+    - `$kiro-spec-design {feature} [-y]`
+    - `$kiro-validate-design {feature}` (optional: design review)
+    - `$kiro-spec-tasks {feature} [-y]`
+  - Multi-spec: `$kiro-spec-batch` — creates all specs from roadmap.md in parallel by dependency wave
+- Phase 2 (Implementation): `$kiro-impl {feature} [tasks]`
+  - Without task numbers: autonomous mode (subagent per task + independent review + final validation)
+  - With task numbers: manual mode (selected tasks in main context, still reviewer-gated before completion)
+  - `$kiro-validate-impl {feature}` (standalone re-validation)
+- Progress check: `$kiro-spec-status {feature}` (use anytime)
+
+## Skills Structure
+Skills are located in `.agents/skills/kiro-*/SKILL.md`
+- Each skill is a directory with a `SKILL.md` file
+- Use `/skills` to inspect currently available skills
+- Invoke a skill directly with `$kiro-<skill-name>`
+- `kiro-review` — task-local adversarial review protocol used by reviewer subagents
+- `kiro-debug` — root-cause-first debug protocol used by debugger subagents
+- `kiro-verify-completion` — fresh-evidence gate before success or completion claims
+- **If there is even a 1% chance a skill applies to the current task, invoke it.** Do not skip skills because the task seems simple.
+
+## Collaboration Modes (Optional)
+Enable collaboration modes in `~/.codex/config.toml` to let Codex choose focused execution modes for longer tasks:
+
+```toml
+[features]
+collaboration_modes = true
+```
+
+## Multi-Agent (Experimental)
+If multi-agent is available, use it to parallelize independent research and validation within skills. Enable in `~/.codex/config.toml`:
+
+```toml
+[features]
+multi_agent = true
+```
+
+Skills with "Parallel Research" sections list independent work items that benefit from sub-agent spawning when this feature is active.
+
+## Development Rules
+- 3-phase approval workflow: Requirements → Design → Tasks → Implementation
+- Human review required each phase; use `-y` only for intentional fast-track
+- Keep steering current and verify alignment with `$kiro-spec-status`
+- Follow the user's instructions precisely, and within that scope act autonomously: gather the necessary context and complete the requested work end-to-end in this run, asking questions only when essential information is missing or the instructions are critically ambiguous.
+
+## Steering Configuration
+- Load entire `.kiro/steering/` as project memory
+- Default files: `product.md`, `tech.md`, `structure.md`
+- Custom files are supported (managed via `$kiro-steering-custom`)
+
+</INSTRUCTIONS>
+input_text
+<environment_context>
+  <cwd>/workspace</cwd>
+  <shell>bash</shell>
+  <current_date>2026-09-10</current_date>
+  <timezone>Etc/UTC</timezone>
+  <filesystem><workspace_roots><root>/workspace</root></workspace_roots><permission_profile type="managed"><file_system type="restricted"><entry access="read"><special>:root</special></entry><entry access="write"><path>/workspace</path></entry><entry access="write"><special>:slash_tmp</special></entry><entry access="write"><special>:tmpdir</special></entry><entry access="read"><path>/workspace/.git</path></entry><entry access="read"><path>/workspace/.agents</path></entry><entry access="read"><path>/workspace/.codex</path></entry></file_system></permission_profile></filesystem>
+</environment_context>
+auto-compact-0
+agents_md.instructions
+environments.environment_context
+message
+msg_01a08a84-bfa3-7ff1-8e6b-87b3f93cd3e0
+user
+input_text
+Local integration recognition audit only; do not execute a task.
+auto-compact-0
+user.text

@@ -1,0 +1,73 @@
+{
+  "cli": {
+    "absolute_path": "/home/bench/tools/npm/node_modules/@fission-ai/openspec/bin/openspec.js",
+    "init_help_bytes": 1383,
+    "init_help_sha256": "d0798ca71d758d863a52ab4f1c0cbb1f85bfa5dc44d6f8f51748692ab514ad0d",
+    "version": "1.12.0"
+  },
+  "command": {
+    "argv": [
+      "openspec",
+      "init",
+      "--tools",
+      "codex"
+    ],
+    "exit_code": 0,
+    "network_request_made": false,
+    "telemetry_notice_observed": true
+  },
+  "container": "scrapy-sdd-8073-600152fbc76dd5ba-agent-openspec-agent-1",
+  "evidence_files": {
+    "after_tree": ".after-tree.tsv",
+    "before_tree": ".before-tree.tsv",
+    "init_stderr": ".init-stderr.txt",
+    "init_stdout": ".init-stdout.txt",
+    "init_summary": "init-summary.txt",
+    "prestate": "prestate.txt",
+    "raw_observations": "raw-observations.txt"
+  },
+  "formal_run_ready": false,
+  "generated": {
+    "cc_sdd_files": [],
+    "codex_skills": [
+      ".agents/skills/.openspec-target",
+      ".agents/skills/openspec-apply-change/SKILL.md",
+      ".agents/skills/openspec-archive-change/SKILL.md",
+      ".agents/skills/openspec-explore/SKILL.md",
+      ".agents/skills/openspec-propose/SKILL.md",
+      ".agents/skills/openspec-sync-specs/SKILL.md",
+      ".agents/skills/openspec-update-change/SKILL.md"
+    ],
+    "config": [
+      "openspec/config.yaml"
+    ],
+    "openspec_change_archive": "openspec/changes/archive/",
+    "openspec_spec_directory": "openspec/specs/",
+    "spec_kit_files": []
+  },
+  "poststate": {
+    "generated_tree_sha256": "4f5463075125877bf36c338b728b5f4379c653cbcf0ddd487377aa575ffc2ecd",
+    "git_diff_files": 0,
+    "protected_index_sha256": "322e0d04dae482ca9192e0298259db168bea785444137c9d49f54ff1787f18e4",
+    "protected_status_count": 0,
+    "untracked_generated_files": 9
+  },
+  "prestate": {
+    "branch": "experiment/openspec",
+    "file_count": 678,
+    "git_status_count": 0,
+    "head": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+    "protected_index_sha256": "322e0d04dae482ca9192e0298259db168bea785444137c9d49f54ff1787f18e4",
+    "tree": "0b9ebb13cca2038ecf5f84ba1f3e7efd6e1cebf2",
+    "tree_sha256": "a7304ab31dbbff63f1b53f725bd6f9e9c79276577811f5fb061cc698138672d4"
+  },
+  "preview_deleted": true,
+  "preview_path": "/tmp/openspec-init-preview-11",
+  "protected_paths": {
+    "scrapy_unchanged": true,
+    "tests_unchanged": true
+  },
+  "step": "11",
+  "timestamp_utc": "2026-09-09T11:07:43.035955+00:00",
+  "title": "OpenSpec initialization preview"
+}

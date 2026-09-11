@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "step": "06e",
+  "checked_at_utc": "2026-09-07T05:25:54.546145+00:00",
+  "task_id": "scrapy__scrapy__8073__test_only__600152fbc76dd5ba",
+  "status": "offline_configuration_passed_sandbox_failed",
+  "formal_run_ready": false,
+  "scope": "One disposable offline container; no experiment repository mounts, credentials or model requests. No image changes or security relaxation.",
+  "deployment_lock_sha256": "4a3957078b2bbe3d77039664d881b8dc5b7471e649cd3aee0b28d4a35952e594",
+  "docker_argv": [
+    "docker",
+    "run",
+    "--rm",
+    "-i",
+    "--pull=never",
+    "--network=none",
+    "--read-only",
+    "--user",
+    "1007:1007",
+    "--cap-drop=ALL",
+    "--security-opt",
+    "no-new-privileges:true",
+    "--cpus",
+    "4",
+    "--memory",
+    "8g",
+    "--memory-swap",
+    "8g",
+    "--pids-limit",
+    "512",
+    "--tmpfs",
+    "/home/bench:rw,uid=1007,gid=1007,size=64m",
+    "--tmpfs",
+    "/home/bench/.codex:rw,uid=1007,gid=1007,size=64m",
+    "--tmpfs",
+    "/tmp:rw,size=64m",
+    "--env",
+    "HOME=/home/bench",
+    "--workdir",
+    "/tmp",
+    "--mount",
+    "type=bind,src=/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/environments/agent-runtime/codex-0.153.4_node-24.20.0_uv-0.12.10_linux-amd64/config-templates/config.toml,dst=/home/bench/.codex/config.toml,readonly",
+    "--mount",
+    "type=bind,src=/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/environments/agent-runtime/codex-0.153.4_node-24.20.0_uv-0.12.10_linux-amd64/config-templates/deepseek-v4-pro.config.toml,dst=/home/bench/.codex/deepseek-v4-pro.config.toml,readonly",
+    "--mount",
+    "type=bind,src=/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/environments/agent-runtime/codex-0.153.4_node-24.20.0_uv-0.12.10_linux-amd64/config-templates/model-catalogs,dst=/home/bench/.codex/model-catalogs,readonly",
+    "scrapy-sdd-agent@sha256:4e31d1759723319461745913e81fd37c0af4ad7343ef1b7ac80d6f085fce5330",
+    "python",
+    "-"
+  ],
+  "container_stdin_python": "import json,subprocess,pathlib,hashlib,tomllib,os\nroot=pathlib.Path('/home/bench/.codex')\nfiles={}\nfor f in ['config.toml','deepseek-v4-pro.config.toml','model-catalogs/deepseek-v4-pro/models.json']:\n b=(root/f).read_bytes();files[f]=hashlib.sha256(b).hexdigest()\nc=tomllib.loads((root/'config.toml').read_text());p=tomllib.loads((root/'deepseek-v4-pro.config.toml').read_text());m=json.loads(pathlib.Path(p['model_catalog_json']).read_text())\nassert not set(c).intersection(p)\nassert c['features']['multi_agent'] is False and c['web_search']=='disabled' and c['sandbox_workspace_write']['network_access'] is False\nassert p['model']=='deepseek-v4-pro' and p['model_reasoning_effort']=='high' and p['model_provider']=='deepseek'\nassert p['model_providers']['deepseek']['env_key']=='DEEPSEEK_API_KEY'\nassert len(m['models'])==1 and m['models'][0]['slug']==p['model']\nassert not any(k in os.environ for k in ['OPENAI_API_KEY','DEEPSEEK_API_KEY'])\nout={'file_sha256':files,'static_config_assertions':'PASS','credentials_present':False,'commands':[]}\ndef run(argv,omit=False):\n try:\n  r=subprocess.run(argv,capture_output=True,text=True,timeout=20)\n  entry={'argv':argv,'exit_code':r.returncode,'stderr':r.stderr}\n  if omit:\n   entry['stdout_sha256']=hashlib.sha256(r.stdout.encode()).hexdigest()\n   entry['stdout_bytes']=len(r.stdout.encode())\n   if r.returncode==0:entry['json_items']=len(json.loads(r.stdout))\n  else:entry['stdout']=r.stdout\n except subprocess.TimeoutExpired as e:\n  entry={'argv':argv,'exit_code':None,'timeout_seconds':20,'stderr':str(e)}\n out['commands'].append(entry);return entry\nrun(['codex','--version'])\nprompt=run(['codex','--profile','deepseek-v4-pro','debug','prompt-input','Offline configuration audit only.'],True)\nsandbox=run(['codex','--profile','deepseek-v4-pro','sandbox','linux','--','/bin/true'])\nout['profile_load']='PASS' if prompt['exit_code']==0 else 'FAIL'\nout['sandbox_startup']='PASS' if sandbox['exit_code']==0 else 'FAIL'\nout['sandbox_write_and_network_enforcement']='NOT_TESTED: sandbox startup failed' if sandbox['exit_code']!=0 else 'NOT_TESTED'\nout['system_bwrap_on_path']=subprocess.run(['sh','-c','command -v bwrap'],capture_output=True,text=True).stdout.strip() or None\nfreeze=subprocess.run(['python','-m','pip','freeze','--all'],check=True,capture_output=True,text=True).stdout\nout['python_dependency_sha256']=hashlib.sha256(('\\n'.join(sorted(freeze.splitlines()))+'\\n').encode()).hexdigest()\nprint(json.dumps(out))\n",
+  "docker_exit_code": 0,
+  "docker_stderr": "",
+  "probe": {
+    "file_sha256": {
+      "config.toml": "cca8e0e091cb77b113685458ac331afba218ffcb7b3288f69153362bb44ad93d",
+      "deepseek-v4-pro.config.toml": "a6f2cd4b34d0a3e3ed83ca364bfff5faedfe666e0c43e32fb6fe6a4293e03818",
+      "model-catalogs/deepseek-v4-pro/models.json": "dfaff2fcbef199a42944d39452b769bf5c010e1b7069f2d3a33cabdc9d62ebd3"
+    },
+    "static_config_assertions": "PASS",
+    "credentials_present": false,
+    "commands": [
+      {
+        "argv": [
+          "codex",
+          "--version"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout": "codex-cli 0.153.4\n"
+      },
+      {
+        "argv": [
+          "codex",
+          "--profile",
+          "deepseek-v4-pro",
+          "debug",
+          "prompt-input",
+          "Offline configuration audit only."
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_sha256": "c2efb14c76ece1650689dd562e173a3c0f2baf6b64dcf2bb5a8642f8fc46d0b6",
+        "stdout_bytes": 8437,
+        "json_items": 5
+      },
+      {
+        "argv": [
+          "codex",
+          "--profile",
+          "deepseek-v4-pro",
+          "sandbox",
+          "linux",
+          "--",
+          "/bin/true"
+        ],
+        "exit_code": 101,
+        "stderr": "\nthread 'main' (42) panicked at linux-sandbox/src/launcher.rs:51:13:\nbubblewrap is unavailable: no system bwrap was found on PATH and no bundled codex-resources/bwrap binary was found next to the Codex executable\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n",
+        "stdout": ""
+      }
+    ],
+    "profile_load": "PASS",
+    "sandbox_startup": "FAIL",
+    "sandbox_write_and_network_enforcement": "NOT_TESTED: sandbox startup failed",
+    "system_bwrap_on_path": null,
+    "python_dependency_sha256": "570e1651694fe0e30bbd07a231c2f70cccf09cd18503b8ead34fdfd50f5f3abd"
+  },
+  "dependency_hash_matches_baseline": true,
+  "repositories": {
+    "openspec": {
+      "head": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+      "branch": "experiment/openspec",
+      "status_porcelain": "",
+      "remotes": "",
+      "reachable_commits": 1
+    },
+    "speckit": {
+      "head": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+      "branch": "experiment/speckit",
+      "status_porcelain": "",
+      "remotes": "",
+      "reachable_commits": 1
+    },
+    "cc-sdd": {
+      "head": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+      "branch": "experiment/cc-sdd",
+      "status_porcelain": "",
+      "remotes": "",
+      "reachable_commits": 1
+    }
+  },
+  "interpretation": "The Codex binary runs and loads the profile, but the sandbox launcher cannot locate either system bwrap or a bundled codex-resources/bwrap. Earlier fallback messages did not prove that the bundled resource existed. Write and network enforcement were not tested because sandbox startup failed.",
+  "pending": [
+    "Investigate sandbox resource packaging and propose an approved fix; do not disable sandbox or expand container permissions automatically",
+    "Set budgets and timeout, implement provider-only egress and credential isolation",
+    "Deploy identical configurations and verify live API compatibility after separate approval"
+  ],
+  "record_note": "06d lock remains unchanged as a historical pre-probe record; its sandbox-unverified wording and pending-evidence pointer must be updated in a separately approved lock amendment."
+}

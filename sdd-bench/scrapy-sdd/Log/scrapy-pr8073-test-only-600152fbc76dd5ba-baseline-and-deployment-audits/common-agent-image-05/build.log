@@ -1,0 +1,141 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile.agent
+#1 transferring dockerfile:
+#1 transferring dockerfile: 4.39kB done
+#1 DONE 0.2s
+
+#2 [internal] load metadata for docker.io/library/scrapy-sdd-scrapy@sha256:f59cdcb1f1be58c9ee0becf4eff13ea4979aea617aa5bf2c4619ae2c13c4adfa
+#2 ERROR: unexpected status from HEAD request to https://docker.m.daocloud.io/v2/library/scrapy-sdd-scrapy/manifests/sha256:f59cdcb1f1be58c9ee0becf4eff13ea4979aea617aa5bf2c4619ae2c13c4adfa?ns=docker.io: 401 Unauthorized
+------
+ > [internal] load metadata for docker.io/library/scrapy-sdd-scrapy@sha256:f59cdcb1f1be58c9ee0becf4eff13ea4979aea617aa5bf2c4619ae2c13c4adfa:
+------
+Dockerfile.agent:43
+--------------------
+  41 |     PY
+  42 |     
+  43 | >>> FROM scrapy-sdd-scrapy@sha256:f59cdcb1f1be58c9ee0becf4eff13ea4979aea617aa5bf2c4619ae2c13c4adfa
+  44 |     
+  45 |     LABEL bench.agent="codex" \
+--------------------
+ERROR: failed to build: failed to solve: scrapy-sdd-scrapy@sha256:f59cdcb1f1be58c9ee0becf4eff13ea4979aea617aa5bf2c4619ae2c13c4adfa: failed to resolve source metadata for docker.io/library/scrapy-sdd-scrapy@sha256:f59cdcb1f1be58c9ee0becf4eff13ea4979aea617aa5bf2c4619ae2c13c4adfa: unexpected status from HEAD request to https://docker.m.daocloud.io/v2/library/scrapy-sdd-scrapy/manifests/sha256:f59cdcb1f1be58c9ee0becf4eff13ea4979aea617aa5bf2c4619ae2c13c4adfa?ns=docker.io: 401 Unauthorized
+4100504 v0.36.1 /usr/libexec/docker/cli-plugins/docker-buildx buildx build --pull=false --network=none --platform=linux/amd64 --progress=plain --tag scrapy-sdd-agent:base-11079cb1c85b-codex-0.153.4-node-24.20.0-uv-0.12.10 --iidfile /home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/Log/scrapy-pr8073-test-only-600152fbc76dd5ba-baseline-and-deployment-audits/common-agent-image-05/image.id --file /home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/Dockerfile.agent /home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/environments/agent-runtime/codex-0.153.4_node-24.20.0_uv-0.12.10_linux-amd64/artifacts/common
+github.com/docker/buildx/commands.runBuildWithOptions
+	github.com/docker/buildx/commands/build.go:504
+github.com/docker/buildx/commands.runBuild
+	github.com/docker/buildx/commands/build.go:419
+github.com/docker/buildx/commands.buildCmd.func1
+	github.com/docker/buildx/commands/build.go:540
+github.com/docker/cli/cli-plugins/plugin.RunPlugin.func1.1.2
+	github.com/docker/cli@v29.6.2+incompatible/cli-plugins/plugin/plugin.go:65
+github.com/spf13/cobra.(*Command).execute
+	github.com/spf13/cobra@v1.10.2/command.go:1015
+github.com/spf13/cobra.(*Command).ExecuteC
+	github.com/spf13/cobra@v1.10.2/command.go:1148
+github.com/spf13/cobra.(*Command).Execute
+	github.com/spf13/cobra@v1.10.2/command.go:1071
+github.com/docker/cli/cli-plugins/plugin.RunPlugin
+	github.com/docker/cli@v29.6.2+incompatible/cli-plugins/plugin/plugin.go:80
+main.runPlugin
+	github.com/docker/buildx/cmd/buildx/main.go:65
+main.run
+	github.com/docker/buildx/cmd/buildx/main.go:79
+main.main
+	github.com/docker/buildx/cmd/buildx/main.go:89
+runtime.main
+	runtime/proc.go:290
+runtime.goexit
+	runtime/asm_amd64.s:1771
+
+4100504 v0.36.1 /usr/libexec/docker/cli-plugins/docker-buildx buildx build --pull=false --network=none --platform=linux/amd64 --progress=plain --tag scrapy-sdd-agent:base-11079cb1c85b-codex-0.153.4-node-24.20.0-uv-0.12.10 --iidfile /home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/Log/scrapy-pr8073-test-only-600152fbc76dd5ba-baseline-and-deployment-audits/common-agent-image-05/image.id --file /home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/Dockerfile.agent /home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/environments/agent-runtime/codex-0.153.4_node-24.20.0_uv-0.12.10_linux-amd64/artifacts/common
+google.golang.org/grpc.(*ClientConn).Invoke
+	google.golang.org/grpc@v1.82.1/call.go:35
+github.com/moby/buildkit/frontend/gateway/pb.(*lLBBridgeClient).Solve
+	github.com/moby/buildkit@v0.32.2/frontend/gateway/pb/gateway_grpc.pb.go:105
+github.com/moby/buildkit/client.(*gatewayClientForBuild).Solve
+	github.com/moby/buildkit@v0.32.2/client/build.go:98
+github.com/moby/buildkit/frontend/gateway/grpcclient.(*grpcClient).Solve
+	github.com/moby/buildkit@v0.32.2/frontend/gateway/grpcclient/client.go:416
+github.com/docker/buildx/build.solve
+	github.com/docker/buildx/build/build.go:1325
+github.com/docker/buildx/build.BuildWithResultHandler.func2.4.2
+	github.com/docker/buildx/build/build.go:619
+github.com/moby/buildkit/frontend/gateway/grpcclient.(*grpcClient).Run
+	github.com/moby/buildkit@v0.32.2/frontend/gateway/grpcclient/client.go:219
+github.com/moby/buildkit/client.(*Client).Build.func2
+	github.com/moby/buildkit@v0.32.2/client/build.go:59
+github.com/moby/buildkit/client.(*Client).solve.func3
+	github.com/moby/buildkit@v0.32.2/client/solve.go:349
+golang.org/x/sync/errgroup.(*Group).Go.func1
+	golang.org/x/sync@v0.22.0/errgroup/errgroup.go:93
+runtime.goexit
+	runtime/asm_amd64.s:1771
+
+243599  /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+github.com/moby/buildkit/frontend/gateway.(*llbBridgeForwarder).Return
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/frontend/gateway/gateway.go:1033
+github.com/moby/buildkit/control/gateway.(*GatewayForwarder).Return
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/control/gateway/gateway.go:109
+github.com/moby/buildkit/frontend/gateway/pb._LLBBridge_Return_Handler.func1
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/frontend/gateway/pb/gateway_grpc.pb.go:523
+google.golang.org/grpc.getChainUnaryHandler.func1
+	/root/build-deb/engine/vendor/google.golang.org/grpc/server.go:1256
+github.com/moby/moby/v2/daemon/server/router/grpc.unaryInterceptor
+	/root/build-deb/engine/daemon/server/router/grpc/grpc.go:77
+google.golang.org/grpc.NewServer.chainUnaryServerInterceptors.chainUnaryInterceptors.func1
+	/root/build-deb/engine/vendor/google.golang.org/grpc/server.go:1247
+github.com/moby/buildkit/frontend/gateway/pb._LLBBridge_Return_Handler
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/frontend/gateway/pb/gateway_grpc.pb.go:525
+google.golang.org/grpc.(*Server).processUnaryRPC
+	/root/build-deb/engine/vendor/google.golang.org/grpc/server.go:1443
+google.golang.org/grpc.(*Server).handleStream
+	/root/build-deb/engine/vendor/google.golang.org/grpc/server.go:1858
+google.golang.org/grpc.(*Server).serveStreams.func2.1
+	/root/build-deb/engine/vendor/google.golang.org/grpc/server.go:1078
+runtime.goexit
+	/usr/local/go/src/runtime/asm_amd64.s:1771
+
+243599  /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+github.com/moby/buildkit/client/llb/sourceresolver.(*imageMetaResolver).ResolveImageConfig
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/client/llb/sourceresolver/imageresolver.go:51
+github.com/moby/buildkit/frontend/gateway/forwarder.(*BridgeClient).ResolveImageConfig
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/frontend/gateway/forwarder/forward.go:97
+github.com/moby/buildkit/frontend/dockerfile/builder.(*withResolveCache).ResolveImageConfig.func1
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/frontend/dockerfile/builder/resolvecache.go:37
+github.com/moby/buildkit/util/flightcontrol.(*CachedGroup[...]).Do.func1
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/util/flightcontrol/cached.go:43
+github.com/moby/buildkit/util/flightcontrol.(*call[...]).run
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/util/flightcontrol/flightcontrol.go:122
+sync.(*Once).doSlow
+	/usr/local/go/src/sync/once.go:78
+sync.(*Once).Do
+	/usr/local/go/src/sync/once.go:69
+runtime.goexit
+	/usr/local/go/src/runtime/asm_amd64.s:1771
+
+4100504 v0.36.1 /usr/libexec/docker/cli-plugins/docker-buildx buildx build --pull=false --network=none --platform=linux/amd64 --progress=plain --tag scrapy-sdd-agent:base-11079cb1c85b-codex-0.153.4-node-24.20.0-uv-0.12.10 --iidfile /home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/Log/scrapy-pr8073-test-only-600152fbc76dd5ba-baseline-and-deployment-audits/common-agent-image-05/image.id --file /home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/Dockerfile.agent /home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/environments/agent-runtime/codex-0.153.4_node-24.20.0_uv-0.12.10_linux-amd64/artifacts/common
+google.golang.org/grpc.(*ClientConn).Invoke
+	google.golang.org/grpc@v1.82.1/call.go:35
+github.com/moby/buildkit/api/services/control.(*controlClient).Solve
+	github.com/moby/buildkit@v0.32.2/api/services/control/control_grpc.pb.go:88
+github.com/moby/buildkit/client.(*Client).solve.func2
+	github.com/moby/buildkit@v0.32.2/client/solve.go:337
+golang.org/x/sync/errgroup.(*Group).Go.func1
+	golang.org/x/sync@v0.22.0/errgroup/errgroup.go:93
+
+243599  /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+github.com/moby/buildkit/frontend/dockerfile/dockerfile2llb.(*dispatchContext).resolveBaseImage
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/frontend/dockerfile/dockerfile2llb/convert.go:704
+github.com/moby/buildkit/frontend/dockerfile/dockerfile2llb.(*dispatchContext).resolveReachableStages.func1
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/frontend/dockerfile/dockerfile2llb/convert.go:608
+golang.org/x/sync/errgroup.(*Group).Go.func1
+	/root/build-deb/engine/vendor/golang.org/x/sync/errgroup/errgroup.go:93
+runtime.goexit
+	/usr/local/go/src/runtime/asm_amd64.s:1771
+
+4100504 v0.36.1 /usr/libexec/docker/cli-plugins/docker-buildx buildx build --pull=false --network=none --platform=linux/amd64 --progress=plain --tag scrapy-sdd-agent:base-11079cb1c85b-codex-0.153.4-node-24.20.0-uv-0.12.10 --iidfile /home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/Log/scrapy-pr8073-test-only-600152fbc76dd5ba-baseline-and-deployment-audits/common-agent-image-05/image.id --file /home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/Dockerfile.agent /home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/environments/agent-runtime/codex-0.153.4_node-24.20.0_uv-0.12.10_linux-amd64/artifacts/common
+github.com/moby/buildkit/client.(*Client).solve.func2
+	github.com/moby/buildkit@v0.32.2/client/solve.go:339
+golang.org/x/sync/errgroup.(*Group).Go.func1
+	golang.org/x/sync@v0.22.0/errgroup/errgroup.go:93
+

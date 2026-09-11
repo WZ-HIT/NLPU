@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "step": "25",
+  "title": "Post-live symmetric integrity and reproducibility audit",
+  "status": "PASS",
+  "completed_at_utc": "2026-09-10T12:48:22Z",
+  "task": {
+    "sample_id": "scrapy__scrapy__8073__test_only__600152fbc76dd5ba",
+    "pr_id": 8073,
+    "base_sha": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+    "tree_sha": "0b9ebb13cca2038ecf5f84ba1f3e7efd6e1cebf2"
+  },
+  "scope": {
+    "live_provider_request_made": false,
+    "credential_content_read": false,
+    "repository_writes": false,
+    "temporary_private_home_and_tmpfs_probes_removed": true
+  },
+  "official_codex_contract": {
+    "source": "https://learn.chatgpt.com/docs/non-interactive-mode",
+    "checked_date_utc": "2026-09-10",
+    "assertions": [
+      "codex exec --json emits JSONL events",
+      "--ephemeral avoids persistent session files"
+    ],
+    "use_in_this_audit": "Validated the absence of persistent session and shell-snapshot state after the Step 24 ephemeral JSONL runs."
+  },
+  "evidence_chain": {
+    "steps_22_23_24_sha256_match_lock": true,
+    "matrix_sha256": "6fbec303c996c74bb45135e525a60e5c6e0735b6d2d4423e256dc5a06fb0d2be"
+  },
+  "repositories": {
+    "same_head_tree_and_single_reachable_commit": true,
+    "no_remotes": true,
+    "no_tracked_or_staged_changes": true,
+    "expected_untracked_file_counts": {
+      "openspec": 10,
+      "speckit": 30,
+      "cc-sdd": 68
+    },
+    "post_probe_matrix_sha256": "03f04f9e9d44de0c828fb46fce7e058215996e52dac9beb05b9cb4278e425db7"
+  },
+  "runtime": {
+    "same_agent_image_id": "sha256:5331d81398045534dfca13267402e4f97dad9d6ad43524a62b05286741e960a9",
+    "same_python_node_npm_uv_codex_and_dependencies": true,
+    "runtime_matrix_sha256": "1d4b7bc5d136cd12cc03744ae99232a8955931bf141bb5bde05248fa2a2be3e1",
+    "same_resource_mount_and_security_semantics": true,
+    "resource_semantic_matrix_sha256": "c864f793f95a85df0295d18c3b8976dffc48b7d1a78c7ea6a4e37f214a14e8a0",
+    "seccomp_source_sha256": "1a25ca5c611f8acd56d436b6bf61cce4dd4f9115291e22929152b50a9915ac25",
+    "securityopt_serialization_note": "The Step 25 collection hashed Docker expanded SecurityOpt JSON, whereas Step 22 used a different serialization. All stable semantic columns match byte-for-byte, all three current expanded values match, and the pinned source seccomp digest is unchanged."
+  },
+  "tools": {
+    "versions": {
+      "openspec": "1.12.0",
+      "speckit": "1.0.4",
+      "cc-sdd": "3.0.2"
+    },
+    "dependency_checks_passed": true,
+    "fixed_entrypoints_passed": true,
+    "foreign_tool_count_each": 0,
+    "speckit_direct_console_script": "PASS in the formal Step 25 run; trusted system Python plus the private venv site-packages also passed",
+    "preflight_note": "One ad-hoc pre-audit direct Spec Kit invocation transiently returned permission denied; it was not reproducible in the formal audit, whose direct and alternate fixed invocations both passed.",
+    "matrix_sha256": "768a7a0e688f8c79093f609e15ebd9f6ede65070de0867a163d5db3ce25408f8"
+  },
+  "isolation": {
+    "distinct_private_home_cache_and_workspace": true,
+    "direct_external_connect_each": "DENIED_ERRNO_101",
+    "provider_dns_maps_to_matching_private_proxy": true,
+    "session_file_count_each": 0,
+    "shell_snapshot_file_count_each": 0,
+    "isolation_matrix_sha256": "6dd9bea3bbf92682cd1f495292f63177e29d5b6877a35a6fef74e10bb0abde54",
+    "leak_scan_sha256": "64b3c555496d109f4ff135e2a8fec7b392a0edade909d61fb832d2718fbefa1f",
+    "credential_host_path_or_filename_persisted": false
+  },
+  "smoke": {
+    "command": "/usr/local/bin/python -m pytest -q -p no:cacheprovider --basetemp=/tmp/pytest-smoke-step25 tests/test_http_headers.py::test_basics",
+    "execution": "sequential in an independent /tmp copy inside each private Agent tmpfs",
+    "result_each": "1 passed; exit 0; stderr empty",
+    "normalized_stdout_sha256": "34423ae2823934c8bcf724d1b5ea6959c87621a972ef23277995f842d0018922",
+    "matches_step_22": true,
+    "temporary_paths_removed": true,
+    "matrix_sha256": "b4af88a42116dcec9eff0557e97802871da5c97235a65c7ef204226515c77f85"
+  },
+  "remaining": [
+    "Generate and verify formal startup commands and the deployment manifest",
+    "Complete the final deployment audit"
+  ],
+  "formal_run_ready": false
+}

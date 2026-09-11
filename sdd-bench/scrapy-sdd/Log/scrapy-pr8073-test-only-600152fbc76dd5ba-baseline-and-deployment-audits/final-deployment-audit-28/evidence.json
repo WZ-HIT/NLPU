@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "step": "28",
+  "title": "Final deployment audit",
+  "status": "PASS",
+  "completed_at_utc": "2026-09-11T01:21:40Z",
+  "task": {
+    "sample_id": "scrapy__scrapy__8073__test_only__600152fbc76dd5ba",
+    "pr_id": 8073,
+    "base_sha": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+    "tree_sha": "0b9ebb13cca2038ecf5f84ba1f3e7efd6e1cebf2"
+  },
+  "pre_completion_lock_sha256": "941bfc77286a4c64ece2bb89a5b38f5f85f6d74c8637c40385a8aab1f8bbd643",
+  "evidence_chain": {
+    "referenced_record_count": 21,
+    "all_paths_exist": true,
+    "all_sha256_match": true,
+    "matrix_sha256": "4d1dea5735ca7e9cced72adcdb8535dbeed87ca1eaf1d8ae73a28f86d14575cf"
+  },
+  "baseline": {
+    "location": "environments/scrapy__scrapy__base_11079cb1c85b9e75a39a7269943c69d1a975d485/baseline/scrapy",
+    "single_reachable_commit": true,
+    "no_remotes": true,
+    "clean": true
+  },
+  "repositories": {
+    "same_head_and_tree": true,
+    "single_reachable_commit_each": true,
+    "no_remotes_each": true,
+    "no_tracked_or_staged_changes_each": true,
+    "approved_untracked_counts": {
+      "openspec": 10,
+      "speckit": 30,
+      "cc-sdd": 68
+    },
+    "exact_generated_manifests_verified_by_launcher": true,
+    "matrix_sha256": "8b4dc3fecf41f5a9adcd818c22dc94c2cef9d8686e384bccbe30081bae89f704"
+  },
+  "runtime": {
+    "agent_image_id": "sha256:5331d81398045534dfca13267402e4f97dad9d6ad43524a62b05286741e960a9",
+    "proxy_image_id": "sha256:6343ce34a132a5dceaa24767d739df2bd519f8f7c1079ae39e4821334e8eb42e",
+    "three_agents_running": true,
+    "three_proxies_running_and_healthy": true,
+    "tool_versions": {
+      "openspec": "1.12.0",
+      "speckit": "1.0.4",
+      "cc-sdd": "3.0.2"
+    },
+    "session_or_shell_snapshot_count_each": 0,
+    "matrix_sha256": "61ebfd21f2f87dd5a38e4473dd5d45bffe4a1244d13452305a7f13b0bbea9d31",
+    "static_summary_sha256": "0f151bc4cbe7f4d206c86862a72c5ac103ffe32bdf2e1e54941329f9ca28b5cc"
+  },
+  "smoke": {
+    "target": "tests/test_http_headers.py::test_basics",
+    "result_each": "1 passed; exit 0; stderr empty",
+    "normalized_stdout_sha256": "34423ae2823934c8bcf724d1b5ea6959c87621a972ef23277995f842d0018922",
+    "matches_steps_22_and_25": true,
+    "temporary_paths_removed": true,
+    "matrix_sha256": "d98a889764681e7eb98d26e97593be862e19544d58149acffe6844c8b5f82930"
+  },
+  "delivery": {
+    "deployment_manifest_sha256": "ccdb1e5cacb5ae40ea85eb2911b18a82245ea4a3b8ba53ad3c7bd83002cb2983",
+    "launcher_sha256": "f5a0b05e83cb858f4992a41405d054251d91ee23a13071514f3294419d6ec224",
+    "manifest_baseline_path_corrected_during_final_audit": true,
+    "credential_content_or_real_host_path_present": false
+  },
+  "provider_or_model_request_made": false,
+  "credential_content_read": false,
+  "readiness_decision": "PASS; all required deployment, isolation, recognition, live compatibility, post-live integrity, startup, manifest and final-audit criteria are satisfied",
+  "formal_run_ready": true
+}

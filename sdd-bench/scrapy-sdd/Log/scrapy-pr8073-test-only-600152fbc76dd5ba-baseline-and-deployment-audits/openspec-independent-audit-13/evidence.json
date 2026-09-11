@@ -1,0 +1,82 @@
+{
+  "codex_skills": {
+    "skill_count": 6,
+    "target": "codex"
+  },
+  "formal_run_ready": false,
+  "isolation": {
+    "cc_sdd_command_absent": true,
+    "cc_sdd_home_openspec_paths": 0,
+    "distinct_home_volumes": {
+      "cc-sdd": "scrapy-sdd-8073-600152fbc76dd5ba-agent_cc-sdd-home",
+      "openspec": "scrapy-sdd-8073-600152fbc76dd5ba-agent_openspec-home",
+      "speckit": "scrapy-sdd-8073-600152fbc76dd5ba-agent_speckit-home"
+    },
+    "openspec_command_in_openspec_home": true,
+    "speckit_command_absent": true,
+    "speckit_home_openspec_paths": 0
+  },
+  "model_request_made": false,
+  "openspec": {
+    "changes_directory": "openspec/changes/",
+    "command_path": "/home/bench/tools/npm/bin/openspec",
+    "command_realpath": "/home/bench/tools/npm/node_modules/@fission-ai/openspec/bin/openspec.js",
+    "config": {
+      "path": "openspec/config.yaml",
+      "schema": "spec-driven",
+      "sha256": "2a791b0ccc50e2c2ebbb3ba28692a4ad0e4b6ab94ed2151375ac404d7056e89a",
+      "size_bytes": 922
+    },
+    "private_home": "/home/bench",
+    "spec_directory": "openspec/specs/",
+    "version": "1.12.0"
+  },
+  "repository": {
+    "branch": "experiment/openspec",
+    "deleted_files": 0,
+    "expected_initialization_paths_only": true,
+    "generated_file_hashes_match_step_12": true,
+    "head": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+    "protected_content_sha256": "c44d59f4919a4c1c6999dd68aad06f5822d57824372337c0747ea15181f4d49a",
+    "protected_index_sha256": "322e0d04dae482ca9192e0298259db168bea785444137c9d49f54ff1787f18e4",
+    "protected_status_count": 0,
+    "remote_count": 0,
+    "staged_files": 0,
+    "tracked_modified_files": 0,
+    "tree": "0b9ebb13cca2038ecf5f84ba1f3e7efd6e1cebf2",
+    "untracked_count": 10,
+    "untracked_files": [
+      ".agents/skills/.openspec-target",
+      ".agents/skills/openspec-apply-change/SKILL.md",
+      ".agents/skills/openspec-archive-change/SKILL.md",
+      ".agents/skills/openspec-explore/SKILL.md",
+      ".agents/skills/openspec-propose/SKILL.md",
+      ".agents/skills/openspec-sync-specs/SKILL.md",
+      ".agents/skills/openspec-update-change/SKILL.md",
+      "openspec/changes/archive/.gitkeep",
+      "openspec/config.yaml",
+      "openspec/specs/.gitkeep"
+    ]
+  },
+  "result": "PASS",
+  "smoke_test": {
+    "execution_copy": "private Agent /tmp tmpfs copy",
+    "exit_code": 0,
+    "real_workspace_protected_paths_unchanged": true,
+    "result": "1 passed in 0.18s",
+    "stderr_file": "smoke-stderr.txt",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_file": "smoke-stdout.txt",
+    "stdout_sha256": "fa8e3e1f0a4b084326a7027307e5cc3a94f799f9733ea598c3b878fa3c70f37c",
+    "target": "tests/test_http_headers.py::test_basics",
+    "temporary_copy_deleted": true
+  },
+  "step": "13",
+  "supporting_evidence": {
+    "isolation": "isolation.txt",
+    "step_12_full_diff": "../openspec-init-formal-12/initialization-files.patch",
+    "step_12_generated_manifest": "../openspec-init-formal-12/generated-files.json",
+    "structure_and_skills": "openspec-structure-and-skills.txt"
+  },
+  "title": "OpenSpec independent audit"
+}

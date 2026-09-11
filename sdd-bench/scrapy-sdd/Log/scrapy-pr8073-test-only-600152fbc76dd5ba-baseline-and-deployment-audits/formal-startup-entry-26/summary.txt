@@ -1,0 +1,7 @@
+verify=PASS
+status=PASS
+fail_closed=PASS
+routing=PASS
+initialized_manifests=PASS
+provider_or_model_request_made=false
+credential_content_read=false

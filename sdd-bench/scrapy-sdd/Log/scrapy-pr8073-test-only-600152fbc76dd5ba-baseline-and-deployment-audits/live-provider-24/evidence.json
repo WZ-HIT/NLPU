@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "step": "24",
+  "title": "Minimal symmetric live-provider compatibility validation",
+  "completed_at_utc": "2026-09-10T11:39:10Z",
+  "status": "PASS",
+  "task": {
+    "sample_id": "scrapy__scrapy__8073__test_only__600152fbc76dd5ba",
+    "pull_request": 8073,
+    "base_sha": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+    "tree_sha": "0b9ebb13cca2038ecf5f84ba1f3e7efd6e1cebf2"
+  },
+  "common_execution": {
+    "order": [
+      "openspec",
+      "speckit",
+      "cc-sdd"
+    ],
+    "invocation_count": 3,
+    "concurrent_invocations": 0,
+    "codex_version": "0.153.4",
+    "model": "deepseek-v4-pro",
+    "provider": "deepseek",
+    "wire_api": "responses",
+    "profile": "deepseek-v4-pro",
+    "reasoning_effort": "high",
+    "command_shape": "run-agent.sh run <variant> <fixed-prompt-file> <unique-run-id>",
+    "codex_flags": [
+      "exec",
+      "--strict-config",
+      "--profile",
+      "deepseek-v4-pro",
+      "--ephemeral",
+      "--json",
+      "--color",
+      "never",
+      "-C",
+      "/workspace",
+      "-"
+    ],
+    "sandbox": "workspace-write",
+    "approval_policy": "never",
+    "timeout_seconds": 2700,
+    "timeout_signal": "TERM",
+    "kill_after_seconds": 30,
+    "prompt_sha256": "8f770432e3f31183e6ef2d18ef20858e09b197d27b98c584dc84d85a0169da2e",
+    "prompt_intent": "No skills, tools, commands or file access; reply exactly BENCH_API_OK.",
+    "launcher_preflight": "PASS",
+    "config_hashes_equal": true,
+    "config_sha256": "b1c8c6d896b4c7e56adb864487f6d667cd682e21ccf1d0989c5646abc981851f",
+    "provider_profile_sha256": "af924b16bee2f319a1a6a3cc5e87b85a9b053c6544786b5aa7e89f3687495d7a",
+    "model_catalog_sha256": "dfaff2fcbef199a42944d39452b769bf5c010e1b7069f2d3a33cabdc9d62ebd3"
+  },
+  "official_codex_output_contract": {
+    "url": "https://learn.chatgpt.com/docs/non-interactive-mode",
+    "checked_at_utc": "2026-09-10T11:39:10Z",
+    "expectation": "codex exec --json emits JSONL events; turn.completed contains token usage; --ephemeral avoids persisted rollout files"
+  },
+  "results": {
+    "openspec": {
+      "exit_code": 0,
+      "final_message": "BENCH_API_OK",
+      "input_tokens": 8875,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 6,
+      "reasoning_output_tokens": 0,
+      "observed_wall_seconds": 9.570,
+      "stderr_bytes": 0,
+      "jsonl": "../agent-runs/step24-live-provider-openspec-openspec.jsonl",
+      "jsonl_sha256": "89331d0c097c44bc37964b503547e597e32f80f5b03dbd245bc2a0b56acf1581"
+    },
+    "speckit": {
+      "exit_code": 0,
+      "final_message": "BENCH_API_OK",
+      "input_tokens": 8949,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 6,
+      "reasoning_output_tokens": 0,
+      "observed_wall_seconds": 10.315,
+      "stderr_bytes": 0,
+      "jsonl": "../agent-runs/step24-live-provider-speckit-speckit.jsonl",
+      "jsonl_sha256": "07f0c85a26bb72552d3d3a20c9f0153f23faea76d4c26023640be1f42316f40a"
+    },
+    "cc-sdd": {
+      "exit_code": 0,
+      "final_message": "BENCH_API_OK",
+      "input_tokens": 10244,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 6,
+      "reasoning_output_tokens": 0,
+      "observed_wall_seconds": 9.576,
+      "stderr_bytes": 0,
+      "jsonl": "../agent-runs/step24-live-provider-cc-sdd-cc-sdd.jsonl",
+      "jsonl_sha256": "e6ed2eb458f2c4b8146e15e198b7edc8b8e32ca4f54f561d9bdf33d64c78dc69"
+    },
+    "totals": {
+      "input_tokens": 28068,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 18,
+      "reasoning_output_tokens": 0
+    }
+  },
+  "protocol_assertions": {
+    "thread_started_count_each": 1,
+    "turn_started_count_each": 1,
+    "turn_completed_count_each": 1,
+    "turn_failed_or_top_level_error_count_each": 0,
+    "agent_message_count_each": 1,
+    "exact_final_message_each": true,
+    "command_file_mcp_or_web_event_count_each": 0,
+    "common_local_warning_item_count_each": 1,
+    "common_local_warning": "Pinned rollout_budget is marked under-development; this warning precedes a successful provider turn and is not an API failure.",
+    "stderr_empty_each": true
+  },
+  "credentials_and_network": {
+    "credential_file_metadata_preflight": "PASS",
+    "credential_consumed_only_by_trusted_codex_parent_auth_command": true,
+    "credential_content_read_by_auditor": false,
+    "credential_content_in_environment": false,
+    "credential_content_or_path_in_run_outputs": false,
+    "credential_persisted_in_evidence": false,
+    "each_agent_used_only_its_matching_restricted_egress": true,
+    "provider_or_model_request_made": true,
+    "exact_http_attempt_count_observable": false,
+    "note": "Each group performed one Codex invocation; internal transport retries, if any, are not asserted."
+  },
+  "side_effects_and_cleanup": {
+    "tool_or_file_events": 0,
+    "repository_prestate_sha256": "2b75f9c0e23872c8be5dd93a34792e79d076a8fc1fedbecce4b9df4a614b3820",
+    "repository_poststate_sha256": "2b75f9c0e23872c8be5dd93a34792e79d076a8fc1fedbecce4b9df4a614b3820",
+    "repository_prestate_and_poststate_byte_equal": true,
+    "heads_trees_branches_and_remotes_unchanged": true,
+    "tracked_and_staged_diffs_empty": true,
+    "expected_untracked_sdd_outputs_unchanged": true,
+    "ephemeral_session_and_shell_snapshot_files_unchanged": true,
+    "persistent_rollout_created": false,
+    "all_agent_and_egress_containers_running_after": true,
+    "all_egress_proxies_healthy_after": true,
+    "container_prestate_sha256": "99d91f726dcb0ce1411b51fcbaf33a1301ba81ca2ab48687ce911c79199000b3",
+    "container_poststate_sha256": "99d91f726dcb0ce1411b51fcbaf33a1301ba81ca2ab48687ce911c79199000b3"
+  },
+  "supporting_files": {
+    "live_result_matrix_sha256": "7a95a8b70e21b28daec518ac75cc96dc7c3f63242e5fffed3dab59655d3cf07d",
+    "run_output_hash_matrix_sha256": "dcffa9ccbd5827e7c41ccc843df82d27d9eb9814b28083a13c99dc0d028c8195"
+  },
+  "interpretation": {
+    "compatibility": "Codex CLI 0.153.4 successfully completed the Responses-wire protocol against the configured DeepSeek v4 Pro provider in all three isolated environments.",
+    "equality_scope": "Protocol success, final marker, output-token count, zero tool/file activity and empty stderr are equal. Input tokens differ because each SDD contributes different prompt context.",
+    "model_identity_limit": "deepseek-v4-pro is an upstream alias; this test validates endpoint compatibility, not immutable model-weight identity."
+  },
+  "next_step": "Perform the post-live symmetric integrity and reproducibility audit."
+}

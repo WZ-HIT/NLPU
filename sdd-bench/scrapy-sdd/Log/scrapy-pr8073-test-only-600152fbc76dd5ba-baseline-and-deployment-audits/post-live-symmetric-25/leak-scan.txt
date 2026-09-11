@@ -1,0 +1,6 @@
+host_credential_path_or_filename_in_benchmark_tree=ABSENT
+persistent_codex_sessions_each=0
+persistent_shell_snapshots_each=0
+step25_temp_or_cache_probe_each=0
+credential_content_read_by_auditor=false
+provider_or_model_request_made=false

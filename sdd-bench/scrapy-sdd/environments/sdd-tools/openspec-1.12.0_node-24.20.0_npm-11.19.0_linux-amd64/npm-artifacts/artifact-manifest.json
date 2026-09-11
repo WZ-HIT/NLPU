@@ -1,0 +1,503 @@
+{
+  "tool": "openspec",
+  "package_lock_sha256": "c91b3c7c1dd3abf597291759371c9bf34b24f6bd8a04a580f20ab3af3864081f",
+  "artifacts": [
+    {
+      "file": "ec9737f8211099ef211f9bc7db195fb9a2afe95a52668670b61a5e8d16e1adcc.tgz",
+      "url": "https://registry.npmjs.org/@fission-ai/openspec/-/openspec-1.12.0.tgz",
+      "integrity": "sha512-oFE2Lj7WVSc87nSibk6qe9HjHIOlxhcPAXbPey44DlLvJzBl5+9BZVrNiozOwv++CQhW+MG0kuP1XLZ/uQrrWw==",
+      "size_bytes": 477381,
+      "sha256": "ec9737f8211099ef211f9bc7db195fb9a2afe95a52668670b61a5e8d16e1adcc"
+    },
+    {
+      "file": "edde498bd1d6411ffe83f33dbc08e9bcfc7208dce1bf098ac76ec4822bec5e12.tgz",
+      "url": "https://registry.npmjs.org/@inquirer/ansi/-/ansi-2.0.8.tgz",
+      "integrity": "sha512-WpQM+Ti6Z40EFwwt+uL2p4UabT+W179zHp6HhLVOzfbwnVn05IPO/eXIZXGNqcT1jbQ15SujNLzQ39k4QPPxBQ==",
+      "size_bytes": 2569,
+      "sha256": "edde498bd1d6411ffe83f33dbc08e9bcfc7208dce1bf098ac76ec4822bec5e12"
+    },
+    {
+      "file": "1bdbc9c9966a737138900b064878a3d878c07ccf595206575cd5f062294b3be9.tgz",
+      "url": "https://registry.npmjs.org/@inquirer/checkbox/-/checkbox-5.2.4.tgz",
+      "integrity": "sha512-oKT5RNeO9oKYizSyOxKb66IrKUsYVMQD2tnjllYW4wmSOe9WawfL3OE2p82JuvAyo+/nDIEem5P4Bm/ZIVYVew==",
+      "size_bytes": 6569,
+      "sha256": "1bdbc9c9966a737138900b064878a3d878c07ccf595206575cd5f062294b3be9"
+    },
+    {
+      "file": "f7a9639e12aafcf63721dac2b8c8cf748cca4e0d37a2b532802ac944290eff2a.tgz",
+      "url": "https://registry.npmjs.org/@inquirer/confirm/-/confirm-6.3.1.tgz",
+      "integrity": "sha512-HvnOHal39DTenOVoRpIy8Z+n4YYfNa3Qhi/P8zFqn9/d1crpmQG0DPx34rwOeOFvotgKr9Vov/14OmKR/Iwfjw==",
+      "size_bytes": 3806,
+      "sha256": "f7a9639e12aafcf63721dac2b8c8cf748cca4e0d37a2b532802ac944290eff2a"
+    },
+    {
+      "file": "5aabf43f901368b7395c8355d5326ca6a7532241e80c2469dbdcac6d452d1d90.tgz",
+      "url": "https://registry.npmjs.org/@inquirer/core/-/core-11.2.1.tgz",
+      "integrity": "sha512-Qd6GJT1yVyrZZCfN8W2qKF5ApmqryXRhRKCuip8h01x2w/esJQ2XIYc6f9abMIHgKQdBfFTSOdbHRLAhuM09UA==",
+      "size_bytes": 18242,
+      "sha256": "5aabf43f901368b7395c8355d5326ca6a7532241e80c2469dbdcac6d452d1d90"
+    },
+    {
+      "file": "50e15128140f449510ecc8fc4672abc5fec27b478cd594a21ed7f166b7330b19.tgz",
+      "url": "https://registry.npmjs.org/@inquirer/core/-/core-12.0.2.tgz",
+      "integrity": "sha512-9pBhkxE14uUlnHhs8lOt7qVPtS4caRY6CjADl8COejl9Mf7w8i6Uoe3DrljCqYtmYM3Iv2Q6EmPxx/oTYbvTAQ==",
+      "size_bytes": 18489,
+      "sha256": "50e15128140f449510ecc8fc4672abc5fec27b478cd594a21ed7f166b7330b19"
+    },
+    {
+      "file": "9aca53f7f84dc8bc4ebe4c0e84cd59fa3330806c77397d78c157629e886c899b.tgz",
+      "url": "https://registry.npmjs.org/@inquirer/editor/-/editor-5.3.2.tgz",
+      "integrity": "sha512-7ruKO5d/wxhGHxdCQ3eyP/aBNrPTZ+Ju7ERtnAwuIsu0RSLs6kotlTRkOxHatbD6sDaEEdwsD82pzFiT9ESIyQ==",
+      "size_bytes": 4030,
+      "sha256": "9aca53f7f84dc8bc4ebe4c0e84cd59fa3330806c77397d78c157629e886c899b"
+    },
+    {
+      "file": "b694b33804d949d889de3e2a82976f34bb1ec84bcda9b9906beb9e377a820aad.tgz",
+      "url": "https://registry.npmjs.org/@inquirer/expand/-/expand-5.1.4.tgz",
+      "integrity": "sha512-12o4aYnjWouoq0fyVhYIL+hwXAaga+kntA/wrijFmVvn2heinkdvkbEXRt1Ob/9IOJ285US5tntjfI/Ukt2YkA==",
+      "size_bytes": 4444,
+      "sha256": "b694b33804d949d889de3e2a82976f34bb1ec84bcda9b9906beb9e377a820aad"
+    },
+    {
+      "file": "1a91ae54d461678a92e160cb299cc9c632d23b747195e97a5401c0587f266e5f.tgz",
+      "url": "https://registry.npmjs.org/@inquirer/external-editor/-/external-editor-3.0.5.tgz",
+      "integrity": "sha512-f3QQJRIX5ZEneBHNUIuPjmbdzHnmRFJA8r2dkcb8q+OM5Uv5KtnuAttQumnrjcBVBM3mcTX1CkmtAkU58VRZxg==",
+      "size_bytes": 5793,
+      "sha256": "1a91ae54d461678a92e160cb299cc9c632d23b747195e97a5401c0587f266e5f"
+    },
+    {
+      "file": "69536b324e2c57c31da3e906afd864473a119f628a6390c54febe6285c00c63a.tgz",
+      "url": "https://registry.npmjs.org/@inquirer/figures/-/figures-2.0.9.tgz",
+      "integrity": "sha512-EAWgUTGQ/Umgga51dE3B2PUHbufuXarDfg86uVgoSgNHNNQnyFKcOrQLWVqYMghuSyHh8+2HUH0Js9cTC1WAdg==",
+      "size_bytes": 5053,
+      "sha256": "69536b324e2c57c31da3e906afd864473a119f628a6390c54febe6285c00c63a"
+    },
+    {
+      "file": "a377f898a37541c279698efd6d380ef7b3ff3ced57236b005e4efad071ce6971.tgz",
+      "url": "https://registry.npmjs.org/@inquirer/input/-/input-5.1.5.tgz",
+      "integrity": "sha512-2MkYYFD1Owt1eRBwHhsLSutysRodWasA4DVpl42KJKGmzwBTXRYAIXujisrt0UW0UohUlMjNjLfMDbw4emRbfw==",
+      "size_bytes": 4461,
+      "sha256": "a377f898a37541c279698efd6d380ef7b3ff3ced57236b005e4efad071ce6971"
+    },
+    {
+      "file": "4902da76dc29f435e8d9a912331373e1a5e822f88c07a4661872c552352ac936.tgz",
+      "url": "https://registry.npmjs.org/@inquirer/number/-/number-4.2.2.tgz",
+      "integrity": "sha512-tjW1gMIQsFb/9Ie11i8SpuPARBdyCVfC5XOeVugWovrdm8CpjzN+A1CBX5QwCCN2mtNmpgDDCnuLCCT94cQ5zA==",
+      "size_bytes": 4546,
+      "sha256": "4902da76dc29f435e8d9a912331373e1a5e822f88c07a4661872c552352ac936"
+    },
+    {
+      "file": "41e7a6116ba1237c8ac060d4cc55a80c7d94b5e2551df571543149003c0ab96e.tgz",
+      "url": "https://registry.npmjs.org/@inquirer/password/-/password-5.2.1.tgz",
+      "integrity": "sha512-InA6nJxMCXPavPBiTKYHIsYiWz/mkIsk1rkI6pKp5w18gVawqrZOj7eSzSmPJa3j0pVxXm6RlrFP1BE9YeOixA==",
+      "size_bytes": 4071,
+      "sha256": "41e7a6116ba1237c8ac060d4cc55a80c7d94b5e2551df571543149003c0ab96e"
+    },
+    {
+      "file": "9465d19b3c7d91a782d41c1418407541a0f3b061c726cd04f28ec555378033a8.tgz",
+      "url": "https://registry.npmjs.org/@inquirer/prompts/-/prompts-8.7.1.tgz",
+      "integrity": "sha512-xJIKWyrFNUKj3R5VEub/iKodG9Sh/MbCeApZUbATJgHTw8YoAJ2gOT78HlvO6NMFiRvjm6ySM7aiAew/zVY0Sw==",
+      "size_bytes": 8620,
+      "sha256": "9465d19b3c7d91a782d41c1418407541a0f3b061c726cd04f28ec555378033a8"
+    },
+    {
+      "file": "47330df1b9b401a9b593a0805c09e838ffc80d3f71a5df8deb31a53f92f3fdda.tgz",
+      "url": "https://registry.npmjs.org/@inquirer/rawlist/-/rawlist-5.3.4.tgz",
+      "integrity": "sha512-c4fDwOpQsjJDHjXdHJE1/xXH6w9/BAiyu3QKzH9Ww5Xm1q37mzyUNa20L7qdtM1ECi4e+oUEKjhK8hR37OMAMQ==",
+      "size_bytes": 4907,
+      "sha256": "47330df1b9b401a9b593a0805c09e838ffc80d3f71a5df8deb31a53f92f3fdda"
+    },
+    {
+      "file": "a566cb4cb04a95478d1569141257ab0d24bbccff7a0777dd43506394e824d657.tgz",
+      "url": "https://registry.npmjs.org/@inquirer/search/-/search-4.3.2.tgz",
+      "integrity": "sha512-YIaEhWmfkdHEWOKwhF/oJar35FFTTrAdzNbJDo9lSsRT6E/obRPx9oVm4rkTMtlcJSqGYttNtLbcHQef9Qw2yw==",
+      "size_bytes": 6579,
+      "sha256": "a566cb4cb04a95478d1569141257ab0d24bbccff7a0777dd43506394e824d657"
+    },
+    {
+      "file": "2f2f02c6bb553b28f8e8f72a0183af038bac97a4c4f5574d04a38819df94c528.tgz",
+      "url": "https://registry.npmjs.org/@inquirer/select/-/select-5.2.4.tgz",
+      "integrity": "sha512-L9ubNaJdoBsiom/AfPKq0QLHTkhhCFCtszzdVidGremrlJjPZfGlmvp+IULKIbnYjtVFWnvb4mhiEdNTZ12ugA==",
+      "size_bytes": 6144,
+      "sha256": "2f2f02c6bb553b28f8e8f72a0183af038bac97a4c4f5574d04a38819df94c528"
+    },
+    {
+      "file": "a723dc8e533685ba740e9b8695e7f4d0cb821f3a12f0a8a6ce4bc80f69480c1c.tgz",
+      "url": "https://registry.npmjs.org/@inquirer/type/-/type-4.1.1.tgz",
+      "integrity": "sha512-yJoHYrMnxIsJZCY+0Vb66Dy3he3kL3e2wOBKhoSwWWAzZAY82emlxwgprCtp6yRixvNRNq9ztfRWQYPNr3Go7A==",
+      "size_bytes": 2770,
+      "sha256": "a723dc8e533685ba740e9b8695e7f4d0cb821f3a12f0a8a6ce4bc80f69480c1c"
+    },
+    {
+      "file": "a924bfa317c78e8bdbb0bd361522aba431fffe0878bf3699a8cb35a6e50cf94c.tgz",
+      "url": "https://registry.npmjs.org/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz",
+      "integrity": "sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==",
+      "size_bytes": 6586,
+      "sha256": "a924bfa317c78e8bdbb0bd361522aba431fffe0878bf3699a8cb35a6e50cf94c"
+    },
+    {
+      "file": "d8f8533551f21aca87b3fc2d4bc2e2cc7ab221104902c07da3df20baaf52136b.tgz",
+      "url": "https://registry.npmjs.org/@nodelib/fs.stat/-/fs.stat-2.0.5.tgz",
+      "integrity": "sha512-RkhPPp2zrqDAQA/2jNhnztcPAlv64XdhIp7a7454A5ovI7Bukxgt7MX7udwAu3zg1DcpPU0rz3VV1SeaqvY4+A==",
+      "size_bytes": 4182,
+      "sha256": "d8f8533551f21aca87b3fc2d4bc2e2cc7ab221104902c07da3df20baaf52136b"
+    },
+    {
+      "file": "cbf9621f69b822ce97f71e842fea8e7bf9c7e986f01285689ede282092727d3d.tgz",
+      "url": "https://registry.npmjs.org/@nodelib/fs.walk/-/fs.walk-1.2.8.tgz",
+      "integrity": "sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==",
+      "size_bytes": 7360,
+      "sha256": "cbf9621f69b822ce97f71e842fea8e7bf9c7e986f01285689ede282092727d3d"
+    },
+    {
+      "file": "a370c58847035217626014ac6fce094a1420fdf0d033a68c2cf8fab77e1c6789.tgz",
+      "url": "https://registry.npmjs.org/ansi-regex/-/ansi-regex-6.3.0.tgz",
+      "integrity": "sha512-WpDfL7NO6j7tH88IDBNVdUJxDh9nmCteAVW9dsep846XdwF4naCBK+/tGLX3KJgcpgMRXCFlTM2hKGoK9FsdrQ==",
+      "size_bytes": 2971,
+      "sha256": "a370c58847035217626014ac6fce094a1420fdf0d033a68c2cf8fab77e1c6789"
+    },
+    {
+      "file": "1cd18e862c8640b4568b1425a7df4ee030ff201d45b2da8f9f222d2987494ffc.tgz",
+      "url": "https://registry.npmjs.org/braces/-/braces-3.0.3.tgz",
+      "integrity": "sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==",
+      "size_bytes": 13972,
+      "sha256": "1cd18e862c8640b4568b1425a7df4ee030ff201d45b2da8f9f222d2987494ffc"
+    },
+    {
+      "file": "94957715a483aa3b9db60c8f22d5498227d8025c407f982eef81e34f37574ffd.tgz",
+      "url": "https://registry.npmjs.org/chalk/-/chalk-5.6.2.tgz",
+      "integrity": "sha512-7NzBL0rN6fMUW+f7A6Io4h40qQlG+xGmtMxfbnH/K7TAtt8JQWVQK+6g0UXKMeVJoyV5EkkNsErQ8pVD3bLHbA==",
+      "size_bytes": 13831,
+      "sha256": "94957715a483aa3b9db60c8f22d5498227d8025c407f982eef81e34f37574ffd"
+    },
+    {
+      "file": "4ed40fdfccd182e88dfee363488ab4e9a159752f64e035e39bd783de7d007d08.tgz",
+      "url": "https://registry.npmjs.org/chardet/-/chardet-2.2.0.tgz",
+      "integrity": "sha512-rddelWYNPRrXq6PtNEN2S3f6t9ILzvqaN5pVgi4kqt9jHQaXIial9PznB5iSPVlQSLNaaH22ItWz3EJtQ10+OA==",
+      "size_bytes": 25685,
+      "sha256": "4ed40fdfccd182e88dfee363488ab4e9a159752f64e035e39bd783de7d007d08"
+    },
+    {
+      "file": "2576ff84cb30035603c4319a25f310427b11bcba9ca3b51e19d3837bc4488fd5.tgz",
+      "url": "https://registry.npmjs.org/cli-cursor/-/cli-cursor-5.0.0.tgz",
+      "integrity": "sha512-aCj4O5wKyszjMmDT4tZj93kxyydN/K5zPWSCe6/0AV/AA1pqe5ZBIw0a2ZfPQV7lL5/yb5HsUreJ6UFAF1tEQw==",
+      "size_bytes": 1927,
+      "sha256": "2576ff84cb30035603c4319a25f310427b11bcba9ca3b51e19d3837bc4488fd5"
+    },
+    {
+      "file": "1db1193e1f304c2a0b180e96f2724fa6cf69dc795c5c51989feaf0eaff6fc0c2.tgz",
+      "url": "https://registry.npmjs.org/cli-spinners/-/cli-spinners-3.4.0.tgz",
+      "integrity": "sha512-bXfOC4QcT1tKXGorxL3wbJm6XJPDqEnij2gQ2m7ESQuE+/z9YFIWnl/5RpTiKWbMq3EVKR4fRLJGn6DVfu0mpw==",
+      "size_bytes": 6905,
+      "sha256": "1db1193e1f304c2a0b180e96f2724fa6cf69dc795c5c51989feaf0eaff6fc0c2"
+    },
+    {
+      "file": "17681f520e0b169950e3e0712ded701306efa98b2bd1daa6ca53db8362557ffb.tgz",
+      "url": "https://registry.npmjs.org/cli-width/-/cli-width-4.1.0.tgz",
+      "integrity": "sha512-ouuZd4/dm2Sw5Gmqy6bGyNNNe1qt9RpmxveLSO7KcgsTnU7RXfsw+/bukWGo1abgBiMAic068rclZsO4IWmmxQ==",
+      "size_bytes": 2244,
+      "sha256": "17681f520e0b169950e3e0712ded701306efa98b2bd1daa6ca53db8362557ffb"
+    },
+    {
+      "file": "5849703c500e0f324eb01340d8bda1f9ec48fc37bb7be9712eb0dd52aad92f6c.tgz",
+      "url": "https://registry.npmjs.org/commander/-/commander-14.0.3.tgz",
+      "integrity": "sha512-H+y0Jo/T1RZ9qPP4Eh1pkcQcLRglraJaSLoyOtHxu6AapkjWVCy2Sit1QQ4x3Dng8qDlSsZEet7g5Pq06MvTgw==",
+      "size_bytes": 53293,
+      "sha256": "5849703c500e0f324eb01340d8bda1f9ec48fc37bb7be9712eb0dd52aad92f6c"
+    },
+    {
+      "file": "188c320cdc413adfec03098fda72af7a9b02152ba13d3a8f87f172d93ced38ea.tgz",
+      "url": "https://registry.npmjs.org/cross-spawn/-/cross-spawn-7.0.6.tgz",
+      "integrity": "sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==",
+      "size_bytes": 6255,
+      "sha256": "188c320cdc413adfec03098fda72af7a9b02152ba13d3a8f87f172d93ced38ea"
+    },
+    {
+      "file": "b898bf23c95594607576e25ddd4013f1d51ed0e862aaf0732815830c87b3b58f.tgz",
+      "url": "https://registry.npmjs.org/diff/-/diff-9.0.0.tgz",
+      "integrity": "sha512-svtcdpS8CgJyqAjEQIXdb3OjhFVVYjzGAPO8WGCmRbrml64SPw/jJD4GoE98aR7r25A0XcgrK3F02yw9R/vhQw==",
+      "size_bytes": 152500,
+      "sha256": "b898bf23c95594607576e25ddd4013f1d51ed0e862aaf0732815830c87b3b58f"
+    },
+    {
+      "file": "5571ed1750bd1e77a0e4b5fea6e9afb3f2eb390a9576358c9aaacd04d3f60de8.tgz",
+      "url": "https://registry.npmjs.org/fast-glob/-/fast-glob-3.3.3.tgz",
+      "integrity": "sha512-7MptL8U0cqcFdzIzwOTHoilX9x5BrNqye7Z/LuC7kCMRio1EMSyqRK3BEAUD7sXRq4iT4AzTVuZdhgQ2TCvYLg==",
+      "size_bytes": 25301,
+      "sha256": "5571ed1750bd1e77a0e4b5fea6e9afb3f2eb390a9576358c9aaacd04d3f60de8"
+    },
+    {
+      "file": "b5dace35423470b453ed5dba20419052124b8a65cb233833f17e5483523b5eb1.tgz",
+      "url": "https://registry.npmjs.org/fast-string-truncated-width/-/fast-string-truncated-width-3.0.3.tgz",
+      "integrity": "sha512-0jjjIEL6+0jag3l2XWWizO64/aZVtpiGE3t0Zgqxv0DPuxiMjvB3M24fCyhZUO4KomJQPj3LTSUnDP3GpdwC0g==",
+      "size_bytes": 4390,
+      "sha256": "b5dace35423470b453ed5dba20419052124b8a65cb233833f17e5483523b5eb1"
+    },
+    {
+      "file": "72daf113df209b0e55a227ff5f62683ca99da07b59c5da36a2da62920cb3752a.tgz",
+      "url": "https://registry.npmjs.org/fast-string-width/-/fast-string-width-3.0.2.tgz",
+      "integrity": "sha512-gX8LrtNEI5hq8DVUfRQMbr5lpaS4nMIWV+7XEbXk2b8kiQIizgnlr12B4dA3ZEx3308ze0O4Q1R+cHts8kyUJg==",
+      "size_bytes": 1805,
+      "sha256": "72daf113df209b0e55a227ff5f62683ca99da07b59c5da36a2da62920cb3752a"
+    },
+    {
+      "file": "f6b4a10f346b4405f01a1734be4c29b1aba315977f409ed11ea12ff2d3fae051.tgz",
+      "url": "https://registry.npmjs.org/fast-wrap-ansi/-/fast-wrap-ansi-0.2.2.tgz",
+      "integrity": "sha512-7F2Fl+TjRSenLqlU3UjSH0iyqopqoZIu7eZVpEirP2g1GtWa2G/ecEmBdgz31+Mxr+ELclgg6sokpSFIQiZ02Q==",
+      "size_bytes": 3549,
+      "sha256": "f6b4a10f346b4405f01a1734be4c29b1aba315977f409ed11ea12ff2d3fae051"
+    },
+    {
+      "file": "cdcbf6387484c524461ddc4c338d2acb25276c4072ecea495959178d28367fef.tgz",
+      "url": "https://registry.npmjs.org/fastq/-/fastq-1.20.3.tgz",
+      "integrity": "sha512-XKv5nnLs6nLF71NgiKJLIZFLkPyIEuOselLG7ujZnGrRfQK8HpvY+WqKhAJUAdLomwVHErVS4LfxFlPq0/FTAw==",
+      "size_bytes": 10427,
+      "sha256": "cdcbf6387484c524461ddc4c338d2acb25276c4072ecea495959178d28367fef"
+    },
+    {
+      "file": "1a6c3a3446cb1d693cf6b62785e2f6d8f9596305aff474dd2b31b2d8d427593c.tgz",
+      "url": "https://registry.npmjs.org/fill-range/-/fill-range-7.1.1.tgz",
+      "integrity": "sha512-YsGpe3WHLK8ZYi4tWDg2Jy3ebRz2rXowDxnld4bkQB00cc/1Zw9AWnC0i9ztDJitivtQvaI9KaLyKrc+hBW0yg==",
+      "size_bytes": 5723,
+      "sha256": "1a6c3a3446cb1d693cf6b62785e2f6d8f9596305aff474dd2b31b2d8d427593c"
+    },
+    {
+      "file": "4451f58e2f5a4ef27ae8b4ba25b64be97d3a8413dc8614a4321a10d418eee6d7.tgz",
+      "url": "https://registry.npmjs.org/get-east-asian-width/-/get-east-asian-width-1.6.0.tgz",
+      "integrity": "sha512-QRbvDIbx6YklUe6RxeTeleMR0yv3cYH6PsPZHcnVn7xv7zO1BHN8r0XETu8n6Ye3Q+ahtSarc3WgtNWmehIBfA==",
+      "size_bytes": 5310,
+      "sha256": "4451f58e2f5a4ef27ae8b4ba25b64be97d3a8413dc8614a4321a10d418eee6d7"
+    },
+    {
+      "file": "9616afebd18b93592a79d48cce6a841604593ae90563f0ec5554a07b6952d6d5.tgz",
+      "url": "https://registry.npmjs.org/glob-parent/-/glob-parent-5.1.2.tgz",
+      "integrity": "sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==",
+      "size_bytes": 4853,
+      "sha256": "9616afebd18b93592a79d48cce6a841604593ae90563f0ec5554a07b6952d6d5"
+    },
+    {
+      "file": "40789b7733e230a0439e07075fe2f37819f4a47ee7115fe17188451fab8e3941.tgz",
+      "url": "https://registry.npmjs.org/iconv-lite/-/iconv-lite-0.7.3.tgz",
+      "integrity": "sha512-IKXpvIzjnC9XTAUbVBcMfGS0EPaIXtW6v+zr+RRp+hqULEpo0owZax6wyRwPOJbWbzjYspQwusTsfVr0ifh4uQ==",
+      "size_bytes": 189859,
+      "sha256": "40789b7733e230a0439e07075fe2f37819f4a47ee7115fe17188451fab8e3941"
+    },
+    {
+      "file": "8c5d4286146ad62fc1096981700ce1c22a167708926fca01f9ca74f9bb50bc19.tgz",
+      "url": "https://registry.npmjs.org/is-extglob/-/is-extglob-2.1.1.tgz",
+      "integrity": "sha512-SbKbANkN603Vi4jEZv49LeVJMn4yGwsbzZworEoyEiutsN3nJYdbO36zfhGJ6QEDpOZIFkDtnq5JRxmvl3jsoQ==",
+      "size_bytes": 2663,
+      "sha256": "8c5d4286146ad62fc1096981700ce1c22a167708926fca01f9ca74f9bb50bc19"
+    },
+    {
+      "file": "3fe453fb193bb58f6f0505dfb1151230935380b5b55e1f9864261c2aafc1bec6.tgz",
+      "url": "https://registry.npmjs.org/is-glob/-/is-glob-4.0.3.tgz",
+      "integrity": "sha512-xelSayHH36ZgE7ZWhli7pW34hNbNl8Ojv5KVmkJD4hBdD3th8Tfk9vYasLM+mXWOZhFkgZfxhLSnrwRr4elSSg==",
+      "size_bytes": 4255,
+      "sha256": "3fe453fb193bb58f6f0505dfb1151230935380b5b55e1f9864261c2aafc1bec6"
+    },
+    {
+      "file": "3c3b25822ea4ea6ec5337ae23463f5f4638fdbae0c6d3934185300b1ed923af0.tgz",
+      "url": "https://registry.npmjs.org/is-interactive/-/is-interactive-2.0.0.tgz",
+      "integrity": "sha512-qP1vozQRI+BMOPcjFzrjXuQvdak2pHNUMZoeG2eRbiSqyvbEf/wQtEOTOX1guk6E3t36RkaqiSt8A/6YElNxLQ==",
+      "size_bytes": 2391,
+      "sha256": "3c3b25822ea4ea6ec5337ae23463f5f4638fdbae0c6d3934185300b1ed923af0"
+    },
+    {
+      "file": "7b75c1057198cf97696909a9bee176c9c5e9bcb5b03bf3ecef2f484defadd51e.tgz",
+      "url": "https://registry.npmjs.org/is-number/-/is-number-7.0.0.tgz",
+      "integrity": "sha512-41Cifkg6e8TylSpdtTpeLVMqvSBEVzTttHvERD741+pnZ8ANv0004MRL43QKPDlK9cGvNp6NZWZUBlbGXYxxng==",
+      "size_bytes": 3730,
+      "sha256": "7b75c1057198cf97696909a9bee176c9c5e9bcb5b03bf3ecef2f484defadd51e"
+    },
+    {
+      "file": "5926c0400ee62ff9cb7b4658e73217028aa6070799ddf5a14249e53e21fdd362.tgz",
+      "url": "https://registry.npmjs.org/is-unicode-supported/-/is-unicode-supported-2.1.0.tgz",
+      "integrity": "sha512-mE00Gnza5EEB3Ds0HfMyllZzbBrmLOX3vfWoj9A9PEnTfratQ/BcaJOuMhnkhjXvb2+FkY3VuHqtAGpTPmglFQ==",
+      "size_bytes": 2048,
+      "sha256": "5926c0400ee62ff9cb7b4658e73217028aa6070799ddf5a14249e53e21fdd362"
+    },
+    {
+      "file": "47cfe872e088e28c53b736fef305324b57cc1cfc9f72a9b0f769f92731cb8359.tgz",
+      "url": "https://registry.npmjs.org/isexe/-/isexe-2.0.0.tgz",
+      "integrity": "sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==",
+      "size_bytes": 3756,
+      "sha256": "47cfe872e088e28c53b736fef305324b57cc1cfc9f72a9b0f769f92731cb8359"
+    },
+    {
+      "file": "2855a94b5c49f0727cbd290d9914b095c56b3893229332958172cdefb80e0205.tgz",
+      "url": "https://registry.npmjs.org/log-symbols/-/log-symbols-7.0.1.tgz",
+      "integrity": "sha512-ja1E3yCr9i/0hmBVaM0bfwDjnGy8I/s6PP4DFp+yP+a+mrHO4Rm7DtmnqROTUkHIkqffC84YY7AeqX6oFk0WFg==",
+      "size_bytes": 2148,
+      "sha256": "2855a94b5c49f0727cbd290d9914b095c56b3893229332958172cdefb80e0205"
+    },
+    {
+      "file": "b8381291c9b3c859c5b58e75da8bdde64b424344054893c774c68c3c443d7881.tgz",
+      "url": "https://registry.npmjs.org/merge2/-/merge2-1.4.1.tgz",
+      "integrity": "sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==",
+      "size_bytes": 3409,
+      "sha256": "b8381291c9b3c859c5b58e75da8bdde64b424344054893c774c68c3c443d7881"
+    },
+    {
+      "file": "c78d05f20aff3bc95f024b19e53f72998cfc5f69c42b126c49dff8b1b271bc46.tgz",
+      "url": "https://registry.npmjs.org/micromatch/-/micromatch-4.0.8.tgz",
+      "integrity": "sha512-PXwfBhYu0hBCPw8Dn0E+WDYb7af3dSLVWKi3HGv84IdF4TyFoC0ysxFd0Goxw7nSv4T/PzEJQxsYsEiFCKo2BA==",
+      "size_bytes": 14663,
+      "sha256": "c78d05f20aff3bc95f024b19e53f72998cfc5f69c42b126c49dff8b1b271bc46"
+    },
+    {
+      "file": "6cc0001f0fda816530db192ca9438ecaa892f7a4b579e4595a1dc8ab3bb0ac65.tgz",
+      "url": "https://registry.npmjs.org/mimic-function/-/mimic-function-5.0.1.tgz",
+      "integrity": "sha512-VP79XUPxV2CigYP3jWwAUFSku2aKqBH7uTAapFWCBqutsbmDo96KY5o8uh6U+/YSIn5OxJnXp73beVkpqMIGhA==",
+      "size_bytes": 3203,
+      "sha256": "6cc0001f0fda816530db192ca9438ecaa892f7a4b579e4595a1dc8ab3bb0ac65"
+    },
+    {
+      "file": "09489744153746acf7572655eae3f591c7a38f4faa31e25831eb04fb2e4b68eb.tgz",
+      "url": "https://registry.npmjs.org/mute-stream/-/mute-stream-3.0.0.tgz",
+      "integrity": "sha512-dkEJPVvun4FryqBmZ5KhDo0K9iDXAwn08tMLDinNdRBNPcYEDiWYysLcc6k3mjTMlbP9KyylvRpd4wFtwrT9rw==",
+      "size_bytes": 2818,
+      "sha256": "09489744153746acf7572655eae3f591c7a38f4faa31e25831eb04fb2e4b68eb"
+    },
+    {
+      "file": "e3356974342456a61d909af33b4da6bdba46cfb83f1ba8a039eeb1fba945cdc4.tgz",
+      "url": "https://registry.npmjs.org/onetime/-/onetime-7.0.0.tgz",
+      "integrity": "sha512-VXJjc87FScF88uafS3JllDgvAm+c/Slfz06lorj2uAY34rlUu0Nt+v8wreiImcrgAjjIHp1rXpTDlLOGw29WwQ==",
+      "size_bytes": 2366,
+      "sha256": "e3356974342456a61d909af33b4da6bdba46cfb83f1ba8a039eeb1fba945cdc4"
+    },
+    {
+      "file": "6c29a82c18fc7aa83e838c5091e0b3a468846fb6f7866a6814301f6db341661b.tgz",
+      "url": "https://registry.npmjs.org/ora/-/ora-9.4.1.tgz",
+      "integrity": "sha512-6VlU9MLXbjVQD04AZCMX28hVtA5bUoadvUqO76MUCVA0ilwJbMiHsITRPfyVm6p/BC0Av/BXMujx39WCe1LEqw==",
+      "size_bytes": 11145,
+      "sha256": "6c29a82c18fc7aa83e838c5091e0b3a468846fb6f7866a6814301f6db341661b"
+    },
+    {
+      "file": "4b8999acb914830edcd3c5b8fec632b32c6bc759ac3edc86336f5a9e08ba7b92.tgz",
+      "url": "https://registry.npmjs.org/path-key/-/path-key-3.1.1.tgz",
+      "integrity": "sha512-ojmeN0qd+y0jszEtoY48r0Peq5dwMEkIlCOu6Q5f41lfkswXuKtYrhgoTpLnyIcHm24Uhqx+5Tqm2InSwLhE6Q==",
+      "size_bytes": 2258,
+      "sha256": "4b8999acb914830edcd3c5b8fec632b32c6bc759ac3edc86336f5a9e08ba7b92"
+    },
+    {
+      "file": "4c843ba015bec815ac52116162559ab7b4b4efbd3b86f7fcf38f3d770decace6.tgz",
+      "url": "https://registry.npmjs.org/picomatch/-/picomatch-2.3.2.tgz",
+      "integrity": "sha512-V7+vQEJ06Z+c5tSye8S+nHUfI51xoXIXjHQ99cQtKUkQqqO1kO/KCJUfZXuB47h/YBlDhah2H3hdUGXn8ie0oA==",
+      "size_bytes": 23492,
+      "sha256": "4c843ba015bec815ac52116162559ab7b4b4efbd3b86f7fcf38f3d770decace6"
+    },
+    {
+      "file": "ffaf0a20a201865e143aa27e57a83bf69a75547729a65cd3180bcba4f0f29ecd.tgz",
+      "url": "https://registry.npmjs.org/queue-microtask/-/queue-microtask-1.2.3.tgz",
+      "integrity": "sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==",
+      "size_bytes": 3676,
+      "sha256": "ffaf0a20a201865e143aa27e57a83bf69a75547729a65cd3180bcba4f0f29ecd"
+    },
+    {
+      "file": "fae40995655da80643db6bcb512977240e68cad98054e4f9f3851844884b48fd.tgz",
+      "url": "https://registry.npmjs.org/restore-cursor/-/restore-cursor-5.1.0.tgz",
+      "integrity": "sha512-oMA2dcrw6u0YfxJQXm342bFKX/E4sG9rbTzO9ptUcR/e8A33cHuvStiYOwH7fszkZlZ1z/ta9AAoPk2F4qIOHA==",
+      "size_bytes": 1684,
+      "sha256": "fae40995655da80643db6bcb512977240e68cad98054e4f9f3851844884b48fd"
+    },
+    {
+      "file": "2460004412100eea8e96b98f14d3dfb4e22a6628654e5431d14f974c6201ca18.tgz",
+      "url": "https://registry.npmjs.org/reusify/-/reusify-1.1.0.tgz",
+      "integrity": "sha512-g6QUff04oZpHs0eG5p83rFLhHeV00ug/Yf9nZM6fLeUrPguBTkTQOdpAWWspMh55TZfVQDPaN3NQJfbVRAxdIw==",
+      "size_bytes": 4683,
+      "sha256": "2460004412100eea8e96b98f14d3dfb4e22a6628654e5431d14f974c6201ca18"
+    },
+    {
+      "file": "6ba231f5377e0b18ef7ab0c65ca895708e21f1abff5999b24629436b0ff77ac8.tgz",
+      "url": "https://registry.npmjs.org/run-parallel/-/run-parallel-1.2.0.tgz",
+      "integrity": "sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==",
+      "size_bytes": 2813,
+      "sha256": "6ba231f5377e0b18ef7ab0c65ca895708e21f1abff5999b24629436b0ff77ac8"
+    },
+    {
+      "file": "78812f65ae3b98071ce1c9bacbe0666f4220d0b2753c2a11530eb27df440a3b3.tgz",
+      "url": "https://registry.npmjs.org/safer-buffer/-/safer-buffer-2.1.2.tgz",
+      "integrity": "sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==",
+      "size_bytes": 12035,
+      "sha256": "78812f65ae3b98071ce1c9bacbe0666f4220d0b2753c2a11530eb27df440a3b3"
+    },
+    {
+      "file": "9acba5bd18a51e9cdf5898380e4df63f803e1844def64ae1a46f88cff86d556e.tgz",
+      "url": "https://registry.npmjs.org/shebang-command/-/shebang-command-2.0.0.tgz",
+      "integrity": "sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA==",
+      "size_bytes": 1506,
+      "sha256": "9acba5bd18a51e9cdf5898380e4df63f803e1844def64ae1a46f88cff86d556e"
+    },
+    {
+      "file": "fedbabaa6db26c6be0183f82777dfa852d59a62f8885de93bd32ebc28758958f.tgz",
+      "url": "https://registry.npmjs.org/shebang-regex/-/shebang-regex-3.0.0.tgz",
+      "integrity": "sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==",
+      "size_bytes": 1503,
+      "sha256": "fedbabaa6db26c6be0183f82777dfa852d59a62f8885de93bd32ebc28758958f"
+    },
+    {
+      "file": "9d3b58a811ecf6a641537387289274cd14f5bb912a27e4f1f2a74182bca8b795.tgz",
+      "url": "https://registry.npmjs.org/signal-exit/-/signal-exit-4.1.0.tgz",
+      "integrity": "sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==",
+      "size_bytes": 13369,
+      "sha256": "9d3b58a811ecf6a641537387289274cd14f5bb912a27e4f1f2a74182bca8b795"
+    },
+    {
+      "file": "cb97f9dde8b47e6a096c217459406f38ceb3b2c657f1db5115224fbaccffa18d.tgz",
+      "url": "https://registry.npmjs.org/stdin-discarder/-/stdin-discarder-0.3.2.tgz",
+      "integrity": "sha512-eCPu1qRxPVkl5605OTWF8Wz40b4Mf45NY5LQmVPQ599knfs5QhASUm9GbJ5BDMDOXgrnh0wyEdvzmL//YMlw0A==",
+      "size_bytes": 2267,
+      "sha256": "cb97f9dde8b47e6a096c217459406f38ceb3b2c657f1db5115224fbaccffa18d"
+    },
+    {
+      "file": "b94305bb5212ddecfc6e38ef83a96425bde2fce4092e9ffdeec98785d942e0fb.tgz",
+      "url": "https://registry.npmjs.org/string-width/-/string-width-8.2.2.tgz",
+      "integrity": "sha512-GaPUh5gfdrYzqeVNZvUfT23vYYxXzKYidUcnMtJg/3rxRV63EFZy3k6xfKlmfeJD0176lnUV/Usr3XcwSvFzpg==",
+      "size_bytes": 4309,
+      "sha256": "b94305bb5212ddecfc6e38ef83a96425bde2fce4092e9ffdeec98785d942e0fb"
+    },
+    {
+      "file": "2fa01de86a5022ef32773abbc4e84a53a1c5d31f5a5cbf03ed2575f10408543f.tgz",
+      "url": "https://registry.npmjs.org/strip-ansi/-/strip-ansi-7.2.0.tgz",
+      "integrity": "sha512-yDPMNjp4WyfYBkHnjIRLfca1i6KMyGCtsVgoKe/z1+6vukgaENdgGBZt+ZmKPc4gavvEZ5OgHfHdrazhgNyG7w==",
+      "size_bytes": 2156,
+      "sha256": "2fa01de86a5022ef32773abbc4e84a53a1c5d31f5a5cbf03ed2575f10408543f"
+    },
+    {
+      "file": "a63a255ec20a935c3a3334a6645f9245db36e2319ddf1eb6bc0eab2bfe5b42d7.tgz",
+      "url": "https://registry.npmjs.org/to-regex-range/-/to-regex-range-5.0.1.tgz",
+      "integrity": "sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==",
+      "size_bytes": 7479,
+      "sha256": "a63a255ec20a935c3a3334a6645f9245db36e2319ddf1eb6bc0eab2bfe5b42d7"
+    },
+    {
+      "file": "a13adf5fddeb769655edce551e81fbb11904b9c9be76d95e41da8c4c499d4edc.tgz",
+      "url": "https://registry.npmjs.org/which/-/which-2.0.2.tgz",
+      "integrity": "sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==",
+      "size_bytes": 4496,
+      "sha256": "a13adf5fddeb769655edce551e81fbb11904b9c9be76d95e41da8c4c499d4edc"
+    },
+    {
+      "file": "008fa204cb1ba700e0272ba045abbf09a6ffe63456e8146ba97cac6c2ad1ef91.tgz",
+      "url": "https://registry.npmjs.org/yaml/-/yaml-2.9.0.tgz",
+      "integrity": "sha512-2AvhNX3mb8zd6Zy7INTtSpl1F15HW6Wnqj0srWlkKLcpYl/gMIMJiyuGq2KeI2YFxUPjdlB+3Lc10seMLtL4cA==",
+      "size_bytes": 112086,
+      "sha256": "008fa204cb1ba700e0272ba045abbf09a6ffe63456e8146ba97cac6c2ad1ef91"
+    },
+    {
+      "file": "abb3214409bcd4a48b1c49384f7441563368c54fa6251c6fb5ab8081907f7f5c.tgz",
+      "url": "https://registry.npmjs.org/yoctocolors/-/yoctocolors-2.2.0.tgz",
+      "integrity": "sha512-xYqdZFUK/VYazNl/oCDYN+3WloWQwMfZxBoiNt6qNyk+xfOdi598muWE42rNZFp1kNOiqW936q5RhUdnpqElSg==",
+      "size_bytes": 4538,
+      "sha256": "abb3214409bcd4a48b1c49384f7441563368c54fa6251c6fb5ab8081907f7f5c"
+    },
+    {
+      "file": "51f51d886af1428713bf52b4e795afa43e2b43956b8483c9a92590f4c5a7b296.tgz",
+      "url": "https://registry.npmjs.org/zod/-/zod-4.5.4.tgz",
+      "integrity": "sha512-sC95tT5iHHH9gtpj6A81kh+NEaRAUFN+qlUPDUbRfOMvNf5QCBqsb3WgvnpVtK5Y+4UfA6KqufotuTvMGiTlsA==",
+      "size_bytes": 1054799,
+      "sha256": "51f51d886af1428713bf52b4e795afa43e2b43956b8483c9a92590f4c5a7b296"
+    }
+  ]
+}

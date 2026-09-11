@@ -1,0 +1,6 @@
+scrapy-sdd-8073-600152fbc76dd5ba-agent-openspec-agent-1	Up 8 hours	scrapy-sdd-agent:base-11079cb1c85b-codex-0.153.4-node-24.20.0-uv-0.12.10-official-bwrap-path-candidate
+scrapy-sdd-8073-600152fbc76dd5ba-agent-speckit-agent-1	Up 8 hours	scrapy-sdd-agent:base-11079cb1c85b-codex-0.153.4-node-24.20.0-uv-0.12.10-official-bwrap-path-candidate
+scrapy-sdd-8073-600152fbc76dd5ba-agent-cc-sdd-agent-1	Up 8 hours	scrapy-sdd-agent:base-11079cb1c85b-codex-0.153.4-node-24.20.0-uv-0.12.10-official-bwrap-path-candidate
+scrapy-sdd-8073-600152fbc76dd5ba-agent-openspec-egress-1	Up 27 hours (healthy)	6343ce34a132
+scrapy-sdd-8073-600152fbc76dd5ba-agent-speckit-egress-1	Up 27 hours (healthy)	6343ce34a132
+scrapy-sdd-8073-600152fbc76dd5ba-agent-cc-sdd-egress-1	Up 27 hours (healthy)	6343ce34a132

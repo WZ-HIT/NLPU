@@ -1,0 +1,23 @@
+--- /home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/Log/scrapy-pr8073-test-only-600152fbc76dd5ba-baseline-and-deployment-audits/codex-recognition-23/speckit-home-directories-before.normalized.txt	2026-09-10 09:07:20.955606515 +0000
++++ /home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/Log/scrapy-pr8073-test-only-600152fbc76dd5ba-baseline-and-deployment-audits/codex-recognition-23/speckit-home-directories-after.txt	2026-09-10 09:07:20.947606516 +0000
+@@ -22,11 +22,19 @@
+ /home/bench/.cache/uv/wheels-v6
+ /home/bench/.cache/uv/wheels-v6/index
+ /home/bench/.codex
++/home/bench/.codex/.tmp
+ /home/bench/.codex/model-catalogs
+ /home/bench/.codex/model-catalogs/deepseek-v4-pro
++/home/bench/.codex/skills
++/home/bench/.codex/skills/.system
++/home/bench/.codex/skills/.system/imagegen
++/home/bench/.codex/skills/.system/openai-docs
++/home/bench/.codex/skills/.system/plugin-creator
++/home/bench/.codex/skills/.system/review-agent
++/home/bench/.codex/skills/.system/skill-creator
++/home/bench/.codex/skills/.system/skill-installer
+ /home/bench/.codex/tmp
+ /home/bench/.codex/tmp/arg0
+-/home/bench/.codex/tmp/arg0/codex-arg0rP2E5W
+ /home/bench/tools
+ /home/bench/tools/python
+ /home/bench/tools/python/speckit-1.0.4

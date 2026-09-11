@@ -1,0 +1,17 @@
+observation=all three Agent containers exited simultaneously during the final Step 17 audit
+finished_at=2026-09-10T03:35:05Z
+exit_code=143
+signal_interpretation=SIGTERM
+oom_killed=false
+container_error=empty
+egress_proxies=all three remained running and healthy
+docker_event_detail=not retained for the queried interval
+recovery_command=docker start <openspec-agent> <speckit-agent> <cc-sdd-agent>
+recovery_scope=existing Agent containers only; no recreate, image change, mount change or volume replacement
+post_recovery_agents=all three running
+post_recovery_proxies=all three running and healthy
+spec_kit_home_volume=scrapy-sdd-8073-600152fbc76dd5ba-agent_speckit-home
+spec_kit_version_after_recovery=specify 1.0.4
+spec_kit_temporary_paths_after_recovery=absent
+spec_kit_repository_after_recovery=unchanged
+result=PASS

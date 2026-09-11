@@ -1,0 +1,4 @@
+group	exit_code	passed	stderr_empty	normalized_stdout_sha256	tmp_removed
+openspec	0	1	true	34423ae2823934c8bcf724d1b5ea6959c87621a972ef23277995f842d0018922	true
+speckit	0	1	true	34423ae2823934c8bcf724d1b5ea6959c87621a972ef23277995f842d0018922	true
+cc-sdd	0	1	true	34423ae2823934c8bcf724d1b5ea6959c87621a972ef23277995f842d0018922	true

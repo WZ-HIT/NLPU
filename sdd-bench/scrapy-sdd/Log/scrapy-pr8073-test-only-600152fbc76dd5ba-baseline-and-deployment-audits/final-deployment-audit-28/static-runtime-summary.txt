@@ -1,0 +1,8 @@
+evidence_chain=PASS
+manifest_launcher_compose=PASS
+runtime_verify=PASS
+baseline_and_repositories=PASS
+containers_images_health=PASS
+tool_versions=PASS
+sessions_and_snapshots=0
+credential_path_scan=PASS

@@ -1,0 +1,17 @@
+
+  Installed:
+    Skills  50 file(s) → .agents/skills/  new
+    Other  1 file(s)  new
+    Project Memory document  1 file(s) → AGENTS.md  new
+    Settings templates and rules  16 file(s) → .kiro/settings/  new
+
+Artifact details:
+Plan (dry-run)
+Total: 4
+  - staticDir: 0
+  - templateFile: 1
+  - templateDir: 3
+- [templateDir] skills: templates/agents/codex-skills/skills -> .agents/skills
+- [templateFile] doc_main: templates/agents/codex-skills/docs/AGENTS.md -> ./AGENTS.md
+- [templateDir] codex_agents: templates/agents/codex-skills/codex-agents -> .codex/agents
+- [templateDir] settings_templates: templates/shared/settings/templates -> .kiro/settings/templates

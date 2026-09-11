@@ -1,0 +1,2 @@
+a598a30b54568990fee2a1a6eca8cfc24f52c4f203398027bea49c8a6eda4417  Log/scrapy-pr8073-test-only-600152fbc76dd5ba-baseline-and-deployment-audits/openspec-install-10/stage/package.json
+c91b3c7c1dd3abf597291759371c9bf34b24f6bd8a04a580f20ab3af3864081f  Log/scrapy-pr8073-test-only-600152fbc76dd5ba-baseline-and-deployment-audits/openspec-install-10/stage/package-lock.json

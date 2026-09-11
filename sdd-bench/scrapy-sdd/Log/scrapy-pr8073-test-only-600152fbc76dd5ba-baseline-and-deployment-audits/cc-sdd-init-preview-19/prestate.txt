@@ -1,0 +1,9 @@
+branch=experiment/cc-sdd
+head=11079cb1c85b9e75a39a7269943c69d1a975d485
+tree=0b9ebb13cca2038ecf5f84ba1f3e7efd6e1cebf2
+remote_count=0
+real_status_count_before=0
+workspace_device=64512
+preview_device=199
+preview_path=/tmp/cc-sdd-init-preview-19
+preview_command=/opt/agent/node/bin/node /home/bench/tools/npm/node_modules/cc-sdd/dist/cli.js --agent codex-skills --lang en --os linux --overwrite force --profile full

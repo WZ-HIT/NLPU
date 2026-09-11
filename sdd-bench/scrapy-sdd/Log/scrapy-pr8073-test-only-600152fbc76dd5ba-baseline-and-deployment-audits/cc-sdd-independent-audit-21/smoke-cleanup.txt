@@ -1,0 +1,2 @@
+repo_copy_removed=true
+basetemp_removed=true

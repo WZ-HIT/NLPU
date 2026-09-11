@@ -1,0 +1,6 @@
+openspec-apply-change	true	/workspace/.agents/skills/openspec-apply-change/SKILL.md
+openspec-archive-change	true	/workspace/.agents/skills/openspec-archive-change/SKILL.md
+openspec-explore	true	/workspace/.agents/skills/openspec-explore/SKILL.md
+openspec-propose	true	/workspace/.agents/skills/openspec-propose/SKILL.md
+openspec-sync-specs	true	/workspace/.agents/skills/openspec-sync-specs/SKILL.md
+openspec-update-change	true	/workspace/.agents/skills/openspec-update-change/SKILL.md

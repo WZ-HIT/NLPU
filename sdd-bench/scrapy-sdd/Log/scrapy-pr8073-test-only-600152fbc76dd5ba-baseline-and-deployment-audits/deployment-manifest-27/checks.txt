@@ -1,0 +1,8 @@
+manifest_sections=PASS
+fixed_versions=PASS
+repository_identity=PASS
+image_and_runtime=PASS
+initialization_commands=PASS
+startup_commands=PASS
+smoke_results=PASS
+credential_path_absent=PASS
