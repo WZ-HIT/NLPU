@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sdd-bench.local/schemas/plan-v1.schema.json",
+  "title": "SDD Bench agent-visible execution plan v1",
+  "$comment": "Agent-visible orchestration only; no gold, head, merge, target-file, or hidden-test fields exist.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "plan_id", "task_id", "task_artifact", "result_directory", "execution_mode", "execution_order", "phases", "policy"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "plan_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{0,127}$"},
+    "task_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{0,127}$"},
+    "task_artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"$ref": "#/$defs/path"},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "result_directory": {"$ref": "#/$defs/path"},
+    "execution_mode": {"enum": ["sequential", "parallel"]},
+    "execution_order": {
+      "type": "array",
+      "prefixItems": [{"const": "openspec"}, {"const": "speckit"}, {"const": "cc-sdd"}],
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "phases": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["openspec", "speckit", "cc-sdd"],
+      "properties": {
+        "openspec": {"const": ["propose", "apply"]},
+        "speckit": {"const": ["specify", "plan", "tasks", "implement"]},
+        "cc-sdd": {"const": ["spec", "implement"]}
+      }
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["attempts_per_phase", "human_intervention_between_phases", "agent_runs_tests"],
+      "properties": {
+        "attempts_per_phase": {"const": 1},
+        "human_intervention_between_phases": {"const": false},
+        "agent_runs_tests": {"const": false}
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "path": {"type": "string", "minLength": 1, "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\)(?!.*//).+$"}
+  }
+}

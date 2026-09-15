@@ -1,0 +1,34 @@
+# Scrapy SDD benchmark: DeepSeek-V4.1-Flash profile for Codex CLI 0.153.4.
+# Derived from the official DeepSeek Codex integration published 2026-09-10.
+# Deploy beside the common config.toml in each isolated /home/bench/.codex.
+# Select explicitly: codex --profile deepseek-flash
+# Sources:
+# https://learn.chatgpt.com/docs/config-file/config-advanced
+# https://api-docs.deepseek.com/quick_start/agent_integrations/codex/
+
+model = "deepseek-flash"
+model_provider = "deepseek"
+model_reasoning_effort = "high"
+model_catalog_json = "/home/bench/.codex/model-catalogs/deepseek-flash/models.json"
+forced_login_method = "api"
+
+[model_providers.deepseek]
+name = "DeepSeek"
+base_url = "https://api.deepseek.com"
+wire_api = "responses"
+supports_websockets = false
+
+[model_providers.deepseek.auth]
+# Run a fixed executable directly: no shell, environment-variable lookup or
+# dynamic path. Docker supplies this file only to the trusted Codex parent.
+command = "/bin/cat"
+args = ["/run/secrets/deepseek_api_key"]
+timeout_ms = 1000
+refresh_interval_ms = 0
+
+# Keep common permissions, sandbox and feature policy in config.toml, not here.
+# Mount the credential at runtime; do not use a literal bearer token, provider
+# key environment variable or login copied from the host. Provider-only API
+# egress and formal service deployment remain pending.
+# The model name is an upstream alias, not an immutable model-weight snapshot.
+# Missing credentials or provider errors must not trigger a fallback model.

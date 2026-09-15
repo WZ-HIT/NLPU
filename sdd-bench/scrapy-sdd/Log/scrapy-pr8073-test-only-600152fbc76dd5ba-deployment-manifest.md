@@ -71,7 +71,8 @@ The task-specific result files intentionally live under `Log/`, not under the ta
 | npm | `11.19.0` |
 | uv | `0.12.10` |
 | Codex CLI | `0.153.4` |
-| Model profile | `deepseek-v4-pro` |
+| Model profile / API model ID | `deepseek-flash` / `deepseek-flash` |
+| Product version | DeepSeek-V4.1-Flash (moving API alias, checked 2026-09-14) |
 | Wire API | Responses |
 | Reasoning effort | high |
 | Agent resources | 4 CPU, 8 GiB memory, PID limit 512, 2 GiB private `/tmp` |
@@ -154,9 +155,10 @@ The launcher now validates each untracked path and file digest against these man
 
 - Offline Codex recognition registered exactly 6, 10 and 17 repository skills for OpenSpec, Spec Kit and cc-sdd.
 - No group registered another group's SDD skills.
-- The same minimal live-provider prompt completed in all three groups with exact output `BENCH_API_OK`.
+- The historical Pro live-provider prompt completed in all three groups with exact output `BENCH_API_OK`; it is not evidence of a Flash inference call.
 - The live probe created no command, file-change, MCP or web event and left no persistent session.
-- `deepseek-v4-pro` is an upstream alias. Endpoint and protocol compatibility are validated; immutable model-weight identity is not asserted.
+- Flash/high passed local resolver, strict-config loopback, identical-mount and six-container runtime checks without an external model request.
+- `deepseek-flash` is a moving alias currently routed to DeepSeek-V4.1-Flash; immutable model-weight identity is not asserted.
 
 ## Symmetric Smoke Test
 

@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sdd-bench.local/schemas/evaluation-v1.schema.json",
+  "title": "SDD Bench host-side gold-blind evaluation result v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "evaluation_id", "task_id", "run_id", "variant", "evaluated_at_utc", "status", "candidate_diff", "gold_check", "tests", "policy", "exact_patch_match"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "evaluation_id": {"$ref": "#/$defs/id"},
+    "task_id": {"$ref": "#/$defs/id"},
+    "run_id": {"$ref": "#/$defs/id"},
+    "variant": {"enum": ["openspec", "speckit", "cc-sdd"]},
+    "evaluated_at_utc": {"type": "string", "format": "date-time"},
+    "status": {"enum": ["pass", "fail", "error"]},
+    "candidate_diff": {"$ref": "#/$defs/artifact"},
+    "gold_check": {"$ref": "#/$defs/artifact"},
+    "tests": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["command", "exit_code", "passed", "failed"],
+      "properties": {
+        "command": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "exit_code": {"type": "integer", "minimum": 0, "maximum": 255},
+        "passed": {"type": "integer", "minimum": 0},
+        "failed": {"type": "integer", "minimum": 0}
+      }
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["paths_within_allowed_directories", "production_unchanged", "violations"],
+      "properties": {
+        "paths_within_allowed_directories": {"type": "boolean"},
+        "production_unchanged": {"type": "boolean"},
+        "violations": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true}
+      }
+    },
+    "exact_patch_match": {"type": "boolean"},
+    "notes": {"type": "string", "maxLength": 10000}
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{0,127}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "path": {"type": "string", "minLength": 1, "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\)(?!.*//).+$"},
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"$ref": "#/$defs/path"},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    }
+  }
+}

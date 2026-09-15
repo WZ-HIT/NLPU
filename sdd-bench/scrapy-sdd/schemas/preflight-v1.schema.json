@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sdd-bench.local/schemas/preflight-v1.schema.json",
+  "title": "SDD Bench host-side preflight result v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "run_id", "task_id", "variant", "checked_at_utc", "status", "repository", "initialization_manifest_sha256", "adapter_sha256", "required_paths_present", "result_path_available", "credential_ready", "violations"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "run_id": {"$ref": "#/$defs/id"},
+    "task_id": {"$ref": "#/$defs/id"},
+    "variant": {"enum": ["openspec", "speckit", "cc-sdd"]},
+    "checked_at_utc": {"type": "string", "format": "date-time"},
+    "status": {"enum": ["pass", "fail"]},
+    "repository": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["head_sha", "tree_sha", "clean_except_initialization", "remote_count"],
+      "properties": {
+        "head_sha": {"$ref": "#/$defs/gitSha"},
+        "tree_sha": {"$ref": "#/$defs/gitSha"},
+        "clean_except_initialization": {"type": "boolean"},
+        "remote_count": {"const": 0}
+      }
+    },
+    "initialization_manifest_sha256": {"$ref": "#/$defs/sha256"},
+    "adapter_sha256": {"$ref": "#/$defs/sha256"},
+    "required_paths_present": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/path"}},
+    "result_path_available": {"type": "boolean"},
+    "credential_ready": {"type": "boolean"},
+    "violations": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true}
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{0,127}$"},
+    "gitSha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "path": {"type": "string", "minLength": 1, "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\)(?!.*//).+$"}
+  }
+}

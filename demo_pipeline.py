@@ -362,6 +362,28 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--state", choices=["closed", "all"], default="closed", help="PR state to query")
     parser.add_argument("--output-dir", type=Path, default=OUTPUT_DIR, help="Output directory (default: output/)")
     parser.add_argument(
+        "--prompt-dir",
+        type=Path,
+        help="Method prompt directory (default: <output-dir>/prompt)",
+    )
+    parser.add_argument(
+        "--repo-cache-dir",
+        type=Path,
+        default=Path("/tmp/nlpu-repository-cache"),
+        help="Reusable git clone cache for base/head checkouts",
+    )
+    parser.add_argument(
+        "--coverage-map",
+        type=Path,
+        help="Optional JSON mapping test node IDs to covered focal node IDs",
+    )
+    parser.add_argument(
+        "--mine-methods",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Mine focal-method/old-test pairs and build method prompts",
+    )
+    parser.add_argument(
         "--resume",
         action=argparse.BooleanOptionalAction,
         default=True,
@@ -374,8 +396,12 @@ def main() -> None:
     from collector import collect_prs
 
     args = parse_args()
+    step_count = 7 if args.mine_methods else 5
 
-    print(f"[1/5] Collecting merged PRs from {args.owner}/{args.repo} (limit={args.limit})")
+    print(
+        f"[1/{step_count}] Collecting merged PRs from "
+        f"{args.owner}/{args.repo} (limit={args.limit})"
+    )
     prs = collect_prs(
         owner=args.owner,
         repo=args.repo,
@@ -385,20 +411,61 @@ def main() -> None:
         resume=args.resume,
     )
 
+    if args.mine_methods:
+        from build_prompts import build_prompt_outputs
+        from experiment.mine_samples import RepositoryCache, mine_raw_directory
+
+        coverage_payload = (
+            json.loads(args.coverage_map.read_text(encoding="utf-8"))
+            if args.coverage_map
+            else {}
+        )
+        print(f"[2/{step_count}] Mining method-level test/focal pairs")
+        mining_summary = mine_raw_directory(
+            args.output_dir / "raw_prs",
+            RepositoryCache(args.repo_cache_dir),
+            repos={f"{args.owner}/{args.repo}"},
+            pr_keys={(pr.repo, pr.pr_id) for pr in prs},
+            backfill_metadata=False,
+            coverage_payload=coverage_payload,
+        )
+        accepted_pairs = sum(
+            item["accepted_pair_count"] for item in mining_summary.values()
+        )
+        print(f"  Accepted {accepted_pairs} leak-free method pair(s)")
+
+        print(f"[3/{step_count}] Building method prompts from enriched raw PRs")
+        prompt_result = build_prompt_outputs(
+            args.output_dir / "raw_prs",
+            args.prompt_dir or args.output_dir / "prompt",
+        )
+        print(f"  Wrote {prompt_result['prompt_count']} method prompt(s)")
+
+    legacy_start = 4 if args.mine_methods else 2
     kept = filter_prs(prs)
-    print(f"[2/5] Filtered to {len(kept)} valid PRs (out of {len(prs)})")
+    print(
+        f"[{legacy_start}/{step_count}] Filtered to "
+        f"{len(kept)} valid PRs (out of {len(prs)})"
+    )
 
     dataset = build_dataset(kept)
-    print(f"[3/5] Built dataset with {len(dataset)} samples")
+    print(
+        f"[{legacy_start + 1}/{step_count}] "
+        f"Built legacy file-level dataset with {len(dataset)} samples"
+    )
 
     prompts = build_prompts(dataset)
-
     report = quality_check(dataset)
-    print(f"[4/5] Quality check: {report['sample_count']} samples, "
-          f"{report['empty_hunks_count']} empty hunks")
+    print(
+        f"[{legacy_start + 2}/{step_count}] Quality check: "
+        f"{report['sample_count']} samples, {report['empty_hunks_count']} empty hunks"
+    )
 
     write_outputs(dataset, prompts, report, args.output_dir)
-    print("[5/5] Wrote dataset.jsonl, prompts.jsonl, quality_report.json")
+    print(
+        f"[{legacy_start + 3}/{step_count}] "
+        "Wrote legacy dataset.jsonl, prompts.jsonl, quality_report.json"
+    )
 
 
 if __name__ == "__main__":

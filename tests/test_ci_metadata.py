@@ -2,12 +2,14 @@ from __future__ import annotations
 
 import io
 import json
+import tempfile
 import unittest
+from pathlib import Path
 from unittest.mock import Mock, patch
 from urllib.error import HTTPError
 
 from collector.github_client import GitHubClient, GitHubGraphQLError
-from collector.collect import fetch_pull_request_record
+from collector.collect import collect_prs, fetch_pull_request_record
 from collector.metadata import (
     CIStatus,
     PullRequestMetadata,
@@ -163,6 +165,9 @@ class CollectorIntegrationTests(unittest.TestCase):
                 "body": "Fixes #10 with enough implementation detail.",
                 "merged_at": "2026-08-01T00:00:00Z",
                 "head": {"sha": "abc123"},
+                "base": {"sha": "base123"},
+                "merge_commit_sha": "merge123",
+                "html_url": "https://github.com/acme/widgets/pull/7",
             },
             {},
         )
@@ -210,6 +215,10 @@ class CollectorIntegrationTests(unittest.TestCase):
         self.assertEqual(record.ci_check_run_count, 8)
         self.assertEqual(record.ci_status_context_count, 1)
         self.assertEqual(record.head_sha, "abc123")
+        self.assertEqual(record.base_sha, "base123")
+        self.assertEqual(record.merge_commit_sha, "merge123")
+        self.assertEqual(record.merged_at, "2026-08-01T00:00:00Z")
+        self.assertEqual(record.pr_url, "https://github.com/acme/widgets/pull/7")
         self.assertEqual(record.closing_issue_refs, [{"number": 10, "external_repo": None}])
         fetch_metadata.assert_called_once_with(
             client, "acme", "widgets", 7, "abc123"
@@ -217,7 +226,7 @@ class CollectorIntegrationTests(unittest.TestCase):
         client.get_json.assert_called_once()
 
 class ModelCompatibilityTests(unittest.TestCase):
-    def test_schema_v1_record_loads_with_v2_defaults(self) -> None:
+    def test_schema_v1_record_loads_with_v3_defaults(self) -> None:
         old_record = {
             "repo": "acme/widgets",
             "pr_id": 7,
@@ -232,12 +241,94 @@ class ModelCompatibilityTests(unittest.TestCase):
 
         record = PullRequestRecord.from_dict(old_record)
 
-        self.assertEqual(SCHEMA_VERSION, 2)
+        self.assertEqual(SCHEMA_VERSION, 3)
         self.assertEqual(record.head_sha, "")
+        self.assertEqual(record.base_sha, "")
+        self.assertEqual(record.merge_commit_sha, "")
+        self.assertEqual(record.merged_at, "")
+        self.assertEqual(record.pr_url, "")
+        self.assertEqual(record.method_test_pairs, [])
+        self.assertEqual(record.mining_status, "not_mined")
+        self.assertEqual(record.mining_reasons, [])
         self.assertEqual(record.ci_source, "legacy")
         self.assertIsNone(record.ci_rollup_state)
         self.assertEqual(record.ci_check_run_count, 0)
         self.assertEqual(record.ci_status_context_count, 0)
+
+
+class CollectorResumeTests(unittest.TestCase):
+    @staticmethod
+    def record(*, base_sha: str) -> PullRequestRecord:
+        return PullRequestRecord(
+            repo="acme/widgets",
+            pr_id=7,
+            title="Improve widget behavior",
+            body="Detailed behavior change for the widget.",
+            merged=True,
+            ci_status="success",
+            language="Python",
+            changed_files=[],
+            head_sha="head123",
+            base_sha=base_sha,
+            merged_at="2026-08-01T00:00:00Z" if base_sha else "",
+        )
+
+    def test_resume_refreshes_legacy_record_missing_base_sha(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            output_dir = Path(temporary)
+            raw_dir = output_dir / "raw_prs"
+            raw_dir.mkdir()
+            raw_path = raw_dir / "acme__widgets.jsonl"
+            raw_path.write_text(
+                json.dumps(self.record(base_sha="").to_dict()) + "\n",
+                encoding="utf-8",
+            )
+            refreshed = self.record(base_sha="base123")
+
+            with (
+                patch(
+                    "collector.collect._select_merged_prs",
+                    return_value=[{"number": 7}],
+                ),
+                patch(
+                    "collector.collect.fetch_pull_request_record",
+                    return_value=refreshed,
+                ) as fetch_record,
+            ):
+                records = collect_prs(
+                    "acme", "widgets", 1, output_dir=output_dir, token="token"
+                )
+
+            fetch_record.assert_called_once()
+            self.assertEqual(records[0].base_sha, "base123")
+            stored = json.loads(raw_path.read_text(encoding="utf-8"))
+            self.assertEqual(stored["base_sha"], "base123")
+
+    def test_resume_keeps_complete_record_without_refetching(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            output_dir = Path(temporary)
+            raw_dir = output_dir / "raw_prs"
+            raw_dir.mkdir()
+            raw_path = raw_dir / "acme__widgets.jsonl"
+            complete = self.record(base_sha="base123")
+            raw_path.write_text(
+                json.dumps(complete.to_dict()) + "\n",
+                encoding="utf-8",
+            )
+
+            with (
+                patch(
+                    "collector.collect._select_merged_prs",
+                    return_value=[{"number": 7}],
+                ),
+                patch("collector.collect.fetch_pull_request_record") as fetch_record,
+            ):
+                records = collect_prs(
+                    "acme", "widgets", 1, output_dir=output_dir, token="token"
+                )
+
+            fetch_record.assert_not_called()
+            self.assertEqual(records[0].base_sha, "base123")
 
 
 class FakeResponse:

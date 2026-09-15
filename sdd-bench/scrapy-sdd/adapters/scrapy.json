@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "adapter_id": "scrapy",
+  "repository": {"owner": "scrapy", "name": "scrapy"},
+  "required_paths": ["scrapy/", "tests/", "pyproject.toml", "tox.ini"],
+  "modification_policy": {
+    "allowed_directories": ["tests/"],
+    "production_directories": ["scrapy/"],
+    "allow_production_changes": false,
+    "allow_path_escape": false
+  },
+  "workspaces": {
+    "container": "/workspace",
+    "host_by_variant": {
+      "openspec": "runs/openspec/scrapy",
+      "speckit": "runs/speckit/scrapy",
+      "cc-sdd": "runs/cc-sdd/scrapy"
+    }
+  },
+  "language_environment": {
+    "language": "python",
+    "python_version": "3.11.15",
+    "python_executable": "/usr/local/bin/python",
+    "environment": {
+      "LANG": "C.UTF-8",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONUNBUFFERED": "1",
+      "PYTHONPYCACHEPREFIX": "/home/bench/.cache/pycache"
+    }
+  },
+  "test_scope": {
+    "runner": "pytest",
+    "roots": ["tests/"],
+    "agent_execution": "forbidden",
+    "evaluation_execution": "host-only"
+  },
+  "smoke_test": {
+    "argv": ["python", "-m", "pytest", "-q", "-p", "no:cacheprovider", "--basetemp=/tmp/pytest-smoke", "tests/test_http_headers.py::test_basics"],
+    "expected_exit_code": 0,
+    "expected_passed": 1,
+    "workspace_strategy": "Copy each repository into an independent per-run tmpfs workspace because Scrapy conftest creates ephemeral TLS keys under tests/keys.",
+    "cleanup_paths": ["/tmp/pytest-smoke"],
+    "must_not_modify_source_workspace": true
+  }
+}

@@ -51,16 +51,16 @@ x-agent-common-config: &agent-common-config
 
 x-agent-profile-config: &agent-profile-config
   type: bind
-  source: ../../environments/agent-runtime/codex-0.153.4_node-24.20.0_uv-0.12.10_linux-amd64/config-templates/deepseek-v4-pro.config.toml
-  target: /home/bench/.codex/deepseek-v4-pro.config.toml
+  source: ../../environments/agent-runtime/codex-0.153.4_node-24.20.0_uv-0.12.10_linux-amd64/config-templates/deepseek-flash.config.toml
+  target: /home/bench/.codex/deepseek-flash.config.toml
   read_only: true
   bind:
     create_host_path: false
 
 x-agent-model-catalog: &agent-model-catalog
   type: bind
-  source: ../../environments/agent-runtime/codex-0.153.4_node-24.20.0_uv-0.12.10_linux-amd64/config-templates/model-catalogs/deepseek-v4-pro/models.json
-  target: /home/bench/.codex/model-catalogs/deepseek-v4-pro/models.json
+  source: ../../environments/agent-runtime/codex-0.153.4_node-24.20.0_uv-0.12.10_linux-amd64/config-templates/model-catalogs/deepseek-flash/models.json
+  target: /home/bench/.codex/model-catalogs/deepseek-flash/models.json
   read_only: true
   bind:
     create_host_path: false

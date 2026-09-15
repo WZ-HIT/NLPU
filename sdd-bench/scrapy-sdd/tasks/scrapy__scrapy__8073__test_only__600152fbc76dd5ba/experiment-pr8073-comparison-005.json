@@ -1,0 +1,22 @@
+{
+  "$schema": "./experiment.schema.json",
+  "schema_version": 1,
+  "experiment_id": "pr8073-comparison-005",
+  "task_id": "scrapy__scrapy__8073__test_only__600152fbc76dd5ba",
+  "sample_id": "scrapy__scrapy__8073__test_only__600152fbc76dd5ba",
+  "pr_id": 8073,
+  "task_base_sha": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+  "input": {
+    "mode": "manual",
+    "path": "experiment-inputs/pr8073-task.md"
+  },
+  "execution_order": [
+    "openspec",
+    "speckit",
+    "cc-sdd"
+  ],
+  "workflow": {
+    "mode": "official-multistage",
+    "human_intervention_between_phases": false
+  }
+}

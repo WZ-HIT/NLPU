@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import os
+import tempfile
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -54,6 +55,22 @@ def load_records(path: Path) -> list[PullRequestRecord]:
     return list(iter_records(path))
 
 
+def _write_records_atomic(path: Path, records: list[PullRequestRecord]) -> None:
+    """Replace one raw JSONL file only after the complete new file is written."""
+    with tempfile.NamedTemporaryFile(
+        mode="w", encoding="utf-8", dir=path.parent, delete=False
+    ) as handle:
+        temporary_path = Path(handle.name)
+        for record in records:
+            handle.write(json.dumps(record.to_dict(), ensure_ascii=False) + "\n")
+    temporary_path.replace(path)
+
+
+def _needs_schema_refresh(record: PullRequestRecord) -> bool:
+    """Return whether a cached record lacks fields required by method mining."""
+    return not record.head_sha or not record.base_sha or not record.merged_at
+
+
 def _read_manifest(output_dir: Path) -> dict[str, Any]:
     path = manifest_path(output_dir)
     if not path.exists():
@@ -90,7 +107,15 @@ def fetch_pull_request_record(
 
     pr_payload, _ = client.get_json(pr_url)
     files_payload = client.paginate(files_url, {"per_page": 100})
-    head_sha = pr_payload["head"]["sha"]
+    head_sha = (pr_payload.get("head") or {}).get("sha") or ""
+    base_sha = (pr_payload.get("base") or {}).get("sha") or ""
+    merge_commit_sha = pr_payload.get("merge_commit_sha") or ""
+    merged_at = pr_payload.get("merged_at") or ""
+    pr_url = pr_payload.get("html_url") or ""
+    if not head_sha:
+        raise RuntimeError(
+            f"GitHub returned no head SHA for {owner}/{repo}#{pull_number}"
+        )
     metadata = fetch_pr_metadata(
         client, owner, repo, pull_number, head_sha
     )
@@ -157,6 +182,10 @@ def fetch_pull_request_record(
         body_issue_refs=body_issue_refs,
         closing_issue_refs=closing_issue_refs,
         head_sha=head_sha,
+        base_sha=base_sha,
+        merge_commit_sha=merge_commit_sha,
+        merged_at=merged_at,
+        pr_url=pr_url,
         ci_source=metadata.ci.source,
         ci_rollup_state=metadata.ci.rollup_state,
         ci_check_run_count=metadata.ci.check_run_count,
@@ -208,9 +237,9 @@ def collect_prs(
     """Collect up to ``limit`` merged PRs and persist them as JSONL.
 
     Writes one JSON object per PR to ``output/raw_prs/<owner>__<repo>.jsonl``
-    and updates ``output/raw_prs/manifest.json``. When ``resume`` is True, PRs
-    already present in the file are skipped (incremental / crash-safe). Returns
-    the records for the selected PRs (existing + newly fetched).
+    and updates ``output/raw_prs/manifest.json``. When ``resume`` is True,
+    complete cached records are skipped while legacy records without base/head
+    revision metadata are refreshed. Returns records for the selected PRs.
     """
     token = token or os.getenv("GITHUB_TOKEN")
     if not token:
@@ -227,20 +256,23 @@ def collect_prs(
     client = GitHubClient(token)
     selected = _select_merged_prs(client, owner, repo, limit, state)
     selected_numbers = [p["number"] for p in selected]
-    to_fetch = [n for n in selected_numbers if n not in existing]
+    to_fetch = [
+        number
+        for number in selected_numbers
+        if number not in existing or _needs_schema_refresh(existing[number])
+    ]
 
-    new_records: list[PullRequestRecord] = []
-    mode = "a" if resume else "w"
-    with path.open(mode, encoding="utf-8") as handle:
-        for index, pull_number in enumerate(to_fetch, start=1):
-            print(f"  Fetching PR {pull_number} ({index}/{len(to_fetch)})")
-            record = fetch_pull_request_record(client, owner, repo, pull_number)
-            handle.write(json.dumps(record.to_dict(), ensure_ascii=False) + "\n")
-            handle.flush()
-            new_records.append(record)
+    fetched_records: list[PullRequestRecord] = []
+    for index, pull_number in enumerate(to_fetch, start=1):
+        print(f"  Fetching PR {pull_number} ({index}/{len(to_fetch)})")
+        fetched_records.append(
+            fetch_pull_request_record(client, owner, repo, pull_number)
+        )
 
-    new_by_id = {r.pr_id: r for r in new_records}
-    records = [existing[n] if n in existing else new_by_id[n] for n in selected_numbers]
+    all_by_id = dict(existing)
+    all_by_id.update({record.pr_id: record for record in fetched_records})
+    _write_records_atomic(path, list(all_by_id.values()))
+    records = [all_by_id[number] for number in selected_numbers]
 
     manifest = _read_manifest(output_dir)
     repo_key = f"{owner}__{repo}"
@@ -253,9 +285,9 @@ def collect_prs(
     }
     _write_manifest(output_dir, manifest)
 
-    already = len(records) - len(new_records)
+    already = len(records) - len(fetched_records)
     print(
         f"[collect] {owner}/{repo}: {len(records)} record(s) total "
-        f"({len(new_records)} new, {already} already cached)"
+        f"({len(fetched_records)} fetched/refreshed, {already} already cached)"
     )
     return records

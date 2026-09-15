@@ -30,11 +30,15 @@
       "default_reasoning_summary": "none",
       "display_name": "DeepSeek-V4-Pro",
       "description": "Most capable frontier agentic coding model.",
-      "default_reasoning_level": "high",
+      "default_reasoning_level": "medium",
       "supported_reasoning_levels": [
         {
           "effort": "low",
           "description": "Fast responses with lighter reasoning"
+        },
+        {
+          "effort": "medium",
+          "description": "Balanced reasoning depth for bounded agent workflows"
         },
         {
           "effort": "high",

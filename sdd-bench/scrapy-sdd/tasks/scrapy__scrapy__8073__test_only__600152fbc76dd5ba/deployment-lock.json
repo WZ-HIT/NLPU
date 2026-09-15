@@ -401,7 +401,8 @@
   },
   "runtime": {
     "status": "runtime_ready",
-    "model_id": "deepseek-v4-pro",
+    "model_id": "deepseek-flash",
+    "product_model_version": "DeepSeek-V4.1-Flash",
     "provider": "deepseek",
     "authentication_method": "command_backed_bearer_token_from_docker_secret",
     "api_base_url": "https://api.deepseek.com",
@@ -432,9 +433,9 @@
     },
     "deployment_compose": {
       "path": "compose.agent.yaml",
-      "sha256": "e4740873b943a2707a845a15f68d30c56436e77b2769e9fc5780821b34e50e1c",
+      "sha256": "11789f438228df24976e397a6b446edbe51736ba6a9f3288718bdcf40b4f2904",
       "project_name": "scrapy-sdd-8073-600152fbc76dd5ba-agent",
-      "rendered_json_sha256_with_dev_null_secret_path": "d9d49314604139283a5ca6a40fb87cb594f675388195f5ad796cd7e2be1eabcd",
+      "rendered_json_sha256_with_dev_null_secret_path": "77a7414b9be70c21de92838a17b91701a3fb0ee3860d650759761d929e985714",
       "evidence": "../../Log/scrapy-pr8073-test-only-600152fbc76dd5ba-baseline-and-deployment-audits/deployment-compose-07o.json",
       "evidence_sha256": "11343d0c4b1cf2c4d0a45a70d5e4419c387ad99cd6944f1b8cd0d32315a0c8bf",
       "evidence_scope": "initial Step 07 static design before Step 09 runtime corrections",
@@ -448,18 +449,18 @@
         "networks": 6,
         "named_volumes": 3
       },
-      "status": "created and behaviorally verified after Step 09 PATH, AppArmor and writable-storage corrections"
+      "status": "Flash/high mounts active; all six recreated containers healthy and run-agent verify passed"
     },
     "launcher": {
       "path": "run-agent.sh",
-      "sha256": "f5a0b05e83cb858f4992a41405d054251d91ee23a13071514f3294419d6ec224",
+      "sha256": "6af8882935767c826f92fe439e11e9bf42580b3fa44a0fe6e9f213c8461ac67d",
       "mode": "0755",
       "evidence": "../../Log/scrapy-pr8073-test-only-600152fbc76dd5ba-baseline-and-deployment-audits/unified-agent-launcher-08c.json",
       "evidence_sha256": "87bb3a25547d19d89045f488be404cf6b9210e94a16e92a1467943d3102faf64",
       "evidence_scope": "initial Step 08 static launcher validation",
       "runtime_evidence": "../../Log/scrapy-pr8073-test-only-600152fbc76dd5ba-baseline-and-deployment-audits/isolated-agent-runtime-09h.json",
       "runtime_evidence_sha256": "51bf456839268d9dd09b5a5858bcad0c4eb41eb1e218eb9d80f8da23fdbb6ea9",
-      "profile": "deepseek-v4-pro",
+      "profile": "deepseek-flash",
       "strict_config": true,
       "ephemeral_sessions": true,
       "jsonl_usage_capture": true,
@@ -473,6 +474,20 @@
       "static_validation": "PASS",
       "runtime_objects_created": true,
       "status": "formal startup entry passed after adding exact initialized-file manifest verification; runtime verify, status and fail-closed route probes passed; no model request made"
+    },
+    "experiment_launcher": {
+      "path": "run-experiment.sh",
+      "sha256": "347836db2ff5ea977770eed444eea31dddf0930ff0eb99aa2b9f88468e087de4",
+      "supported_all_modes": ["all", "parallel-all"],
+      "execution_order_source": "experiment.json execution_order",
+      "sequential_semantics": "all starts and completes each SDD workflow in execution_order",
+      "parallel_semantics": "parallel-all launches workers in execution_order, requires a shared preflight start barrier, then allows independent progress",
+      "failure_policy": "no automatic retries; one worker failure is recorded and does not cancel or block the remaining workers",
+      "concurrency_control": "one parent-held non-blocking task-wide flock covers the full three-worker comparison",
+      "isolation_boundary": "each worker retains its existing distinct repository, Agent container, HOME volume, cache and private network",
+      "result_contract": "all-summary.json records execution_mode, start_barrier_status, configured order and per-variant status; each parallel worker records parallel-all.console.log and failure.json when applicable",
+      "validation": "PASS: Bash syntax, PR 8073 comparison 007 config, and a no-model three-worker probe with one intentional failure",
+      "live_model_request_made_for_validation": false
     },
     "subagent_policy": "disabled in the byte-identical common config mounted read-only and hash-verified in all three Agent services",
     "network_policy": {
@@ -505,10 +520,10 @@
     },
     "credential_policy": "mount a runtime-only Docker secret at the fixed path and let the trusted Codex parent obtain the bearer token through a fixed command; no provider key environment variable and no secrets in Git, images, command arguments, logs or manifests",
     "credential_secret_path": "/run/secrets/deepseek_api_key",
-    "profile_name": "deepseek-v4-pro",
+    "profile_name": "deepseek-flash",
     "wire_api": "responses",
     "supports_websockets": false,
-    "model_identity_limit": "upstream alias; immutable model-weight snapshot not verified",
+    "model_identity_limit": "deepseek-flash is a moving upstream alias routed to DeepSeek-V4.1-Flash as of 2026-09-10; immutable model weights are not asserted",
     "configuration_files": {
       "path_base": "directory containing deployment-lock.json",
       "deployment_status": "exact read-only config binds and three independent writable HOME volumes are mounted and behaviorally verified in the running services",
@@ -536,18 +551,18 @@
         }
       },
       "model_catalog": {
-        "path": "../../environments/agent-runtime/codex-0.153.4_node-24.20.0_uv-0.12.10_linux-amd64/config-templates/model-catalogs/deepseek-v4-pro/models.json",
-        "sha256": "dfaff2fcbef199a42944d39452b769bf5c010e1b7069f2d3a33cabdc9d62ebd3",
-        "container_path": "/home/bench/.codex/model-catalogs/deepseek-v4-pro/models.json",
+        "path": "../../environments/agent-runtime/codex-0.153.4_node-24.20.0_uv-0.12.10_linux-amd64/config-templates/model-catalogs/deepseek-flash/models.json",
+        "sha256": "4240127a851f7582bb4f92b9fe3b258f18393d560446e84430e5f90f473db9a1",
+        "container_path": "/home/bench/.codex/model-catalogs/deepseek-flash/models.json",
         "source_url": "https://api-docs.deepseek.com/quick_start/agent_integrations/codex/",
-        "source_checked_date_utc": "2026-09-07",
-        "derivation": "only the official Pro entry retained; metadata and embedded prompts unchanged; JSON formatting normalized",
+        "source_checked_date_utc": "2026-09-14",
+        "derivation": "only the official deepseek-flash entry retained; official low/high/max reasoning levels and high default preserved; embedded prompts unchanged; JSON formatting normalized",
         "prompt_caveat": "upstream GPT-5 identity text is preserved prompt content, not proof of the actual inference model"
       },
       "profile": {
-        "path": "../../environments/agent-runtime/codex-0.153.4_node-24.20.0_uv-0.12.10_linux-amd64/config-templates/deepseek-v4-pro.config.toml",
-        "sha256": "af924b16bee2f319a1a6a3cc5e87b85a9b053c6544786b5aa7e89f3687495d7a",
-        "container_path": "/home/bench/.codex/deepseek-v4-pro.config.toml",
+        "path": "../../environments/agent-runtime/codex-0.153.4_node-24.20.0_uv-0.12.10_linux-amd64/config-templates/deepseek-flash.config.toml",
+        "sha256": "2e594da8abb241ef9c54cc376956a198371d305db4252d21341bd8d4fa1dd029",
+        "container_path": "/home/bench/.codex/deepseek-flash.config.toml",
         "authentication": {
           "command": "/bin/cat",
           "args": ["/run/secrets/deepseek_api_key"],
@@ -566,9 +581,9 @@
       "image_id": "sha256:5331d81398045534dfca13267402e4f97dad9d6ad43524a62b05286741e960a9",
       "scope": "disposable containers only; no credentials, external endpoint, model request, SDD installation or experiment-repository write",
       "common_config": "TOML assertions, codex features list, 07-b shell-environment policy assertions and 07-l rollout-budget strict parsing passed",
-      "catalog": "local model/list identified Pro and low/high/max reasoning levels",
-      "profile": "codex --profile deepseek-v4-pro debug prompt-input passed: exit 0, empty stderr; static settings and no common-policy override assertions passed",
-      "strict_profile_validation": "PASS using codex exec --strict-config in a network-none disposable container; expected model, provider, approval policy, sandbox mode and reasoning effort resolved before an outer timeout stopped offline reconnect attempts",
+      "catalog": "PASS; local model resolver identified deepseek-flash and official low/high/max reasoning levels with high default",
+      "profile": "PASS; Codex CLI 0.153.4 accepted the plain deepseek-flash profile name",
+      "strict_profile_validation": "PASS; codex exec --strict-config entered a turn with Flash/high against an unreachable loopback endpoint before the outer timeout",
       "evidence_location": "../../Log/scrapy-pr8073-test-only-600152fbc76dd5ba-baseline-and-deployment-audits/agent-runtime-config-and-sandbox-06e.json"
     },
     "shell_environment_validation": {
@@ -590,7 +605,7 @@
         "LANG",
         "PATH"
       ],
-      "strict_config_probe": "PASS; codex exec resolved model deepseek-v4-pro, provider deepseek, approval never, sandbox workspace-write and reasoning high without a configuration error",
+      "strict_config_probe": "PASS; codex exec accepted model deepseek-flash, provider deepseek, approval never, sandbox workspace-write and reasoning high without a configuration error",
       "strict_probe_endpoint": "http://127.0.0.1:9",
       "strict_probe_outer_timeout_seconds": 20,
       "strict_probe_exit_code": 124,
@@ -600,7 +615,7 @@
     "sandbox_validation": {
       "status": "PASS",
       "image_id": "sha256:5331d81398045534dfca13267402e4f97dad9d6ad43524a62b05286741e960a9",
-      "validated_command_prefix": ["codex", "--profile", "deepseek-v4-pro", "sandbox", "-P", ":workspace", "-C", "/workspace", "--"],
+      "validated_command_prefix": ["codex", "--profile", "deepseek-flash", "sandbox", "-P", ":workspace", "-C", "/workspace", "--"],
       "apparmor_profile": "scrapy_sdd_codex_parent_11079cb1c85b",
       "seccomp_profile_sha256": "1a25ca5c611f8acd56d436b6bf61cce4dd4f9115291e22929152b50a9915ac25",
       "results": {
@@ -646,7 +661,7 @@
       "network_mode": "none",
       "strict_config": true,
       "provider_endpoint_override": "http://127.0.0.1:9",
-      "secret_present_control": "PASS; Codex resolved model deepseek-v4-pro and provider deepseek without an external-auth error, then the outer timeout stopped expected offline reconnect attempts",
+      "secret_present_control": "PASS; post-switch loopback probe resolved model deepseek-flash, reasoning high and provider deepseek without an external-auth error, then the outer timeout stopped expected offline reconnect attempts",
       "secret_missing_control": "PASS; Codex explicitly reported that provider auth command /bin/cat could not read /run/secrets/deepseek_api_key",
       "secret_present_probe_exit_code": 124,
       "secret_missing_probe_exit_code": 124,
@@ -740,6 +755,7 @@
     },
     "live_provider_validation": {
       "status": "PASS",
+      "scope": "historical DeepSeek-V4-Pro provider probe retained as evidence only; Flash/high has not made a live model request",
       "codex_version": "0.153.4",
       "model": "deepseek-v4-pro",
       "provider": "deepseek",

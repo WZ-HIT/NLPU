@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sdd-bench.local/schemas/gold-check-v1.schema.json",
+  "title": "SDD Bench host-only gold check v1",
+  "$comment": "Evaluation host only. This document and its source must never be mounted into or shown to an Agent.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "task_id", "checked_at_utc", "status", "baseline_sha", "gold_source", "checks"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "task_id": {"$ref": "#/$defs/id"},
+    "checked_at_utc": {"type": "string", "format": "date-time"},
+    "status": {"enum": ["pass", "fail"]},
+    "baseline_sha": {"$ref": "#/$defs/gitSha"},
+    "gold_source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "reference", "sha256"],
+      "properties": {
+        "kind": {"enum": ["raw-pr-record", "patch-file", "repository-object"]},
+        "reference": {"$ref": "#/$defs/path"},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "checks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["applies_to_baseline", "paths_within_adapter_policy", "contains_test_change", "contains_production_change"],
+      "properties": {
+        "applies_to_baseline": {"type": "boolean"},
+        "paths_within_adapter_policy": {"type": "boolean"},
+        "contains_test_change": {"type": "boolean"},
+        "contains_production_change": {"type": "boolean"}
+      }
+    },
+    "changed_paths": {"type": "array", "items": {"$ref": "#/$defs/path"}, "uniqueItems": true}
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{0,127}$"},
+    "gitSha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "path": {"type": "string", "minLength": 1, "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\)(?!.*//).+$"}
+  }
+}

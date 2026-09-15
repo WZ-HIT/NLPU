@@ -56,7 +56,6 @@ class PromptOutputTests(unittest.TestCase):
             files = write_prompt_collection(
                 output_dir,
                 groups,
-                keep_fields=("prompt",),
                 source_paths=[Path("output/raw_prs/acme__widgets.jsonl")],
                 raw_count=2,
                 kept_pr_count=2,
@@ -75,7 +74,7 @@ class PromptOutputTests(unittest.TestCase):
                 [{"prompt": "b"}, {"prompt": "c"}],
             )
             manifest = json.loads((output_dir / "manifest.json").read_text())
-            self.assertEqual(manifest["schema_version"], 2)
+            self.assertEqual(manifest["schema_version"], 3)
             self.assertEqual(manifest["prompt_count"], 3)
             self.assertEqual(
                 manifest["prompt_counts"],
@@ -85,7 +84,6 @@ class PromptOutputTests(unittest.TestCase):
             write_prompt_collection(
                 output_dir,
                 {"acme/widgets": [{"prompt": "new"}]},
-                keep_fields=("prompt",),
                 source_paths=[],
                 raw_count=1,
                 kept_pr_count=1,

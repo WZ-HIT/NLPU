@@ -3,6 +3,11 @@
 environments/scrapy__scrapy__base_*/baseline/scrapy/
 tasks/*/runs/*/scrapy/
 
+# Server-local rollback payloads and restore-time safety backups. Human-readable
+# checkpoint metadata and scripts remain trackable.
+checkpoints/*/payloads/
+checkpoints/*/restore-backups/
+
 # Reconstructible large common runtime payloads. The source URLs and SHA256
 # values remain in deployment-lock.json and artifact manifests.
 environments/agent-runtime/*/artifacts/common/
@@ -16,6 +21,7 @@ environments/agent-runtime/*/base-*-oci/
 **/.cache/
 **/sessions/
 **/shell_snapshots/
+*.orig
 *.key
 *.pem
 *.token

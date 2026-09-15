@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sdd-bench.local/schemas/experiment-v1.json",
+  "title": "Scrapy SDD experiment configuration",
+  "description": "Configuration contract for one reproducible, multi-stage SDD comparison experiment.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "experiment_id",
+    "task_id",
+    "sample_id",
+    "pr_id",
+    "task_base_sha",
+    "input",
+    "execution_order",
+    "workflow"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "./experiment.schema.json"
+    },
+    "schema_version": {
+      "const": 1
+    },
+    "experiment_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,95}$"
+    },
+    "task_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]+$"
+    },
+    "sample_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "pr_id": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "task_base_sha": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "input": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/manualInput"
+        },
+        {
+          "$ref": "#/$defs/datasetInput"
+        }
+      ]
+    },
+    "execution_order": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/variant"
+      },
+      "allOf": [
+        {
+          "contains": {
+            "const": "openspec"
+          }
+        },
+        {
+          "contains": {
+            "const": "speckit"
+          }
+        },
+        {
+          "contains": {
+            "const": "cc-sdd"
+          }
+        }
+      ]
+    },
+    "workflow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "human_intervention_between_phases"
+      ],
+      "properties": {
+        "mode": {
+          "const": "official-multistage"
+        },
+        "human_intervention_between_phases": {
+          "const": false
+        }
+      }
+    }
+  },
+  "$defs": {
+    "variant": {
+      "enum": [
+        "openspec",
+        "speckit",
+        "cc-sdd"
+      ]
+    },
+    "repositoryRelativePath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+    },
+    "manualInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "path"
+      ],
+      "properties": {
+        "mode": {
+          "const": "manual"
+        },
+        "path": {
+          "$ref": "#/$defs/repositoryRelativePath"
+        }
+      }
+    },
+    "datasetInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "path",
+        "sample_id"
+      ],
+      "properties": {
+        "mode": {
+          "const": "dataset"
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sample_id": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

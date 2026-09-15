@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass, field, fields
 from typing import Any
 
-SCHEMA_VERSION = 2
+SCHEMA_VERSION = 3
 
 
 @dataclass(frozen=True)
@@ -33,10 +33,18 @@ class PullRequestRecord:
     body_issue_refs: list[dict[str, Any]] = field(default_factory=list)
     closing_issue_refs: list[dict[str, Any]] = field(default_factory=list)
     head_sha: str = ""
+    base_sha: str = ""
+    merge_commit_sha: str = ""
+    merged_at: str = ""
+    pr_url: str = ""
     ci_source: str = "legacy"
     ci_rollup_state: str | None = None
     ci_check_run_count: int = 0
     ci_status_context_count: int = 0
+    test_changes: list[dict[str, Any]] = field(default_factory=list)
+    method_test_pairs: list[dict[str, Any]] = field(default_factory=list)
+    mining_status: str = "not_mined"
+    mining_reasons: list[str] = field(default_factory=list)
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)

@@ -34,10 +34,11 @@ class GitHubClient:
         self.timeout = timeout
         self.headers = {
             "Accept": "application/vnd.github+json",
-            "Authorization": f"Bearer {token}",
             "User-Agent": "nlpu-pr-demo",
             "X-GitHub-Api-Version": API_VERSION,
         }
+        if token:
+            self.headers["Authorization"] = f"Bearer {token}"
 
     def get_json(
         self, url: str, params: dict[str, Any] | None = None

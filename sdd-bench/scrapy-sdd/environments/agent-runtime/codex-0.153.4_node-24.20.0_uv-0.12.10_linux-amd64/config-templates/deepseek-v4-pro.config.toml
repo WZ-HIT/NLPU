@@ -8,7 +8,7 @@
 
 model = "deepseek-v4-pro"
 model_provider = "deepseek"
-model_reasoning_effort = "high"
+model_reasoning_effort = "medium"
 model_catalog_json = "/home/bench/.codex/model-catalogs/deepseek-v4-pro/models.json"
 forced_login_method = "api"
 

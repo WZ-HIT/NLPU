@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sdd-bench.local/schemas/provenance-v1.schema.json",
+  "title": "SDD Bench host-side provenance v1",
+  "$comment": "Host-only. Establishes that baseline.commit_sha came from the raw record base_sha field.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "task_id", "generated_at_utc", "raw_record", "baseline", "artifacts"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "task_id": {"$ref": "#/$defs/id"},
+    "generated_at_utc": {"type": "string", "format": "date-time"},
+    "raw_record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "base_sha_field"],
+      "properties": {
+        "path": {"$ref": "#/$defs/path"},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "base_sha_field": {"const": "base_sha"}
+      }
+    },
+    "baseline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["commit_sha", "tree_sha"],
+      "properties": {
+        "commit_sha": {"$ref": "#/$defs/gitSha"},
+        "tree_sha": {"$ref": "#/$defs/gitSha"}
+      }
+    },
+    "artifacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["task_sha256", "plan_sha256", "adapter_path", "adapter_sha256"],
+      "properties": {
+        "task_sha256": {"$ref": "#/$defs/sha256"},
+        "plan_sha256": {"$ref": "#/$defs/sha256"},
+        "adapter_path": {"$ref": "#/$defs/path"},
+        "adapter_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    }
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{0,127}$"},
+    "gitSha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "path": {"type": "string", "minLength": 1, "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\)(?!.*//).+$"}
+  }
+}

@@ -1,20 +1,19 @@
-"""Build configurable prompt JSON from already-collected raw PR records."""
+"""Build leak-free method-level prompt JSON from method-mined raw PR records."""
 
 from __future__ import annotations
 
 import argparse
 import json
+from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 from types import SimpleNamespace
 from typing import Any
 
-from demo_pipeline import (
-    DEFAULT_PROMPT_FIELDS,
-    PROMPT_FIELDS,
-    build_dataset,
-    build_prompts,
-    filter_prs,
+from experiment.prompts import (
+    METHOD_DEFAULT_PROMPT_FIELDS,
+    build_method_dataset,
+    build_method_prompts,
 )
 
 ROOT = Path(__file__).resolve().parent
@@ -22,22 +21,9 @@ DEFAULT_INPUT_DIR = ROOT / "output" / "raw_prs"
 DEFAULT_OUTPUT_DIR = ROOT / "output" / "prompt"
 
 
-def parse_keep_fields(value: str) -> tuple[str, ...]:
-    fields = tuple(field.strip() for field in value.split(",") if field.strip())
-    if not fields:
-        raise argparse.ArgumentTypeError("keep-fields cannot be empty")
-    if len(fields) != len(set(fields)):
-        raise argparse.ArgumentTypeError("keep-fields cannot contain duplicates")
-    unknown = set(fields) - set(PROMPT_FIELDS)
-    if unknown:
-        choices = ", ".join(PROMPT_FIELDS)
-        raise argparse.ArgumentTypeError(
-            f"unknown field(s): {', '.join(sorted(unknown))}; choices: {choices}"
-        )
-    return fields
-
-
-def load_raw_records(input_dir: Path, repos: set[str] | None = None) -> tuple[list[Any], list[Path]]:
+def load_raw_records(
+    input_dir: Path, repos: set[str] | None = None
+) -> tuple[list[Any], list[Path]]:
     paths = sorted(input_dir.glob("*.jsonl"))
     if not paths:
         raise FileNotFoundError(f"No raw PR JSONL files found in {input_dir}")
@@ -53,7 +39,9 @@ def load_raw_records(input_dir: Path, repos: set[str] | None = None) -> tuple[li
                 try:
                     data = json.loads(line)
                 except json.JSONDecodeError as exc:
-                    raise ValueError(f"Invalid JSON in {path}:{line_number}: {exc}") from exc
+                    raise ValueError(
+                        f"Invalid JSON in {path}:{line_number}: {exc}"
+                    ) from exc
                 if repos and data.get("repo") not in repos:
                     continue
                 records.append(SimpleNamespace(**data))
@@ -89,10 +77,11 @@ def write_prompt_collection(
     output_dir: Path,
     prompts_by_repo: dict[str, list[dict[str, Any]]],
     *,
-    keep_fields: tuple[str, ...],
     source_paths: list[Path],
     raw_count: int,
     kept_pr_count: int,
+    mining_status_counts: dict[str, int] | None = None,
+    unpromptable_pr_count: int = 0,
 ) -> dict[str, str]:
     output_dir.mkdir(parents=True, exist_ok=True)
     manifest_path = output_dir / "manifest.json"
@@ -116,17 +105,26 @@ def write_prompt_collection(
         (output_dir / stale_file).unlink(missing_ok=True)
 
     prompt_counts = {
-        repo: len(prompts)
-        for repo, prompts in sorted(prompts_by_repo.items())
+        repo: len(prompts) for repo, prompts in sorted(prompts_by_repo.items())
     }
+    prompt_type_counts = {"focal_guided": 0, "test_only": 0}
+    for prompts in prompts_by_repo.values():
+        for prompt in prompts:
+            prompt_type = prompt.get("prompt_type")
+            if prompt_type in prompt_type_counts:
+                prompt_type_counts[prompt_type] += 1
     manifest = {
-        "schema_version": 2,
+        "schema_version": 3,
+        "mode": "method",
         "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "source_files": [str(path) for path in source_paths],
         "raw_pr_count": raw_count,
+        "raw_mining_status_counts": mining_status_counts or {},
+        "unpromptable_pr_count": unpromptable_pr_count,
         "kept_pr_count": kept_pr_count,
         "prompt_count": sum(prompt_counts.values()),
-        "keep_fields": list(keep_fields),
+        "prompt_type_counts": prompt_type_counts,
+        "keep_fields": list(METHOD_DEFAULT_PROMPT_FIELDS),
         "prompt_files": prompt_files,
         "prompt_counts": prompt_counts,
     }
@@ -137,9 +135,62 @@ def write_prompt_collection(
     return prompt_files
 
 
+def build_prompt_outputs(
+    input_dir: Path = DEFAULT_INPUT_DIR,
+    output_dir: Path = DEFAULT_OUTPUT_DIR,
+    *,
+    repos: set[str] | None = None,
+) -> dict[str, Any]:
+    """Build the fixed method-prompt collection and return output counts."""
+    records, source_paths = load_raw_records(input_dir, repos=repos)
+    if not records:
+        requested = ", ".join(sorted(repos or set()))
+        raise RuntimeError(f"No raw PR records matched: {requested}")
+
+
+    dataset = build_method_dataset(records)
+    mining_status_counts = dict(
+        sorted(Counter(getattr(record, "mining_status", "not_mined") for record in records).items())
+    )
+    prompts = build_method_prompts(dataset)
+    prompt_type_counts = {
+        "focal_guided": sum(item["prompt_type"] == "focal_guided" for item in prompts),
+        "test_only": sum(item["prompt_type"] == "test_only" for item in prompts),
+    }
+    kept_pr_count = len({(item["repo"], item["pr_id"]) for item in dataset})
+    contributing_prs = {(item["repo"], item["pr_id"]) for item in dataset}
+    eligible_prs = {
+        (record.repo, record.pr_id)
+        for record in records
+        if getattr(record, "merged", False)
+        and getattr(record, "ci_status", "unknown") == "success"
+    }
+    unpromptable_pr_count = len(eligible_prs - contributing_prs)
+    prompts_by_repo = group_prompts_by_repo(dataset, prompts)
+    prompt_files = write_prompt_collection(
+        output_dir,
+        prompts_by_repo,
+        source_paths=source_paths,
+        raw_count=len(records),
+        kept_pr_count=kept_pr_count,
+        mining_status_counts=mining_status_counts,
+        unpromptable_pr_count=unpromptable_pr_count,
+    )
+    return {
+        "raw_count": len(records),
+        "kept_pr_count": kept_pr_count,
+        "prompt_count": len(prompts),
+        "raw_mining_status_counts": mining_status_counts,
+        "unpromptable_pr_count": unpromptable_pr_count,
+        "prompt_type_counts": prompt_type_counts,
+        "keep_fields": METHOD_DEFAULT_PROMPT_FIELDS,
+        "prompt_files": prompt_files,
+    }
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Build prompt JSON from existing output/raw_prs records"
+        description="Build leak-free method prompts from method-mined raw PR records"
     )
     parser.add_argument("--input-dir", type=Path, default=DEFAULT_INPUT_DIR)
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
@@ -149,16 +200,9 @@ def parse_args() -> argparse.Namespace:
         help="Only include this owner/repo; repeat to include multiple repositories",
     )
     parser.add_argument(
-        "--keep-fields",
-        type=parse_keep_fields,
-        default=DEFAULT_PROMPT_FIELDS,
-        metavar="FIELD,...",
-        help="Comma-separated fields retained in each prompt entry",
-    )
-    parser.add_argument(
         "--list-fields",
         action="store_true",
-        help="Print available fields and exit",
+        help="Print the fixed method-prompt fields and exit",
     )
     return parser.parse_args()
 
@@ -166,35 +210,33 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
     if args.list_fields:
-        print("\n".join(PROMPT_FIELDS))
+        print("\n".join(METHOD_DEFAULT_PROMPT_FIELDS))
         return
 
-    records, source_paths = load_raw_records(
+    result = build_prompt_outputs(
         args.input_dir,
+        args.output_dir,
         repos=set(args.repo) if args.repo else None,
     )
-    if not records:
-        requested = ", ".join(args.repo or [])
-        raise RuntimeError(f"No raw PR records matched: {requested}")
-
-    kept = filter_prs(records)
-    dataset = build_dataset(kept)
-    prompts = build_prompts(dataset, keep_fields=args.keep_fields)
-    prompts_by_repo = group_prompts_by_repo(dataset, prompts)
-    prompt_files = write_prompt_collection(
-        args.output_dir,
-        prompts_by_repo,
-        keep_fields=args.keep_fields,
-        source_paths=source_paths,
-        raw_count=len(records),
-        kept_pr_count=len(kept),
+    print(
+        f"Built {result['prompt_count']} prompt(s) from {result['raw_count']} raw PR(s); "
+        f"{result['kept_pr_count']} PR(s) contributed method prompt(s)."
     )
     print(
-        f"Built {len(prompts)} prompt(s) from {len(records)} raw PR(s); "
-        f"{len(kept)} PR(s) passed the existing thresholds."
+        "Prompt types: "
+        f"focal_guided={result['prompt_type_counts']['focal_guided']}, "
+        f"test_only={result['prompt_type_counts']['test_only']}"
     )
-    print(f"Fields: {', '.join(args.keep_fields)}")
-    for repo, file_name in sorted(prompt_files.items()):
+    print(
+        "Raw mining statuses: "
+        + ", ".join(
+            f"{status}={count}"
+            for status, count in result["raw_mining_status_counts"].items()
+        )
+        + f"; unpromptable={result['unpromptable_pr_count']}"
+    )
+    print(f"Fields: {', '.join(result['keep_fields'])}")
+    for repo, file_name in sorted(result["prompt_files"].items()):
         print(f"Output [{repo}]: {args.output_dir / file_name}")
 
 
