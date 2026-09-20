@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "run_id": "preflight-001",
+  "task_id": "scrapy__scrapy__pr7808",
+  "method": "speckit",
+  "stage": "update",
+  "checked_at_utc": "2026-09-20T08:57:33Z",
+  "status": "BLOCKED",
+  "formal_run_permitted": false,
+  "blockers": [
+    "formal_detection_seal_missing"
+  ],
+  "compose": {
+    "project_name": "scrapy-scrapy-pr7808-speckit-update-preflight-001",
+    "profile": "speckit-update",
+    "source_sha256": "01ea3c1d6765d1c010d0ae5ec3ac02d8a8523f4c44c54e3b8866e5943f3844d2",
+    "preflight_override_sha256": "14a57b1b679c17b29b12d3a10b63c8536ea4d96740e42380490da2a1ac1a493f",
+    "rendered_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7808/compose/rendered/speckit-update-preflight-001.yaml",
+    "rendered_sha256": "2d8f3947bd022ac86ba3a6c6a597460dbb24380d58b0af1f157f7d2f31bd34b1",
+    "deployment_lock_sha256": "1c606ca6a2fda93b06e7e5dca79e3e7688941a0b651cdb16813bd118e1ab3877"
+  },
+  "images": {
+    "agent_image_id": "sha256:eeefa7fe69db49f858f39f59d1f3b21f13cecccce80c18e61cfe1dcbcae88937",
+    "proxy_image_id": "sha256:6343ce34a132a5dceaa24767d739df2bd519f8f7c1079ae39e4821334e8eb42e"
+  },
+  "security": {
+    "read_only_rootfs": true,
+    "cap_drop_all": true,
+    "no_new_privileges": true,
+    "apparmor_profile": "scrapy_sdd_codex_parent_11079cb1c85b",
+    "seccomp_sha256": "1a25ca5c611f8acd56d436b6bf61cce4dd4f9115291e22929152b50a9915ac25",
+    "bubblewrap_pass": true
+  },
+  "resources": {
+    "cpu_limit": 4.0,
+    "memory_bytes": 8589934592,
+    "pids_limit": 512
+  },
+  "permissions": {
+    "output_write": "ALLOWED",
+    "planning_write": "DENIED",
+    "scrapy_write": "DENIED",
+    "sealed_input_write": "DENIED",
+    "tests_write": "ALLOWED"
+  },
+  "network": {
+    "private_internal_network": true,
+    "direct_egress_denied": true,
+    "dedicated_proxy_reachable": true,
+    "dedicated_proxy": "speckit-update-proxy"
+  },
+  "authentication": {
+    "secret_present": true,
+    "secret_nonempty": true,
+    "runtime_config_present": true,
+    "credential_content_recorded": false
+  },
+  "mounts": {
+    "workspace_unique": true,
+    "home_tmpfs": true,
+    "cache_tmpfs": true,
+    "docker_socket_absent": true,
+    "host_gold_absent": true,
+    "raw_dataset_absent": true,
+    "other_stage_workspace_absent": true,
+    "own_sealed_bundle_only": true
+  },
+  "formal_prompt_sent": false,
+  "model_request_sent": false,
+  "project_tests_run": false,
+  "evidence_sha256": "a084ee6e4daec72b6c46c8be99a24ee12b596e0e75e091ddc505834c4072301e"
+}

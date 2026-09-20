@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr8009",
+  "method": "speckit",
+  "base_sha": "3c6a62db47536df89676ab9d7347acf5c5c8a2e4",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "speckit-detect-004",
+    "session_sha256": "e92fbf607397a2240f89e53074f516c347eed547117841e24346212633bd94a1"
+  },
+  "task_input_sha256": "3704fcb53edb419a9e70ce85be7b4489b5a3118b114cd7948127aa26ff058372",
+  "candidates": [
+    {
+      "path": "tests/test_downloadermiddleware_httpcompression.py",
+      "symbols": [
+        "_skip_if_no_zstd",
+        "TestHttpCompression.test_process_request",
+        "TestHttpCompression.test_process_response_zstd",
+        "TestHttpCompression.test_process_response_zstd_unsupported",
+        "TestHttpCompression.test_compression_bomb_setting_zstd",
+        "TestHttpCompression.test_compression_bomb_spider_attr_zstd",
+        "TestHttpCompression.test_compression_bomb_request_meta_zstd",
+        "TestHttpCompression.test_download_warnsize_setting_zstd",
+        "TestHttpCompression.test_download_warnsize_spider_attr_zstd",
+        "TestHttpCompression.test_download_warnsize_request_meta_zstd",
+        "TestHttpCompression.test_process_truncated_response_zstd"
+      ],
+      "reason": "This module contains all zstd-specific middleware coverage. Making zstd mandatory changes its Accept-Encoding assertion, removes the zstandard dependency skip, invalidates the unsupported-dependency case, and activates the existing bomb, warning-size, and truncation tests that used to be skipped when zstandard was absent."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 7,
+    "manifest_sha256": "206572701509b736d7f8a7b4bd810df077856e6fe122052478617d0e1681b8b2"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "3acebd1eabb39e5ef5727bcdc1f6066d014806dec6a397c56469b9ddc175d362"
+  }
+}

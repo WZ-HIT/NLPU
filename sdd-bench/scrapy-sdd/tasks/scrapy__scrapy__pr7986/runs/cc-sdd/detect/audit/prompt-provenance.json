@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "status": "PASS",
+  "approved_source_fields": [
+    "repo",
+    "pr_id",
+    "title",
+    "body"
+  ],
+  "source_field_sha256": {
+    "repo": "ae432df5ee532306e9c3ae2f5c695321dacc94e1afc623625d350a49fec618ad",
+    "pr_id": "f580428217dccc6f63edca9a84c8670060b54c684c10ba07e22edc9c55a90971",
+    "title": "d45790b3a09e39118d949465c796e119e9f5eac05cb7671a9ee1caec8d4c78ab",
+    "body": "a58da86e577f20463afcd517136edadf13744be30e3a6ddd555396d04e01810c"
+  },
+  "task_json_sha256": "4b683de2df23085fbd8dee7be7f1158213ca5b3e7720936224e3679cdb5bee2d",
+  "rendered_task_markdown_sha256": "8d2461273a0f2f6eb633f57b10d00bf1f5ecd8fe579c01688995dcc3e86dffee",
+  "fresh_render_matches": true,
+  "dataset_prompt_used": false,
+  "comments_used": false,
+  "patch_used": false,
+  "gold_used": false
+}

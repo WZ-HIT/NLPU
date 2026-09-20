@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "status": "PASS",
+  "task_id": "scrapy__scrapy__pr7702",
+  "method": "cc-sdd",
+  "stage": "update",
+  "detection_manifest_visible": true,
+  "manifest_kind": "isolation-canary",
+  "task_match": true,
+  "method_match": true,
+  "base_match": true,
+  "seal_valid": true,
+  "same_method_only": true,
+  "other_detection_results_visible": false,
+  "formal_transfer_ready": false,
+  "formal_transfer_state": "AWAITING_FORMAL_SEAL",
+  "seal_sha256": "183f228b12f1e0069be37ed65c9c9d9f7b3b14ec3bcc415a14f1e1268504c8b1"
+}

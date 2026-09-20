@@ -1,0 +1,25 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_downloader_handler_httpx.py",
+      "symbols": [
+        "TestRealWebsite"
+      ],
+      "reason": "Contains the httpx download-handler real-website tests marked requires_internet, which are the tests the bounded rerun policy must cover."
+    },
+    {
+      "path": "tests/test_downloader_handler_twisted_http2.py",
+      "symbols": [
+        "TestRealWebsite"
+      ],
+      "reason": "Contains the HTTP/2 download-handler real-website tests marked requires_internet and therefore affected by the rerun-on-failure change."
+    },
+    {
+      "path": "tests/test_downloader_handler_twisted_http11.py",
+      "symbols": [
+        "TestRealWebsite"
+      ],
+      "reason": "Contains the HTTP/1.1 download-handler real-website tests marked requires_internet and therefore affected by the rerun-on-failure change."
+    }
+  ]
+}

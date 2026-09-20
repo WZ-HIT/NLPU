@@ -1,0 +1,28 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_downloadermiddleware_httpcompression.py",
+      "symbols": [
+        "_skip_if_no_zstd",
+        "test_process_request",
+        "test_process_response_zstd",
+        "test_process_response_zstd_unsupported",
+        "test_compression_bomb_setting_zstd",
+        "test_compression_bomb_spider_attr_zstd",
+        "test_compression_bomb_request_meta_zstd",
+        "test_download_warnsize_setting_zstd",
+        "test_download_warnsize_spider_attr_zstd",
+        "test_download_warnsize_request_meta_zstd",
+        "test_process_truncated_response_zstd"
+      ],
+      "reason": "Primary coverage for the change: it exercises scrapy.utils._compression and the HTTP compression downloader middleware end to end. It currently calls _skip_if_no_zstd() (pytest.importorskip(\"zstandard\")) in every zstd test, asserts the Accept-Encoding header equals ACCEPTED_ENCODINGS, and contains test_process_response_zstd_unsupported, which asserts the missing-zstandard warning that becomes unreachable once compression.zstd/backports.zstd is always available. These are exactly the assertions that must change with this PR."
+    },
+    {
+      "path": "tests/test_dependencies.py",
+      "symbols": [
+        "test_pinned_twisted_version"
+      ],
+      "reason": "Secondary: this is the only test module that inspects the dependency wiring for the pinned/minimum test environments, reading tox.ini through ConfigParser. The PR rewires the zstd dependency (removing zstandard entries from tox.ini extra-deps/min-extra-deps/vcs-deps and adding backports.zstd>=1.3.0; python_version < \"3.14\" to pyproject.toml), so the tox/pyproject dependency lists this module validates are edited by the change."
+    }
+  ]
+}

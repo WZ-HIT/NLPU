@@ -1,0 +1,175 @@
+name: scrapy-scrapy-pr7968-cc-sdd-detect-preflight-001
+services:
+  cc-sdd-detect-agent:
+    profiles:
+      - cc-sdd-detect
+    cap_drop:
+      - ALL
+    cpus: 4
+    command:
+      - /usr/local/bin/python
+      - /preflight/probe.py
+    depends_on:
+      cc-sdd-detect-proxy:
+        condition: service_healthy
+        required: true
+    environment:
+      CODEX_HOME: /run/sdd-home/.codex
+      HOME: /run/sdd-home
+      LANG: C.UTF-8
+      NPM_CONFIG_CACHE: /run/sdd-home/.cache/npm
+      PATH: /opt/agent/bwrap/bin:/opt/agent/bin:/opt/agent/node/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin
+      PIP_CACHE_DIR: /run/sdd-home/.cache/pip
+      PIP_DISABLE_PIP_VERSION_CHECK: "1"
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONPYCACHEPREFIX: /run/sdd-home/.cache/pycache
+      PYTHONUNBUFFERED: "1"
+      SDD_RUN_ID: preflight-001
+      SDD_STAGE: detect
+      SDD_TOOL: cc-sdd
+      TOX_WORK_DIR: /run/sdd-home/.cache/tox
+      UV_CACHE_DIR: /run/sdd-home/.cache/uv
+      XDG_CACHE_HOME: /run/sdd-home/.cache
+    extra_hosts:
+      - api.deepseek.com=172.29.15.2
+    image: scrapy-sdd-batch-agent:06af687662112027b4482d31e2714a3cf280a91f
+    init: true
+    labels:
+      sdd.method: cc-sdd
+      sdd.role: agent
+      sdd.run: preflight-001
+      sdd.stage: detect
+      sdd.task: scrapy__scrapy__pr7968
+    mem_limit: "8589934592"
+    memswap_limit: "8589934592"
+    networks:
+      cc-sdd-detect-private:
+        ipv4_address: 172.29.15.3
+    pids_limit: 512
+    platform: linux/amd64
+    pull_policy: never
+    read_only: true
+    restart: 'no'
+    secrets:
+      - source: deepseek_api_key
+        target: /run/secrets/deepseek_api_key
+    security_opt:
+      - no-new-privileges:true
+      - seccomp=/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7968/compose/security/seccomp.json
+      - apparmor=scrapy_sdd_codex_parent_11079cb1c85b
+    tmpfs:
+      - /run/sdd-home:rw,nosuid,nodev,mode=0700,uid=1007,gid=1007,size=1073741824
+      - /tmp:rw,nosuid,nodev,mode=1777,uid=1007,gid=1007,size=1073741824
+    user: 1007:1007
+    volumes:
+      - type: bind
+        source: /tmp/sdd-preflight-scrapy__scrapy__pr7968-preflight-001-mznsq975/cc-sdd/detect/workspace
+        target: /workspace
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: /tmp/sdd-preflight-scrapy__scrapy__pr7968-preflight-001-mznsq975/cc-sdd/detect/output
+        target: /output
+        bind:
+          create_host_path: false
+      - type: bind
+        source: /tmp/sdd-preflight-scrapy__scrapy__pr7968-preflight-001-mznsq975/cc-sdd/detect/task-input
+        target: /task-input
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: /home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/environments/agent-runtime/codex-0.153.4_node-24.20.0_uv-0.12.10_linux-amd64/config-templates/config.toml
+        target: /run/sdd-home/.codex/config.toml
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: /home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/environments/agent-runtime/codex-0.153.4_node-24.20.0_uv-0.12.10_linux-amd64/config-templates/deepseek-flash.config.toml
+        target: /run/sdd-home/.codex/deepseek-flash.config.toml
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: /home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/environments/agent-runtime/codex-0.153.4_node-24.20.0_uv-0.12.10_linux-amd64/config-templates/model-catalogs/deepseek-flash/models.json
+        target: /run/sdd-home/.codex/model-catalogs/deepseek-flash/models.json
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: /tmp/sdd-preflight-scrapy__scrapy__pr7968-preflight-001-mznsq975/cc-sdd/detect/planning
+        target: /workspace/.kiro/specs
+        bind:
+          create_host_path: false
+      - type: bind
+        source: /home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7968/compose/preflight/probe.py
+        target: /preflight/probe.py
+        read_only: true
+        bind:
+          create_host_path: false
+    working_dir: /workspace
+  cc-sdd-detect-proxy:
+    profiles:
+      - cc-sdd-detect
+    cap_drop:
+      - ALL
+    cpus: 0.25
+    healthcheck:
+      test:
+        - CMD
+        - haproxy
+        - -c
+        - -f
+        - /usr/local/etc/haproxy/haproxy.cfg
+      timeout: 2s
+      interval: 2s
+      retries: 15
+      start_period: 1s
+    image: haproxy@sha256:6343ce34a132a5dceaa24767d739df2bd519f8f7c1079ae39e4821334e8eb42e
+    labels:
+      sdd.method: cc-sdd
+      sdd.role: dedicated-proxy
+      sdd.run: preflight-001
+      sdd.stage: detect
+      sdd.task: scrapy__scrapy__pr7968
+    mem_limit: "134217728"
+    memswap_limit: "134217728"
+    networks:
+      cc-sdd-detect-private:
+        ipv4_address: 172.29.15.2
+      cc-sdd-detect-uplink:
+        gw_priority: 100
+    pids_limit: 64
+    platform: linux/amd64
+    pull_policy: never
+    read_only: true
+    restart: 'no'
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /run:rw,nosuid,nodev,noexec,mode=0755,size=16777216
+      - /tmp:rw,nosuid,nodev,noexec,mode=1777,size=16777216
+    user: 99:99
+    volumes:
+      - type: bind
+        source: /home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7968/compose/proxy/cc-sdd/detect/haproxy.cfg
+        target: /usr/local/etc/haproxy/haproxy.cfg
+        read_only: true
+        bind:
+          create_host_path: false
+networks:
+  cc-sdd-detect-private:
+    name: scrapy-scrapy-pr7968-cc-sdd-detect-preflight-001_cc-sdd-detect-private
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.29.15.0/24
+    internal: true
+  cc-sdd-detect-uplink:
+    name: scrapy-scrapy-pr7968-cc-sdd-detect-preflight-001_cc-sdd-detect-uplink
+    driver: bridge
+secrets:
+  deepseek_api_key:
+    name: scrapy-scrapy-pr7968-cc-sdd-detect-preflight-001_deepseek_api_key
+    file: /home/wangzuohit/.config/sdd-bench/deepseek-api-key

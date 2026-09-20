@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "run_id": "preflight-001",
+  "task_id": "scrapy__scrapy__pr7841",
+  "method": "speckit",
+  "stage": "detect",
+  "checked_at_utc": "2026-09-20T08:58:27Z",
+  "status": "READY",
+  "formal_run_permitted": true,
+  "blockers": [],
+  "compose": {
+    "project_name": "scrapy-scrapy-pr7841-speckit-detect-preflight-001",
+    "profile": "speckit-detect",
+    "source_sha256": "11185ee62c0f0a5c3191f666b60fa43cf2be843a610cad5125513085330eff44",
+    "preflight_override_sha256": "14a57b1b679c17b29b12d3a10b63c8536ea4d96740e42380490da2a1ac1a493f",
+    "rendered_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7841/compose/rendered/speckit-detect-preflight-001.yaml",
+    "rendered_sha256": "59780f0cebbf7fcc56d92685ca8ec10a62280d0a277ea7478e39c258b807efb1",
+    "deployment_lock_sha256": "640ce274c2f9f3b33056cffefdbae1f1a5659178bc41c46ca1e8c6685c94e4f4"
+  },
+  "images": {
+    "agent_image_id": "sha256:ed5a61dd75add68232cf0976e9da31503b5bc949baf7693594c9b0d0b60aa1c9",
+    "proxy_image_id": "sha256:6343ce34a132a5dceaa24767d739df2bd519f8f7c1079ae39e4821334e8eb42e"
+  },
+  "security": {
+    "read_only_rootfs": true,
+    "cap_drop_all": true,
+    "no_new_privileges": true,
+    "apparmor_profile": "scrapy_sdd_codex_parent_11079cb1c85b",
+    "seccomp_sha256": "1a25ca5c611f8acd56d436b6bf61cce4dd4f9115291e22929152b50a9915ac25",
+    "bubblewrap_pass": true
+  },
+  "resources": {
+    "cpu_limit": 4.0,
+    "memory_bytes": 8589934592,
+    "pids_limit": 512
+  },
+  "permissions": {
+    "output_write": "ALLOWED",
+    "planning_write": "ALLOWED",
+    "scrapy_write": "DENIED",
+    "sealed_input_write": "NOT_APPLICABLE",
+    "tests_write": "DENIED"
+  },
+  "network": {
+    "private_internal_network": true,
+    "direct_egress_denied": true,
+    "dedicated_proxy_reachable": true,
+    "dedicated_proxy": "speckit-detect-proxy"
+  },
+  "authentication": {
+    "secret_present": true,
+    "secret_nonempty": true,
+    "runtime_config_present": true,
+    "credential_content_recorded": false
+  },
+  "mounts": {
+    "workspace_unique": true,
+    "home_tmpfs": true,
+    "cache_tmpfs": true,
+    "docker_socket_absent": true,
+    "host_gold_absent": true,
+    "raw_dataset_absent": true,
+    "other_stage_workspace_absent": true,
+    "own_sealed_bundle_only": true
+  },
+  "formal_prompt_sent": false,
+  "model_request_sent": false,
+  "project_tests_run": false,
+  "evidence_sha256": "e42289695efda93fc95e41e83c19d089003d9fe26733fa2f4dc9156c4b468508"
+}

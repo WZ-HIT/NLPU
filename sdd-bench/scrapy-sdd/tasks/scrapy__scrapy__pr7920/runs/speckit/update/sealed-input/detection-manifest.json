@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr7920",
+  "method": "speckit",
+  "base_sha": "1bd839b57ddb614664a179b6213f49579bdfd3da",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "speckit-detect-004",
+    "session_sha256": "62398e6fa49858b86f12175661630c5d5c4458bfec9adc548650cdec07b98f61"
+  },
+  "task_input_sha256": "e168a1af510d88d16cb92a7d74adb78d8e5248493c2f11d5865076bfa1cf7a71",
+  "candidates": [
+    {
+      "path": "tests/test_command_check.py",
+      "symbols": [
+        "TestCheckCommand",
+        "TestCheckCommand._test_contract"
+      ],
+      "reason": "Primary command-level suite for `scrapy check`; bootstrap failure must be asserted as process exit code 1 while successful contract checks remain 0."
+    },
+    {
+      "path": "tests/test_command_parse.py",
+      "symbols": [
+        "TestParseCommand"
+      ],
+      "reason": "Primary command-level suite for `scrapy parse`; it already validates process return codes and should cover bootstrap failure as exit code 1."
+    },
+    {
+      "path": "tests/test_command_fetch.py",
+      "symbols": [
+        "TestFetchCommand",
+        "TestFetchCommandWithSpider"
+      ],
+      "reason": "Primary command-level suite for `scrapy fetch`; bootstrap failure paths for both the default and project-spider command modes should return exit code 1."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 8,
+    "manifest_sha256": "d990530c66d0931e85d90e27717c361059eedb377e7d0ce5fdc5bda73b368528"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "a409d9fa7365987d9bca7e75c78ca753425741f4d8c607339b23438bad344cb1"
+  }
+}

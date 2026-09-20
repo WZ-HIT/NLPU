@@ -1,0 +1,20 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_utils_serialize.py",
+      "symbols": [
+        "TestJsonEncoder.test_encode_decode"
+      ],
+      "reason": "This is the direct unit test for ScrapyJSONEncoder. Its datetime.datetime, datetime.date, and datetime.time cases currently expect the space-separated datetime string '2010-01-02 10:11:12', so it is the primary test that must be updated and run to verify ISO 8601 serialization."
+    },
+    {
+      "path": "tests/test_exporters.py",
+      "symbols": [
+        "TestBaseItemExporter._get_nonstring_types_item",
+        "TestJsonLinesItemExporter.test_nonstring_types_item",
+        "TestJsonItemExporter.test_nonstring_types_item"
+      ],
+      "reason": "The JSON exporter tests include a datetime value in their shared non-string-types fixture and compare exported output after converting it with str(), which produces the old space-separated representation. These tests exercise both JsonItemExporter and JsonLinesItemExporter, which delegate datetime encoding to ScrapyJSONEncoder."
+    }
+  ]
+}

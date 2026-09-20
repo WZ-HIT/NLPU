@@ -1,0 +1,66 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_utils_python.py",
+      "symbols": [
+        "test_get_func_args",
+        "test_get_func_args_unresolvable_annotations"
+      ],
+      "reason": "Directly exercises scrapy.utils.python.get_func_args()/get_func_args_dict(). The change fixes get_func_args_dict() so it accounts for functools.partial positional and keyword arguments (it compared parameter names against partial positional values), so the partial assertions around line 173 (partial_f1/partial_f2/partial_f3) and any new partial cases belong here. This module already carries the platform-specific (CPython/PyPy, 3.13+) expectation branches referenced by the pypy3 coverage work."
+    },
+    {
+      "path": "tests/test_downloadermiddleware_httpcompression.py",
+      "symbols": [
+        "test_process_response_rawdeflate",
+        "test_process_response_zlibdelate",
+        "test_compression_bomb_setting_deflate",
+        "_test_download_warnsize_setting"
+      ],
+      "reason": "This is the established home of deflate/decompression coverage: it imports scrapy.utils._compression._DecompressionMaxSizeExceeded, decodes the rawdeflate/zlibdeflate sample bodies, and drives the max-size (compression bomb) and warnsize paths. The _inflate() fix for a deflate body followed by extra bytes and the associated max-size behaviour should be regression-tested here (raw-deflate payload plus trailing bytes) alongside the existing deflate cases."
+    },
+    {
+      "path": "tests/test_utils_deprecate.py",
+      "symbols": [
+        "TestWarnWhenSubclassed",
+        "TestUpdateClassPath"
+      ],
+      "reason": "Covers scrapy.utils.deprecate, whose argument_is_required() calls get_func_args_dict(). The get_func_args_dict() partial fix changes the answer for partially applied callables used by the deprecation machinery (create_deprecated_class warning paths and argument-presence checks), so this module needs matching coverage."
+    },
+    {
+      "path": "tests/test_utils_ssl.py",
+      "symbols": [
+        "test_ffi_buf_to_string",
+        "test_x509name_to_string",
+        "test_get_temp_key_info",
+        "test_get_openssl_version"
+      ],
+      "reason": "scrapy.utils.ssl currently has no dedicated test module even though the change fixes a bug there: ffi_buf_to_string() called itself instead of _ffi_buf_to_string(). A direct module (mirroring the other tests/test_utils_*.py files) is the natural place to cover the deprecated SSL helpers, the pyOpenSSL >= 24.3.0 simplification that removes the no-cover branches, and get_openssl_version()."
+    },
+    {
+      "path": "tests/utils/bases/download_handlers_http.py",
+      "symbols": [
+        "TestHttpsBase",
+        "tls_log_message",
+        "test_download_conn_lost"
+      ],
+      "reason": "TestHttpsBase branches its expected SSL debug certificate string on scrapy.utils._deps_compat.PYOPENSSL_X509_DEPRECATED. Requiring pyOpenSSL >= 24.3.0 removes that conditional (only the cryptography-based issuer/subject format remains), so this shared HTTPS test base changes with the rest of the pyOpenSSL cleanup."
+    },
+    {
+      "path": "tests/mockserver/utils.py",
+      "symbols": [
+        "ssl_context_factory"
+      ],
+      "reason": "ssl_context_factory() branches on PYOPENSSL_X509_DEPRECATED to choose cryptography loaders versus the deprecated OpenSSL.crypto load functions. With the pyOpenSSL >= 24.3.0 floor the fallback branch is dead and is simplified away, which affects every HTTPS test that builds its server context through this helper."
+    },
+    {
+      "path": "tests/test_core_downloader.py",
+      "symbols": [
+        "TestContextFactory",
+        "TestContextFactoryBase",
+        "TestContextFactoryCiphers",
+        "TestContextFactoryTLSMethod"
+      ],
+      "reason": "Covers scrapy.core.downloader.contextfactory, which is built on scrapy.utils.ssl (_get_cert_options_version_kwargs, _get_tls_version_limits) and on scrapy.utils._deps_compat. The pyOpenSSL/cryptography floor change and the removal of version-conditional SSL code paths affect the context factory tests and the version-sensitive expectations (e.g. the immutability and cipher-list tests) asserted here."
+    }
+  ]
+}

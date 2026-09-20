@@ -1,0 +1,46 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_utils_ssl.py",
+      "symbols": [
+        "test_get_openssl_version",
+        "test_log_ssl_conn_debug_info_no_certificate"
+      ],
+      "reason": "Directly covers the scrapy.utils.ssl helpers that should own shared SSLKEYLOGFILE destination and key-material handling, including the stdlib SSLContext creation path."
+    },
+    {
+      "path": "tests/test_core_downloader.py",
+      "symbols": [
+        "TestContextFactoryBase",
+        "TestContextFactory",
+        "TestContextFactoryCiphers",
+        "TestContextFactoryTLSMethod"
+      ],
+      "reason": "Exercises the Twisted/pyOpenSSL context factory used by the HTTP/1.1 and HTTP/2 handlers, where key logging must be installed without changing TLS behavior."
+    },
+    {
+      "path": "tests/test_downloader_handler_httpx.py",
+      "symbols": [
+        "TestHttps",
+        "TestHttp2"
+      ],
+      "reason": "Provides end-to-end HTTPS coverage for the stdlib SSLContext path owned by the HTTPX download handler."
+    },
+    {
+      "path": "tests/test_downloader_handler_twisted_http11.py",
+      "symbols": [
+        "TestHttps",
+        "TestHttpsWithCrawler"
+      ],
+      "reason": "Provides end-to-end HTTPS coverage for the Twisted HTTP/1.1 handler, which consumes the shared context factory."
+    },
+    {
+      "path": "tests/test_downloader_handler_twisted_http2.py",
+      "symbols": [
+        "TestHttp2",
+        "TestHttp2WithCrawler"
+      ],
+      "reason": "Verifies the HTTP/2 handler also inherits SSLKEYLOGFILE behavior through the shared Twisted context factory."
+    }
+  ]
+}

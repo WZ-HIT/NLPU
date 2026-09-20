@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr7968",
+  "method": "openspec",
+  "base_sha": "06af687662112027b4482d31e2714a3cf280a91f",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "openspec-detect-004",
+    "session_sha256": "07fe35ddcb01ba3af75adf2b7cad7c3d50ad6c3f76e5ed116f101925a368f20b"
+  },
+  "task_input_sha256": "ec0f8695c62dc955938e8f1fb05926597ffe9e856f24fdba31dc11fa8bd86506",
+  "candidates": [
+    {
+      "path": "tests/spiders.py",
+      "symbols": [
+        "MockServerSpider",
+        "RawResponseSpider",
+        "MetaSpider",
+        "FollowAllSpider",
+        "SimpleSpider",
+        "AsyncDefSpider",
+        "ItemSpider",
+        "SingleRequestSpider",
+        "CrawlSpiderWithParseMethod",
+        "ExceptionSpider",
+        "NoRequestsSpider"
+      ],
+      "reason": "Shared spider fixture module used across spider tests; it is one of the spider-related modules still exempted from mypy untyped-definition checking."
+    },
+    {
+      "path": "tests/test_spider.py",
+      "symbols": [
+        "RawFeedSpider",
+        "TestSpider",
+        "TestXMLFeedSpider",
+        "TestCSVFeedSpider",
+        "TestNoParseMethodSpider"
+      ],
+      "reason": "Directly tests Spider, XMLFeedSpider, and CSVFeedSpider callbacks and response handling, and is currently listed among the spider-related mypy exemptions."
+    },
+    {
+      "path": "tests/test_spider_crawl.py",
+      "symbols": [
+        "TestCrawlSpider",
+        "TestDeprecation"
+      ],
+      "reason": "Exercises CrawlSpider rules, parse callbacks, process_request paths, and async callback behavior covered by the spider typing work."
+    },
+    {
+      "path": "tests/test_spidermiddleware_output_chain.py",
+      "symbols": [
+        "TestSpiderMiddleware",
+        "test_recovery",
+        "test_recovery_asyncgen",
+        "test_process_spider_input_without_errback",
+        "test_process_spider_input_with_errback",
+        "test_generator_callback",
+        "test_async_generator_callback",
+        "test_generator_output_chain"
+      ],
+      "reason": "Tests the spider output chain and callback/generator boundaries whose test helpers require annotations."
+    },
+    {
+      "path": "tests/test_spidermiddleware_process_start.py",
+      "symbols": [
+        "TestMain",
+        "test_modern_mw_modern_spider",
+        "test_asyncio_sleep_single",
+        "test_asyncio_sleep_multiple",
+        "test_twisted_sleep_single",
+        "test_twisted_sleep_multiple"
+      ],
+      "reason": "Tests spider start processing with modern middleware and async start methods, and is included in the targeted mypy exemption cleanup."
+    },
+    {
+      "path": "tests/test_spider_sitemap.py",
+      "symbols": [
+        "RawSitemapSpider",
+        "TestSitemapSpider",
+        "test_get_sitemap_body",
+        "test_sitemap_filter",
+        "test_parse_sitemap_empty_body",
+        "test_sitemap_urls"
+      ],
+      "reason": "Tests SitemapSpider response parsing, rules, callbacks, and request metadata; it depends on the shared typed spider fixtures."
+    },
+    {
+      "path": "tests/utils/bases/spider.py",
+      "symbols": [
+        "TestSpiderBase",
+        "test_base_spider",
+        "test_spider_args",
+        "test_from_crawler_crawler_and_settings_population",
+        "test_closed_signal_call",
+        "test_update_settings",
+        "test_settings_in_from_crawler",
+        "test_logger"
+      ],
+      "reason": "Shared spider test base class used by the spider, crawl-spider, and sitemap-spider suites, and one of the targeted mypy exemption entries."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 7,
+    "manifest_sha256": "8a93793263ac3bd4ecac8dde13d1b792055c28731ce0c9b4702e7ac9629f4d80"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "c356167bfd7a71116d04f3092651e4e6a7eac757f879b06d2784404e434bd774"
+  }
+}

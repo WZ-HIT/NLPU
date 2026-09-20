@@ -1,0 +1,26 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_contracts.py",
+      "symbols": [
+        "DemoSpider.returns_request_async",
+        "DemoSpider.returns_async_gen",
+        "TestContractsManager.test_returns_async",
+        "TestCustomContractPrePostProcess.test_pre_hook_async_callback",
+        "TestCustomContractPrePostProcess.test_pre_hook_async_generator",
+        "TestCustomContractPrePostProcess.test_post_hook_async_generator"
+      ],
+      "reason": "Primary unit coverage for ContractsManager, contract pre/post hooks, and the existing async callback and async-generator cases that the change must replace from TypeError assertions with successful execution."
+    },
+    {
+      "path": "tests/test_command_check.py",
+      "symbols": [
+        "TestCheckCommand._write_contract",
+        "TestCheckCommand._test_contract",
+        "TestCheckCommand.test_check_returns_items_contract",
+        "TestCheckCommand.test_check_all_default_contracts"
+      ],
+      "reason": "End-to-end coverage for the scrapy check command and generated spider callbacks, where asynchronous callback support must also work through the command path."
+    }
+  ]
+}

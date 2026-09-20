@@ -1,0 +1,12 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_utils_response.py",
+      "symbols": [
+        "test_open_in_browser_redos_comment",
+        "test_open_in_browser_redos_head"
+      ],
+      "reason": "PR 7995 is a test-only fix for the open_in_browser ReDoS regression tests. Both test_open_in_browser_redos_comment and test_open_in_browser_redos_head build adversarial bodies ('-><!--\\x00' repeated 25,000 times, and '<head\\t' repeated 8,000 times) and assert that process_time() spent inside scrapy/utils/response.py:open_in_browser stays below MAX_CPU_TIME = 0.02, which flakes on slow interpreters. This is the only test file in the repository that imports process_time or contains ReDoS/redos coverage for open_in_browser, so it is the file the PR patch and any validation of the fix must target."
+    }
+  ]
+}

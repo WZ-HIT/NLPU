@@ -1,0 +1,27 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_contracts.py",
+      "symbols": [
+        "DemoSpider.returns_request_async",
+        "DemoSpider.returns_async_gen",
+        "TestContractsManager.test_returns_async",
+        "TestContractsManager.test_returns",
+        "TestContractsManager.test_scrapes",
+        "TestCustomContractPrePostProcess.test_pre_hook_async_callback",
+        "TestCustomContractPrePostProcess.test_pre_hook_async_generator",
+        "TestCustomContractPrePostProcess.test_post_hook_async_generator"
+      ],
+      "reason": "Direct unit-test surface for scrapy/contracts/__init__.py, which currently raises TypeError(\"Contracts don't support async callbacks\") from Contract.add_pre_hook and Contract.add_post_hook (and mis-handles the Deferred produced by iterate_spider_output in ContractsManager._clean_req). DemoSpider.returns_request_async (coroutine callback) and DemoSpider.returns_async_gen (async generator callback) are the fixtures exercising async callbacks, and test_returns_async, test_pre_hook_async_callback, test_pre_hook_async_generator and test_post_hook_async_generator currently assert that error/TypeError behavior, so they must be updated to assert successful awaited output once async callbacks are supported. The pre/post-process and returns/scrapes hooks also need re-verification because output is currently materialized synchronously with list(iterate_spider_output(...))."
+    },
+    {
+      "path": "tests/test_command_check.py",
+      "symbols": [
+        "TestCheckCommand._test_contract",
+        "TestCheckCommand.test_check_returns_requests_contract",
+        "TestCheckCommand.test_check_all_default_contracts"
+      ],
+      "reason": "End-to-end integration surface for the contracts feature: these tests generate a real spider and run the `scrapy check` command, which drives ContractsManager/Contract hooks through the scraper. This is the user-visible path (issue #6681) where an async callback is awaited by the downloader/scraper machinery, so it is a candidate for an added/updated async-callback regression check (e.g. an `async def parse` variant of the generated contract spider)."
+    }
+  ]
+}

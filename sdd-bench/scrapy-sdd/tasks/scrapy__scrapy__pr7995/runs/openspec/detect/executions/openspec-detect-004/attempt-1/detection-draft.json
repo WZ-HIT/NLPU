@@ -1,0 +1,12 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_utils_response.py",
+      "symbols": [
+        "test_open_in_browser_redos_comment",
+        "test_open_in_browser_redos_head"
+      ],
+      "reason": "These two regression tests enforce a 0.02-second CPU-time budget while exercising the open_in_browser ReDoS payloads, so they are the tests affected by slow interpreters such as PyPy."
+    }
+  ]
+}

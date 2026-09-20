@@ -1,0 +1,37 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_downloader_handler_twisted_http11.py",
+      "symbols": [
+        "TestRealWebsite",
+        "TestRealWebsite.test_download",
+        "TestRealWebsite.test_download_with_spider",
+        "TestRealWebsite.test_verify_certs",
+        "TestRealWebsite.test_tls_logging"
+      ],
+      "reason": "The concrete TestRealWebsite class is marked pytest.mark.requires_internet and exercises real website downloads through HTTP/1.1, making it a direct target for failure reruns."
+    },
+    {
+      "path": "tests/test_downloader_handler_twisted_http2.py",
+      "symbols": [
+        "TestRealWebsite",
+        "TestRealWebsite.test_download",
+        "TestRealWebsite.test_download_with_spider",
+        "TestRealWebsite.test_verify_certs",
+        "TestRealWebsite.test_tls_logging"
+      ],
+      "reason": "The concrete TestRealWebsite class is marked pytest.mark.requires_internet and exercises real website downloads through HTTP/2, making it a direct target for failure reruns."
+    },
+    {
+      "path": "tests/test_downloader_handler_httpx.py",
+      "symbols": [
+        "TestRealWebsite",
+        "TestRealWebsite.test_download",
+        "TestRealWebsite.test_download_with_spider",
+        "TestRealWebsite.test_verify_certs",
+        "TestRealWebsite.test_tls_logging"
+      ],
+      "reason": "The concrete TestRealWebsite class is marked pytest.mark.requires_internet and exercises real website downloads through the HTTPX handler, making it a direct target for failure reruns."
+    }
+  ]
+}

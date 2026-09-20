@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr7995",
+  "method": "cc-sdd",
+  "base_sha": "ca48915dd4f6c388be741a97213df03e7a81ea89",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "cc-sdd-detect-004",
+    "session_sha256": "d803b76b6f1b8c1994f4ac6aab28f44348cf8260b4523473afe6efb6ebcef3ca"
+  },
+  "task_input_sha256": "244d91e2eb4199fbc201c4bf06804a081b9e7fc353a40508d40d0448a7739225",
+  "candidates": [
+    {
+      "path": "tests/test_utils_response.py",
+      "symbols": [
+        "test_open_in_browser_redos_comment",
+        "test_open_in_browser_redos_head"
+      ],
+      "reason": "PR 7995 is a test-only fix for the open_in_browser ReDoS regression tests. Both test_open_in_browser_redos_comment and test_open_in_browser_redos_head build adversarial bodies ('-><!--\\x00' repeated 25,000 times, and '<head\\t' repeated 8,000 times) and assert that process_time() spent inside scrapy/utils/response.py:open_in_browser stays below MAX_CPU_TIME = 0.02, which flakes on slow interpreters. This is the only test file in the repository that imports process_time or contains ReDoS/redos coverage for open_in_browser, so it is the file the PR patch and any validation of the fix must target."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 1,
+    "manifest_sha256": "e4d9c83a8ca4a614c5b38a23d3e1b561608b2e79d78cec0c7d20d253744b792d"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "cdb435eb68b94a67220e309304919e6886b46b0db6bbcdd48903880ae063cd54"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "seal_type": "IMMUTABLE_DETECTION_BUNDLE",
+  "task_id": "scrapy__scrapy__pr7808",
+  "method": "cc-sdd",
+  "run_id": "cc-sdd-detect-004",
+  "base_sha": "f1694269d8c9437461936ed449e81aa2ccb3b7cb",
+  "file_count": 10,
+  "files_manifest_sha256": "fd8eda4478d91c5567c6273a31a50d0fcc7f5feba25a87e63858f30865dfe391",
+  "seal_sha256": "b40f5fbada7d69d633712aea6a93e7c6821f53d9c7bdbf0403b57190e5ee29e1"
+}

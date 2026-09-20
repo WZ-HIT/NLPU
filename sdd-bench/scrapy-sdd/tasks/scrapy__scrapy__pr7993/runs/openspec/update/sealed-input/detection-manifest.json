@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr7993",
+  "method": "openspec",
+  "base_sha": "be514d8c5df4c0327e050ac6d596d7f5b702806c",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "openspec-detect-004",
+    "session_sha256": "3b0b90e3b1b7b7d5c1dc101641eeab6c1555fadbd87cd201a0f9a30578c558b7"
+  },
+  "task_input_sha256": "3c06c9efbfb8ee0a8c6058d2a4b3ade6d7b383108a2eea9116aa171de7ad7b05",
+  "candidates": [
+    {
+      "path": "tests/test_downloadermiddleware_httpcache.py",
+      "symbols": [
+        "StorageTestMixin.test_storage",
+        "TestFilesystemStorageWithDummyPolicy.test_storage",
+        "TestFilesystemStorageWithRFC2616Policy.test_storage",
+        "TestDbmStorageWithDummyPolicy.test_storage",
+        "TestDbmStorageWithRFC2616Policy.test_storage",
+        "TestDbmStorageWithCustomDbmModule.test_storage",
+        "TestFilesystemStorageGzipWithDummyPolicy.test_storage"
+      ],
+      "reason": "This file defines StorageTestMixin.test_storage, which uses HTTPCACHE_EXPIRATION_SECS=1 and expects a just-stored response to remain retrievable. Slow runners can exceed the one-second TTL between store_response and retrieve_response, so this test is the direct candidate for making freshness deterministic and for verifying that entries beyond the TTL still miss."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 5,
+    "manifest_sha256": "840ce7741eb148b8d255d0e10f524289c744009563f08abb74b84081751967ff"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "4ce990949980bd4bfba35639e5152e8e6a467c67086622d763d2a878cfee2bf4"
+  }
+}

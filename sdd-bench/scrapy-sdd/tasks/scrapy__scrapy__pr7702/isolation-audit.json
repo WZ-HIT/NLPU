@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "audit_type": "TWO_STAGE_ISOLATION",
+  "status": "PASS",
+  "task_id": "scrapy__scrapy__pr7702",
+  "stage_results": [
+    {
+      "method": "openspec",
+      "stage": "detect",
+      "status": "PASS",
+      "agent_call_permitted": true,
+      "evidence_sha256": "0637f40b2af2d61a57ba279a0d8d6e735e34849b71ece1510a7ab9b3d3c549ad"
+    },
+    {
+      "method": "openspec",
+      "stage": "update",
+      "status": "PASS",
+      "agent_call_permitted": false,
+      "evidence_sha256": "0353b0ebeeaad2f23d7202c79df12809986199072238521357f7e4d71bc27072"
+    },
+    {
+      "method": "speckit",
+      "stage": "detect",
+      "status": "PASS",
+      "agent_call_permitted": true,
+      "evidence_sha256": "3fb0d667b3286e806385b8d8e01d4dbc493d48d33615048b06695643b6cc7585"
+    },
+    {
+      "method": "speckit",
+      "stage": "update",
+      "status": "PASS",
+      "agent_call_permitted": false,
+      "evidence_sha256": "515d1da0e8745b9ec531d3c31d23af896ec0e84286a2da4c97b391ebc42aa430"
+    },
+    {
+      "method": "cc-sdd",
+      "stage": "detect",
+      "status": "PASS",
+      "agent_call_permitted": true,
+      "evidence_sha256": "b9e1666fa4d64c51f7388222686a6ad35ae1c27d01d719fc8f27d855cdcc6f7e"
+    },
+    {
+      "method": "cc-sdd",
+      "stage": "update",
+      "status": "PASS",
+      "agent_call_permitted": false,
+      "evidence_sha256": "48b40aea947679e309d4dd7f724e6101f4372d4a8742a91a45027b194ef5d87a"
+    }
+  ],
+  "distinct_git_object_stores": true,
+  "detect_update_home_cache_session_shared": false,
+  "cross_method_detection_visibility": false,
+  "gold_store_sha256": "41af99b5b893d6f197945a0d53eeb34faa7c04872d0bbc09a373004a3c514764",
+  "gold_values_recorded": false
+}

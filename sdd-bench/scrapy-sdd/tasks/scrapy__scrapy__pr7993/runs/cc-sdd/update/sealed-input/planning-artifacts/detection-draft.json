@@ -1,0 +1,11 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_downloadermiddleware_httpcache.py",
+      "symbols": [
+        "StorageTestMixin.test_storage"
+      ],
+      "reason": "This module defines test_storage, the PR's target. The test uses HTTPCACHE_EXPIRATION_SECS=1 with wall-clock time for storing and retrieving a cached response, so a slow runner can let the entry expire before the post-store retrieval. The mixin method is inherited by the filesystem/DBM storage and policy test combinations in this file."
+    }
+  ]
+}

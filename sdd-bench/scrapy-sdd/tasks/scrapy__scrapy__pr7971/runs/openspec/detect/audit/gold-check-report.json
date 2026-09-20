@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "policy_version": "gold-check-v1",
+  "task_id": "scrapy__scrapy__pr7971",
+  "pr_id": 7971,
+  "method": "openspec",
+  "stage": "detect",
+  "audit_scope": "FORMAL_PREFLIGHT",
+  "checked_at_utc": "2026-09-20T08:32:55Z",
+  "status": "PASS",
+  "task_input_sha256": "28b2416ce2b4992ac8f4dd241d46e38b68f98f43518494b11f4f931cfa5ac90b",
+  "base_sha": "f1694269d8c9437461936ed449e81aa2ccb3b7cb",
+  "checks": [
+    {
+      "id": "G01",
+      "name": "input_identity",
+      "status": "PASS",
+      "finding_count": 0,
+      "evidence": "prompt-provenance.json"
+    },
+    {
+      "id": "G02",
+      "name": "prompt_provenance",
+      "status": "PASS",
+      "finding_count": 0,
+      "evidence": "prompt-provenance.json"
+    },
+    {
+      "id": "G03",
+      "name": "forbidden_value_scan",
+      "status": "PASS",
+      "finding_count": 0,
+      "evidence": "isolation-audit.json"
+    },
+    {
+      "id": "G04",
+      "name": "mount_and_volume_audit",
+      "status": "PASS",
+      "finding_count": 0,
+      "evidence": "mount-audit.json"
+    },
+    {
+      "id": "G05",
+      "name": "git_future_history_audit",
+      "status": "PASS",
+      "finding_count": 0,
+      "evidence": "git-object-audit.json"
+    },
+    {
+      "id": "G06",
+      "name": "network_and_process_boundary",
+      "status": "PASS",
+      "finding_count": 0,
+      "evidence": "isolation-audit.json"
+    },
+    {
+      "id": "G07",
+      "name": "cross_variant_and_prior_run_isolation",
+      "status": "PASS",
+      "finding_count": 0,
+      "evidence": "manifest-transfer-audit.json"
+    },
+    {
+      "id": "G08",
+      "name": "viewer_evaluator_timing",
+      "status": "PASS",
+      "finding_count": 0,
+      "evidence": "manifest-transfer-audit.json"
+    }
+  ],
+  "finding_count": 0,
+  "agent_call_permitted": true,
+  "stage_prerequisite": "SATISFIED",
+  "evidence": {
+    "visible_files": {
+      "path": "visible-files.sha256",
+      "sha256": "b111d15e0d10fe4349c96c38b3916e64cc68d416fe845908215a0be097860ea9"
+    },
+    "prompt_provenance": {
+      "path": "prompt-provenance.json",
+      "sha256": "ab1282b75e65ce87c2f50ca4c948531313739ed98bafd3c02ccbb358da62ba81"
+    },
+    "mount_audit": {
+      "path": "mount-audit.json",
+      "sha256": "269e4171b657c42c0250fa6d4c58c4007f7cb17136b7947e7428c6eeea825921"
+    },
+    "git_object_audit": {
+      "path": "git-object-audit.json",
+      "sha256": "a8ccd4253eec90f5f5f86f98e97416a08ddc8c8ac83cc53c5392a13945753160"
+    },
+    "isolation_audit": {
+      "path": "isolation-audit.json",
+      "sha256": "b8173a75ddce9171e7227dd0410edb9a980076123558348d3e80183f67415b8d"
+    },
+    "manifest_transfer_audit": {
+      "path": "manifest-transfer-audit.json",
+      "sha256": "e8e152b6b156ff85b376e1872e31c4e797fd60570ab40e82a48e5eb5ce62ca99"
+    },
+    "total_sha256": "836a31e48dadf72afd338b08f4d69979b3276a296eee61c7ad8e7d75b0fb5b70"
+  }
+}

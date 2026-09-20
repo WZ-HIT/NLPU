@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "seal_type": "IMMUTABLE_DETECTION_BUNDLE",
+  "task_id": "scrapy__scrapy__pr7920",
+  "method": "openspec",
+  "run_id": "openspec-detect-004",
+  "base_sha": "1bd839b57ddb614664a179b6213f49579bdfd3da",
+  "file_count": 15,
+  "files_manifest_sha256": "71f653d0f3001993dc0e3bb9dbc7945ad1af83f9f7db6fa44355f861e78700ce",
+  "seal_sha256": "ead5d459240a0923255a69a8efdce9ce36a65b2969fd25eedfea971705a78574"
+}

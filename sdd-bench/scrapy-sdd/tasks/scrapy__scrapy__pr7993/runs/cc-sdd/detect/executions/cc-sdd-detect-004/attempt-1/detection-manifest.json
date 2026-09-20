@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr7993",
+  "method": "cc-sdd",
+  "base_sha": "be514d8c5df4c0327e050ac6d596d7f5b702806c",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "cc-sdd-detect-004",
+    "session_sha256": "97e38e9336e74f8243412e4daf3e38903bd0a578a63205c46ea10d533a569ff8"
+  },
+  "task_input_sha256": "3c06c9efbfb8ee0a8c6058d2a4b3ade6d7b383108a2eea9116aa171de7ad7b05",
+  "candidates": [
+    {
+      "path": "tests/test_downloadermiddleware_httpcache.py",
+      "symbols": [
+        "StorageTestMixin.test_storage"
+      ],
+      "reason": "This module defines test_storage, the PR's target. The test uses HTTPCACHE_EXPIRATION_SECS=1 with wall-clock time for storing and retrieving a cached response, so a slow runner can let the entry expire before the post-store retrieval. The mixin method is inherited by the filesystem/DBM storage and policy test combinations in this file."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 1,
+    "manifest_sha256": "4fd154a8b095c977fe402440955c381c68f3530cb0839385b72a72769228ea3e"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "ca5304aed55b5d2facf2acabbf89507baa108f33415db608c71da29f99d024e1"
+  }
+}

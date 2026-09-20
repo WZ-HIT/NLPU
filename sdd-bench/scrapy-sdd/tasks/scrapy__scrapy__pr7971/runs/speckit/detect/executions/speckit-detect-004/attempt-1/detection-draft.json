@@ -1,0 +1,24 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_utils_log.py",
+      "symbols": [
+        "TestLogformatterAdapter",
+        "TestLogformatterAdapter._log",
+        "TestLogformatterAdapter.test_empty_args",
+        "TestLogformatterAdapter.test_args"
+      ],
+      "reason": "Directly tests scrapy.utils.log.logformatter_adapter, the function that decides whether a LogFormatter message is interpolated with the returned dictionary; the deprecation warning and legacy dict fallback belong here."
+    },
+    {
+      "path": "tests/test_logformatter.py",
+      "symbols": [
+        "TestLogFormatter",
+        "LogFormatterSubclass",
+        "TestLogformatterSubclass",
+        "TestShowOrSkipMessages"
+      ],
+      "reason": "Covers the LogFormatter result contract (msg/args) and custom subclasses whose rendered output depends on how the returned dictionary is adapted; regression expectations for the deprecation are asserted here."
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr7886",
+  "method": "speckit",
+  "base_sha": "c7eacdbb30a4563bbbe04ed02781768f4e19eabb",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "speckit-detect-004",
+    "session_sha256": "001f488e9cb2f32184de4383714d19f6c9754e6366531a4eb96c920e2bd20bbf"
+  },
+  "task_input_sha256": "4ec33df0786ee8ef19997320a52d4af55081d8639f80953aede801334ce99718",
+  "candidates": [
+    {
+      "path": "tests/test_contracts.py",
+      "symbols": [
+        "DemoSpider.returns_request_async",
+        "DemoSpider.returns_async_gen",
+        "TestContractsManager.test_returns_async",
+        "TestCustomContractPrePostProcess.test_pre_hook_async_callback",
+        "TestCustomContractPrePostProcess.test_pre_hook_async_generator",
+        "TestCustomContractPrePostProcess.test_post_hook_async_generator"
+      ],
+      "reason": "Unit tests that directly exercise scrapy/contracts/__init__.py (Contract.add_pre_hook, Contract.add_post_hook, ContractsManager); they are the only tests asserting the 'Contracts don't support async callbacks' TypeError that this PR removes, so their expectations must flip to the supported async behaviour."
+    },
+    {
+      "path": "tests/test_command_check.py",
+      "symbols": [
+        "TestCheckCommand.test_check_returns_requests_contract",
+        "TestCheckCommand.test_check_no_reactor",
+        "TestCheckCommand.test_check_all_default_contracts",
+        "TestCheckCommand._write_contract",
+        "TestCheckCommand._test_contract"
+      ],
+      "reason": "Covers the `scrapy check` command end to end through ContractsManager in a generated project, which is the path that must now run asynchronous callbacks and return a non-zero exit status on failure."
+    },
+    {
+      "path": "tests/test_utils_spider.py",
+      "symbols": [
+        "test_iterate_spider_output"
+      ],
+      "reason": "Tests scrapy.utils.spider.iterate_spider_output(), the helper scrapy/contracts uses to normalize coroutine and async-generator callback results into Deferreds/async iterables for contract counting."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 9,
+    "manifest_sha256": "592db7a1ad976c56dcce20fc697b5c54fe891e572d0a46db16db4b9246f5ee4b"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "fa5bb579af5adf0bf4613be0e6d3848228aa052e8a29738d26ff95c9f877648c"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_command_check.py",
+      "symbols": [
+        "TestCheckCommand",
+        "TestCheckCommand._test_contract"
+      ],
+      "reason": "Primary command-level suite for `scrapy check`; bootstrap failure must be asserted as process exit code 1 while successful contract checks remain 0."
+    },
+    {
+      "path": "tests/test_command_parse.py",
+      "symbols": [
+        "TestParseCommand"
+      ],
+      "reason": "Primary command-level suite for `scrapy parse`; it already validates process return codes and should cover bootstrap failure as exit code 1."
+    },
+    {
+      "path": "tests/test_command_fetch.py",
+      "symbols": [
+        "TestFetchCommand",
+        "TestFetchCommandWithSpider"
+      ],
+      "reason": "Primary command-level suite for `scrapy fetch`; bootstrap failure paths for both the default and project-spider command modes should return exit code 1."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr7948",
+  "repository": {
+    "owner": "scrapy",
+    "name": "scrapy"
+  },
+  "pr_id": 7948,
+  "baseline": {
+    "base_sha": "e810f5fca166e8cd03d005d07b6a6a2373407d6a"
+  },
+  "title": "Add SSLKEYLOGFILE support",
+  "body": "Resolves https://github.com/scrapy/scrapy/issues/4368",
+  "adapter": {
+    "id": "scrapy",
+    "version": 1,
+    "path": "sdd-bench/scrapy-sdd/adapters/scrapy.json",
+    "sha256": "059dcc09eaa62f892f54118e65d4deccce3ab29cc5d9a4a36f4d999ff1aa27de"
+  }
+}

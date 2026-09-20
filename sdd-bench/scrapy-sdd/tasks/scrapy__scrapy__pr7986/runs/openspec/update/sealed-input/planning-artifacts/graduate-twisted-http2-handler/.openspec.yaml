@@ -1,0 +1,5 @@
+schema: spec-driven
+created: 2026-09-20
+skip_specs: true
+goal: Prepare an implementation-ready plan and identify the candidate test files
+  affected by PR scrapy/scrapy#7986.

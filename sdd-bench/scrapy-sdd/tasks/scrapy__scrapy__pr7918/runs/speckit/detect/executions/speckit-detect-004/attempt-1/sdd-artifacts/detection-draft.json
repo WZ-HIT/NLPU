@@ -1,0 +1,21 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_utils_serialize.py",
+      "symbols": [
+        "TestJsonEncoder",
+        "TestJsonEncoder.test_encode_decode"
+      ],
+      "reason": "Directly unit-tests ScrapyJSONEncoder.default in scrapy/utils/serialize.py. test_encode_decode asserts the exact strings produced for datetime, date and time values, so the switch from strftime('%Y-%m-%d %H:%M:%S') to an ISO 8601 representation changes the expected datetime value from '2010-01-02 10:11:12' to '2010-01-02T10:11:12'. This is the primary FAIL_TO_PASS coverage for the feature."
+    },
+    {
+      "path": "tests/test_exporters.py",
+      "symbols": [
+        "TestBaseItemExporter._get_nonstring_types_item",
+        "TestJsonLinesItemExporter.test_nonstring_types_item",
+        "TestJsonItemExporter.test_nonstring_types_item"
+      ],
+      "reason": "JsonLinesItemExporter and JsonItemExporter in scrapy/exporters.py serialize items with ScrapyJSONEncoder, so they inherit the new temporal format. Their test_nonstring_types_item assertions compare the exported datetime against str(datetime(2015, 1, 1, 1, 1, 1)) ('2015-01-01 01:01:01'), which becomes the ISO 8601 '2015-01-01T01:01:01' after the change; the shared _get_nonstring_types_item fixture defines that value."
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr7948",
+  "method": "cc-sdd",
+  "base_sha": "e810f5fca166e8cd03d005d07b6a6a2373407d6a",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "cc-sdd-detect-004",
+    "session_sha256": "62d032ae472aee970b26896cca1bd8f87dec9d21c98713ca3681d859b6a76b10"
+  },
+  "task_input_sha256": "661a894fe2e4b89d4ab19d14f000c3908cd6e9b316b31660799f60d2f12a3c16",
+  "candidates": [
+    {
+      "path": "tests/test_utils_ssl.py",
+      "symbols": [
+        "_make_ssl_context",
+        "_make_insecure_ssl_ctx",
+        "test_get_openssl_version"
+      ],
+      "reason": "Unit tests for scrapy.utils.ssl; the stdlib SSLContext helper used by the httpx handler is where SSLKEYLOGFILE should be translated into keylog_filename."
+    },
+    {
+      "path": "tests/test_core_downloader.py",
+      "symbols": [
+        "_ScrapyClientContextFactory",
+        "_ScrapyCertificateOptions",
+        "_load_context_factory_from_settings",
+        "TestContextFactoryBase",
+        "TestContextFactory"
+      ],
+      "reason": "Context-factory tests for Twisted HTTPS handling; _ScrapyCertificateOptions._makeContext is the shared point where a pyOpenSSL key-log callback must be installed."
+    },
+    {
+      "path": "tests/utils/bases/download_handlers_http.py",
+      "symbols": [
+        "TestHttpsBase",
+        "test_tls_logging",
+        "TestSimpleHttpsBase"
+      ],
+      "reason": "Shared HTTPS download-handler test base where cross-handler SSLKEYLOGFILE regression tests would be defined for the Twisted and httpx handlers."
+    },
+    {
+      "path": "tests/test_downloader_handler_twisted_http11.py",
+      "symbols": [
+        "HTTP11DownloadHandler",
+        "TestHttps"
+      ],
+      "reason": "Built-in Twisted HTTP/1.1 HTTPS handler coverage; it exercises the context factory path that must honor SSLKEYLOGFILE."
+    },
+    {
+      "path": "tests/test_downloader_handler_twisted_http2.py",
+      "symbols": [
+        "H2DownloadHandler",
+        "TestHttp2",
+        "TestSimpleHttp2"
+      ],
+      "reason": "Built-in Twisted HTTP/2 handler coverage; HTTP/2 uses the same TLS context factory and must not bypass key logging."
+    },
+    {
+      "path": "tests/test_downloader_handler_httpx.py",
+      "symbols": [
+        "HttpxDownloadHandler",
+        "TestHttps",
+        "TestHttp2"
+      ],
+      "reason": "Built-in httpx handler coverage; HttpxDownloadHandler creates a stdlib SSLContext through _make_ssl_context and must pass through key logging."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 5,
+    "manifest_sha256": "19f91c58ec899c1131b3e0f4537e0116adfc2dd5187e8a1d2423d2c31525238c"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "5af091a978e403357ea35aadd6f445da0dcda858bb5a3178dd8dfa248717388f"
+  }
+}

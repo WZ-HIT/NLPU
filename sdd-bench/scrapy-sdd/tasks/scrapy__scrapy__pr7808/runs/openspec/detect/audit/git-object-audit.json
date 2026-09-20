@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "head_equals_base": true,
+  "tree_sha": "9240de749c71006a7b7af9cc51095ace8decb91c",
+  "reachable_commit_count": 1,
+  "remote_count": 0,
+  "ref_count": 0,
+  "remote_tracking_ref_count": 0,
+  "alternates_present": false,
+  "reflog_file_count": 0,
+  "future_object_present": false,
+  "object_store_identity_sha256": "56094a7a4b758cfe47cde2d661f3c7ddf3b3107136e9d3489690d4d3af93c18f"
+}

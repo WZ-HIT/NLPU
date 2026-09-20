@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr7918",
+  "method": "cc-sdd",
+  "base_sha": "1bd839b57ddb614664a179b6213f49579bdfd3da",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "cc-sdd-detect-004",
+    "session_sha256": "5a051c320790689dccf7a7f9fb0af2e441548abf37bd0d9f5bf6fdb26db09fd1"
+  },
+  "task_input_sha256": "0b2d0769df1d4cdcc05e1ff1051cf55bab48c60e7cc6490ef2718fe65082ed99",
+  "candidates": [
+    {
+      "path": "tests/test_utils_serialize.py",
+      "symbols": [
+        "TestJsonEncoder.test_encode_decode"
+      ],
+      "reason": "This is the direct unit test for ScrapyJSONEncoder. Its datetime.datetime, datetime.date, and datetime.time cases currently expect the space-separated datetime string '2010-01-02 10:11:12', so it is the primary test that must be updated and run to verify ISO 8601 serialization."
+    },
+    {
+      "path": "tests/test_exporters.py",
+      "symbols": [
+        "TestBaseItemExporter._get_nonstring_types_item",
+        "TestJsonLinesItemExporter.test_nonstring_types_item",
+        "TestJsonItemExporter.test_nonstring_types_item"
+      ],
+      "reason": "The JSON exporter tests include a datetime value in their shared non-string-types fixture and compare exported output after converting it with str(), which produces the old space-separated representation. These tests exercise both JsonItemExporter and JsonLinesItemExporter, which delegate datetime encoding to ScrapyJSONEncoder."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 2,
+    "manifest_sha256": "5b3f5ff8c242b11ff9ce2a175a30ab06b2960f7d1f5866b8018e5989aea2b5a2"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "627ddb9be456ac6a321a7bf12200adc7450087d9614fa62f604ee9b48c8d8412"
+  }
+}

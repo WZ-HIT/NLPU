@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr7986",
+  "method": "openspec",
+  "detect_run_id": "openspec-detect-004",
+  "base_sha": "65b37286cc56b6a87c4d1eca6bdff79f658f09d2",
+  "status": "SEALED",
+  "project_code_changed": false,
+  "tests_run": false,
+  "candidate_test_file_count": 2,
+  "detection_manifest_sha256": "4c0fac28c274567dcc639e55a2f8f79f51a0fb850cce1d4d4215450103c561f3",
+  "planning_artifacts_sha256": "1d61cec92d4162a5611d361b68ad13853424e1eae32f3eda49baa05854850a16",
+  "task_manifest_sha256": "4b683de2df23085fbd8dee7be7f1158213ca5b3e7720936224e3679cdb5bee2d",
+  "summary_sha256": "fe219513bea4612c2b7f628fac7f728351b860f50754f13bf2a9cb5494fea396"
+}

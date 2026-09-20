@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr7841",
+  "method": "cc-sdd",
+  "base_sha": "95c16aa9af7c51f26ba3ea8512b4ba782f5d216f",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "cc-sdd-detect-004",
+    "session_sha256": "196e4c0d1baa2243ba220e2e0b316a28022962c36ca670eb8039d539aac0e41d"
+  },
+  "task_input_sha256": "1d165465e1a86580716088de0d364eb2b9eb2851a2c5079e1ce2f219558f3abb",
+  "candidates": [
+    {
+      "path": "tests/test_utils_python.py",
+      "symbols": [
+        "get_func_args_dict",
+        "get_func_args"
+      ],
+      "reason": "The PR fixes get_func_args_dict() in scrapy/utils/python.py, which compared parameter names against a functools.partial's positional values and therefore dropped the wrong arguments (get_func_args(partial(f, \"b\")) returned [] instead of [\"b\"]). This is the only test module that exercises get_func_args/get_func_args_dict, including the partial and stripself cases that guard the regression."
+    },
+    {
+      "path": "tests/test_utils_ssl.py",
+      "symbols": [
+        "ffi_buf_to_string",
+        "_ffi_buf_to_string",
+        "get_openssl_version",
+        "get_temp_key_info",
+        "x509name_to_string"
+      ],
+      "reason": "The PR changes scrapy/utils/ssl.py: ffi_buf_to_string() recursed into itself instead of calling _ffi_buf_to_string(), and requiring pyOpenSSL >= 24.3.0 lets the X.509 and temp-key branches be simplified. scrapy/utils/ssl.py has no dedicated test module today, so this is the natural location for the deprecation-path and version-gated coverage added by the PR."
+    },
+    {
+      "path": "tests/test_downloadermiddleware_httpcompression.py",
+      "symbols": [
+        "_inflate",
+        "_check_max_size",
+        "_DecompressionMaxSizeExceeded"
+      ],
+      "reason": "This is the only test module that imports scrapy.utils._compression. The PR fixes _inflate() so it no longer loops forever on a deflate body followed by extra bytes; those decompression paths are exercised through the HttpCompressionMiddleware tests here (and via the imported _DecompressionMaxSizeExceeded max-size behavior)."
+    },
+    {
+      "path": "tests/test_utils_compression.py",
+      "symbols": [
+        "_inflate",
+        "_check_max_size"
+      ],
+      "reason": "The PR is a test-coverage improvement for scrapy.utils and its first bullet is a bug fix inside scrapy/utils/_compression.py (_inflate infinite loop on raw deflate plus trailing bytes). That module has no dedicated unit test file in the current tree, so direct unit coverage of _inflate and the max-size checks would be added in a utils-level test module mirroring the source file name."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 1,
+    "manifest_sha256": "11174711a634862c465a2f3d3e53c307a0305a20dc933f9bec3c1ded7128244d"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "dd8eefbc5cd1116a7792620df79d7c14444b9ee60ae5122bcd3bcbb6d9196315"
+  }
+}

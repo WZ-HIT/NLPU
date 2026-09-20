@@ -1,0 +1,24 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_utils_python.py",
+      "symbols": ["get_func_args_dict", "get_func_args"],
+      "reason": "Existing unit tests for scrapy.utils.python own callable introspection (test_get_func_args) and are where the partial() fix is exercised; the current partial cases bind None, so a partial bound to a string equal to a parameter name is still uncovered."
+    },
+    {
+      "path": "tests/test_utils_ssl.py",
+      "symbols": ["ffi_buf_to_string", "_ffi_buf_to_string", "x509name_to_string", "_x509name_to_string", "_get_temp_key_info", "_make_ssl_context", "_log_ssl_conn_debug_info"],
+      "reason": "scrapy.utils.ssl has no dedicated test module at the base commit; the repository convention test_utils_<module>.py is where the ffi_buf_to_string() self-recursion fix and the pyOpenSSL>=24.3.0 branch simplifications (previously 'no cover') belong."
+    },
+    {
+      "path": "tests/test_utils_compression.py",
+      "symbols": ["_inflate", "_check_max_size", "_DecompressionMaxSizeExceeded", "_unbrotli", "_unzstd"],
+      "reason": "scrapy.utils._compression has no dedicated test module at the base commit; the _inflate() infinite-loop fix for deflate data followed by extra bytes is a direct unit-level regression test for that module."
+    },
+    {
+      "path": "tests/test_downloadermiddleware_httpcompression.py",
+      "symbols": ["_inflate", "_DecompressionMaxSizeExceeded", "HttpCompressionMiddleware"],
+      "reason": "Existing integration tests for the HTTP compression middleware already import _DecompressionMaxSizeExceeded from scrapy.utils._compression and cover rawdeflate decoding plus compression-bomb max_size handling affected by the _inflate() change."
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr7971",
+  "method": "speckit",
+  "stage": "detect",
+  "run_id": "speckit-detect-004",
+  "update_mode": null,
+  "base_sha": "f1694269d8c9437461936ed449e81aa2ccb3b7cb",
+  "created_at_utc": "2026-09-20T10:46:02Z",
+  "status": "SEALED",
+  "dry_run": false,
+  "tests_run": false,
+  "model_request_sent": true,
+  "provenance": {
+    "task_manifest_sha256": "c9cd4e5ef0d2c746d1b160152084cd4218e1fabcb08d5135c036541109c84dc5",
+    "policy_file_sha256": null,
+    "detection_manifest_sha256": "9526f0f58b811c572bf22375bcb382f1092a1b72d450bbacc7a206ce028c4270",
+    "compose_rendered_sha256": "e60b470e9bb2d7fc2f45928df93b88ac7eef657f775c0ae2c7598955d443ddb1"
+  },
+  "checks": [
+    {
+      "id": "task-schema",
+      "status": "PASS"
+    },
+    {
+      "id": "recorded-base",
+      "status": "PASS"
+    },
+    {
+      "id": "detect-preflight",
+      "status": "PASS"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7971/runs/speckit/update/sealed-input/detection-manifest.json",
+      "sha256": "9526f0f58b811c572bf22375bcb382f1092a1b72d450bbacc7a206ce028c4270"
+    }
+  ],
+  "blockers": []
+}

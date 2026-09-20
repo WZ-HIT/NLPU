@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "policy_type": "DETECT_UPDATE_STAGE_POLICY",
+  "task_id": "scrapy__scrapy__pr8009",
+  "fresh_container_per_stage": true,
+  "shared_state": {
+    "container": false,
+    "workspace": false,
+    "home": false,
+    "cache": false,
+    "model_session": false
+  },
+  "global_forbidden_actions": [
+    "run_tests",
+    "modify_production_code",
+    "install_dependencies",
+    "access_network"
+  ],
+  "methods": {
+    "openspec": {
+      "detect": {
+        "status": "READY",
+        "workspace_created": true,
+        "workspace": "runs/openspec/detect/workspace/",
+        "repository_mount": "read-only",
+        "writable_paths": [
+          "/workspace/openspec/changes",
+          "/output"
+        ],
+        "phases": [
+          "propose",
+          "detect"
+        ]
+      },
+      "freeze": {
+        "required": true,
+        "outputs": [
+          "detection-manifest.json",
+          "planning-artifacts/"
+        ],
+        "immutable_after_seal": true
+      },
+      "update": {
+        "status": "AWAITING_DETECT_SEAL",
+        "workspace_created": false,
+        "workspace": null,
+        "repository_mount": "read-only",
+        "writable_paths": [
+          "/workspace/tests",
+          "/output"
+        ],
+        "phases": [
+          "apply"
+        ]
+      }
+    },
+    "speckit": {
+      "detect": {
+        "status": "READY",
+        "workspace_created": true,
+        "workspace": "runs/speckit/detect/workspace/",
+        "repository_mount": "read-only",
+        "writable_paths": [
+          "/workspace/specs",
+          "/output"
+        ],
+        "phases": [
+          "specify",
+          "plan",
+          "tasks",
+          "detect"
+        ]
+      },
+      "freeze": {
+        "required": true,
+        "outputs": [
+          "detection-manifest.json",
+          "planning-artifacts/"
+        ],
+        "immutable_after_seal": true
+      },
+      "update": {
+        "status": "AWAITING_DETECT_SEAL",
+        "workspace_created": false,
+        "workspace": null,
+        "repository_mount": "read-only",
+        "writable_paths": [
+          "/workspace/tests",
+          "/output"
+        ],
+        "phases": [
+          "implement"
+        ]
+      }
+    },
+    "cc-sdd": {
+      "detect": {
+        "status": "READY",
+        "workspace_created": true,
+        "workspace": "runs/cc-sdd/detect/workspace/",
+        "repository_mount": "read-only",
+        "writable_paths": [
+          "/workspace/.kiro/specs",
+          "/output"
+        ],
+        "phases": [
+          "spec",
+          "detect"
+        ]
+      },
+      "freeze": {
+        "required": true,
+        "outputs": [
+          "detection-manifest.json",
+          "planning-artifacts/"
+        ],
+        "immutable_after_seal": true
+      },
+      "update": {
+        "status": "AWAITING_DETECT_SEAL",
+        "workspace_created": false,
+        "workspace": null,
+        "repository_mount": "read-only",
+        "writable_paths": [
+          "/workspace/tests",
+          "/output"
+        ],
+        "phases": [
+          "implement"
+        ]
+      }
+    }
+  }
+}

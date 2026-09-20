@@ -1,0 +1,33 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_command_check.py",
+      "symbols": [
+        "TestCheckCommand",
+        "TestCheckCommand._test_contract",
+        "TestCheckCommand.test_check_all_default_contracts"
+      ],
+      "reason": "The PR makes `scrapy check` return exit code 1 when the crawler bootstrap fails (spider could not be started). tests/test_command_check.py is the only test module that drives the check command end to end through tests.utils.cmdline.proc and asserts on its return code, so the new bootstrap-failure test and the existing exit-code assertions (test._test_contract asserting ret == 0) live here."
+    },
+    {
+      "path": "tests/test_command_fetch.py",
+      "symbols": [
+        "TestFetchCommand",
+        "TestFetchCommand.test_bad_arguments",
+        "TestFetchCommandWithSpider",
+        "TestFetchCommandWithSpider.test_spider"
+      ],
+      "reason": "The PR adds a bootstrap-failure exit-code check to scrapy/commands/fetch.py, which previously always exited 0. tests/test_command_fetch.py drives `scrapy fetch` as a subprocess and is where return-code assertions for fetch (e.g. the bad-arguments usage case and the --spider path that can fail during spider loading/start) are made."
+    },
+    {
+      "path": "tests/test_command_parse.py",
+      "symbols": [
+        "TestParseCommand",
+        "TestParseCommand.test_unknown_spider",
+        "TestParseCommand.test_spider_found_by_url",
+        "TestParseCommand.test_bad_arguments"
+      ],
+      "reason": "scrapy/commands/parse.py is changed to exit 1 on bootstrap errors such as a spider that cannot be found/loaded or that fails to start. tests/test_command_parse.py exercises the parse command through the CLI (including the 'Unable to find spider for' and unknown-spider paths) and is the module where the exit-code expectations are asserted."
+    }
+  ]
+}

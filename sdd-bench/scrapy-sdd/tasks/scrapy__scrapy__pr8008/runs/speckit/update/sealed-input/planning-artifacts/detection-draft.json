@@ -1,0 +1,12 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_spider_start.py",
+      "symbols": [
+        "_test_spider",
+        "test_slow_pipeline"
+      ],
+      "reason": "This module contains the racy slow-pipeline assertion and the shared _test_spider helper that PR 8008 changes; test_slow_pipeline must opt into unordered comparison while the helper keeps ordered comparison by default for all other callers."
+    }
+  ]
+}

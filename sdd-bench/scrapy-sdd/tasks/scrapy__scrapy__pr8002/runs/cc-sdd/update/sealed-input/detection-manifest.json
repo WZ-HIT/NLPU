@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr8002",
+  "method": "cc-sdd",
+  "base_sha": "be3e24e607ff0df427d6329163c706c406d06f61",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "cc-sdd-detect-004",
+    "session_sha256": "c63273794b8aea1af96e71024605cded21e8cf75b11fda12e73a4bbc0a7109ea"
+  },
+  "task_input_sha256": "f921b729f4d7d63f7798001f2268a5e398e2d3570d06e08c20d1c3ec06694b00",
+  "candidates": [
+    {
+      "path": "tests/test_linkextractors.py",
+      "symbols": [
+        "Base.TestLinkExtractorBase",
+        "TestLxmlLinkExtractor",
+        "TestLxmlParserLinkExtractor",
+        "test_urls_type",
+        "test_extract_all_links",
+        "test_extract_filter_allow",
+        "test_extract_filter_allow_with_duplicates",
+        "test_extract_filter_allow_with_duplicates_canonicalize",
+        "test_extract_filter_allow_no_duplicates_canonicalize",
+        "test_extract_filter_allow_and_deny",
+        "test_extract_filter_allowed_domains",
+        "test_extraction_using_single_values",
+        "test_nofollow",
+        "test_matches",
+        "test_restrict_xpaths",
+        "test_restrict_xpaths_encoding",
+        "test_restrict_xpaths_with_html_entities",
+        "test_restrict_xpaths_concat_in_handle_data",
+        "test_restrict_css",
+        "test_restrict_css_and_restrict_xpaths_together",
+        "test_area_tag_with_unicode_present",
+        "test_encoded_url",
+        "test_encoded_url_in_restricted_xpath",
+        "test_ignored_extensions",
+        "test_process_value",
+        "test_base_url_with_restrict_xpaths",
+        "test_attrs",
+        "test_tags",
+        "test_tags_attrs",
+        "test_tags_attrs_wildcard_and_deny",
+        "test_xhtml",
+        "test_link_wrong_href",
+        "test_ftp_links",
+        "test_pickle_extractor",
+        "test_link_extractor_aggregation",
+        "test_canonicalize_once_per_link",
+        "test_link_restrict_text",
+        "test_skip_bad_links",
+        "test_link_allowed_is_false_with_empty_url",
+        "test_link_allowed_is_false_with_bad_url_prefix",
+        "test_link_allowed_is_false_with_missing_url_prefix",
+        "test_extract_links",
+        "test_deduplicates_by_canonical_url",
+        "test_strip_false"
+      ],
+      "reason": "This is the only test module that exercises the link extractors, and it is the module the change rewrites. It currently defines the nested helper class Base.TestLinkExtractorBase (about 32 extractor tests) and the concrete class TestLxmlLinkExtractor(Base.TestLinkExtractorBase) with extractor_cls = LxmlLinkExtractor plus six Lxml-specific tests; TestLxmlParserLinkExtractor holds three parser-level tests. Because only one link extractor implementation remains, the change merges the nested helper into TestLxmlLinkExtractor and drops the Base pytest-collection workaround, so these are the candidate tests to collect and run to confirm the merge is behaviour-preserving. No production module under scrapy/ is touched, and no other test file imports the removed helper."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 5,
+    "manifest_sha256": "ea5eed5e29916031b15455a69995e859b7d3db83097d39d96fedc48ac2264bb9"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "879edd34021da83c220e706c49bf079f457271826e2a5047a73d868d3057be81"
+  }
+}

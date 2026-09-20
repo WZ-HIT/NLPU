@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "status": "PASS",
+  "stage": "detect",
+  "method": "openspec",
+  "network_mode": "none",
+  "named_volumes": [],
+  "mounts": [
+    {
+      "destination": "/output",
+      "role": "private_stage_output",
+      "rw": true,
+      "type": "bind"
+    },
+    {
+      "destination": "/task-input",
+      "role": "public_task_input",
+      "rw": false,
+      "type": "bind"
+    },
+    {
+      "destination": "/workspace",
+      "role": "repository",
+      "rw": false,
+      "type": "bind"
+    },
+    {
+      "destination": "/workspace/openspec/changes",
+      "role": "own_detect_planning",
+      "rw": true,
+      "type": "bind"
+    }
+  ],
+  "host_gold_store_mounted": false
+}

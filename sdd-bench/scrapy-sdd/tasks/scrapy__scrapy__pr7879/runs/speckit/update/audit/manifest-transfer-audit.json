@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "status": "PASS",
+  "task_id": "scrapy__scrapy__pr7879",
+  "method": "speckit",
+  "stage": "update",
+  "detection_manifest_visible": true,
+  "manifest_kind": "isolation-canary",
+  "task_match": true,
+  "method_match": true,
+  "base_match": true,
+  "seal_valid": true,
+  "same_method_only": true,
+  "other_detection_results_visible": false,
+  "formal_transfer_ready": false,
+  "formal_transfer_state": "AWAITING_FORMAL_SEAL",
+  "seal_sha256": "815d66f7a4f57567ab2cdf7c1e0220d6b321ba363b51e5f2b55af365b00dd8ec"
+}

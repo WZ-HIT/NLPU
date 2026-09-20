@@ -1,0 +1,17 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_downloadermiddleware_httpcache.py",
+      "symbols": [
+        "StorageTestMixin.test_storage",
+        "TestFilesystemStorageWithDummyPolicy.test_storage",
+        "TestFilesystemStorageWithRFC2616Policy.test_storage",
+        "TestDbmStorageWithDummyPolicy.test_storage",
+        "TestDbmStorageWithRFC2616Policy.test_storage",
+        "TestDbmStorageWithCustomDbmModule.test_storage",
+        "TestFilesystemStorageGzipWithDummyPolicy.test_storage"
+      ],
+      "reason": "This file defines StorageTestMixin.test_storage, which uses HTTPCACHE_EXPIRATION_SECS=1 and expects a just-stored response to remain retrievable. Slow runners can exceed the one-second TTL between store_response and retrieve_response, so this test is the direct candidate for making freshness deterministic and for verifying that entries beyond the TTL still miss."
+    }
+  ]
+}

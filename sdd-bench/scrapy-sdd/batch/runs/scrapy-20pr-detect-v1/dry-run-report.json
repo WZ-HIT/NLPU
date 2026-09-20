@@ -1,0 +1,2471 @@
+{
+  "schema_version": 1,
+  "batch_id": "scrapy-20pr-detect-v1",
+  "command": "detect",
+  "dry_run": true,
+  "resume": false,
+  "selected_count": 60,
+  "status": "READY",
+  "results": [
+    {
+      "target": "scrapy__scrapy__pr7702:cc-sdd:detect:cc-sdd-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7702",
+        "method": "cc-sdd",
+        "stage": "detect",
+        "run_id": "cc-sdd-detect-004",
+        "update_mode": null,
+        "base_sha": "c7eacdbb30a4563bbbe04ed02781768f4e19eabb",
+        "created_at_utc": "2026-09-20T09:28:19Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "90c5cf7b106292abce006b162eec64270506a8665f4807a90fbc4e1f4144ecfd",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7702:openspec:detect:openspec-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7702",
+        "method": "openspec",
+        "stage": "detect",
+        "run_id": "openspec-detect-004",
+        "update_mode": null,
+        "base_sha": "c7eacdbb30a4563bbbe04ed02781768f4e19eabb",
+        "created_at_utc": "2026-09-20T09:28:19Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "90c5cf7b106292abce006b162eec64270506a8665f4807a90fbc4e1f4144ecfd",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7702:speckit:detect:speckit-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7702",
+        "method": "speckit",
+        "stage": "detect",
+        "run_id": "speckit-detect-004",
+        "update_mode": null,
+        "base_sha": "c7eacdbb30a4563bbbe04ed02781768f4e19eabb",
+        "created_at_utc": "2026-09-20T09:28:19Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "90c5cf7b106292abce006b162eec64270506a8665f4807a90fbc4e1f4144ecfd",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7808:cc-sdd:detect:cc-sdd-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7808",
+        "method": "cc-sdd",
+        "stage": "detect",
+        "run_id": "cc-sdd-detect-004",
+        "update_mode": null,
+        "base_sha": "f1694269d8c9437461936ed449e81aa2ccb3b7cb",
+        "created_at_utc": "2026-09-20T09:28:19Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "1da958bf20aa8589e61183a2421cdc394d00785409c1dd31eabffb746ca4bb80",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7808:openspec:detect:openspec-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7808",
+        "method": "openspec",
+        "stage": "detect",
+        "run_id": "openspec-detect-004",
+        "update_mode": null,
+        "base_sha": "f1694269d8c9437461936ed449e81aa2ccb3b7cb",
+        "created_at_utc": "2026-09-20T09:28:19Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "1da958bf20aa8589e61183a2421cdc394d00785409c1dd31eabffb746ca4bb80",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7808:speckit:detect:speckit-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7808",
+        "method": "speckit",
+        "stage": "detect",
+        "run_id": "speckit-detect-004",
+        "update_mode": null,
+        "base_sha": "f1694269d8c9437461936ed449e81aa2ccb3b7cb",
+        "created_at_utc": "2026-09-20T09:28:19Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "1da958bf20aa8589e61183a2421cdc394d00785409c1dd31eabffb746ca4bb80",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7841:cc-sdd:detect:cc-sdd-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7841",
+        "method": "cc-sdd",
+        "stage": "detect",
+        "run_id": "cc-sdd-detect-004",
+        "update_mode": null,
+        "base_sha": "95c16aa9af7c51f26ba3ea8512b4ba782f5d216f",
+        "created_at_utc": "2026-09-20T09:28:19Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "71dc8668e8ef6245da8fab55576ae4df26d78843546fcd9169ecd18d300c0801",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7841:openspec:detect:openspec-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7841",
+        "method": "openspec",
+        "stage": "detect",
+        "run_id": "openspec-detect-004",
+        "update_mode": null,
+        "base_sha": "95c16aa9af7c51f26ba3ea8512b4ba782f5d216f",
+        "created_at_utc": "2026-09-20T09:28:19Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "71dc8668e8ef6245da8fab55576ae4df26d78843546fcd9169ecd18d300c0801",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7841:speckit:detect:speckit-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7841",
+        "method": "speckit",
+        "stage": "detect",
+        "run_id": "speckit-detect-004",
+        "update_mode": null,
+        "base_sha": "95c16aa9af7c51f26ba3ea8512b4ba782f5d216f",
+        "created_at_utc": "2026-09-20T09:28:19Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "71dc8668e8ef6245da8fab55576ae4df26d78843546fcd9169ecd18d300c0801",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7846:cc-sdd:detect:cc-sdd-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7846",
+        "method": "cc-sdd",
+        "stage": "detect",
+        "run_id": "cc-sdd-detect-004",
+        "update_mode": null,
+        "base_sha": "488a762d7173922190ea027e0fb6f6d9d3b59880",
+        "created_at_utc": "2026-09-20T09:28:19Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "223f739e882b51f4c62de357e6c72255ebd3375696d0e089bb971559e2d6af26",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7846:openspec:detect:openspec-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7846",
+        "method": "openspec",
+        "stage": "detect",
+        "run_id": "openspec-detect-004",
+        "update_mode": null,
+        "base_sha": "488a762d7173922190ea027e0fb6f6d9d3b59880",
+        "created_at_utc": "2026-09-20T09:28:19Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "223f739e882b51f4c62de357e6c72255ebd3375696d0e089bb971559e2d6af26",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7846:speckit:detect:speckit-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7846",
+        "method": "speckit",
+        "stage": "detect",
+        "run_id": "speckit-detect-004",
+        "update_mode": null,
+        "base_sha": "488a762d7173922190ea027e0fb6f6d9d3b59880",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "223f739e882b51f4c62de357e6c72255ebd3375696d0e089bb971559e2d6af26",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7879:cc-sdd:detect:cc-sdd-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7879",
+        "method": "cc-sdd",
+        "stage": "detect",
+        "run_id": "cc-sdd-detect-004",
+        "update_mode": null,
+        "base_sha": "d772acdf19251e9a03be285353b50bd1314e3d5d",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "b8f4230c6bbc34997005ad5e5591f16f330c136d28a3842fc1f74d6b0ce23c83",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7879:openspec:detect:openspec-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7879",
+        "method": "openspec",
+        "stage": "detect",
+        "run_id": "openspec-detect-004",
+        "update_mode": null,
+        "base_sha": "d772acdf19251e9a03be285353b50bd1314e3d5d",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "b8f4230c6bbc34997005ad5e5591f16f330c136d28a3842fc1f74d6b0ce23c83",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7879:speckit:detect:speckit-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7879",
+        "method": "speckit",
+        "stage": "detect",
+        "run_id": "speckit-detect-004",
+        "update_mode": null,
+        "base_sha": "d772acdf19251e9a03be285353b50bd1314e3d5d",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "b8f4230c6bbc34997005ad5e5591f16f330c136d28a3842fc1f74d6b0ce23c83",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7886:cc-sdd:detect:cc-sdd-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7886",
+        "method": "cc-sdd",
+        "stage": "detect",
+        "run_id": "cc-sdd-detect-004",
+        "update_mode": null,
+        "base_sha": "c7eacdbb30a4563bbbe04ed02781768f4e19eabb",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "2ec68af42fe0b3d0a0acb356e653f3742de7d6b4b835c5088a480cab53ecd7e3",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7886:openspec:detect:openspec-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7886",
+        "method": "openspec",
+        "stage": "detect",
+        "run_id": "openspec-detect-004",
+        "update_mode": null,
+        "base_sha": "c7eacdbb30a4563bbbe04ed02781768f4e19eabb",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "2ec68af42fe0b3d0a0acb356e653f3742de7d6b4b835c5088a480cab53ecd7e3",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7886:speckit:detect:speckit-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7886",
+        "method": "speckit",
+        "stage": "detect",
+        "run_id": "speckit-detect-004",
+        "update_mode": null,
+        "base_sha": "c7eacdbb30a4563bbbe04ed02781768f4e19eabb",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "2ec68af42fe0b3d0a0acb356e653f3742de7d6b4b835c5088a480cab53ecd7e3",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7918:cc-sdd:detect:cc-sdd-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7918",
+        "method": "cc-sdd",
+        "stage": "detect",
+        "run_id": "cc-sdd-detect-004",
+        "update_mode": null,
+        "base_sha": "1bd839b57ddb614664a179b6213f49579bdfd3da",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "d7309b7b87af4294589a8e98a350c6e39ce57ac67fa6215de622ed6f7f6debf3",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7918:openspec:detect:openspec-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7918",
+        "method": "openspec",
+        "stage": "detect",
+        "run_id": "openspec-detect-004",
+        "update_mode": null,
+        "base_sha": "1bd839b57ddb614664a179b6213f49579bdfd3da",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "d7309b7b87af4294589a8e98a350c6e39ce57ac67fa6215de622ed6f7f6debf3",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7918:speckit:detect:speckit-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7918",
+        "method": "speckit",
+        "stage": "detect",
+        "run_id": "speckit-detect-004",
+        "update_mode": null,
+        "base_sha": "1bd839b57ddb614664a179b6213f49579bdfd3da",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "d7309b7b87af4294589a8e98a350c6e39ce57ac67fa6215de622ed6f7f6debf3",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7920:cc-sdd:detect:cc-sdd-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7920",
+        "method": "cc-sdd",
+        "stage": "detect",
+        "run_id": "cc-sdd-detect-004",
+        "update_mode": null,
+        "base_sha": "1bd839b57ddb614664a179b6213f49579bdfd3da",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "cf9206698bc8a6749fb17ee5f51a3fc67274fc601c9f049e13809d697a853a46",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7920:openspec:detect:openspec-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7920",
+        "method": "openspec",
+        "stage": "detect",
+        "run_id": "openspec-detect-004",
+        "update_mode": null,
+        "base_sha": "1bd839b57ddb614664a179b6213f49579bdfd3da",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "cf9206698bc8a6749fb17ee5f51a3fc67274fc601c9f049e13809d697a853a46",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7920:speckit:detect:speckit-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7920",
+        "method": "speckit",
+        "stage": "detect",
+        "run_id": "speckit-detect-004",
+        "update_mode": null,
+        "base_sha": "1bd839b57ddb614664a179b6213f49579bdfd3da",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "cf9206698bc8a6749fb17ee5f51a3fc67274fc601c9f049e13809d697a853a46",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7948:cc-sdd:detect:cc-sdd-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7948",
+        "method": "cc-sdd",
+        "stage": "detect",
+        "run_id": "cc-sdd-detect-004",
+        "update_mode": null,
+        "base_sha": "e810f5fca166e8cd03d005d07b6a6a2373407d6a",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "d3d33ab8cec09180370403485e9d1e38dfa7b60ce83ddb3ff9963304fafc86bc",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7948:openspec:detect:openspec-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7948",
+        "method": "openspec",
+        "stage": "detect",
+        "run_id": "openspec-detect-004",
+        "update_mode": null,
+        "base_sha": "e810f5fca166e8cd03d005d07b6a6a2373407d6a",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "d3d33ab8cec09180370403485e9d1e38dfa7b60ce83ddb3ff9963304fafc86bc",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7948:speckit:detect:speckit-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7948",
+        "method": "speckit",
+        "stage": "detect",
+        "run_id": "speckit-detect-004",
+        "update_mode": null,
+        "base_sha": "e810f5fca166e8cd03d005d07b6a6a2373407d6a",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "d3d33ab8cec09180370403485e9d1e38dfa7b60ce83ddb3ff9963304fafc86bc",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7966:cc-sdd:detect:cc-sdd-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7966",
+        "method": "cc-sdd",
+        "stage": "detect",
+        "run_id": "cc-sdd-detect-004",
+        "update_mode": null,
+        "base_sha": "5427080f4892fb8f33cc159fdcd6f8ce8d4c140e",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "7614b3df4cff60160d9eaf21ecd9b291bd8e210710f3b12c4b1d9bb095d96764",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7966:openspec:detect:openspec-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7966",
+        "method": "openspec",
+        "stage": "detect",
+        "run_id": "openspec-detect-004",
+        "update_mode": null,
+        "base_sha": "5427080f4892fb8f33cc159fdcd6f8ce8d4c140e",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "7614b3df4cff60160d9eaf21ecd9b291bd8e210710f3b12c4b1d9bb095d96764",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7966:speckit:detect:speckit-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7966",
+        "method": "speckit",
+        "stage": "detect",
+        "run_id": "speckit-detect-004",
+        "update_mode": null,
+        "base_sha": "5427080f4892fb8f33cc159fdcd6f8ce8d4c140e",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "7614b3df4cff60160d9eaf21ecd9b291bd8e210710f3b12c4b1d9bb095d96764",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7968:cc-sdd:detect:cc-sdd-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7968",
+        "method": "cc-sdd",
+        "stage": "detect",
+        "run_id": "cc-sdd-detect-004",
+        "update_mode": null,
+        "base_sha": "06af687662112027b4482d31e2714a3cf280a91f",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "164bf0cefe7e5b7c7fe78d891f775d16094923251b4be14d2ce758d0f0287e2a",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7968:openspec:detect:openspec-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7968",
+        "method": "openspec",
+        "stage": "detect",
+        "run_id": "openspec-detect-004",
+        "update_mode": null,
+        "base_sha": "06af687662112027b4482d31e2714a3cf280a91f",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "164bf0cefe7e5b7c7fe78d891f775d16094923251b4be14d2ce758d0f0287e2a",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7968:speckit:detect:speckit-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7968",
+        "method": "speckit",
+        "stage": "detect",
+        "run_id": "speckit-detect-004",
+        "update_mode": null,
+        "base_sha": "06af687662112027b4482d31e2714a3cf280a91f",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "164bf0cefe7e5b7c7fe78d891f775d16094923251b4be14d2ce758d0f0287e2a",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7971:cc-sdd:detect:cc-sdd-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7971",
+        "method": "cc-sdd",
+        "stage": "detect",
+        "run_id": "cc-sdd-detect-004",
+        "update_mode": null,
+        "base_sha": "f1694269d8c9437461936ed449e81aa2ccb3b7cb",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "c9cd4e5ef0d2c746d1b160152084cd4218e1fabcb08d5135c036541109c84dc5",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7971:openspec:detect:openspec-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7971",
+        "method": "openspec",
+        "stage": "detect",
+        "run_id": "openspec-detect-004",
+        "update_mode": null,
+        "base_sha": "f1694269d8c9437461936ed449e81aa2ccb3b7cb",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "c9cd4e5ef0d2c746d1b160152084cd4218e1fabcb08d5135c036541109c84dc5",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7971:speckit:detect:speckit-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7971",
+        "method": "speckit",
+        "stage": "detect",
+        "run_id": "speckit-detect-004",
+        "update_mode": null,
+        "base_sha": "f1694269d8c9437461936ed449e81aa2ccb3b7cb",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "c9cd4e5ef0d2c746d1b160152084cd4218e1fabcb08d5135c036541109c84dc5",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7985:cc-sdd:detect:cc-sdd-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7985",
+        "method": "cc-sdd",
+        "stage": "detect",
+        "run_id": "cc-sdd-detect-004",
+        "update_mode": null,
+        "base_sha": "65b37286cc56b6a87c4d1eca6bdff79f658f09d2",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "e38893133370b0227fa7224725ff35002b09cded6cb8b3ed80739a1ec68f0881",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7985:openspec:detect:openspec-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7985",
+        "method": "openspec",
+        "stage": "detect",
+        "run_id": "openspec-detect-004",
+        "update_mode": null,
+        "base_sha": "65b37286cc56b6a87c4d1eca6bdff79f658f09d2",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "e38893133370b0227fa7224725ff35002b09cded6cb8b3ed80739a1ec68f0881",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7985:speckit:detect:speckit-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7985",
+        "method": "speckit",
+        "stage": "detect",
+        "run_id": "speckit-detect-004",
+        "update_mode": null,
+        "base_sha": "65b37286cc56b6a87c4d1eca6bdff79f658f09d2",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "e38893133370b0227fa7224725ff35002b09cded6cb8b3ed80739a1ec68f0881",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7986:cc-sdd:detect:cc-sdd-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7986",
+        "method": "cc-sdd",
+        "stage": "detect",
+        "run_id": "cc-sdd-detect-004",
+        "update_mode": null,
+        "base_sha": "65b37286cc56b6a87c4d1eca6bdff79f658f09d2",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "4b683de2df23085fbd8dee7be7f1158213ca5b3e7720936224e3679cdb5bee2d",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7986:openspec:detect:openspec-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7986",
+        "method": "openspec",
+        "stage": "detect",
+        "run_id": "openspec-detect-004",
+        "update_mode": null,
+        "base_sha": "65b37286cc56b6a87c4d1eca6bdff79f658f09d2",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "4b683de2df23085fbd8dee7be7f1158213ca5b3e7720936224e3679cdb5bee2d",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7986:speckit:detect:speckit-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7986",
+        "method": "speckit",
+        "stage": "detect",
+        "run_id": "speckit-detect-004",
+        "update_mode": null,
+        "base_sha": "65b37286cc56b6a87c4d1eca6bdff79f658f09d2",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "4b683de2df23085fbd8dee7be7f1158213ca5b3e7720936224e3679cdb5bee2d",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7993:cc-sdd:detect:cc-sdd-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7993",
+        "method": "cc-sdd",
+        "stage": "detect",
+        "run_id": "cc-sdd-detect-004",
+        "update_mode": null,
+        "base_sha": "be514d8c5df4c0327e050ac6d596d7f5b702806c",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "2b31cae55facaaa7809ab2c461396487722354830172681dcb6fed7fb101cdee",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7993:openspec:detect:openspec-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7993",
+        "method": "openspec",
+        "stage": "detect",
+        "run_id": "openspec-detect-004",
+        "update_mode": null,
+        "base_sha": "be514d8c5df4c0327e050ac6d596d7f5b702806c",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "2b31cae55facaaa7809ab2c461396487722354830172681dcb6fed7fb101cdee",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7993:speckit:detect:speckit-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7993",
+        "method": "speckit",
+        "stage": "detect",
+        "run_id": "speckit-detect-004",
+        "update_mode": null,
+        "base_sha": "be514d8c5df4c0327e050ac6d596d7f5b702806c",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "2b31cae55facaaa7809ab2c461396487722354830172681dcb6fed7fb101cdee",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7995:cc-sdd:detect:cc-sdd-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7995",
+        "method": "cc-sdd",
+        "stage": "detect",
+        "run_id": "cc-sdd-detect-004",
+        "update_mode": null,
+        "base_sha": "ca48915dd4f6c388be741a97213df03e7a81ea89",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "32fbd9841f664ef87a1251cc2b04468158a3a4468fb286fa9ad09581fb2c352d",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7995:openspec:detect:openspec-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7995",
+        "method": "openspec",
+        "stage": "detect",
+        "run_id": "openspec-detect-004",
+        "update_mode": null,
+        "base_sha": "ca48915dd4f6c388be741a97213df03e7a81ea89",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "32fbd9841f664ef87a1251cc2b04468158a3a4468fb286fa9ad09581fb2c352d",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr7995:speckit:detect:speckit-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr7995",
+        "method": "speckit",
+        "stage": "detect",
+        "run_id": "speckit-detect-004",
+        "update_mode": null,
+        "base_sha": "ca48915dd4f6c388be741a97213df03e7a81ea89",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "32fbd9841f664ef87a1251cc2b04468158a3a4468fb286fa9ad09581fb2c352d",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr8002:cc-sdd:detect:cc-sdd-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr8002",
+        "method": "cc-sdd",
+        "stage": "detect",
+        "run_id": "cc-sdd-detect-004",
+        "update_mode": null,
+        "base_sha": "be3e24e607ff0df427d6329163c706c406d06f61",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "2ad37e4b4a063a629cdb4b415bcff3c76f519e668f74f0a5d7bf11bd5f3c3ea4",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr8002:openspec:detect:openspec-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr8002",
+        "method": "openspec",
+        "stage": "detect",
+        "run_id": "openspec-detect-004",
+        "update_mode": null,
+        "base_sha": "be3e24e607ff0df427d6329163c706c406d06f61",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "2ad37e4b4a063a629cdb4b415bcff3c76f519e668f74f0a5d7bf11bd5f3c3ea4",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr8002:speckit:detect:speckit-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr8002",
+        "method": "speckit",
+        "stage": "detect",
+        "run_id": "speckit-detect-004",
+        "update_mode": null,
+        "base_sha": "be3e24e607ff0df427d6329163c706c406d06f61",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "2ad37e4b4a063a629cdb4b415bcff3c76f519e668f74f0a5d7bf11bd5f3c3ea4",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr8008:cc-sdd:detect:cc-sdd-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr8008",
+        "method": "cc-sdd",
+        "stage": "detect",
+        "run_id": "cc-sdd-detect-004",
+        "update_mode": null,
+        "base_sha": "488a762d7173922190ea027e0fb6f6d9d3b59880",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "a8dc5d71d6b115047cd449e3a2e0268d77009c755135bbb112faf005615776c4",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr8008:openspec:detect:openspec-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr8008",
+        "method": "openspec",
+        "stage": "detect",
+        "run_id": "openspec-detect-004",
+        "update_mode": null,
+        "base_sha": "488a762d7173922190ea027e0fb6f6d9d3b59880",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "a8dc5d71d6b115047cd449e3a2e0268d77009c755135bbb112faf005615776c4",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr8008:speckit:detect:speckit-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr8008",
+        "method": "speckit",
+        "stage": "detect",
+        "run_id": "speckit-detect-004",
+        "update_mode": null,
+        "base_sha": "488a762d7173922190ea027e0fb6f6d9d3b59880",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "a8dc5d71d6b115047cd449e3a2e0268d77009c755135bbb112faf005615776c4",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr8009:cc-sdd:detect:cc-sdd-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr8009",
+        "method": "cc-sdd",
+        "stage": "detect",
+        "run_id": "cc-sdd-detect-004",
+        "update_mode": null,
+        "base_sha": "3c6a62db47536df89676ab9d7347acf5c5c8a2e4",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "36c5d73ae4b4351f3c88077a2afbc317c27ae8bde35fb3774e02e787b3f272d0",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr8009:openspec:detect:openspec-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr8009",
+        "method": "openspec",
+        "stage": "detect",
+        "run_id": "openspec-detect-004",
+        "update_mode": null,
+        "base_sha": "3c6a62db47536df89676ab9d7347acf5c5c8a2e4",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "36c5d73ae4b4351f3c88077a2afbc317c27ae8bde35fb3774e02e787b3f272d0",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr8009:speckit:detect:speckit-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr8009",
+        "method": "speckit",
+        "stage": "detect",
+        "run_id": "speckit-detect-004",
+        "update_mode": null,
+        "base_sha": "3c6a62db47536df89676ab9d7347acf5c5c8a2e4",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "36c5d73ae4b4351f3c88077a2afbc317c27ae8bde35fb3774e02e787b3f272d0",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr8020:cc-sdd:detect:cc-sdd-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr8020",
+        "method": "cc-sdd",
+        "stage": "detect",
+        "run_id": "cc-sdd-detect-004",
+        "update_mode": null,
+        "base_sha": "ed98aafd0f6301647916c86811acacd0a1b59dbd",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "b5c5373506947c504b98dd11717eb2e7c46681c266bd350275b1edd4409393be",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr8020:openspec:detect:openspec-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr8020",
+        "method": "openspec",
+        "stage": "detect",
+        "run_id": "openspec-detect-004",
+        "update_mode": null,
+        "base_sha": "ed98aafd0f6301647916c86811acacd0a1b59dbd",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "b5c5373506947c504b98dd11717eb2e7c46681c266bd350275b1edd4409393be",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    },
+    {
+      "target": "scrapy__scrapy__pr8020:speckit:detect:speckit-detect-004:none",
+      "state": "DRY_RUN_READY",
+      "update_mode": null,
+      "result": {
+        "schema_version": 1,
+        "task_id": "scrapy__scrapy__pr8020",
+        "method": "speckit",
+        "stage": "detect",
+        "run_id": "speckit-detect-004",
+        "update_mode": null,
+        "base_sha": "ed98aafd0f6301647916c86811acacd0a1b59dbd",
+        "created_at_utc": "2026-09-20T09:28:20Z",
+        "status": "DRY_RUN_READY",
+        "dry_run": true,
+        "tests_run": false,
+        "model_request_sent": false,
+        "provenance": {
+          "task_manifest_sha256": "b5c5373506947c504b98dd11717eb2e7c46681c266bd350275b1edd4409393be",
+          "policy_file_sha256": null,
+          "detection_manifest_sha256": null,
+          "compose_rendered_sha256": null
+        },
+        "checks": [
+          {
+            "id": "task-schema",
+            "status": "PASS"
+          },
+          {
+            "id": "recorded-base",
+            "status": "PASS"
+          },
+          {
+            "id": "detect-preflight",
+            "status": "PASS"
+          }
+        ],
+        "artifacts": [],
+        "blockers": []
+      }
+    }
+  ]
+}

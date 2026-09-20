@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr7918",
+  "method": "openspec",
+  "base_sha": "1bd839b57ddb614664a179b6213f49579bdfd3da",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "openspec-detect-004",
+    "session_sha256": "5f376d3cfac834db0a85346738add4c0f040692ae30d6565d89cedc188fe6d34"
+  },
+  "task_input_sha256": "0b2d0769df1d4cdcc05e1ff1051cf55bab48c60e7cc6490ef2718fe65082ed99",
+  "candidates": [
+    {
+      "path": "tests/test_utils_serialize.py",
+      "symbols": [
+        "TestJsonEncoder.test_encode_decode"
+      ],
+      "reason": "This test asserts the current space-separated datetime string and the date/time outputs directly from ScrapyJSONEncoder, so the ISO 8601 serialization change requires updating its exact expected values."
+    },
+    {
+      "path": "tests/test_exporters.py",
+      "symbols": [
+        "TestJsonLinesItemExporter.test_nonstring_types_item",
+        "TestJsonItemExporter.test_nonstring_types_item"
+      ],
+      "reason": "These JSON and JSON Lines exporter tests encode a datetime through ScrapyJSONEncoder and compare it with str(datetime), whose space-separated value will no longer match the ISO 8601 output."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 6,
+    "manifest_sha256": "93bbcc142db71a43d33e4a42ebba56efcf5f0599d202d4208f39a2bf4ad316dd"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "d14658ed3f68f4ca952002ad6cdc93c1085791adc946c5b516efcf92a5643457"
+  }
+}

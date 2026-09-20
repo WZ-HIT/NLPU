@@ -1,0 +1,11 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_downloadermiddleware_httpcache.py",
+      "symbols": [
+        "StorageTestMixin.test_storage"
+      ],
+      "reason": "Defines StorageTestMixin.test_storage, which stores a cache entry with HTTPCACHE_EXPIRATION_SECS=1 and then expects the immediately following pre-expiry retrieval to succeed. A slow runner can exceed that one-second window before the retrieval, matching PR #7993's stated flake; the method is inherited by the filesystem, gzip filesystem, DBM, and custom DBM storage test classes."
+    }
+  ]
+}

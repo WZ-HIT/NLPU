@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr7986",
+  "method": "speckit",
+  "base_sha": "65b37286cc56b6a87c4d1eca6bdff79f658f09d2",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "speckit-detect-004",
+    "session_sha256": "d9323097d92209a1cca815250b85bda55bc699bc8f262b033c2f229b2b450ae5"
+  },
+  "task_input_sha256": "8d2461273a0f2f6eb633f57b10d00bf1f5ecd8fe579c01688995dcc3e86dffee",
+  "candidates": [
+    {
+      "path": "tests/test_http2_client_protocol.py",
+      "symbols": [
+        "H2ClientProtocol",
+        "H2ClientFactory",
+        "PROTOCOL_NAME",
+        "InactiveStreamClosed",
+        "InvalidHostname",
+        "make_request_dfd",
+        "TestHttps2ClientProtocol"
+      ],
+      "reason": "This test module directly imports and exercises the internal HTTP/2 protocol, factory, stream, and exception classes whose names are expected to become private, and it patches the protocol-name constant. It is the strongest candidate for detecting incomplete renames, stale imports, or stale mock paths."
+    },
+    {
+      "path": "tests/test_downloader_handler_twisted_http2.py",
+      "symbols": [
+        "H2DownloadHandler",
+        "H2DownloadHandlerMixin",
+        "test_not_configured_without_reactor",
+        "TestHttp2",
+        "TestHttp2WithCrawler"
+      ],
+      "reason": "This test module verifies the documented Twisted-based HTTP/2 handler's import path, DOWNLOAD_HANDLERS configuration, reactor requirements, lifecycle, and HTTP/2 behavior. It should confirm that privatization preserves the supported handler entry point and that the handler is no longer treated as experimental."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 4,
+    "manifest_sha256": "c9100563416a480142c9d0b4c0b3a644d12ca37c5be23f0db626b4ec18a5a0ec"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "8c397da6f3d81bf0bdfa298a88cb01f306e0cd2e179db935e02f4e8114dd3190"
+  }
+}

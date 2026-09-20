@@ -1,0 +1,62 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_utils_url.py",
+      "symbols": [
+        "test_add_http_if_no_scheme",
+        "test_guess_scheme",
+        "TestStripUrl"
+      ],
+      "reason": "URL utility tests are the closest unit boundary for hostname conversion and can directly pin legacy IDNA fallback behavior alongside existing URL normalization."
+    },
+    {
+      "path": "tests/test_resolver.py",
+      "symbols": [
+        "test_caching_threaded_resolver_getHostByName_cache_hit",
+        "test_caching_hostname_resolver_no_addresses_not_cached",
+        "test_caching_hostname_resolver_cached_addresses_have_no_port"
+      ],
+      "reason": "Twisted's hostname resolver is the primary runtime consumer of the patched IDNA byte conversion, so resolver tests best expose whether the compatibility hook is effective."
+    },
+    {
+      "path": "tests/test_http_request.py",
+      "symbols": [
+        "TestRequest",
+        "TestXmlRpcRequest"
+      ],
+      "reason": "Request construction includes URL normalization before DNS or TLS; this suite verifies that an internationalized hostname is preserved consistently for downstream consumers."
+    },
+    {
+      "path": "tests/test_core_downloader.py",
+      "symbols": [
+        "TestContextFactoryBase",
+        "TestContextFactory"
+      ],
+      "reason": "TLS hostname verification also calls Twisted's IDNA helper, and these tests exercise the context-factory boundary where an IDNA-2003-only host must remain valid."
+    },
+    {
+      "path": "tests/test_downloader_handler_twisted_http11.py",
+      "symbols": [
+        "TestHttps",
+        "TestHttpsWrongHostname",
+        "TestHttpsInvalidDNSId"
+      ],
+      "reason": "Downloader handler coverage validates the end-to-end request path through endpoint creation and hostname processing without relying only on helper unit tests."
+    },
+    {
+      "path": "tests/test_toplevel.py",
+      "symbols": [
+        "test_version",
+        "test_request_shortcut"
+      ],
+      "reason": "The compatibility patch is intended to run at Scrapy import time; top-level import tests are the narrowest place to catch activation or import-order regressions."
+    },
+    {
+      "path": "tests/test_crawl.py",
+      "symbols": [
+        "TestCrawl"
+      ],
+      "reason": "A crawl-level test is the clearest user-facing regression check for reaching a hostname that previously failed during Twisted name conversion."
+    }
+  ]
+}

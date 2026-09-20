@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr7971",
+  "method": "speckit",
+  "base_sha": "f1694269d8c9437461936ed449e81aa2ccb3b7cb",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "speckit-detect-004",
+    "session_sha256": "c41d9de33a447976aedf9981fd42251e3bc544229471527e24e052bb7e611ceb"
+  },
+  "task_input_sha256": "28b2416ce2b4992ac8f4dd241d46e38b68f98f43518494b11f4f931cfa5ac90b",
+  "candidates": [
+    {
+      "path": "tests/test_utils_log.py",
+      "symbols": [
+        "TestLogformatterAdapter",
+        "TestLogformatterAdapter._log",
+        "TestLogformatterAdapter.test_empty_args",
+        "TestLogformatterAdapter.test_args"
+      ],
+      "reason": "Directly tests scrapy.utils.log.logformatter_adapter, the function that decides whether a LogFormatter message is interpolated with the returned dictionary; the deprecation warning and legacy dict fallback belong here."
+    },
+    {
+      "path": "tests/test_logformatter.py",
+      "symbols": [
+        "TestLogFormatter",
+        "LogFormatterSubclass",
+        "TestLogformatterSubclass",
+        "TestShowOrSkipMessages"
+      ],
+      "reason": "Covers the LogFormatter result contract (msg/args) and custom subclasses whose rendered output depends on how the returned dictionary is adapted; regression expectations for the deprecation are asserted here."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 9,
+    "manifest_sha256": "42bbc699758bffda087e459f5ba0c2e28136031617fba87ef82bc1654b7101d4"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "110ec4ccc719b35ad2246fe7417571437e27cc484ce9b0a5b2d4bad8964fd982"
+  }
+}

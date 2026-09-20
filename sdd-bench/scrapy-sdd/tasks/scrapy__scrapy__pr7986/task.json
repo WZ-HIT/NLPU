@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr7986",
+  "repository": {
+    "owner": "scrapy",
+    "name": "scrapy"
+  },
+  "pr_id": 7986,
+  "baseline": {
+    "base_sha": "65b37286cc56b6a87c4d1eca6bdff79f658f09d2"
+  },
+  "title": "Stop marking the Twisted-based HTTP/2 download handler as experimental, and privatize its API",
+  "body": "Closes https://github.com/scrapy/scrapy/issues/5047, as I think enough time has passed that we don’t need to bother with that.",
+  "adapter": {
+    "id": "scrapy",
+    "version": 1,
+    "path": "sdd-bench/scrapy-sdd/adapters/scrapy.json",
+    "sha256": "059dcc09eaa62f892f54118e65d4deccce3ab29cc5d9a4a36f4d999ff1aa27de"
+  }
+}

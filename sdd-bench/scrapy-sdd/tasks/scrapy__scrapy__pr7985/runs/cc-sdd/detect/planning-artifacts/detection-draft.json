@@ -1,0 +1,48 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_downloader_handler_httpx.py",
+      "symbols": [
+        "TestRealWebsite",
+        "HttpxDownloadHandlerMixin"
+      ],
+      "reason": "Declares the requires_internet-marked class TestRealWebsite (line 165: @pytest.mark.requires_internet applied to class TestRealWebsite(HttpxDownloadHandlerMixin, TestRealWebsiteBase)). Its test methods are inherited from TestRealWebsiteBase and issue real requests to https://books.toscrape.com/, which is exactly the population of tests the PR wants to rerun on failure instead of reporting a flaky error."
+    },
+    {
+      "path": "tests/test_downloader_handler_twisted_http11.py",
+      "symbols": [
+        "TestRealWebsite",
+        "HTTP11DownloadHandlerMixin"
+      ],
+      "reason": "Declares the requires_internet-marked class TestRealWebsite (line 116: @pytest.mark.requires_internet applied to class TestRealWebsite(HTTP11DownloadHandlerMixin, TestRealWebsiteBase)); it only overrides platform_cert_store_works for win32. These are real-Internet download tests, so their failure handling is what the PR changes."
+    },
+    {
+      "path": "tests/test_downloader_handler_twisted_http2.py",
+      "symbols": [
+        "TestRealWebsite",
+        "H2DownloadHandlerMixin"
+      ],
+      "reason": "Declares the requires_internet-marked class TestRealWebsite (line 202: @pytest.mark.requires_internet applied to class TestRealWebsite(H2DownloadHandlerMixin, TestRealWebsiteBase)) with the same win32 certificate-store override. It is the third real-Internet download suite covered by the rerun-on-failure behaviour."
+    },
+    {
+      "path": "tests/utils/bases/download_handlers_http.py",
+      "symbols": [
+        "TestRealWebsiteBase",
+        "test_download",
+        "test_download_with_spider",
+        "test_verify_certs",
+        "test_tls_logging"
+      ],
+      "reason": "Defines TestRealWebsiteBase (line 1516), the shared base that provides the actual network-touching test methods - test_download (1549), test_download_with_spider (1557), test_verify_certs (1569) and test_tls_logging (1582) - all issuing real requests to https://books.toscrape.com/. All three requires_internet classes inherit from it, so it anchors the semantics of the tests whose failures the PR retries."
+    },
+    {
+      "path": "conftest.py",
+      "symbols": [
+        "pytest_addoption",
+        "pytest_configure",
+        "pytest_runtest_setup"
+      ],
+      "reason": "Root pytest plugin module for the test suite and the place where per-test marker behaviour already lives: pytest_runtest_setup (line 110) skips tests for requires_reactor, only_asyncio, only_not_asyncio, requires_<optional-dep> (135) and requires_mitmproxy (138), while requires_internet currently has no behaviour anywhere. Rerunning Internet-dependent tests when they fail is a pytest hook concern, so this test-infrastructure module is the primary candidate for implementing the marker's new effect."
+    }
+  ]
+}

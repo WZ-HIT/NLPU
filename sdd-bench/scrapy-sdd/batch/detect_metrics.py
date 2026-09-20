@@ -30,6 +30,14 @@ made a hand-measured first pass of this bench read 13/13 where the truth was
 It does not drop a target it cannot score. A failed Detect target is reported as
 an error row, never filtered out: a metric computed over the survivors of a
 filter is a metric that improves when things break.
+
+The one exception is a target the *provider* cut off before it reported
+anything. That run returned no candidate, so it is scored as the zero it is --
+with the cause kept in ``warnings`` and ``detail`` -- instead of being reported
+as an error that leaves the rates flattering the batch. The direction matters:
+zeroing can only lower a rate, never raise it, which is the opposite of the
+filter this module refuses to apply, and the allowlist below is short enough
+that a genuine failure is never quietly converted into a zero.
 """
 
 from __future__ import annotations
@@ -67,6 +75,12 @@ ROLLUP_SCHEMA_RELATIVE = PurePosixPath("schemas") / "detect-metrics-rollup-v1.sc
 # whether a missing row means "no targets" or "the table dropped a column".
 METHOD_ORDER = ("openspec", "speckit", "cc-sdd")
 BATCH_ID_RE = re.compile(r"^[a-z0-9][a-z0-9._-]{0,127}$")
+# The Agent session of a Detect run can be cut off by the model provider rather
+# than by anything in the task: the session ends with `turn.failed` and this
+# message, and no artifact is ever harvested. The string is the provider's, so
+# this is an allowlist of one -- a failure that is not on it stays an ERROR row.
+UPSTREAM_ABORT_SIGNATURES = ("shared rollout token budget exhausted",)
+UPSTREAM_ABORT_WARNING = "no_candidate_upstream_quota_abort"
 
 DEFINITIONS = {
     "hit_rate": "|detected_files ∩ gold_files| / |detected_files|",
@@ -190,6 +204,62 @@ def _candidate_files(candidates: list[Any]) -> tuple[list[str], list[str]]:
     return predicted, invalid
 
 
+def _upstream_abort(bench: Path, target: Any) -> str | None:
+    """The model provider's abort message for a target, or ``None``.
+
+    Reads only the Agent session that the ledger's current attempt already
+    names -- the one artifact a cut-off run does leave behind, since the ledger
+    stores ``details_sha256`` and drops the text. The last terminating event
+    wins: a session that tripped the limit twice ends on the one that ended it.
+    """
+    if target.state != "FAILED" or target.attempt is None:
+        return None
+    execution = (
+        bench / "tasks" / target.task_id / "runs" / target.method
+        / "detect" / "executions" / target.run_id / f"attempt-{target.attempt}"
+    )
+    try:
+        # The identifiers come from the batch config, but nothing here joins one
+        # onto a path without checking where it lands.
+        execution.resolve().relative_to(bench.resolve())
+    except (OSError, ValueError):
+        return None
+    session = execution / "agent.jsonl"
+    if session.is_symlink() or not session.is_file():
+        return None
+    try:
+        raw = session.read_text(encoding="utf-8")
+    except (OSError, UnicodeError):
+        return None
+    message = None
+    for line in raw.splitlines():
+        try:
+            event = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if not isinstance(event, dict) or event.get("type") not in ("turn.failed", "error"):
+            continue
+        candidate = event.get("message")
+        if not isinstance(candidate, str):
+            nested = event.get("error")
+            candidate = nested.get("message") if isinstance(nested, dict) else None
+        if isinstance(candidate, str):
+            message = candidate
+    if message is None or not any(signature in message for signature in UPSTREAM_ABORT_SIGNATURES):
+        return None
+    return message
+
+
+def upstream_aborted(row: dict[str, Any]) -> bool:
+    """Whether a row is a zero because the provider cut the run, not because the method found nothing.
+
+    The warning is the machine-readable half of the abort -- ``detail`` carries
+    the provider's own words -- so a rendering can tell "no answer was recorded"
+    apart from "the answer was that there is nothing" without parsing prose.
+    """
+    return UPSTREAM_ABORT_WARNING in row["warnings"]
+
+
 def _row(bench: Path, target: Any, gold: tuple[Any, ...]) -> dict[str, Any]:
     gold_files, gold_sha, gold_code, gold_detail = gold
     row: dict[str, Any] = {
@@ -222,6 +292,28 @@ def _row(bench: Path, target: Any, gold: tuple[Any, ...]) -> dict[str, Any]:
         return row
 
     if target.execution is None:
+        abort = _upstream_abort(bench, target)
+        if abort is not None:
+            # Scored rather than errored: the run reported no candidate, which
+            # every rate reads as a miss. `detail` carries why, `warnings` makes
+            # it countable without parsing prose, and `state` still says FAILED.
+            row["warnings"].append(UPSTREAM_ABORT_WARNING)
+            row["detail"] = (
+                "Agent session was aborted by the model provider before it "
+                f"reported a candidate; scored as no finding ({abort})"
+            )
+            if gold_files is None:
+                row["status"] = "NO_GOLD"
+                return row
+            row["gold_files"] = gold_files
+            row["missing_gold_files"] = gold_files
+            if any(PurePosixPath(value).parts[0] not in TEST_PREFIXES for value in gold_files):
+                row["warnings"].append("gold_outside_test_roots")
+            row["scorable"] = True
+            row["metrics"] = score_ranked(
+                [], gold_files, invalid_count=0, missing_count=len(gold_files)
+            )
+            return row
         return fail("DETECT_TARGET_UNAVAILABLE", target.error or "no sealed execution")
     # The execution directory, not update/sealed-input. The two agree today (all
     # nine pairs hash equal), but sealed-input is the copy a re-run displaces and
@@ -659,7 +751,10 @@ def rollup_markdown(document: dict[str, Any]) -> str:
     so a reader re-derives the rate instead of trusting a decimal. The caveats
     are part of the rendering rather than a footnote in a paper: a target that
     reported a single file is 0% or 100% and says nothing about discrimination,
-    and on this bench that is most of them.
+    and on this bench that is most of them. A target the provider aborted is
+    scored as a miss, and its cell is indistinguishable from a method that
+    reported nothing -- so the caveats name those rows instead of leaving the
+    reader to guess which zeroes are performance and which are availability.
     """
     task_ids = sorted({row["task_id"] for row in document["rows"]})
     lines = [
@@ -720,9 +815,16 @@ def rollup_markdown(document: dict[str, Any]) -> str:
                 gold = str(len(row["gold_files"]))
                 cells.append(f"{row['metrics']['tp']}/{row['metrics']['tp'] + row['metrics']['fp']}")
         lines.append(f"| {task_id} | {gold} | " + " | ".join(cells) + " |")
+    # Scored rows only: a row with no gold is already named under the errors
+    # below, and it has no rate for an abort to have pulled down.
+    aborted = [
+        row for row in document["rows"]
+        if row["status"] == "OK" and upstream_aborted(row)
+    ]
     single = [
         row for row in document["rows"]
-        if row["status"] == "OK" and row["metrics"]["tp"] + row["metrics"]["fp"] <= 1
+        if row["status"] == "OK" and not upstream_aborted(row)
+        and row["metrics"]["tp"] + row["metrics"]["fp"] <= 1
     ]
     lines += [
         "",
@@ -732,6 +834,18 @@ def rollup_markdown(document: dict[str, Any]) -> str:
         "Those rows score 0.000 or 1.000 and carry no information about discrimination; "
         "a macro average over them moves when a method reports one file instead of two.",
     ]
+    if aborted:
+        lines.append(
+            f"- {len(aborted)} targets were aborted by the model provider before the agent "
+            f"produced a draft (`{UPSTREAM_ABORT_WARNING}`). They are scored as the misses they "
+            "are -- 0 matched over 0 reported -- so their `0/0` cells mean no answer was "
+            "recorded, not that the method reported nothing. They still pull the rate down, "
+            "which is the point of scoring an abort as a miss rather than dropping the row:"
+        )
+        for row in aborted:
+            lines.append(
+                f"  - {row['task_id']} / {row['method']}: {row['detail'] or UPSTREAM_ABORT_WARNING}"
+            )
     broken = [row for row in document["rows"] if row["status"] != "OK"]
     for row in broken:
         lines.append(f"- {row['task_id']} / {row['method']}: {row['status']} ({row['detail'] or row['error_code']})")

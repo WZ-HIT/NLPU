@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr7966",
+  "method": "speckit",
+  "base_sha": "5427080f4892fb8f33cc159fdcd6f8ce8d4c140e",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "speckit-detect-004",
+    "session_sha256": "fcbfcd0f4ad464f6be5b7e037a93f24e626aa9ed2d13727f7b19249252977f92"
+  },
+  "task_input_sha256": "dde6dd85e9821e5db51d5471dbbe1ed64a74dbad6edd7c941ea14934ea2e54af",
+  "candidates": [
+    {
+      "path": "tests/utils/bases/download_handlers_http.py",
+      "symbols": [
+        "TestHttpsBase",
+        "TestHttpsTLSVersionBase.test_download",
+        "TestHttpWithCrawlerBase.test_response_ssl_certificate"
+      ],
+      "reason": "Shared base for the HTTP download-handler tests; it already carries the narrow filterwarnings markers for dependency-origin TLS deprecations (ssl.TLSVersion.TLSv1, cryptography X.509) and the pyOpenSSL/Twisted version gates that the VCS environment perturbs."
+    },
+    {
+      "path": "tests/test_core_downloader.py",
+      "symbols": [
+        "TestContextFactory.test_no_immutable_ctx_warning",
+        "TestContextFactory.test_no_context_sharing_with_conn",
+        "TestContextFactoryCiphers.test_setting_explicit"
+      ],
+      "reason": "The downloader context-factory tests are the repository's dedicated warning regression tests for the pyOpenSSL/Twisted TLS implementation that the VCS workflow installs from development branches."
+    },
+    {
+      "path": "tests/test_downloader_handler_twisted_http11.py",
+      "symbols": [
+        "HTTP11DownloadHandlerMixin",
+        "TestHttp"
+      ],
+      "reason": "Twisted HTTP/1.1 download-handler coverage inherits the dependency-sensitive HTTPS/TLS cases, so it is the first place new Twisted development-branch warnings or API changes surface."
+    },
+    {
+      "path": "tests/test_downloader_handler_httpx.py",
+      "symbols": [
+        "HttpxDownloadHandlerMixin",
+        "TestHttp"
+      ],
+      "reason": "Exercises httpx2, which the workflow installs from its development branch, and reuses the same certificate/TLS assertions that emit dependency-origin deprecation warnings."
+    },
+    {
+      "path": "tests/test_downloader_handler_twisted_http2.py",
+      "symbols": [
+        "H2DownloadHandlerMixin",
+        "TestHttp2"
+      ],
+      "reason": "HTTP/2 handler tests depend on development-branch Twisted and the optional h2 stack, another source of warnings and version-sensitive assertions in the VCS run."
+    },
+    {
+      "path": "tests/test_crawl.py",
+      "symbols": [
+        "TestCrawl.test_response_ssl_certificate",
+        "TestCrawl.test_response_ssl_certificate_none"
+      ],
+      "reason": "Crawler-level TLS tests already suppress the cryptography X.509 deprecation warning, so they pin the expected certificate behavior and warning noise produced with development dependencies."
+    },
+    {
+      "path": "tests/test_http2_client_protocol.py",
+      "symbols": [
+        "TestHttp2ClientProtocol.test_response_has_correct_certificate_ip_address"
+      ],
+      "reason": "Protocol-level certificate handling is warning-sensitive and depends on the Twisted/h2 development revisions installed by the VCS workflow."
+    },
+    {
+      "path": "tests/test_utils_deprecate.py",
+      "symbols": [
+        "TestWarnWhenSubclassed.test_warning_on_instance",
+        "TestWarnWhenSubclassed.test_subclassing_warning_message"
+      ],
+      "reason": "Verifies Scrapy's own warning plumbing, so it detects any change that makes warning filtering too broad or alters Scrapy-origin warning messages."
+    },
+    {
+      "path": "tests/test_dependencies.py",
+      "symbols": [
+        "TestScrapyUtils.test_pinned_twisted_version"
+      ],
+      "reason": "The only test that reads tox configuration and asserts dependency-version contracts, matching the workflow and tox environment that the change touches."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 8,
+    "manifest_sha256": "f6cb944b95e3a7027181385ab4e5e01ac0e9c9d8c71f765a4b760a04e95fffcf"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "7846217a79596476c2b2828c4456e178a23c0782b350d9ae7d608384f08de370"
+  }
+}

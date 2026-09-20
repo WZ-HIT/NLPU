@@ -215,6 +215,33 @@ class MetricsFixture:
         """A concluded-but-failed target: no execution directory ever exists."""
         self._append(method, "FAILED", attempt)
 
+    def fail_detect_upstream_abort(
+        self,
+        method: str = "openspec",
+        *,
+        attempt: int = 1,
+        message: str = detect_metrics.UPSTREAM_ABORT_SIGNATURES[0],
+        state: str = "FAILED",
+    ) -> None:
+        """A failed target whose Agent session was cut off by the provider.
+
+        The distinction from ``fail_detect`` is the whole point: this run did
+        leave an execution directory behind -- the session log is exactly what
+        a cut-off run produces -- and it never sealed, so no manifest exists.
+        """
+        execution = self.execution(method, attempt)
+        execution.mkdir(parents=True, exist_ok=True)
+        (execution / "rendered-compose.yaml").write_text("services: {}\n", encoding="utf-8")
+        (execution / "agent.jsonl").write_text(
+            "\n".join([
+                json.dumps({"type": "item.completed", "item": {"id": "item_1", "status": "completed"}}),
+                json.dumps({"type": "error", "message": message}),
+                json.dumps({"type": "turn.failed", "error": {"message": message}}),
+            ]) + "\n",
+            encoding="utf-8",
+        )
+        self._append(method, state, attempt)
+
     def write_gold(
         self,
         files: list[str],
@@ -345,6 +372,65 @@ class DetectMetricsScoringTests(unittest.TestCase):
             self.assertEqual(run_cli([
                 "--bench-root", str(fixture.bench), "check", "--batch", fixture.BATCH_ID,
             ]), 0)
+
+    def test_a_provider_aborted_target_is_scored_as_a_miss_not_an_error(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="sdd-detect-metrics-") as temporary:
+            fixture = MetricsFixture(Path(temporary), methods=("openspec", "speckit"))
+            fixture.fail_detect_upstream_abort("openspec")
+            fixture.seal_detect("speckit")
+            fixture.write_gold(["tests/test_a.py"])
+
+            document = fixture.compute()
+
+            aborted = fixture.row(document, "openspec")
+            self.assertEqual(aborted["status"], "OK")
+            self.assertIsNone(aborted["error_code"])
+            # The row says both things: the run failed, and it is scored anyway.
+            self.assertEqual(aborted["state"], "FAILED")
+            self.assertIn(detect_metrics.UPSTREAM_ABORT_WARNING, aborted["warnings"])
+            self.assertIn(detect_metrics.UPSTREAM_ABORT_SIGNATURES[0], aborted["detail"])
+            self.assertTrue(aborted["scorable"])
+            self.assertEqual(aborted["predicted_files"], [])
+            self.assertEqual(aborted["missing_gold_files"], ["tests/test_a.py"])
+            self.assertEqual(aborted["metrics"]["matched_count"], 0)
+            self.assertEqual(aborted["metrics"]["precision"], 0.0)
+            self.assertEqual(aborted["metrics"]["hit_at_1"], 0)
+            # Counted, not dropped: the batch is one miss and one hit, so the
+            # ratio is over both targets rather than over the survivor -- and
+            # the cause is countable too, without anyone parsing prose.
+            self.assertEqual(document["counts"]["target_count"], 2)
+            self.assertEqual(document["counts"]["error_count"], 0)
+            self.assertEqual(document["counts"]["warning_count"], 1)
+
+    def test_only_the_recorded_provider_abort_is_scored_as_a_miss(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="sdd-detect-metrics-") as temporary:
+            fixture = MetricsFixture(Path(temporary), methods=("openspec",))
+            fixture.fail_detect_upstream_abort(
+                "openspec", message="container killed: OCI runtime error"
+            )
+            fixture.write_gold(["tests/test_a.py"])
+
+            row = fixture.row(fixture.compute(), "openspec")
+
+            # An unknown failure stays an error rather than a zero. The
+            # allowlist is what keeps a broken bench from reading as a miss.
+            self.assertEqual(row["status"], "ERROR")
+            self.assertEqual(row["error_code"], "DETECT_TARGET_UNAVAILABLE")
+            self.assertNotIn(detect_metrics.UPSTREAM_ABORT_WARNING, row["warnings"])
+            self.assertIsNone(row["metrics"])
+
+    def test_a_target_that_has_not_concluded_is_never_scored_as_a_miss(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="sdd-detect-metrics-") as temporary:
+            fixture = MetricsFixture(Path(temporary), methods=("openspec",))
+            fixture.fail_detect_upstream_abort("openspec", state="DETECT_RUNNING")
+            fixture.write_gold(["tests/test_a.py"])
+
+            row = fixture.row(fixture.compute(), "openspec")
+
+            # A run still in flight may yet seal; scoring it now would bank a
+            # miss against a target that has not finished.
+            self.assertEqual(row["status"], "ERROR")
+            self.assertIsNone(row["metrics"])
 
     def test_a_missing_detection_manifest_is_reported_not_raised(self) -> None:
         with tempfile.TemporaryDirectory(prefix="sdd-detect-metrics-") as temporary:
@@ -726,6 +812,23 @@ class DetectMetricsRollupTests(unittest.TestCase):
             fixture.bench, [fixture.BATCH_ID, "fixture-detect-v2"], "fixture-union-v1", **kwargs
         )
 
+    def _two_batches_one_aborted(self, temporary: str) -> tuple[MetricsFixture, MetricsFixture]:
+        """The sibling's only run was cut off by the provider: a scored zero, not a rate.
+
+        It carries gold and it never sealed, so the row is ``OK`` with a ``0/0``
+        cell -- the shape a reader cannot tell apart from a method that looked
+        and reported nothing.
+        """
+        fixture = MetricsFixture(Path(temporary))
+        other = fixture.sibling(task_id="owner__repo__pr43", batch_id="fixture-detect-v2")
+        fixture.seal_detect()
+        fixture.write_gold(["tests/test_a.py"])
+        other.fail_detect_upstream_abort("openspec")
+        other.write_gold(["tests/test_a.py"])
+        fixture.check()
+        other.check()
+        return fixture, other
+
     def test_the_union_pools_the_rows_instead_of_averaging_the_sources(self) -> None:
         with tempfile.TemporaryDirectory(prefix="sdd-detect-metrics-") as temporary:
             fixture, _ = self._two_batches(temporary)
@@ -813,6 +916,34 @@ class DetectMetricsRollupTests(unittest.TestCase):
             # The Markdown is a report, not a leak: it counts files and never
             # names one, which is the same rule the viewer cards follow.
             self.assertNotIn("test_a.py", markdown)
+
+    def test_the_caveats_name_the_provider_aborted_rows_and_why_their_zero_counts(self) -> None:
+        """An aborted ``0/0`` must read as a missing answer, not as a method that found nothing.
+
+        Both cells print ``0/0``, and one of them moves the method's hit rate.
+        Without this line the table says the two runs are the same observation,
+        and the only way to learn otherwise is to go back to the ledger.
+        """
+        with tempfile.TemporaryDirectory(prefix="sdd-detect-metrics-") as temporary:
+            fixture, other = self._two_batches_one_aborted(temporary)
+
+            markdown = self._rollup(fixture)["markdown"]
+
+            caveats = markdown.split("## Caveats")[1]
+            self.assertIn(detect_metrics.UPSTREAM_ABORT_WARNING, caveats)
+            self.assertIn(other.TASK_ID, caveats)
+            self.assertNotIn(fixture.TASK_ID, caveats)
+            self.assertIn(detect_metrics.UPSTREAM_ABORT_SIGNATURES[0], caveats)
+            self.assertIn("scored as the misses", caveats)
+
+    def test_the_single_file_caveat_does_not_count_a_provider_abort(self) -> None:
+        """The two caveats partition the zeros: an abort did not report "at most one file"."""
+        with tempfile.TemporaryDirectory(prefix="sdd-detect-metrics-") as temporary:
+            fixture, _ = self._two_batches_one_aborted(temporary)
+
+            markdown = self._rollup(fixture)["markdown"]
+
+            self.assertIn("1 of 2 targets reported at most one file", markdown)
 
     def test_dry_run_computes_without_writing(self) -> None:
         with tempfile.TemporaryDirectory(prefix="sdd-detect-metrics-") as temporary:

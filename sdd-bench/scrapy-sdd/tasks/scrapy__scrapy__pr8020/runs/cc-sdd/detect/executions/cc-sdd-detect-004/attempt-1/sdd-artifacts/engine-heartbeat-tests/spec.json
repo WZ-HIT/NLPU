@@ -1,0 +1,22 @@
+{
+  "feature_name": "engine-heartbeat-tests",
+  "created_at": "2026-09-20",
+  "updated_at": "2026-09-20",
+  "language": "en",
+  "phase": "detected",
+  "approvals": {
+    "requirements": {
+      "generated": true,
+      "approved": false
+    },
+    "design": {
+      "generated": true,
+      "approved": false
+    },
+    "tasks": {
+      "generated": true,
+      "approved": false
+    }
+  },
+  "ready_for_implementation": false
+}

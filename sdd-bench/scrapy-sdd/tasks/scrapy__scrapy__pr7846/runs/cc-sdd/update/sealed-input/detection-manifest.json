@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr7846",
+  "method": "cc-sdd",
+  "base_sha": "488a762d7173922190ea027e0fb6f6d9d3b59880",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "cc-sdd-detect-004",
+    "session_sha256": "9b02d29868969232b8e36a5351d80e95797d4bce1e3da3593fd4379e14c2df28"
+  },
+  "task_input_sha256": "2eb6bc1a847099eb89294022c109e34535b0c42205f3180bc83230289de742c8",
+  "candidates": [
+    {
+      "path": "tests/utils/bases/download_handlers_http.py",
+      "symbols": [
+        "TestSimpleHttpsBase",
+        "TestSimpleHttpsBase.test_download",
+        "TestHttpsWrongHostnameBase",
+        "TestHttpsInvalidDNSIdBase",
+        "TestHttpsInvalidDNSPatternBase",
+        "TestHttpBase.test_download_dns_error",
+        "TestHttpsBase.test_verify_certs"
+      ],
+      "reason": "Shared download-handler contract for TLS hostname handling and DNS failures; Twisted builds host bytes for these scenarios through the IDNA helpers the pull request replaces, so new IDNA-2003-only cases belong here."
+    },
+    {
+      "path": "tests/test_downloader_handler_twisted_http11.py",
+      "symbols": [
+        "HTTP11DownloadHandlerMixin",
+        "TestSimpleHttps",
+        "TestHttpsWrongHostname",
+        "TestHttpsInvalidDNSId",
+        "TestHttpsInvalidDNSPattern",
+        "TestHttpProxy"
+      ],
+      "reason": "Drives the Twisted HTTP/1.1 download handler, which resolves hostnames through HostnameEndpoint and ClientTLSOptions, both of which call the patched IDNA conversion helpers."
+    },
+    {
+      "path": "tests/test_downloader_handler_twisted_http2.py",
+      "symbols": [
+        "H2DownloadHandlerMixin",
+        "TestSimpleHttp2",
+        "TestHttp2WrongHostname",
+        "TestHttp2InvalidDNSId",
+        "TestHttp2InvalidDNSPattern",
+        "TestHttp2.test_download_dns_error"
+      ],
+      "reason": "The HTTP/2 handler reuses the same Twisted endpoint, resolver, and TLS hostname verification path, so it exercises the same patched IDNA behavior as HTTP/1.1."
+    },
+    {
+      "path": "tests/test_core_downloader.py",
+      "symbols": [
+        "TestContextFactoryBase.get_page",
+        "TestContextFactory",
+        "TestContextFactory.test_no_context_sharing",
+        "TestContextFactory.test_no_context_sharing_with_conn"
+      ],
+      "reason": "Covers the Scrapy TLS context factory, including creatorForNetloc() and the _hostnameBytes value derived from Twisted's IDNA helpers, where IDNA-2003-only host bytes are produced and verified."
+    },
+    {
+      "path": "tests/test_resolver.py",
+      "symbols": [
+        "CachingThreadedResolver",
+        "test_caching_threaded_resolver_getHostByName_cache_hit",
+        "CachingHostnameResolver",
+        "test_caching_hostname_resolver_no_addresses_not_cached",
+        "test_caching_hostname_resolver_cache_hit_without_port"
+      ],
+      "reason": "Resolver tests go through Twisted resolveHostName/getHostByName, the lookup layer that receives the host bytes produced by the patched IDNA helpers."
+    },
+    {
+      "path": "tests/test_downloader_handlers.py",
+      "symbols": [
+        "TestLoad",
+        "TestWrapTwistedExceptions",
+        "TestWrapTwistedExceptions.test_mapping"
+      ],
+      "reason": "Covers download-handler loading and the mapping of Twisted DNS/connection exceptions to Scrapy errors, the observable failure mode when an IDNA host name is rejected by Twisted."
+    },
+    {
+      "path": "tests/test_http_request.py",
+      "symbols": [
+        "TestRequest",
+        "TestXmlRpcRequest"
+      ],
+      "reason": "Request construction normalizes and stores URLs, so it is the place to assert that non-ASCII host names remain intact or are Punycode-encoded before they reach Twisted."
+    },
+    {
+      "path": "tests/test_utils_url.py",
+      "symbols": [
+        "test_url_is_from_any_domain",
+        "test_url_is_from_spider",
+        "test_url_is_from_spider_with_allowed_domains",
+        "test_add_http_if_no_scheme"
+      ],
+      "reason": "URL host parsing and domain matching helpers are the Scrapy-side boundary for domain names, so regressions around IDNA-normalized hosts surface here."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 2,
+    "manifest_sha256": "21403503e4e74c185edf54456a3330f19619f7c3259922cd49061edd8eabd7b1"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "498694f28b44b5132cc7798fd9c587511b6be62fbc346148f8c72d7a29bc8288"
+  }
+}

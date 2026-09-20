@@ -1,0 +1,34 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_command_check.py",
+      "symbols": [
+        "TestCheckCommand",
+        "_write_contract",
+        "_test_contract",
+        "test_check_bootstrap_error_exit_code"
+      ],
+      "reason": "The check command is one of the three changed entry points and this module contains its subprocess-level exit-code tests."
+    },
+    {
+      "path": "tests/test_command_parse.py",
+      "symbols": [
+        "TestParseCommand",
+        "create_files",
+        "test_unknown_spider",
+        "test_parse_bootstrap_error_exit_code"
+      ],
+      "reason": "The parse command is one of the three changed entry points and this module owns its command invocation and exit-code assertions."
+    },
+    {
+      "path": "tests/test_command_fetch.py",
+      "symbols": [
+        "TestFetchCommand",
+        "TestFetchCommandWithSpider",
+        "test_bad_arguments",
+        "test_fetch_bootstrap_error_exit_code"
+      ],
+      "reason": "The fetch command is one of the three changed entry points and this module contains its subprocess return-code and spider-loading tests."
+    }
+  ]
+}

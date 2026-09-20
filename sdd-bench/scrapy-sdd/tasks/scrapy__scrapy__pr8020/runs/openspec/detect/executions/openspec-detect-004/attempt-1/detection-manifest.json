@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr8020",
+  "method": "openspec",
+  "base_sha": "ed98aafd0f6301647916c86811acacd0a1b59dbd",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "openspec-detect-004",
+    "session_sha256": "a571cb79b0c506580cdabc01c6832037e03e9f548b8ea485666c04fcf60a2058"
+  },
+  "task_input_sha256": "85a0e1ee668dcbb099557f56aa19bbe54cf467c57a001334f924df8b516db47a",
+  "candidates": [
+    {
+      "path": "tests/test_engine_loop.py",
+      "symbols": [
+        "TestMain::test_sleep",
+        "TestRequestSendOrder::test_lazy",
+        "MemoryScheduler"
+      ],
+      "reason": "Primary tests that wait on the engine slot heartbeat: TestMain::test_sleep relies on repeated heartbeat calls while the start() generator is paused (four 2-second sleeps against the 5-second production interval), and TestRequestSendOrder::test_lazy waits for signals.scheduler_empty emitted from the heartbeat-scheduled retry. These are the tests expected to become fast once the heartbeat is shortened/stubbed for tests."
+    },
+    {
+      "path": "tests/utils/__init__.py",
+      "symbols": [
+        "OneShotLoop",
+        "TwoShotLoop",
+        "get_script_run_env"
+      ],
+      "reason": "Shared test-helper module: OneShotLoop/TwoShotLoop stub the looping calls that back the engine heartbeat, and get_script_run_env builds the environment used for subprocess tests that coverage instruments on PyPy. Any heartbeat test helper or subprocess-env tweak from this change is expected to land here."
+    },
+    {
+      "path": "tests/test_extension_memusage.py",
+      "symbols": [
+        "test_memusage_limit_closes_spider_with_reason_and_error_log",
+        "test_memusage_warning_logs_but_allows_normal_finish",
+        "TwoShotLoop"
+      ],
+      "reason": "Already monkeypatches scrapy.core.engine.create_looping_call with the looping-call stubs to avoid a background heartbeat, so it shares the mechanism this change reuses or refactors for the engine heartbeat."
+    },
+    {
+      "path": "tests/test_crawler_subprocess.py",
+      "symbols": [
+        "SCRIPT_TIMEOUT",
+        "PopenSpawn",
+        "CrawlerProcessSubprocess",
+        "AsyncCrawlerProcessSubprocess"
+      ],
+      "reason": "Spawns the crawler in subprocesses with a timeout explicitly sized because starting scripts is slow on PyPy with coverage measurement on; verifies the effect of disabling subprocess coverage in the PyPy environments."
+    },
+    {
+      "path": "tests/test_command_shell.py",
+      "symbols": [
+        "TestInteractiveShell",
+        "TestInteractiveShell::test_fetch",
+        "TIMEOUT"
+      ],
+      "reason": "Interactive-shell tests spawn subprocesses and document that interpreter start-up on PyPy with coverage enabled takes well over 10 seconds, so they are a direct measure of the PyPy job slowdown this change removes."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 8,
+    "manifest_sha256": "221cf8022bfdce9fdd31557da3f2ee92fc3331c6815583283d17798fa0d5d880"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "0f3da8ba766ce22e49a58cfee389d60b5352e2c1c48ee76510aa1569ff382c0e"
+  }
+}

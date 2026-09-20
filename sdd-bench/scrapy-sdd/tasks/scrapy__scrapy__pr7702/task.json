@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr7702",
+  "repository": {
+    "owner": "scrapy",
+    "name": "scrapy"
+  },
+  "pr_id": 7702,
+  "baseline": {
+    "base_sha": "c7eacdbb30a4563bbbe04ed02781768f4e19eabb"
+  },
+  "title": "CI: warnings → errors",
+  "body": "Fixes #7262.\r\n\r\nDoing it only for \"latest\" envs seemed rather complicated, so I am exploring the possibility of simply doing it globally.",
+  "adapter": {
+    "id": "scrapy",
+    "version": 1,
+    "path": "sdd-bench/scrapy-sdd/adapters/scrapy.json",
+    "sha256": "059dcc09eaa62f892f54118e65d4deccce3ab29cc5d9a4a36f4d999ff1aa27de"
+  }
+}

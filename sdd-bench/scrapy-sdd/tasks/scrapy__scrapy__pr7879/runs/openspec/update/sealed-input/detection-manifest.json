@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr7879",
+  "method": "openspec",
+  "base_sha": "d772acdf19251e9a03be285353b50bd1314e3d5d",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "openspec-detect-004",
+    "session_sha256": "7ec2e15544a76f987c5c61d0bfb7884cc643bc022bbf5f432707fb7d7f2eb985"
+  },
+  "task_input_sha256": "07cdcc47e1db1e915380ce961fc827fdd32567e2f543101a06a9f4a3f67c1e3c",
+  "candidates": [
+    {
+      "path": "tests/test_utils_response.py",
+      "symbols": [
+        "test_open_in_browser",
+        "test_inject_base_url",
+        "test_open_in_browser_does_not_inject_base_when_present",
+        "test_open_in_browser_injects_base_when_only_in_comment",
+        "test_open_in_browser_injects_base_at_real_head_not_commented_head",
+        "test_open_in_browser_preserves_html_comments",
+        "test_open_in_browser_redos_head",
+        "test_open_in_browser_redos_comment",
+        "test_remove_html_comments",
+        "test_open_in_browser_text_response_uses_txt_extension",
+        "test_open_in_browser_raises_for_unsupported_response_type"
+      ],
+      "reason": "Only test module that imports and exercises scrapy.utils.response.open_in_browser (and its _remove_html_comments helper); the PR fixes open_in_browser not adding a <base> tag when the HTML response has no <head> element, so its tests live here as new/updated cases next to test_inject_base_url and test_open_in_browser asserting exactly one base tag is written inside a synthesized <head>."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 7,
+    "manifest_sha256": "a207a1102e4e649bd892d48d9c4f7d840e02b0a493adce5dc553ef6b93e2109b"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "eb9b36851ac910f33ad91960980a910e31a105d316c84ca300a7ae62c451b652"
+  }
+}

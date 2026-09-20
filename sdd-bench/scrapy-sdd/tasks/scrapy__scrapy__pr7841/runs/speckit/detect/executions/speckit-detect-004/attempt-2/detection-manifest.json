@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr7841",
+  "method": "speckit",
+  "base_sha": "95c16aa9af7c51f26ba3ea8512b4ba782f5d216f",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "speckit-detect-004",
+    "session_sha256": "576120ed3df73998c96e4a4105ff4bcb20fe79d084bb4b48f20f5f56e92220e1"
+  },
+  "task_input_sha256": "1d165465e1a86580716088de0d364eb2b9eb2851a2c5079e1ce2f219558f3abb",
+  "candidates": [
+    {
+      "path": "tests/test_utils_python.py",
+      "symbols": [
+        "get_func_args_dict",
+        "get_func_args"
+      ],
+      "reason": "Existing unit tests for scrapy.utils.python own callable introspection (test_get_func_args) and are where the partial() fix is exercised; the current partial cases bind None, so a partial bound to a string equal to a parameter name is still uncovered."
+    },
+    {
+      "path": "tests/test_utils_ssl.py",
+      "symbols": [
+        "ffi_buf_to_string",
+        "_ffi_buf_to_string",
+        "x509name_to_string",
+        "_x509name_to_string",
+        "_get_temp_key_info",
+        "_make_ssl_context",
+        "_log_ssl_conn_debug_info"
+      ],
+      "reason": "scrapy.utils.ssl has no dedicated test module at the base commit; the repository convention test_utils_<module>.py is where the ffi_buf_to_string() self-recursion fix and the pyOpenSSL>=24.3.0 branch simplifications (previously 'no cover') belong."
+    },
+    {
+      "path": "tests/test_utils_compression.py",
+      "symbols": [
+        "_inflate",
+        "_check_max_size",
+        "_DecompressionMaxSizeExceeded",
+        "_unbrotli",
+        "_unzstd"
+      ],
+      "reason": "scrapy.utils._compression has no dedicated test module at the base commit; the _inflate() infinite-loop fix for deflate data followed by extra bytes is a direct unit-level regression test for that module."
+    },
+    {
+      "path": "tests/test_downloadermiddleware_httpcompression.py",
+      "symbols": [
+        "_inflate",
+        "_DecompressionMaxSizeExceeded",
+        "HttpCompressionMiddleware"
+      ],
+      "reason": "Existing integration tests for the HTTP compression middleware already import _DecompressionMaxSizeExceeded from scrapy.utils._compression and cover rawdeflate decoding plus compression-bomb max_size handling affected by the _inflate() change."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 5,
+    "manifest_sha256": "d2425271368a6560e772b8674d6d51a21a9e68e5631b0c672b28acf0d36f3b17"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "1ef41f9272b5a825d1b104ed38467febb42a2559d2b9481d619edb152571c865"
+  }
+}

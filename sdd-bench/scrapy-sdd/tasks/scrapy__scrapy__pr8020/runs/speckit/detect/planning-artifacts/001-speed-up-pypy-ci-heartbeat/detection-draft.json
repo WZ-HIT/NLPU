@@ -1,0 +1,49 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_engine_loop.py",
+      "symbols": [
+        "TestMain.test_sleep",
+        "TestRequestSendOrder._test_request_order",
+        "TestRequestSendOrder.test_lazy"
+      ],
+      "reason": "These tests exercise scheduler progress and request ordering while the engine heartbeat is running, so they are the primary candidates for a shortened test-scoped heartbeat interval."
+    },
+    {
+      "path": "tests/test_engine.py",
+      "symbols": [
+        "TestEngine.test_start_already_running_exception",
+        "TestEngine.test_start_already_running_exception_asyncio",
+        "TestEngine.test_start_request_processing_exception",
+        "TestEngine.test_short_timeout"
+      ],
+      "reason": "These tests drive engine start, stop, and request processing, including lifecycle paths that depend on heartbeat scheduling and may be affected by timing changes."
+    },
+    {
+      "path": "tests/test_engine_close_spider.py",
+      "symbols": [
+        "test_exception_slot"
+      ],
+      "reason": "This test directly manipulates and validates the engine heartbeat while closing a spider slot, making it relevant to heartbeat timing and teardown."
+    },
+    {
+      "path": "tests/test_command_shell.py",
+      "symbols": [
+        "TestInteractiveShell",
+        "TestShellCommand",
+        "TestShellCommandWithSpider",
+        "_isolate_config"
+      ],
+      "reason": "These subprocess tests contain PyPy coverage-sensitive startup behavior and timeouts, so they are candidates for follow-up validation after subprocess coverage is disabled."
+    },
+    {
+      "path": "tests/test_crawler_subprocess.py",
+      "symbols": [
+        "ScriptRunnerMixin.run_script",
+        "_test_shutdown_graceful",
+        "_test_shutdown_forced"
+      ],
+      "reason": "These tests launch child interpreters and explicitly account for slow startup under PyPy with coverage, making them candidates for subprocess coverage and timeout verification."
+    }
+  ]
+}

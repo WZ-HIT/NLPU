@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "run_id": "preflight-001",
+  "task_id": "scrapy__scrapy__pr7886",
+  "method": "cc-sdd",
+  "stage": "update",
+  "checked_at_utc": "2026-09-20T09:02:13Z",
+  "status": "BLOCKED",
+  "formal_run_permitted": false,
+  "blockers": [
+    "formal_detection_seal_missing"
+  ],
+  "compose": {
+    "project_name": "scrapy-scrapy-pr7886-cc-sdd-update-preflight-001",
+    "profile": "cc-sdd-update",
+    "source_sha256": "9723c95513cc1a7024c5b38ddf5c113656fed20c31e8036ad120a14e9d6c79d0",
+    "preflight_override_sha256": "14a57b1b679c17b29b12d3a10b63c8536ea4d96740e42380490da2a1ac1a493f",
+    "rendered_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7886/compose/rendered/cc-sdd-update-preflight-001.yaml",
+    "rendered_sha256": "56edb0e6be15bd804581b847c39a3e7efc61530ca051eb00e16ccda01c098909",
+    "deployment_lock_sha256": "78ee7fa6374ccf8baa69f5b2a05b92519ffbcabb3c8e26892163b166b47b43a2"
+  },
+  "images": {
+    "agent_image_id": "sha256:7210ac2869ac1b88e2819d6a69e14504d6a210c310df9cad0c34f8944e878839",
+    "proxy_image_id": "sha256:6343ce34a132a5dceaa24767d739df2bd519f8f7c1079ae39e4821334e8eb42e"
+  },
+  "security": {
+    "read_only_rootfs": true,
+    "cap_drop_all": true,
+    "no_new_privileges": true,
+    "apparmor_profile": "scrapy_sdd_codex_parent_11079cb1c85b",
+    "seccomp_sha256": "1a25ca5c611f8acd56d436b6bf61cce4dd4f9115291e22929152b50a9915ac25",
+    "bubblewrap_pass": true
+  },
+  "resources": {
+    "cpu_limit": 4.0,
+    "memory_bytes": 8589934592,
+    "pids_limit": 512
+  },
+  "permissions": {
+    "output_write": "ALLOWED",
+    "planning_write": "DENIED",
+    "scrapy_write": "DENIED",
+    "sealed_input_write": "DENIED",
+    "tests_write": "ALLOWED"
+  },
+  "network": {
+    "private_internal_network": true,
+    "direct_egress_denied": true,
+    "dedicated_proxy_reachable": true,
+    "dedicated_proxy": "cc-sdd-update-proxy"
+  },
+  "authentication": {
+    "secret_present": true,
+    "secret_nonempty": true,
+    "runtime_config_present": true,
+    "credential_content_recorded": false
+  },
+  "mounts": {
+    "workspace_unique": true,
+    "home_tmpfs": true,
+    "cache_tmpfs": true,
+    "docker_socket_absent": true,
+    "host_gold_absent": true,
+    "raw_dataset_absent": true,
+    "other_stage_workspace_absent": true,
+    "own_sealed_bundle_only": true
+  },
+  "formal_prompt_sent": false,
+  "model_request_sent": false,
+  "project_tests_run": false,
+  "evidence_sha256": "07063ed694b5e23fd416de7d633c762f0ef6275a27675b5f142f4ec3e126d07b"
+}

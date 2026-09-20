@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr8002",
+  "method": "speckit",
+  "base_sha": "be3e24e607ff0df427d6329163c706c406d06f61",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "speckit-detect-004",
+    "session_sha256": "7a5c105dbcae04e7195d01fe1ac3eeaf154673025c0e547203aae38c42d6c98a"
+  },
+  "task_input_sha256": "f921b729f4d7d63f7798001f2268a5e398e2d3570d06e08c20d1c3ec06694b00",
+  "candidates": [
+    {
+      "path": "tests/test_linkextractors.py",
+      "symbols": [
+        "Base.TestLinkExtractorBase",
+        "TestLxmlLinkExtractor",
+        "test_canonicalize_once_per_link",
+        "test_link_restrict_text",
+        "test_skip_bad_links",
+        "test_link_allowed_is_false_with_empty_url",
+        "test_link_allowed_is_false_with_bad_url_prefix",
+        "test_link_allowed_is_false_with_missing_url_prefix"
+      ],
+      "reason": "Primary test module for LxmlLinkExtractor. It contains the hidden Base.TestLinkExtractorBase class with 32 shared behavior tests and TestLxmlLinkExtractor with 6 extractor-specific tests, which are the test classes consolidated by the pull request."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 8,
+    "manifest_sha256": "e4e52eb6a7ffe2f67b7513e70f4d54e9dc0a6a2b76e6384bd9c573d2d0a4a740"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "05cf298556e8732b01e31044bb1687dbcfa399b66e23a235fc0c5ec2f7870b25"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr7995",
+  "method": "openspec",
+  "base_sha": "ca48915dd4f6c388be741a97213df03e7a81ea89",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "openspec-detect-004",
+    "session_sha256": "b2a2114dd377fed4228c6e6ec5c8af877785e36b05ef55fd6975b2b5c6d96069"
+  },
+  "task_input_sha256": "244d91e2eb4199fbc201c4bf06804a081b9e7fc353a40508d40d0448a7739225",
+  "candidates": [
+    {
+      "path": "tests/test_utils_response.py",
+      "symbols": [
+        "test_open_in_browser_redos_comment",
+        "test_open_in_browser_redos_head"
+      ],
+      "reason": "These two regression tests enforce a 0.02-second CPU-time budget while exercising the open_in_browser ReDoS payloads, so they are the tests affected by slow interpreters such as PyPy."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 6,
+    "manifest_sha256": "2af5111314cf778ba35bab2f273925469d02d93e321bdd4d639748a00f2c1156"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "0cc3232ecd640a2dc5211ec706c08b3794313eb18b58de67ecaedc4006e85f2e"
+  }
+}

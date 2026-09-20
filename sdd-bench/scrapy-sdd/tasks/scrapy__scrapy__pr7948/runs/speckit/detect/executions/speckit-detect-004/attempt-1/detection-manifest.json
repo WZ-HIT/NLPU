@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr7948",
+  "method": "speckit",
+  "base_sha": "e810f5fca166e8cd03d005d07b6a6a2373407d6a",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "speckit-detect-004",
+    "session_sha256": "0dfb55ba61c3bfb7b48f03c50b87d735b2178b780b51da6c0f7b6a911f96637f"
+  },
+  "task_input_sha256": "661a894fe2e4b89d4ab19d14f000c3908cd6e9b316b31660799f60d2f12a3c16",
+  "candidates": [
+    {
+      "path": "tests/test_utils_ssl.py",
+      "symbols": [
+        "test_get_openssl_version",
+        "test_log_ssl_conn_debug_info_no_certificate"
+      ],
+      "reason": "Directly covers the scrapy.utils.ssl helpers that should own shared SSLKEYLOGFILE destination and key-material handling, including the stdlib SSLContext creation path."
+    },
+    {
+      "path": "tests/test_core_downloader.py",
+      "symbols": [
+        "TestContextFactoryBase",
+        "TestContextFactory",
+        "TestContextFactoryCiphers",
+        "TestContextFactoryTLSMethod"
+      ],
+      "reason": "Exercises the Twisted/pyOpenSSL context factory used by the HTTP/1.1 and HTTP/2 handlers, where key logging must be installed without changing TLS behavior."
+    },
+    {
+      "path": "tests/test_downloader_handler_httpx.py",
+      "symbols": [
+        "TestHttps",
+        "TestHttp2"
+      ],
+      "reason": "Provides end-to-end HTTPS coverage for the stdlib SSLContext path owned by the HTTPX download handler."
+    },
+    {
+      "path": "tests/test_downloader_handler_twisted_http11.py",
+      "symbols": [
+        "TestHttps",
+        "TestHttpsWithCrawler"
+      ],
+      "reason": "Provides end-to-end HTTPS coverage for the Twisted HTTP/1.1 handler, which consumes the shared context factory."
+    },
+    {
+      "path": "tests/test_downloader_handler_twisted_http2.py",
+      "symbols": [
+        "TestHttp2",
+        "TestHttp2WithCrawler"
+      ],
+      "reason": "Verifies the HTTP/2 handler also inherits SSLKEYLOGFILE behavior through the shared Twisted context factory."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 8,
+    "manifest_sha256": "0cc824ece017cebbda4a7cb5435a685e91ad3977906ea51191d10a38fed95c48"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "5c04191248cb1acc2434de2903a4fd536360b48e7413fa9a4200b012333490c1"
+  }
+}

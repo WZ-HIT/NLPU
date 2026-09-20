@@ -1,0 +1,354 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr7702",
+  "method": "cc-sdd",
+  "base_sha": "c7eacdbb30a4563bbbe04ed02781768f4e19eabb",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "cc-sdd-detect-004",
+    "session_sha256": "ce1b53da9077089c2dc76912e7ea03af08c04382bef6f3394aee5d43c1007674"
+  },
+  "task_input_sha256": "212ef85732faf985289db4d8b98822103fce80c2f3512e973ca7d57bfd3e010d",
+  "candidates": [
+    {
+      "path": "tests/test_settings/__init__.py",
+      "symbols": [
+        "TestBaseSettings",
+        "test_deprecated_dns_resolver_setting",
+        "test_deprecated_concurrent_requests_per_ip_setting"
+      ],
+      "reason": "BaseSettings.__getitem__/__setitem__ emit ScrapyDeprecationWarning for the DNS_RESOLVER and CONCURRENT_REQUESTS_PER_IP settings; with filterwarnings 'error' every access in this module becomes an error unless the deprecation contract is asserted explicitly."
+    },
+    {
+      "path": "tests/test_scrapy__getattr__.py",
+      "symbols": [
+        "test_deprecated_concurrent_requests_per_ip_attribute"
+      ],
+      "reason": "Exercises scrapy.settings.default_settings.__getattr__, which warns ScrapyDeprecationWarning for CONCURRENT_REQUESTS_PER_IP; the test currently relies on the warning being non-fatal."
+    },
+    {
+      "path": "tests/test_spiderloader/__init__.py",
+      "symbols": [
+        "TestSpiderLoader",
+        "TestDuplicateSpiderNameLoader"
+      ],
+      "reason": "SpiderLoader emits UserWarning for duplicate spider names and RuntimeWarning when a spider module fails to import with warn_only=True; both categories turn into errors under a global 'error' filter."
+    },
+    {
+      "path": "tests/test_scheduler.py",
+      "symbols": [
+        "TestIncompatibility"
+      ],
+      "reason": "Covers the CONCURRENT_REQUESTS_PER_IP deprecation path (warnings.catch_warnings + pytest.warns) and the ValueError raised alongside the ScrapyDeprecationWarning; warning-to-error changes alter which exception surfaces."
+    },
+    {
+      "path": "tests/test_commands.py",
+      "symbols": [
+        "TestHelpDeprecation"
+      ],
+      "reason": "ScrapyCommand.help()/set_crawler() emit ScrapyDeprecationWarning on override; the class also uses recwarn to assert *absence* of warnings, so a global error filter changes its failure mode."
+    },
+    {
+      "path": "tests/test_middleware.py",
+      "symbols": [
+        "MyMiddlewareManager",
+        "test_no_crawler"
+      ],
+      "reason": "MiddlewareManager.__init__() without a crawler argument emits ScrapyDeprecationWarning; with warnings as errors, the un-wrapped construction path becomes fatal."
+    },
+    {
+      "path": "tests/test_spidermiddleware.py",
+      "symbols": [
+        "TestDeprecatedSpiderArg",
+        "test_deprecated_mwman_spider_arg_no_crawler"
+      ],
+      "reason": "Instantiates SpiderMiddlewareManager without a crawler and calls process_start(spider), both of which emit ScrapyDeprecationWarning; the module is a primary consumer of the deprecation warnings that the PR converts to errors."
+    },
+    {
+      "path": "tests/test_downloadermiddleware.py",
+      "symbols": [
+        "TestMiddlewareUsingDeferreds",
+        "TestDownloadDeprecated",
+        "TestDeprecatedSpiderArg"
+      ],
+      "reason": "Asserts ScrapyDeprecationWarning for deprecated download middleware and spider-argument behaviours (pytest.warns) while other manager code paths emit the same warnings implicitly."
+    },
+    {
+      "path": "tests/test_downloadermiddleware_httpauth.py",
+      "symbols": [
+        "TestHttpAuthMiddlewareLegacySpiderAttr"
+      ],
+      "reason": "HttpAuthMiddleware legacy spider attributes trigger ScrapyDeprecationWarning via crawler._apply_deprecated_spider_attr; those warnings must stay scoped under an 'error' filter."
+    },
+    {
+      "path": "tests/test_downloader_handlers.py",
+      "symbols": [
+        "TestLoad"
+      ],
+      "reason": "DownloadHandlers warns ScrapyDeprecationWarning when a handler class lacks 'lazy' or a coroutine download_request/close; the handler-loading tests exercise exactly that registration path."
+    },
+    {
+      "path": "tests/test_downloaderslotssettings.py",
+      "symbols": [
+        "test_delay"
+      ],
+      "reason": "Uses pytest.warns for a downloader-slots deprecation warning and builds settings that now go through warning-emitting deprecated helpers."
+    },
+    {
+      "path": "tests/test_utils_project.py",
+      "symbols": [
+        "test_inside_project_unimportable_settings_module"
+      ],
+      "reason": "Project/settings helpers raise and warn (ScrapyDeprecationWarning) while importing user settings modules; the module already wraps calls in pytest.warns, which the warnings-as-errors change directly affects."
+    },
+    {
+      "path": "tests/test_utils_sitemap.py",
+      "symbols": [
+        "test_sitemap_str",
+        "test_sitemap_urls_from_robots_str_compat"
+      ],
+      "reason": "scrapy.utils.sitemap warns ScrapyDeprecationWarning for the deprecated text/str entry points; the compatibility tests call these warning-emitting paths."
+    },
+    {
+      "path": "tests/test_utils_ssl.py",
+      "symbols": [
+        "test_ffi_buf_to_string",
+        "test_x509name_to_string",
+        "test_get_temp_key_info"
+      ],
+      "reason": "scrapy.utils.ssl contains three warning-emitting helpers; the unit tests call them directly, so the warnings become test errors instead of log noise."
+    },
+    {
+      "path": "tests/test_extension_periodic_log.py",
+      "symbols": [
+        "test_multiplier_deprecated"
+      ],
+      "reason": "PeriodicLog emits ScrapyDeprecationWarning for the deprecated 'multiplier' setting; the dedicated test asserts the warning and is rewritten when warnings become errors."
+    },
+    {
+      "path": "tests/test_crawler.py",
+      "symbols": [
+        "TestCrawler",
+        "TestCrawlerLogging",
+        "test_log_scrapy_info"
+      ],
+      "reason": "Covers crawler-level deprecation warnings (DNS_RESOLVER, deprecated spider attributes, Crawler.stop) and logging paths that emit warnings during crawler setup."
+    },
+    {
+      "path": "tests/test_crawler_subprocess.py",
+      "symbols": [
+        "CrawlerProcessSubprocess",
+        "AsyncCrawlerProcessSubprocess"
+      ],
+      "reason": "Runs the scripts under tests/AsyncCrawlerProcess, including dns_resolver_deprecated.py, which deliberately emits the ScrapyDeprecationWarning in a child interpreter; warnings-as-errors/stderr handling in those subprocess runs must be adjusted."
+    },
+    {
+      "path": "tests/test_spider_crawl.py",
+      "symbols": [
+        "TestCrawlSpider"
+      ],
+      "reason": "CrawlSpider emits ScrapyDeprecationWarning (e.g. generator return values, deprecated rules/response handling) and the module mixes pytest.mark.filterwarnings with warnings.simplefilter('error') blocks that the PR has to re-tune."
+    },
+    {
+      "path": "tests/test_spider_sitemap.py",
+      "symbols": [
+        "TestSitemapSpider"
+      ],
+      "reason": "SitemapSpider tests carry per-test ScrapyDeprecationWarning ignores for deprecated spider attributes; these are the suppression sites a global error filter interacts with."
+    },
+    {
+      "path": "tests/test_utils_misc/__init__.py",
+      "symbols": [
+        "test_walk_modules",
+        "test_walk_modules_egg"
+      ],
+      "reason": "scrapy.utils.misc.walk_modules emits ScrapyDeprecationWarning; the test asserts the warning and also calls the deprecated function for its side effects."
+    },
+    {
+      "path": "tests/test_utils_misc/test_return_with_argument_inside_generator.py",
+      "symbols": [
+        "test_generators_return_something"
+      ],
+      "reason": "Exercises scrapy.utils.misc.warn_on_generator_with_return_value, which uses warnings.warn (ScrapyDeprecationWarning/UserWarning) and becomes fatal under an 'error' filter."
+    },
+    {
+      "path": "tests/test_feedexport_uri_params.py",
+      "symbols": [
+        "TestURIParams"
+      ],
+      "reason": "Wraps ScrapyDeprecationWarning with warnings.simplefilter('error') and pytest.warns for deprecated feed URI parameters; the module is sensitive to the global warning policy."
+    },
+    {
+      "path": "tests/test_http_request_json.py",
+      "symbols": [
+        "TestJsonRequest"
+      ],
+      "reason": "JsonRequest warns ScrapyDeprecationWarning for deprecated body/encoding arguments; the tests use warnings.filterwarnings to bound that warning."
+    },
+    {
+      "path": "tests/test_http_request_form.py",
+      "symbols": [
+        "TestFormRequest",
+        "_assert_query_equal"
+      ],
+      "reason": "FormRequest warns for deprecated formdata/body combinations and the shared request base filters ScrapyDeprecationWarning; a global error filter changes these tests' behaviour."
+    },
+    {
+      "path": "tests/test_utils_datatypes.py",
+      "symbols": [
+        "TestCaseInsensitiveDictBase",
+        "TestCaseInsensitiveDict",
+        "TestCaselessDict"
+      ],
+      "reason": "CaselessDict/attributes emit deprecation warnings (e.g. attribute-style access and update_classpath paths) and the file already annotates tests with ScrapyDeprecationWarning ignores."
+    },
+    {
+      "path": "tests/test_utils_signal.py",
+      "symbols": [
+        "TestSendCatchLog",
+        "TestSendCatchLogAsync"
+      ],
+      "reason": "SignalManager emits ScrapyDeprecationWarning for deprecated signal sending, and the tests suppress it with module/class-level filterwarnings markers."
+    },
+    {
+      "path": "tests/test_utils_log.py",
+      "symbols": [
+        "TestTopLevelFormatter",
+        "TestConfigureLogging"
+      ],
+      "reason": "Calls warning-emitting logging helpers (including a 'no args' ScrapyDeprecationWarning asserted with pytest.warns) and mixes warnings.catch_warnings with assertions on emitted warnings."
+    },
+    {
+      "path": "tests/test_utils_console.py",
+      "symbols": [
+        "TestIPythonShell"
+      ],
+      "reason": "Asserts a deprecation warning from the console code via pytest.mark.filterwarnings/warns; the warning policy change affects this class."
+    },
+    {
+      "path": "tests/test_utils_curl.py",
+      "symbols": [
+        "TestCurlToRequestKwargs"
+      ],
+      "reason": "scrapy.utils.curl supports deprecated keyword handling and the tests wrap the call in warnings.filterwarnings, making them sensitive to warnings-as-errors."
+    },
+    {
+      "path": "tests/test_core_downloader.py",
+      "symbols": [
+        "TestContextFactoryBase",
+        "TestContextFactory"
+      ],
+      "reason": "Covers deprecated downloader context factories (create_deprecated_class) with warnings.filterwarnings/pytest.warns around ScrapyClientContextFactory aliases."
+    },
+    {
+      "path": "tests/test_engine_download.py",
+      "symbols": [
+        "TestEngineDownloadAsync"
+      ],
+      "reason": "Module-level pytest.mark.filterwarnings for ScrapyDeprecationWarning around engine download paths that emit deprecation warnings."
+    },
+    {
+      "path": "tests/test_pipelines.py",
+      "symbols": [
+        "TestPipeline"
+      ],
+      "reason": "Parametrized cases carry pytest.mark.filterwarnings for ScrapyDeprecationWarning triggered by deprecated pipeline construction paths."
+    },
+    {
+      "path": "tests/test_pipeline_files.py",
+      "symbols": [
+        "TestFilesPipeline",
+        "test_file_exception_deprecated_import"
+      ],
+      "reason": "FilesPipeline/FileException deprecations (deprecated download_func argument, deprecated import path) emit ScrapyDeprecationWarning that the tests currently capture."
+    },
+    {
+      "path": "tests/test_pipeline_media.py",
+      "symbols": [
+        "TestMediaFailedFailure"
+      ],
+      "reason": "Asserts ScrapyDeprecationWarning from media pipeline failure handling; the warning becomes an error unless explicitly expected."
+    },
+    {
+      "path": "tests/test_extension_memusage.py",
+      "symbols": [
+        "test_memusage_limit_stops_crawler_without_spider"
+      ],
+      "reason": "MemoryUsage emits ScrapyDeprecationWarning for deprecated constructor/attribute usage and the module asserts on warning-related stats and logs."
+    },
+    {
+      "path": "tests/test_extension_statsmailer.py",
+      "symbols": [
+        "StatsMailer"
+      ],
+      "reason": "Imports the deprecated scrapy.mail and scrapy.extensions.statsmailer modules inside warnings.catch_warnings; under warnings-as-errors that import guard is exactly the code the PR must keep working."
+    },
+    {
+      "path": "tests/test_mail.py",
+      "symbols": [
+        "TestMailSender"
+      ],
+      "reason": "Module-level pytestmark filters the ScrapyDeprecationWarning raised by importing the deprecated scrapy.mail module; the import-time warning becomes an error otherwise."
+    },
+    {
+      "path": "tests/test_downloadermiddleware_httpcompression.py",
+      "symbols": [
+        "TestHttpCompression"
+      ],
+      "reason": "Contains the highest concentration of per-test ScrapyDeprecationWarning ignores for deprecated compression middleware configuration found anywhere in the suite."
+    },
+    {
+      "path": "tests/test_crawl.py",
+      "symbols": [
+        "TestCrawlSpider"
+      ],
+      "reason": "Uses pytest.mark.filterwarnings for deprecation warnings raised during actual crawl runs, including generator/heapq and spider-argument deprecations."
+    },
+    {
+      "path": "tests/test_http2_client_protocol.py",
+      "symbols": [
+        "TestHttps2ClientProtocol"
+      ],
+      "reason": "Filters ScrapyDeprecationWarning around HTTP/2 download handler usage; warnings raised outside the marked tests would abort under an error filter."
+    },
+    {
+      "path": "tests/test_spidermiddleware_referer.py",
+      "symbols": [
+        "TestRequestMetaSettingFallback",
+        "TestPolicyMethodResponseParamRename"
+      ],
+      "reason": "RefererMiddleware emits ScrapyDeprecationWarning for renamed hooks and RuntimeWarning for invalid policies; the tests both assert those warnings and call the same code paths elsewhere."
+    },
+    {
+      "path": "tests/utils/bases/download_handlers_http.py",
+      "symbols": [
+        "pytest.mark.filterwarnings"
+      ],
+      "reason": "Shared HTTP download-handler base used by several test modules; it carries filterwarnings marks for warning-emitting handler paths, so it is a shared suppression site touched by a global error policy."
+    },
+    {
+      "path": "tests/utils/bases/http_request.py",
+      "symbols": [
+        "pytest.mark.filterwarnings"
+      ],
+      "reason": "Shared request test base that wraps deprecated request keyword handling in warnings.catch_warnings; every HTTP request test module inherits its warning behaviour."
+    },
+    {
+      "path": "tests/utils/bases/spider.py",
+      "symbols": [
+        "pytest.warns"
+      ],
+      "reason": "Shared spider test base asserting deprecation warnings from spider configuration; changes to the global warning policy must be reflected here for all spider tests."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 4,
+    "manifest_sha256": "c909e76559584807819e65cfb3ccb1830a83d78ccd33a71a47b9a96d9e2d8e4a"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "d7db7f7f6b7d9c4c259623b06a2d006e04830cc33f6c30c2eb6b3176ac78ac55"
+  }
+}

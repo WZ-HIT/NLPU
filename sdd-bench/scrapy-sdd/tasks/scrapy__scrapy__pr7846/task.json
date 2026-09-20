@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr7846",
+  "repository": {
+    "owner": "scrapy",
+    "name": "scrapy"
+  },
+  "pr_id": 7846,
+  "baseline": {
+    "base_sha": "488a762d7173922190ea027e0fb6f6d9d3b59880"
+  },
+  "title": "Support IDNA-2003-only domains by monkey-patching Twisted IDNA helpers",
+  "body": "Resolves #4330, also fixes #3321\r\n\r\nI took a stab at it from the Scrapy side by monkey-patching the Twisted functions at import time. I'm opening this PR to gauge whether the trade-off is worth it. I'm happy to drop it if blocking on Twisted is preferred, but here's some food for thought either way 🧠",
+  "adapter": {
+    "id": "scrapy",
+    "version": 1,
+    "path": "sdd-bench/scrapy-sdd/adapters/scrapy.json",
+    "sha256": "059dcc09eaa62f892f54118e65d4deccce3ab29cc5d9a4a36f4d999ff1aa27de"
+  }
+}

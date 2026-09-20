@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr8008",
+  "method": "openspec",
+  "base_sha": "488a762d7173922190ea027e0fb6f6d9d3b59880",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "openspec-detect-004",
+    "session_sha256": "2404f0b30a73f2a81f88cdbd7d1f9a834e5544dc5bd9edba7ddafc3b46ac6e1d"
+  },
+  "task_input_sha256": "ca351cde10b288f57ad6ed7bdd52a638372bb486f0c663d1cf48449931784cd2",
+  "candidates": [
+    {
+      "path": "tests/test_spider_start.py",
+      "symbols": [
+        "test_slow_pipeline",
+        "_test_spider",
+        "SlowPipeline",
+        "TestSpider",
+        "test_start_urls",
+        "test_start",
+        "test_start_subclass",
+        "_test_start",
+        "test_asyncio_delayed",
+        "test_twisted_delayed",
+        "ITEM_A",
+        "ITEM_B"
+      ],
+      "reason": "This is the file the pull request edits and the only place the flaky assertion lives. `test_slow_pipeline` submits ITEM_A and ITEM_B through a pipeline that awaits scrapy.utils.asyncio.sleep(0.1) for every item, so completion order follows event-loop timer scheduling instead of submission order, and the helper `_test_spider` compares `actual_items == expected_items` strictly. The fix adds an `ordered` flag (default True) to `_test_spider` and calls it with `ordered=False` from `test_slow_pipeline`, so this file holds both the reproducing test and the unchanged single-item tests (`test_start_urls`, `test_start`, `test_start_subclass`, `test_asyncio_delayed`, `test_twisted_delayed`) that exercise the ordered default and guard against regressions from the signature change."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 6,
+    "manifest_sha256": "bea56fdda3380c7ad04912b3c1ff11fe0fcc371ef5d86e71a8a8d1c51a3e65c9"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "4a4c3cc685e14425b7c600224d425a8c161202627d5ab84d99dbdff1324c486d"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_utils_log.py",
+      "symbols": [
+        "TestLogformatterAdapter",
+        "TestLogformatterAdapter.test_empty_args",
+        "TestLogformatterAdapter.test_args"
+      ],
+      "reason": "This class directly exercises logformatter_adapter with empty, dictionary, and tuple args, so it is the primary place to verify that dictionary interpolation still works while emitting ScrapyDeprecationWarning and that tuple/empty behavior remains unchanged."
+    },
+    {
+      "path": "tests/test_logformatter.py",
+      "symbols": [
+        "TestLogFormatter",
+        "LogFormatterSubclass",
+        "TestLogformatterSubclass"
+      ],
+      "reason": "The built-in formatter tests exercise dict-valued args returned by LogFormatter methods, while LogFormatterSubclass mutates and returns dictionary args; these tests cover the compatibility surface and migration expectations."
+    }
+  ]
+}

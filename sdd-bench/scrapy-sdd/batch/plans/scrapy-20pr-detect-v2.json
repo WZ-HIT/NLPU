@@ -1,0 +1,1330 @@
+{
+  "schema_version": 1,
+  "plan_id": "scrapy-20pr-detect-v2",
+  "plan_type": "PROVISION_PLAN",
+  "created_at_utc": "2026-09-20T07:57:00Z",
+  "status": "AWAITING_USER_APPROVAL",
+  "executable": false,
+  "repository_scope": "scrapy/scrapy",
+  "inputs": {
+    "prompt": {
+      "path": "output/prompt/scrapy__scrapy.json",
+      "sha256": "76867cef42647720db0c052963ff9ae0f7db8de41f821cca1773cab5ecdd1c76",
+      "size_bytes": 7167228,
+      "record_count": 1245
+    },
+    "raw": {
+      "path": "output/raw_prs/scrapy__scrapy.jsonl",
+      "sha256": "4cf2d27621963dc79b413f84b4c04e3a5a4fbd1e540c682be6d3e9c15dd239e1",
+      "size_bytes": 15952003,
+      "record_count": 354
+    }
+  },
+  "input_set_sha256": "b0a058e7b6ddec1d3f916347d9de02c436a0a01a267e7c779b71ea84bd2412cb",
+  "inventory": {
+    "path": "sdd-bench/scrapy-sdd/batch/inventories/scrapy-pr-inventory.json",
+    "sha256": "24ce5f3f2443ae5ae8af0acaf199928cbcb4ba6080cbc643f640f7eb1de25aca",
+    "inventory_id": "scrapy-pr-inventory-b0a058e7b6ddec1d"
+  },
+  "selection": {
+    "source": "prompt",
+    "requested": {
+      "pr_ids": [
+        8020,
+        7886,
+        8008,
+        7846,
+        8009,
+        8002,
+        7948,
+        7702,
+        7879,
+        7920,
+        7968,
+        7841,
+        7995,
+        7993,
+        7985,
+        7986,
+        7971,
+        7808,
+        7918,
+        7966
+      ],
+      "pr_id_files": [],
+      "sample_ids": []
+    },
+    "resolution_events": [
+      {
+        "selector": "pr_id",
+        "value": 8020,
+        "resolved_repository": "scrapy/scrapy",
+        "resolved_pr_id": 8020
+      },
+      {
+        "selector": "pr_id",
+        "value": 7886,
+        "resolved_repository": "scrapy/scrapy",
+        "resolved_pr_id": 7886
+      },
+      {
+        "selector": "pr_id",
+        "value": 8008,
+        "resolved_repository": "scrapy/scrapy",
+        "resolved_pr_id": 8008
+      },
+      {
+        "selector": "pr_id",
+        "value": 7846,
+        "resolved_repository": "scrapy/scrapy",
+        "resolved_pr_id": 7846
+      },
+      {
+        "selector": "pr_id",
+        "value": 8009,
+        "resolved_repository": "scrapy/scrapy",
+        "resolved_pr_id": 8009
+      },
+      {
+        "selector": "pr_id",
+        "value": 8002,
+        "resolved_repository": "scrapy/scrapy",
+        "resolved_pr_id": 8002
+      },
+      {
+        "selector": "pr_id",
+        "value": 7948,
+        "resolved_repository": "scrapy/scrapy",
+        "resolved_pr_id": 7948
+      },
+      {
+        "selector": "pr_id",
+        "value": 7702,
+        "resolved_repository": "scrapy/scrapy",
+        "resolved_pr_id": 7702
+      },
+      {
+        "selector": "pr_id",
+        "value": 7879,
+        "resolved_repository": "scrapy/scrapy",
+        "resolved_pr_id": 7879
+      },
+      {
+        "selector": "pr_id",
+        "value": 7920,
+        "resolved_repository": "scrapy/scrapy",
+        "resolved_pr_id": 7920
+      },
+      {
+        "selector": "pr_id",
+        "value": 7968,
+        "resolved_repository": "scrapy/scrapy",
+        "resolved_pr_id": 7968
+      },
+      {
+        "selector": "pr_id",
+        "value": 7841,
+        "resolved_repository": "scrapy/scrapy",
+        "resolved_pr_id": 7841
+      },
+      {
+        "selector": "pr_id",
+        "value": 7995,
+        "resolved_repository": "scrapy/scrapy",
+        "resolved_pr_id": 7995
+      },
+      {
+        "selector": "pr_id",
+        "value": 7993,
+        "resolved_repository": "scrapy/scrapy",
+        "resolved_pr_id": 7993
+      },
+      {
+        "selector": "pr_id",
+        "value": 7985,
+        "resolved_repository": "scrapy/scrapy",
+        "resolved_pr_id": 7985
+      },
+      {
+        "selector": "pr_id",
+        "value": 7986,
+        "resolved_repository": "scrapy/scrapy",
+        "resolved_pr_id": 7986
+      },
+      {
+        "selector": "pr_id",
+        "value": 7971,
+        "resolved_repository": "scrapy/scrapy",
+        "resolved_pr_id": 7971
+      },
+      {
+        "selector": "pr_id",
+        "value": 7808,
+        "resolved_repository": "scrapy/scrapy",
+        "resolved_pr_id": 7808
+      },
+      {
+        "selector": "pr_id",
+        "value": 7918,
+        "resolved_repository": "scrapy/scrapy",
+        "resolved_pr_id": 7918
+      },
+      {
+        "selector": "pr_id",
+        "value": 7966,
+        "resolved_repository": "scrapy/scrapy",
+        "resolved_pr_id": 7966
+      }
+    ],
+    "resolved_prs": [
+      {
+        "repository": "scrapy/scrapy",
+        "pr_id": 7702
+      },
+      {
+        "repository": "scrapy/scrapy",
+        "pr_id": 7808
+      },
+      {
+        "repository": "scrapy/scrapy",
+        "pr_id": 7841
+      },
+      {
+        "repository": "scrapy/scrapy",
+        "pr_id": 7846
+      },
+      {
+        "repository": "scrapy/scrapy",
+        "pr_id": 7879
+      },
+      {
+        "repository": "scrapy/scrapy",
+        "pr_id": 7886
+      },
+      {
+        "repository": "scrapy/scrapy",
+        "pr_id": 7918
+      },
+      {
+        "repository": "scrapy/scrapy",
+        "pr_id": 7920
+      },
+      {
+        "repository": "scrapy/scrapy",
+        "pr_id": 7948
+      },
+      {
+        "repository": "scrapy/scrapy",
+        "pr_id": 7966
+      },
+      {
+        "repository": "scrapy/scrapy",
+        "pr_id": 7968
+      },
+      {
+        "repository": "scrapy/scrapy",
+        "pr_id": 7971
+      },
+      {
+        "repository": "scrapy/scrapy",
+        "pr_id": 7985
+      },
+      {
+        "repository": "scrapy/scrapy",
+        "pr_id": 7986
+      },
+      {
+        "repository": "scrapy/scrapy",
+        "pr_id": 7993
+      },
+      {
+        "repository": "scrapy/scrapy",
+        "pr_id": 7995
+      },
+      {
+        "repository": "scrapy/scrapy",
+        "pr_id": 8002
+      },
+      {
+        "repository": "scrapy/scrapy",
+        "pr_id": 8008
+      },
+      {
+        "repository": "scrapy/scrapy",
+        "pr_id": 8009
+      },
+      {
+        "repository": "scrapy/scrapy",
+        "pr_id": 8020
+      }
+    ],
+    "sha256": "c9a15637b010809fcfe67083d209a65c61d9abe5681027c49ce7b408fa1376d5"
+  },
+  "task_scope": "one task per selected PR; sample IDs only resolve PR membership",
+  "tasks": [
+    {
+      "task_id": "scrapy__scrapy__pr7702",
+      "repository": "scrapy/scrapy",
+      "pr_id": 7702,
+      "baseline": {
+        "base_sha": "c7eacdbb30a4563bbbe04ed02781768f4e19eabb"
+      },
+      "classification": "MIXED_CODE_AND_TEST_PR",
+      "member_sample_ids": [
+        "scrapy__scrapy__7702__test_only__3315eb514ba0818e",
+        "scrapy__scrapy__7702__test_only__834b31e2f8dc4cf1",
+        "scrapy__scrapy__7702__test_only__8f8e97d1362f8061",
+        "scrapy__scrapy__7702__test_only__9e67647545d96acb",
+        "scrapy__scrapy__7702__test_only__e716cf0dcf43e284"
+      ],
+      "member_sample_count": 5,
+      "test_change_count": 5,
+      "changed_files": [
+        "pyproject.toml",
+        "tests/test_command_shell.py",
+        "tests/test_crawler_subprocess.py",
+        "tests/test_feedexport_storages.py",
+        "tests/utils/cmdline.py",
+        "tox.ini"
+      ],
+      "nl_quality": {
+        "status": "GOOD",
+        "word_count": 26,
+        "has_title": true,
+        "has_body": true,
+        "description": "CI: warnings → errors. Fixes #7262. Doing it only for \"latest\" envs seemed rather complicated, so I am exploring the possibility of simply doing it globally"
+      },
+      "task_categories": {
+        "test_only": 5
+      }
+    },
+    {
+      "task_id": "scrapy__scrapy__pr7808",
+      "repository": "scrapy/scrapy",
+      "pr_id": 7808,
+      "baseline": {
+        "base_sha": "f1694269d8c9437461936ed449e81aa2ccb3b7cb"
+      },
+      "classification": "MIXED_CODE_AND_TEST_PR",
+      "member_sample_ids": [
+        "scrapy__scrapy__7808__000aa11da815",
+        "scrapy__scrapy__7808__012e362fd7ed",
+        "scrapy__scrapy__7808__01746c75018a",
+        "scrapy__scrapy__7808__02b742c3077e",
+        "scrapy__scrapy__7808__03ac6ff4cce2",
+        "scrapy__scrapy__7808__074e36e09c64",
+        "scrapy__scrapy__7808__0a282fba85f7",
+        "scrapy__scrapy__7808__0aad50c543de",
+        "scrapy__scrapy__7808__0ae410fb507e",
+        "scrapy__scrapy__7808__0cac4615aedf",
+        "scrapy__scrapy__7808__13ea16a5b11d",
+        "scrapy__scrapy__7808__13f2e797e652",
+        "scrapy__scrapy__7808__151c74649927",
+        "scrapy__scrapy__7808__15a82d057efa",
+        "scrapy__scrapy__7808__15aad3c4e7e6",
+        "scrapy__scrapy__7808__15b0c1830e93",
+        "scrapy__scrapy__7808__16371eb14201",
+        "scrapy__scrapy__7808__1684ad3e750e",
+        "scrapy__scrapy__7808__16a1689152fd",
+        "scrapy__scrapy__7808__16d2526fb8db",
+        "scrapy__scrapy__7808__17468956b8a0",
+        "scrapy__scrapy__7808__17545be60f9e",
+        "scrapy__scrapy__7808__1893cb14dd7d",
+        "scrapy__scrapy__7808__1e1559639a77",
+        "scrapy__scrapy__7808__1e16f34e57a6",
+        "scrapy__scrapy__7808__1ed684f3bd87",
+        "scrapy__scrapy__7808__1fd975389c43",
+        "scrapy__scrapy__7808__2188a5ca9ae8",
+        "scrapy__scrapy__7808__222a6ed20a58",
+        "scrapy__scrapy__7808__2335b1464e84",
+        "scrapy__scrapy__7808__27257b4d0297",
+        "scrapy__scrapy__7808__29c87262b560",
+        "scrapy__scrapy__7808__2c9ee0eeb9cc",
+        "scrapy__scrapy__7808__2d417fdbfdb5",
+        "scrapy__scrapy__7808__307163b20f6c",
+        "scrapy__scrapy__7808__31b761051e85",
+        "scrapy__scrapy__7808__32222784e6bd",
+        "scrapy__scrapy__7808__34a52aadb68a",
+        "scrapy__scrapy__7808__35dfd6bf68ae",
+        "scrapy__scrapy__7808__3647bfa2c76c",
+        "scrapy__scrapy__7808__391b3402f989",
+        "scrapy__scrapy__7808__3c69bd0b264d",
+        "scrapy__scrapy__7808__3f19acddf451",
+        "scrapy__scrapy__7808__406e4dd5f14a",
+        "scrapy__scrapy__7808__436a10e2f8cb",
+        "scrapy__scrapy__7808__445c79332981",
+        "scrapy__scrapy__7808__44729987062e",
+        "scrapy__scrapy__7808__46672f1bc39f",
+        "scrapy__scrapy__7808__480b388fd0f2",
+        "scrapy__scrapy__7808__4ac87dcf5d29",
+        "scrapy__scrapy__7808__4ada7921e0f2",
+        "scrapy__scrapy__7808__4c80c939d293",
+        "scrapy__scrapy__7808__4cba9f887666",
+        "scrapy__scrapy__7808__4e37e2201dd8",
+        "scrapy__scrapy__7808__508130457bdb",
+        "scrapy__scrapy__7808__50c5b8b52ecf",
+        "scrapy__scrapy__7808__50ede6a662aa",
+        "scrapy__scrapy__7808__51f5b84733bd",
+        "scrapy__scrapy__7808__5243066bca59",
+        "scrapy__scrapy__7808__52a3b7a47f1f",
+        "scrapy__scrapy__7808__540bb997eff9",
+        "scrapy__scrapy__7808__54d5a605507b",
+        "scrapy__scrapy__7808__5589e7b23616",
+        "scrapy__scrapy__7808__56fc0a1d3a62",
+        "scrapy__scrapy__7808__58a24342cdbf",
+        "scrapy__scrapy__7808__597975965ffc",
+        "scrapy__scrapy__7808__5af23ca52c5b",
+        "scrapy__scrapy__7808__5c0c631eabbe",
+        "scrapy__scrapy__7808__5ec182559b58",
+        "scrapy__scrapy__7808__5fb94c5fae56",
+        "scrapy__scrapy__7808__5fbd0a7adc1a",
+        "scrapy__scrapy__7808__62b428d21c54",
+        "scrapy__scrapy__7808__6522d2429da0",
+        "scrapy__scrapy__7808__6ac33b9d38f7",
+        "scrapy__scrapy__7808__6bcb8df53638",
+        "scrapy__scrapy__7808__6ecba2e033da",
+        "scrapy__scrapy__7808__7012ecb45898",
+        "scrapy__scrapy__7808__70e2108fdc85",
+        "scrapy__scrapy__7808__71a3d712af93",
+        "scrapy__scrapy__7808__72a4271ee3f3",
+        "scrapy__scrapy__7808__72e5e9ae14e6",
+        "scrapy__scrapy__7808__73fd5b99933b",
+        "scrapy__scrapy__7808__751e75b3117b",
+        "scrapy__scrapy__7808__75252a4a7ae2",
+        "scrapy__scrapy__7808__761e79dde982",
+        "scrapy__scrapy__7808__775257d76d6b",
+        "scrapy__scrapy__7808__779d8062ebf4",
+        "scrapy__scrapy__7808__792f188345a6",
+        "scrapy__scrapy__7808__7a72b2c23330",
+        "scrapy__scrapy__7808__7a75c863f3aa",
+        "scrapy__scrapy__7808__7a7f6897c166",
+        "scrapy__scrapy__7808__7aad49666105",
+        "scrapy__scrapy__7808__7d66af63ddd1",
+        "scrapy__scrapy__7808__7fd60597b589",
+        "scrapy__scrapy__7808__80dce6731d05",
+        "scrapy__scrapy__7808__813368f68851",
+        "scrapy__scrapy__7808__82147571070b",
+        "scrapy__scrapy__7808__823d8823a6dc",
+        "scrapy__scrapy__7808__8283b95ae200",
+        "scrapy__scrapy__7808__86fa74405ccd",
+        "scrapy__scrapy__7808__879d148b5d4c",
+        "scrapy__scrapy__7808__8cf05de4c7bd",
+        "scrapy__scrapy__7808__8e8029d4dc84",
+        "scrapy__scrapy__7808__907140a8a95d",
+        "scrapy__scrapy__7808__90809edc61f4",
+        "scrapy__scrapy__7808__908b032ab5fd",
+        "scrapy__scrapy__7808__975bb2a83693",
+        "scrapy__scrapy__7808__97915f16ad1f",
+        "scrapy__scrapy__7808__9ab448197142",
+        "scrapy__scrapy__7808__9cbed6b3229a",
+        "scrapy__scrapy__7808__9d345bdc65ba",
+        "scrapy__scrapy__7808__9df8c1893ce8",
+        "scrapy__scrapy__7808__9e309a135dcf",
+        "scrapy__scrapy__7808__a1218039cc32",
+        "scrapy__scrapy__7808__a1a989c808ff",
+        "scrapy__scrapy__7808__a1e5ea340d17",
+        "scrapy__scrapy__7808__a24061f31d9a",
+        "scrapy__scrapy__7808__a69089f9239c",
+        "scrapy__scrapy__7808__a691dc201cde",
+        "scrapy__scrapy__7808__a8f2cc85f717",
+        "scrapy__scrapy__7808__aab140c98166",
+        "scrapy__scrapy__7808__adf2561c9821",
+        "scrapy__scrapy__7808__af6ac39d7d5c",
+        "scrapy__scrapy__7808__b02ec2e5923d",
+        "scrapy__scrapy__7808__b538c41619e9",
+        "scrapy__scrapy__7808__bd28181aea23",
+        "scrapy__scrapy__7808__be57ebdc0f74",
+        "scrapy__scrapy__7808__bec5cca5f5fd",
+        "scrapy__scrapy__7808__c31f7f033072",
+        "scrapy__scrapy__7808__c53ee5b1c19a",
+        "scrapy__scrapy__7808__c5b7372b33e5",
+        "scrapy__scrapy__7808__c6912f5807e5",
+        "scrapy__scrapy__7808__c8a28d9c1ec6",
+        "scrapy__scrapy__7808__caf47c838055",
+        "scrapy__scrapy__7808__cc3e480d05f8",
+        "scrapy__scrapy__7808__cd95ae1a73f1",
+        "scrapy__scrapy__7808__d0feed208731",
+        "scrapy__scrapy__7808__d2219854f74a",
+        "scrapy__scrapy__7808__d687981f237f",
+        "scrapy__scrapy__7808__d6bacabbb26a",
+        "scrapy__scrapy__7808__d6e8fb565335",
+        "scrapy__scrapy__7808__d765d9791ff9",
+        "scrapy__scrapy__7808__d86d1b933137",
+        "scrapy__scrapy__7808__d8867635661c",
+        "scrapy__scrapy__7808__dacf40cad035",
+        "scrapy__scrapy__7808__dbded629e932",
+        "scrapy__scrapy__7808__dbff88c9c3ec",
+        "scrapy__scrapy__7808__dde9969f383b",
+        "scrapy__scrapy__7808__de480a6e2054",
+        "scrapy__scrapy__7808__de65ef6e2db9",
+        "scrapy__scrapy__7808__e08f3323888b",
+        "scrapy__scrapy__7808__e193700e6cbe",
+        "scrapy__scrapy__7808__e3169d8d39fb",
+        "scrapy__scrapy__7808__e3badc28f8f8",
+        "scrapy__scrapy__7808__e4801244ecfb",
+        "scrapy__scrapy__7808__e4f7c05f2a72",
+        "scrapy__scrapy__7808__e57011436378",
+        "scrapy__scrapy__7808__e68a8f59c05f",
+        "scrapy__scrapy__7808__e70202d79bd6",
+        "scrapy__scrapy__7808__e7a454e2e8fc",
+        "scrapy__scrapy__7808__e7d6453092f3",
+        "scrapy__scrapy__7808__e95550267c3b",
+        "scrapy__scrapy__7808__e9a3079ea98d",
+        "scrapy__scrapy__7808__ed8bdf895d6c",
+        "scrapy__scrapy__7808__ee811af44706",
+        "scrapy__scrapy__7808__f1f65839f817",
+        "scrapy__scrapy__7808__f3a3d82ffe83",
+        "scrapy__scrapy__7808__f474d91e2745",
+        "scrapy__scrapy__7808__f4af9aae9001",
+        "scrapy__scrapy__7808__f6604fe8ccca",
+        "scrapy__scrapy__7808__f7116d8b08d4",
+        "scrapy__scrapy__7808__f8cf6fcfab72",
+        "scrapy__scrapy__7808__f97213e8eca7",
+        "scrapy__scrapy__7808__f97fafe74683",
+        "scrapy__scrapy__7808__ff4ace0b68ce"
+      ],
+      "member_sample_count": 175,
+      "test_change_count": 175,
+      "changed_files": [
+        "scrapy/core/downloader/__init__.py",
+        "scrapy/core/scraper.py",
+        "scrapy/crawler.py",
+        "scrapy/downloadermiddlewares/robotstxt.py",
+        "scrapy/extensions/memusage.py",
+        "scrapy/extensions/statsmailer.py",
+        "tests/test_command_shell.py",
+        "tests/test_downloader_handler_twisted_ftp.py",
+        "tests/test_downloader_handler_twisted_http11.py",
+        "tests/test_downloader_handler_twisted_http2.py",
+        "tests/test_downloadermiddleware.py",
+        "tests/test_downloadermiddleware_cookies.py",
+        "tests/test_downloadermiddleware_defaultheaders.py",
+        "tests/test_downloadermiddleware_downloadtimeout.py",
+        "tests/test_downloadermiddleware_httpauth.py",
+        "tests/test_downloadermiddleware_httpcache.py",
+        "tests/test_downloadermiddleware_httpcompression.py",
+        "tests/test_downloadermiddleware_httpproxy.py",
+        "tests/test_downloadermiddleware_offsite.py",
+        "tests/test_downloadermiddleware_redirect.py",
+        "tests/test_downloadermiddleware_redirect_metarefresh.py",
+        "tests/test_downloadermiddleware_retry.py",
+        "tests/test_downloadermiddleware_robotstxt.py",
+        "tests/test_downloadermiddleware_stats.py",
+        "tests/test_downloadermiddleware_useragent.py",
+        "tests/test_dupefilters.py",
+        "tests/test_engine.py",
+        "tests/test_extension_debug.py",
+        "tests/test_extension_memdebug.py",
+        "tests/test_extension_memusage.py",
+        "tests/test_extension_periodic_log.py",
+        "tests/test_extension_statsmailer.py",
+        "tests/test_extension_telnet.py",
+        "tests/test_extension_throttle.py",
+        "tests/test_feedexport.py",
+        "tests/test_feedexport_batch.py",
+        "tests/test_feedexport_storages.py",
+        "tests/test_feedexport_uri_params.py",
+        "tests/test_logformatter.py",
+        "tests/test_logstats.py",
+        "tests/test_middleware.py",
+        "tests/test_pipeline_files.py",
+        "tests/test_pipeline_images.py",
+        "tests/test_pipeline_media.py",
+        "tests/test_pipelines.py",
+        "tests/test_pqueues.py",
+        "tests/test_resolver.py",
+        "tests/test_robotstxt_interface.py",
+        "tests/test_scheduler.py",
+        "tests/test_spidermiddleware.py",
+        "tests/test_spidermiddleware_base.py",
+        "tests/test_spidermiddleware_depth.py",
+        "tests/test_spidermiddleware_httperror.py",
+        "tests/test_spidermiddleware_metacopy.py",
+        "tests/test_spidermiddleware_urllength.py",
+        "tests/test_spiderstate.py",
+        "tests/test_squeues_request.py",
+        "tests/test_stats.py",
+        "tests/utils/bases/redirect.py"
+      ],
+      "nl_quality": {
+        "status": "GOOD",
+        "word_count": 6,
+        "has_title": true,
+        "has_body": false,
+        "description": "Generalize the use of build_from_crawler() internally"
+      },
+      "task_categories": {
+        "focal_guided": 54,
+        "test_only": 121
+      }
+    },
+    {
+      "task_id": "scrapy__scrapy__pr7841",
+      "repository": "scrapy/scrapy",
+      "pr_id": 7841,
+      "baseline": {
+        "base_sha": "95c16aa9af7c51f26ba3ea8512b4ba782f5d216f"
+      },
+      "classification": "MIXED_CODE_AND_TEST_PR",
+      "member_sample_ids": [
+        "scrapy__scrapy__7841__0108cebe56e9",
+        "scrapy__scrapy__7841__1a0939c464d1",
+        "scrapy__scrapy__7841__3c080737b69e",
+        "scrapy__scrapy__7841__8b6fa696fb54",
+        "scrapy__scrapy__7841__8c4884795aac",
+        "scrapy__scrapy__7841__c18be3cf5da5",
+        "scrapy__scrapy__7841__fcfac5848348"
+      ],
+      "member_sample_count": 7,
+      "test_change_count": 76,
+      "changed_files": [
+        "pyproject.toml",
+        "scrapy/utils/_compression.py",
+        "scrapy/utils/_deps_compat.py",
+        "scrapy/utils/benchserver.py",
+        "scrapy/utils/ossignal.py",
+        "scrapy/utils/python.py",
+        "scrapy/utils/reactor.py",
+        "scrapy/utils/ssl.py",
+        "tests/mockserver/utils.py",
+        "tests/test_command_shell.py",
+        "tests/test_crawl.py",
+        "tests/test_crawler_subprocess.py",
+        "tests/test_downloader_handler_httpx.py",
+        "tests/test_downloader_handlers.py",
+        "tests/test_downloadermiddleware_httpcompression.py",
+        "tests/test_downloaderslotssettings.py",
+        "tests/test_feedexport_storages.py",
+        "tests/test_linkextractors.py",
+        "tests/test_squeues.py",
+        "tests/test_squeues_request.py",
+        "tests/test_utils_benchserver.py",
+        "tests/test_utils_conf.py",
+        "tests/test_utils_console.py",
+        "tests/test_utils_curl.py",
+        "tests/test_utils_defer.py",
+        "tests/test_utils_deprecate.py",
+        "tests/test_utils_display.py",
+        "tests/test_utils_iterators.py",
+        "tests/test_utils_job.py",
+        "tests/test_utils_log.py",
+        "tests/test_utils_ossignal.py",
+        "tests/test_utils_project.py",
+        "tests/test_utils_python.py",
+        "tests/test_utils_reactor.py",
+        "tests/test_utils_signal.py",
+        "tests/test_utils_sitemap.py",
+        "tests/test_utils_spider.py",
+        "tests/test_utils_ssl.py",
+        "tests/test_utils_trackref.py",
+        "tests/utils/bases/download_handlers_http.py",
+        "tox.ini"
+      ],
+      "nl_quality": {
+        "status": "GOOD",
+        "word_count": 94,
+        "has_title": true,
+        "has_body": true,
+        "description": "Improve the test coverage of scrapy.utils. Includes: - A bug fix on `_inflate()`, it could loop forever on a deflate body followed by any extra bytes. - `ffi_buf_to_string()` called itself instead of `_ffi_buf_to_string()`, now fixed. - `get_func_args_dict()` compared parameter *names* against a partial's positional *values*, so `get_func_args(partial(f, \"b\"))` returned `[]` instead of `[\"b\"]`, now fixed. - Require `pyOpenSSL >= 24.3.0`, and with it `cryptography >= 41.0.5` and `service_identity >= 24.2.0`. It allowed to simplify the code and avoid many \"no cover\" lines. - The `pypy3` tox env now measures coverage, for some PyPy-specific branches"
+      },
+      "task_categories": {
+        "focal_guided": 1,
+        "test_only": 6
+      }
+    },
+    {
+      "task_id": "scrapy__scrapy__pr7846",
+      "repository": "scrapy/scrapy",
+      "pr_id": 7846,
+      "baseline": {
+        "base_sha": "488a762d7173922190ea027e0fb6f6d9d3b59880"
+      },
+      "classification": "MIXED_CODE_AND_TEST_PR",
+      "member_sample_ids": [
+        "scrapy__scrapy__7846__8b23814436a2"
+      ],
+      "member_sample_count": 1,
+      "test_change_count": 8,
+      "changed_files": [
+        "scrapy/core/downloader/_idna_patch.py",
+        "scrapy/core/downloader/handlers/http11.py",
+        "scrapy/core/downloader/handlers/http2.py",
+        "tests/__init__.py",
+        "tests/test_core_downloader.py",
+        "tests/test_downloader_handler_httpx.py",
+        "tests/utils/bases/download_handlers_http.py"
+      ],
+      "nl_quality": {
+        "status": "GOOD",
+        "word_count": 63,
+        "has_title": true,
+        "has_body": true,
+        "description": "Support IDNA-2003-only domains by monkey-patching Twisted IDNA helpers. Resolves #4330, also fixes #3321 I took a stab at it from the Scrapy side by monkey-patching the Twisted functions at import time. I'm opening this PR to gauge whether the trade-off is worth it. I'm happy to drop it if blocking on Twisted is preferred, but here's some food for thought either way 🧠"
+      },
+      "task_categories": {
+        "test_only": 1
+      }
+    },
+    {
+      "task_id": "scrapy__scrapy__pr7879",
+      "repository": "scrapy/scrapy",
+      "pr_id": 7879,
+      "baseline": {
+        "base_sha": "d772acdf19251e9a03be285353b50bd1314e3d5d"
+      },
+      "classification": "MIXED_CODE_AND_TEST_PR",
+      "member_sample_ids": [
+        "scrapy__scrapy__7879__63ed3cbcff81"
+      ],
+      "member_sample_count": 1,
+      "test_change_count": 6,
+      "changed_files": [
+        "pyproject.toml",
+        "scrapy/utils/response.py",
+        "tests/test_utils_response.py",
+        "tox.ini"
+      ],
+      "nl_quality": {
+        "status": "GOOD",
+        "word_count": 12,
+        "has_title": true,
+        "has_body": true,
+        "description": "Fix open_in_browser not adding a base tag without a head element. Fixes"
+      },
+      "task_categories": {
+        "focal_guided": 1
+      }
+    },
+    {
+      "task_id": "scrapy__scrapy__pr7886",
+      "repository": "scrapy/scrapy",
+      "pr_id": 7886,
+      "baseline": {
+        "base_sha": "c7eacdbb30a4563bbbe04ed02781768f4e19eabb"
+      },
+      "classification": "MIXED_CODE_AND_TEST_PR",
+      "member_sample_ids": [
+        "scrapy__scrapy__7886__4c7d30b73c8c",
+        "scrapy__scrapy__7886__996e78dd7c29",
+        "scrapy__scrapy__7886__ddf33b794ded",
+        "scrapy__scrapy__7886__e13196af5fca"
+      ],
+      "member_sample_count": 4,
+      "test_change_count": 11,
+      "changed_files": [
+        "docs/topics/contracts.rst",
+        "scrapy/contracts/__init__.py",
+        "tests/test_contracts.py"
+      ],
+      "nl_quality": {
+        "status": "GOOD",
+        "word_count": 6,
+        "has_title": true,
+        "has_body": true,
+        "description": "Support asynchronous callbacks in contracts. Fixes"
+      },
+      "task_categories": {
+        "focal_guided": 3,
+        "test_only": 1
+      }
+    },
+    {
+      "task_id": "scrapy__scrapy__pr7918",
+      "repository": "scrapy/scrapy",
+      "pr_id": 7918,
+      "baseline": {
+        "base_sha": "1bd839b57ddb614664a179b6213f49579bdfd3da"
+      },
+      "classification": "MIXED_CODE_AND_TEST_PR",
+      "member_sample_ids": [
+        "scrapy__scrapy__7918__3fd07fb43b44",
+        "scrapy__scrapy__7918__457f575e9973",
+        "scrapy__scrapy__7918__86838239cd11"
+      ],
+      "member_sample_count": 3,
+      "test_change_count": 3,
+      "changed_files": [
+        "docs/topics/extensions.rst",
+        "scrapy/utils/serialize.py",
+        "tests/test_exporters.py",
+        "tests/test_utils_serialize.py"
+      ],
+      "nl_quality": {
+        "status": "GOOD",
+        "word_count": 10,
+        "has_title": true,
+        "has_body": true,
+        "description": "Serialize dates and times as ISO 8601 in ScrapyJSONEncoder. Resolves"
+      },
+      "task_categories": {
+        "test_only": 3
+      }
+    },
+    {
+      "task_id": "scrapy__scrapy__pr7920",
+      "repository": "scrapy/scrapy",
+      "pr_id": 7920,
+      "baseline": {
+        "base_sha": "1bd839b57ddb614664a179b6213f49579bdfd3da"
+      },
+      "classification": "MIXED_CODE_AND_TEST_PR",
+      "member_sample_ids": [
+        "scrapy__scrapy__7920__649808c49fb3"
+      ],
+      "member_sample_count": 1,
+      "test_change_count": 4,
+      "changed_files": [
+        "scrapy/commands/check.py",
+        "scrapy/commands/fetch.py",
+        "scrapy/commands/parse.py",
+        "tests/test_command_check.py",
+        "tests/test_command_fetch.py",
+        "tests/test_command_parse.py",
+        "tests/utils/bases/commands.py"
+      ],
+      "nl_quality": {
+        "status": "GOOD",
+        "word_count": 13,
+        "has_title": true,
+        "has_body": true,
+        "description": "Return exit code 1 from check, parse and fetch on bootstrap errors. Resolves"
+      },
+      "task_categories": {
+        "focal_guided": 1
+      }
+    },
+    {
+      "task_id": "scrapy__scrapy__pr7948",
+      "repository": "scrapy/scrapy",
+      "pr_id": 7948,
+      "baseline": {
+        "base_sha": "e810f5fca166e8cd03d005d07b6a6a2373407d6a"
+      },
+      "classification": "MIXED_CODE_AND_TEST_PR",
+      "member_sample_ids": [
+        "scrapy__scrapy__7948__e9b5af6a33ff"
+      ],
+      "member_sample_count": 1,
+      "test_change_count": 6,
+      "changed_files": [
+        "docs/topics/debug.rst",
+        "scrapy/core/downloader/contextfactory.py",
+        "scrapy/utils/ssl.py",
+        "tests/test_core_downloader.py",
+        "tests/test_downloader_handler_httpx.py",
+        "tests/utils/bases/download_handlers_http.py",
+        "tests/utils/cmdline.py"
+      ],
+      "nl_quality": {
+        "status": "WEAK",
+        "word_count": 4,
+        "has_title": true,
+        "has_body": true,
+        "description": "Add SSLKEYLOGFILE support. Resolves"
+      },
+      "task_categories": {
+        "focal_guided": 1
+      }
+    },
+    {
+      "task_id": "scrapy__scrapy__pr7966",
+      "repository": "scrapy/scrapy",
+      "pr_id": 7966,
+      "baseline": {
+        "base_sha": "5427080f4892fb8f33cc159fdcd6f8ce8d4c140e"
+      },
+      "classification": "MIXED_CODE_AND_TEST_PR",
+      "member_sample_ids": [
+        "scrapy__scrapy__7966__test_only__52b073ea98dc33bc"
+      ],
+      "member_sample_count": 1,
+      "test_change_count": 1,
+      "changed_files": [
+        "pyproject.toml",
+        "tests/ignores.txt",
+        "tests/test_utils_console.py"
+      ],
+      "nl_quality": {
+        "status": "GOOD",
+        "word_count": 6,
+        "has_title": true,
+        "has_body": false,
+        "description": "Address warnings from the VCS workflow"
+      },
+      "task_categories": {
+        "test_only": 1
+      }
+    },
+    {
+      "task_id": "scrapy__scrapy__pr7968",
+      "repository": "scrapy/scrapy",
+      "pr_id": 7968,
+      "baseline": {
+        "base_sha": "06af687662112027b4482d31e2714a3cf280a91f"
+      },
+      "classification": "MIXED_CODE_AND_TEST_PR",
+      "member_sample_ids": [
+        "scrapy__scrapy__7968__test_only__03a1e097b915af7e",
+        "scrapy__scrapy__7968__test_only__066d2a6a75324f0b",
+        "scrapy__scrapy__7968__test_only__096a9db2b10397b3",
+        "scrapy__scrapy__7968__test_only__0a9db86e4a6345a3",
+        "scrapy__scrapy__7968__test_only__0d54a232d6a85c29",
+        "scrapy__scrapy__7968__test_only__1062f9769aec8267",
+        "scrapy__scrapy__7968__test_only__12bc8b41b7b539bf",
+        "scrapy__scrapy__7968__test_only__13d50ce7c68faaf6",
+        "scrapy__scrapy__7968__test_only__1449571e1bc4f01e",
+        "scrapy__scrapy__7968__test_only__184efa6d7ff42a96",
+        "scrapy__scrapy__7968__test_only__1b2f5084bb6a5404",
+        "scrapy__scrapy__7968__test_only__1b627964f9529e31",
+        "scrapy__scrapy__7968__test_only__1f77f0fbead4c5be",
+        "scrapy__scrapy__7968__test_only__2434d2f5939d52f2",
+        "scrapy__scrapy__7968__test_only__2675eb4cb38dac94",
+        "scrapy__scrapy__7968__test_only__26ce0a9cf342c68d",
+        "scrapy__scrapy__7968__test_only__284dc00ca4fd730b",
+        "scrapy__scrapy__7968__test_only__2926d98f15b76dca",
+        "scrapy__scrapy__7968__test_only__2d910d44bd3a980f",
+        "scrapy__scrapy__7968__test_only__2dce4bab99938771",
+        "scrapy__scrapy__7968__test_only__2f082549acef9290",
+        "scrapy__scrapy__7968__test_only__32eb311d944fcb2a",
+        "scrapy__scrapy__7968__test_only__333638f18d1e3108",
+        "scrapy__scrapy__7968__test_only__3518f2a5aa8eb7ac",
+        "scrapy__scrapy__7968__test_only__36d2c896f2366f87",
+        "scrapy__scrapy__7968__test_only__395493071bf88b76",
+        "scrapy__scrapy__7968__test_only__398be287eb1abec3",
+        "scrapy__scrapy__7968__test_only__39e6b1502842f37f",
+        "scrapy__scrapy__7968__test_only__3a2ea761b26857b6",
+        "scrapy__scrapy__7968__test_only__3daf1ea444b595de",
+        "scrapy__scrapy__7968__test_only__40a7027d34daa4ba",
+        "scrapy__scrapy__7968__test_only__411c24da263538ec",
+        "scrapy__scrapy__7968__test_only__41e9585ffa566b5d",
+        "scrapy__scrapy__7968__test_only__43aa42a8b7ca679d",
+        "scrapy__scrapy__7968__test_only__47ea144115686bd8",
+        "scrapy__scrapy__7968__test_only__48c6d4c1bd2b33b4",
+        "scrapy__scrapy__7968__test_only__4b8b6e74dfbdca1a",
+        "scrapy__scrapy__7968__test_only__4e0c379484ff535b",
+        "scrapy__scrapy__7968__test_only__4e412c967428e8f1",
+        "scrapy__scrapy__7968__test_only__50fec7bcd95c38f9",
+        "scrapy__scrapy__7968__test_only__51ef2bf399c8ac14",
+        "scrapy__scrapy__7968__test_only__54a87476d257dc62",
+        "scrapy__scrapy__7968__test_only__59577530af8604da",
+        "scrapy__scrapy__7968__test_only__5c67aa07c25ab845",
+        "scrapy__scrapy__7968__test_only__5d54d14a1cfa300e",
+        "scrapy__scrapy__7968__test_only__5f1d38a4d71eda66",
+        "scrapy__scrapy__7968__test_only__61cd0a54d1c162e2",
+        "scrapy__scrapy__7968__test_only__61e5c897da1aaad2",
+        "scrapy__scrapy__7968__test_only__64d416d0ea914591",
+        "scrapy__scrapy__7968__test_only__65ac6666b6cd9a0c",
+        "scrapy__scrapy__7968__test_only__69325ee4b9611b61",
+        "scrapy__scrapy__7968__test_only__6a26819febf17c8d",
+        "scrapy__scrapy__7968__test_only__732504d258bb559d",
+        "scrapy__scrapy__7968__test_only__745e04f2d6787459",
+        "scrapy__scrapy__7968__test_only__78eaf5644cc22a0e",
+        "scrapy__scrapy__7968__test_only__78f931685a70ac06",
+        "scrapy__scrapy__7968__test_only__7cdc3ba3e2594ccd",
+        "scrapy__scrapy__7968__test_only__7e4001686ebc778c",
+        "scrapy__scrapy__7968__test_only__7eacd066ba024ee4",
+        "scrapy__scrapy__7968__test_only__804b844b2e435b45",
+        "scrapy__scrapy__7968__test_only__811cc99fbbb29edf",
+        "scrapy__scrapy__7968__test_only__813771e269ef8a08",
+        "scrapy__scrapy__7968__test_only__8245490cee69af34",
+        "scrapy__scrapy__7968__test_only__82c91b7d3d82755a",
+        "scrapy__scrapy__7968__test_only__8592f0c7a8342eed",
+        "scrapy__scrapy__7968__test_only__862d78c7b7afc0d3",
+        "scrapy__scrapy__7968__test_only__8833ca508265388e",
+        "scrapy__scrapy__7968__test_only__890c9bd044d5e03f",
+        "scrapy__scrapy__7968__test_only__8df52fee45a374d2",
+        "scrapy__scrapy__7968__test_only__8f2ca463eab23433",
+        "scrapy__scrapy__7968__test_only__91a8789bc6835ba8",
+        "scrapy__scrapy__7968__test_only__9578fe94d3a824c6",
+        "scrapy__scrapy__7968__test_only__96d2cc65197659c0",
+        "scrapy__scrapy__7968__test_only__99d2629cb82db215",
+        "scrapy__scrapy__7968__test_only__a13ff3c9bd38600b",
+        "scrapy__scrapy__7968__test_only__aa0288ea60e0c173",
+        "scrapy__scrapy__7968__test_only__ab78b3066d8cd0e6",
+        "scrapy__scrapy__7968__test_only__abc4094dbd505de7",
+        "scrapy__scrapy__7968__test_only__b1cd321fb9347e50",
+        "scrapy__scrapy__7968__test_only__b461fde0bcb80ce0",
+        "scrapy__scrapy__7968__test_only__b505ee829bb2eac6",
+        "scrapy__scrapy__7968__test_only__b5b0374c749ee349",
+        "scrapy__scrapy__7968__test_only__b6aafc14366c8f67",
+        "scrapy__scrapy__7968__test_only__b752afa3de06442d",
+        "scrapy__scrapy__7968__test_only__b8110c8d3afebbe6",
+        "scrapy__scrapy__7968__test_only__bb7abd0b05083ab9",
+        "scrapy__scrapy__7968__test_only__c15a95bec5b3f25a",
+        "scrapy__scrapy__7968__test_only__c1dc0c8927bf8a2b",
+        "scrapy__scrapy__7968__test_only__c546c5a6532c5240",
+        "scrapy__scrapy__7968__test_only__c6326586d8cbcc5e",
+        "scrapy__scrapy__7968__test_only__c6516420fd5df277",
+        "scrapy__scrapy__7968__test_only__c7249bd678bfaca8",
+        "scrapy__scrapy__7968__test_only__c77fa80563118e96",
+        "scrapy__scrapy__7968__test_only__d1099c7d6d7f4787",
+        "scrapy__scrapy__7968__test_only__d1b14b19d88862a0",
+        "scrapy__scrapy__7968__test_only__d27b2ec4cb4bf3d3",
+        "scrapy__scrapy__7968__test_only__d2db9f5052d51593",
+        "scrapy__scrapy__7968__test_only__d4664882158f6429",
+        "scrapy__scrapy__7968__test_only__d85c21703c7be5a3",
+        "scrapy__scrapy__7968__test_only__db377a2fff6cd92a",
+        "scrapy__scrapy__7968__test_only__dbb84cff6346cdc7",
+        "scrapy__scrapy__7968__test_only__dc9fc3a786a64427",
+        "scrapy__scrapy__7968__test_only__dceabf130d95437c",
+        "scrapy__scrapy__7968__test_only__ddefc9992709003d",
+        "scrapy__scrapy__7968__test_only__e0bb61f0929dacd2",
+        "scrapy__scrapy__7968__test_only__e0f5ef1e4442a9f0",
+        "scrapy__scrapy__7968__test_only__e358caeaef07017a",
+        "scrapy__scrapy__7968__test_only__e3e5b6e32a8ca387",
+        "scrapy__scrapy__7968__test_only__e58aa09b7c28b630",
+        "scrapy__scrapy__7968__test_only__e80898ee154e9559",
+        "scrapy__scrapy__7968__test_only__eef7240519b04ec1",
+        "scrapy__scrapy__7968__test_only__f033e14309d39e92",
+        "scrapy__scrapy__7968__test_only__f184c4c680af2983",
+        "scrapy__scrapy__7968__test_only__f19f74b5ea8c3e8b",
+        "scrapy__scrapy__7968__test_only__f59be859ee0df293",
+        "scrapy__scrapy__7968__test_only__f643b14c035fd340",
+        "scrapy__scrapy__7968__test_only__f71b30e72732ccbe",
+        "scrapy__scrapy__7968__test_only__f9acc7f1cd69612f",
+        "scrapy__scrapy__7968__test_only__fbd37541cb14b521",
+        "scrapy__scrapy__7968__test_only__fcb15194fec992b4"
+      ],
+      "member_sample_count": 120,
+      "test_change_count": 120,
+      "changed_files": [
+        "pyproject.toml",
+        "tests/benchmarks/__init__.py",
+        "tests/benchmarks/test_crawl.py",
+        "tests/spiders.py",
+        "tests/test_closespider.py",
+        "tests/test_command_runspider.py",
+        "tests/test_contracts.py",
+        "tests/test_crawl.py",
+        "tests/test_crawler.py",
+        "tests/test_downloadermiddleware_httpcache.py",
+        "tests/test_downloadermiddleware_httpcompression.py",
+        "tests/test_downloadermiddleware_offsite.py",
+        "tests/test_downloadermiddleware_retry.py",
+        "tests/test_downloadermiddleware_stats.py",
+        "tests/test_downloaderslotssettings.py",
+        "tests/test_dupefilters.py",
+        "tests/test_engine_loop.py",
+        "tests/test_extension_memdebug.py",
+        "tests/test_extension_memusage.py",
+        "tests/test_extension_telnet.py",
+        "tests/test_feedexport.py",
+        "tests/test_feedexport_batch.py",
+        "tests/test_logstats.py",
+        "tests/test_pipeline_crawl.py",
+        "tests/test_pipeline_media.py",
+        "tests/test_request_cb_kwargs.py",
+        "tests/test_scheduler.py",
+        "tests/test_spider.py",
+        "tests/test_spider_crawl.py",
+        "tests/test_spider_sitemap.py",
+        "tests/test_spider_start.py",
+        "tests/test_spidermiddleware_depth.py",
+        "tests/test_spidermiddleware_httperror.py",
+        "tests/test_spidermiddleware_output_chain.py",
+        "tests/test_spidermiddleware_process_start.py",
+        "tests/test_spidermiddleware_urllength.py",
+        "tests/test_utils_log.py",
+        "tests/test_utils_request.py",
+        "tests/utils/bases/spider.py"
+      ],
+      "nl_quality": {
+        "status": "WEAK",
+        "word_count": 4,
+        "has_title": true,
+        "has_body": false,
+        "description": "Type spider-related test modules"
+      },
+      "task_categories": {
+        "test_only": 120
+      }
+    },
+    {
+      "task_id": "scrapy__scrapy__pr7971",
+      "repository": "scrapy/scrapy",
+      "pr_id": 7971,
+      "baseline": {
+        "base_sha": "f1694269d8c9437461936ed449e81aa2ccb3b7cb"
+      },
+      "classification": "MIXED_CODE_AND_TEST_PR",
+      "member_sample_ids": [
+        "scrapy__scrapy__7971__605efa4a7098",
+        "scrapy__scrapy__7971__770a462f9ce1"
+      ],
+      "member_sample_count": 2,
+      "test_change_count": 3,
+      "changed_files": [
+        "scrapy/utils/log.py",
+        "tests/test_utils_log.py"
+      ],
+      "nl_quality": {
+        "status": "GOOD",
+        "word_count": 15,
+        "has_title": true,
+        "has_body": true,
+        "description": "Deprecate interpolating log formatter messages with the returned dict. Alleviates the backward incompatibility of #7936"
+      },
+      "task_categories": {
+        "test_only": 2
+      }
+    },
+    {
+      "task_id": "scrapy__scrapy__pr7985",
+      "repository": "scrapy/scrapy",
+      "pr_id": 7985,
+      "baseline": {
+        "base_sha": "65b37286cc56b6a87c4d1eca6bdff79f658f09d2"
+      },
+      "classification": "MIXED_CODE_AND_TEST_PR",
+      "member_sample_ids": [
+        "scrapy__scrapy__7985__fce5b6e52833"
+      ],
+      "member_sample_count": 1,
+      "test_change_count": 1,
+      "changed_files": [
+        "conftest.py",
+        "tests/utils/bases/download_handlers_http.py",
+        "tox.ini"
+      ],
+      "nl_quality": {
+        "status": "GOOD",
+        "word_count": 10,
+        "has_title": true,
+        "has_body": false,
+        "description": "Rerun tests that need real Internet access when they fail"
+      },
+      "task_categories": {
+        "test_only": 1
+      }
+    },
+    {
+      "task_id": "scrapy__scrapy__pr7986",
+      "repository": "scrapy/scrapy",
+      "pr_id": 7986,
+      "baseline": {
+        "base_sha": "65b37286cc56b6a87c4d1eca6bdff79f658f09d2"
+      },
+      "classification": "MIXED_CODE_AND_TEST_PR",
+      "member_sample_ids": [
+        "scrapy__scrapy__7986__250fb1f9ea4d",
+        "scrapy__scrapy__7986__cf920d67d5fb",
+        "scrapy__scrapy__7986__eb1d55c32f27",
+        "scrapy__scrapy__7986__fc7c3534334a"
+      ],
+      "member_sample_count": 4,
+      "test_change_count": 4,
+      "changed_files": [
+        "conftest.py",
+        "docs/topics/download-handlers.rst",
+        "scrapy/core/_http2/__init__.py",
+        "scrapy/core/_http2/agent.py",
+        "scrapy/core/_http2/protocol.py",
+        "scrapy/core/_http2/stream.py",
+        "scrapy/core/downloader/handlers/http2.py",
+        "tests/test_downloader_handler_twisted_http2.py",
+        "tests/test_http2_client_protocol.py"
+      ],
+      "nl_quality": {
+        "status": "GOOD",
+        "word_count": 29,
+        "has_title": true,
+        "has_body": true,
+        "description": "Stop marking the Twisted-based HTTP/2 download handler as experimental, and privatize its API. Closes as I think enough time has passed that we don’t need to bother with that"
+      },
+      "task_categories": {
+        "test_only": 4
+      }
+    },
+    {
+      "task_id": "scrapy__scrapy__pr7993",
+      "repository": "scrapy/scrapy",
+      "pr_id": 7993,
+      "baseline": {
+        "base_sha": "be514d8c5df4c0327e050ac6d596d7f5b702806c"
+      },
+      "classification": "TEST_ONLY_PR",
+      "member_sample_ids": [
+        "scrapy__scrapy__7993__test_only__1a09f3aaa7bd9334"
+      ],
+      "member_sample_count": 1,
+      "test_change_count": 1,
+      "changed_files": [
+        "tests/test_downloadermiddleware_httpcache.py"
+      ],
+      "nl_quality": {
+        "status": "GOOD",
+        "word_count": 10,
+        "has_title": true,
+        "has_body": false,
+        "description": "Stop test_storage from expiring its cache entry on slow runners"
+      },
+      "task_categories": {
+        "test_only": 1
+      }
+    },
+    {
+      "task_id": "scrapy__scrapy__pr7995",
+      "repository": "scrapy/scrapy",
+      "pr_id": 7995,
+      "baseline": {
+        "base_sha": "ca48915dd4f6c388be741a97213df03e7a81ea89"
+      },
+      "classification": "TEST_ONLY_PR",
+      "member_sample_ids": [
+        "scrapy__scrapy__7995__test_only__9b016591fb3c3abd",
+        "scrapy__scrapy__7995__test_only__ecb0b72e7bd829bf"
+      ],
+      "member_sample_count": 2,
+      "test_change_count": 2,
+      "changed_files": [
+        "tests/test_utils_response.py"
+      ],
+      "nl_quality": {
+        "status": "GOOD",
+        "word_count": 10,
+        "has_title": true,
+        "has_body": false,
+        "description": "Stop the open_in_browser ReDoS tests from failing on slow interpreters"
+      },
+      "task_categories": {
+        "test_only": 2
+      }
+    },
+    {
+      "task_id": "scrapy__scrapy__pr8002",
+      "repository": "scrapy/scrapy",
+      "pr_id": 8002,
+      "baseline": {
+        "base_sha": "be3e24e607ff0df427d6329163c706c406d06f61"
+      },
+      "classification": "TEST_ONLY_PR",
+      "member_sample_ids": [
+        "scrapy__scrapy__8002__test_only__91f3c304f6e265ed",
+        "scrapy__scrapy__8002__test_only__ab41eb608b901bf9",
+        "scrapy__scrapy__8002__test_only__eae0308d0d18c63d"
+      ],
+      "member_sample_count": 3,
+      "test_change_count": 67,
+      "changed_files": [
+        "tests/test_linkextractors.py"
+      ],
+      "nl_quality": {
+        "status": "GOOD",
+        "word_count": 12,
+        "has_title": true,
+        "has_body": true,
+        "description": "Merge LxmlLinkExtractor test classes.. There is only one link extractor class now"
+      },
+      "task_categories": {
+        "test_only": 3
+      }
+    },
+    {
+      "task_id": "scrapy__scrapy__pr8008",
+      "repository": "scrapy/scrapy",
+      "pr_id": 8008,
+      "baseline": {
+        "base_sha": "488a762d7173922190ea027e0fb6f6d9d3b59880"
+      },
+      "classification": "TEST_ONLY_PR",
+      "member_sample_ids": [
+        "scrapy__scrapy__8008__test_only__a540153f9c1dca82"
+      ],
+      "member_sample_count": 1,
+      "test_change_count": 1,
+      "changed_files": [
+        "tests/test_spider_start.py"
+      ],
+      "nl_quality": {
+        "status": "GOOD",
+        "word_count": 92,
+        "has_title": true,
+        "has_body": true,
+        "description": "fix flaky test_slow_pipeline by comparing items unordered. Fixes #8006 `test_slow_pipeline` asserts a strict item order (A then B), but both items get an identical artificial delay in `SlowPipeline.process_item`. Their completion order depends on event-loop scheduling rather than submission order, so the assertion is racy — reproduced on the Windows \"min\" CI job where timer resolution is coarser: Fix: added an `ordered` flag to `_test_spider` (default `True`, so every other test is unaffected). `test_slow_pipeline` now compares items unordered instead of asserting a strict sequence. Verified locally with 20x reruns via pytest-repeat, all passing"
+      },
+      "task_categories": {
+        "test_only": 1
+      }
+    },
+    {
+      "task_id": "scrapy__scrapy__pr8009",
+      "repository": "scrapy/scrapy",
+      "pr_id": 8009,
+      "baseline": {
+        "base_sha": "3c6a62db47536df89676ab9d7347acf5c5c8a2e4"
+      },
+      "classification": "MIXED_CODE_AND_TEST_PR",
+      "member_sample_ids": [
+        "scrapy__scrapy__8009__3459cece568b",
+        "scrapy__scrapy__8009__6acdd6b21c75",
+        "scrapy__scrapy__8009__7f244759272f",
+        "scrapy__scrapy__8009__805e204f6619",
+        "scrapy__scrapy__8009__8df45f9c7d28",
+        "scrapy__scrapy__8009__cdbfeb02e223",
+        "scrapy__scrapy__8009__db14476297be",
+        "scrapy__scrapy__8009__eb21c3e5d590"
+      ],
+      "member_sample_count": 8,
+      "test_change_count": 9,
+      "changed_files": [
+        "docs/intro/install.rst",
+        "docs/topics/commands.rst",
+        "docs/topics/downloader-middleware.rst",
+        "docs/topics/optimize.rst",
+        "pyproject.toml",
+        "scrapy/downloadermiddlewares/httpcompression.py",
+        "scrapy/utils/_compression.py",
+        "tests/test_downloadermiddleware_httpcompression.py",
+        "tox.ini"
+      ],
+      "nl_quality": {
+        "status": "GOOD",
+        "word_count": 9,
+        "has_title": true,
+        "has_body": true,
+        "description": "Use compression.zstd/backports.zstd and make zstd support mandatory. Resolves closes"
+      },
+      "task_categories": {
+        "focal_guided": 1,
+        "test_only": 7
+      }
+    },
+    {
+      "task_id": "scrapy__scrapy__pr8020",
+      "repository": "scrapy/scrapy",
+      "pr_id": 8020,
+      "baseline": {
+        "base_sha": "ed98aafd0f6301647916c86811acacd0a1b59dbd"
+      },
+      "classification": "MIXED_CODE_AND_TEST_PR",
+      "member_sample_ids": [
+        "scrapy__scrapy__8020__3bff6aa999b2",
+        "scrapy__scrapy__8020__b41305c9bfba"
+      ],
+      "member_sample_count": 2,
+      "test_change_count": 2,
+      "changed_files": [
+        "conftest.py",
+        "pyproject.toml",
+        "tests/test_downloaderslotssettings.py",
+        "tests/test_engine_loop.py",
+        "tox.ini"
+      ],
+      "nl_quality": {
+        "status": "GOOD",
+        "word_count": 47,
+        "has_title": true,
+        "has_body": true,
+        "description": "Speed up the PyPy CI job and the tests that wait on the engine heartbeat. The PyPy job speed-up is by disabling coverage for subprocess there, which was responsible for most of the slowdown, and does not provide anything PyPy-specific that would report coverage gaps in Codecov"
+      },
+      "task_categories": {
+        "test_only": 2
+      }
+    }
+  ],
+  "approval": {
+    "required": true,
+    "granted": false,
+    "provisioning_performed": false
+  }
+}

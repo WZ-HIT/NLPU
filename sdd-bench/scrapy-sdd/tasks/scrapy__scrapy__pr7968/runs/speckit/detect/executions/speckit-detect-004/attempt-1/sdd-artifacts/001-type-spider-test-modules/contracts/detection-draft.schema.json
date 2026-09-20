@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "detection-draft.schema.json",
+  "title": "Detection draft (detect phase output)",
+  "description": "Candidate test files relevant to the change under analysis. The document contains exactly one top-level key, 'candidates'.",
+  "type": "object",
+  "required": ["candidates"],
+  "additionalProperties": false,
+  "properties": {
+    "candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "symbols", "reason"],
+        "additionalProperties": false,
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "Repository-relative path of a test file or test-helper module under tests/.",
+            "pattern": "^tests/.*\\.py$"
+          },
+          "symbols": {
+            "type": "array",
+            "description": "Symbols in the candidate file that are relevant to the change.",
+            "items": {"type": "string"},
+            "minItems": 1
+          },
+          "reason": {
+            "type": "string",
+            "description": "Why this file is a detection candidate for the change.",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}

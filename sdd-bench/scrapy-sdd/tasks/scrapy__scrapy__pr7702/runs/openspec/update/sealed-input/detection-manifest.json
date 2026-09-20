@@ -1,0 +1,225 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr7702",
+  "method": "openspec",
+  "base_sha": "c7eacdbb30a4563bbbe04ed02781768f4e19eabb",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "openspec-detect-004",
+    "session_sha256": "33c32130388d12367be526ba721633afa35211de3f3f6ec6fbef183c735a11b7"
+  },
+  "task_input_sha256": "212ef85732faf985289db4d8b98822103fce80c2f3512e973ca7d57bfd3e010d",
+  "candidates": [
+    {
+      "path": "tests/test_utils_deprecate.py",
+      "symbols": [
+        "TestWarnWhenSubclassed",
+        "TestUpdateClassPath",
+        "TestAttribute"
+      ],
+      "reason": "Directly exercises scrapy.utils.deprecate warning machinery (create_deprecated_class, warn_on_subclassed) with warnings.catch_warnings()/pytest.warns(); it is the module whose behavior changes most when pytest starts turning every unhandled warning into an error."
+    },
+    {
+      "path": "tests/test_downloadermiddleware_httpcompression.py",
+      "symbols": [
+        "TestHttpCompression"
+      ],
+      "reason": "Carries eight broad @pytest.mark.filterwarnings(\"ignore::scrapy.exceptions.ScrapyDeprecationWarning\") markers for the crawler-less HttpCompressionMiddleware deprecation (scrapy/downloadermiddlewares/httpcompression.py:50); those broad ignores must be narrowed/replaced under an error-warnings policy."
+    },
+    {
+      "path": "tests/test_utils_signal.py",
+      "symbols": [
+        "TestSendCatchLogDeferred",
+        "TestSendCatchLogDeferred2",
+        "TestSendCatchLogDeferredAsyncDef"
+      ],
+      "reason": "Class-level ignore::ScrapyDeprecationWarning markers cover the deprecated send_catch_log_deferred signal API, an example of broad suppression the new policy is meant to replace with explicit expectations."
+    },
+    {
+      "path": "tests/test_utils_defer.py",
+      "symbols": [
+        "TestMustbeDeferred"
+      ],
+      "reason": "Class-level ignore::ScrapyDeprecationWarning marker for the deprecated maybeDeferred/mustbe_deferred code paths in scrapy/utils/defer.py, which currently relies on a blanket suppression."
+    },
+    {
+      "path": "tests/test_http_request_form.py",
+      "symbols": [
+        "TestFormRequest"
+      ],
+      "reason": "Whole-class ignore::ScrapyDeprecationWarning for FormRequest.from_response(), plus scoped warnings.simplefilter(\"error\", ScrapyDeprecationWarning) assertions; the global error policy makes both halves load-bearing."
+    },
+    {
+      "path": "tests/test_utils_datatypes.py",
+      "symbols": [
+        "TestCaselessDict",
+        "TestCaseInsensitiveDict"
+      ],
+      "reason": "Method- and class-level ignore markers for the deprecated CaselessDict.getdefault()/setdefault() behavior; these suppressions would be reworked when warnings become errors."
+    },
+    {
+      "path": "tests/test_engine_download.py",
+      "symbols": [
+        "TestEngineDownload",
+        "TestEngineDownloadAsync"
+      ],
+      "reason": "Class-level ignore::scrapy.exceptions.ScrapyDeprecationWarning on the non-async engine download tests (calls the deprecated ExecutionEngine.download / download_request paths in scrapy/core/engine.py)."
+    },
+    {
+      "path": "tests/test_spider_sitemap.py",
+      "symbols": [
+        "TestSitemapSpider"
+      ],
+      "reason": "Per-test @pytest.mark.filterwarnings(\"ignore::scrapy.exceptions.ScrapyDeprecationWarning\") around deprecated spider-attribute behavior (download_maxsize on the spider class, scrapy/utils/sitemap.py warnings)."
+    },
+    {
+      "path": "tests/test_spidermiddleware_referer.py",
+      "symbols": [
+        "TestPolicyMethodResponseParamRename",
+        "TestRefererMiddleware"
+      ],
+      "reason": "Combines RuntimeWarning from RefererMiddleware._load_policy (scrapy/spidermiddlewares/referer.py:433) with ScrapyDeprecationWarning for the resp_or_url rename, and asserts the absence of a specific warning using a scoped \"error\" filter that must keep working under global warnings-as-errors."
+    },
+    {
+      "path": "tests/test_mail.py",
+      "symbols": [
+        "TestMailSender"
+      ],
+      "reason": "Module-level pytestmark ignores the scrapy.mail deprecation for every test in the file, and the module import itself is deprecation-triggering; import-time and per-test warnings both become errors."
+    },
+    {
+      "path": "tests/test_extension_statsmailer.py",
+      "symbols": [
+        "test_spider_closed_sends_email",
+        "test_from_crawler_with_recipients_initializes_extension"
+      ],
+      "reason": "Wraps the deprecated scrapy.extensions.statsmailer and scrapy.mail imports in warnings.catch_warnings()/filterwarnings; those import-time suppressions are exactly what a global error filter breaks."
+    },
+    {
+      "path": "tests/test_utils_log.py",
+      "symbols": [
+        "TestLogformatterAdapter"
+      ],
+      "reason": "Asserts both the presence (pytest.warns) and absence (warnings.simplefilter(\"error\", ScrapyDeprecationWarning)) of the deprecated logformatter msg/args interpolation warning emitted from scrapy/utils/log.py:271."
+    },
+    {
+      "path": "tests/test_scheduler.py",
+      "symbols": [
+        "SchedulerTestMixin",
+        "TestSchedulerInMemory",
+        "TestSchedulerOnDisk"
+      ],
+      "reason": "Silences the deprecated CONCURRENT_REQUESTS_PER_IP warning inside a catch_warnings/filterwarnings block while asserting the resulting ValueError; the surrounding policy change determines whether that scoping is still required."
+    },
+    {
+      "path": "tests/test_core_downloader.py",
+      "symbols": [
+        "TestContextFactoryBase",
+        "TestContextFactoryCiphers",
+        "TestContextFactoryTLSMethod"
+      ],
+      "reason": "Contains scoped filters for Twisted CertificateOptions/abortConnection DeprecationWarnings and several pytest.warns assertions for the deprecated DOWNLOADER_CLIENT_TLS_METHOD setting, OpenSSL ciphers and TLS method helpers."
+    },
+    {
+      "path": "tests/test_utils_ssl.py",
+      "symbols": [
+        "test_ffi_buf_to_string",
+        "test_x509name_to_string",
+        "test_get_temp_key_info"
+      ],
+      "reason": "Asserts ScrapyDeprecationWarning from the deprecated scrapy.utils.ssl helpers (scrapy/utils/ssl.py:126-160) using pytest.warns and catch_warnings blocks."
+    },
+    {
+      "path": "tests/test_pipelines.py",
+      "symbols": [
+        "TestPipeline"
+      ],
+      "reason": "Parametrized pytest.mark.filterwarnings(\"ignore::scrapy.exceptions.ScrapyDeprecationWarning\") markers for the deprecated DeferredPipeline spider argument (scrapy/pipelines/__init__.py warnings)."
+    },
+    {
+      "path": "tests/test_pipeline_files.py",
+      "symbols": [
+        "TestFilesPipeline",
+        "TestFilesPipelineFieldsDict"
+      ],
+      "reason": "Exercises the deprecated media/file pipeline code paths that warn from scrapy/pipelines/files.py:479/778 and scrapy/pipelines/media.py, and uses warning handling around them."
+    },
+    {
+      "path": "tests/test_pipeline_media.py",
+      "symbols": [
+        "TestBaseMediaPipeline",
+        "TestMediaPipeline"
+      ],
+      "reason": "Covers MediaPipeline deprecations that emit ScrapyDeprecationWarning from scrapy/pipelines/media.py:96/237, a common source of unhandled warnings in the suite."
+    },
+    {
+      "path": "tests/test_dupefilters.py",
+      "symbols": [
+        "TestBaseDupeFilter"
+      ],
+      "reason": "Asserts the deprecated BaseDupeFilter.log() ScrapyDeprecationWarning with pytest.warns, so it must remain an explicit expectation rather than an accidental warning."
+    },
+    {
+      "path": "tests/test_utils_sitemap.py",
+      "symbols": [
+        "test_sitemap_str"
+      ],
+      "reason": "Asserts the ScrapyDeprecationWarning for passing str xmltext to Sitemap (scrapy/utils/sitemap.py:31), a deprecated-usage test that interacts with the new global error filter."
+    },
+    {
+      "path": "tests/test_middleware.py",
+      "symbols": [
+        "test_no_crawler"
+      ],
+      "reason": "Asserts the ScrapyDeprecationWarning emitted when a middleware manager is built without a crawler (scrapy/middleware.py:44/121) using pytest.warns."
+    },
+    {
+      "path": "tests/test_commands.py",
+      "symbols": [
+        "TestHelpDeprecation"
+      ],
+      "reason": "Asserts both the ScrapyCommand.help() deprecation warning and the absence of the override warning using pytest.warns/recwarn (scrapy/commands/__init__.py:53-90); it is the canonical expected-warning test for the command layer."
+    },
+    {
+      "path": "tests/test_utils_console.py",
+      "symbols": [
+        "TestIPythonShell"
+      ],
+      "reason": "Carries an ignore filter for the CPython forkpty DeprecationWarning (\"is multi-threaded, use of forkpty\"), arguably the one interpreter-level exception the policy keeps."
+    },
+    {
+      "path": "tests/test_spider_crawl.py",
+      "symbols": [
+        "TestDeprecation"
+      ],
+      "reason": "Dedicated deprecation test class covering the deprecated CRAWLSPIDER_FOLLOW_LINKS setting and CrawlSpider rule handling, which emits ScrapyDeprecationWarning from scrapy/spiders/crawl.py."
+    },
+    {
+      "path": "tests/test_utils_misc/test_return_with_argument_inside_generator.py",
+      "symbols": [
+        "test_generators_return_something",
+        "test_warn_on_generator_with_return_value_settings_disabled"
+      ],
+      "reason": "Asserts the UserWarning emitted by scrapy/utils/misc.py:308 when a generator callback returns a value, and asserts it is not emitted when the setting is disabled; a first-party warning that must stay intentional under warnings-as-errors."
+    },
+    {
+      "path": "tests/utils/bases/download_handlers_http.py",
+      "symbols": [
+        "TestHttpBase",
+        "TestHttpsBase",
+        "TestSimpleHttpsBase"
+      ],
+      "reason": "Shared base defining parametrized filters for the ssl.TLSVersion.TLSv1 DeprecationWarning and the cryptography X.509 DeprecationWarning; it propagates to tests/test_downloader_handler_*.py, so any policy change must be reflected here first."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 6,
+    "manifest_sha256": "f8ad399f845eabb05161071e36b6407263ea651243c665634f9cf948da7e3d86"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "dcda1d26d4708bcf0ee8c3cf6ad74bb33ef8fa8e0cdf30c007ef98fb7f3a149e"
+  }
+}

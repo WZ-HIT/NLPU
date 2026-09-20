@@ -1,0 +1,21 @@
+# Implementation Plan
+
+- [ ] 1. Add shared TLS key-log support
+  - [ ] 1.1 Add a helper that reads `SSLKEYLOGFILE` and installs an append-mode pyOpenSSL key-log callback.
+    - Verify the helper is a no-op when the variable is unset and raises when the path is unwritable.
+    - _Requirements: 1.1, 1.2, 1.3_
+  - [ ] 1.2 Invoke the helper from `_ScrapyCertificateOptions._makeContext()` before the context is used.
+    - _Requirements: 2.1, 2.2_
+    - _Boundary: scrapy.core.downloader.contextfactory_
+- [ ] 2. Cover the httpx SSL context
+  - [ ] 2.1 Set `keylog_filename` from `SSLKEYLOGFILE` in `_make_ssl_context()`.
+    - _Requirements: 1.1, 1.2, 2.3_
+    - _Boundary: scrapy.utils.ssl_
+- [ ] 3. Add regression coverage
+  - [ ] 3.1 Cover unset and configured key logging in the shared HTTPS handler tests.
+    - _Requirements: 1.1, 1.2, 2.1, 2.2, 2.3, 2.4_
+  - [ ] 3.2 Cover context-helper behavior and unwritable-path failure.
+    - _Requirements: 1.3_
+- [ ] 4. Document `SSLKEYLOGFILE`
+  - [ ] 4.1 Document the environment variable, intended debugging use, and handler support boundary.
+    - _Requirements: 1.4_

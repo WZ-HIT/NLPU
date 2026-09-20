@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr7879",
+  "repository": {
+    "owner": "scrapy",
+    "name": "scrapy"
+  },
+  "pr_id": 7879,
+  "baseline": {
+    "base_sha": "d772acdf19251e9a03be285353b50bd1314e3d5d"
+  },
+  "title": "Fix open_in_browser not adding a base tag without a head element",
+  "body": "Fixes https://github.com/scrapy/scrapy/issues/6550.",
+  "adapter": {
+    "id": "scrapy",
+    "version": 1,
+    "path": "sdd-bench/scrapy-sdd/adapters/scrapy.json",
+    "sha256": "059dcc09eaa62f892f54118e65d4deccce3ab29cc5d9a4a36f4d999ff1aa27de"
+  }
+}

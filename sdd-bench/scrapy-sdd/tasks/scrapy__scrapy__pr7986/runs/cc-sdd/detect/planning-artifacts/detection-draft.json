@@ -1,0 +1,48 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_downloader_handler_twisted_http2.py",
+      "symbols": [
+        "H2DownloadHandlerMixin",
+        "test_not_configured_without_reactor",
+        "TestHttp2",
+        "TestHttp2.test_protocol",
+        "TestHttp2.test_concurrent_requests_same_domain",
+        "TestHttp2.test_custom_content_length_bad",
+        "TestSimpleHttp2",
+        "TestHttp2WithCrawler",
+        "TestHttp2Proxy",
+        "TestMitmProxy",
+        "TestRealWebsite"
+      ],
+      "reason": "Dedicated test module for scrapy.core.downloader.handlers.http2.H2DownloadHandler: it imports the handler class, configures it through the DOWNLOAD_HANDLERS string path, and asserts on the scrapy.core.http2.stream logger. Every half of the change (dropping the experimental marking and privatizing the handler/module API) lands on this file."
+    },
+    {
+      "path": "tests/test_http2_client_protocol.py",
+      "symbols": [
+        "H2ClientProtocol",
+        "H2ClientFactory",
+        "Stream",
+        "StreamCloseReason",
+        "InactiveStreamClosed",
+        "InvalidHostname",
+        "PROTOCOL_NAME"
+      ],
+      "reason": "Tests the supporting scrapy.core.http2.protocol and scrapy.core.http2.stream modules through direct imports, mock.patch targets, and caplog logger names. If the HTTP/2 client package is privatized (module path rename), this file must be updated even though it never touches the download handler class."
+    },
+    {
+      "path": "tests/utils/bases/download_handlers_http.py",
+      "symbols": [
+        "TestHttpsBase",
+        "TestSimpleHttpsBase",
+        "TestHttpsWrongHostnameBase",
+        "TestHttpsCustomCiphersBase",
+        "TestHttpsTLSVersionBase",
+        "TestHttpProxyBase",
+        "TestHttpWithCrawlerBase",
+        "handler_supports_http2_dataloss"
+      ],
+      "reason": "Shared test bases that the twisted HTTP/2 test class composes; they instantiate the handler through download_handler_cls/settings_dict and encode handler-specific HTTP/2 expectations. A change to the handler class name, module path, or supported-behavior flags can require updating these bases."
+    }
+  ]
+}

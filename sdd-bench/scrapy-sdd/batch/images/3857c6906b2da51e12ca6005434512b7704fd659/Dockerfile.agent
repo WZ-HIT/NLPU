@@ -57,7 +57,7 @@ RUN set -eu; \
 
 RUN set -eu; \
     test "$(python -c 'import sys; print(sys.version.split()[0])')" = "3.11.15"; \
-    test "$(python -c 'import importlib.metadata as m; print(m.version("Scrapy"))')" = "2.18.0"; \
+    test "$(python -c 'import importlib.metadata as m; print(m.version("Scrapy"))')" = "$(cat /workspace/scrapy/VERSION)"; \
     test "$(python -c 'import importlib.metadata as m; print(m.version("pytest"))')" = "9.1.1"; \
     test "$(/opt/agent/node/bin/node --version)" = "v24.20.0"; \
     test "$(/opt/agent/node/bin/npm --version)" = "11.19.0"; \

@@ -1,0 +1,21 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_downloadermiddleware_httpcompression.py",
+      "symbols": [
+        "_skip_if_no_zstd",
+        "TestHttpCompression.test_process_request",
+        "TestHttpCompression.test_process_response_zstd",
+        "TestHttpCompression.test_process_response_zstd_unsupported",
+        "TestHttpCompression.test_compression_bomb_setting_zstd",
+        "TestHttpCompression.test_compression_bomb_spider_attr_zstd",
+        "TestHttpCompression.test_compression_bomb_request_meta_zstd",
+        "TestHttpCompression.test_download_warnsize_setting_zstd",
+        "TestHttpCompression.test_download_warnsize_spider_attr_zstd",
+        "TestHttpCompression.test_download_warnsize_request_meta_zstd",
+        "TestHttpCompression.test_process_truncated_response_zstd"
+      ],
+      "reason": "This module contains all zstd-specific middleware coverage. Making zstd mandatory changes its Accept-Encoding assertion, removes the zstandard dependency skip, invalidates the unsupported-dependency case, and activates the existing bomb, warning-size, and truncation tests that used to be skipped when zstandard was absent."
+    }
+  ]
+}

@@ -73,6 +73,56 @@ def tracked_manifest(repo: Path, paths: list[str]) -> str:
     return sha256_bytes(json.dumps(entries, sort_keys=True, separators=(",", ":")).encode())
 
 
+# Scrapy is reinstalled from each base's own tree, so the installed revision is
+# a property of the base rather than a fixed toolchain version. Comparing the
+# two trees is the only check that sees this: the pattern-based leak scan below
+# exempts /opt/scrapy-source by path and has no source-code patterns, so a
+# stale install is invisible to it. Runs inside the baseline image with no
+# network, and ignores __pycache__ because the smoke test imports from a bind
+# mount, not from this copy.
+VERIFY_SCRAPY_PROGRAM = r"""
+import hashlib, json, pathlib, sys
+
+def manifest(root):
+    root = pathlib.Path(root)
+    if not root.is_dir():
+        return None
+    files = {}
+    for path in sorted(root.rglob("*")):
+        if not path.is_file() or "__pycache__" in path.parts or path.suffix == ".pyc":
+            continue
+        files[path.relative_to(root).as_posix()] = hashlib.sha256(path.read_bytes()).hexdigest()
+    return files
+
+installed = manifest(sys.argv[1])
+base = manifest(sys.argv[2])
+extra = sorted(set(installed or {}) - set(base or {}))
+missing = sorted(set(base or {}) - set(installed or {}))
+differing = sorted(
+    name for name, digest in (installed or {}).items()
+    if (base or {}).get(name) != digest
+)
+print(json.dumps({
+    "status": "PASS" if installed is not None and installed == base else "FAIL",
+    "installed_root_exists": installed is not None,
+    "installed_files": len(installed or {}),
+    "base_files": len(base or {}),
+    "extra_in_installed": extra,
+    "missing_from_installed": missing,
+    "differing": differing,
+}))
+"""
+
+
+def verify_installed_scrapy(baseline_image: str) -> dict[str, Any]:
+    return json.loads(
+        docker_output(
+            baseline_image, "/usr/local/bin/python", "-c", VERIFY_SCRAPY_PROGRAM,
+            "/usr/local/lib/python3.11/site-packages/scrapy", "/workspace/scrapy",
+        )
+    )
+
+
 def sensitive_patterns(repository_root: Path, baseline_lock: dict[str, Any]) -> dict[str, bytes]:
     raw_path = repository_root / baseline_lock["raw_source"]["path"]
     line_number = baseline_lock["raw_source"]["line_number"]
@@ -205,8 +255,19 @@ def main() -> None:
         "speckit": docker_output(agent_image, "/opt/sdd-tools/bin/specify", "--version"),
         "cc-sdd": docker_output(agent_image, "/opt/sdd-tools/bin/cc-sdd", "--version"),
     }
+    print("audit: verifying the installed Scrapy is the frozen base tree", flush=True)
+    scrapy_provenance = verify_installed_scrapy(baseline_image)
+    if scrapy_provenance["status"] != "PASS":
+        raise RuntimeError(f"installed Scrapy is not the base tree: {scrapy_provenance!r}")
+    # Every other entry below is a toolchain version pinned across every base,
+    # so a literal is the right freeze. Scrapy is not: it is the base's own
+    # revision, and it read "2.18.0" here only while every image inherited the
+    # root checkout's install. Taking it from the base tree keeps the check
+    # meaningful (the agent image must report what the base tree says) without
+    # pinning every future base to one revision.
+    frozen_scrapy_version = docker_output(baseline_image, "/bin/cat", "/workspace/scrapy/VERSION")
     expected_versions = {
-        "python": "3.11.15", "scrapy": "2.18.0", "pytest": "9.1.1",
+        "python": "3.11.15", "scrapy": frozen_scrapy_version, "pytest": "9.1.1",
         "node": "v24.20.0", "npm": "11.19.0", "codex": "codex-cli 0.153.4",
         "uv": "uv 0.12.10 (x86_64-unknown-linux-gnu)",
         "bubblewrap": "bubblewrap built for Codex", "openspec": "1.12.0",

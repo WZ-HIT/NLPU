@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr7808",
+  "run_id": "preflight-001",
+  "expected": {
+    "detect": {
+      "scrapy": "DENIED",
+      "tests": "DENIED",
+      "planning": "ALLOWED",
+      "output": "ALLOWED"
+    },
+    "update": {
+      "scrapy": "DENIED",
+      "tests": "ALLOWED",
+      "planning": "DENIED",
+      "output": "ALLOWED",
+      "sealed_input": "DENIED"
+    }
+  },
+  "observed": [
+    {
+      "method": "openspec",
+      "stage": "detect",
+      "status": "READY",
+      "runtime_boundary_pass": true,
+      "formal_run_permitted": true,
+      "report": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7808/runs/openspec/detect/preflight/preflight-report.json",
+      "report_sha256": "049a86516c7f0e0d8cae3afe8c704eaa9d7ba6f3530a2ebe9275ea94412371f3"
+    },
+    {
+      "method": "openspec",
+      "stage": "update",
+      "status": "BLOCKED",
+      "runtime_boundary_pass": true,
+      "formal_run_permitted": false,
+      "report": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7808/runs/openspec/update/preflight/preflight-report.json",
+      "report_sha256": "ac9141ade2cc55ad98626b841cc56780116d61c835c04b9ced7bc75ff47100c4"
+    },
+    {
+      "method": "speckit",
+      "stage": "detect",
+      "status": "READY",
+      "runtime_boundary_pass": true,
+      "formal_run_permitted": true,
+      "report": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7808/runs/speckit/detect/preflight/preflight-report.json",
+      "report_sha256": "1fff66945baf947e7d5d96cefcc52261ca8da91412b7aaafb70e0ad6c7bd7c53"
+    },
+    {
+      "method": "speckit",
+      "stage": "update",
+      "status": "BLOCKED",
+      "runtime_boundary_pass": true,
+      "formal_run_permitted": false,
+      "report": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7808/runs/speckit/update/preflight/preflight-report.json",
+      "report_sha256": "61eaa31a9f5b82b2b7fd1770f53326ddd9d25923603fb996abf42975b4f73009"
+    },
+    {
+      "method": "cc-sdd",
+      "stage": "detect",
+      "status": "READY",
+      "runtime_boundary_pass": true,
+      "formal_run_permitted": true,
+      "report": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7808/runs/cc-sdd/detect/preflight/preflight-report.json",
+      "report_sha256": "7876e0e9c44c2d636f166ac5c6c05d7607876b154bfcb424a68c9b9cf3e9b8b1"
+    },
+    {
+      "method": "cc-sdd",
+      "stage": "update",
+      "status": "BLOCKED",
+      "runtime_boundary_pass": true,
+      "formal_run_permitted": false,
+      "report": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7808/runs/cc-sdd/update/preflight/preflight-report.json",
+      "report_sha256": "2ec548aa078c65e4c7c0f513a0f8bec1b6c9b5c70d46746d3a6ad83e6f6a2dac"
+    }
+  ],
+  "all_runtime_boundaries_pass": true,
+  "formal_update_state": "AWAITING_FORMAL_SEAL"
+}

@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr7846",
+  "method": "speckit",
+  "base_sha": "488a762d7173922190ea027e0fb6f6d9d3b59880",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "speckit-detect-004",
+    "session_sha256": "a32413c4e6df61f6f754227ce41aa3454b3ab512b395eb3e3e02d90d93e0ced2"
+  },
+  "task_input_sha256": "2eb6bc1a847099eb89294022c109e34535b0c42205f3180bc83230289de742c8",
+  "candidates": [
+    {
+      "path": "tests/test_utils_url.py",
+      "symbols": [
+        "test_add_http_if_no_scheme",
+        "test_guess_scheme",
+        "TestStripUrl"
+      ],
+      "reason": "URL utility tests are the closest unit boundary for hostname conversion and can directly pin legacy IDNA fallback behavior alongside existing URL normalization."
+    },
+    {
+      "path": "tests/test_resolver.py",
+      "symbols": [
+        "test_caching_threaded_resolver_getHostByName_cache_hit",
+        "test_caching_hostname_resolver_no_addresses_not_cached",
+        "test_caching_hostname_resolver_cached_addresses_have_no_port"
+      ],
+      "reason": "Twisted's hostname resolver is the primary runtime consumer of the patched IDNA byte conversion, so resolver tests best expose whether the compatibility hook is effective."
+    },
+    {
+      "path": "tests/test_http_request.py",
+      "symbols": [
+        "TestRequest",
+        "TestXmlRpcRequest"
+      ],
+      "reason": "Request construction includes URL normalization before DNS or TLS; this suite verifies that an internationalized hostname is preserved consistently for downstream consumers."
+    },
+    {
+      "path": "tests/test_core_downloader.py",
+      "symbols": [
+        "TestContextFactoryBase",
+        "TestContextFactory"
+      ],
+      "reason": "TLS hostname verification also calls Twisted's IDNA helper, and these tests exercise the context-factory boundary where an IDNA-2003-only host must remain valid."
+    },
+    {
+      "path": "tests/test_downloader_handler_twisted_http11.py",
+      "symbols": [
+        "TestHttps",
+        "TestHttpsWrongHostname",
+        "TestHttpsInvalidDNSId"
+      ],
+      "reason": "Downloader handler coverage validates the end-to-end request path through endpoint creation and hostname processing without relying only on helper unit tests."
+    },
+    {
+      "path": "tests/test_toplevel.py",
+      "symbols": [
+        "test_version",
+        "test_request_shortcut"
+      ],
+      "reason": "The compatibility patch is intended to run at Scrapy import time; top-level import tests are the narrowest place to catch activation or import-order regressions."
+    },
+    {
+      "path": "tests/test_crawl.py",
+      "symbols": [
+        "TestCrawl"
+      ],
+      "reason": "A crawl-level test is the clearest user-facing regression check for reaching a hostname that previously failed during Twisted name conversion."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 7,
+    "manifest_sha256": "73be70cb90261b684f60cd31207efd1fa46e51e039745fa795431e819b4e2dc4"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "8699636e94f72a282f4a49d5b22e268e3dabf6387e37bee01670788c4e2fb484"
+  }
+}

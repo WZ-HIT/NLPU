@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr8008",
+  "method": "speckit",
+  "base_sha": "488a762d7173922190ea027e0fb6f6d9d3b59880",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "speckit-detect-004",
+    "session_sha256": "ec68e0655afe5a04223017bd402f3647ed0b690f080a6b6d4aa4392a55fff94c"
+  },
+  "task_input_sha256": "ca351cde10b288f57ad6ed7bdd52a638372bb486f0c663d1cf48449931784cd2",
+  "candidates": [
+    {
+      "path": "tests/test_spider_start.py",
+      "symbols": [
+        "_test_spider",
+        "test_slow_pipeline"
+      ],
+      "reason": "This module contains the racy slow-pipeline assertion and the shared _test_spider helper that PR 8008 changes; test_slow_pipeline must opt into unordered comparison while the helper keeps ordered comparison by default for all other callers."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 8,
+    "manifest_sha256": "474e0f911bcc093507f3c015da4ec4dec68a867d38a46dd603039497b1726ea1"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "32a59e27ebd731454209d0456f2d6b0b269f10babde33d9b2dff6c655d985e19"
+  }
+}

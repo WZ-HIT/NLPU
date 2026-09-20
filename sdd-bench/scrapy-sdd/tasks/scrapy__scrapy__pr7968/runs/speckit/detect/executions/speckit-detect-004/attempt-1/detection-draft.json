@@ -1,0 +1,84 @@
+{
+  "candidates": [
+    {
+      "path": "tests/spiders.py",
+      "symbols": [
+        "MockServerSpider",
+        "RawResponseSpider",
+        "ItemSpider",
+        "DelaySpider",
+        "CrawlSpiderWithParseMethod",
+        "CrawlSpiderWithAsyncCallback",
+        "CrawlSpiderWithAsyncGeneratorCallback",
+        "CrawlSpiderWithErrback",
+        "SingleRequestSpider"
+      ],
+      "reason": "Spider fixture module under tests/ used by the spider test modules; it is listed in the pyproject.toml mypy TODO block (check_untyped_defs = false) and its 40+ spider helper classes are almost entirely unannotated, so typing the spider-related test modules requires typing these fixtures."
+    },
+    {
+      "path": "tests/utils/bases/spider.py",
+      "symbols": [
+        "TestSpiderBase",
+        "test_base_spider",
+        "test_spider_args",
+        "test_from_crawler_init_call",
+        "test_closed_signal_call",
+        "test_update_settings",
+        "test_logger",
+        "test_log"
+      ],
+      "reason": "Shared spider test base class (TestSpiderBase) imported by tests/test_spider.py, tests/test_spider_crawl.py and tests/test_spider_sitemap.py; it is a spider-related entry in the pyproject.toml mypy TODO exclusion block and most of its test methods lack annotations."
+    },
+    {
+      "path": "tests/test_spider.py",
+      "symbols": [
+        "TestSpider",
+        "TestXMLFeedSpider",
+        "TestCSVFeedSpider",
+        "TestNoParseMethodSpider",
+        "RawFeedSpider"
+      ],
+      "reason": "Core spider test module: it subclasses TestSpiderBase for Spider, XMLFeedSpider and CSVFeedSpider, has no annotated definitions, and is listed in the pyproject.toml mypy TODO exclusion block."
+    },
+    {
+      "path": "tests/test_spider_crawl.py",
+      "symbols": [
+        "TestCrawlSpider",
+        "TestDeprecation"
+      ],
+      "reason": "CrawlSpider test module: subclasses TestSpiderBase for CrawlSpider, contains 23 unannotated definitions, and is listed in the pyproject.toml mypy TODO exclusion block."
+    },
+    {
+      "path": "tests/test_spider_sitemap.py",
+      "symbols": [
+        "TestSitemapSpider",
+        "RawSitemapSpider"
+      ],
+      "reason": "SitemapSpider test module: subclasses TestSpiderBase, mixes unannotated async fixtures with newly annotated tests, and is listed in the pyproject.toml mypy TODO exclusion block."
+    },
+    {
+      "path": "tests/test_spidermiddleware_output_chain.py",
+      "symbols": [
+        "TestSpiderMiddleware",
+        "_BaseSpiderMiddleware",
+        "LogExceptionMiddleware",
+        "RecoveryMiddleware",
+        "RecoverySpider",
+        "GeneratorOutputChainSpider"
+      ],
+      "reason": "Spider-middleware output chain test module: most spider/middleware helper classes are unannotated and it is one of the two spider-middleware entries in the pyproject.toml mypy TODO exclusion block."
+    },
+    {
+      "path": "tests/test_spidermiddleware_process_start.py",
+      "symbols": [
+        "TestMain",
+        "AsyncioSleepSpiderMiddleware",
+        "TwistedSleepSpiderMiddleware",
+        "ModernWrapSpider",
+        "ModernWrapSpiderMiddleware",
+        "NoOpSpiderMiddleware"
+      ],
+      "reason": "Spider-middleware process_start test module: every definition (async middlewares, spider helpers and test methods) is unannotated and it is the second spider-middleware entry in the pyproject.toml mypy TODO exclusion block."
+    }
+  ]
+}

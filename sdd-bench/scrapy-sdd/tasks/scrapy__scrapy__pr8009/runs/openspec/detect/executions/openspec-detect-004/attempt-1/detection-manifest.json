@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr8009",
+  "method": "openspec",
+  "base_sha": "3c6a62db47536df89676ab9d7347acf5c5c8a2e4",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "openspec-detect-004",
+    "session_sha256": "66d3c3d9f0908b3092eb0faf9b765d70c1de86dff18c500354dbb896e93e1408"
+  },
+  "task_input_sha256": "3704fcb53edb419a9e70ce85be7b4489b5a3118b114cd7948127aa26ff058372",
+  "candidates": [
+    {
+      "path": "tests/test_downloadermiddleware_httpcompression.py",
+      "symbols": [
+        "_skip_if_no_zstd",
+        "test_process_request",
+        "test_process_response_zstd",
+        "test_process_response_zstd_unsupported",
+        "test_compression_bomb_setting_zstd",
+        "test_compression_bomb_spider_attr_zstd",
+        "test_compression_bomb_request_meta_zstd",
+        "test_download_warnsize_setting_zstd",
+        "test_download_warnsize_spider_attr_zstd",
+        "test_download_warnsize_request_meta_zstd",
+        "test_process_truncated_response_zstd"
+      ],
+      "reason": "Primary coverage for the change: it exercises scrapy.utils._compression and the HTTP compression downloader middleware end to end. It currently calls _skip_if_no_zstd() (pytest.importorskip(\"zstandard\")) in every zstd test, asserts the Accept-Encoding header equals ACCEPTED_ENCODINGS, and contains test_process_response_zstd_unsupported, which asserts the missing-zstandard warning that becomes unreachable once compression.zstd/backports.zstd is always available. These are exactly the assertions that must change with this PR."
+    },
+    {
+      "path": "tests/test_dependencies.py",
+      "symbols": [
+        "test_pinned_twisted_version"
+      ],
+      "reason": "Secondary: this is the only test module that inspects the dependency wiring for the pinned/minimum test environments, reading tox.ini through ConfigParser. The PR rewires the zstd dependency (removing zstandard entries from tox.ini extra-deps/min-extra-deps/vcs-deps and adding backports.zstd>=1.3.0; python_version < \"3.14\" to pyproject.toml), so the tox/pyproject dependency lists this module validates are edited by the change."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 7,
+    "manifest_sha256": "df657122c20be16144de0a94fc3a82806385ae90c65a008c34a83e55956b542b"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "6a29542bbddc0b5f288e5ade4ec0fc99182700a0649331a3517b80676ab09746"
+  }
+}

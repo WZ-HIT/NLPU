@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr8002",
+  "method": "openspec",
+  "base_sha": "be3e24e607ff0df427d6329163c706c406d06f61",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "openspec-detect-004",
+    "session_sha256": "9e64c4fafe99144e351c5846159d6979c2786a5ba9155bad4ffaa0b3f3717494"
+  },
+  "task_input_sha256": "f921b729f4d7d63f7798001f2268a5e398e2d3570d06e08c20d1c3ec06694b00",
+  "candidates": [
+    {
+      "path": "tests/test_linkextractors.py",
+      "symbols": [
+        "Base.TestLinkExtractorBase",
+        "TestLxmlLinkExtractor"
+      ],
+      "reason": "The change merges the disabled Base.TestLinkExtractorBase test container into TestLxmlLinkExtractor, so this module contains the affected test class, setup, and all inherited LxmlLinkExtractor test cases."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 5,
+    "manifest_sha256": "fc8a57dc4520aee1077f54dce1c07916194e09dc787420a37e5353c7282e980d"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "c25eef05b33f76c4ffa320933ee6a45aab9a678545bbf2e4d4131f8f37ff2691"
+  }
+}

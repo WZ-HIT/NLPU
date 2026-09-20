@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "stage": "detect",
+  "method": "cc-sdd",
+  "status": "READY",
+  "phases": [
+    "spec",
+    "detect"
+  ],
+  "workspace": "workspace/",
+  "planning_artifacts": "planning-artifacts/",
+  "output": "output/",
+  "repository_mount": "read-only",
+  "planning_mount": {
+    "host": "planning-artifacts/",
+    "container": "/workspace/.kiro/specs",
+    "mode": "read-write"
+  },
+  "forbidden": [
+    "run_tests",
+    "modify_scrapy",
+    "modify_tests",
+    "modify_project_configuration"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr8009",
+  "method": "cc-sdd",
+  "base_sha": "3c6a62db47536df89676ab9d7347acf5c5c8a2e4",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "cc-sdd-detect-004",
+    "session_sha256": "eb45ab6f3e55382fbbdf6f12c9ebda17bec8319d72289fb59a0e56242148777e"
+  },
+  "task_input_sha256": "3704fcb53edb419a9e70ce85be7b4489b5a3118b114cd7948127aa26ff058372",
+  "candidates": [
+    {
+      "path": "tests/test_downloadermiddleware_httpcompression.py",
+      "symbols": [
+        "TestHttpCompression.test_process_request",
+        "TestHttpCompression.test_process_response_zstd",
+        "TestHttpCompression.test_process_response_zstd_unsupported",
+        "TestHttpCompression.test_compression_bomb_setting_zstd",
+        "TestHttpCompression.test_compression_bomb_spider_attr_zstd",
+        "TestHttpCompression.test_compression_bomb_request_meta_zstd",
+        "TestHttpCompression.test_download_warnsize_setting_zstd",
+        "TestHttpCompression.test_download_warnsize_spider_attr_zstd",
+        "TestHttpCompression.test_download_warnsize_request_meta_zstd",
+        "TestHttpCompression.test_process_truncated_response_zstd",
+        "_skip_if_no_zstd",
+        "FORMAT"
+      ],
+      "reason": "Only test module that exercises zstd HTTP decompression. It is the dedicated suite for HttpCompressionMiddleware and scrapy.utils._compression, the two production modules the change rewrites. Its current state encodes the optional-dependency behaviour that the change removes: the module-level _skip_if_no_zstd() helper calls pytest.importorskip(\"zstandard\"), every zstd test (test_process_response_zstd, test_compression_bomb_*_zstd, test_download_warnsize_*_zstd, test_process_truncated_response_zstd) is gated behind that helper, test_process_response_zstd_unsupported branches on find_spec(\"zstandard\") and asserts the warning \"You need to install zstandard to decode 'zstd'\", and test_process_request asserts the Accept-Encoding header against ACCEPTED_ENCODINGS, which currently only contains b\"zstd\" when zstandard is importable. Once zstd support becomes mandatory and the backend moves to compression.zstd/backports.zstd, those skips, the unsupported-encoding test, the warning assertion and the conditional encoding list all have to change in this file, and it is the natural place for any new unconditional zstd assertions. It also imports _CHUNK_SIZE and _DecompressionMaxSizeExceeded from scrapy.utils._compression, so it is the direct consumer of the refactored zstd decompressor."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 4,
+    "manifest_sha256": "4e1eb1af9cc5f2b69c011d5605bd91bfe1de25a4864c09ef2a99eb7558c269c8"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "a6fa97cffeaae58fe0249c77d0309a2845c700b789925243f9eadcd19ea66079"
+  }
+}

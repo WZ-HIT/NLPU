@@ -1,0 +1,12 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_linkextractors.py",
+      "symbols": [
+        "Base.TestLinkExtractorBase",
+        "TestLxmlLinkExtractor"
+      ],
+      "reason": "The change merges the disabled Base.TestLinkExtractorBase test container into TestLxmlLinkExtractor, so this module contains the affected test class, setup, and all inherited LxmlLinkExtractor test cases."
+    }
+  ]
+}

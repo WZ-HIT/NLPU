@@ -1,0 +1,119 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_crawler.py",
+      "symbols": [
+        "TestCrawler.test_late_attr_before_apply_settings",
+        "TestCrawler.test_get_extension",
+        "TestCrawlerLogging.test_spider_custom_settings_log_level"
+      ],
+      "reason": "Crawler setup constructs the log formatter and extension manager directly; tests cover initialized late attributes, component lookup, and formatter behavior."
+    },
+    {
+      "path": "tests/test_downloadermiddleware.py",
+      "symbols": [
+        "TestManagerBase",
+        "TestDefaults",
+        "TestMiddlewareUsingDeferreds",
+        "TestMiddlewareUsingCoro"
+      ],
+      "reason": "The downloader constructs DownloaderMiddlewareManager directly, and this suite exercises manager initialization and middleware construction."
+    },
+    {
+      "path": "tests/test_core_downloader.py",
+      "symbols": [
+        "test_needs_backout",
+        "test_fetch_deprecated_spider_arg"
+      ],
+      "reason": "Downloader.__init__ now uses the shared component builder for its middleware manager; these tests instantiate Downloader directly and exercise manager-dependent behavior."
+    },
+    {
+      "path": "tests/test_downloaderslotssettings.py",
+      "symbols": [
+        "test_params",
+        "test_get_slot_deprecated_spider_arg"
+      ],
+      "reason": "These tests construct Downloader directly and therefore cover crawler startup through the manager construction path changed in Downloader.__init__."
+    },
+    {
+      "path": "tests/test_spidermiddleware.py",
+      "symbols": [
+        "TestSpiderMiddleware",
+        "TestBaseAsyncSpiderMiddleware",
+        "TestUniversalMiddlewareManager",
+        "TestBuiltinMiddlewareSimple"
+      ],
+      "reason": "Scraper setup constructs SpiderMiddlewareManager directly; these tests cover manager and spider-middleware construction."
+    },
+    {
+      "path": "tests/test_pipelines.py",
+      "symbols": [
+        "TestPipeline",
+        "TestCustomPipelineManager",
+        "TestMiddlewareManagerSpider"
+      ],
+      "reason": "The ITEM_PROCESSOR class is built directly with from_crawler(); pipeline tests cover default, custom, and async item processors."
+    },
+    {
+      "path": "tests/test_middleware.py",
+      "symbols": [
+        "test_enabled",
+        "test_enabled_from_settings",
+        "test_no_crawler"
+      ],
+      "reason": "MiddlewareManager.from_crawler() already delegates entries to build_from_crawler(); these tests protect the manager-level contract affected by call-site generalization."
+    },
+    {
+      "path": "tests/test_extension_statsmailer.py",
+      "symbols": [
+        "test_from_crawler_with_recipients_initializes_extension",
+        "test_from_crawler_connects_spider_closed_signal"
+      ],
+      "reason": "The deprecated StatsMailer path constructs MailSender directly; tests monkeypatch and assert the mail construction path."
+    },
+    {
+      "path": "tests/test_extension_memusage.py",
+      "symbols": [
+        "test_memusage_disabled",
+        "test_memusage_limit_stops_crawler_without_spider"
+      ],
+      "reason": "The deprecated MemoryUsage notification path constructs MailSender directly and exercises extension startup."
+    },
+    {
+      "path": "tests/test_downloadermiddleware_robotstxt.py",
+      "symbols": [
+        "TestRobotsTxtMiddleware",
+        "TestRobotsTxtMiddlewareWithRerp"
+      ],
+      "reason": "RobotsTxtMiddleware constructs the configured parser directly with from_crawler(); these tests cover parser initialization and parsing behavior."
+    },
+    {
+      "path": "tests/test_robotstxt_interface.py",
+      "symbols": [
+        "BaseRobotParserTest",
+        "TestRobotParser",
+        "TestPythonRobotParser",
+        "TestRerpRobotParser",
+        "TestProtegoRobotParser"
+      ],
+      "reason": "Robot parser implementations define the from_crawler/__init__ contract used by the generalized middleware call."
+    },
+    {
+      "path": "tests/test_logformatter.py",
+      "symbols": [
+        "TestLogFormatter",
+        "TestLogformatterSubclass",
+        "TestShowOrSkipMessages.test_show_messages",
+        "TestShowOrSkipMessages.test_skip_messages"
+      ],
+      "reason": "Crawler._apply_settings now builds LOG_FORMATTER through the shared helper; this suite covers default and configured formatter behavior."
+    },
+    {
+      "path": "tests/test_utils_misc/__init__.py",
+      "symbols": [
+        "test_build_from_crawler"
+      ],
+      "reason": "This is the unit-level contract test for constructor precedence and None rejection that all converted call sites rely on."
+    }
+  ]
+}

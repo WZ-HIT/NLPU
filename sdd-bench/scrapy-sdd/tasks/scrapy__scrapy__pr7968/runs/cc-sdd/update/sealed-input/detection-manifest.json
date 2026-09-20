@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr7968",
+  "method": "cc-sdd",
+  "base_sha": "06af687662112027b4482d31e2714a3cf280a91f",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "cc-sdd-detect-004",
+    "session_sha256": "9f7416a9eabaf0ba7e9b3930d6fd701be4e96d3196ea9dcb359f6252626d1c8f"
+  },
+  "task_input_sha256": "ec0f8695c62dc955938e8f1fb05926597ffe9e856f24fdba31dc11fa8bd86506",
+  "candidates": [
+    {
+      "path": "tests/test_spider.py",
+      "symbols": [
+        "RawFeedSpider",
+        "TestSpider",
+        "TestXMLFeedSpider",
+        "TestCSVFeedSpider",
+        "TestNoParseMethodSpider"
+      ],
+      "reason": "Primary spider test module: covers the Spider base class plus XMLFeedSpider/CSVFeedSpider behavior. It is listed as still-untyped in the mypy backlog (pyproject.toml [[tool.mypy.overrides]] module \"tests.test_spider\" with check_untyped_defs = false), so it is the most likely file for a 'Type spider-related test modules' change."
+    },
+    {
+      "path": "tests/test_spider_crawl.py",
+      "symbols": [
+        "TestCrawlSpider",
+        "TestDeprecation"
+      ],
+      "reason": "Spider-topic test module for CrawlSpider rules/process_links/process_request; also listed in the mypy untyped-module backlog (module \"tests.test_spider_crawl\"), which marks it as pending annotation work."
+    },
+    {
+      "path": "tests/test_spider_sitemap.py",
+      "symbols": [
+        "RawSitemapSpider",
+        "TestSitemapSpider",
+        "test_get_sitemap_body",
+        "test_sitemap_filter",
+        "test_sitemap_rules_with_callable"
+      ],
+      "reason": "Spider-topic test module for SitemapSpider; listed in the mypy untyped-module backlog (module \"tests.test_spider_sitemap\") and contains many unannotated defs, so it is a natural target of a spider typing pass."
+    },
+    {
+      "path": "tests/test_spidermiddleware_output_chain.py",
+      "symbols": [
+        "TestSpiderMiddleware",
+        "RecoverySpider",
+        "GeneratorOutputChainSpider",
+        "_BaseSpiderMiddleware"
+      ],
+      "reason": "Exercises spider middleware output chains and spider callbacks with mostly unannotated defs; listed in the mypy untyped-module backlog (module \"tests.test_spidermiddleware_output_chain\")."
+    },
+    {
+      "path": "tests/test_spidermiddleware_process_start.py",
+      "symbols": [
+        "TestMain",
+        "ModernWrapSpider",
+        "ModernWrapSpiderMiddleware",
+        "AsyncioSleepSpiderMiddleware",
+        "TwistedSleepSpiderMiddleware"
+      ],
+      "reason": "Covers process_start spider middleware wrapping, i.e. spider request-start behavior; listed in the mypy untyped-module backlog (module \"tests.test_spidermiddleware_process_start\") and has no annotated defs at the base commit."
+    },
+    {
+      "path": "tests/spiders.py",
+      "symbols": [
+        "MockServerSpider",
+        "MetaSpider",
+        "FollowAllSpider",
+        "SimpleSpider",
+        "AsyncDefSpider"
+      ],
+      "reason": "Shared spider definitions used by the spider test modules and other test suites; listed in the mypy untyped-module backlog (module \"tests.spiders\") with only a couple of annotated defs, so typing spider-related tests almost certainly touches this helper module."
+    },
+    {
+      "path": "tests/utils/bases/spider.py",
+      "symbols": [
+        "TestSpiderBase",
+        "spider_class",
+        "test_base_spider",
+        "test_spider_args",
+        "test_from_crawler_crawler_and_settings_population"
+      ],
+      "reason": "Base test class inherited by the spider test modules (TestSpider, TestCrawlSpider, TestSitemapSpider); listed in the mypy untyped-module backlog (module \"tests.utils.bases.spider\"), and its annotations propagate to every spider test subclass."
+    },
+    {
+      "path": "tests/test_closespider.py",
+      "symbols": [
+        "TestCloseSpider",
+        "test_closespider_itemcount",
+        "test_closespider_pagecount",
+        "test_closespider_errorcount",
+        "test_closespider_timeout"
+      ],
+      "reason": "Spider-lifetime test module (CloseSpider extension driving spider closing) and a member of the same mypy untyped-module backlog (module \"tests.test_closespider\"); a plausible member of a spider-scoped typing sweep. Medium confidence: it is extension-focused rather than core Spider API."
+    },
+    {
+      "path": "tests/test_spiderloader/__init__.py",
+      "symbols": [
+        "TestSpiderLoader",
+        "TestDuplicateSpiderNameLoader",
+        "CustomSpiderLoader",
+        "test_custom_spider_loader",
+        "test_dummy_spider_loader"
+      ],
+      "reason": "Spider-related test package covering SpiderLoader discovery/loading of spider classes. Not present in the mypy backlog, so lower confidence, but it is a spider-scoped test module a typing pass would review."
+    },
+    {
+      "path": "tests/test_utils_spider.py",
+      "symbols": [
+        "MySpider1",
+        "MySpider2",
+        "test_iterate_spider_output",
+        "test_iter_spider_classes"
+      ],
+      "reason": "Directly tests scrapy.utils.spider helpers (iterate_spider_output, iter_spider_classes) and is unannotated at the base commit. Spider-related by subject rather than by module name; medium confidence."
+    },
+    {
+      "path": "tests/test_spiderstate.py",
+      "symbols": [
+        "test_store_load",
+        "test_state_attribute",
+        "test_not_configured"
+      ],
+      "reason": "Tests spider persistence state (SpiderState) behavior. Spider-related subject matter and unannotated (except one def); medium confidence for a spider typing sweep."
+    },
+    {
+      "path": "tests/test_spider_start.py",
+      "symbols": [
+        "TestMain",
+        "test_start_urls",
+        "test_start",
+        "test_start_subclass",
+        "test_asyncio_delayed",
+        "test_twisted_delayed"
+      ],
+      "reason": "Tests Spider.start/start_urls handling, added for spider start-request behavior; contains unannotated inner defs and helpers. Medium confidence: it is not in the mypy backlog but is squarely spider-related and typing-adjacent."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 6,
+    "manifest_sha256": "4168c0dc4677d976d28e3540b199c2f42670acc781ab23af129437120f7d2e1e"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "0caac29ecf64a9316ca341cb2a4c62298e34e62bd2734572b4e9bb0a0d9864d1"
+  }
+}

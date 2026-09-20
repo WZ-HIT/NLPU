@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr8020",
+  "method": "cc-sdd",
+  "base_sha": "ed98aafd0f6301647916c86811acacd0a1b59dbd",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "cc-sdd-detect-004",
+    "session_sha256": "8407c56965cb7f08301051c3486926e4b85a0f4cc3398107366cc5b3000cf192"
+  },
+  "task_input_sha256": "85a0e1ee668dcbb099557f56aa19bbe54cf467c57a001334f924df8b516db47a",
+  "candidates": [
+    {
+      "path": "tests/test_engine_loop.py",
+      "symbols": [
+        "TestMain::test_sleep",
+        "TestMain::test_close_during_start_iteration",
+        "TestRequestSendOrder",
+        "MemoryScheduler"
+      ],
+      "reason": "Holds the tests that literally wait on the engine heartbeat: TestMain::test_sleep runs four 2-second sleeps while its MemoryScheduler reports pending requests but returns None, so the crawl only advances when ExecutionEngine._slot.heartbeat fires every _SLOT_HEARTBEAT_INTERVAL (5.0s by default). TestRequestSendOrder carries the timing-sensitive `seconds` values (comments 'increase if flaky') that also depend on engine nextcall scheduling. Any change that speeds up heartbeat-driven waits must update this module."
+    },
+    {
+      "path": "tests/test_engine_close_spider.py",
+      "symbols": [
+        "test_exception_slot",
+        "test_no_slot",
+        "test_exception_callback",
+        "test_exception_async_callback"
+      ],
+      "reason": "Directly asserts the heartbeat lifecycle on the engine slot: test_exception_slot deletes engine._slot.heartbeat to trigger the 'Slot close failure' path, and the other tests exercise ExecutionEngine.close_spider_async/_Slot._maybe_fire_closing, which is exactly the code that cancels nextcall and stops the heartbeat. Relevant if the heartbeat stops being started/stopped unconditionally."
+    },
+    {
+      "path": "tests/test_engine.py",
+      "symbols": [
+        "TestEngine",
+        "TestEngine::test_crawler",
+        "TestEngine::test_crawler_change_close_reason_on_idle",
+        "TestEngine::test_close_downloader"
+      ],
+      "reason": "End-to-end ExecutionEngine tests (built on tests/utils/engine.py CrawlerRun + TestEngineBase): they drive open_spider_async/close, spider_idle/close handling and the start-request processing loop where ExecutionEngine._start_request_processing starts the heartbeat, so a heartbeat change is observable here."
+    },
+    {
+      "path": "tests/test_extension_memusage.py",
+      "symbols": [
+        "test_memusage_limit_closes_spider_with_reason_and_error_log",
+        "test_memusage_warning_logs_but_allows_normal_finish",
+        "OneShotLoop",
+        "TwoShotLoop"
+      ],
+      "reason": "Already works around the engine heartbeat by monkeypatching engine_mod.create_looping_call with OneShotLoop/TwoShotLoop to avoid a background LoopingCall and engine start/stop races. If the heartbeat scheduling or its test stubbing changes, these tests must be adapted; they are the existing precedent for neutralizing the heartbeat in tests."
+    },
+    {
+      "path": "tests/test_utils_asyncio.py",
+      "symbols": [
+        "TestAsyncioLoopingCall",
+        "TestAsyncioLoopingCall::test_looping_call",
+        "TestAsyncioLoopingCall::test_looping_call_now",
+        "TestAsyncioLoopingCall::test_looping_call_interval",
+        "TestAsyncioLoopingCall::test_looping_function_raises"
+      ],
+      "reason": "Unit tests for the scheduling primitive the engine heartbeat is built on (scrapy.utils.asyncio.create_looping_call/AsyncioLoopingCall, used as _Slot.heartbeat). Start/stop/now/interval semantics asserted here are what the heartbeat relies on, so they are the closest lower-level candidate if the heartbeat's interval or loop handling is modified."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 5,
+    "manifest_sha256": "75326ea94c8c2c7fa16b1d50ea9ca89a39bd57580b9d4422ecf351843a5fd5d6"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "a769d632f70de9d85b01c76baf214f34e7c2dfb83fc1d65dc6dfaa0d6370623d"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_utils_log.py",
+      "symbols": [
+        "TestLogformatterAdapter",
+        "TestLogformatterAdapter.test_empty_args",
+        "TestLogformatterAdapter.test_args"
+      ],
+      "reason": "This module imports scrapy.utils.log.logformatter_adapter and is the only place that unit-tests it directly. That adapter is where a LogFormatterResult dict is turned into logging.log arguments, including the dict-args branch that the pull request deprecates. TestLogformatterAdapter.test_empty_args and TestLogformatterAdapter.test_args parametrize None/{}/() and dict-vs-tuple args and assert the rendered message, so the deprecation warning and any change to how returned dicts are interpolated must be reflected here."
+    },
+    {
+      "path": "tests/test_logformatter.py",
+      "symbols": [
+        "TestLogFormatter",
+        "LogFormatterSubclass",
+        "TestLogformatterSubclass",
+        "TestShowOrSkipMessages",
+        "TestShowOrSkipMessages.test_show_messages",
+        "TestShowOrSkipMessages.test_skip_messages"
+      ],
+      "reason": "This module covers scrapy.logformatter.LogFormatter, whose methods return the {'level','msg','args'} dicts that the pull request sends through the deprecated interpolation path. TestLogFormatter and TestLogformatterSubclass assert dict-arg message templates such as CRAWLEDMSG/SCRAPEDMSG/DROPPEDMSG via msg % args, and TestShowOrSkipMessages runs a real crawl and asserts the final rendered log text (Crawled/Scraped/Dropped), so it exercises dict-argument log messages end to end."
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_spider_start.py",
+      "symbols": [
+        "_test_spider",
+        "test_start_urls",
+        "test_start",
+        "test_start_subclass",
+        "test_asyncio_delayed",
+        "test_twisted_delayed",
+        "test_slow_pipeline"
+      ],
+      "reason": "Sole test module touched by PR #8008. It defines the shared async helper _test_spider, which the PR changes by adding an `ordered` parameter, and the flaky test test_slow_pipeline, which is switched to compare scraped items unordered because both items get identical artificial delays from SlowPipeline.process_item. Every test in this module routes through _test_spider (directly or via _test_start), so test_start_urls, test_start, test_start_subclass, test_asyncio_delayed, test_twisted_delayed, and test_slow_pipeline are all affected by the signature/behavior change and must be re-run."
+    }
+  ]
+}

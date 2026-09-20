@@ -1,0 +1,157 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr7808",
+  "method": "cc-sdd",
+  "base_sha": "f1694269d8c9437461936ed449e81aa2ccb3b7cb",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "cc-sdd-detect-004",
+    "session_sha256": "992b7a3a104edf414502a046021bebc1dfd1a74381a1a9751250545a5fed3219"
+  },
+  "task_input_sha256": "a112393f90dde4625861f2b37e54811162b5b1013a906d6b0644fe9a30ea4e06",
+  "candidates": [
+    {
+      "path": "tests/test_utils_misc/__init__.py",
+      "symbols": [
+        "test_build_from_crawler",
+        "test_load_object_class"
+      ],
+      "reason": "Unit tests for scrapy.utils.misc.build_from_crawler(), the helper the PR generalizes internally; behaviour of __init__ vs from_crawler and the None-return TypeError is asserted here."
+    },
+    {
+      "path": "tests/test_crawler.py",
+      "symbols": [
+        "TestCrawler",
+        "TestCrawler.test_late_attr_engine_before_crawl",
+        "TestCrawler.test_get_extension",
+        "TestCrawler.test_get_item_pipeline",
+        "TestCrawler.test_get_spider_middleware"
+      ],
+      "reason": "Crawler._apply_settings is where STATS_CLASS, LOG_FORMATTER, REQUEST_FINGERPRINTER_CLASS and EXTENSIONS are currently built by direct constructor/from_crawler calls; generalizing them to build_from_crawler changes this file's expectations about when those attributes exist."
+    },
+    {
+      "path": "tests/test_core_downloader.py",
+      "symbols": [
+        "test_needs_backout",
+        "test_fetch_deprecated_spider_arg",
+        "CustomDownloader",
+        "TestContextFactoryTLSMethod.test_direct_from_crawler"
+      ],
+      "reason": "Exercises Downloader construction (including a custom DOWNLOADER subclass) and direct-from-crawler component construction, both of which move to build_from_crawler()."
+    },
+    {
+      "path": "tests/test_engine.py",
+      "symbols": [
+        "TestEngine.test_close_without_downloader",
+        "TestEngine.test_close_downloader",
+        "BadDownloader"
+      ],
+      "reason": "ExecutionEngine builds the DOWNLOADER component with downloader_cls(crawler); the PR routes it through build_from_crawler(), which this file covers via a custom failing downloader and close paths."
+    },
+    {
+      "path": "tests/test_core_scraper.py",
+      "symbols": [
+        "test_scraper_exception"
+      ],
+      "reason": "Scraper construction (its SpiderMiddlewareManager and ITEM_PROCESSOR handling) is the internal component wiring that the PR switches to build_from_crawler()."
+    },
+    {
+      "path": "tests/test_stats.py",
+      "symbols": [
+        "TestStatsCollector.test_deprecated_spider_arg_custom_collector",
+        "TestStatsCollector.test_deprecated_spider_arg_custom_collector_subclass",
+        "CustomStatsCollector"
+      ],
+      "reason": "STATS_CLASS is currently instantiated as load_object(...)(crawler); generalizing to build_from_crawler() makes an optional from_crawler() classmethod on a custom collector effective, which these tests define."
+    },
+    {
+      "path": "tests/test_logformatter.py",
+      "symbols": [
+        "SkipMessagesLogFormatter",
+        "TestShowOrSkipMessages",
+        "LogFormatterSubclass"
+      ],
+      "reason": "LOG_FORMATTER is built with a direct lf_cls.from_crawler(self) call; switching to build_from_crawler() changes the contract for custom log-formatter classes covered here."
+    },
+    {
+      "path": "tests/test_pipelines.py",
+      "symbols": [
+        "TestCustomPipelineManager.test_integration_recommended",
+        "TestCustomPipelineManager.test_integration_no_async_not_subclass",
+        "TestMiddlewareManagerSpider"
+      ],
+      "reason": "ITEM_PROCESSOR is built via itemproc_cls.from_crawler(crawler); generalizing it to build_from_crawler() allows a custom pipeline manager without a from_crawler() classmethod, exactly the variants this module defines."
+    },
+    {
+      "path": "tests/test_spidermiddleware.py",
+      "symbols": [
+        "TestUniversalMiddlewareManager",
+        "TestSpiderMiddleware"
+      ],
+      "reason": "Covers SpiderMiddlewareManager construction (currently SpiderMiddlewareManager.from_crawler in Scraper), the manager the PR builds through build_from_crawler()."
+    },
+    {
+      "path": "tests/test_downloadermiddleware.py",
+      "symbols": [
+        "TestManagerBase",
+        "TestDeprecatedSpiderArg",
+        "TestDownloadDeprecated"
+      ],
+      "reason": "Covers DownloaderMiddlewareManager construction from the Downloader, which changes from a direct from_crawler() call to build_from_crawler()."
+    },
+    {
+      "path": "tests/test_downloadermiddleware_robotstxt.py",
+      "symbols": [
+        "TestRobotsTxtMiddleware.test_robotstxt_settings",
+        "TestRobotsTxtMiddlewareWithRerp"
+      ],
+      "reason": "RobotsTxtMiddleware instantiates ROBOTSTXT_PARSER with a direct parser.from_crawler(crawler, b\"\") call; generalizing to build_from_crawler() affects parser construction covered here."
+    },
+    {
+      "path": "tests/test_middleware.py",
+      "symbols": [
+        "MyMiddlewareManager",
+        "test_enabled",
+        "test_enabled_from_settings",
+        "test_no_crawler"
+      ],
+      "reason": "Tests MiddlewareManager.from_crawler() and per-middleware construction, the shared helper code path the PR generalizes for all middleware managers and extension managers."
+    },
+    {
+      "path": "tests/test_spiderloader/__init__.py",
+      "symbols": [
+        "TestSpiderLoader",
+        "CustomSpiderLoader",
+        "test_custom_spider_loader",
+        "test_dummy_spider_loader",
+        "test_crawler_runner_loading"
+      ],
+      "reason": "SPIDER_LOADER_CLASS is built with loader_cls.from_settings(settings.frozencopy()), the remaining settings-based construction that a crawler-based build_from_crawler() generalization would touch; custom loader behaviour is asserted here."
+    },
+    {
+      "path": "tests/test_extension_statsmailer.py",
+      "symbols": [
+        "test_from_crawler_with_recipients_initializes_extension",
+        "test_from_crawler_connects_spider_closed_signal"
+      ],
+      "reason": "StatsMailer builds MailSender via a direct MailSender.from_crawler(crawler) call, one of the internal from_crawler() call sites replaced by build_from_crawler()."
+    },
+    {
+      "path": "tests/test_extension_memusage.py",
+      "symbols": [
+        "test_memusage_limit_stops_crawler_without_spider"
+      ],
+      "reason": "MemoryUsage also constructs MailSender through MailSender.from_crawler(crawler); the generalized construction path is exercised by this extension's crawl tests."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 2,
+    "manifest_sha256": "149da2b333715a513655dd67c6bc6d62b61deb547d0cefb50d3c336d5dcdd9c0"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "6ced9955a247e05c4157f684568789abe89ebb7b53181519c355c1e752d0218b"
+  }
+}

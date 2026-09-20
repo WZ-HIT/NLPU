@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "lock_type": "COMPOSE_DEPLOYMENT",
+  "task_id": "scrapy__scrapy__pr7879",
+  "run_id": "preflight-001",
+  "base_sha": "d772acdf19251e9a03be285353b50bd1314e3d5d",
+  "generated_at_utc": "2026-09-20T09:00:06Z",
+  "source": {
+    "compose_sha256": "a442363de47e5afd7beabd0c7d6545a1efb5771bab92573fe97691b0019f9fb5",
+    "preflight_override_sha256": "14a57b1b679c17b29b12d3a10b63c8536ea4d96740e42380490da2a1ac1a493f",
+    "probe_sha256": "a6809e2e17b49e9be933ba555d77126c94974b17bde41c8b5594f089a3c892b3",
+    "seccomp_sha256": "1a25ca5c611f8acd56d436b6bf61cce4dd4f9115291e22929152b50a9915ac25",
+    "apparmor_evidence_sha256": "2fe8135ee6c6b383e894ea8beb1e063832791ddc9850f2843e90fd27833bfb03",
+    "proxy_config_sha256": "73ab4db6da9857ecf8c8c71b4d00bec70dfba321b0ddf785d2b6aee016b4a6b6",
+    "image_deployment_lock_sha256": "4ace35f5bb4d5a49ab1865b0b3759852cad723a02dc632f9d6a5d56cb22117b0"
+  },
+  "images": {
+    "agent_image_id": "sha256:57aeb7d2ada2ef6ec1da6dd4626becb18d3a410670a13554d6f470454c6a3764",
+    "proxy_image_id": "sha256:6343ce34a132a5dceaa24767d739df2bd519f8f7c1079ae39e4821334e8eb42e"
+  },
+  "rendered": [
+    {
+      "method": "openspec",
+      "stage": "detect",
+      "profile": "openspec-detect",
+      "project_name": "scrapy-scrapy-pr7879-openspec-detect-preflight-001",
+      "agent_service": "openspec-detect-agent",
+      "proxy_service": "openspec-detect-proxy",
+      "rendered_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7879/compose/rendered/openspec-detect-preflight-001.yaml",
+      "rendered_sha256": "084d3b83e116cd6b93d47ba5fff9a2b5194f9de35bd7ecea29b3348b07a394e1"
+    },
+    {
+      "method": "openspec",
+      "stage": "update",
+      "profile": "openspec-update",
+      "project_name": "scrapy-scrapy-pr7879-openspec-update-preflight-001",
+      "agent_service": "openspec-update-agent",
+      "proxy_service": "openspec-update-proxy",
+      "rendered_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7879/compose/rendered/openspec-update-preflight-001.yaml",
+      "rendered_sha256": "b902b9cab602e50e09ce72b98ed0524db2e2ccb6027f1b36345d607644a9e43e"
+    },
+    {
+      "method": "speckit",
+      "stage": "detect",
+      "profile": "speckit-detect",
+      "project_name": "scrapy-scrapy-pr7879-speckit-detect-preflight-001",
+      "agent_service": "speckit-detect-agent",
+      "proxy_service": "speckit-detect-proxy",
+      "rendered_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7879/compose/rendered/speckit-detect-preflight-001.yaml",
+      "rendered_sha256": "b1eb740607ef05a58bcdf54776761271c9fa6c4f74cb30bcdf76fdc485838cfc"
+    },
+    {
+      "method": "speckit",
+      "stage": "update",
+      "profile": "speckit-update",
+      "project_name": "scrapy-scrapy-pr7879-speckit-update-preflight-001",
+      "agent_service": "speckit-update-agent",
+      "proxy_service": "speckit-update-proxy",
+      "rendered_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7879/compose/rendered/speckit-update-preflight-001.yaml",
+      "rendered_sha256": "89badac27bd5475aaf277e1ee3f985653f63129277826eabb309b9911445383f"
+    },
+    {
+      "method": "cc-sdd",
+      "stage": "detect",
+      "profile": "cc-sdd-detect",
+      "project_name": "scrapy-scrapy-pr7879-cc-sdd-detect-preflight-001",
+      "agent_service": "cc-sdd-detect-agent",
+      "proxy_service": "cc-sdd-detect-proxy",
+      "rendered_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7879/compose/rendered/cc-sdd-detect-preflight-001.yaml",
+      "rendered_sha256": "23144ac29390f0df70d7b344ff136bf0c128809bdede945adc8a45207adc4d83"
+    },
+    {
+      "method": "cc-sdd",
+      "stage": "update",
+      "profile": "cc-sdd-update",
+      "project_name": "scrapy-scrapy-pr7879-cc-sdd-update-preflight-001",
+      "agent_service": "cc-sdd-update-agent",
+      "proxy_service": "cc-sdd-update-proxy",
+      "rendered_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7879/compose/rendered/cc-sdd-update-preflight-001.yaml",
+      "rendered_sha256": "d14198c03774b72e237128576776ce69eda83b013173ba331d64798ba4a1fa70"
+    }
+  ],
+  "formal_prompt_sent": false,
+  "model_request_sent": false,
+  "project_tests_run": false
+}

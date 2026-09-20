@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "status": "PASS",
+  "stage": "update",
+  "method": "openspec",
+  "forbidden_signature_count": 65,
+  "finding_count": 0,
+  "findings": [],
+  "image_audit_sha256": "1978b7f4fad625a452c1dcbe95982abeb3d2f33691a36667c88d1fae669853da",
+  "container_probe": {
+    "detection_sha256": "eeca2de69818533140dd10e398e68fc09d7613b8353b1d6486a35c66f642441a",
+    "detection_visible": true,
+    "method": "openspec",
+    "network_interfaces": [
+      "lo"
+    ],
+    "other_input_entries": [
+      "detection-manifest.json"
+    ],
+    "stage": "update",
+    "task_input_files": [
+      "task.json",
+      "task.md"
+    ]
+  },
+  "cross_method_paths_visible": false,
+  "detect_workspace_visible_to_update": false,
+  "home_cache_session_reused": false,
+  "host_evaluator_visible": false
+}

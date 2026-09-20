@@ -21,6 +21,14 @@ rollback that erased them would destroy the audit trail it exists to protect.
 Usage:
     capture-pre-experiment.py --task scrapy__scrapy__pr8064 [--task ...]
                               [--stamp 20260919T050000Z] [--dry-run]
+                              [--output-root /data2/sdd-checkpoints]
+
+``--output-root`` writes the checkpoint's bytes somewhere other than the bench
+tree and leaves a symlink behind at the path a reader expects. It exists
+because the image payload is an OCI archive of roughly 340 MB *per base SHA*,
+so a batch that introduces sixteen bases needs about 5.5 GB -- more than the
+root filesystem has left. The symlink is relative, so the pair survives the
+bench tree being moved as a whole.
 """
 
 from __future__ import annotations
@@ -222,6 +230,7 @@ def capture(
     ledger: PayloadLedger,
     image_cache: dict[tuple[str, str], Path],
     dry_run: bool,
+    output_root: Path | None = None,
 ) -> str:
     task_dir = TASK_ROOT / task_id
     if not task_dir.is_dir():
@@ -286,13 +295,19 @@ def capture(
 
     slug = f"pr{lock.get('pr_id') or task_id.rsplit('pr', 1)[-1]}"
     checkpoint_id = f"pre-experiment-{slug}-{stamp}"
-    checkpoint_dir = SCRIPT_DIR / checkpoint_id
-    if checkpoint_dir.exists():
-        die(f"checkpoint already exists: {checkpoint_dir}")
+    link_path = SCRIPT_DIR / checkpoint_id
+    checkpoint_dir = (output_root / checkpoint_id) if output_root else link_path
+    # ``lexists``, not ``exists``: a dangling symlink from an interrupted run
+    # still occupies the name. ``exists`` would call it free, and the failure
+    # would then surface at link time -- after the payloads had been written.
+    if os.path.lexists(link_path) or os.path.lexists(checkpoint_dir):
+        die(f"checkpoint already exists: {checkpoint_id}")
 
     print(f"=== {checkpoint_id}")
     print(f"    task     {task_id}")
     print(f"    base_sha {lock['base_sha']}")
+    if output_root:
+        print(f"    output   {checkpoint_dir}")
 
     if dry_run:
         print("    DRY: would archive baseline + 3 workspaces + config + images")
@@ -300,7 +315,19 @@ def capture(
 
     payloads = checkpoint_dir / "payloads"
     payloads.mkdir(parents=True)
-    staged_dir = Path(tempfile.mkdtemp(prefix="sdd-precheckpoint-stage-"))
+    # Staged on the same filesystem as ``payloads``. ``--output-root`` exists
+    # precisely to put a checkpoint on another filesystem than the bench tree,
+    # so system-temp staging would put a device boundary inside both payload
+    # moves that follow: the hardlink that deduplicates an image between two
+    # tasks on one base raises EXDEV, and the first task on each base copies
+    # its ~341 MB image instead of renaming it. The directory is removed per
+    # task; ``dir=None`` keeps the default behavior byte-for-byte.
+    staged_dir = Path(
+        tempfile.mkdtemp(
+            prefix="sdd-precheckpoint-stage-",
+            dir=str(output_root) if output_root else None,
+        )
+    )
     sums: list[tuple[str, str]] = []
 
     try:
@@ -465,6 +492,20 @@ def capture(
     shutil.copyfile(SCRIPT_DIR / "templates" / "README.md", checkpoint_dir / "README.md")
 
     print(f"    payloads {document['payload_total_bytes'] / 1e6:.1f} MB")
+
+    # The link is created last, once the directory is complete, so an
+    # interrupted run leaves a missing link rather than one pointing at a
+    # half-written checkpoint. It is relative so that moving the bench tree
+    # moves the pair together.
+    if output_root:
+        link_path.symlink_to(os.path.relpath(checkpoint_dir, SCRIPT_DIR))
+        print(f"    linked   {link_path} -> {os.readlink(link_path)}")
+        usage = subprocess.run(
+            ["du", "-sh", str(checkpoint_dir)], capture_output=True, text=True, check=False
+        )
+        if usage.returncode == 0:
+            print(f"    du       {usage.stdout.split()[0]} at {checkpoint_dir}")
+
     print(f"checkpoint_captured={checkpoint_id}")
     return checkpoint_id
 
@@ -474,6 +515,15 @@ def main() -> int:
     parser.add_argument("--task", action="append", default=[], help="task id (repeatable)")
     parser.add_argument("--stamp", default=None, help="UTC stamp, e.g. 20260919T050000Z")
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument(
+        "--output-root",
+        type=Path,
+        default=None,
+        help=(
+            "Write the checkpoint's bytes under this directory and leave a relative "
+            "symlink at checkpoints/<checkpoint_id>. Defaults to writing in place"
+        ),
+    )
     arguments = parser.parse_args()
 
     if not arguments.task:
@@ -483,10 +533,12 @@ def main() -> int:
         datetime.timezone.utc
     ).strftime("%Y%m%dT%H%M%SZ")
 
+    output_root = arguments.output_root.expanduser().resolve() if arguments.output_root else None
+
     ledger = PayloadLedger()
     image_cache: dict[tuple[str, str], Path] = {}
     captured = [
-        capture(task_id, stamp, ledger, image_cache, arguments.dry_run)
+        capture(task_id, stamp, ledger, image_cache, arguments.dry_run, output_root)
         for task_id in arguments.task
     ]
     print(f"\ncapture_complete count={len(captured)} stamp={stamp}")

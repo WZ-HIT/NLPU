@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr7879",
+  "method": "speckit",
+  "base_sha": "d772acdf19251e9a03be285353b50bd1314e3d5d",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "speckit-detect-004",
+    "session_sha256": "e7c9ff93145c2a2d2af06f337521c818bc80a9bef026c8f9766285077463efae"
+  },
+  "task_input_sha256": "07cdcc47e1db1e915380ce961fc827fdd32567e2f543101a06a9f4a3f67c1e3c",
+  "candidates": [
+    {
+      "path": "tests/test_utils_response.py",
+      "symbols": [
+        "test_open_in_browser",
+        "test_inject_base_url",
+        "test_open_in_browser_redos_head",
+        "test_open_in_browser_preserves_html_comments",
+        "test_open_in_browser_does_not_inject_base_when_present",
+        "test_open_in_browser_injects_base_when_only_in_comment",
+        "test_open_in_browser_injects_base_at_real_head_not_commented_head"
+      ],
+      "reason": "Directly exercises open_in_browser and the base-tag insertion, duplicate-base, comment, existing-head, and malformed-head behaviors affected by the headless-document fix."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 8,
+    "manifest_sha256": "cc4592f0e4fb916de02208bc485cebf8fa8251c6baea924d7cd7908dead0a8ca"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "3015cf9c38edcc6418762899fb7a734e3c489f8d7455d33bc90155f844ec7f5d"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr7920",
+  "method": "cc-sdd",
+  "base_sha": "1bd839b57ddb614664a179b6213f49579bdfd3da",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "cc-sdd-detect-004",
+    "session_sha256": "6f0db14b6fbcbe62f0749b3e4cf96535c3fdef7b7e733f6755dbdc6c26505fe4"
+  },
+  "task_input_sha256": "e168a1af510d88d16cb92a7d74adb78d8e5248493c2f11d5865076bfa1cf7a71",
+  "candidates": [
+    {
+      "path": "tests/test_command_check.py",
+      "symbols": [
+        "TestCheckCommand",
+        "TestCheckCommand._test_contract",
+        "TestCheckCommand.test_check_all_default_contracts"
+      ],
+      "reason": "The PR makes `scrapy check` return exit code 1 when the crawler bootstrap fails (spider could not be started). tests/test_command_check.py is the only test module that drives the check command end to end through tests.utils.cmdline.proc and asserts on its return code, so the new bootstrap-failure test and the existing exit-code assertions (test._test_contract asserting ret == 0) live here."
+    },
+    {
+      "path": "tests/test_command_fetch.py",
+      "symbols": [
+        "TestFetchCommand",
+        "TestFetchCommand.test_bad_arguments",
+        "TestFetchCommandWithSpider",
+        "TestFetchCommandWithSpider.test_spider"
+      ],
+      "reason": "The PR adds a bootstrap-failure exit-code check to scrapy/commands/fetch.py, which previously always exited 0. tests/test_command_fetch.py drives `scrapy fetch` as a subprocess and is where return-code assertions for fetch (e.g. the bad-arguments usage case and the --spider path that can fail during spider loading/start) are made."
+    },
+    {
+      "path": "tests/test_command_parse.py",
+      "symbols": [
+        "TestParseCommand",
+        "TestParseCommand.test_unknown_spider",
+        "TestParseCommand.test_spider_found_by_url",
+        "TestParseCommand.test_bad_arguments"
+      ],
+      "reason": "scrapy/commands/parse.py is changed to exit 1 on bootstrap errors such as a spider that cannot be found/loaded or that fails to start. tests/test_command_parse.py exercises the parse command through the CLI (including the 'Unable to find spider for' and unknown-spider paths) and is the module where the exit-code expectations are asserted."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 4,
+    "manifest_sha256": "0dbcb26c179ceec344ec8841abc36a7f265c2f78e44d60c0770c2dd43afb5930"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "d1bbac945002cb66889ca99a10912dc53dfdd4d7188a45e6b9bda0895e4dbdc2"
+  }
+}

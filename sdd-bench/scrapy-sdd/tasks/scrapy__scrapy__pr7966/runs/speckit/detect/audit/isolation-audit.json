@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "status": "PASS",
+  "stage": "detect",
+  "method": "speckit",
+  "forbidden_signature_count": 14,
+  "finding_count": 0,
+  "findings": [],
+  "image_audit_sha256": "a7602d10856f5ae0a5c2f33a625186316e37d23fc84fd717aef0a3f946093db9",
+  "container_probe": {
+    "detection_sha256": null,
+    "detection_visible": false,
+    "method": "speckit",
+    "network_interfaces": [
+      "lo"
+    ],
+    "other_input_entries": [],
+    "stage": "detect",
+    "task_input_files": [
+      "task.json",
+      "task.md"
+    ]
+  },
+  "cross_method_paths_visible": false,
+  "detect_workspace_visible_to_update": false,
+  "home_cache_session_reused": false,
+  "host_evaluator_visible": false
+}

@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr7920",
+  "method": "openspec",
+  "base_sha": "1bd839b57ddb614664a179b6213f49579bdfd3da",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "openspec-detect-004",
+    "session_sha256": "b3dc00f6554225944d4011506a92f43bf88be51da980e36927cda2d8d75249cb"
+  },
+  "task_input_sha256": "e168a1af510d88d16cb92a7d74adb78d8e5248493c2f11d5865076bfa1cf7a71",
+  "candidates": [
+    {
+      "path": "tests/test_command_check.py",
+      "symbols": [
+        "TestCheckCommand",
+        "_write_contract",
+        "_test_contract",
+        "test_check_bootstrap_error_exit_code"
+      ],
+      "reason": "The check command is one of the three changed entry points and this module contains its subprocess-level exit-code tests."
+    },
+    {
+      "path": "tests/test_command_parse.py",
+      "symbols": [
+        "TestParseCommand",
+        "create_files",
+        "test_unknown_spider",
+        "test_parse_bootstrap_error_exit_code"
+      ],
+      "reason": "The parse command is one of the three changed entry points and this module owns its command invocation and exit-code assertions."
+    },
+    {
+      "path": "tests/test_command_fetch.py",
+      "symbols": [
+        "TestFetchCommand",
+        "TestFetchCommandWithSpider",
+        "test_bad_arguments",
+        "test_fetch_bootstrap_error_exit_code"
+      ],
+      "reason": "The fetch command is one of the three changed entry points and this module contains its subprocess return-code and spider-loading tests."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 7,
+    "manifest_sha256": "85f76c67ff7a5015fec8b6c95cfaee9389e6f975000bb415f2a8da36fdaa9b78"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "216b3dcf636f8b6441d4ac2c8d44b560dd492840a241c8c0b90f7b804cb0f5f1"
+  }
+}

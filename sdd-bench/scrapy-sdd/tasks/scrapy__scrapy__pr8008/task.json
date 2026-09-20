@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr8008",
+  "repository": {
+    "owner": "scrapy",
+    "name": "scrapy"
+  },
+  "pr_id": 8008,
+  "baseline": {
+    "base_sha": "488a762d7173922190ea027e0fb6f6d9d3b59880"
+  },
+  "title": "fix flaky test_slow_pipeline by comparing items unordered",
+  "body": "Fixes #8006\r\n\r\n`test_slow_pipeline` asserts a strict item order (A then B), but both\r\nitems get an identical artificial delay in `SlowPipeline.process_item`.\r\nTheir completion order depends on event-loop scheduling rather than\r\nsubmission order, so the assertion is racy — reproduced on the Windows\r\n\"min\" CI job where timer resolution is coarser:\r\nhttps://github.com/scrapy/scrapy/actions/runs/32053018703/job/95456761821\r\n\r\nFix: added an `ordered` flag to `_test_spider` (default `True`, so every\r\nother test is unaffected). `test_slow_pipeline` now compares items\r\nunordered instead of asserting a strict sequence.\r\n\r\nVerified locally with 20x reruns via pytest-repeat, all passing.",
+  "adapter": {
+    "id": "scrapy",
+    "version": 1,
+    "path": "sdd-bench/scrapy-sdd/adapters/scrapy.json",
+    "sha256": "059dcc09eaa62f892f54118e65d4deccce3ab29cc5d9a4a36f4d999ff1aa27de"
+  }
+}

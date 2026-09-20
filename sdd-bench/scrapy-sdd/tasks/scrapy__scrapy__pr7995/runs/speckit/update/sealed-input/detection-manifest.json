@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr7995",
+  "method": "speckit",
+  "base_sha": "ca48915dd4f6c388be741a97213df03e7a81ea89",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "speckit-detect-004",
+    "session_sha256": "65ba2d5bf1938ad1ad027dc40926d7bb33e78ebc0a92464a9cbbb0f0baa38d4d"
+  },
+  "task_input_sha256": "244d91e2eb4199fbc201c4bf06804a081b9e7fc353a40508d40d0448a7739225",
+  "candidates": [
+    {
+      "path": "tests/test_utils_response.py",
+      "symbols": [
+        "test_open_in_browser_redos_comment",
+        "test_open_in_browser_redos_head"
+      ],
+      "reason": "This module contains the only open_in_browser ReDoS regression tests. Both symbols assert that processing completes within a fixed 20 ms CPU allowance, making them the timing-sensitive tests referenced by PR 7995's slow-interpreter failure title."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 7,
+    "manifest_sha256": "275a5ead14ca0f1b0428c3acdd2ff2a0dfca601905cd8b21654f877a5ed009f6"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "9925cfc8c9ce9fe53600ff7bc94e90f71d8f0ce630a2a1c5ccb30df885b75f90"
+  }
+}

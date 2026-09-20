@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr7886",
+  "method": "openspec",
+  "base_sha": "c7eacdbb30a4563bbbe04ed02781768f4e19eabb",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "openspec-detect-004",
+    "session_sha256": "8099ef5d6ba8937719e83aac2f411d6119fb767ad5ac9ee29555851c1d4414ef"
+  },
+  "task_input_sha256": "4ec33df0786ee8ef19997320a52d4af55081d8639f80953aede801334ce99718",
+  "candidates": [
+    {
+      "path": "tests/test_contracts.py",
+      "symbols": [
+        "DemoSpider.returns_request_async",
+        "DemoSpider.returns_async_gen",
+        "TestContractsManager.test_returns_async",
+        "TestCustomContractPrePostProcess.test_pre_hook_async_callback",
+        "TestCustomContractPrePostProcess.test_pre_hook_async_generator",
+        "TestCustomContractPrePostProcess.test_post_hook_async_generator"
+      ],
+      "reason": "Primary unit coverage for ContractsManager, contract pre/post hooks, and the existing async callback and async-generator cases that the change must replace from TypeError assertions with successful execution."
+    },
+    {
+      "path": "tests/test_command_check.py",
+      "symbols": [
+        "TestCheckCommand._write_contract",
+        "TestCheckCommand._test_contract",
+        "TestCheckCommand.test_check_returns_items_contract",
+        "TestCheckCommand.test_check_all_default_contracts"
+      ],
+      "reason": "End-to-end coverage for the scrapy check command and generated spider callbacks, where asynchronous callback support must also work through the command path."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 7,
+    "manifest_sha256": "10e95099088513bddbca4ca9feb19a12b9387673f16067bf05b1b5dcbaebf585"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "641c58bc7680fc5810fcc6b82e4d4432fbf3fe080b7d2354bf0da4c631dc9295"
+  }
+}

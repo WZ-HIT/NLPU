@@ -1,0 +1,28 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_http2_client_protocol.py",
+      "symbols": [
+        "H2ClientProtocol",
+        "H2ClientFactory",
+        "PROTOCOL_NAME",
+        "InactiveStreamClosed",
+        "InvalidHostname",
+        "make_request_dfd",
+        "TestHttps2ClientProtocol"
+      ],
+      "reason": "This test module directly imports and exercises the internal HTTP/2 protocol, factory, stream, and exception classes whose names are expected to become private, and it patches the protocol-name constant. It is the strongest candidate for detecting incomplete renames, stale imports, or stale mock paths."
+    },
+    {
+      "path": "tests/test_downloader_handler_twisted_http2.py",
+      "symbols": [
+        "H2DownloadHandler",
+        "H2DownloadHandlerMixin",
+        "test_not_configured_without_reactor",
+        "TestHttp2",
+        "TestHttp2WithCrawler"
+      ],
+      "reason": "This test module verifies the documented Twisted-based HTTP/2 handler's import path, DOWNLOAD_HANDLERS configuration, reactor requirements, lifecycle, and HTTP/2 behavior. It should confirm that privatization preserves the supported handler entry point and that the handler is no longer treated as experimental."
+    }
+  ]
+}

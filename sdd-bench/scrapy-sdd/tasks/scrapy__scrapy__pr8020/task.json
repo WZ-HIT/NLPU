@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr8020",
+  "repository": {
+    "owner": "scrapy",
+    "name": "scrapy"
+  },
+  "pr_id": 8020,
+  "baseline": {
+    "base_sha": "ed98aafd0f6301647916c86811acacd0a1b59dbd"
+  },
+  "title": "Speed up the PyPy CI job and the tests that wait on the engine heartbeat",
+  "body": "The PyPy job speed-up is by disabling coverage for subprocess there, which was responsible for most of the slowdown, and does not provide anything PyPy-specific that would report coverage gaps in Codecov.",
+  "adapter": {
+    "id": "scrapy",
+    "version": 1,
+    "path": "sdd-bench/scrapy-sdd/adapters/scrapy.json",
+    "sha256": "059dcc09eaa62f892f54118e65d4deccce3ab29cc5d9a4a36f4d999ff1aa27de"
+  }
+}

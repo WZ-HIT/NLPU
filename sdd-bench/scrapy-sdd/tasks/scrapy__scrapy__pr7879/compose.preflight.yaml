@@ -1,0 +1,67 @@
+services:
+  openspec-detect-agent:
+    command:
+    - /usr/local/bin/python
+    - /preflight/probe.py
+    volumes:
+    - type: bind
+      source: ./compose/preflight/probe.py
+      target: /preflight/probe.py
+      read_only: true
+      bind:
+        create_host_path: false
+  openspec-update-agent:
+    command:
+    - /usr/local/bin/python
+    - /preflight/probe.py
+    volumes:
+    - type: bind
+      source: ./compose/preflight/probe.py
+      target: /preflight/probe.py
+      read_only: true
+      bind:
+        create_host_path: false
+  speckit-detect-agent:
+    command:
+    - /usr/local/bin/python
+    - /preflight/probe.py
+    volumes:
+    - type: bind
+      source: ./compose/preflight/probe.py
+      target: /preflight/probe.py
+      read_only: true
+      bind:
+        create_host_path: false
+  speckit-update-agent:
+    command:
+    - /usr/local/bin/python
+    - /preflight/probe.py
+    volumes:
+    - type: bind
+      source: ./compose/preflight/probe.py
+      target: /preflight/probe.py
+      read_only: true
+      bind:
+        create_host_path: false
+  cc-sdd-detect-agent:
+    command:
+    - /usr/local/bin/python
+    - /preflight/probe.py
+    volumes:
+    - type: bind
+      source: ./compose/preflight/probe.py
+      target: /preflight/probe.py
+      read_only: true
+      bind:
+        create_host_path: false
+  cc-sdd-update-agent:
+    command:
+    - /usr/local/bin/python
+    - /preflight/probe.py
+    volumes:
+    - type: bind
+      source: ./compose/preflight/probe.py
+      target: /preflight/probe.py
+      read_only: true
+      bind:
+        create_host_path: false

@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr7985",
+  "method": "openspec",
+  "base_sha": "65b37286cc56b6a87c4d1eca6bdff79f658f09d2",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "openspec-detect-004",
+    "session_sha256": "fc8347ef631346d89d19fc83c09c7ee82a889b958bbb8c9a4bf54c9f3f63092c"
+  },
+  "task_input_sha256": "699953bf57d1638d4b9821224c295a7ff4f76c97a28df2748caf83ca06362af8",
+  "candidates": [
+    {
+      "path": "tests/test_downloader_handler_httpx.py",
+      "symbols": [
+        "TestRealWebsite"
+      ],
+      "reason": "Contains the httpx download-handler real-website tests marked requires_internet, which are the tests the bounded rerun policy must cover."
+    },
+    {
+      "path": "tests/test_downloader_handler_twisted_http2.py",
+      "symbols": [
+        "TestRealWebsite"
+      ],
+      "reason": "Contains the HTTP/2 download-handler real-website tests marked requires_internet and therefore affected by the rerun-on-failure change."
+    },
+    {
+      "path": "tests/test_downloader_handler_twisted_http11.py",
+      "symbols": [
+        "TestRealWebsite"
+      ],
+      "reason": "Contains the HTTP/1.1 download-handler real-website tests marked requires_internet and therefore affected by the rerun-on-failure change."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 6,
+    "manifest_sha256": "52b3eed9c491752b8e751f8c95ac31d4b24915896366df913b3e9bf7ad1ce6a7"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "4b8ec17b1e3de368ccea02163a8000083947c49fca61770fc5f6ca2c56484e52"
+  }
+}

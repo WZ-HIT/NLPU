@@ -1,0 +1,34 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_contracts.py",
+      "symbols": [
+        "DemoSpider.returns_request_async",
+        "DemoSpider.returns_async_gen",
+        "TestContractsManager.test_returns_async",
+        "TestCustomContractPrePostProcess.test_pre_hook_async_callback",
+        "TestCustomContractPrePostProcess.test_pre_hook_async_generator",
+        "TestCustomContractPrePostProcess.test_post_hook_async_generator"
+      ],
+      "reason": "Unit tests that directly exercise scrapy/contracts/__init__.py (Contract.add_pre_hook, Contract.add_post_hook, ContractsManager); they are the only tests asserting the 'Contracts don't support async callbacks' TypeError that this PR removes, so their expectations must flip to the supported async behaviour."
+    },
+    {
+      "path": "tests/test_command_check.py",
+      "symbols": [
+        "TestCheckCommand.test_check_returns_requests_contract",
+        "TestCheckCommand.test_check_no_reactor",
+        "TestCheckCommand.test_check_all_default_contracts",
+        "TestCheckCommand._write_contract",
+        "TestCheckCommand._test_contract"
+      ],
+      "reason": "Covers the `scrapy check` command end to end through ContractsManager in a generated project, which is the path that must now run asynchronous callbacks and return a non-zero exit status on failure."
+    },
+    {
+      "path": "tests/test_utils_spider.py",
+      "symbols": [
+        "test_iterate_spider_output"
+      ],
+      "reason": "Tests scrapy.utils.spider.iterate_spider_output(), the helper scrapy/contracts uses to normalize coroutine and async-generator callback results into Deferreds/async iterables for contract counting."
+    }
+  ]
+}

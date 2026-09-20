@@ -1,0 +1,174 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr7966",
+  "method": "openspec",
+  "base_sha": "5427080f4892fb8f33cc159fdcd6f8ce8d4c140e",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "openspec-detect-004",
+    "session_sha256": "8cb0e3a9c43501e5cfad00316633bf06f86aa99ec326ddcfecd742c64efc35f5"
+  },
+  "task_input_sha256": "dde6dd85e9821e5db51d5471dbbe1ed64a74dbad6edd7c941ea14934ea2e54af",
+  "candidates": [
+    {
+      "path": "tests/test_core_downloader.py",
+      "symbols": [
+        "TestContextFactoryBase",
+        "TestContextFactory.get_page",
+        "TestContextFactory.test_payload",
+        "TestContextFactory.test_no_context_sharing",
+        "TestContextFactory.test_no_context_sharing_with_conn",
+        "TestContextFactory.test_no_immutable_ctx_warning",
+        "TestContextFactory.test_ctx_flags",
+        "TestContextFactoryCiphers",
+        "TestContextFactoryTLSMethod.test_setting_explicit",
+        "TestContextFactoryTLSMethod.test_direct_init"
+      ],
+      "reason": "Central TLS context-factory tests. They already carry version gates and filters for Twisted (TWISTED_TLS_NEW_IMPL) and pyOpenSSL (PYOPENSSL_SET_CIPHER_LIST_TMP_CONN) deprecations, so new warnings from the VCS dependency branches (Twisted, pyOpenSSL, cryptography) surface here first."
+    },
+    {
+      "path": "tests/utils/bases/download_handlers_http.py",
+      "symbols": [
+        "TestHttpBase",
+        "TestHttpsBase",
+        "TestSimpleHttpsBase",
+        "TestHttpsWrongHostnameBase",
+        "TestHttpsInvalidDNSIdBase",
+        "TestHttpsInvalidDNSPatternBase",
+        "TestHttpsCustomCiphersBase",
+        "TestHttpsTLSVersionBase",
+        "TestHttpsTLSVersionBase.test_download"
+      ],
+      "reason": "Shared HTTPS download-handler base driving every concrete handler; it holds the pyOpenSSL X.509 deprecation filter and the TWISTED_TLS_LIMITS_OFFBY1 gate, making it the shared place where TLS-path warnings are handled."
+    },
+    {
+      "path": "tests/test_downloader_handler_twisted_http11.py",
+      "symbols": [
+        "HTTP11DownloadHandlerMixin",
+        "TestHttp",
+        "TestHttps",
+        "TestSimpleHttps",
+        "TestHttpsWrongHostname",
+        "TestHttpsInvalidDNSId",
+        "TestHttpsInvalidDNSPattern",
+        "TestHttpsCustomCiphers",
+        "TestHttpsTLSVersion"
+      ],
+      "reason": "Concrete Twisted HTTP/1.1 TLS handler matrix, the most likely place for warnings emitted by the Twisted and pyOpenSSL development branches to show up."
+    },
+    {
+      "path": "tests/test_downloader_handler_twisted_http2.py",
+      "symbols": [
+        "H2DownloadHandlerMixin",
+        "TestHttp2",
+        "TestSimpleHttp2",
+        "TestHttp2WrongHostname",
+        "TestHttp2InvalidDNSId",
+        "TestHttp2InvalidDNSPattern",
+        "TestHttp2CustomCiphers",
+        "TestHttp2TLSVersion"
+      ],
+      "reason": "Concrete Twisted HTTP/2 TLS handler matrix using the same certificate and context-factory code paths as HTTP/1.1, so the same VCS dependency warning sources apply."
+    },
+    {
+      "path": "tests/test_downloader_handler_httpx.py",
+      "symbols": [
+        "HttpxDownloadHandlerMixin",
+        "TestHttp.test_bind_address_port_warning",
+        "TestHttps",
+        "TestSimpleHttps",
+        "TestHttpsWrongHostname",
+        "TestHttpsInvalidDNSId",
+        "TestHttpsInvalidDNSPattern",
+        "TestHttpsCustomCiphers",
+        "TestHttpsTLSVersion"
+      ],
+      "reason": "httpx2 is replaced by its development branch in the VCS workflow, and this module exercises its TLS, certificate-verification, proxy and warning behavior."
+    },
+    {
+      "path": "tests/mockserver/utils.py",
+      "symbols": [
+        "ssl_context_factory"
+      ],
+      "reason": "Shared mock-server TLS setup chooses between cryptography and the deprecated pyOpenSSL certificate APIs based on dependency versions, so its warnings propagate into every HTTPS handler test."
+    },
+    {
+      "path": "tests/test_crawl.py",
+      "symbols": [
+        "TestCrawl.test_response_ssl_certificate_none",
+        "TestCrawl.test_response_ssl_certificate"
+      ],
+      "reason": "Exercises end-to-end HTTPS certificate handling and already filters the pyOpenSSL X.509 deprecation emitted while cryptography/pyOpenSSL run their development branches."
+    },
+    {
+      "path": "tests/test_http2_client_protocol.py",
+      "symbols": [
+        "TestHttps2ClientProtocol",
+        "TestHttps2ClientProtocol.test_response_has_correct_certificate_ip_address"
+      ],
+      "reason": "Reads and compares peer certificates through Twisted/pyOpenSSL and already filters the X.509 deprecation, a path that changes when the VCS branches of those dependencies are installed."
+    },
+    {
+      "path": "tests/utils/bases/http_response.py",
+      "symbols": [
+        "TestResponseBase"
+      ],
+      "reason": "Shared response base that is version-gated on w3lib URL normalization behavior (W3LIB_STRIPS_URLS), a dependency replaced by its development branch in the VCS workflow."
+    },
+    {
+      "path": "tests/test_http_response.py",
+      "symbols": [
+        "TestResponse"
+      ],
+      "reason": "Concrete consumer of the w3lib-gated response base, so behavior and warning differences from the w3lib development branch appear in its assertions."
+    },
+    {
+      "path": "tests/test_robotstxt_interface.py",
+      "symbols": [
+        "BaseRobotParserTest",
+        "TestRobotParser",
+        "TestPythonRobotParser.test_length_based_precedence",
+        "TestPythonRobotParser.test_order_based_precedence",
+        "TestRerpRobotParser",
+        "TestProtegoRobotParser"
+      ],
+      "reason": "Uses the version-gated stdlib robotparser behavior (STDLIB_IMPROVED_ROBOTFILEPARSER) and the Protego development branch, both dependency-sensitive in the VCS workflow."
+    },
+    {
+      "path": "tests/test_utils_reactor.py",
+      "symbols": [
+        "TestAsyncio.test_is_asyncio_reactor_installed",
+        "TestAsyncio.test_set_asyncio_event_loop"
+      ],
+      "reason": "Directly tests asyncio event-loop handling and Twisted reactor installation, where Python 3.14 and Twisted development-branch deprecations (the twisted#12527 workaround in scrapy/utils/reactor.py) appear."
+    },
+    {
+      "path": "tests/test_crawler_runners.py",
+      "symbols": [
+        "TestAsyncCrawlerRunner",
+        "TestAsyncCrawlerProcess",
+        "TestAsyncCrawlerProcess.test_crawler_process_accepts_dict"
+      ],
+      "reason": "Async crawler runner/process tests install and exercise the asyncio reactor, another location where event-loop deprecation warnings surface under the VCS workflow."
+    },
+    {
+      "path": "tests/test_pipelines.py",
+      "symbols": [
+        "AsyncDefAsyncioPipeline",
+        "TestPipeline.test_pipeline",
+        "TestPipeline.test_pipeline_deferred"
+      ],
+      "reason": "Contains a direct asyncio.get_event_loop() call and exercises pipeline-to-asyncio bridging, which emits event-loop deprecation warnings on newer Python and Twisted versions."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 6,
+    "manifest_sha256": "f897c45034672eae49aad4d51f6e0f708a760eaa59a31be085e85e24be1c5a41"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "5d6f61b801f16dcbbc500e5fee400a144c1107dc1908fe4e040a4f536e9883f0"
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr7948",
+  "method": "openspec",
+  "base_sha": "e810f5fca166e8cd03d005d07b6a6a2373407d6a",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "openspec-detect-004",
+    "session_sha256": "cccf29463ef52bc070bc94a5d17922036e5ca98f9463a71a2415bd387d76bb70"
+  },
+  "task_input_sha256": "661a894fe2e4b89d4ab19d14f000c3908cd6e9b316b31660799f60d2f12a3c16",
+  "candidates": [
+    {
+      "path": "tests/test_core_downloader.py",
+      "symbols": [
+        "TestContextFactory",
+        "TestContextFactoryBase",
+        "TestContextFactory.test_payload",
+        "TestContextFactory.test_ctx_flags"
+      ],
+      "reason": "Exercises _ScrapyClientContextFactory, its OpenSSL context construction, and real HTTPS requests, making it the most direct place to verify SSLKEYLOGFILE parsing and output."
+    },
+    {
+      "path": "tests/utils/bases/download_handlers_http.py",
+      "symbols": [
+        "TestHttpsBase",
+        "TestHttpsBase.get_dh",
+        "TestHttpsBase.test_tls_logging",
+        "TestSimpleHttpsBase",
+        "TestSimpleHttpsBase.get_dh"
+      ],
+      "reason": "Shared HTTPS downloader suite can assert end-to-end key logging for successful TLS requests while being reused by the built-in handlers."
+    },
+    {
+      "path": "tests/test_downloader_handler_twisted_http11.py",
+      "symbols": [
+        "HTTP11DownloadHandlerMixin",
+        "TestHttps",
+        "TestSimpleHttps"
+      ],
+      "reason": "Concrete Twisted HTTP/1.1 HTTPS test classes instantiate the shared TLS scenarios and would catch handler-specific context wiring."
+    },
+    {
+      "path": "tests/test_downloader_handler_twisted_http2.py",
+      "symbols": [
+        "H2DownloadHandlerMixin",
+        "TestHttp2",
+        "TestSimpleHttp2"
+      ],
+      "reason": "Concrete Twisted HTTP/2 HTTPS tests verify that key logging also reaches contexts used by the H2 download handler."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 7,
+    "manifest_sha256": "00f7b0374b4c1ac13eda1c9054a3871a2ccdb66ce2dec45791c7ee10eb0a555f"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "50b5ed8abe9fefdc4de0ebf31caaaf33ad4ad2e3f1e54e73b9211d5ff8d86809"
+  }
+}

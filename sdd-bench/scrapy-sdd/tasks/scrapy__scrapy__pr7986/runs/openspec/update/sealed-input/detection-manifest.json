@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr7986",
+  "method": "openspec",
+  "base_sha": "65b37286cc56b6a87c4d1eca6bdff79f658f09d2",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "openspec-detect-004",
+    "session_sha256": "b8b9959bc5d2dbc03234c4aad53cd4ab0163f4ecba5f2d5a36f2071dbceee7c8"
+  },
+  "task_input_sha256": "8d2461273a0f2f6eb633f57b10d00bf1f5ecd8fe579c01688995dcc3e86dffee",
+  "candidates": [
+    {
+      "path": "tests/test_downloader_handler_twisted_http2.py",
+      "symbols": [
+        "H2DownloadHandlerMixin.download_handler_cls",
+        "H2DownloadHandlerMixin.settings_dict",
+        "test_not_configured_without_reactor"
+      ],
+      "reason": "Directly imports the Twisted HTTP/2 handler and encodes the old public module/class path in the DOWNLOAD_HANDLERS setting, so it must be updated for the privatized API."
+    },
+    {
+      "path": "tests/test_http2_client_protocol.py",
+      "symbols": [
+        "TestHttps2ClientProtocol",
+        "TestHttps2ClientProtocol.client",
+        "TestHttps2ClientProtocol.test_invalid_negotiated_protocol",
+        "TestHttps2ClientProtocol.test_inactive_stream",
+        "TestHttps2ClientProtocol.test_invalid_hostname",
+        "TestHttps2ClientProtocol.test_connection_timeout"
+      ],
+      "reason": "Exercises H2ClientProtocol, H2ClientFactory, and stream imports from scrapy.core.http2; these imports, logger names, and patch targets need review if the supporting HTTP/2 package is privatized."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 7,
+    "manifest_sha256": "1d61cec92d4162a5611d361b68ad13853424e1eae32f3eda49baa05854850a16"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "f4ccfe5219dc128aad4e6cd519b4ee55ea0cc978f250272d4363004750e9d267"
+  }
+}

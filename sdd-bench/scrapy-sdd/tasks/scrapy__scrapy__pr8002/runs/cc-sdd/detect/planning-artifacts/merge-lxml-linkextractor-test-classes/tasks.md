@@ -1,0 +1,23 @@
+# Implementation Plan
+
+- [ ] 1. Flatten the link extractor test module
+- [ ] 1.1 Merge `Base.TestLinkExtractorBase` into `TestLxmlLinkExtractor`
+  - Remove `class Base:` and its nested `TestLinkExtractorBase` from `tests/test_linkextractors.py`.
+  - Redeclare `TestLxmlLinkExtractor` as a top-level class with `extractor_cls = LxmlLinkExtractor`.
+  - Move the base class `setup_method` (loading `linkextractor.html` through `get_testdata` into `self.response`) onto `TestLxmlLinkExtractor`.
+  - Move every `test_*` method from the base class onto `TestLxmlLinkExtractor` with identical bodies, decorators and assertions.
+  - Completion check: `pytest --collect-only -q tests/test_linkextractors.py` lists `TestLxmlLinkExtractor::<name>` for all 38 extractor tests and lists neither `Base` nor `TestLinkExtractorBase`.
+  - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 2.1, 2.2, 2.3_
+  - _Boundary: TestLxmlLinkExtractor_
+- [ ] 1.2 Verify parser tests and module imports are untouched
+  - Keep `TestLxmlParserLinkExtractor` and its three tests unchanged.
+  - Keep the module imports (`LxmlLinkExtractor`, `LxmlParserLinkExtractor`, `HtmlResponse`, `XmlResponse`, `Link`, `get_testdata`, `pickle`, `re`, `pytest`, `Version`, `w3lib_version`) only if still referenced.
+  - Completion check: `git diff --stat` shows changes limited to `tests/test_linkextractors.py`.
+  - _Requirements: 3.1, 3.2, 4.1, 4.2, 4.3_
+  - _Depends: 1.1_
+- [ ] 1.3 Confirm behaviour-preserving test run
+  - Run `pytest tests/test_linkextractors.py` and confirm every collected test passes.
+  - Compare the collected test count against the pre-merge module to confirm no test was dropped.
+  - Completion check: identical pass/fail outcome for the module before and after the merge.
+  - _Requirements: 2.4_
+  - _Depends: 1.1, 1.2_

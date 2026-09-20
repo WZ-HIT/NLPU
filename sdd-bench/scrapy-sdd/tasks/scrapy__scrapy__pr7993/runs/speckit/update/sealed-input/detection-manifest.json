@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr7993",
+  "method": "speckit",
+  "base_sha": "be514d8c5df4c0327e050ac6d596d7f5b702806c",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "speckit-detect-004",
+    "session_sha256": "4bffa38a940382859830e2b360e0ac20c6d717a062e146aa6a7467630a580c48"
+  },
+  "task_input_sha256": "3c06c9efbfb8ee0a8c6058d2a4b3ade6d7b383108a2eea9116aa171de7ad7b05",
+  "candidates": [
+    {
+      "path": "tests/test_downloadermiddleware_httpcache.py",
+      "symbols": [
+        "StorageTestMixin.test_storage"
+      ],
+      "reason": "Defines StorageTestMixin.test_storage, which stores a cache entry with HTTPCACHE_EXPIRATION_SECS=1 and then expects the immediately following pre-expiry retrieval to succeed. A slow runner can exceed that one-second window before the retrieval, matching PR #7993's stated flake; the method is inherited by the filesystem, gzip filesystem, DBM, and custom DBM storage test classes."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 8,
+    "manifest_sha256": "8831c3a9d466c1cfe0d3bf1f2d2e3052b9089736cca6ef4de7fd527612a17c09"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "194220028a0196e3be0455b2525578c9838ce9f0c0629ffe94aa7f4a68686f6b"
+  }
+}

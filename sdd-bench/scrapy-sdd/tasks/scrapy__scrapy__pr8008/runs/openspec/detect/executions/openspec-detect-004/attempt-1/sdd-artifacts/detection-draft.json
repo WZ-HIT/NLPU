@@ -1,0 +1,22 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_spider_start.py",
+      "symbols": [
+        "test_slow_pipeline",
+        "_test_spider",
+        "SlowPipeline",
+        "TestSpider",
+        "test_start_urls",
+        "test_start",
+        "test_start_subclass",
+        "_test_start",
+        "test_asyncio_delayed",
+        "test_twisted_delayed",
+        "ITEM_A",
+        "ITEM_B"
+      ],
+      "reason": "This is the file the pull request edits and the only place the flaky assertion lives. `test_slow_pipeline` submits ITEM_A and ITEM_B through a pipeline that awaits scrapy.utils.asyncio.sleep(0.1) for every item, so completion order follows event-loop timer scheduling instead of submission order, and the helper `_test_spider` compares `actual_items == expected_items` strictly. The fix adds an `ordered` flag (default True) to `_test_spider` and calls it with `ordered=False` from `test_slow_pipeline`, so this file holds both the reproducing test and the unchanged single-item tests (`test_start_urls`, `test_start`, `test_start_subclass`, `test_asyncio_delayed`, `test_twisted_delayed`) that exercise the ordered default and guard against regressions from the signature change."
+    }
+  ]
+}

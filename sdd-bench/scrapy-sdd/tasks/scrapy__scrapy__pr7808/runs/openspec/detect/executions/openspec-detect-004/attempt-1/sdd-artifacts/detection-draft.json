@@ -1,0 +1,69 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_utils_misc/__init__.py",
+      "symbols": ["test_build_from_crawler"],
+      "reason": "Unit tests for scrapy.utils.misc.build_from_crawler(), the helper this change generalizes; asserts the from_crawler()-preferring, __init__()-falling-back contract used by every converted call site."
+    },
+    {
+      "path": "tests/test_crawler.py",
+      "symbols": ["TestCrawler", "TestCrawlerLogging", "test_get_extension", "test_get_item_pipeline", "test_get_spider_middleware"],
+      "reason": "Crawler._apply_settings() builds LOG_FORMATTER and the extension manager via direct from_crawler() calls today; crawler-level component retrieval tests cover the same managers."
+    },
+    {
+      "path": "tests/test_logformatter.py",
+      "symbols": ["TestLogFormatter", "TestLogformatterSubclass", "TestShowOrSkipMessages"],
+      "reason": "LOG_FORMATTER is loaded in scrapy/crawler.py and instantiated with lf_cls.from_crawler(self); these tests cover LogFormatter construction and custom subclasses configured through LOG_FORMATTER."
+    },
+    {
+      "path": "tests/test_middleware.py",
+      "symbols": ["MyMiddlewareManager", "test_init", "test_enabled", "test_enabled_from_settings", "test_no_crawler"],
+      "reason": "MiddlewareManager.from_crawler() builds every middleware entry with build_from_crawler(); the manager itself is one of the internal construction paths that direct from_crawler() callers delegate to."
+    },
+    {
+      "path": "tests/test_core_downloader.py",
+      "symbols": ["TestContextFactory", "TestContextFactoryTLSMethod", "test_direct_from_crawler", "test_direct_init"],
+      "reason": "ScrapyDownloader.__init__ constructs DownloaderMiddlewareManager.from_crawler(crawler); this suite covers downloader construction and the from_crawler/init alternatives for downloader-side components."
+    },
+    {
+      "path": "tests/test_core_scraper.py",
+      "symbols": ["test_scraper_exception"],
+      "reason": "Scraper.__init__ builds SpiderMiddlewareManager via from_crawler() and the ITEM_PROCESSOR class directly with itemproc_cls.from_crawler(crawler), both of which this change converts to build_from_crawler()."
+    },
+    {
+      "path": "tests/test_extension_statsmailer.py",
+      "symbols": ["test_from_crawler_with_recipients_initializes_extension", "test_from_crawler_connects_spider_closed_signal", "test_spider_closed_sends_email"],
+      "reason": "StatsMailer.from_crawler() calls MailSender.from_crawler(crawler), and these tests monkeypatch MailSender.from_crawler to observe that construction."
+    },
+    {
+      "path": "tests/test_extension_memusage.py",
+      "symbols": ["test_memusage_disabled", "test_memusage_limit_stops_crawler_without_spider", "test_memusage_below_thresholds_logs_peak"],
+      "reason": "MemoryUsage (scrapy/extensions/memusage.py) builds MailSender.from_crawler(crawler) when MEMUSAGE_NOTIFY_MAIL is set, the second MailSender call site in this change."
+    },
+    {
+      "path": "tests/test_mail.py",
+      "symbols": ["TestMailSender"],
+      "reason": "MailSender is the class whose from_crawler() usage is generalized in the memusage and statsmailer extensions; MailSender.from_crawler() itself is defined in scrapy/mail.py."
+    },
+    {
+      "path": "tests/test_downloadermiddleware_robotstxt.py",
+      "symbols": ["TestRobotsTxtMiddleware", "TestRobotsTxtMiddlewareWithRerp"],
+      "reason": "RobotsTxtMiddleware calls self._parserimpl.from_crawler(self.crawler, ...) twice (dependency check and parsing), which this change replaces with build_from_crawler()."
+    },
+    {
+      "path": "tests/test_robotstxt_interface.py",
+      "symbols": ["TestRobotParser", "BaseRobotParserTest", "TestProtegoRobotParser", "TestRerpRobotParser"],
+      "reason": "Defines the RobotParser.from_crawler(crawler, robotstxt_body) contract that ROBOTSTXT_PARSER backends must satisfy after the construction path is generalized."
+    },
+    {
+      "path": "tests/test_stats.py",
+      "symbols": ["TestStatsCollector", "TestCoreStatsExtension", "test_collector", "test_dummy_collector"],
+      "reason": "STATS_CLASS is instantiated directly as load_object(...)(self) in Crawler._apply_settings(); custom STATS_CLASS tests exercise that construction path, which becomes build_from_crawler()."
+    },
+    {
+      "path": "tests/test_engine.py",
+      "symbols": ["TestEngine", "test_start_request_processing_exception"],
+      "reason": "ExecutionEngine.__init__ instantiates the DOWNLOADER setting class directly as downloader_cls(crawler) and builds the scheduler/scraper, so engine-level tests cover the construction paths being generalized."
+    }
+  ]
+}

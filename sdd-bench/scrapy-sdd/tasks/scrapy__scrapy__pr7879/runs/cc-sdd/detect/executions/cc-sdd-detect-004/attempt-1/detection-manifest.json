@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr7879",
+  "method": "cc-sdd",
+  "base_sha": "d772acdf19251e9a03be285353b50bd1314e3d5d",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "cc-sdd-detect-004",
+    "session_sha256": "91af53cbae17f65783ae7e1daa2bedbdbb1c9dd1221e89970e073e71f1411a43"
+  },
+  "task_input_sha256": "07cdcc47e1db1e915380ce961fc827fdd32567e2f543101a06a9f4a3f67c1e3c",
+  "candidates": [
+    {
+      "path": "tests/test_utils_response.py",
+      "symbols": [
+        "test_open_in_browser",
+        "test_inject_base_url",
+        "test_open_in_browser_preserves_html_comments",
+        "test_open_in_browser_does_not_inject_base_when_present",
+        "test_open_in_browser_injects_base_when_only_in_comment",
+        "test_open_in_browser_injects_base_at_real_head_not_commented_head"
+      ],
+      "reason": "Direct unit coverage for open_in_browser and its base-tag injection logic; the no-head case belongs alongside these assertions."
+    },
+    {
+      "path": "tests/test_commands.py",
+      "symbols": [
+        "TestViewCommand.test_view",
+        "TestViewCommand.test_non_text_response"
+      ],
+      "reason": "scrapy view calls open_in_browser end to end, and its HTML mockserver fixture has no head element, making TestViewCommand a relevant integration regression surface."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 2,
+    "manifest_sha256": "32e8556cf7061615f39caf501eb1918fedf26b56b6b44d75f42f18a22f23e669"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "30d7535a836d8036358e52a688a2c7a8c4cd24668f5c8c062b6cd5d7da70dc29"
+  }
+}

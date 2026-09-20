@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr7886",
+  "repository": {
+    "owner": "scrapy",
+    "name": "scrapy"
+  },
+  "pr_id": 7886,
+  "baseline": {
+    "base_sha": "c7eacdbb30a4563bbbe04ed02781768f4e19eabb"
+  },
+  "title": "Support asynchronous callbacks in contracts",
+  "body": "Fixes https://github.com/scrapy/scrapy/issues/6681.",
+  "adapter": {
+    "id": "scrapy",
+    "version": 1,
+    "path": "sdd-bench/scrapy-sdd/adapters/scrapy.json",
+    "sha256": "059dcc09eaa62f892f54118e65d4deccce3ab29cc5d9a4a36f4d999ff1aa27de"
+  }
+}

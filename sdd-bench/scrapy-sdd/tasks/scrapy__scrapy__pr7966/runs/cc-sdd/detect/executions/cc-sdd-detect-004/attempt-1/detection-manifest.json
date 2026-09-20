@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr7966",
+  "method": "cc-sdd",
+  "base_sha": "5427080f4892fb8f33cc159fdcd6f8ce8d4c140e",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "cc-sdd-detect-004",
+    "session_sha256": "b417fe58c90fdc228d497a8f1354c6040b647d52a5ed87e2b7bcff88bdaea9bb"
+  },
+  "task_input_sha256": "dde6dd85e9821e5db51d5471dbbe1ed64a74dbad6edd7c941ea14934ea2e54af",
+  "candidates": [
+    {
+      "path": "tests/test_core_downloader.py",
+      "symbols": [
+        "TestContextFactory.test_no_immutable_ctx_warning",
+        "TestContextFactory.test_ctx_flags",
+        "TestContextFactoryCiphers"
+      ],
+      "reason": "Contains the only test that asserts a dependency DeprecationWarning is NOT raised (\"Attempting to mutate a Context after a Connection was created\") and selects behavior through scrapy.utils._deps_compat gates (PYOPENSSL_SET_CIPHER_LIST_TMP_CONN, TWISTED_TLS_NEW_IMPL). The VCS workflow installs pyOpenSSL/Twisted from git, so this is the primary place where VCS-only warnings surface."
+    },
+    {
+      "path": "tests/utils/bases/download_handlers_http.py",
+      "symbols": [
+        "TestHttpBase"
+      ],
+      "reason": "Shared download-handler test base whose expectations are branched on dependency versions (PYOPENSSL_X509_DEPRECATED, TWISTED_TLS_LIMITS_OFFBY1); it is the behavior/warning surface exercised by every HTTP download handler under newer VCS dependency versions."
+    },
+    {
+      "path": "tests/mockserver/utils.py",
+      "symbols": [
+        "ssl_context_factory"
+      ],
+      "reason": "Builds TLS server contexts with pyOpenSSL APIs (load_certificate/load_privatekey, X509 handling) that are deprecated in development pyOpenSSL releases and are gated by PYOPENSSL_X509_DEPRECATED, so it is a likely source of the warnings the VCS workflow reports."
+    },
+    {
+      "path": "tests/test_robotstxt_interface.py",
+      "symbols": [
+        "BaseRobotParserTest",
+        "TestRobotParser"
+      ],
+      "reason": "Gated on STDLIB_IMPROVED_ROBOTFILEPARSER, i.e. it encodes expected behavior differences of the Python 3.14 stdlib used by the VCS workflow, and exercises the same parser code paths that emit version-dependent warnings."
+    },
+    {
+      "path": "tests/test_selector.py",
+      "symbols": [
+        "TestSelector.test_flavor_detection",
+        "TestJMESPath"
+      ],
+      "reason": "Uses runtime parsel version detection (PARSEL_VERSION/PARSEL_18_PLUS) to skip or assert based on the installed parsel build; the VCS workflow resolves parsel from git, so these tests are the ones that shift when dependency warnings/behavior change."
+    },
+    {
+      "path": "tests/test_utils_python.py",
+      "symbols": [
+        "test_get_func_args",
+        "test_get_func_args_unresolvable_annotations"
+      ],
+      "reason": "Branches on sys.version_info and interpreter implementation (Python 3.13/3.14, PyPy) to assert behavior that differs across the interpreter used by the VCS workflow, and is co-located with the annotation-warning workarounds."
+    },
+    {
+      "path": "tests/test_utils_decorators.py",
+      "symbols": [
+        "TestWarnSpiderArg"
+      ],
+      "reason": "Asserts warning emission (ScrapyDeprecationWarning) and has a Python-3.14-only variant for lazily evaluated annotations, so it is directly sensitive to interpreter-driven warning behavior in the VCS environment."
+    },
+    {
+      "path": "tests/test_mail.py",
+      "symbols": [
+        "TestMailSender"
+      ],
+      "reason": "Uses a module-level pytest.mark.filterwarnings to silence the import-time deprecation warning from scrapy.mail; it is the canonical example of the warning-suppression pattern that changes when import-time warnings are addressed."
+    },
+    {
+      "path": "tests/test_extension_statsmailer.py",
+      "symbols": [
+        "test_from_crawler_with_recipients_initializes_extension",
+        "test_spider_closed_sends_email"
+      ],
+      "reason": "Wraps imports of deprecated modules (scrapy.extensions.statsmailer, scrapy.mail) in warnings.catch_warnings filters and would need updating if the deprecation warnings these modules emit are reworked."
+    },
+    {
+      "path": "tests/test_utils_reactor.py",
+      "symbols": [
+        "TestAsyncio.test_set_asyncio_event_loop",
+        "TestAsyncio.test_is_asyncio_reactor_installed"
+      ],
+      "reason": "Covers scrapy.utils.reactor, which contains explicit catch_warnings/filterwarnings handling for asyncio deprecations (get_event_loop, get_event_loop_policy); changes to warning handling in that module are validated here."
+    },
+    {
+      "path": "tests/test_downloader_handler_httpx.py",
+      "symbols": [
+        "TestHttp.test_bind_address_port_warning",
+        "TestHttps.test_verify_certs_deprecated"
+      ],
+      "reason": "Exercises the httpx2 download handler that the VCS workflow installs from a development branch, including a test explicitly about warning output; development httpx2 builds are a likely origin of VCS-only warnings."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 2,
+    "manifest_sha256": "5a0aca6942dae28f1332b99883ac5079404a4592978234faa090ab02ad4319f1"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "0c74105d886b02a4211f06c97d21bc57c5055d57c922bd14c58b2e89eb7a5931"
+  }
+}

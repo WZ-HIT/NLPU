@@ -1,0 +1,52 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_toplevel.py",
+      "symbols": [
+        "test_version",
+        "test_version_info",
+        "test_request_shortcut"
+      ],
+      "reason": "The patch is installed during Scrapy package initialization, so import-level tests are the natural place to verify that importing Scrapy has wrapped Twisted's IDNA helpers without disturbing normal top-level imports."
+    },
+    {
+      "path": "tests/test_core_downloader.py",
+      "symbols": [
+        "TestContextFactory",
+        "TestContextFactory.test_no_context_sharing",
+        "TestContextFactory.test_no_context_sharing_with_conn",
+        "_ScrapyClientContextFactory.creatorForNetloc"
+      ],
+      "reason": "TLS connection creators resolve hostnames through Twisted's sslverify module, whose by-value `_idnaBytes` import must be patched; these tests already inspect `_hostnameBytes` and are the closest focused regression surface."
+    },
+    {
+      "path": "tests/test_resolver.py",
+      "symbols": [
+        "test_caching_threaded_resolver_dnscache_disabled",
+        "test_caching_threaded_resolver_getHostByName_cache_hit",
+        "test_caching_hostname_resolver_no_addresses_not_cached"
+      ],
+      "reason": "Scrapy's resolver layer delegates hostname resolution to Twisted, so an IDNA-2003-only hostname should be covered here to prove the patched DNS encoding path replaces the IDNA-2008 failure."
+    },
+    {
+      "path": "tests/test_downloader_handler_twisted_http11.py",
+      "symbols": [
+        "HTTP11DownloadHandlerMixin",
+        "TestSimpleHttps",
+        "TestHttpsWrongHostname",
+        "TestHttpsInvalidDNSId"
+      ],
+      "reason": "The Twisted HTTP/1.1 handler exercises endpoint construction, DNS resolution, and TLS hostname verification together, providing end-to-end coverage that the patches are visible in each by-value Twisted import site."
+    },
+    {
+      "path": "tests/test_utils_url.py",
+      "symbols": [
+        "test_url_is_from_any_domain",
+        "test_url_is_from_spider",
+        "test_url_is_from_spider_with_allowed_domains",
+        "test_add_http_if_no_scheme"
+      ],
+      "reason": "URL utility tests cover hostname parsing and normalization before a request reaches Twisted, and can confirm that introducing the compatibility layer preserves existing domain handling."
+    }
+  ]
+}

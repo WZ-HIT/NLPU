@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr7841",
+  "repository": {
+    "owner": "scrapy",
+    "name": "scrapy"
+  },
+  "pr_id": 7841,
+  "baseline": {
+    "base_sha": "95c16aa9af7c51f26ba3ea8512b4ba782f5d216f"
+  },
+  "title": "Improve the test coverage of scrapy.utils",
+  "body": "Includes:\r\n\r\n-   A bug fix on `_inflate()`, it could loop forever on a deflate body followed by any extra bytes.\r\n-   `ffi_buf_to_string()` called itself instead of `_ffi_buf_to_string()`, now fixed.\r\n-   `get_func_args_dict()` compared parameter *names* against a partial's positional\r\n    *values*, so `get_func_args(partial(f, \"b\"))` returned `[]` instead of `[\"b\"]`, now fixed.\r\n-   Require `pyOpenSSL >= 24.3.0`, and with it `cryptography >= 41.0.5` and\r\n    `service_identity >= 24.2.0`. It allowed to simplify the code and avoid many \"no cover\" lines.\r\n-   The `pypy3` tox env now measures coverage, for some PyPy-specific branches.",
+  "adapter": {
+    "id": "scrapy",
+    "version": 1,
+    "path": "sdd-bench/scrapy-sdd/adapters/scrapy.json",
+    "sha256": "059dcc09eaa62f892f54118e65d4deccce3ab29cc5d9a4a36f4d999ff1aa27de"
+  }
+}
