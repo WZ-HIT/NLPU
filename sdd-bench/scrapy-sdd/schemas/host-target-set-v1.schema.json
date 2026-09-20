@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sdd-bench.local/schemas/host-target-set-v1.schema.json",
+  "title": "Sanitized host evaluation target set v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "artifact_type", "evaluation_id", "target_id", "stage", "task_id", "classification", "method", "update_mode", "metric_definition_version", "gold_seal_sha256", "files", "symbols", "target_set_sha256"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "artifact_type": {"const": "PUBLIC_TARGET_SET"},
+    "evaluation_id": {"$ref": "#/$defs/id"},
+    "target_id": {"type": "string", "pattern": "^[0-9a-f]{24}$"},
+    "stage": {"enum": ["detect", "update"]},
+    "task_id": {"$ref": "#/$defs/id"},
+    "classification": {"enum": ["TEST_ONLY_PR", "MIXED_CODE_AND_TEST_PR"]},
+    "method": {"enum": ["openspec", "speckit", "cc-sdd"]},
+    "update_mode": {"type": ["string", "null"], "enum": [null, "sealed-detect", "self-directed"]},
+    "metric_definition_version": {"const": "prompt10-metrics-v1"},
+    "gold_seal_sha256": {"$ref": "#/$defs/sha256"},
+    "files": {"$ref": "#/$defs/level"},
+    "symbols": {"$ref": "#/$defs/level"},
+    "target_set_sha256": {"$ref": "#/$defs/sha256"}
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{0,127}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "candidate": {"oneOf": [{"type": "string", "minLength": 1}, {"type": "object", "additionalProperties": false, "required": ["path", "qualified_name"], "properties": {"path": {"type": "string", "minLength": 1}, "qualified_name": {"type": "string", "minLength": 1}}}]},
+    "prediction": {"type": "object", "additionalProperties": false, "required": ["rank", "candidate"], "properties": {"rank": {"type": "integer", "minimum": 1}, "candidate": {"$ref": "#/$defs/candidate"}, "matched_gold_id": {"type": "string", "pattern": "^g-[0-9a-f]{24}$"}}},
+    "level": {"type": "object", "additionalProperties": false, "required": ["predicted", "gold_ids", "matched_gold_ids", "invalid_evidence_ids", "invalid_count", "missing_count"], "properties": {"predicted": {"type": "array", "items": {"$ref": "#/$defs/prediction"}}, "gold_ids": {"type": "array", "items": {"type": "string", "pattern": "^g-[0-9a-f]{24}$"}, "uniqueItems": true}, "matched_gold_ids": {"type": "array", "items": {"type": "string", "pattern": "^g-[0-9a-f]{24}$"}, "uniqueItems": true}, "invalid_evidence_ids": {"type": "array", "items": {"type": "string", "pattern": "^[0-9a-f]{16}$"}}, "invalid_count": {"type": "integer", "minimum": 0}, "missing_count": {"type": "integer", "minimum": 0}}}
+  }
+}

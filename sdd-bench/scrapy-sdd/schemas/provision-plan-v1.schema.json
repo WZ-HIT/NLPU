@@ -1,0 +1,158 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sdd-bench.local/schemas/provision-plan-v1.schema.json",
+  "title": "SDD Bench host-only batch provision plan v1",
+  "$comment": "Host-only review artifact. It must never be mounted into an agent workspace.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "plan_id", "plan_type", "created_at_utc", "status", "executable", "repository_scope", "inputs", "input_set_sha256", "inventory", "selection", "task_scope", "tasks", "approval"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "plan_id": {"$ref": "#/$defs/id"},
+    "plan_type": {"const": "PROVISION_PLAN"},
+    "created_at_utc": {"type": "string", "format": "date-time"},
+    "status": {"const": "AWAITING_USER_APPROVAL"},
+    "executable": {"const": false},
+    "repository_scope": {"$ref": "#/$defs/repository"},
+    "inputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["prompt", "raw"],
+      "properties": {
+        "prompt": {"$ref": "#/$defs/input"},
+        "raw": {"$ref": "#/$defs/input"}
+      }
+    },
+    "input_set_sha256": {"$ref": "#/$defs/sha256"},
+    "inventory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "inventory_id"],
+      "properties": {
+        "path": {"$ref": "#/$defs/path"},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "inventory_id": {"$ref": "#/$defs/id"}
+      }
+    },
+    "selection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "requested", "resolution_events", "resolved_prs", "sha256"],
+      "properties": {
+        "source": {"enum": ["prompt", "raw"]},
+        "requested": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["pr_ids", "pr_id_files", "sample_ids"],
+          "properties": {
+            "pr_ids": {"type": "array", "items": {"type": "integer", "minimum": 1}},
+            "pr_id_files": {"type": "array", "items": {"$ref": "#/$defs/prIdFile"}},
+            "sample_ids": {"type": "array", "items": {"type": "string", "minLength": 1}}
+          }
+        },
+        "resolution_events": {"type": "array", "items": {"$ref": "#/$defs/resolution"}},
+        "resolved_prs": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/resolvedPr"}},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "task_scope": {"const": "one task per selected PR; sample IDs only resolve PR membership"},
+    "tasks": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/task"}},
+    "approval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required", "granted", "provisioning_performed"],
+      "properties": {
+        "required": {"const": true},
+        "granted": {"const": false},
+        "provisioning_performed": {"const": false}
+      }
+    }
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{0,127}$"},
+    "repository": {"type": "string", "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"},
+    "gitSha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "path": {"type": "string", "minLength": 1, "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\)(?!.*//).+$"},
+    "input": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "size_bytes", "record_count"],
+      "properties": {
+        "path": {"$ref": "#/$defs/path"},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "size_bytes": {"type": "integer", "minimum": 0},
+        "record_count": {"type": "integer", "minimum": 0}
+      }
+    },
+    "prIdFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "pr_ids"],
+      "properties": {
+        "path": {"$ref": "#/$defs/path"},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "pr_ids": {"type": "array", "items": {"type": "integer", "minimum": 1}}
+      }
+    },
+    "resolvedPr": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "pr_id"],
+      "properties": {
+        "repository": {"$ref": "#/$defs/repository"},
+        "pr_id": {"type": "integer", "minimum": 1}
+      }
+    },
+    "resolution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["selector", "value", "resolved_repository", "resolved_pr_id"],
+      "properties": {
+        "selector": {"enum": ["pr_id", "sample_id"]},
+        "value": {"anyOf": [{"type": "integer", "minimum": 1}, {"type": "string", "minLength": 1}]},
+        "resolved_repository": {"$ref": "#/$defs/repository"},
+        "resolved_pr_id": {"type": "integer", "minimum": 1}
+      }
+    },
+    "nlQuality": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "word_count", "has_title", "has_body", "description"],
+      "properties": {
+        "status": {"enum": ["GOOD", "WEAK", "MISSING"]},
+        "word_count": {"type": "integer", "minimum": 0},
+        "has_title": {"type": "boolean"},
+        "has_body": {"type": "boolean"},
+        "description": {"type": "string"}
+      }
+    },
+    "task": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["task_id", "repository", "pr_id", "baseline", "classification", "member_sample_ids", "member_sample_count", "test_change_count", "changed_files", "nl_quality", "task_categories"],
+      "properties": {
+        "task_id": {"$ref": "#/$defs/id"},
+        "repository": {"$ref": "#/$defs/repository"},
+        "pr_id": {"type": "integer", "minimum": 1},
+        "baseline": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["base_sha"],
+          "properties": {"base_sha": {"$ref": "#/$defs/gitSha"}}
+        },
+        "classification": {"enum": ["TEST_ONLY_PR", "MIXED_CODE_AND_TEST_PR", "NO_TEST_CHANGE"]},
+        "member_sample_ids": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "member_sample_count": {"type": "integer", "minimum": 1},
+        "test_change_count": {"type": "integer", "minimum": 0},
+        "changed_files": {"type": "array", "items": {"$ref": "#/$defs/path"}},
+        "nl_quality": {"$ref": "#/$defs/nlQuality"},
+        "task_categories": {
+          "type": "object",
+          "propertyNames": {"enum": ["focal_guided", "test_only"]},
+          "additionalProperties": {"type": "integer", "minimum": 0}
+        }
+      }
+    }
+  }
+}

@@ -1,39 +1,137 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://sdd-bench.local/schemas/preflight-v1.schema.json",
-  "title": "SDD Bench host-side preflight result v1",
+  "title": "SDD Bench two-stage Compose preflight report v1",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "run_id", "task_id", "variant", "checked_at_utc", "status", "repository", "initialization_manifest_sha256", "adapter_sha256", "required_paths_present", "result_path_available", "credential_ready", "violations"],
+  "required": ["schema_version", "run_id", "task_id", "method", "stage", "checked_at_utc", "status", "formal_run_permitted", "blockers", "compose", "images", "security", "resources", "permissions", "network", "authentication", "mounts", "formal_prompt_sent", "model_request_sent", "project_tests_run", "evidence_sha256"],
   "properties": {
     "schema_version": {"const": 1},
     "run_id": {"$ref": "#/$defs/id"},
     "task_id": {"$ref": "#/$defs/id"},
-    "variant": {"enum": ["openspec", "speckit", "cc-sdd"]},
+    "method": {"enum": ["openspec", "speckit", "cc-sdd"]},
+    "stage": {"enum": ["detect", "update"]},
     "checked_at_utc": {"type": "string", "format": "date-time"},
-    "status": {"enum": ["pass", "fail"]},
-    "repository": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["head_sha", "tree_sha", "clean_except_initialization", "remote_count"],
+    "status": {"enum": ["READY", "BLOCKED"]},
+    "formal_run_permitted": {"type": "boolean"},
+    "blockers": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+    "compose": {
+      "type": "object", "additionalProperties": false,
+      "required": ["project_name", "profile", "source_sha256", "preflight_override_sha256", "rendered_path", "rendered_sha256", "deployment_lock_sha256"],
       "properties": {
-        "head_sha": {"$ref": "#/$defs/gitSha"},
-        "tree_sha": {"$ref": "#/$defs/gitSha"},
-        "clean_except_initialization": {"type": "boolean"},
-        "remote_count": {"const": 0}
+        "project_name": {"$ref": "#/$defs/id"},
+        "profile": {"$ref": "#/$defs/id"},
+        "source_sha256": {"$ref": "#/$defs/sha256"},
+        "preflight_override_sha256": {"$ref": "#/$defs/sha256"},
+        "rendered_path": {"$ref": "#/$defs/path"},
+        "rendered_sha256": {"$ref": "#/$defs/sha256"},
+        "deployment_lock_sha256": {"$ref": "#/$defs/sha256"}
       }
     },
-    "initialization_manifest_sha256": {"$ref": "#/$defs/sha256"},
-    "adapter_sha256": {"$ref": "#/$defs/sha256"},
-    "required_paths_present": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/path"}},
-    "result_path_available": {"type": "boolean"},
-    "credential_ready": {"type": "boolean"},
-    "violations": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true}
+    "images": {
+      "type": "object", "additionalProperties": false, "required": ["agent_image_id", "proxy_image_id"],
+      "properties": {"agent_image_id": {"$ref": "#/$defs/imageId"}, "proxy_image_id": {"$ref": "#/$defs/imageId"}}
+    },
+    "security": {
+      "type": "object", "additionalProperties": false,
+      "required": ["read_only_rootfs", "cap_drop_all", "no_new_privileges", "apparmor_profile", "seccomp_sha256", "bubblewrap_pass"],
+      "properties": {
+        "read_only_rootfs": {"const": true},
+        "cap_drop_all": {"const": true},
+        "no_new_privileges": {"const": true},
+        "apparmor_profile": {"type": "string", "pattern": "^[a-z0-9_]{1,128}$"},
+        "seccomp_sha256": {"$ref": "#/$defs/sha256"},
+        "bubblewrap_pass": {"const": true}
+      }
+    },
+    "resources": {
+      "type": "object", "additionalProperties": false, "required": ["cpu_limit", "memory_bytes", "pids_limit"],
+      "properties": {
+        "cpu_limit": {"type": "number", "exclusiveMinimum": 0},
+        "memory_bytes": {"type": "integer", "minimum": 1},
+        "pids_limit": {"type": "integer", "minimum": 1}
+      }
+    },
+    "permissions": {
+      "type": "object", "additionalProperties": false,
+      "required": ["scrapy_write", "tests_write", "planning_write", "output_write", "sealed_input_write"],
+      "properties": {
+        "scrapy_write": {"enum": ["DENIED", "ALLOWED"]},
+        "tests_write": {"enum": ["DENIED", "ALLOWED"]},
+        "planning_write": {"enum": ["DENIED", "ALLOWED", "NOT_APPLICABLE"]},
+        "output_write": {"enum": ["DENIED", "ALLOWED"]},
+        "sealed_input_write": {"enum": ["DENIED", "ALLOWED", "NOT_APPLICABLE"]}
+      }
+    },
+    "network": {
+      "type": "object", "additionalProperties": false,
+      "required": ["private_internal_network", "direct_egress_denied", "dedicated_proxy_reachable", "dedicated_proxy"],
+      "properties": {
+        "private_internal_network": {"const": true},
+        "direct_egress_denied": {"const": true},
+        "dedicated_proxy_reachable": {"const": true},
+        "dedicated_proxy": {"$ref": "#/$defs/id"}
+      }
+    },
+    "authentication": {
+      "type": "object", "additionalProperties": false,
+      "required": ["secret_present", "secret_nonempty", "runtime_config_present", "credential_content_recorded"],
+      "properties": {
+        "secret_present": {"const": true},
+        "secret_nonempty": {"const": true},
+        "runtime_config_present": {"const": true},
+        "credential_content_recorded": {"const": false}
+      }
+    },
+    "mounts": {
+      "type": "object", "additionalProperties": false,
+      "required": ["workspace_unique", "home_tmpfs", "cache_tmpfs", "docker_socket_absent", "host_gold_absent", "raw_dataset_absent", "other_stage_workspace_absent", "own_sealed_bundle_only"],
+      "properties": {
+        "workspace_unique": {"const": true},
+        "home_tmpfs": {"const": true},
+        "cache_tmpfs": {"const": true},
+        "docker_socket_absent": {"const": true},
+        "host_gold_absent": {"const": true},
+        "raw_dataset_absent": {"const": true},
+        "other_stage_workspace_absent": {"const": true},
+        "own_sealed_bundle_only": {"const": true}
+      }
+    },
+    "formal_prompt_sent": {"const": false},
+    "model_request_sent": {"const": false},
+    "project_tests_run": {"const": false},
+    "evidence_sha256": {"$ref": "#/$defs/sha256"}
   },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "READY"}}},
+      "then": {"properties": {"blockers": {"maxItems": 0}, "formal_run_permitted": {"const": true}}}
+    },
+    {
+      "if": {"properties": {"status": {"const": "BLOCKED"}}},
+      "then": {"properties": {"blockers": {"minItems": 1}, "formal_run_permitted": {"const": false}}}
+    },
+    {
+      "if": {"properties": {"stage": {"const": "detect"}}},
+      "then": {"properties": {"permissions": {"properties": {
+        "scrapy_write": {"const": "DENIED"}, "tests_write": {"const": "DENIED"},
+        "planning_write": {"const": "ALLOWED"}, "output_write": {"const": "ALLOWED"},
+        "sealed_input_write": {"const": "NOT_APPLICABLE"}
+      }}}}
+    },
+    {
+      "if": {"properties": {"stage": {"const": "update"}}},
+      "then": {"properties": {"permissions": {"properties": {
+        "scrapy_write": {"const": "DENIED"}, "tests_write": {"const": "ALLOWED"},
+        "planning_write": {"const": "DENIED"}, "output_write": {"const": "ALLOWED"},
+        "sealed_input_write": {"const": "DENIED"}
+      }}}}
+    }
+  ],
   "$defs": {
     "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{0,127}$"},
-    "gitSha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
     "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "imageId": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
     "path": {"type": "string", "minLength": 1, "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\)(?!.*//).+$"}
   }
 }

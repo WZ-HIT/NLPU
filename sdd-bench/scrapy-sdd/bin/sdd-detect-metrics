@@ -1,0 +1,14 @@
+#!/usr/bin/env python3
+"""Thin executable wrapper for the Detect hit-rate metrics CLI."""
+
+from pathlib import Path
+import sys
+
+BENCH_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(BENCH_ROOT))
+
+from batch.detect_metrics_cli import main
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sdd-bench.local/schemas/host-gold-store-v1.schema.json",
+  "title": "Prompt 10 host-only gold store v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "store_type", "evaluation_id", "batch_id", "metric_definition_version", "seal_barrier_sha256", "raw_source_sha256", "tasks", "gold_seal_sha256"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "store_type": {"const": "PROMPT10_HOST_ONLY_GOLD"},
+    "evaluation_id": {"$ref": "#/$defs/id"},
+    "batch_id": {"$ref": "#/$defs/id"},
+    "metric_definition_version": {"const": "prompt10-metrics-v1"},
+    "seal_barrier_sha256": {"$ref": "#/$defs/sha256"},
+    "raw_source_sha256": {"$ref": "#/$defs/sha256"},
+    "gold_seal_sha256": {"$ref": "#/$defs/sha256"},
+    "tasks": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/task"}}
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{0,127}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "path": {"type": "string", "minLength": 1, "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\)(?!.*//).+$"},
+    "fileTarget": {"type": "object", "additionalProperties": false, "required": ["id", "path"], "properties": {"id": {"type": "string", "pattern": "^g-[0-9a-f]{24}$"}, "path": {"$ref": "#/$defs/path"}}},
+    "symbolTarget": {"type": "object", "additionalProperties": false, "required": ["id", "path", "qualified_name"], "properties": {"id": {"type": "string", "pattern": "^g-[0-9a-f]{24}$"}, "path": {"$ref": "#/$defs/path"}, "qualified_name": {"type": "string", "minLength": 1}}},
+    "patch": {"type": "object", "additionalProperties": false, "required": ["path", "patch", "sha256"], "properties": {"path": {"$ref": "#/$defs/path"}, "patch": {"type": "string", "minLength": 1}, "sha256": {"$ref": "#/$defs/sha256"}}},
+    "task": {
+      "type": "object", "additionalProperties": false,
+      "required": ["task_id", "classification", "base_sha", "raw_record_sha256", "test_files", "test_symbols", "test_patches", "production_patches", "future_revision_commitments"],
+      "properties": {
+        "task_id": {"$ref": "#/$defs/id"},
+        "classification": {"enum": ["TEST_ONLY_PR", "MIXED_CODE_AND_TEST_PR"]},
+        "base_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "raw_record_sha256": {"$ref": "#/$defs/sha256"},
+        "test_files": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/fileTarget"}},
+        "test_symbols": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/symbolTarget"}},
+        "test_patches": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/patch"}},
+        "production_patches": {"type": "array", "items": {"$ref": "#/$defs/patch"}},
+        "future_revision_commitments": {"type": "object", "additionalProperties": false, "required": ["head_sha256", "merge_sha256"], "properties": {"head_sha256": {"$ref": "#/$defs/sha256"}, "merge_sha256": {"$ref": "#/$defs/sha256"}}}
+      }
+    }
+  }
+}

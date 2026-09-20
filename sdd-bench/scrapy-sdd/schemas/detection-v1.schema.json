@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sdd-bench.local/schemas/detection-v1.schema.json",
+  "title": "Sealed Detect output v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "manifest_type", "task_id", "method", "base_sha", "producer", "task_input_sha256", "candidates", "planning_artifacts", "seal"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "manifest_type": {"const": "SEALED_DETECTION"},
+    "task_id": {"$ref": "#/$defs/id"},
+    "method": {"enum": ["openspec", "speckit", "cc-sdd"]},
+    "base_sha": {"$ref": "#/$defs/gitSha"},
+    "producer": {
+      "type": "object", "additionalProperties": false,
+      "required": ["kind", "stage", "run_id", "session_sha256"],
+      "properties": {
+        "kind": {"enum": ["agent", "isolation-canary"]},
+        "stage": {"const": "detect"},
+        "run_id": {"$ref": "#/$defs/id"},
+        "session_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "task_input_sha256": {"$ref": "#/$defs/sha256"},
+    "candidates": {
+      "type": "array", "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["path", "symbols", "reason"],
+        "properties": {
+          "path": {"$ref": "#/$defs/path"},
+          "symbols": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+          "reason": {"type": "string", "minLength": 1, "maxLength": 4000}
+        }
+      }
+    },
+    "planning_artifacts": {
+      "type": "object", "additionalProperties": false,
+      "required": ["file_count", "manifest_sha256"],
+      "properties": {
+        "file_count": {"type": "integer", "minimum": 0},
+        "manifest_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "seal": {
+      "type": "object", "additionalProperties": false,
+      "required": ["algorithm", "payload_sha256"],
+      "properties": {
+        "algorithm": {"const": "sha256-canonical-json-without-seal"},
+        "payload_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    }
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{0,127}$"},
+    "gitSha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "path": {"type": "string", "minLength": 1, "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\)(?!.*//).+$"}
+  }
+}

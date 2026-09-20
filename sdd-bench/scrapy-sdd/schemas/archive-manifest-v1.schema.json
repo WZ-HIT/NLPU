@@ -1,0 +1,320 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sdd-bench.local/schemas/archive-manifest-v1.schema.json",
+  "title": "Archived experiment result manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "archive_type",
+    "created_at_utc",
+    "updated_at_utc",
+    "viewer_version",
+    "snapshot_count",
+    "snapshots"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "archive_type": {
+      "const": "SDD_RESULT_ARCHIVE"
+    },
+    "created_at_utc": {
+      "$ref": "#/$defs/timestamp"
+    },
+    "updated_at_utc": {
+      "$ref": "#/$defs/timestamp"
+    },
+    "viewer_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "snapshot_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "snapshots": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/snapshot"
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "timestamp": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+    },
+    "identifier": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "relativePath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))"
+    },
+    "snapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "snapshot_id",
+        "experiment_id",
+        "batch_id",
+        "task_id",
+        "scope",
+        "outcome",
+        "reason",
+        "content_sha256",
+        "html_sha256",
+        "html_bytes",
+        "viewer_version",
+        "archived_at_utc",
+        "path",
+        "source",
+        "targets",
+        "supersedes"
+      ],
+      "properties": {
+        "snapshot_id": {
+          "type": "string",
+          "pattern": "^[0-9]{8}T[0-9]{6}Z--[0-9a-f]{16}(-[0-9]+)?$"
+        },
+        "experiment_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}(/[A-Za-z0-9][A-Za-z0-9._-]{0,127})?$"
+        },
+        "batch_id": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/identifier"
+            }
+          ]
+        },
+        "task_id": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/identifier"
+            }
+          ]
+        },
+        "scope": {
+          "enum": [
+            "batch",
+            "pr"
+          ]
+        },
+        "outcome": {
+          "enum": [
+            "SEALED",
+            "FAILED",
+            "INCOMPLETE"
+          ]
+        },
+        "reason": {
+          "enum": [
+            "auto",
+            "manual",
+            "refresh"
+          ]
+        },
+        "content_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "html_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "html_bytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "viewer_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "archived_at_utc": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "path": {
+          "$ref": "#/$defs/relativePath"
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "config_path",
+            "config_sha256",
+            "ledger_path",
+            "ledger_sha256",
+            "ledger_event_count"
+          ],
+          "properties": {
+            "config_path": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/$defs/relativePath"
+                }
+              ]
+            },
+            "config_sha256": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/$defs/sha256"
+                }
+              ]
+            },
+            "ledger_path": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/$defs/relativePath"
+                }
+              ]
+            },
+            "ledger_sha256": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/$defs/sha256"
+                }
+              ]
+            },
+            "ledger_event_count": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              ]
+            }
+          }
+        },
+        "targets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "task_id",
+              "method",
+              "stage",
+              "run_id",
+              "update_mode",
+              "state",
+              "attempt",
+              "execution",
+              "error"
+            ],
+            "properties": {
+              "task_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "method": {
+                "enum": [
+                  "openspec",
+                  "speckit",
+                  "cc-sdd"
+                ]
+              },
+              "stage": {
+                "enum": [
+                  "detect",
+                  "update"
+                ]
+              },
+              "run_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "update_mode": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "enum": [
+                      "sealed-detect",
+                      "self-directed"
+                    ]
+                  }
+                ]
+              },
+              "state": {
+                "type": "string",
+                "minLength": 1
+              },
+              "attempt": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                ]
+              },
+              "execution": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                ]
+              },
+              "error": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "supersedes": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "minLength": 1
+            }
+          ]
+        }
+      }
+    }
+  }
+}

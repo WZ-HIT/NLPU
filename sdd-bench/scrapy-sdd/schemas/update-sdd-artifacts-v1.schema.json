@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sdd-bench.local/schemas/update-sdd-artifacts-v1.schema.json",
+  "title": "Captured Update SDD artifacts v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "capture_type", "task_id", "method", "run_id", "update_mode", "status", "source_workspace_path", "files", "file_count", "files_manifest_sha256", "manifest_sha256"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "capture_type": {"const": "UPDATE_SDD_ARTIFACTS"},
+    "task_id": {"$ref": "#/$defs/id"},
+    "method": {"enum": ["openspec", "speckit", "cc-sdd"]},
+    "run_id": {"$ref": "#/$defs/id"},
+    "update_mode": {"enum": ["sealed-detect", "self-directed"]},
+    "status": {"enum": ["CAPTURED_EMPTY", "CAPTURED_NONEMPTY"]},
+    "source_workspace_path": {"$ref": "#/$defs/path"},
+    "files": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/file"}
+    },
+    "file_count": {"type": "integer", "minimum": 0},
+    "files_manifest_sha256": {"$ref": "#/$defs/sha256"},
+    "manifest_sha256": {"$ref": "#/$defs/sha256"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "CAPTURED_EMPTY"}}},
+      "then": {"properties": {"files": {"maxItems": 0}, "file_count": {"const": 0}}}
+    },
+    {
+      "if": {"properties": {"status": {"const": "CAPTURED_NONEMPTY"}}},
+      "then": {"properties": {"files": {"minItems": 1}, "file_count": {"minimum": 1}}}
+    }
+  ],
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{0,127}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "path": {"type": "string", "minLength": 1, "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\)(?!.*//).+$"},
+    "file": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "size_bytes", "sha256"],
+      "properties": {
+        "path": {"$ref": "#/$defs/path"},
+        "size_bytes": {"type": "integer", "minimum": 0},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    }
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sdd-bench.local/schemas/topology-audit-v1.schema.json",
+  "title": "SDD Bench host-only Git topology audit v1",
+  "$comment": "Host-only because raw_topology contains target revision identities.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "audit_type", "audited_at_utc", "task_id", "repository", "pr_id", "status", "raw_topology", "policy", "source_repository_audit", "source_warnings", "baseline_cache_audit", "variant_workspace_audits", "blocking_errors"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "audit_type": {"const": "HOST_ONLY_GIT_TOPOLOGY"},
+    "audited_at_utc": {"type": "string", "format": "date-time"},
+    "task_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{0,127}$"},
+    "repository": {"type": "string", "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"},
+    "pr_id": {"type": "integer", "minimum": 1},
+    "status": {"enum": ["READY", "BLOCKED", "TOPOLOGY_WARNING"]},
+    "raw_topology": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["base_sha", "head_sha", "merge_commit_sha", "record_source"],
+      "properties": {
+        "base_sha": {"$ref": "#/$defs/gitSha"},
+        "head_sha": {"$ref": "#/$defs/nullableGitSha"},
+        "merge_commit_sha": {"$ref": "#/$defs/nullableGitSha"},
+        "record_source": {"$ref": "#/$defs/rawSource"}
+      }
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["baseline_source", "automatic_baseline_substitution", "agent_visibility"],
+      "properties": {
+        "baseline_source": {"const": "raw record base_sha"},
+        "automatic_baseline_substitution": {"const": false},
+        "agent_visibility": {"const": false}
+      }
+    },
+    "source_repository_audit": {"$ref": "#/$defs/topology"},
+    "source_warnings": {"$ref": "#/$defs/messages"},
+    "baseline_cache_audit": {"$ref": "#/$defs/topologyOrBlocked"},
+    "variant_workspace_audits": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "openspec": {"$ref": "#/$defs/workspaceTopology"},
+        "speckit": {"$ref": "#/$defs/workspaceTopology"},
+        "cc-sdd": {"$ref": "#/$defs/workspaceTopology"}
+      }
+    },
+    "blocking_errors": {"$ref": "#/$defs/messages"}
+  },
+  "$defs": {
+    "gitSha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "nullableGitSha": {"anyOf": [{"$ref": "#/$defs/gitSha"}, {"type": "null"}]},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "messages": {"type": "array", "items": {"type": "string"}},
+    "rawSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "input_sha256", "line_number", "record_line_sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "input_sha256": {"$ref": "#/$defs/sha256"},
+        "line_number": {"type": "integer", "minimum": 1},
+        "record_line_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "topology": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "valid_git_repository", "status", "head_sha", "tree_sha", "head_equals_recorded_base", "reachable_commit_count", "target_head_object_present", "target_merge_object_present", "target_head_or_merge_reachable", "refs", "branches", "tags", "remotes", "reflog_paths", "shallow_repository", "worktree_clean", "worktree_status", "object_alternates", "issues"],
+      "properties": {
+        "repository": {"type": "string", "minLength": 1},
+        "valid_git_repository": {"const": true},
+        "status": {"enum": ["PASS", "WARNING"]},
+        "head_sha": {"$ref": "#/$defs/gitSha"},
+        "tree_sha": {"$ref": "#/$defs/gitSha"},
+        "head_equals_recorded_base": {"type": "boolean"},
+        "reachable_commit_count": {"type": "integer", "minimum": 1},
+        "target_head_object_present": {"type": "boolean"},
+        "target_merge_object_present": {"type": "boolean"},
+        "target_head_or_merge_reachable": {"type": "boolean"},
+        "refs": {"$ref": "#/$defs/messages"},
+        "branches": {"$ref": "#/$defs/messages"},
+        "tags": {"$ref": "#/$defs/messages"},
+        "remotes": {"$ref": "#/$defs/messages"},
+        "reflog_paths": {"$ref": "#/$defs/messages"},
+        "shallow_repository": {"type": "boolean"},
+        "worktree_clean": {"type": "boolean"},
+        "worktree_status": {"$ref": "#/$defs/messages"},
+        "object_alternates": {"$ref": "#/$defs/messages"},
+        "issues": {"$ref": "#/$defs/messages"}
+      }
+    },
+    "blockedTopology": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "issues"],
+      "properties": {
+        "status": {"const": "BLOCKED"},
+        "issues": {"$ref": "#/$defs/messages"}
+      }
+    },
+    "topologyOrBlocked": {"oneOf": [{"$ref": "#/$defs/topology"}, {"$ref": "#/$defs/blockedTopology"}]},
+    "workspaceTopology": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "valid_git_repository", "status", "head_sha", "tree_sha", "head_equals_recorded_base", "reachable_commit_count", "target_head_object_present", "target_merge_object_present", "target_head_or_merge_reachable", "refs", "branches", "tags", "remotes", "reflog_paths", "shallow_repository", "worktree_clean", "worktree_status", "object_alternates", "issues", "checkout_file_count", "checkout_manifest_sha256", "matches_baseline_tree", "matches_baseline_manifest", "independent_workspace"],
+      "properties": {
+        "repository": {"type": "string", "minLength": 1},
+        "valid_git_repository": {"const": true},
+        "status": {"const": "PASS"},
+        "head_sha": {"$ref": "#/$defs/gitSha"},
+        "tree_sha": {"$ref": "#/$defs/gitSha"},
+        "head_equals_recorded_base": {"const": true},
+        "reachable_commit_count": {"const": 1},
+        "target_head_object_present": {"const": false},
+        "target_merge_object_present": {"const": false},
+        "target_head_or_merge_reachable": {"const": false},
+        "refs": {"type": "array", "maxItems": 0},
+        "branches": {"type": "array", "maxItems": 0},
+        "tags": {"type": "array", "maxItems": 0},
+        "remotes": {"type": "array", "maxItems": 0},
+        "reflog_paths": {"type": "array", "maxItems": 0},
+        "shallow_repository": {"type": "boolean"},
+        "worktree_clean": {"const": true},
+        "worktree_status": {"type": "array", "maxItems": 0},
+        "object_alternates": {"type": "array", "maxItems": 0},
+        "issues": {"type": "array", "maxItems": 0},
+        "checkout_file_count": {"type": "integer", "minimum": 0},
+        "checkout_manifest_sha256": {"$ref": "#/$defs/sha256"},
+        "matches_baseline_tree": {"const": true},
+        "matches_baseline_manifest": {"const": true},
+        "independent_workspace": {"const": true},
+        "workspace_reused": {"type": "boolean"}
+      }
+    }
+  }
+}

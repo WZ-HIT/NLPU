@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sdd-bench.local/schemas/baseline-lock-v1.schema.json",
+  "title": "SDD Bench host-only pure baseline lock v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "lock_type", "created_at_utc", "repository", "base_sha", "tree_sha", "raw_source", "source_repository", "checkout_file_count", "checkout_manifest_sha256", "checkout_files", "git_topology"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "lock_type": {"const": "PURE_BASELINE"},
+    "created_at_utc": {"type": "string", "format": "date-time"},
+    "repository": {"type": "string", "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"},
+    "base_sha": {"$ref": "#/$defs/gitSha"},
+    "tree_sha": {"$ref": "#/$defs/gitSha"},
+    "raw_source": {"type": "object", "additionalProperties": false, "required": ["path", "input_sha256", "line_number", "record_line_sha256"], "properties": {
+      "path": {"$ref": "#/$defs/path"}, "input_sha256": {"$ref": "#/$defs/sha256"}, "line_number": {"type": "integer", "minimum": 1}, "record_line_sha256": {"$ref": "#/$defs/sha256"}
+    }},
+    "source_repository": {"type": "object", "additionalProperties": false, "required": ["path", "base_object_verified"], "properties": {
+      "path": {"type": "string", "minLength": 1}, "base_object_verified": {"const": true}
+    }},
+    "checkout_file_count": {"type": "integer", "minimum": 0},
+    "checkout_manifest_sha256": {"$ref": "#/$defs/sha256"},
+    "checkout_files": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["path", "mode", "git_type", "git_object", "size_bytes", "sha256"], "properties": {
+      "path": {"$ref": "#/$defs/path"}, "mode": {"type": "string", "pattern": "^[0-7]{6}$"}, "git_type": {"enum": ["blob", "commit"]}, "git_object": {"$ref": "#/$defs/gitSha"}, "size_bytes": {"type": "integer", "minimum": 0}, "sha256": {"$ref": "#/$defs/sha256"}
+    }}},
+    "git_topology": {"type": "object", "additionalProperties": false, "required": ["head_equals_recorded_base", "reachable_commit_count", "target_head_object_present", "target_merge_object_present", "refs", "remotes", "reflog_paths", "worktree_clean", "object_alternates"], "properties": {
+      "head_equals_recorded_base": {"const": true}, "reachable_commit_count": {"const": 1}, "target_head_object_present": {"const": false}, "target_merge_object_present": {"const": false}, "refs": {"type": "array", "maxItems": 0}, "remotes": {"type": "array", "maxItems": 0}, "reflog_paths": {"type": "array", "maxItems": 0}, "worktree_clean": {"const": true}, "object_alternates": {"type": "array", "maxItems": 0}
+    }}
+  },
+  "$defs": {
+    "gitSha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "path": {"type": "string", "minLength": 1, "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\)(?!.*//).+$"}
+  }
+}

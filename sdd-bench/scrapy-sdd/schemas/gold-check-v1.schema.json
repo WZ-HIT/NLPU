@@ -1,44 +1,63 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://sdd-bench.local/schemas/gold-check-v1.schema.json",
-  "title": "SDD Bench host-only gold check v1",
-  "$comment": "Evaluation host only. This document and its source must never be mounted into or shown to an Agent.",
+  "title": "Host-only staged gold-leakage check v1",
+  "$comment": "Never mount this report or its host-only inputs into an Agent.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "task_id", "checked_at_utc", "status", "baseline_sha", "gold_source", "checks"],
+  "required": ["schema_version", "policy_version", "task_id", "pr_id", "method", "stage", "audit_scope", "checked_at_utc", "status", "task_input_sha256", "base_sha", "checks", "finding_count", "agent_call_permitted", "stage_prerequisite", "evidence"],
   "properties": {
     "schema_version": {"const": 1},
+    "policy_version": {"const": "gold-check-v1"},
     "task_id": {"$ref": "#/$defs/id"},
+    "pr_id": {"type": "integer", "minimum": 1},
+    "method": {"enum": ["openspec", "speckit", "cc-sdd"]},
+    "stage": {"enum": ["detect", "update"]},
+    "audit_scope": {"enum": ["FORMAL_PREFLIGHT", "PRE_RUN_BOUNDARY_CANARY", "FORMAL_SEALED_TRANSFER"]},
     "checked_at_utc": {"type": "string", "format": "date-time"},
-    "status": {"enum": ["pass", "fail"]},
-    "baseline_sha": {"$ref": "#/$defs/gitSha"},
-    "gold_source": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["kind", "reference", "sha256"],
-      "properties": {
-        "kind": {"enum": ["raw-pr-record", "patch-file", "repository-object"]},
-        "reference": {"$ref": "#/$defs/path"},
-        "sha256": {"$ref": "#/$defs/sha256"}
-      }
-    },
+    "status": {"enum": ["PASS", "FAIL", "ERROR", "NOT_RUN"]},
+    "task_input_sha256": {"$ref": "#/$defs/sha256"},
+    "base_sha": {"$ref": "#/$defs/gitSha"},
     "checks": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["applies_to_baseline", "paths_within_adapter_policy", "contains_test_change", "contains_production_change"],
-      "properties": {
-        "applies_to_baseline": {"type": "boolean"},
-        "paths_within_adapter_policy": {"type": "boolean"},
-        "contains_test_change": {"type": "boolean"},
-        "contains_production_change": {"type": "boolean"}
+      "type": "array", "minItems": 8, "maxItems": 8,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["id", "name", "status", "finding_count", "evidence"],
+        "properties": {
+          "id": {"enum": ["G01", "G02", "G03", "G04", "G05", "G06", "G07", "G08"]},
+          "name": {"type": "string", "minLength": 1},
+          "status": {"enum": ["PASS", "FAIL", "ERROR", "NOT_RUN"]},
+          "finding_count": {"type": "integer", "minimum": 0},
+          "evidence": {"$ref": "#/$defs/path"}
+        }
       }
     },
-    "changed_paths": {"type": "array", "items": {"$ref": "#/$defs/path"}, "uniqueItems": true}
+    "finding_count": {"type": "integer", "minimum": 0},
+    "agent_call_permitted": {"type": "boolean"},
+    "stage_prerequisite": {"enum": ["SATISFIED", "AWAITING_FORMAL_SEAL"]},
+    "evidence": {
+      "type": "object", "additionalProperties": false,
+      "required": ["visible_files", "prompt_provenance", "mount_audit", "git_object_audit", "isolation_audit", "manifest_transfer_audit", "total_sha256"],
+      "properties": {
+        "visible_files": {"$ref": "#/$defs/artifact"},
+        "prompt_provenance": {"$ref": "#/$defs/artifact"},
+        "mount_audit": {"$ref": "#/$defs/artifact"},
+        "git_object_audit": {"$ref": "#/$defs/artifact"},
+        "isolation_audit": {"$ref": "#/$defs/artifact"},
+        "manifest_transfer_audit": {"$ref": "#/$defs/artifact"},
+        "total_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    }
   },
   "$defs": {
     "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{0,127}$"},
     "gitSha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
     "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
-    "path": {"type": "string", "minLength": 1, "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\)(?!.*//).+$"}
+    "path": {"type": "string", "minLength": 1, "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\)(?!.*//).+$"},
+    "artifact": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {"path": {"$ref": "#/$defs/path"}, "sha256": {"$ref": "#/$defs/sha256"}}
+    }
   }
 }

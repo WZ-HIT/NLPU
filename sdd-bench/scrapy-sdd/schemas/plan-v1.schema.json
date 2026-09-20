@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://sdd-bench.local/schemas/plan-v1.schema.json",
   "title": "SDD Bench agent-visible execution plan v1",
-  "$comment": "Agent-visible orchestration only; no gold, head, merge, target-file, or hidden-test fields exist.",
+  "$comment": "Agent-visible public orchestration fields only.",
   "type": "object",
   "additionalProperties": false,
   "required": ["schema_version", "plan_id", "task_id", "task_artifact", "result_directory", "execution_mode", "execution_order", "phases", "policy"],

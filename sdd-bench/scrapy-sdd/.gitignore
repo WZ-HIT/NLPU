@@ -2,11 +2,27 @@
 # are recorded in deployment-lock.json and Log/ evidence.
 environments/scrapy__scrapy__base_*/baseline/scrapy/
 tasks/*/runs/*/scrapy/
+batch/baselines/*/repository/
+batch/workspaces/*/*/repository/
 
 # Server-local rollback payloads and restore-time safety backups. Human-readable
 # checkpoint metadata and scripts remain trackable.
 checkpoints/*/payloads/
 checkpoints/*/restore-backups/
+
+# The templated batch checkpoints add one directory level, so the single-level
+# globs above do not reach them. Payloads can embed gold content and the shared
+# layer carries a full copy of batch/runs/ evidence.
+checkpoints/batch/*/payloads/
+checkpoints/batch/*/*/payloads/
+checkpoints/batch/restore-backups/
+
+# Sealed evidence moved aside to let a stage run a second time. Batch stages are
+# one-shot: the Detect seal and the planning artifacts it is copied from live at
+# fixed per-task/method paths, so a re-run has to displace them first. They are
+# moved rather than deleted, and the checkpoint layers already hold the same
+# bytes, so this copy is only the local undo.
+batch/rerun-archive/
 
 # Reconstructible large common runtime payloads. The source URLs and SHA256
 # values remain in deployment-lock.json and artifact manifests.
@@ -27,3 +43,18 @@ environments/agent-runtime/*/base-*-oci/
 *.token
 .env
 .env.*
+batch/gold/
+
+# Rendered HTML for the batch cards. It is derived, regenerable, and about a
+# megabyte per experiment, which is the reason `batch/rerun-archive/` is ignored
+# above. It is also the one output root that is not `Log/`, so without this rule
+# `sdd-results report <batch>` writes near-megabyte files into a trackable path.
+batch/viewer-reports/
+
+# The agent workspaces and the provision source mirror are nested Git checkouts
+# of Scrapy. Git records them as gitlinks pointing at a repository with no URL,
+# so their bytes would never travel with a clone while a bare SHA would. They
+# are reconstructible from the base SHA, and the run artifacts written beside
+# them are the evidence that actually needs to travel.
+tasks/*/runs/**/workspace/
+batch/sources/scrapy/

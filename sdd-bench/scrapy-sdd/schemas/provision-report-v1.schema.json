@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sdd-bench.local/schemas/provision-report-v1.schema.json",
+  "title": "SDD Bench host-only provision report v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "report_type", "generated_at_utc", "plan", "status", "task_count", "tasks", "operations"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "report_type": {"const": "PROVISION_REPORT"},
+    "generated_at_utc": {"type": "string", "format": "date-time"},
+    "plan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["plan_id", "path", "sha256", "explicitly_approved_plan_id"],
+      "properties": {
+        "plan_id": {"type": "string", "minLength": 1},
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "explicitly_approved_plan_id": {"type": "string", "minLength": 1}
+      }
+    },
+    "status": {"enum": ["READY", "BLOCKED", "TOPOLOGY_WARNING"]},
+    "task_count": {"type": "integer", "minimum": 0},
+    "tasks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["task_id", "repository", "pr_id", "status", "base_sha", "tree_sha", "baseline_cache_reused", "baseline_lock", "topology_audit", "variant_workspaces", "blocking_errors", "warnings"],
+        "properties": {
+          "task_id": {"type": "string", "minLength": 1},
+          "repository": {"type": "string", "minLength": 1},
+          "pr_id": {"type": "integer", "minimum": 1},
+          "status": {"enum": ["READY", "BLOCKED", "TOPOLOGY_WARNING"]},
+          "base_sha": {"$ref": "#/$defs/nullableGitSha"},
+          "tree_sha": {"$ref": "#/$defs/nullableGitSha"},
+          "baseline_cache_reused": {"type": "boolean"},
+          "baseline_lock": {"$ref": "#/$defs/artifact"},
+          "topology_audit": {"$ref": "#/$defs/artifact"},
+          "variant_workspaces": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "openspec": {"type": "string", "minLength": 1},
+              "speckit": {"type": "string", "minLength": 1},
+              "cc-sdd": {"type": "string", "minLength": 1}
+            }
+          },
+          "blocking_errors": {"$ref": "#/$defs/messages"},
+          "warnings": {"$ref": "#/$defs/messages"}
+        }
+      }
+    },
+    "operations": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["baseline_cache_created_or_verified", "independent_variant_workspaces_created", "docker_images_created", "containers_created", "volumes_created", "networks_created", "agents_started", "tests_run"],
+      "properties": {
+        "baseline_cache_created_or_verified": {"type": "boolean"},
+        "independent_variant_workspaces_created": {"type": "boolean"},
+        "docker_images_created": {"const": false},
+        "containers_created": {"const": false},
+        "volumes_created": {"const": false},
+        "networks_created": {"const": false},
+        "agents_started": {"const": false},
+        "tests_run": {"const": false}
+      }
+    }
+  },
+  "$defs": {
+    "gitSha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "nullableGitSha": {"anyOf": [{"$ref": "#/$defs/gitSha"}, {"type": "null"}]},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "messages": {"type": "array", "items": {"type": "string"}},
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"anyOf": [{"$ref": "#/$defs/sha256"}, {"type": "null"}]}
+      }
+    }
+  }
+}

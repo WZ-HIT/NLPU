@@ -12,17 +12,21 @@ import json
 import os
 import re
 import sys
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from typing import Any
 from urllib.parse import urlparse
 import webbrowser
 
-VERSION = "1.2.0"
+VERSION = "1.4.0"
 VARIANTS = ("openspec", "speckit", "cc-sdd")
 LABEL = {"openspec": "OpenSpec", "speckit": "Spec Kit", "cc-sdd": "cc-sdd"}
 ARTIFACT_DIRS = ("outputs", "output-files", "artifacts", "generated-files")
+TERMINAL_STATES = {"DETECT_SEALED", "UPDATE_SEALED", "EVALUATED"}
+# task_id values become experiment ids, slugs and search text, so they are held to
+# the same shape as batch_id. This is a discovery-time filter, never a path join.
+SAFE_TASK_ID = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]{0,127}")
 MAX_TEXT = 2 * 1024 * 1024
 MAX_DIFF = 20 * 1024 * 1024
 MAX_JSONL = 64 * 1024 * 1024
@@ -38,6 +42,25 @@ class Experiment:
     root: Path
     audit_name: str
     modified: float
+    source_kind: str = "legacy"
+    config_path: Path | None = None
+    batch_id: str | None = None
+    task_id_filter: str | None = None
+
+
+@dataclass(frozen=True)
+class BatchTarget:
+    task_id: str
+    pr_id: int | None
+    title: str
+    method: str
+    stage: str
+    run_id: str
+    mode: str | None
+    state: str
+    attempt: int | None
+    execution: Path | None
+    error: str | None = None
 
 
 @dataclass(frozen=True)
@@ -62,6 +85,45 @@ def load_json(path: Path) -> dict[str, Any] | None:
     return value if isinstance(value, dict) else None
 
 
+DETECT_METRICS_VERSION = "detect-metrics-v1"
+
+
+def detect_metrics(bench: Path, batch_id: str) -> dict[str, Any] | None:
+    """The recorded Detect hit-rate report for a batch, or None.
+
+    Optional by construction: ``batch/detect_metrics.py`` writes it under ``Log/``
+    and every batch card renders without it. ``load_json`` already answers None
+    for each way it can be missing, so the only thing added here is the version
+    guard -- a future document whose fields mean something else must render as
+    *absent*, not be misread through today's names.
+    """
+    document = load_json(bench / "Log" / "reports" / "detect-metrics" / f"{batch_id}.json")
+    if not document or document.get("metric_definition_version") != DETECT_METRICS_VERSION:
+        return None
+    if not isinstance(document.get("rows"), list) or not isinstance(document.get("methods"), list):
+        return None
+    return document
+
+
+def _rate(value: Any) -> str:
+    """A rate cell. Undefined renders as N/A, never 0%.
+
+    An Agent that reported nothing has no precision. Printing 0.0% would read as
+    "got everything wrong" and 100% as "perfect"; neither is a measurement.
+    """
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        return '<span class="source-path">N/A</span>'
+    return f"{value * 100:.1f}%"
+
+
+def _detect_counts(row: dict[str, Any]) -> str:
+    """``a / b`` for one row, or N/A when the row was never scored."""
+    metrics = row.get("metrics") if isinstance(row.get("metrics"), dict) else None
+    if metrics is None:
+        return _rate(None)
+    return esc(f"{metrics.get('tp')} / {metrics.get('predicted_count')}")
+
+
 def load_text(path: Path, limit: int = MAX_TEXT) -> str | None:
     try:
         size = path.stat().st_size
@@ -77,6 +139,22 @@ def load_text(path: Path, limit: int = MAX_TEXT) -> str | None:
     return value
 
 
+def canonical_sha256(value: Any) -> str:
+    payload = json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
+def file_sha256(path: Path) -> str | None:
+    try:
+        digest = hashlib.sha256()
+        with path.open("rb") as stream:
+            for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+                digest.update(chunk)
+        return digest.hexdigest()
+    except OSError:
+        return None
+
+
 def is_experiment(path: Path) -> bool:
     if (path / "all-summary.json").is_file():
         return True
@@ -87,7 +165,19 @@ def is_experiment(path: Path) -> bool:
     )
 
 
-def discover(bench: Path) -> list[Experiment]:
+def _safe_child(root: Path, value: str) -> Path | None:
+    pure = PurePosixPath(value)
+    if not value or pure.is_absolute() or ".." in pure.parts or "\\" in value or "//" in value:
+        return None
+    candidate = root.joinpath(*pure.parts)
+    try:
+        candidate.resolve().relative_to(root.resolve())
+    except (OSError, ValueError):
+        return None
+    return candidate
+
+
+def _discover_legacy(bench: Path) -> list[Experiment]:
     log_root = bench / "Log"
     if not log_root.is_dir():
         return []
@@ -110,7 +200,251 @@ def discover(bench: Path) -> list[Experiment]:
             except (OSError, ValueError):
                 continue
             found[real] = Experiment(child.name, real, parent.parent.name, modified)
-    return sorted(found.values(), key=lambda item: (item.modified, item.experiment_id), reverse=True)
+    return list(found.values())
+
+
+def _discover_batches(bench: Path) -> list[Experiment]:
+    configs = bench / "batch" / "pilot"
+    runs = bench / "batch" / "runs"
+    if not configs.is_dir() or not runs.is_dir():
+        return []
+    found: dict[str, Experiment] = {}
+    for config_path in sorted(configs.glob("*.json")):
+        if config_path.is_symlink() or not config_path.is_file():
+            continue
+        config = load_json(config_path)
+        batch_id = config.get("batch_id") if config else None
+        if not isinstance(batch_id, str) or not re.fullmatch(r"[a-z0-9][a-z0-9._-]{0,127}", batch_id):
+            continue
+        run_root = runs / batch_id
+        ledger = run_root / "ledger.jsonl"
+        if run_root.is_symlink() or ledger.is_symlink() or not run_root.is_dir() or not ledger.is_file():
+            continue
+        try:
+            run_root.resolve().relative_to(runs.resolve())
+            modified = ledger.stat().st_mtime
+        except (OSError, ValueError):
+            continue
+        candidate = Experiment(
+            batch_id,
+            run_root.resolve(),
+            "batch",
+            modified,
+            source_kind="batch",
+            config_path=config_path.resolve(),
+            batch_id=batch_id,
+        )
+        previous = found.get(batch_id)
+        if previous is None or str(candidate.config_path) < str(previous.config_path):
+            found[batch_id] = candidate
+    # Expand into per-PR views only after the duplicate-config dedupe above, so a
+    # task never gains two cards from two configs describing the same batch.
+    expanded: dict[str, Experiment] = {}
+    for experiment in found.values():
+        expanded[experiment.experiment_id] = experiment
+        config = load_json(experiment.config_path) if experiment.config_path else None
+        for task_id_value in _config_task_ids(config):
+            view = replace(experiment, experiment_id=f"{experiment.batch_id}/{task_id_value}", task_id_filter=task_id_value)
+            expanded.setdefault(view.experiment_id, view)
+    return list(expanded.values())
+
+
+def _config_task_ids(config: dict[str, Any] | None) -> list[str]:
+    """Task ids eligible for their own card: well-formed and order-preserving deduped."""
+    tasks = config.get("tasks") if config else None
+    if not isinstance(tasks, list):
+        return []
+    return list(
+        dict.fromkeys(
+            item["task_id"]
+            for item in tasks
+            if isinstance(item, dict) and isinstance(item.get("task_id"), str) and SAFE_TASK_ID.fullmatch(item["task_id"])
+        )
+    )
+
+
+def discover(bench: Path) -> list[Experiment]:
+    found = _discover_legacy(bench) + _discover_batches(bench)
+    # Two stable passes: the first reproduces the historical id-descending tie-break,
+    # the second only lifts whole-batch overviews above their own per-PR children.
+    found.sort(key=lambda item: item.experiment_id, reverse=True)
+    found.sort(key=lambda item: (-item.modified, 0 if item.task_id_filter is None else 1))
+    return found
+
+
+def _target_key(task_id: str, method: str, stage: str, run_id: str, mode: str | None) -> str:
+    return ":".join((task_id, method, stage, run_id, mode or "none"))
+
+
+def _batch_id(exp: Experiment) -> str:
+    """The batch this experiment belongs to; falls back for hand-built Experiments."""
+    return exp.batch_id or exp.experiment_id
+
+
+def _batch_task_ids(exp: Experiment) -> list[str]:
+    identifiers = _config_task_ids(load_json(exp.config_path) if exp.config_path else None)
+    if exp.task_id_filter is not None:
+        return [value for value in identifiers if value == exp.task_id_filter]
+    return identifiers
+
+
+def _ledger_events(exp: Experiment) -> tuple[list[dict[str, Any]], str | None]:
+    ledger_path = exp.root / "ledger.jsonl"
+    if ledger_path.is_symlink() or not ledger_path.is_file():
+        return [], "ledger is missing or symlinked"
+    try:
+        lines = ledger_path.read_text(encoding="utf-8").splitlines()
+    except (OSError, UnicodeError):
+        return [], "ledger cannot be read"
+    events: list[dict[str, Any]] = []
+    previous = None
+    for index, line in enumerate(lines, 1):
+        try:
+            event = json.loads(line)
+        except json.JSONDecodeError:
+            return [], f"ledger event {index} is not valid JSON"
+        if not isinstance(event, dict):
+            return [], f"ledger event {index} is not an object"
+        supplied = event.get("event_sha256")
+        payload = dict(event)
+        payload.pop("event_sha256", None)
+        if (
+            event.get("schema_version") != 1
+            or event.get("batch_id") != _batch_id(exp)
+            or event.get("sequence") != index
+            or event.get("previous_event_sha256") != previous
+            or not isinstance(supplied, str)
+            or canonical_sha256(payload) != supplied
+        ):
+            return [], f"ledger hash chain is invalid at event {index}"
+        previous = supplied
+        events.append(event)
+    return events, None
+
+
+def _task_manifest(
+    repository_root: Path, task_entry: dict[str, Any], task_id_value: str
+) -> tuple[dict[str, Any] | None, Path | None, str | None]:
+    manifest_ref = task_entry.get("task_manifest")
+    if not isinstance(manifest_ref, dict):
+        return None, None, "task manifest reference is missing"
+    relative_path = manifest_ref.get("path")
+    expected_sha = manifest_ref.get("sha256")
+    if not isinstance(relative_path, str) or not isinstance(expected_sha, str):
+        return None, None, "task manifest reference is malformed"
+    manifest_path = _safe_child(repository_root, relative_path)
+    if manifest_path is None or manifest_path.is_symlink() or not manifest_path.is_file():
+        return None, None, "task manifest path is unsafe or missing"
+    if file_sha256(manifest_path) != expected_sha:
+        return None, None, "task manifest hash does not match the batch config"
+    task = load_json(manifest_path)
+    if not task or task.get("task_id") != task_id_value:
+        return None, None, "task manifest is missing or has a mismatched identity"
+    return task, manifest_path, None
+
+
+def batch_targets(exp: Experiment, bench: Path) -> list[BatchTarget]:
+    if exp.source_kind != "batch" or exp.config_path is None:
+        return []
+    config = load_json(exp.config_path)
+    if not config or config.get("batch_id") != _batch_id(exp):
+        return []
+    events, ledger_error = _ledger_events(exp)
+    latest: dict[str, dict[str, Any]] = {}
+    if ledger_error is None:
+        for event in events:
+            if event.get("state") == "SKIPPED_RESUME":
+                continue
+            target = event.get("target")
+            if not isinstance(target, dict):
+                continue
+            values = tuple(target.get(name) for name in ("task_id", "method", "stage", "run_id"))
+            if not all(isinstance(value, str) for value in values):
+                continue
+            mode = target.get("update_mode")
+            if mode is not None and not isinstance(mode, str):
+                continue
+            latest[_target_key(*values, mode)] = event
+
+    repository_root = bench.parents[1]
+    results: list[BatchTarget] = []
+    tasks = config.get("tasks")
+    if not isinstance(tasks, list):
+        return []
+    for task_entry in tasks:
+        if not isinstance(task_entry, dict) or not isinstance(task_entry.get("task_id"), str):
+            continue
+        task_id_value = task_entry["task_id"]
+        # Per-PR scoping is a pure predicate. Never join this value onto a path: the
+        # manifest and execution lookups below are what keep reads inside the bench.
+        if exp.task_id_filter is not None and task_id_value != exp.task_id_filter:
+            continue
+        task, manifest_path, manifest_error = _task_manifest(repository_root, task_entry, task_id_value)
+        task_root = manifest_path.parent if task and manifest_path else None
+        pr_id = task.get("pr_id") if task and isinstance(task.get("pr_id"), int) else None
+        title = task.get("title") if task and isinstance(task.get("title"), str) else ""
+        methods = task_entry.get("methods")
+        if not isinstance(methods, list):
+            continue
+        specifications: list[tuple[str, str, str, str | None]] = []
+        for method_entry in methods:
+            if not isinstance(method_entry, dict) or method_entry.get("method") not in VARIANTS:
+                continue
+            method = method_entry["method"]
+            detect = method_entry.get("detect")
+            if isinstance(detect, dict) and isinstance(detect.get("run_id"), str):
+                specifications.append((method, "detect", detect["run_id"], None))
+            updates = method_entry.get("updates")
+            if isinstance(updates, list):
+                for update in updates:
+                    if not isinstance(update, dict) or not isinstance(update.get("run_id"), str):
+                        continue
+                    mode = update.get("mode")
+                    if mode not in {"sealed-detect", "self-directed"}:
+                        continue
+                    specifications.append((method, "update", update["run_id"], mode))
+        for method, stage, run_id, mode in specifications:
+            key = _target_key(task_id_value, method, stage, run_id, mode)
+            event = latest.get(key)
+            state = str(event.get("state", "NOT_RECORDED")) if event else "NOT_RECORDED"
+            attempt = event.get("attempt") if event and isinstance(event.get("attempt"), int) and event["attempt"] > 0 else None
+            execution = None
+            error = ledger_error or manifest_error
+            if error is None and task_root is None:
+                error = "task manifest is missing or has a mismatched identity"
+            elif error is None and event is None:
+                error = "target has no ledger event"
+            elif error is None and (state not in TERMINAL_STATES or attempt is None):
+                error = f"latest target state is {state}"
+            elif error is None:
+                candidate = task_root / "runs" / method / stage / "executions" / run_id / f"attempt-{attempt}"
+                if stage == "update":
+                    candidate = candidate / f"mode-{mode}"
+                runs_root = task_root / "runs"
+                try:
+                    candidate.resolve().relative_to(runs_root.resolve())
+                except (OSError, ValueError):
+                    error = "execution path escapes the task run directory"
+                else:
+                    summary_name = "detect-summary.json" if stage == "detect" else "update-summary.json"
+                    summary_path = candidate / summary_name
+                    summary = load_json(summary_path) if not summary_path.is_symlink() else None
+                    identity_ok = bool(
+                        summary
+                        and summary.get("task_id") == task_id_value
+                        and summary.get("method") == method
+                        and summary.get("status") == "SEALED"
+                        and (stage == "detect" or summary.get("update_mode") == mode)
+                    )
+                    if candidate.is_symlink() or not candidate.is_dir() or not identity_ok:
+                        error = "terminal execution summary is missing or has a mismatched identity"
+                    else:
+                        execution = candidate
+            results.append(BatchTarget(
+                task_id_value, pr_id, title, method, stage, run_id, mode,
+                state, attempt, execution, error,
+            ))
+    return results
 
 
 def variant_status(root: Path) -> tuple[str, dict[str, Any]]:
@@ -126,7 +460,16 @@ def variant_status(root: Path) -> tuple[str, dict[str, Any]]:
     return "UNKNOWN", {}
 
 
-def overall_status(exp: Experiment) -> str:
+def overall_status(exp: Experiment, bench: Path | None = None) -> str:
+    if exp.source_kind == "batch":
+        targets = batch_targets(exp, bench or bench_default())
+        if not targets:
+            return "INVALID"
+        if all(item.state in TERMINAL_STATES and item.execution is not None for item in targets):
+            return "SEALED"
+        if any(item.state == "FAILED" for item in targets):
+            return "INCOMPLETE"
+        return "INCOMPLETE"
     summary = load_json(exp.root / "all-summary.json")
     if summary and summary.get("status"):
         return str(summary["status"])
@@ -143,6 +486,9 @@ def overall_status(exp: Experiment) -> str:
 
 
 def task_id(exp: Experiment) -> str:
+    if exp.source_kind == "batch":
+        values = _batch_task_ids(exp)
+        return ", ".join(values)
     for variant in VARIANTS:
         value = load_json(exp.root / variant / "config.snapshot.json")
         if value and value.get("task_id"):
@@ -161,6 +507,8 @@ def output_root(bench: Path) -> Path:
 
 
 def experiment_identity(exp: Experiment) -> tuple[str | None, int | None]:
+    if exp.source_kind == "batch":
+        return None, None
     for variant in VARIANTS:
         value = load_json(exp.root / variant / "config.snapshot.json")
         if not value:
@@ -291,13 +639,21 @@ def resolve(experiments: list[Experiment], selector: str) -> Experiment:
     raise ViewerError(f"ambiguous selector {selector!r}: " + ", ".join(item.experiment_id for item in matches[:8]))
 
 
-def choose(experiments: list[Experiment]) -> Experiment:
+def _batch_present(exp: Experiment, bench: Path | None = None) -> list[str]:
+    if exp.source_kind != "batch":
+        return [name for name in VARIANTS if (exp.root / name).is_dir()]
+    targets = batch_targets(exp, bench or bench_default())
+    return [name for name in VARIANTS if any(item.method == name for item in targets)]
+
+
+def choose(experiments: list[Experiment], bench: Path | None = None) -> Experiment:
     if not sys.stdin.isatty():
         raise ViewerError("an experiment id is required when stdin is not interactive")
     print("\nAvailable SDD experiments:\n")
+    width = max((len(item.experiment_id) for item in experiments), default=32)
     for number, item in enumerate(experiments, 1):
-        present = ", ".join(name for name in VARIANTS if (item.root / name).is_dir()) or "none"
-        print(f"  {number:>2}. {item.experiment_id:<32} {overall_status(item):<28} {present}")
+        present = ", ".join(_batch_present(item, bench)) or "none"
+        print(f"  {number:>2}. {item.experiment_id:<{width}} {overall_status(item, bench):<28} {present}")
     print()
     try:
         number = int(input("Select an experiment number: ").strip())
@@ -317,14 +673,19 @@ def slug(value: str) -> str:
 
 
 def experiment_token(exp: Experiment) -> str:
-    return hashlib.sha256(str(exp.root).encode()).hexdigest()[:20]
+    # Per-PR views share their parent's root, so the scope has to enter the identity
+    # or every card in a batch would resolve to the same token (and 404).
+    identity = f"{exp.source_kind}:{exp.root}"
+    if exp.task_id_filter:
+        identity += f":{exp.task_id_filter}"
+    return hashlib.sha256(identity.encode()).hexdigest()[:20]
 
 
 def status_class(value: str) -> str:
     upper = value.upper()
-    if upper in {"PASS", "FINISHED"}:
+    if upper in {"PASS", "FINISHED", "SEALED", "READY", "COMPLETE"}:
         return "pass"
-    if upper in {"FAIL", "PHASE_FAILED", "VALIDATION_FAILED"}:
+    if upper in {"FAIL", "PHASE_FAILED", "VALIDATION_FAILED", "INVALID"}:
         return "fail"
     if upper in {"AWAITING_MANUAL_REVIEW", "FINISHED_UNVERIFIED", "ACTIVE", "INCOMPLETE"}:
         return "pending"
@@ -580,7 +941,7 @@ def render_overview(exp: Experiment, available: list[str]) -> str:
             f"<td>{esc(failure.get('failed_stage', '—'))}</td><td>{esc(failure.get('reason', '—'))}</td></tr>"
         )
     return (
-        f'<div class="variant-heading"><div><p class="eyebrow">Experiment overview</p><h2>{esc(exp.experiment_id)}</h2></div>{badge(overall_status(exp))}</div>'
+        f'<div class="variant-heading"><div><p class="eyebrow">Experiment overview</p><h2>{esc(exp.experiment_id)}</h2></div>{badge(overall_status(exp, bench_default()))}</div>'
         '<div class="facts">'
         f'<div class="fact"><span>Task</span><strong>{esc(task_id(exp) or "not recorded")}</strong></div>'
         f'<div class="fact"><span>Updated</span><strong>{esc(stamp(exp.modified))}</strong></div>'
@@ -816,8 +1177,398 @@ const buttons=[...document.querySelectorAll('.tab-button')];function selectTab(n
 </script></body></html>"""
 
 
+def _text_panel(path: Path, root: Path, title: str | None = None, opened: bool = False) -> str:
+    value = load_text(path)
+    if value is None:
+        return ""
+    try:
+        name = str(path.relative_to(root))
+    except ValueError:
+        name = path.name
+    return details(title or name, code(value), opened)
+
+
+def _batch_target_anchor(target: BatchTarget) -> str:
+    raw = _target_key(target.task_id, target.method, target.stage, target.run_id, target.mode)
+    return "target-" + hashlib.sha256(raw.encode()).hexdigest()[:16]
+
+
+def _batch_target_html(target: BatchTarget) -> tuple[str, list[tuple[str, str]]]:
+    anchor = _batch_target_anchor(target)
+    label = f"{LABEL[target.method]} · {target.stage}"
+    if target.mode:
+        label += f" · {target.mode}"
+    facts = (
+        ("Status", badge(target.state), True),
+        ("Run", target.run_id, False),
+        ("Attempt", target.attempt if target.attempt is not None else "—", False),
+        ("Mode", target.mode or "—", False),
+    )
+    parts = [
+        f'<article class="batch-target" id="{anchor}">',
+        f'<div class="variant-heading"><div><p class="eyebrow">{esc(target.stage)} result</p><h3>{esc(label)}</h3></div>{badge(target.state)}</div>',
+        '<div class="facts">' + "".join(
+            f'<div class="fact"><span>{esc(name)}</span><strong>{value if raw else esc(value)}</strong></div>'
+            for name, value, raw in facts
+        ) + "</div>",
+    ]
+    if target.error or target.execution is None:
+        parts.append(f'<section class="failure"><h3>Unavailable</h3><pre>{esc(target.error or "no sealed execution")}</pre></section></article>')
+        return "".join(parts), [(label, anchor)]
+
+    root = target.execution
+    if target.stage == "detect":
+        manifest = load_json(root / "detection-manifest.json")
+        candidates = manifest.get("candidates") if manifest else None
+        if isinstance(candidates, list):
+            blocks = []
+            for candidate in candidates:
+                if not isinstance(candidate, dict):
+                    continue
+                symbols = candidate.get("symbols") if isinstance(candidate.get("symbols"), list) else []
+                blocks.append(
+                    f'<div class="fact"><span>{esc(candidate.get("path", "unknown"))}</span>'
+                    f'<strong>{esc(", ".join(str(item) for item in symbols) or "no symbols")}</strong>'
+                    f'<p>{esc(candidate.get("reason", ""))}</p></div>'
+                )
+            if blocks:
+                parts.append('<section><h3>Detected candidates</h3><div class="facts">' + "".join(blocks) + "</div></section>")
+        files = [root / "detection-manifest.json", root / "detect-summary.json"]
+        documents = "".join(_text_panel(path, root) for path in files if path.is_file() and not path.is_symlink())
+        if documents:
+            parts.append("<section><h3>Sealed manifests</h3>" + documents + "</section>")
+        sdd_root = root / "sdd-artifacts"
+        if sdd_root.is_dir() and not sdd_root.is_symlink():
+            artifact_blocks = []
+            for path in sorted(sdd_root.rglob("*")):
+                if path.is_file() and not path.is_symlink():
+                    panel = _text_panel(path, root)
+                    if panel:
+                        artifact_blocks.append(panel)
+            if artifact_blocks:
+                parts.append("<section><h3>SDD planning artifacts</h3>" + "".join(artifact_blocks) + "</section>")
+        transcript = root / "agent.jsonl"
+    else:
+        patch_path = root / "artifacts" / "candidate.patch"
+        patch = load_text(patch_path, MAX_DIFF) if patch_path.is_file() and not patch_path.is_symlink() else None
+        if patch:
+            blocks = []
+            for number, (file_name, value) in enumerate(split_diff(patch), 1):
+                diff_anchor = f"{anchor}-diff-{number}"
+                blocks.append(f'<article class="diff-file" id="{diff_anchor}"><h4>{esc(file_name)}</h4><pre class="diff">{diff_html(value)}</pre></article>')
+            parts.append("<section><h3>Candidate patch</h3>" + "".join(blocks) + "</section>")
+        files = [
+            root / "candidate-modified-files.json",
+            root / "artifacts" / "scope-audit.json",
+            root / "update-summary.json",
+        ]
+        documents = "".join(_text_panel(path, root) for path in files if path.is_file() and not path.is_symlink())
+        if documents:
+            parts.append("<section><h3>Update artifacts</h3>" + documents + "</section>")
+        transcript = root / "artifacts" / "agent.jsonl"
+    if transcript.is_file() and not transcript.is_symlink():
+        messages = agent_messages(transcript)
+        if messages:
+            parts.append("<section><h3>Agent output</h3>" + details(
+                f"{len(messages)} Agent message(s)",
+                "".join(f'<div class="agent-message">{code(item)}</div>' for item in messages),
+            ) + "</section>")
+    parts.append(f'<p class="source-path">Sealed source: <code>{esc(root)}</code></p></article>')
+    return "".join(parts), [(label, anchor)]
+
+
+def _batch_method_section(method: str, items: list[BatchTarget]) -> tuple[str, list[tuple[str, str]]]:
+    sections = [f'<section><h3>{esc(LABEL[method])}</h3>']
+    links: list[tuple[str, str]] = []
+    for target in items:
+        target_html, target_links = _batch_target_html(target)
+        sections.append(target_html)
+        links.extend(target_links)
+    sections.append("</section>")
+    return "".join(sections), links
+
+
+def _dedupe_targets(targets: list[BatchTarget]) -> list[BatchTarget]:
+    """Anchor ids must stay unique; a config listing one task twice would collide."""
+    seen: set[str] = set()
+    unique: list[BatchTarget] = []
+    for target in targets:
+        anchor = _batch_target_anchor(target)
+        if anchor in seen:
+            continue
+        seen.add(anchor)
+        unique.append(target)
+    return unique
+
+
+def _batch_pr_detect_section(bench: Path, batch_id: str, task_id: str | None) -> str:
+    """The Detect hit-rate table for one PR, or "" when nothing was recorded.
+
+    Counts only, and deliberately so. The report behind this names gold files,
+    while this page says in two places that gold data is excluded -- and
+    ``write_report`` puts batch cards under ``batch/viewer-reports/``, which is
+    not the gitignored ``Log/`` tree. A gold file name rendered here would be
+    both a contradiction of the page's own claim and bytes that a single
+    ``git add`` could commit. The file lists stay in the JSON.
+    """
+    document = detect_metrics(bench, batch_id)
+    if document is None or task_id is None:
+        return ""
+    found = {
+        row.get("method"): row
+        for row in document["rows"]
+        if isinstance(row, dict) and row.get("task_id") == task_id
+    }
+    if not found:
+        return ""
+    body: list[str] = []
+    failures: list[str] = []
+    for method in VARIANTS:
+        row = found.get(method)
+        if row is None:
+            body.append(f"<tr><td>{esc(LABEL[method])}</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>")
+            continue
+        metrics = row.get("metrics") if isinstance(row.get("metrics"), dict) else None
+        body.append(
+            f'<tr><td>{esc(LABEL[method])}</td><td>{_detect_counts(row)}</td>'
+            f'<td>{_rate(metrics.get("precision") if metrics else None)}</td>'
+            f'<td>{_rate(metrics.get("recall") if metrics else None)}</td>'
+            f'<td>{esc(row.get("status") or "UNKNOWN")}</td></tr>'
+        )
+        if row.get("status") == "ERROR":
+            # A target that failed is shown, not omitted: a table that quietly
+            # drops it reports a hit rate over the runs that happened to work.
+            failures.append(
+                f'<section class="failure"><h3>{esc(LABEL[method])}</h3>'
+                f'<pre>{esc(row.get("error_code") or "ERROR")}: {esc(row.get("detail") or "")}</pre></section>'
+            )
+    return (
+        "<section><h3>Detect 命中率</h3>"
+        '<p class="source-path">a = 报出的 test 文件里 PR 真实改过的数量，b = 报出的 test 文件总数。'
+        "命中率 = a/b；召回率 = a/gold 总数。两者都要看：只看命中率会奖励少报。</p>"
+        '<div class="table-wrap"><table><thead><tr><th>Method</th><th>a / b</th>'
+        "<th>命中率</th><th>召回率</th><th>Status</th></tr></thead><tbody>"
+        + "".join(body)
+        + "</tbody></table></div>"
+        + "".join(failures)
+        + "</section>"
+    )
+
+
+def _batch_detect_table(bench: Path, batch_id: str) -> str:
+    """The three-method comparison for the whole batch, or "" when unrecorded.
+
+    The per-method figures are read straight out of the document rather than
+    re-aggregated here: two implementations of one average is two answers to one
+    question. ``a`` and ``b`` are shown as separate columns so a reader can check
+    the rate in the next column against them.
+    """
+    document = detect_metrics(bench, batch_id)
+    if document is None:
+        return ""
+    body: list[str] = []
+    for record in document["methods"]:
+        method = record.get("method") if isinstance(record, dict) else None
+        if method not in LABEL:
+            continue
+        body.append(
+            f'<tr><td>{esc(LABEL[method])}</td><td>{esc(record.get("row_count"))}</td>'
+            f'<td>{esc(record.get("a"))}</td><td>{esc(record.get("b"))}</td>'
+            f'<td>{_rate(record.get("hit_rate_micro"))}</td>'
+            f'<td>{_rate(record.get("recall_micro"))}</td>'
+            f'<td>{_rate(record.get("hit_rate_macro"))}</td></tr>'
+        )
+    if not body:
+        return ""
+    detail = []
+    for row in document["rows"]:
+        if not isinstance(row, dict):
+            continue
+        label = LABEL.get(row.get("method"), row.get("method"))
+        record = f"{esc(label)} · {esc(row.get('run_id'))}"
+        detail.append(
+            f'<tr><td>{esc(row.get("task_id"))}</td><td>{record}</td>'
+            f'<td>{_detect_counts(row)}</td>'
+            f'<td>{_rate(row["metrics"].get("precision") if row.get("scorable") else None)}</td>'
+            f'<td>{_rate(row["metrics"].get("recall") if row.get("scorable") else None)}</td>'
+            f'<td>{esc(row.get("status") or "UNKNOWN")}</td></tr>'
+        )
+    counts = document.get("counts") if isinstance(document.get("counts"), dict) else {}
+    source = f"Log/reports/detect-metrics/{batch_id}.json"
+    return (
+        "<section><h3>Detect 命中率（三方法对比）</h3>"
+        '<p class="source-path">'
+        f"Targets {esc(counts.get('target_count'))} · 出错 {esc(counts.get('error_count'))} · "
+        f"无 gold {esc(counts.get('no_gold_count'))} · 非法候选 {esc(counts.get('invalid_candidate_count'))}"
+        "</p>"
+        '<div class="table-wrap"><table><thead><tr><th>Method</th><th>Targets</th><th>a</th><th>b</th>'
+        "<th>命中率 (micro)</th><th>召回率 (micro)</th><th>宏平均命中率</th></tr></thead><tbody>"
+        + "".join(body)
+        + "</tbody></table></div>"
+        + details(
+            "逐条明细",
+            '<div class="table-wrap"><table><thead><tr><th>Task</th><th>Run</th><th>a / b</th>'
+            "<th>命中率</th><th>召回率</th><th>Status</th></tr></thead><tbody>"
+            + "".join(detail)
+            + "</tbody></table></div>",
+        )
+        + f'<p class="source-path">来源 <code>{esc(source)}</code> · '
+        f"重新生成 <code>./bin/sdd-detect-metrics check --batch {esc(batch_id)}</code></p>"
+        "</section>"
+    )
+
+
+def _batch_pr_overview(exp: Experiment, targets: list[BatchTarget], bench: Path) -> str:
+    first = targets[0] if targets else None
+    task_label = exp.task_id_filter or (first.task_id if first else "—")
+    heading = f"PR {first.pr_id}" if first is not None and first.pr_id is not None else task_label
+    title = first.title if first is not None and first.title else "—"
+    sealed = sum(item.state in TERMINAL_STATES and item.execution is not None for item in targets)
+    status = "NOT_RECORDED" if not targets else ("SEALED" if sealed == len(targets) else "INCOMPLETE")
+    facts = (
+        ("PR", heading),
+        ("Task", task_label),
+        ("Batch", _batch_id(exp)),
+        ("Targets", len(targets)),
+        ("Sealed", sealed),
+        ("Detect", sum(item.stage == "detect" for item in targets)),
+        ("Update", sum(item.stage == "update" for item in targets)),
+    )
+    parts = [
+        f'<div class="variant-heading"><div><p class="eyebrow">Batch成果</p><h2>{esc(heading)}</h2></div>{badge(status)}</div>',
+        f'<p class="source-path">{esc(title)} · {esc(task_label)}</p>',
+        '<div class="facts">' + "".join(
+            f'<div class="fact"><span>{esc(name)}</span><strong>{esc(value)}</strong></div>' for name, value in facts
+        ) + "</div>",
+    ]
+    rows = []
+    for method in VARIANTS:
+        items = [item for item in targets if item.method == method]
+        if not items:
+            continue
+        method_sealed = sum(item.state in TERMINAL_STATES and item.execution is not None for item in items)
+        outcomes = ", ".join(
+            f"{item.stage}{' · ' + item.mode if item.mode else ''}: {item.state}" for item in items
+        )
+        rows.append(
+            f'<div class="fact"><span>{esc(LABEL[method])}</span>'
+            f'<strong>{badge("SEALED" if method_sealed == len(items) else "INCOMPLETE")} {esc(method_sealed)}/{esc(len(items))}</strong>'
+            f'<p>{esc(outcomes)}</p></div>'
+        )
+    if rows:
+        parts.append('<section><h3>Methods</h3><div class="facts">' + "".join(rows) + "</div></section>")
+    parts.append(_batch_pr_detect_section(bench, _batch_id(exp), exp.task_id_filter or task_label))
+    parts.append('<p class="source-path">Read-only view of terminal sealed artifacts. Evaluation and gold data are excluded.</p>')
+    return "".join(parts)
+
+
+def render_batch_pr(exp: Experiment, bench: Path) -> tuple[dict[str, str], dict[str, list[tuple[str, str]]]]:
+    targets = _dedupe_targets(batch_targets(exp, bench))
+    panes = {"overview": _batch_pr_overview(exp, targets, bench)}
+    navigation: dict[str, list[tuple[str, str]]] = {"overview": []}
+    for method in VARIANTS:
+        items = [item for item in targets if item.method == method]
+        if not items:
+            continue
+        sealed = all(item.state in TERMINAL_STATES and item.execution is not None for item in items)
+        body, links = _batch_method_section(method, items)
+        panes[method] = (
+            f'<section id="method-{method}"><div class="variant-heading"><div><p class="eyebrow">SDD output</p>'
+            f'<h2>{esc(LABEL[method])}</h2></div>{badge("SEALED" if sealed else "INCOMPLETE")}</div>' + body + "</section>"
+        )
+        navigation[method] = links
+        navigation["overview"].append((LABEL[method], f"method-{method}"))
+    return panes, navigation
+
+
+def _page_shell(title: str, tabs: str, nav: str, panes: str) -> str:
+    generated = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
+    return (PAGE.replace("__TITLE__", esc(title))
+        .replace("__VERSION__", VERSION)
+        .replace("__TABS__", tabs)
+        .replace("__NAV__", nav)
+        .replace("__PANES__", panes)
+        .replace("__GENERATED__", esc(generated)))
+
+
+def build_batch_pr_html(exp: Experiment, bench: Path) -> str:
+    panes, navigation = render_batch_pr(exp, bench)
+    labels = {"overview": "Overview", **LABEL}
+    tabs = "".join(
+        f'<button class="tab-button{" active" if name == "overview" else ""}" data-tab="{name}">{esc(labels[name])}</button>'
+        for name in panes
+    )
+    nav = "".join(
+        f'<div class="nav-group{" active" if name == "overview" else ""}" data-nav="{name}"><h3>{esc(labels[name])}</h3>'
+        + "".join(f'<a href="#{esc(anchor)}">{esc(label)}</a>' for label, anchor in links)
+        + "</div>"
+        for name, links in navigation.items() if links
+    )
+    pane_html = "".join(
+        f'<main class="tab-pane{" active" if name == "overview" else ""}" id="tab-{name}">{value}</main>'
+        for name, value in panes.items()
+    )
+    return _page_shell(exp.experiment_id, tabs, nav or '<p class="source-path">No captured files.</p>', pane_html)
+
+
+def render_batch(exp: Experiment, bench: Path) -> tuple[str, list[tuple[str, str]]]:
+    targets = batch_targets(exp, bench)
+    task_order = list(dict.fromkeys(item.task_id for item in targets))
+    sealed = sum(item.state in TERMINAL_STATES and item.execution is not None for item in targets)
+    detect = sum(item.stage == "detect" for item in targets)
+    update = sum(item.stage == "update" for item in targets)
+    sections = [
+        f'<div class="variant-heading"><div><p class="eyebrow">Batch成果</p><h2>{esc(exp.experiment_id)}</h2></div>{badge("SEALED" if sealed == len(targets) and targets else "INCOMPLETE")}</div>',
+        '<div class="facts">'
+        f'<div class="fact"><span>Tasks</span><strong>{len(task_order)}</strong></div>'
+        f'<div class="fact"><span>Targets</span><strong>{len(targets)}</strong></div>'
+        f'<div class="fact"><span>Detect</span><strong>{detect}</strong></div>'
+        f'<div class="fact"><span>Update</span><strong>{update}</strong></div>'
+        f'<div class="fact"><span>Sealed available</span><strong>{sealed}</strong></div></div>',
+    ]
+    # Placed above the disclaimer rather than below it: that sentence says
+    # evaluation and gold data are excluded, and a table of gold-derived rates
+    # printed underneath it would read as if the sentence exempted itself.
+    detect_table = _batch_detect_table(bench, _batch_id(exp))
+    if detect_table:
+        sections.append(detect_table)
+    sections.append('<p class="source-path">Read-only view of terminal sealed artifacts. Evaluation and gold data are excluded.</p>')
+    navigation: list[tuple[str, str]] = []
+    for task_id_value in task_order:
+        items = [item for item in targets if item.task_id == task_id_value]
+        first = items[0]
+        task_anchor = "task-" + hashlib.sha256(task_id_value.encode()).hexdigest()[:12]
+        heading = f"PR {first.pr_id}" if first.pr_id is not None else task_id_value
+        sections.append(f'<section id="{task_anchor}"><h2>{esc(heading)}</h2><p class="source-path">{esc(first.title)} · {esc(task_id_value)}</p>')
+        navigation.append((heading, task_anchor))
+        for method in VARIANTS:
+            method_items = [item for item in items if item.method == method]
+            if not method_items:
+                continue
+            body, links = _batch_method_section(method, method_items)
+            sections.append(body)
+            navigation.extend((f"{heading} · {label}", anchor) for label, anchor in links)
+        sections.append("</section>")
+    return "".join(sections), navigation
+
+
+def build_batch_html(exp: Experiment, bench: Path) -> str:
+    pane, links = render_batch(exp, bench)
+    nav = '<div class="nav-group active" data-nav="results"><h3>Sealed results</h3>' + "".join(
+        f'<a href="#{esc(anchor)}">{esc(label)}</a>' for label, anchor in links
+    ) + "</div>"
+    return _page_shell(
+        exp.experiment_id,
+        '<button class="tab-button active" data-tab="results">Results</button>',
+        nav,
+        f'<main class="tab-pane active" id="tab-results">{pane}</main>',
+    )
+
+
 def build_html(exp: Experiment, bench: Path | None = None) -> str:
     bench = bench or bench_default()
+    if exp.source_kind == "batch":
+        return build_batch_pr_html(exp, bench) if exp.task_id_filter else build_batch_html(exp, bench)
     available = [name for name in VARIANTS if (exp.root / name).is_dir()]
     panes = {"overview": render_overview(exp, available)}
     navigation: dict[str, list[tuple[str, str]]] = {"overview": []}
@@ -858,7 +1609,8 @@ def build_html(exp: Experiment, bench: Path | None = None) -> str:
 
 
 def write_report(bench: Path, exp: Experiment, output: Path | None) -> Path:
-    destination = (output or bench / "Log" / "reports" / f"{slug(exp.experiment_id)}.html").expanduser().resolve()
+    default_root = bench / "batch" / "viewer-reports" if exp.source_kind == "batch" else bench / "Log" / "reports"
+    destination = (output or default_root / f"{slug(exp.experiment_id)}.html").expanduser().resolve()
     destination.parent.mkdir(parents=True, exist_ok=True)
     temporary = destination.with_suffix(destination.suffix + f".tmp-{os.getpid()}")
     temporary.write_text(build_html(exp, bench), encoding="utf-8")
@@ -876,17 +1628,32 @@ const cards=[...document.querySelectorAll('.card')],input=document.querySelector
 </script></body></html>"""
 
 
-def dashboard_html(experiments: list[Experiment]) -> str:
+def dashboard_html(experiments: list[Experiment], bench: Path | None = None) -> str:
+    bench = bench or bench_default()
     cards = []
     for exp in experiments:
-        status = overall_status(exp)
-        present = [name for name in VARIANTS if (exp.root / name).is_dir()]
-        searchable = " ".join((exp.experiment_id, task_id(exp), status, *present)).lower()
+        status = overall_status(exp, bench)
+        present = _batch_present(exp, bench)
+        targets = batch_targets(exp, bench) if exp.source_kind == "batch" else []
+        batch_search = " ".join(
+            " ".join(filter(None, (item.task_id, str(item.pr_id or ""), item.method, item.stage, item.mode or "")))
+            for item in targets
+        )
+        searchable = " ".join((exp.experiment_id, task_id(exp), status, exp.source_kind, batch_search, *present)).lower()
         chips = "".join(f'<span class="variant">{esc(LABEL[name])}</span>' for name in present)
+        heading, meta_lead, source_label = exp.experiment_id, "", exp.audit_name
+        if exp.source_kind == "batch":
+            source_label = "Batch成果"
+        if exp.task_id_filter:
+            # Two batches can hold the same PR, so the card has to name its batch.
+            pr_id = next((item.pr_id for item in targets if item.pr_id is not None), None)
+            heading = f"PR {pr_id}" if pr_id is not None else exp.task_id_filter
+            meta_lead = f"{esc(exp.experiment_id)}<br>"
+            source_label = f"批次 {exp.batch_id}"
         cards.append(
             f'<a class="card" data-search="{esc(searchable)}" href="/experiment/{experiment_token(exp)}">'
-            f'<div class="card-top"><h2>{esc(exp.experiment_id)}</h2>{badge(status)}</div>'
-            f'<p class="meta">Task: {esc(task_id(exp) or "not recorded")}<br>Updated: {esc(stamp(exp.modified))}<br>Audit: {esc(exp.audit_name)}</p>'
+            f'<div class="card-top"><h2>{esc(heading)}</h2>{badge(status)}</div>'
+            f'<p class="meta">{meta_lead}Task: {esc(task_id(exp) or "not recorded")}<br>Updated: {esc(stamp(exp.modified))}<br>Source: {esc(source_label)}</p>'
             f'<div class="variants">{chips}</div></a>'
         )
     body = "".join(cards) or '<div class="empty">No experiment results were found.</div>'
@@ -914,7 +1681,7 @@ def make_server(bench: Path, host: str, port: int) -> ThreadingHTTPServer:
             request_path = urlparse(self.path).path
             current = discover(bench)
             if request_path == "/":
-                self.send_page(dashboard_html(current))
+                self.send_page(dashboard_html(current, bench))
                 return
             if request_path == "/healthz":
                 payload = b"ok\n"
@@ -967,15 +1734,17 @@ def serve(bench: Path, host: str, port: int, open_browser: bool) -> int:
         server.server_close()
     return 0
 
-def print_list(experiments: list[Experiment]) -> None:
+def print_list(experiments: list[Experiment], bench: Path | None = None) -> None:
     if not experiments:
         print("No experiments found.")
         return
-    header = ("EXPERIMENT", "STATUS", "SDDS", "UPDATED", "TASK")
+    bench = bench or bench_default()
+    header = ("EXPERIMENT", "TYPE", "STATUS", "SDDS", "UPDATED", "TASK")
     rows = []
     for exp in experiments:
-        present = ",".join(name for name in VARIANTS if (exp.root / name).is_dir()) or "—"
-        rows.append((exp.experiment_id, overall_status(exp), present, stamp(exp.modified), task_id(exp) or "—"))
+        present = ",".join(_batch_present(exp, bench)) or "—"
+        kind = "batch/pr" if exp.task_id_filter else exp.source_kind
+        rows.append((exp.experiment_id, kind, overall_status(exp, bench), present, stamp(exp.modified), task_id(exp) or "—"))
     widths = [max(len(header[index]), *(len(row[index]) for row in rows)) for index in range(len(header))]
     print("  ".join(header[index].ljust(widths[index]) for index in range(len(header))))
     print("  ".join("-" * width for width in widths))
@@ -1004,7 +1773,7 @@ def main(argv: list[str] | None = None) -> int:
     bench = args.bench_root.expanduser().resolve()
     experiments = discover(bench)
     if args.command == "list":
-        print_list(experiments)
+        print_list(experiments, bench)
         return 0
     if args.command in {None, "serve"}:
         host = args.host if args.command == "serve" else "127.0.0.1"
@@ -1012,13 +1781,13 @@ def main(argv: list[str] | None = None) -> int:
         open_browser = args.open if args.command == "serve" else False
         return serve(bench, host, port, open_browser)
     if not experiments:
-        raise ViewerError(f"no experiment results found beneath {bench / 'Log'}")
+        raise ViewerError(f"no experiment results found beneath {bench / 'Log'} or {bench / 'batch/runs'}")
     selector = args.experiment if args.command == "report" else None
-    exp = resolve(experiments, selector) if selector else choose(experiments)
+    exp = resolve(experiments, selector) if selector else choose(experiments, bench)
     output = args.output if args.command == "report" else None
     destination = write_report(bench, exp, output)
     print(f"experiment={exp.experiment_id}")
-    print(f"status={overall_status(exp)}")
+    print(f"status={overall_status(exp, bench)}")
     print(f"report={destination}")
     return 0
 

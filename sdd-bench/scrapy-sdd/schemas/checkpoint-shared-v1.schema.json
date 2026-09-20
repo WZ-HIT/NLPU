@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sdd-bench.local/schemas/checkpoint-shared-v1.schema.json",
+  "title": "SDD Bench shared batch checkpoint v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "checkpoint_type", "checkpoint_id", "created_at_utc", "contains_api_secret", "content_sha256", "raw_inputs", "deployment_config", "tracked_inputs_packaged", "baselines", "images", "batch_runs", "payloads"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "checkpoint_type": {"const": "SHARED"},
+    "checkpoint_id": {"type": "string", "pattern": "^shared-[0-9]{8}T[0-9]{6}Z$"},
+    "created_at_utc": {"type": "string", "format": "date-time"},
+    "contains_api_secret": {"const": false},
+    "content_sha256": {"$ref": "#/$defs/sha256"},
+    "raw_inputs": {"type": "array", "items": {"$ref": "#/$defs/trackedInput"}},
+    "deployment_config": {"type": "array", "items": {"$ref": "#/$defs/trackedInput"}},
+    "tracked_inputs_packaged": {"type": "array", "items": {"$ref": "#/$defs/path"}},
+    "baselines": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["base_sha", "tree_sha", "lock_sha256", "checkout_file_count", "checkout_manifest_sha256", "source_repository_path"], "properties": {
+      "base_sha": {"$ref": "#/$defs/gitSha"},
+      "tree_sha": {"$ref": "#/$defs/gitSha"},
+      "lock_sha256": {"$ref": "#/$defs/sha256"},
+      "checkout_file_count": {"type": "integer", "minimum": 0},
+      "checkout_manifest_sha256": {"$ref": "#/$defs/sha256"},
+      "source_repository_path": {"type": "string", "minLength": 1}
+    }}},
+    "images": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["role", "base_sha", "tag", "image_id", "present_locally", "packaged"], "properties": {
+      "role": {"enum": ["source_baseline", "baseline", "common_runtime", "agent"]},
+      "base_sha": {"$ref": "#/$defs/gitSha"},
+      "tag": {"type": "string", "minLength": 1},
+      "image_id": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+      "present_locally": {"type": "boolean"},
+      "packaged": {"type": "boolean"}
+    }}},
+    "batch_runs": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["batch_id", "ledger_event_count", "ledger_sha256", "ledger_last_event_sha256"], "properties": {
+      "batch_id": {"type": "string", "minLength": 1},
+      "ledger_event_count": {"type": "integer", "minimum": 0},
+      "ledger_sha256": {"$ref": "#/$defs/sha256"},
+      "ledger_last_event_sha256": {"oneOf": [{"$ref": "#/$defs/sha256"}, {"type": "null"}]}
+    }}},
+    "payloads": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/payload"}}
+  },
+  "$defs": {
+    "gitSha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "path": {"type": "string", "minLength": 1, "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\)(?!.*//).+$"},
+    "trackedInput": {"type": "object", "additionalProperties": false, "required": ["path", "sha256", "size_bytes", "tracked", "git_blob_sha", "worktree_matches_head"], "properties": {
+      "path": {"$ref": "#/$defs/path"},
+      "sha256": {"$ref": "#/$defs/sha256"},
+      "size_bytes": {"type": "integer", "minimum": 0},
+      "tracked": {"type": "boolean"},
+      "git_blob_sha": {"oneOf": [{"$ref": "#/$defs/gitSha"}, {"type": "null"}]},
+      "worktree_matches_head": {"type": "boolean"}
+    }},
+    "payload": {"type": "object", "additionalProperties": false, "required": ["name", "sha256", "size_bytes", "member_count", "file_manifest_sha256"], "allOf": [
+      {"if": {"required": ["kind"], "properties": {"kind": {"const": "docker-save"}}}, "else": {"required": ["install_path"]}}
+    ], "properties": {
+      "name": {"type": "string", "pattern": "^[A-Za-z0-9._-]+\\.tar(\\.gz)?$"},
+      "kind": {"enum": ["tree", "docker-save"]},
+      "install_path": {"$ref": "#/$defs/path"},
+      "tags": {"type": "array", "items": {"type": "string", "minLength": 1}},
+      "sha256": {"$ref": "#/$defs/sha256"},
+      "size_bytes": {"type": "integer", "minimum": 1},
+      "member_count": {"type": "integer", "minimum": 0},
+      "file_manifest_sha256": {"oneOf": [{"$ref": "#/$defs/sha256"}, {"type": "null"}]}
+    }}
+  }
+}

@@ -2,10 +2,10 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://sdd-bench.local/schemas/task-v1.schema.json",
   "title": "SDD Bench agent-visible task v1",
-  "$comment": "Agent-visible. Deliberately excludes head commits, merge material, gold sources, target paths, and hidden evaluation data.",
+  "$comment": "Agent-visible public task fields only.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "task_id", "repository", "pr_id", "baseline", "description", "adapter"],
+  "required": ["schema_version", "task_id", "repository", "pr_id", "baseline", "title", "body", "adapter"],
   "properties": {
     "schema_version": {"const": 1},
     "task_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{0,127}$"},
@@ -25,7 +25,8 @@
       "required": ["base_sha"],
       "properties": {"base_sha": {"$ref": "#/$defs/gitSha"}}
     },
-    "description": {"type": "string", "minLength": 1, "maxLength": 20000},
+    "title": {"type": "string", "minLength": 1, "maxLength": 2000},
+    "body": {"type": "string", "maxLength": 20000},
     "adapter": {
       "type": "object",
       "additionalProperties": false,

@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sdd-bench.local/schemas/stage-execution-v1.schema.json",
+  "title": "SDD stage checkpoint and provenance v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "task_id", "method", "stage", "run_id", "update_mode", "base_sha", "created_at_utc", "status", "dry_run", "tests_run", "model_request_sent", "provenance", "checks", "artifacts", "blockers"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "task_id": {"$ref": "#/$defs/id"},
+    "method": {"enum": ["openspec", "speckit", "cc-sdd"]},
+    "stage": {"enum": ["detect", "update", "evaluate"]},
+    "run_id": {"$ref": "#/$defs/id"},
+    "update_mode": {"anyOf": [{"type": "null"}, {"enum": ["sealed-detect", "self-directed"]}]},
+    "base_sha": {"$ref": "#/$defs/gitSha"},
+    "created_at_utc": {"type": "string", "format": "date-time"},
+    "status": {"enum": ["DRY_RUN_READY", "READY", "RUNNING", "SEALED", "BLOCKED", "FAILED", "EVALUATED"]},
+    "dry_run": {"type": "boolean"},
+    "tests_run": {"const": false},
+    "model_request_sent": {"type": "boolean"},
+    "provenance": {
+      "type": "object", "additionalProperties": false,
+      "required": ["task_manifest_sha256", "policy_file_sha256", "detection_manifest_sha256", "compose_rendered_sha256"],
+      "properties": {
+        "task_manifest_sha256": {"$ref": "#/$defs/sha256"},
+        "policy_file_sha256": {"anyOf": [{"type": "null"}, {"$ref": "#/$defs/sha256"}]},
+        "detection_manifest_sha256": {"anyOf": [{"type": "null"}, {"$ref": "#/$defs/sha256"}]},
+        "compose_rendered_sha256": {"anyOf": [{"type": "null"}, {"$ref": "#/$defs/sha256"}]}
+      }
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["id", "status"],
+        "properties": {"id": {"$ref": "#/$defs/id"}, "status": {"enum": ["PASS", "FAIL"]}}
+      }
+    },
+    "artifacts": {"type": "array", "items": {"$ref": "#/$defs/artifact"}},
+    "blockers": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/id"}}
+  },
+  "allOf": [
+    {"if": {"properties": {"stage": {"const": "detect"}}}, "then": {"properties": {"update_mode": {"type": "null"}}}},
+    {"if": {"properties": {"stage": {"const": "update"}}}, "then": {"properties": {"update_mode": {"enum": ["sealed-detect", "self-directed"]}}}},
+    {"if": {"properties": {"status": {"enum": ["BLOCKED", "FAILED"]}}}, "then": {"properties": {"blockers": {"minItems": 1}}}}
+  ],
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{0,127}$"},
+    "gitSha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "path": {"type": "string", "minLength": 1, "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\)(?!.*//).+$"},
+    "artifact": {
+      "type": "object", "additionalProperties": false, "required": ["path", "sha256"],
+      "properties": {"path": {"$ref": "#/$defs/path"}, "sha256": {"$ref": "#/$defs/sha256"}}
+    }
+  }
+}

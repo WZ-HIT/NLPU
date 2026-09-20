@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sdd-bench.local/schemas/update-policy-v1.schema.json",
+  "title": "SDD Bench Update target-selection policy v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "policy_type", "task_id", "task_manifest_sha256", "base_sha", "method", "stage", "run_id", "mode", "selected_at_utc", "detect_must_complete_first", "visibility", "filesystem", "enforcement", "compose", "gold_blind", "selection_source", "policy_sha256"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "policy_type": {"const": "UPDATE_TARGET_SELECTION"},
+    "task_id": {"$ref": "#/$defs/id"},
+    "task_manifest_sha256": {"$ref": "#/$defs/sha256"},
+    "base_sha": {"$ref": "#/$defs/gitSha"},
+    "method": {"enum": ["openspec", "speckit", "cc-sdd"]},
+    "stage": {"const": "update"},
+    "run_id": {"$ref": "#/$defs/id"},
+    "mode": {"enum": ["sealed-detect", "self-directed"]},
+    "selected_at_utc": {"type": "string", "format": "date-time"},
+    "detect_must_complete_first": {"const": true},
+    "visibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sealed_detection_manifest", "sealed_planning_artifacts", "other_detection_results", "detect_workspace", "task_title_body"],
+      "properties": {
+        "sealed_detection_manifest": {"type": "boolean"},
+        "sealed_planning_artifacts": {"type": "boolean"},
+        "other_detection_results": {"const": false},
+        "detect_workspace": {"const": false},
+        "task_title_body": {"const": true}
+      }
+    },
+    "filesystem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["writable_directories", "production_writable", "tests_writable"],
+      "properties": {
+        "writable_directories": {
+          "type": "array", "prefixItems": [{"const": "tests/"}], "minItems": 1, "maxItems": 1
+        },
+        "production_writable": {"const": false},
+        "tests_writable": {"const": true}
+      }
+    },
+    "enforcement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["target_source", "post_run_diff_rule", "out_of_scope_result"],
+      "properties": {
+        "target_source": {"enum": ["sealed-detection-candidates", "agent-reasoning"]},
+        "post_run_diff_rule": {"enum": ["subset-of-sealed-candidates", "adapter-tests-only"]},
+        "out_of_scope_result": {"const": "BLOCKED"}
+      }
+    },
+    "compose": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["base_path", "override_path", "override_sha256"],
+      "properties": {
+        "base_path": {"$ref": "#/$defs/path"},
+        "override_path": {"anyOf": [{"type": "null"}, {"$ref": "#/$defs/path"}]},
+        "override_sha256": {"anyOf": [{"type": "null"}, {"$ref": "#/$defs/sha256"}]}
+      }
+    },
+    "gold_blind": {"const": true},
+    "selection_source": {"const": "explicit-user-cli"},
+    "policy_sha256": {"$ref": "#/$defs/sha256"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"mode": {"const": "sealed-detect"}}},
+      "then": {"properties": {
+        "visibility": {"properties": {
+          "sealed_detection_manifest": {"const": true},
+          "sealed_planning_artifacts": {"const": true}
+        }},
+        "enforcement": {"properties": {
+          "target_source": {"const": "sealed-detection-candidates"},
+          "post_run_diff_rule": {"const": "subset-of-sealed-candidates"}
+        }},
+        "compose": {"properties": {
+          "override_path": {"type": "null"},
+          "override_sha256": {"type": "null"}
+        }}
+      }}
+    },
+    {
+      "if": {"properties": {"mode": {"const": "self-directed"}}},
+      "then": {"properties": {
+        "visibility": {"properties": {
+          "sealed_detection_manifest": {"const": false},
+          "sealed_planning_artifacts": {"const": false}
+        }},
+        "enforcement": {"properties": {
+          "target_source": {"const": "agent-reasoning"},
+          "post_run_diff_rule": {"const": "adapter-tests-only"}
+        }},
+        "compose": {"properties": {
+          "override_path": {"$ref": "#/$defs/path"},
+          "override_sha256": {"$ref": "#/$defs/sha256"}
+        }}
+      }}
+    }
+  ],
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{0,127}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "gitSha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "path": {"type": "string", "minLength": 1, "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\)(?!.*//).+$"}
+  }
+}

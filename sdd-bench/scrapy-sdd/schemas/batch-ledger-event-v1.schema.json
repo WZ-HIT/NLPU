@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sdd-bench.local/schemas/batch-ledger-event-v1.schema.json",
+  "title": "Append-only batch ledger event v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "batch_id", "sequence", "recorded_at_utc", "action", "target", "state", "attempt", "previous_event_sha256", "details_sha256", "event_sha256"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "batch_id": {"$ref": "#/$defs/id"},
+    "sequence": {"type": "integer", "minimum": 1},
+    "recorded_at_utc": {"type": "string", "format": "date-time"},
+    "action": {"enum": ["detect", "update", "evaluate", "dry-run"]},
+    "target": {
+      "type": "object", "additionalProperties": false,
+      "required": ["task_id", "method", "stage", "run_id", "update_mode"],
+      "properties": {
+        "task_id": {"$ref": "#/$defs/id"},
+        "method": {"enum": ["openspec", "speckit", "cc-sdd"]},
+        "stage": {"enum": ["detect", "update", "evaluate"]},
+        "run_id": {"$ref": "#/$defs/id"},
+        "update_mode": {"anyOf": [{"type": "null"}, {"enum": ["sealed-detect", "self-directed"]}]}
+      }
+    },
+    "state": {"enum": ["PLANNED", "UPDATE_POLICY_SELECTED", "PREFLIGHT_READY", "DETECT_RUNNING", "DETECT_SEALED", "UPDATE_READY", "UPDATE_RUNNING", "UPDATE_SEALED", "EVALUATED", "BLOCKED", "FAILED", "DRY_RUN_READY", "SKIPPED_RESUME"]},
+    "attempt": {"type": "integer", "minimum": 1},
+    "previous_event_sha256": {"anyOf": [{"type": "null"}, {"$ref": "#/$defs/sha256"}]},
+    "details_sha256": {"$ref": "#/$defs/sha256"},
+    "event_sha256": {"$ref": "#/$defs/sha256"}
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{0,127}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}
