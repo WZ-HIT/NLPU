@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr8040",
+  "method": "openspec",
+  "base_sha": "4f0b5fa5c3a275b068bc4e028dfd09dd2f878bc0",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "openspec-detect-003",
+    "session_sha256": "bcad98bec254fb4aaea1823f1ae9f4b90ab958b0841aa4a68fb908691d170209"
+  },
+  "task_input_sha256": "cb664d5050d3e2aa33a9f487e6a7dd0aa4cc562457a3ef451831ff24fa144cfe",
+  "candidates": [
+    {
+      "path": "tests/test_selector.py",
+      "symbols": [
+        "TestSelector",
+        "TestSelector.test_flavor_detection",
+        "TestSelector.test_flavor_detection_json",
+        "TestSelector.test_flavor_detection_json_with_html_body",
+        "TestSelector.test_flavor_detection_text",
+        "TestJMESPath",
+        "TestJMESPath.test_json_has_html",
+        "TestJMESPath.test_html_has_json"
+      ],
+      "reason": "Primary selector test module; it already covers response-based selector type detection and nested JMESPath selection, so it is the direct place to add regression coverage for nested non-string JSON roots being typed by parsel."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 8,
+    "manifest_sha256": "fa080decb3ddc0cfd533ccbeb52f48c65dbed5e2bc633689de822c8878e2587d"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "3ec7b1c6186d0a3e3e54ec2e4806df5269f6852282b56eb269c30bc8c0cd484d"
+  }
+}

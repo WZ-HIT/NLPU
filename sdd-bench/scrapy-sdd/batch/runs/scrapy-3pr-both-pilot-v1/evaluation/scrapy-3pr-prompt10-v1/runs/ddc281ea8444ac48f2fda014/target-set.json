@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "artifact_type": "PUBLIC_TARGET_SET",
+  "evaluation_id": "scrapy-3pr-prompt10-v1",
+  "target_id": "ddc281ea8444ac48f2fda014",
+  "stage": "detect",
+  "task_id": "scrapy__scrapy__pr8067",
+  "classification": "MIXED_CODE_AND_TEST_PR",
+  "method": "cc-sdd",
+  "update_mode": null,
+  "metric_definition_version": "prompt10-metrics-v1",
+  "gold_seal_sha256": "abc8bf10e33f707604106c98d254a3a582f9408e546565404b83e550c18e7f2c",
+  "files": {
+    "predicted": [
+      {
+        "rank": 1,
+        "candidate": "tests/test_utils_response.py",
+        "matched_gold_id": "g-dd45de4aece5f7a384a1bdec"
+      },
+      {
+        "rank": 2,
+        "candidate": "tests/test_commands.py"
+      }
+    ],
+    "gold_ids": [
+      "g-dd45de4aece5f7a384a1bdec"
+    ],
+    "matched_gold_ids": [
+      "g-dd45de4aece5f7a384a1bdec"
+    ],
+    "invalid_evidence_ids": [],
+    "invalid_count": 0,
+    "missing_count": 0
+  },
+  "symbols": {
+    "predicted": [
+      {
+        "rank": 1,
+        "candidate": {
+          "path": "tests/test_utils_response.py",
+          "qualified_name": "test_open_in_browser"
+        },
+        "matched_gold_id": "g-44476df5912df0c098cda352"
+      },
+      {
+        "rank": 2,
+        "candidate": {
+          "path": "tests/test_utils_response.py",
+          "qualified_name": "test_open_in_browser_text_response_uses_txt_extension"
+        }
+      },
+      {
+        "rank": 3,
+        "candidate": {
+          "path": "tests/test_utils_response.py",
+          "qualified_name": "test_open_in_browser_raises_for_unsupported_response_type"
+        },
+        "matched_gold_id": "g-446d848e9f1b7ccaa50fa2ea"
+      },
+      {
+        "rank": 4,
+        "candidate": {
+          "path": "tests/test_commands.py",
+          "qualified_name": "TestViewCommand.test_view"
+        }
+      },
+      {
+        "rank": 5,
+        "candidate": {
+          "path": "tests/test_commands.py",
+          "qualified_name": "TestViewCommand.test_non_text_response"
+        }
+      }
+    ],
+    "gold_ids": [
+      "g-25ef7982708f792ea1845991",
+      "g-44476df5912df0c098cda352",
+      "g-446d848e9f1b7ccaa50fa2ea",
+      "g-cf2fc6899e1df2c52485f7da"
+    ],
+    "matched_gold_ids": [
+      "g-44476df5912df0c098cda352",
+      "g-446d848e9f1b7ccaa50fa2ea"
+    ],
+    "invalid_evidence_ids": [
+      "8814c916c5c09606",
+      "96ae404cd4631e1f",
+      "c9b4f4022cbcb153"
+    ],
+    "invalid_count": 3,
+    "missing_count": 2
+  },
+  "target_set_sha256": "493b7b168e979377b42380022fbdbaa152ebdc0c26515f5d541fe11f1d494e27"
+}

@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr8067",
+  "method": "openspec",
+  "run_id": "openspec-sealed-001",
+  "mode": "sealed-detect",
+  "policy_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/openspec/update/policies/openspec-sealed-001/update-policy.json",
+  "policy_sha256": "a0bf7489b0e9aa4b8c2b8132304dc118d428d26ee1e36995492b3847342def3b",
+  "reference_sha256": "bdc73e84d3547b81b459907d3f5b4c8df5726d0f785ad4bddf389d3911ccf07b"
+}

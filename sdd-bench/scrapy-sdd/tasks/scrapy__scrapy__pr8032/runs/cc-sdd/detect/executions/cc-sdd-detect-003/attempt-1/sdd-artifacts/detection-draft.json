@@ -1,0 +1,11 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_pipeline_files.py",
+      "symbols": [
+        "TestFilesPipeline.test_file_path_from_response"
+      ],
+      "reason": "This test is named directly by PR 8032. It exercises FilesPipeline.file_path() with a response-derived Content-Type extension while FILES_EXPIRES=0 forces the up-to-date check to require an expired/missing entry, and it mocks FSFilesStore.stat_file with last_modified=time.time(); the equality possible on Windows coarse clock resolution can make the entry look up-to-date and flake."
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_crawler.py",
+      "symbols": [
+        "TestAsyncCrawlerProcessReactorlessHelpers",
+        "TestAsyncCrawlerProcessReactorlessHelpers._bare_process",
+        "TestAsyncCrawlerProcessReactorlessHelpers.test_signal_shutdown_reactorless_without_loop",
+        "TestAsyncCrawlerProcessReactorlessHelpers.test_signal_kill_reactorless_without_loop",
+        "TestAsyncCrawlerProcessReactorlessHelpers.test_signal_kill_reactorless_without_main_task",
+        "TestAsyncCrawlerProcessReactorlessHelpers.test_shutdown_graceful_reactorless_main_task_already_done",
+        "TestAsyncCrawlerProcessReactorlessHelpers.test_create_shutdown_task_closed_loop",
+        "TestAsyncCrawlerProcessReactorlessHelpers.test_cancel_all_tasks_logs_task_exception"
+      ],
+      "reason": "Unit tests for the reactorless shutdown signal handlers of AsyncCrawlerProcess (scrapy/crawler.py: _signal_shutdown_reactorless, _signal_kill_reactorless). They construct a bare process with __new__, stub scrapy.crawler.install_shutdown_handlers, and assert exactly which callbacks are scheduled on the event loop, including loop.call_soon_threadsafe.assert_not_called() in test_signal_kill_reactorless_without_main_task. Moving _log_shutdown/_log_kill off the handler and onto loop.call_soon_threadsafe changes those expectations, so this is the primary file to update and run."
+    },
+    {
+      "path": "tests/test_crawler_subprocess.py",
+      "symbols": [
+        "TestCrawlerProcessSubprocessBase._test_shutdown_graceful",
+        "TestCrawlerProcessSubprocessBase.test_shutdown_graceful",
+        "TestCrawlerProcessSubprocessBase._test_shutdown_forced",
+        "TestCrawlerProcessSubprocessBase.test_shutdown_forced",
+        "TestCrawlerProcessSubprocessBase.test_shutdown_graceful_no_stop",
+        "TestAsyncCrawlerProcessSubprocess.test_reactorless_shutdown_graceful",
+        "TestAsyncCrawlerProcessSubprocess.test_reactorless_shutdown_forced",
+        "TestAsyncCrawlerProcessSubprocess.test_reactorless_shutdown_graceful_no_stop"
+      ],
+      "reason": "End-to-end subprocess tests that start a real crawl, deliver SIGINT (SIGBREAK on Windows) and assert the stderr text produced by the shutdown signal handlers: 'shutting down gracefully' from _log_shutdown and 'forcing unclean shutdown' from _log_kill, on both the Twisted reactor and reactorless paths. They are the only tests that exercise the changed handlers against a live reactor/event loop, so they verify the messages still reach the log after logging is deferred out of the handler."
+    }
+  ]
+}

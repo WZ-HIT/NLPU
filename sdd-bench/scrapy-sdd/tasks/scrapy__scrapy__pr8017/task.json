@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr8017",
+  "repository": {
+    "owner": "scrapy",
+    "name": "scrapy"
+  },
+  "pr_id": 8017,
+  "baseline": {
+    "base_sha": "1420418c813ed01af78da62bc4a6e60bb4a7403b"
+  },
+  "title": "Type the last tests.* modules under check_untyped_defs = false",
+  "body": "",
+  "adapter": {
+    "id": "scrapy",
+    "version": 1,
+    "path": "sdd-bench/scrapy-sdd/adapters/scrapy.json",
+    "sha256": "059dcc09eaa62f892f54118e65d4deccce3ab29cc5d9a4a36f4d999ff1aa27de"
+  }
+}

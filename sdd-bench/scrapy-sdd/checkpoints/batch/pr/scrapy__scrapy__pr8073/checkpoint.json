@@ -1,0 +1,267 @@
+{
+  "schema_version": 1,
+  "checkpoint_type": "PR",
+  "checkpoint_id": "pr-scrapy__scrapy__pr8073-20260918T055126Z",
+  "created_at_utc": "2026-09-18T05:51:26Z",
+  "contains_api_secret": false,
+  "content_sha256": "2fc766d42b0b8daacbce162a86511f29ea218f01bfe770d0bada35943a20c0f5",
+  "task_id": "scrapy__scrapy__pr8073",
+  "pr_id": 8073,
+  "base_sha": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+  "methods": {
+    "openspec": {
+      "detect_run_ids": [
+        "openspec-detect-001"
+      ],
+      "update_runs": [
+        {
+          "run_id": "openspec-sealed-001",
+          "mode": "sealed-detect"
+        },
+        {
+          "run_id": "openspec-self-001",
+          "mode": "self-directed"
+        }
+      ],
+      "sealed_input_detection_manifest_sha256": "8961d275c844f5a9f2fad81424f2c7e0810b29c27e93e5a5e2e7d5be50342324",
+      "sealed_input_planning_manifest_sha256": "7e30b907b5ed3de641cd162490d96edf15d667264d019e901da93e73bbf6dc8b",
+      "detect_planning_manifest_sha256": "7e30b907b5ed3de641cd162490d96edf15d667264d019e901da93e73bbf6dc8b",
+      "initialization_manifest_sha256": "70168a45d79ce6cd6d686c280476e3fbaf57179cc239cda700b49cac298c7141",
+      "initialization_file_count": 10
+    },
+    "speckit": {
+      "detect_run_ids": [
+        "speckit-detect-001"
+      ],
+      "update_runs": [
+        {
+          "run_id": "speckit-sealed-001",
+          "mode": "sealed-detect"
+        },
+        {
+          "run_id": "speckit-self-001",
+          "mode": "self-directed"
+        }
+      ],
+      "sealed_input_detection_manifest_sha256": "d11bbcbc080021bd6ba811856aff39c9203e533e95f9d429efc7cf57e1f35bfc",
+      "sealed_input_planning_manifest_sha256": "3c3030f675786995c7f69f68e15168e79cda6e7fb599b9a0e3bffe73ee346b37",
+      "detect_planning_manifest_sha256": "3c3030f675786995c7f69f68e15168e79cda6e7fb599b9a0e3bffe73ee346b37",
+      "initialization_manifest_sha256": "404c4d70c695f254aa9bd372bf0f0b508ce53c6f3ab4f8f8446931eda6c0ce34",
+      "initialization_file_count": 30
+    },
+    "cc-sdd": {
+      "detect_run_ids": [
+        "cc-sdd-detect-001"
+      ],
+      "update_runs": [
+        {
+          "run_id": "cc-sdd-sealed-001",
+          "mode": "sealed-detect"
+        },
+        {
+          "run_id": "cc-sdd-self-001",
+          "mode": "self-directed"
+        }
+      ],
+      "sealed_input_detection_manifest_sha256": "179f057b0415479dcdfb86b52445a41d2f53b10360ea67ba6fe860f5e8733ab8",
+      "sealed_input_planning_manifest_sha256": "5ed5c2e3b90b807afbe75d3454ed9ee14267854ac34282a6d55f3f7d7ccb50ad",
+      "detect_planning_manifest_sha256": "5ed5c2e3b90b807afbe75d3454ed9ee14267854ac34282a6d55f3f7d7ccb50ad",
+      "initialization_manifest_sha256": "3be430c9092a6396aa0d9f5ae4be85f9d66ac33ee3cb986c175334503abf4cca",
+      "initialization_file_count": 68
+    }
+  },
+  "gold_store_sha256": "dc2ad119cd120014667195ce460db90966754479ba68053a9f92ffa0de5d65a1",
+  "excluded_regenerable": [
+    {
+      "path": "runs/cc-sdd/detect/workspace",
+      "reason": "detect-workspace",
+      "file_count": 770,
+      "size_bytes": 7193131,
+      "assertion": "HEAD==11079cb1c85b9e75a39a7269943c69d1a975d485, untracked paths under initialization/cc-sdd/files"
+    },
+    {
+      "path": "runs/cc-sdd/update/executions/cc-sdd-sealed-001/attempt-1/mode-sealed-detect/workspace",
+      "reason": "update-workspace",
+      "file_count": 770,
+      "size_bytes": 7192417,
+      "assertion": "tracked modifications all present in artifacts/candidate.patch"
+    },
+    {
+      "path": "runs/cc-sdd/update/executions/cc-sdd-self-001/attempt-1/mode-self-directed/workspace",
+      "reason": "update-workspace",
+      "file_count": 770,
+      "size_bytes": 7192354,
+      "assertion": "tracked modifications all present in artifacts/candidate.patch"
+    },
+    {
+      "path": "runs/openspec/detect/workspace",
+      "reason": "detect-workspace",
+      "file_count": 712,
+      "size_bytes": 7019842,
+      "assertion": "HEAD==11079cb1c85b9e75a39a7269943c69d1a975d485, untracked paths under initialization/openspec/files"
+    },
+    {
+      "path": "runs/openspec/update/executions/openspec-sealed-001/attempt-1/mode-sealed-detect/workspace",
+      "reason": "update-workspace",
+      "file_count": 712,
+      "size_bytes": 7019065,
+      "assertion": "tracked modifications all present in artifacts/candidate.patch"
+    },
+    {
+      "path": "runs/openspec/update/executions/openspec-self-001/attempt-1/mode-self-directed/workspace",
+      "reason": "update-workspace",
+      "file_count": 712,
+      "size_bytes": 7019065,
+      "assertion": "tracked modifications all present in artifacts/candidate.patch"
+    },
+    {
+      "path": "runs/speckit/detect/workspace",
+      "reason": "detect-workspace",
+      "file_count": 732,
+      "size_bytes": 7182555,
+      "assertion": "HEAD==11079cb1c85b9e75a39a7269943c69d1a975d485, untracked paths under initialization/speckit/files"
+    },
+    {
+      "path": "runs/speckit/update/executions/speckit-sealed-001/attempt-1/mode-sealed-detect/workspace",
+      "reason": "update-workspace",
+      "file_count": 732,
+      "size_bytes": 7181778,
+      "assertion": "tracked modifications all present in artifacts/candidate.patch"
+    },
+    {
+      "path": "runs/speckit/update/executions/speckit-self-001/attempt-1/mode-self-directed/workspace",
+      "reason": "update-workspace",
+      "file_count": 732,
+      "size_bytes": 7181778,
+      "assertion": "tracked modifications all present in artifacts/candidate.patch"
+    }
+  ],
+  "covered_targets": [
+    {
+      "batch_id": "pr8073-pilot-v1",
+      "method": "cc-sdd",
+      "stage": "detect",
+      "run_id": "cc-sdd-detect-001",
+      "update_mode": null,
+      "state": "DRY_RUN_READY",
+      "attempt": 1
+    },
+    {
+      "batch_id": "pr8073-pilot-v1",
+      "method": "openspec",
+      "stage": "detect",
+      "run_id": "openspec-detect-001",
+      "update_mode": null,
+      "state": "DRY_RUN_READY",
+      "attempt": 1
+    },
+    {
+      "batch_id": "pr8073-pilot-v1",
+      "method": "speckit",
+      "stage": "detect",
+      "run_id": "speckit-detect-001",
+      "update_mode": null,
+      "state": "DRY_RUN_READY",
+      "attempt": 1
+    },
+    {
+      "batch_id": "scrapy-3pr-both-pilot-v1",
+      "method": "cc-sdd",
+      "stage": "detect",
+      "run_id": "cc-sdd-detect-001",
+      "update_mode": null,
+      "state": "SKIPPED_RESUME",
+      "attempt": 1
+    },
+    {
+      "batch_id": "scrapy-3pr-both-pilot-v1",
+      "method": "cc-sdd",
+      "stage": "update",
+      "run_id": "cc-sdd-sealed-001",
+      "update_mode": "sealed-detect",
+      "state": "UPDATE_SEALED",
+      "attempt": 1
+    },
+    {
+      "batch_id": "scrapy-3pr-both-pilot-v1",
+      "method": "cc-sdd",
+      "stage": "update",
+      "run_id": "cc-sdd-self-001",
+      "update_mode": "self-directed",
+      "state": "UPDATE_SEALED",
+      "attempt": 1
+    },
+    {
+      "batch_id": "scrapy-3pr-both-pilot-v1",
+      "method": "openspec",
+      "stage": "detect",
+      "run_id": "openspec-detect-001",
+      "update_mode": null,
+      "state": "DETECT_SEALED",
+      "attempt": 2
+    },
+    {
+      "batch_id": "scrapy-3pr-both-pilot-v1",
+      "method": "openspec",
+      "stage": "update",
+      "run_id": "openspec-sealed-001",
+      "update_mode": "sealed-detect",
+      "state": "UPDATE_SEALED",
+      "attempt": 1
+    },
+    {
+      "batch_id": "scrapy-3pr-both-pilot-v1",
+      "method": "openspec",
+      "stage": "update",
+      "run_id": "openspec-self-001",
+      "update_mode": "self-directed",
+      "state": "UPDATE_SEALED",
+      "attempt": 1
+    },
+    {
+      "batch_id": "scrapy-3pr-both-pilot-v1",
+      "method": "speckit",
+      "stage": "detect",
+      "run_id": "speckit-detect-001",
+      "update_mode": null,
+      "state": "DETECT_SEALED",
+      "attempt": 2
+    },
+    {
+      "batch_id": "scrapy-3pr-both-pilot-v1",
+      "method": "speckit",
+      "stage": "update",
+      "run_id": "speckit-sealed-001",
+      "update_mode": "sealed-detect",
+      "state": "UPDATE_SEALED",
+      "attempt": 1
+    },
+    {
+      "batch_id": "scrapy-3pr-both-pilot-v1",
+      "method": "speckit",
+      "stage": "update",
+      "run_id": "speckit-self-001",
+      "update_mode": "self-directed",
+      "state": "UPDATE_SEALED",
+      "attempt": 1
+    }
+  ],
+  "payloads": [
+    {
+      "name": "task.tar.gz",
+      "sha256": "da71a0526ebb8c498ed5feec267637c14e45c2f2cc3d5d7af3957b027e81ad3b",
+      "size_bytes": 761483,
+      "member_count": 385,
+      "file_manifest_sha256": "323c9b1d7233670f68c9040cb0932d89266e07842911c403e03407ebc8c1357b",
+      "install_path": "tasks/scrapy__scrapy__pr8073"
+    },
+    {
+      "name": "gold.tar.gz",
+      "sha256": "7a4ee1107476deff01fbb35768bd504124011d83527109ea438d047f5196b77c",
+      "size_bytes": 1448,
+      "member_count": 1,
+      "file_manifest_sha256": "373109cb57d9541b9b327a3b3651fc4e63a52ae7bdf129afb6ca08dbccb6b91e",
+      "install_path": "batch/gold/scrapy__scrapy__pr8073"
+    }
+  ]
+}

@@ -1,0 +1,499 @@
+{
+  "schema_version": 1,
+  "plan_id": "scrapy-10pr-detect-v1",
+  "plan_type": "PROVISION_PLAN",
+  "created_at_utc": "2026-09-19T12:55:46Z",
+  "status": "AWAITING_USER_APPROVAL",
+  "executable": false,
+  "repository_scope": "scrapy/scrapy",
+  "inputs": {
+    "prompt": {
+      "path": "output/prompt/scrapy__scrapy.json",
+      "sha256": "76867cef42647720db0c052963ff9ae0f7db8de41f821cca1773cab5ecdd1c76",
+      "size_bytes": 7167228,
+      "record_count": 1245
+    },
+    "raw": {
+      "path": "output/raw_prs/scrapy__scrapy.jsonl",
+      "sha256": "4cf2d27621963dc79b413f84b4c04e3a5a4fbd1e540c682be6d3e9c15dd239e1",
+      "size_bytes": 15952003,
+      "record_count": 354
+    }
+  },
+  "input_set_sha256": "b0a058e7b6ddec1d3f916347d9de02c436a0a01a267e7c779b71ea84bd2412cb",
+  "inventory": {
+    "path": "sdd-bench/scrapy-sdd/batch/inventories/scrapy-pr-inventory.json",
+    "sha256": "24ce5f3f2443ae5ae8af0acaf199928cbcb4ba6080cbc643f640f7eb1de25aca",
+    "inventory_id": "scrapy-pr-inventory-b0a058e7b6ddec1d"
+  },
+  "selection": {
+    "source": "prompt",
+    "requested": {
+      "pr_ids": [
+        8064,
+        8067,
+        8073,
+        8017,
+        7511,
+        8027,
+        8040,
+        8032,
+        8019,
+        8022
+      ],
+      "pr_id_files": [],
+      "sample_ids": []
+    },
+    "resolution_events": [
+      {
+        "selector": "pr_id",
+        "value": 8064,
+        "resolved_repository": "scrapy/scrapy",
+        "resolved_pr_id": 8064
+      },
+      {
+        "selector": "pr_id",
+        "value": 8067,
+        "resolved_repository": "scrapy/scrapy",
+        "resolved_pr_id": 8067
+      },
+      {
+        "selector": "pr_id",
+        "value": 8073,
+        "resolved_repository": "scrapy/scrapy",
+        "resolved_pr_id": 8073
+      },
+      {
+        "selector": "pr_id",
+        "value": 8017,
+        "resolved_repository": "scrapy/scrapy",
+        "resolved_pr_id": 8017
+      },
+      {
+        "selector": "pr_id",
+        "value": 7511,
+        "resolved_repository": "scrapy/scrapy",
+        "resolved_pr_id": 7511
+      },
+      {
+        "selector": "pr_id",
+        "value": 8027,
+        "resolved_repository": "scrapy/scrapy",
+        "resolved_pr_id": 8027
+      },
+      {
+        "selector": "pr_id",
+        "value": 8040,
+        "resolved_repository": "scrapy/scrapy",
+        "resolved_pr_id": 8040
+      },
+      {
+        "selector": "pr_id",
+        "value": 8032,
+        "resolved_repository": "scrapy/scrapy",
+        "resolved_pr_id": 8032
+      },
+      {
+        "selector": "pr_id",
+        "value": 8019,
+        "resolved_repository": "scrapy/scrapy",
+        "resolved_pr_id": 8019
+      },
+      {
+        "selector": "pr_id",
+        "value": 8022,
+        "resolved_repository": "scrapy/scrapy",
+        "resolved_pr_id": 8022
+      }
+    ],
+    "resolved_prs": [
+      {
+        "repository": "scrapy/scrapy",
+        "pr_id": 7511
+      },
+      {
+        "repository": "scrapy/scrapy",
+        "pr_id": 8017
+      },
+      {
+        "repository": "scrapy/scrapy",
+        "pr_id": 8019
+      },
+      {
+        "repository": "scrapy/scrapy",
+        "pr_id": 8022
+      },
+      {
+        "repository": "scrapy/scrapy",
+        "pr_id": 8027
+      },
+      {
+        "repository": "scrapy/scrapy",
+        "pr_id": 8032
+      },
+      {
+        "repository": "scrapy/scrapy",
+        "pr_id": 8040
+      },
+      {
+        "repository": "scrapy/scrapy",
+        "pr_id": 8064
+      },
+      {
+        "repository": "scrapy/scrapy",
+        "pr_id": 8067
+      },
+      {
+        "repository": "scrapy/scrapy",
+        "pr_id": 8073
+      }
+    ],
+    "sha256": "57603d20df8c1945b9cacf9709f8dd55bb60cbdd216ac9bfa4ab87f377f69556"
+  },
+  "task_scope": "one task per selected PR; sample IDs only resolve PR membership",
+  "tasks": [
+    {
+      "task_id": "scrapy__scrapy__pr7511",
+      "repository": "scrapy/scrapy",
+      "pr_id": 7511,
+      "baseline": {
+        "base_sha": "1420418c813ed01af78da62bc4a6e60bb4a7403b"
+      },
+      "classification": "MIXED_CODE_AND_TEST_PR",
+      "member_sample_ids": [
+        "scrapy__scrapy__7511__test_only__7a4456bd376d5348"
+      ],
+      "member_sample_count": 1,
+      "test_change_count": 1,
+      "changed_files": [
+        ".github/workflows/tests-macos.yml",
+        ".github/workflows/tests-ubuntu.yml",
+        ".github/workflows/tests-windows.yml",
+        "pyproject.toml",
+        "tests/test_downloadermiddleware_httpcompression.py",
+        "tox.ini"
+      ],
+      "nl_quality": {
+        "status": "GOOD",
+        "word_count": 10,
+        "has_title": true,
+        "has_body": true,
+        "description": "Add Python 3.15 to CI.. ~~Windows is blocked by lxml~~"
+      },
+      "task_categories": {
+        "test_only": 1
+      }
+    },
+    {
+      "task_id": "scrapy__scrapy__pr8017",
+      "repository": "scrapy/scrapy",
+      "pr_id": 8017,
+      "baseline": {
+        "base_sha": "1420418c813ed01af78da62bc4a6e60bb4a7403b"
+      },
+      "classification": "MIXED_CODE_AND_TEST_PR",
+      "member_sample_ids": [
+        "scrapy__scrapy__8017__0ed322934f68",
+        "scrapy__scrapy__8017__1621dac1d5ae",
+        "scrapy__scrapy__8017__1ff169a009f0",
+        "scrapy__scrapy__8017__291b0fd413bf",
+        "scrapy__scrapy__8017__3764b048620b",
+        "scrapy__scrapy__8017__4075f3cea392",
+        "scrapy__scrapy__8017__4d7341c5ab85",
+        "scrapy__scrapy__8017__513f5a8ffcf6",
+        "scrapy__scrapy__8017__5af1dbbbff6f",
+        "scrapy__scrapy__8017__6fde66473905",
+        "scrapy__scrapy__8017__70130d8fe33b",
+        "scrapy__scrapy__8017__719d7f80880b",
+        "scrapy__scrapy__8017__7b4be4c41b8d",
+        "scrapy__scrapy__8017__82b560c840d0",
+        "scrapy__scrapy__8017__880d57dce735",
+        "scrapy__scrapy__8017__89c1a0eb328f",
+        "scrapy__scrapy__8017__8bc15954d8d9",
+        "scrapy__scrapy__8017__8fd998bb1861",
+        "scrapy__scrapy__8017__916f4c23e8c7",
+        "scrapy__scrapy__8017__93bf27b2c0f9",
+        "scrapy__scrapy__8017__94955f72bbba",
+        "scrapy__scrapy__8017__9d506d9c65cf",
+        "scrapy__scrapy__8017__a624cf31641f",
+        "scrapy__scrapy__8017__b35bddbdf4c8",
+        "scrapy__scrapy__8017__b93e760a19f3",
+        "scrapy__scrapy__8017__baf55547cd69",
+        "scrapy__scrapy__8017__c7c79b40722f",
+        "scrapy__scrapy__8017__d2a11e4f886e",
+        "scrapy__scrapy__8017__da9e6370f60c",
+        "scrapy__scrapy__8017__ea66dfee9032",
+        "scrapy__scrapy__8017__f50db853300d",
+        "scrapy__scrapy__8017__fd2f2ca82a95",
+        "scrapy__scrapy__8017__fe056675cbde"
+      ],
+      "member_sample_count": 33,
+      "test_change_count": 33,
+      "changed_files": [
+        "pyproject.toml",
+        "scrapy/linkextractors/lxmlhtml.py",
+        "tests/test_cmdline/__init__.py",
+        "tests/test_downloaderslotssettings.py",
+        "tests/test_dupefilters.py",
+        "tests/test_extension_statsmailer.py",
+        "tests/test_extension_throttle.py",
+        "tests/test_linkextractors.py",
+        "tests/test_logformatter.py",
+        "tests/test_mail.py",
+        "tests/test_pqueues.py",
+        "tests/test_scheduler_base.py",
+        "tests/test_settings/__init__.py",
+        "tests/test_squeues.py",
+        "tests/test_stats.py"
+      ],
+      "nl_quality": {
+        "status": "GOOD",
+        "word_count": 9,
+        "has_title": true,
+        "has_body": false,
+        "description": "Type the last tests.* modules under check_untyped_defs = false"
+      },
+      "task_categories": {
+        "test_only": 33
+      }
+    },
+    {
+      "task_id": "scrapy__scrapy__pr8019",
+      "repository": "scrapy/scrapy",
+      "pr_id": 8019,
+      "baseline": {
+        "base_sha": "916039ca4ca79ea4ed38e74d71e25c2584c1925e"
+      },
+      "classification": "MIXED_CODE_AND_TEST_PR",
+      "member_sample_ids": [
+        "scrapy__scrapy__8019__d4a475ca5eac"
+      ],
+      "member_sample_count": 1,
+      "test_change_count": 2,
+      "changed_files": [
+        "conftest.py",
+        "scrapy/core/downloader/__init__.py",
+        "scrapy/core/downloader/middleware.py",
+        "scrapy/core/scraper.py",
+        "scrapy/core/spidermw.py",
+        "scrapy/pipelines/media.py",
+        "scrapy/utils/defer.py",
+        "tests/test_pipeline_media.py",
+        "tests/test_utils_defer.py"
+      ],
+      "nl_quality": {
+        "status": "GOOD",
+        "word_count": 10,
+        "has_title": true,
+        "has_body": false,
+        "description": "Stop sleeping 100 ms before every callback and media result"
+      },
+      "task_categories": {
+        "test_only": 1
+      }
+    },
+    {
+      "task_id": "scrapy__scrapy__pr8022",
+      "repository": "scrapy/scrapy",
+      "pr_id": 8022,
+      "baseline": {
+        "base_sha": "916039ca4ca79ea4ed38e74d71e25c2584c1925e"
+      },
+      "classification": "MIXED_CODE_AND_TEST_PR",
+      "member_sample_ids": [
+        "scrapy__scrapy__8022__cfd2752c9948"
+      ],
+      "member_sample_count": 1,
+      "test_change_count": 5,
+      "changed_files": [
+        "scrapy/crawler.py",
+        "tests/test_crawler.py"
+      ],
+      "nl_quality": {
+        "status": "GOOD",
+        "word_count": 8,
+        "has_title": true,
+        "has_body": false,
+        "description": "Do not log from the shutdown signal handlers"
+      },
+      "task_categories": {
+        "focal_guided": 1
+      }
+    },
+    {
+      "task_id": "scrapy__scrapy__pr8027",
+      "repository": "scrapy/scrapy",
+      "pr_id": 8027,
+      "baseline": {
+        "base_sha": "da7c2fc59e286e796d0f8cfe01d4363d6fa3729f"
+      },
+      "classification": "TEST_ONLY_PR",
+      "member_sample_ids": [
+        "scrapy__scrapy__8027__test_only__1d5d6aea2ca096f2",
+        "scrapy__scrapy__8027__test_only__515144a083d72ad3"
+      ],
+      "member_sample_count": 2,
+      "test_change_count": 2,
+      "changed_files": [
+        "tests/test_crawl.py"
+      ],
+      "nl_quality": {
+        "status": "GOOD",
+        "word_count": 12,
+        "has_title": true,
+        "has_body": false,
+        "description": "Crawl more pages in the download delay tests instead of skipping them"
+      },
+      "task_categories": {
+        "test_only": 2
+      }
+    },
+    {
+      "task_id": "scrapy__scrapy__pr8032",
+      "repository": "scrapy/scrapy",
+      "pr_id": 8032,
+      "baseline": {
+        "base_sha": "e01783a493b7224ee616a97a310da8d19da11966"
+      },
+      "classification": "TEST_ONLY_PR",
+      "member_sample_ids": [
+        "scrapy__scrapy__8032__test_only__2c029c64374f0e2f"
+      ],
+      "member_sample_count": 1,
+      "test_change_count": 1,
+      "changed_files": [
+        "tests/test_pipeline_files.py"
+      ],
+      "nl_quality": {
+        "status": "GOOD",
+        "word_count": 7,
+        "has_title": true,
+        "has_body": false,
+        "description": "Fix a Windows clock-resolution flake in test_file_path_from_response"
+      },
+      "task_categories": {
+        "test_only": 1
+      }
+    },
+    {
+      "task_id": "scrapy__scrapy__pr8040",
+      "repository": "scrapy/scrapy",
+      "pr_id": 8040,
+      "baseline": {
+        "base_sha": "4f0b5fa5c3a275b068bc4e028dfd09dd2f878bc0"
+      },
+      "classification": "MIXED_CODE_AND_TEST_PR",
+      "member_sample_ids": [
+        "scrapy__scrapy__8040__7811f59f5e46",
+        "scrapy__scrapy__8040__de9db8efb6f1"
+      ],
+      "member_sample_count": 2,
+      "test_change_count": 2,
+      "changed_files": [
+        "scrapy/selector/unified.py",
+        "tests/test_selector.py"
+      ],
+      "nl_quality": {
+        "status": "GOOD",
+        "word_count": 9,
+        "has_title": true,
+        "has_body": true,
+        "description": "Let parsel determine the type of nested selectors. Resolves"
+      },
+      "task_categories": {
+        "test_only": 2
+      }
+    },
+    {
+      "task_id": "scrapy__scrapy__pr8064",
+      "repository": "scrapy/scrapy",
+      "pr_id": 8064,
+      "baseline": {
+        "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659"
+      },
+      "classification": "TEST_ONLY_PR",
+      "member_sample_ids": [
+        "scrapy__scrapy__8064__test_only__dfbd1b542c255a7b"
+      ],
+      "member_sample_count": 1,
+      "test_change_count": 1,
+      "changed_files": [
+        "tests/test_utils_response.py"
+      ],
+      "nl_quality": {
+        "status": "GOOD",
+        "word_count": 10,
+        "has_title": true,
+        "has_body": false,
+        "description": "Fix open_in_browser ReDoS test flakiness and a broken exploit input"
+      },
+      "task_categories": {
+        "test_only": 1
+      }
+    },
+    {
+      "task_id": "scrapy__scrapy__pr8067",
+      "repository": "scrapy/scrapy",
+      "pr_id": 8067,
+      "baseline": {
+        "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659"
+      },
+      "classification": "MIXED_CODE_AND_TEST_PR",
+      "member_sample_ids": [
+        "scrapy__scrapy__8067__52057f1e8e1c",
+        "scrapy__scrapy__8067__c5d44c7da737"
+      ],
+      "member_sample_count": 2,
+      "test_change_count": 4,
+      "changed_files": [
+        "scrapy/utils/response.py",
+        "tests/test_utils_response.py"
+      ],
+      "nl_quality": {
+        "status": "GOOD",
+        "word_count": 8,
+        "has_title": true,
+        "has_body": true,
+        "description": "Support non-text responses in open_in_browser via Content-Type. Resolves"
+      },
+      "task_categories": {
+        "focal_guided": 2
+      }
+    },
+    {
+      "task_id": "scrapy__scrapy__pr8073",
+      "repository": "scrapy/scrapy",
+      "pr_id": 8073,
+      "baseline": {
+        "base_sha": "11079cb1c85b9e75a39a7269943c69d1a975d485"
+      },
+      "classification": "TEST_ONLY_PR",
+      "member_sample_ids": [
+        "scrapy__scrapy__8073__test_only__5dcacafc3e6fe825",
+        "scrapy__scrapy__8073__test_only__600152fbc76dd5ba",
+        "scrapy__scrapy__8073__test_only__bb271a40d677bf56"
+      ],
+      "member_sample_count": 3,
+      "test_change_count": 3,
+      "changed_files": [
+        "tests/test_downloader_handler_twisted_ftp.py",
+        "tests/utils/bases/download_handlers_http.py"
+      ],
+      "nl_quality": {
+        "status": "GOOD",
+        "word_count": 10,
+        "has_title": true,
+        "has_body": true,
+        "description": "Re-enable tests with DirtyReactorAggregateError comments.. Checking if it still applies"
+      },
+      "task_categories": {
+        "test_only": 3
+      }
+    }
+  ],
+  "approval": {
+    "required": true,
+    "granted": false,
+    "provisioning_performed": false
+  }
+}

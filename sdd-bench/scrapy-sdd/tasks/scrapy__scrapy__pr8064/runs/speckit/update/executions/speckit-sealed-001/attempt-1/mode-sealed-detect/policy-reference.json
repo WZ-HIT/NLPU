@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr8064",
+  "method": "speckit",
+  "run_id": "speckit-sealed-001",
+  "mode": "sealed-detect",
+  "policy_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/speckit/update/policies/speckit-sealed-001/update-policy.json",
+  "policy_sha256": "9c475fa7e47907c1c29f5b6bd2e18b6cc9877b703a19086bbaebcaa4a4d3394c",
+  "reference_sha256": "ae385d56acd36bdbea5536af67b0bf163c85e27a590f315ba8a28374f3699a60"
+}

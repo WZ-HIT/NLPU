@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "seal_type": "IMMUTABLE_UPDATE_BUNDLE",
+  "task_id": "scrapy__scrapy__pr8073",
+  "method": "speckit",
+  "run_id": "speckit-self-001",
+  "update_mode": "self-directed",
+  "base_sha": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+  "bundle_manifest_sha256": "42600e2898073841c0392c60d571aa2e8df09acb577acaf515fb1a493ee5d787",
+  "entry_count": 5,
+  "status": "SEALED",
+  "seal_sha256": "4d6acd4ddc9a4ef187f2f0fc6db0138ef194a83ae32f49604cab96fc74f0b5b2"
+}

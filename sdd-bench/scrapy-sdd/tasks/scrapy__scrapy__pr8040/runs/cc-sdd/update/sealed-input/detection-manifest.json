@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr8040",
+  "method": "cc-sdd",
+  "base_sha": "4f0b5fa5c3a275b068bc4e028dfd09dd2f878bc0",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "cc-sdd-detect-003",
+    "session_sha256": "31e2606a69f64a7e5644baa90d95a139709f8af1af3506604d2001f409389b33"
+  },
+  "task_input_sha256": "cb664d5050d3e2aa33a9f487e6a7dd0aa4cc562457a3ef451831ff24fa144cfe",
+  "candidates": [
+    {
+      "path": "tests/test_selector.py",
+      "symbols": [
+        "TestSelector",
+        "TestSelector.test_simple_selection",
+        "TestSelector.test_flavor_detection",
+        "TestSelector.test_flavor_detection_json",
+        "TestSelector.test_flavor_detection_json_with_html_body",
+        "TestSelector.test_flavor_detection_text",
+        "TestSelector.test_selector_bad_args",
+        "TestJMESPath",
+        "TestJMESPath.test_json_has_html",
+        "TestJMESPath.test_html_has_json",
+        "TestJMESPath.test_jmestpath_with_re",
+        "test_jmespath_not_available"
+      ],
+      "reason": "Primary verification surface: this is the only test module that asserts Selector.type for every flavor (html/xml/json/text) and exercises nested selector construction directly. TestSelector.test_flavor_detection* pin the response-to-type mapping changed in scrapy/selector/unified.py, and TestJMESPath covers nested jmespath/css/xpath chaining on JSON payloads, which is exactly the path that loses the parsel-derived type when Selector forces type='html' for selectors constructed without a response (root=...)."
+    },
+    {
+      "path": "tests/test_http_response_text.py",
+      "symbols": [
+        "TestTextResponse.test_selector",
+        "TestTextResponse.test_selector_shortcuts",
+        "TestTextResponse.test_selector_shortcuts_kwargs",
+        "TestTextResponse.test_json_response",
+        "TestTextResponse.test_json_response_non_utf8",
+        "TestXmlResponse.test_selector",
+        "TestXmlResponse.test_selector_shortcuts"
+      ],
+      "reason": "Secondary verification surface: these tests assert response.selector.type and selector shortcut/chaining behavior for TextResponse subclasses (including JsonResponse handling), so they exercise the same Selector.__init__ type-resolution branch from the response side and would catch regressions in how Scrapy maps responses to parsel types."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 6,
+    "manifest_sha256": "5a0c3a5b778af7f05f8f3920edd574724cf5f064809114982d0ddb4f1ce36100"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "1041b43570cd60fb0ded0aff1acf885952845def101db6c91b3adffabce2c2ae"
+  }
+}

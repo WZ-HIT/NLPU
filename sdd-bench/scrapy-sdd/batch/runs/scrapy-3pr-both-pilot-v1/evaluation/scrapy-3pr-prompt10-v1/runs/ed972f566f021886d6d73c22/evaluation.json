@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "artifact_type": "HOST_RUN_EVALUATION",
+  "evaluation_id": "scrapy-3pr-prompt10-v1",
+  "target_id": "ed972f566f021886d6d73c22",
+  "target_key_sha256": "ed972f566f021886d6d73c2297c17302e9e2aa0f9826d2b4ca6b430176bdac90",
+  "stage": "detect",
+  "task_id": "scrapy__scrapy__pr8067",
+  "classification": "MIXED_CODE_AND_TEST_PR",
+  "method": "openspec",
+  "run_id": "openspec-detect-001",
+  "update_mode": null,
+  "metric_definition_version": "prompt10-metrics-v1",
+  "validity": {
+    "status": "VALID",
+    "reason_ids": []
+  },
+  "policy_compliance": {
+    "status": "NOT_APPLICABLE",
+    "compliant": false,
+    "scope_violation_count": 0,
+    "sealed_candidate_subset": true,
+    "performance_advantage_inferred": false
+  },
+  "model_performance": {
+    "file": {
+      "metric_definition_version": "prompt10-metrics-v1",
+      "gold_count": 1,
+      "predicted_count": 2,
+      "matched_count": 1,
+      "tp": 1,
+      "fp": 1,
+      "fn": 0,
+      "precision": 0.5,
+      "recall": 1.0,
+      "f1": 0.6666666666666666,
+      "exact_match": 0,
+      "any_hit": 1,
+      "all_hit": 1,
+      "hit_at_1": 1,
+      "recall_at_1": 1.0,
+      "hit_at_3": 1,
+      "recall_at_3": 1.0,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "gold_to_predicted_ratio": 0.5,
+      "invalid_count": 0,
+      "missing_count": 0,
+      "scorable_count": 1
+    },
+    "symbol": {
+      "metric_definition_version": "prompt10-metrics-v1",
+      "gold_count": 4,
+      "predicted_count": 6,
+      "matched_count": 2,
+      "tp": 2,
+      "fp": 4,
+      "fn": 2,
+      "precision": 0.3333333333333333,
+      "recall": 0.5,
+      "f1": 0.4,
+      "exact_match": 0,
+      "any_hit": 1,
+      "all_hit": 0,
+      "hit_at_1": 0,
+      "recall_at_1": 0.0,
+      "hit_at_3": 1,
+      "recall_at_3": 0.25,
+      "hit_at_5": 1,
+      "recall_at_5": 0.5,
+      "mrr": 0.5,
+      "gold_to_predicted_ratio": 0.6666666666666666,
+      "invalid_count": 0,
+      "missing_count": 2,
+      "scorable_count": 4
+    }
+  },
+  "handoff": null,
+  "execution": {
+    "behavior_path": null,
+    "behavior_sha256": null,
+    "resource_profile_sha256": "680bfbb7d23c20bca0fe4c940aef0bbba7b57be4ebe5f7bcac317e2ff6f207d6",
+    "project_tests_run_by_agent": false,
+    "project_tests_run_by_host": false
+  },
+  "attribution": {
+    "precedence": [
+      "invalid_evidence",
+      "infrastructure_failure",
+      "policy_violation",
+      "localization_miss",
+      "update_selection_miss",
+      "patch_application_failure",
+      "functional_failure",
+      "success"
+    ],
+    "result": "success"
+  },
+  "provenance": {
+    "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+    "gold_seal_sha256": "abc8bf10e33f707604106c98d254a3a582f9408e546565404b83e550c18e7f2c",
+    "sealed_artifact_sha256": "76b983dab7bece484557ae4ddd1d0f30f4e3e520cc6aa27de324d8e11d46763a",
+    "ledger_sha256": "9d315da6083257ddf750d0dcda3c6f4a6d92f2fc6e6a5a9b8b16852e44dee05e",
+    "detect_barrier_sha256": "994074fd6ad71690abc6eb2d23e08166debdddaefce1c4690e400585af63ef49"
+  },
+  "evaluation_sha256": "4e825b4b4613a8fc6a3d0da78a3f48472ab9fea999e88f5cca4d4a5794eeaf26"
+}

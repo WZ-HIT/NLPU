@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr8073",
+  "method": "openspec",
+  "base_sha": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "openspec-detect-001",
+    "session_sha256": "4cd836a10bcba68e80365c84aeec38f2a5f0d99f7923b648736fe10b4e96794a"
+  },
+  "task_input_sha256": "1166467f4855bbdfbf837bd9900a951e4a942361327844d5fe1f2e348e327b2b",
+  "candidates": [
+    {
+      "path": "tests/test_downloader_handler_twisted_ftp.py",
+      "symbols": [
+        "test_invalid_credentials"
+      ],
+      "reason": "Contains TestFTP::test_invalid_credentials, which is currently skipped on Windows with the asyncio reactor because it produced DirtyReactorAggregateError; the PR should remove that obsolete skip."
+    },
+    {
+      "path": "tests/utils/bases/download_handlers_http.py",
+      "symbols": [
+        "test_timeout_download_from_spider_nodata_rcvd",
+        "test_timeout_download_from_spider_server_hangs"
+      ],
+      "reason": "Contains TestHttpBase::test_timeout_download_from_spider_nodata_rcvd and TestHttpBase::test_timeout_download_from_spider_server_hangs, both currently skipped on Windows with the asyncio reactor because they produced DirtyReactorAggregateError; the PR should remove those obsolete skips."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 6,
+    "manifest_sha256": "360f0e45311ea435cb19651126aaf2671b6df103fbe4f06c74f314d9d30bcf5b"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "175e429fa2baba4388adc95d8e936fa40cb43f98ff9919464f88ab4409644361"
+  }
+}

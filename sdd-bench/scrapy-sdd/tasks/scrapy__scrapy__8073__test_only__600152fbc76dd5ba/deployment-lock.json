@@ -475,20 +475,6 @@
       "runtime_objects_created": true,
       "status": "formal startup entry passed after adding exact initialized-file manifest verification; runtime verify, status and fail-closed route probes passed; no model request made"
     },
-    "experiment_launcher": {
-      "path": "run-experiment.sh",
-      "sha256": "347836db2ff5ea977770eed444eea31dddf0930ff0eb99aa2b9f88468e087de4",
-      "supported_all_modes": ["all", "parallel-all"],
-      "execution_order_source": "experiment.json execution_order",
-      "sequential_semantics": "all starts and completes each SDD workflow in execution_order",
-      "parallel_semantics": "parallel-all launches workers in execution_order, requires a shared preflight start barrier, then allows independent progress",
-      "failure_policy": "no automatic retries; one worker failure is recorded and does not cancel or block the remaining workers",
-      "concurrency_control": "one parent-held non-blocking task-wide flock covers the full three-worker comparison",
-      "isolation_boundary": "each worker retains its existing distinct repository, Agent container, HOME volume, cache and private network",
-      "result_contract": "all-summary.json records execution_mode, start_barrier_status, configured order and per-variant status; each parallel worker records parallel-all.console.log and failure.json when applicable",
-      "validation": "PASS: Bash syntax, PR 8073 comparison 007 config, and a no-model three-worker probe with one intentional failure",
-      "live_model_request_made_for_validation": false
-    },
     "subagent_policy": "disabled in the byte-identical common config mounted read-only and hash-verified in all three Agent services",
     "network_policy": {
       "codex_inner_sandbox": "network denied and behaviorally verified",

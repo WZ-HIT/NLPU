@@ -1,0 +1,1344 @@
+{
+  "schema_version": 1,
+  "audit_type": "BATCH_FINAL_AUDIT",
+  "batch_id": "scrapy-3pr-both-pilot-v1",
+  "status": "PASS_WITH_LIMITATIONS",
+  "checks": [
+    {
+      "id": "configured-target-universe",
+      "status": "PASS"
+    },
+    {
+      "id": "ledger-schema-sequence-hash-chain",
+      "status": "PASS"
+    },
+    {
+      "id": "global-detect-barrier",
+      "status": "PASS"
+    },
+    {
+      "id": "all-detect-bundles",
+      "status": "PASS"
+    },
+    {
+      "id": "all-update-bundles",
+      "status": "PASS"
+    },
+    {
+      "id": "tests-only-and-candidate-scope",
+      "status": "PASS"
+    },
+    {
+      "id": "self-directed-detect-isolation",
+      "status": "PASS"
+    },
+    {
+      "id": "evaluation-ready-not-dispatched",
+      "status": "PASS"
+    },
+    {
+      "id": "project-tests-not-run",
+      "status": "PASS"
+    },
+    {
+      "id": "legacy-update-sdd-artifact-capture",
+      "status": "LIMITATION"
+    }
+  ],
+  "ledger": {
+    "event_count": 204,
+    "sha256": "9d315da6083257ddf750d0dcda3c6f4a6d92f2fc6e6a5a9b8b16852e44dee05e",
+    "chain_tip_sha256": "491e9ab96293c3cc0c18e65ce8c0b1b4af1150212b21ed0603b5f29cf0a14d44"
+  },
+  "barrier_sha256": "994074fd6ad71690abc6eb2d23e08166debdddaefce1c4690e400585af63ef49",
+  "targets": [
+    {
+      "target": "scrapy__scrapy__pr8064:cc-sdd:detect:cc-sdd-detect-001:none",
+      "stage": "detect",
+      "status": "PASS",
+      "checks": [
+        {
+          "id": "terminal-ledger-state",
+          "status": "PASS"
+        },
+        {
+          "id": "canonical-attempt-path",
+          "status": "PASS"
+        },
+        {
+          "id": "manifest-schema-and-seal",
+          "status": "PASS"
+        },
+        {
+          "id": "no-project-change",
+          "status": "PASS"
+        },
+        {
+          "id": "project-tests-not-run",
+          "status": "PASS"
+        },
+        {
+          "id": "sealed-planning-copy",
+          "status": "PASS"
+        },
+        {
+          "id": "checkpoint-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "bundle-seal",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "target": "scrapy__scrapy__pr8064:openspec:detect:openspec-detect-001:none",
+      "stage": "detect",
+      "status": "PASS",
+      "checks": [
+        {
+          "id": "terminal-ledger-state",
+          "status": "PASS"
+        },
+        {
+          "id": "canonical-attempt-path",
+          "status": "PASS"
+        },
+        {
+          "id": "manifest-schema-and-seal",
+          "status": "PASS"
+        },
+        {
+          "id": "no-project-change",
+          "status": "PASS"
+        },
+        {
+          "id": "project-tests-not-run",
+          "status": "PASS"
+        },
+        {
+          "id": "sealed-planning-copy",
+          "status": "PASS"
+        },
+        {
+          "id": "checkpoint-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "bundle-seal",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "target": "scrapy__scrapy__pr8064:speckit:detect:speckit-detect-001:none",
+      "stage": "detect",
+      "status": "PASS",
+      "checks": [
+        {
+          "id": "terminal-ledger-state",
+          "status": "PASS"
+        },
+        {
+          "id": "canonical-attempt-path",
+          "status": "PASS"
+        },
+        {
+          "id": "manifest-schema-and-seal",
+          "status": "PASS"
+        },
+        {
+          "id": "no-project-change",
+          "status": "PASS"
+        },
+        {
+          "id": "project-tests-not-run",
+          "status": "PASS"
+        },
+        {
+          "id": "sealed-planning-copy",
+          "status": "PASS"
+        },
+        {
+          "id": "checkpoint-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "bundle-seal",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "target": "scrapy__scrapy__pr8067:cc-sdd:detect:cc-sdd-detect-001:none",
+      "stage": "detect",
+      "status": "PASS",
+      "checks": [
+        {
+          "id": "terminal-ledger-state",
+          "status": "PASS"
+        },
+        {
+          "id": "canonical-attempt-path",
+          "status": "PASS"
+        },
+        {
+          "id": "manifest-schema-and-seal",
+          "status": "PASS"
+        },
+        {
+          "id": "no-project-change",
+          "status": "PASS"
+        },
+        {
+          "id": "project-tests-not-run",
+          "status": "PASS"
+        },
+        {
+          "id": "sealed-planning-copy",
+          "status": "PASS"
+        },
+        {
+          "id": "checkpoint-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "bundle-seal",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "target": "scrapy__scrapy__pr8067:openspec:detect:openspec-detect-001:none",
+      "stage": "detect",
+      "status": "PASS",
+      "checks": [
+        {
+          "id": "terminal-ledger-state",
+          "status": "PASS"
+        },
+        {
+          "id": "canonical-attempt-path",
+          "status": "PASS"
+        },
+        {
+          "id": "manifest-schema-and-seal",
+          "status": "PASS"
+        },
+        {
+          "id": "no-project-change",
+          "status": "PASS"
+        },
+        {
+          "id": "project-tests-not-run",
+          "status": "PASS"
+        },
+        {
+          "id": "sealed-planning-copy",
+          "status": "PASS"
+        },
+        {
+          "id": "checkpoint-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "bundle-seal",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "target": "scrapy__scrapy__pr8067:speckit:detect:speckit-detect-001:none",
+      "stage": "detect",
+      "status": "PASS",
+      "checks": [
+        {
+          "id": "terminal-ledger-state",
+          "status": "PASS"
+        },
+        {
+          "id": "canonical-attempt-path",
+          "status": "PASS"
+        },
+        {
+          "id": "manifest-schema-and-seal",
+          "status": "PASS"
+        },
+        {
+          "id": "no-project-change",
+          "status": "PASS"
+        },
+        {
+          "id": "project-tests-not-run",
+          "status": "PASS"
+        },
+        {
+          "id": "sealed-planning-copy",
+          "status": "PASS"
+        },
+        {
+          "id": "checkpoint-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "bundle-seal",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "target": "scrapy__scrapy__pr8073:cc-sdd:detect:cc-sdd-detect-001:none",
+      "stage": "detect",
+      "status": "PASS",
+      "checks": [
+        {
+          "id": "terminal-ledger-state",
+          "status": "PASS"
+        },
+        {
+          "id": "canonical-attempt-path",
+          "status": "PASS"
+        },
+        {
+          "id": "manifest-schema-and-seal",
+          "status": "PASS"
+        },
+        {
+          "id": "no-project-change",
+          "status": "PASS"
+        },
+        {
+          "id": "project-tests-not-run",
+          "status": "PASS"
+        },
+        {
+          "id": "sealed-planning-copy",
+          "status": "PASS"
+        },
+        {
+          "id": "checkpoint-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "bundle-seal",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "target": "scrapy__scrapy__pr8073:openspec:detect:openspec-detect-001:none",
+      "stage": "detect",
+      "status": "PASS",
+      "checks": [
+        {
+          "id": "terminal-ledger-state",
+          "status": "PASS"
+        },
+        {
+          "id": "canonical-attempt-path",
+          "status": "PASS"
+        },
+        {
+          "id": "manifest-schema-and-seal",
+          "status": "PASS"
+        },
+        {
+          "id": "no-project-change",
+          "status": "PASS"
+        },
+        {
+          "id": "project-tests-not-run",
+          "status": "PASS"
+        },
+        {
+          "id": "sealed-planning-copy",
+          "status": "PASS"
+        },
+        {
+          "id": "checkpoint-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "bundle-seal",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "target": "scrapy__scrapy__pr8073:speckit:detect:speckit-detect-001:none",
+      "stage": "detect",
+      "status": "PASS",
+      "checks": [
+        {
+          "id": "terminal-ledger-state",
+          "status": "PASS"
+        },
+        {
+          "id": "canonical-attempt-path",
+          "status": "PASS"
+        },
+        {
+          "id": "manifest-schema-and-seal",
+          "status": "PASS"
+        },
+        {
+          "id": "no-project-change",
+          "status": "PASS"
+        },
+        {
+          "id": "project-tests-not-run",
+          "status": "PASS"
+        },
+        {
+          "id": "sealed-planning-copy",
+          "status": "PASS"
+        },
+        {
+          "id": "checkpoint-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "bundle-seal",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "target": "scrapy__scrapy__pr8064:cc-sdd:update:cc-sdd-sealed-001:sealed-detect",
+      "stage": "update",
+      "status": "PASS",
+      "checks": [
+        {
+          "id": "terminal-ledger-state",
+          "status": "PASS"
+        },
+        {
+          "id": "canonical-attempt-path",
+          "status": "PASS"
+        },
+        {
+          "id": "policy-hash-and-context",
+          "status": "PASS"
+        },
+        {
+          "id": "detection-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "tests-only-scope",
+          "status": "PASS"
+        },
+        {
+          "id": "mode-specific-scope",
+          "status": "PASS"
+        },
+        {
+          "id": "patch-manifest-consistency",
+          "status": "PASS"
+        },
+        {
+          "id": "project-tests-not-run",
+          "status": "PASS"
+        },
+        {
+          "id": "compose-isolation",
+          "status": "PASS"
+        },
+        {
+          "id": "checkpoint-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "bundle-seal",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "target": "scrapy__scrapy__pr8064:cc-sdd:update:cc-sdd-self-001:self-directed",
+      "stage": "update",
+      "status": "PASS",
+      "checks": [
+        {
+          "id": "terminal-ledger-state",
+          "status": "PASS"
+        },
+        {
+          "id": "canonical-attempt-path",
+          "status": "PASS"
+        },
+        {
+          "id": "policy-hash-and-context",
+          "status": "PASS"
+        },
+        {
+          "id": "detection-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "tests-only-scope",
+          "status": "PASS"
+        },
+        {
+          "id": "mode-specific-scope",
+          "status": "PASS"
+        },
+        {
+          "id": "patch-manifest-consistency",
+          "status": "PASS"
+        },
+        {
+          "id": "project-tests-not-run",
+          "status": "PASS"
+        },
+        {
+          "id": "compose-isolation",
+          "status": "PASS"
+        },
+        {
+          "id": "checkpoint-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "bundle-seal",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "target": "scrapy__scrapy__pr8064:openspec:update:openspec-sealed-001:sealed-detect",
+      "stage": "update",
+      "status": "PASS",
+      "checks": [
+        {
+          "id": "terminal-ledger-state",
+          "status": "PASS"
+        },
+        {
+          "id": "canonical-attempt-path",
+          "status": "PASS"
+        },
+        {
+          "id": "policy-hash-and-context",
+          "status": "PASS"
+        },
+        {
+          "id": "detection-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "tests-only-scope",
+          "status": "PASS"
+        },
+        {
+          "id": "mode-specific-scope",
+          "status": "PASS"
+        },
+        {
+          "id": "patch-manifest-consistency",
+          "status": "PASS"
+        },
+        {
+          "id": "project-tests-not-run",
+          "status": "PASS"
+        },
+        {
+          "id": "compose-isolation",
+          "status": "PASS"
+        },
+        {
+          "id": "checkpoint-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "bundle-seal",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "target": "scrapy__scrapy__pr8064:openspec:update:openspec-self-001:self-directed",
+      "stage": "update",
+      "status": "PASS",
+      "checks": [
+        {
+          "id": "terminal-ledger-state",
+          "status": "PASS"
+        },
+        {
+          "id": "canonical-attempt-path",
+          "status": "PASS"
+        },
+        {
+          "id": "policy-hash-and-context",
+          "status": "PASS"
+        },
+        {
+          "id": "detection-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "tests-only-scope",
+          "status": "PASS"
+        },
+        {
+          "id": "mode-specific-scope",
+          "status": "PASS"
+        },
+        {
+          "id": "patch-manifest-consistency",
+          "status": "PASS"
+        },
+        {
+          "id": "project-tests-not-run",
+          "status": "PASS"
+        },
+        {
+          "id": "compose-isolation",
+          "status": "PASS"
+        },
+        {
+          "id": "checkpoint-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "bundle-seal",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "target": "scrapy__scrapy__pr8064:speckit:update:speckit-sealed-001:sealed-detect",
+      "stage": "update",
+      "status": "PASS",
+      "checks": [
+        {
+          "id": "terminal-ledger-state",
+          "status": "PASS"
+        },
+        {
+          "id": "canonical-attempt-path",
+          "status": "PASS"
+        },
+        {
+          "id": "policy-hash-and-context",
+          "status": "PASS"
+        },
+        {
+          "id": "detection-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "tests-only-scope",
+          "status": "PASS"
+        },
+        {
+          "id": "mode-specific-scope",
+          "status": "PASS"
+        },
+        {
+          "id": "patch-manifest-consistency",
+          "status": "PASS"
+        },
+        {
+          "id": "project-tests-not-run",
+          "status": "PASS"
+        },
+        {
+          "id": "compose-isolation",
+          "status": "PASS"
+        },
+        {
+          "id": "checkpoint-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "bundle-seal",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "target": "scrapy__scrapy__pr8064:speckit:update:speckit-self-001:self-directed",
+      "stage": "update",
+      "status": "PASS",
+      "checks": [
+        {
+          "id": "terminal-ledger-state",
+          "status": "PASS"
+        },
+        {
+          "id": "canonical-attempt-path",
+          "status": "PASS"
+        },
+        {
+          "id": "policy-hash-and-context",
+          "status": "PASS"
+        },
+        {
+          "id": "detection-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "tests-only-scope",
+          "status": "PASS"
+        },
+        {
+          "id": "mode-specific-scope",
+          "status": "PASS"
+        },
+        {
+          "id": "patch-manifest-consistency",
+          "status": "PASS"
+        },
+        {
+          "id": "project-tests-not-run",
+          "status": "PASS"
+        },
+        {
+          "id": "compose-isolation",
+          "status": "PASS"
+        },
+        {
+          "id": "checkpoint-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "bundle-seal",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "target": "scrapy__scrapy__pr8067:cc-sdd:update:cc-sdd-sealed-001:sealed-detect",
+      "stage": "update",
+      "status": "PASS",
+      "checks": [
+        {
+          "id": "terminal-ledger-state",
+          "status": "PASS"
+        },
+        {
+          "id": "canonical-attempt-path",
+          "status": "PASS"
+        },
+        {
+          "id": "policy-hash-and-context",
+          "status": "PASS"
+        },
+        {
+          "id": "detection-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "tests-only-scope",
+          "status": "PASS"
+        },
+        {
+          "id": "mode-specific-scope",
+          "status": "PASS"
+        },
+        {
+          "id": "patch-manifest-consistency",
+          "status": "PASS"
+        },
+        {
+          "id": "project-tests-not-run",
+          "status": "PASS"
+        },
+        {
+          "id": "compose-isolation",
+          "status": "PASS"
+        },
+        {
+          "id": "checkpoint-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "bundle-seal",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "target": "scrapy__scrapy__pr8067:cc-sdd:update:cc-sdd-self-001:self-directed",
+      "stage": "update",
+      "status": "PASS",
+      "checks": [
+        {
+          "id": "terminal-ledger-state",
+          "status": "PASS"
+        },
+        {
+          "id": "canonical-attempt-path",
+          "status": "PASS"
+        },
+        {
+          "id": "policy-hash-and-context",
+          "status": "PASS"
+        },
+        {
+          "id": "detection-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "tests-only-scope",
+          "status": "PASS"
+        },
+        {
+          "id": "mode-specific-scope",
+          "status": "PASS"
+        },
+        {
+          "id": "patch-manifest-consistency",
+          "status": "PASS"
+        },
+        {
+          "id": "project-tests-not-run",
+          "status": "PASS"
+        },
+        {
+          "id": "compose-isolation",
+          "status": "PASS"
+        },
+        {
+          "id": "checkpoint-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "bundle-seal",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "target": "scrapy__scrapy__pr8067:openspec:update:openspec-sealed-001:sealed-detect",
+      "stage": "update",
+      "status": "PASS",
+      "checks": [
+        {
+          "id": "terminal-ledger-state",
+          "status": "PASS"
+        },
+        {
+          "id": "canonical-attempt-path",
+          "status": "PASS"
+        },
+        {
+          "id": "policy-hash-and-context",
+          "status": "PASS"
+        },
+        {
+          "id": "detection-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "tests-only-scope",
+          "status": "PASS"
+        },
+        {
+          "id": "mode-specific-scope",
+          "status": "PASS"
+        },
+        {
+          "id": "patch-manifest-consistency",
+          "status": "PASS"
+        },
+        {
+          "id": "project-tests-not-run",
+          "status": "PASS"
+        },
+        {
+          "id": "compose-isolation",
+          "status": "PASS"
+        },
+        {
+          "id": "checkpoint-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "bundle-seal",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "target": "scrapy__scrapy__pr8067:openspec:update:openspec-self-001:self-directed",
+      "stage": "update",
+      "status": "PASS",
+      "checks": [
+        {
+          "id": "terminal-ledger-state",
+          "status": "PASS"
+        },
+        {
+          "id": "canonical-attempt-path",
+          "status": "PASS"
+        },
+        {
+          "id": "policy-hash-and-context",
+          "status": "PASS"
+        },
+        {
+          "id": "detection-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "tests-only-scope",
+          "status": "PASS"
+        },
+        {
+          "id": "mode-specific-scope",
+          "status": "PASS"
+        },
+        {
+          "id": "patch-manifest-consistency",
+          "status": "PASS"
+        },
+        {
+          "id": "project-tests-not-run",
+          "status": "PASS"
+        },
+        {
+          "id": "compose-isolation",
+          "status": "PASS"
+        },
+        {
+          "id": "checkpoint-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "bundle-seal",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "target": "scrapy__scrapy__pr8067:speckit:update:speckit-sealed-001:sealed-detect",
+      "stage": "update",
+      "status": "PASS",
+      "checks": [
+        {
+          "id": "terminal-ledger-state",
+          "status": "PASS"
+        },
+        {
+          "id": "canonical-attempt-path",
+          "status": "PASS"
+        },
+        {
+          "id": "policy-hash-and-context",
+          "status": "PASS"
+        },
+        {
+          "id": "detection-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "tests-only-scope",
+          "status": "PASS"
+        },
+        {
+          "id": "mode-specific-scope",
+          "status": "PASS"
+        },
+        {
+          "id": "patch-manifest-consistency",
+          "status": "PASS"
+        },
+        {
+          "id": "project-tests-not-run",
+          "status": "PASS"
+        },
+        {
+          "id": "compose-isolation",
+          "status": "PASS"
+        },
+        {
+          "id": "checkpoint-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "bundle-seal",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "target": "scrapy__scrapy__pr8067:speckit:update:speckit-self-001:self-directed",
+      "stage": "update",
+      "status": "PASS",
+      "checks": [
+        {
+          "id": "terminal-ledger-state",
+          "status": "PASS"
+        },
+        {
+          "id": "canonical-attempt-path",
+          "status": "PASS"
+        },
+        {
+          "id": "policy-hash-and-context",
+          "status": "PASS"
+        },
+        {
+          "id": "detection-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "tests-only-scope",
+          "status": "PASS"
+        },
+        {
+          "id": "mode-specific-scope",
+          "status": "PASS"
+        },
+        {
+          "id": "patch-manifest-consistency",
+          "status": "PASS"
+        },
+        {
+          "id": "project-tests-not-run",
+          "status": "PASS"
+        },
+        {
+          "id": "compose-isolation",
+          "status": "PASS"
+        },
+        {
+          "id": "checkpoint-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "bundle-seal",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "target": "scrapy__scrapy__pr8073:cc-sdd:update:cc-sdd-sealed-001:sealed-detect",
+      "stage": "update",
+      "status": "PASS",
+      "checks": [
+        {
+          "id": "terminal-ledger-state",
+          "status": "PASS"
+        },
+        {
+          "id": "canonical-attempt-path",
+          "status": "PASS"
+        },
+        {
+          "id": "policy-hash-and-context",
+          "status": "PASS"
+        },
+        {
+          "id": "detection-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "tests-only-scope",
+          "status": "PASS"
+        },
+        {
+          "id": "mode-specific-scope",
+          "status": "PASS"
+        },
+        {
+          "id": "patch-manifest-consistency",
+          "status": "PASS"
+        },
+        {
+          "id": "project-tests-not-run",
+          "status": "PASS"
+        },
+        {
+          "id": "compose-isolation",
+          "status": "PASS"
+        },
+        {
+          "id": "checkpoint-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "bundle-seal",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "target": "scrapy__scrapy__pr8073:cc-sdd:update:cc-sdd-self-001:self-directed",
+      "stage": "update",
+      "status": "PASS",
+      "checks": [
+        {
+          "id": "terminal-ledger-state",
+          "status": "PASS"
+        },
+        {
+          "id": "canonical-attempt-path",
+          "status": "PASS"
+        },
+        {
+          "id": "policy-hash-and-context",
+          "status": "PASS"
+        },
+        {
+          "id": "detection-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "tests-only-scope",
+          "status": "PASS"
+        },
+        {
+          "id": "mode-specific-scope",
+          "status": "PASS"
+        },
+        {
+          "id": "patch-manifest-consistency",
+          "status": "PASS"
+        },
+        {
+          "id": "project-tests-not-run",
+          "status": "PASS"
+        },
+        {
+          "id": "compose-isolation",
+          "status": "PASS"
+        },
+        {
+          "id": "checkpoint-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "bundle-seal",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "target": "scrapy__scrapy__pr8073:openspec:update:openspec-sealed-001:sealed-detect",
+      "stage": "update",
+      "status": "PASS",
+      "checks": [
+        {
+          "id": "terminal-ledger-state",
+          "status": "PASS"
+        },
+        {
+          "id": "canonical-attempt-path",
+          "status": "PASS"
+        },
+        {
+          "id": "policy-hash-and-context",
+          "status": "PASS"
+        },
+        {
+          "id": "detection-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "tests-only-scope",
+          "status": "PASS"
+        },
+        {
+          "id": "mode-specific-scope",
+          "status": "PASS"
+        },
+        {
+          "id": "patch-manifest-consistency",
+          "status": "PASS"
+        },
+        {
+          "id": "project-tests-not-run",
+          "status": "PASS"
+        },
+        {
+          "id": "compose-isolation",
+          "status": "PASS"
+        },
+        {
+          "id": "checkpoint-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "bundle-seal",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "target": "scrapy__scrapy__pr8073:openspec:update:openspec-self-001:self-directed",
+      "stage": "update",
+      "status": "PASS",
+      "checks": [
+        {
+          "id": "terminal-ledger-state",
+          "status": "PASS"
+        },
+        {
+          "id": "canonical-attempt-path",
+          "status": "PASS"
+        },
+        {
+          "id": "policy-hash-and-context",
+          "status": "PASS"
+        },
+        {
+          "id": "detection-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "tests-only-scope",
+          "status": "PASS"
+        },
+        {
+          "id": "mode-specific-scope",
+          "status": "PASS"
+        },
+        {
+          "id": "patch-manifest-consistency",
+          "status": "PASS"
+        },
+        {
+          "id": "project-tests-not-run",
+          "status": "PASS"
+        },
+        {
+          "id": "compose-isolation",
+          "status": "PASS"
+        },
+        {
+          "id": "checkpoint-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "bundle-seal",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "target": "scrapy__scrapy__pr8073:speckit:update:speckit-sealed-001:sealed-detect",
+      "stage": "update",
+      "status": "PASS",
+      "checks": [
+        {
+          "id": "terminal-ledger-state",
+          "status": "PASS"
+        },
+        {
+          "id": "canonical-attempt-path",
+          "status": "PASS"
+        },
+        {
+          "id": "policy-hash-and-context",
+          "status": "PASS"
+        },
+        {
+          "id": "detection-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "tests-only-scope",
+          "status": "PASS"
+        },
+        {
+          "id": "mode-specific-scope",
+          "status": "PASS"
+        },
+        {
+          "id": "patch-manifest-consistency",
+          "status": "PASS"
+        },
+        {
+          "id": "project-tests-not-run",
+          "status": "PASS"
+        },
+        {
+          "id": "compose-isolation",
+          "status": "PASS"
+        },
+        {
+          "id": "checkpoint-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "bundle-seal",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "target": "scrapy__scrapy__pr8073:speckit:update:speckit-self-001:self-directed",
+      "stage": "update",
+      "status": "PASS",
+      "checks": [
+        {
+          "id": "terminal-ledger-state",
+          "status": "PASS"
+        },
+        {
+          "id": "canonical-attempt-path",
+          "status": "PASS"
+        },
+        {
+          "id": "policy-hash-and-context",
+          "status": "PASS"
+        },
+        {
+          "id": "detection-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "tests-only-scope",
+          "status": "PASS"
+        },
+        {
+          "id": "mode-specific-scope",
+          "status": "PASS"
+        },
+        {
+          "id": "patch-manifest-consistency",
+          "status": "PASS"
+        },
+        {
+          "id": "project-tests-not-run",
+          "status": "PASS"
+        },
+        {
+          "id": "compose-isolation",
+          "status": "PASS"
+        },
+        {
+          "id": "checkpoint-provenance",
+          "status": "PASS"
+        },
+        {
+          "id": "bundle-seal",
+          "status": "PASS"
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    {
+      "code": "UPDATE_WORKSPACE_EXCLUDED_FROM_V1_SEAL",
+      "status": "DISCLOSED",
+      "affected_targets": 18
+    },
+    {
+      "code": "UPDATE_SDD_ARTIFACTS_NOT_CAPTURED_BY_V1_RUNNER",
+      "status": "DISCLOSED",
+      "affected_targets": 18
+    }
+  ],
+  "disclosures": {
+    "execution_agent_gold_access": "NONE",
+    "report_generator_gold_access": "NONE_BY_CONSTRUCTION",
+    "host_continuation_session_gold_access": "ACCIDENTAL_READ_NOT_USED_IN_REPORT_OR_EXECUTION"
+  },
+  "report_sha256": "98dcb991ddf662baa49a60f6a39a6d61e675fe9c428a9b4b8bec6ad64d991e10",
+  "audit_sha256": "521f3513d18cc195c69fd3e14cd8aa89290a932633798b0551571f7cab04e753"
+}

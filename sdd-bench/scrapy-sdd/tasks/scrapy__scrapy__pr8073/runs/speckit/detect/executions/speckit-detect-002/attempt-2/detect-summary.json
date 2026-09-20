@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr8073",
+  "method": "speckit",
+  "detect_run_id": "speckit-detect-002",
+  "base_sha": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+  "status": "SEALED",
+  "project_code_changed": false,
+  "tests_run": false,
+  "candidate_test_file_count": 2,
+  "detection_manifest_sha256": "36d8c8197cc4740ba674ad22679b4eb53414a3a7453e53f8b6881c5899037027",
+  "planning_artifacts_sha256": "508320e7aff3ab183ff55eaacebfb7437d728e95429f2a2eeba16481c0e0df79",
+  "task_manifest_sha256": "001750ebd290ee3919f3caacff1e49a6b66a7e83854a31afdc3b0c7e6126fe19",
+  "summary_sha256": "4cfdfa6e1ce3777ffbaa405b5019c9faec360afb07c40928d5411adca09b510d"
+}

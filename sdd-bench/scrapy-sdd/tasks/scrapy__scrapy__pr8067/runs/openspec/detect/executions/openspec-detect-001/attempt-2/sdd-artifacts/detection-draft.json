@@ -1,0 +1,22 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_utils_response.py",
+      "symbols": [
+        "_read_browser_output",
+        "test_open_in_browser",
+        "test_open_in_browser_text_response_uses_txt_extension",
+        "test_open_in_browser_raises_for_unsupported_response_type"
+      ],
+      "reason": "Direct unit coverage for open_in_browser, including the existing text extension and unsupported-response behavior that the Content-Type-aware extension logic must preserve or extend."
+    },
+    {
+      "path": "tests/test_commands.py",
+      "symbols": [
+        "TestViewCommand.test_view",
+        "TestViewCommand.test_non_text_response"
+      ],
+      "reason": "The view command is the integration path that currently rejects non-text responses; its tests cover both the successful browser invocation and the non-text behavior being changed."
+    }
+  ]
+}

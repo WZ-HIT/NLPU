@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr8073",
+  "method": "cc-sdd",
+  "run_id": "cc-sdd-sealed-001",
+  "mode": "sealed-detect",
+  "policy_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/cc-sdd/update/policies/cc-sdd-sealed-001/update-policy.json",
+  "policy_sha256": "e1f35170cccefbdaa2f45894d9fac722f0a0122f3de9a3ee99ee3e9e0098be1b",
+  "reference_sha256": "0e6514a9618d85ee2e5ed88b98342e1125e7d9db3d0d4c75585a9e48708251d5"
+}

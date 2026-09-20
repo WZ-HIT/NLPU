@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr8022",
+  "method": "openspec",
+  "base_sha": "916039ca4ca79ea4ed38e74d71e25c2584c1925e",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "openspec-detect-003",
+    "session_sha256": "751bdddb014811f44c82cb786a6d0bfd8b3b26561191a44a2b63c0a0487d0ec1"
+  },
+  "task_input_sha256": "14dbabe9fd3eea58756ccb4127d0733106dc91c39caeecf4548695f92578ada1",
+  "candidates": [
+    {
+      "path": "tests/test_crawler.py",
+      "symbols": [
+        "TestAsyncCrawlerProcessReactorlessHelpers.test_signal_shutdown_reactorless_without_loop",
+        "TestAsyncCrawlerProcessReactorlessHelpers.test_signal_kill_reactorless_without_loop",
+        "TestAsyncCrawlerProcessReactorlessHelpers.test_signal_kill_reactorless_without_main_task"
+      ],
+      "reason": "Unit tests for the shutdown signal handlers that this change rewrites. They build a bare AsyncCrawlerProcess and assert exactly what the handler schedules on the event loop. test_signal_kill_reactorless_without_main_task currently asserts loop.call_soon_threadsafe is never called; after the change the handler schedules the kill notice there, so this test must change, and new assertions about the notice being scheduled on the loop belong in this class."
+    },
+    {
+      "path": "tests/test_crawler_subprocess.py",
+      "symbols": [
+        "TestCrawlerProcessSubprocessBase._test_shutdown_graceful",
+        "TestCrawlerProcessSubprocessBase._test_shutdown_forced",
+        "TestCrawlerProcessSubprocess.test_shutdown_graceful",
+        "TestCrawlerProcessSubprocess.test_shutdown_forced",
+        "TestAsyncCrawlerProcessSubprocess.test_shutdown_graceful",
+        "TestAsyncCrawlerProcessSubprocess.test_shutdown_forced"
+      ],
+      "reason": "End-to-end tests that drive the same handlers by sending SIGINT to a real crawler process and assert the user-visible shutdown notices (\"shutting down gracefully\", \"forcing unclean shutdown\") and their order on stderr. They are the observable-behaviour check for moving the notice out of the signal handler into the reactor/loop thread."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 7,
+    "manifest_sha256": "5fe109f4166e71420594452511698a13957b3413f2f6c1c1117366397eb705d8"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "96a5d9eeb046c3753c9c9141f7805dfb91aec0c47bd10a983cbd1e1d7ef42183"
+  }
+}

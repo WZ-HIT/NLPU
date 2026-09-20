@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "policy_type": "UPDATE_TARGET_SELECTION",
+  "task_id": "scrapy__scrapy__pr8064",
+  "task_manifest_sha256": "314694774fa1588fa62c086cd2d3a6f9926c24ba2717f9e9514c992e06a1793e",
+  "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+  "method": "speckit",
+  "stage": "update",
+  "run_id": "speckit-self-001",
+  "mode": "self-directed",
+  "selected_at_utc": "2026-09-16T11:55:46Z",
+  "detect_must_complete_first": true,
+  "visibility": {
+    "sealed_detection_manifest": false,
+    "sealed_planning_artifacts": false,
+    "other_detection_results": false,
+    "detect_workspace": false,
+    "task_title_body": true
+  },
+  "filesystem": {
+    "writable_directories": [
+      "tests/"
+    ],
+    "production_writable": false,
+    "tests_writable": true
+  },
+  "enforcement": {
+    "target_source": "agent-reasoning",
+    "post_run_diff_rule": "adapter-tests-only",
+    "out_of_scope_result": "BLOCKED"
+  },
+  "compose": {
+    "base_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/compose.yaml",
+    "override_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/speckit/update/policies/speckit-self-001/compose.self-directed.yaml",
+    "override_sha256": "bceccaa695868a758dcd2d692bc8818f43f2ca588939b1cba100f003d4d91d43"
+  },
+  "gold_blind": true,
+  "selection_source": "explicit-user-cli",
+  "policy_sha256": "7e6f87b33892fa08bbc772e740d2f4975b03d9a29872eae70c92d5183f8fb922"
+}

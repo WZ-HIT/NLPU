@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "barrier_type": "GLOBAL_DETECT_BARRIER",
+  "batch_id": "scrapy-3pr-both-pilot-v1",
+  "status": "SEALED",
+  "detect_count": 9,
+  "expected_detect_count": 9,
+  "records": [
+    {
+      "task_id": "scrapy__scrapy__pr8064",
+      "method": "cc-sdd",
+      "run_id": "cc-sdd-detect-001",
+      "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+      "detection_manifest": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/update/sealed-input/detection-manifest.json",
+        "sha256": "aa83afff941e0bfaba2b35e70e0d0db072adcf312fb9c495fa5988b2d8a890f4",
+        "seal_sha256": "57f6b9b755bfc6b862055804f5ffd6de1da36e3f68c9c14733d0001d64cf7edb"
+      }
+    },
+    {
+      "task_id": "scrapy__scrapy__pr8064",
+      "method": "openspec",
+      "run_id": "openspec-detect-001",
+      "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+      "detection_manifest": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/update/sealed-input/detection-manifest.json",
+        "sha256": "06367ff44dfcc08107d96ee8b781b3774d0e6870d425181e2f58517f01d55c0b",
+        "seal_sha256": "1818b4122f91b6c8b9585243a635a4bd66617cea1440363518cf216df860f949"
+      }
+    },
+    {
+      "task_id": "scrapy__scrapy__pr8064",
+      "method": "speckit",
+      "run_id": "speckit-detect-001",
+      "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+      "detection_manifest": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/speckit/update/sealed-input/detection-manifest.json",
+        "sha256": "4b52b1814d4706e7aeb7a474998058795ca35e57b7e3cc7738e0f8386ea61353",
+        "seal_sha256": "8955ccc0fe4addb7b1b0850755f7e78d988c46dc95e4bf7cb9285c1a860f10e5"
+      }
+    },
+    {
+      "task_id": "scrapy__scrapy__pr8067",
+      "method": "cc-sdd",
+      "run_id": "cc-sdd-detect-001",
+      "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+      "detection_manifest": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/cc-sdd/update/sealed-input/detection-manifest.json",
+        "sha256": "0e035840e7efbd5c01e801b995aeebd7fe12459096b45ce4732d1ea18b07a53c",
+        "seal_sha256": "a0153de44a66efbe1f99465301664d42d594897835214b0ffc6fed64b6947225"
+      }
+    },
+    {
+      "task_id": "scrapy__scrapy__pr8067",
+      "method": "openspec",
+      "run_id": "openspec-detect-001",
+      "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+      "detection_manifest": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/openspec/update/sealed-input/detection-manifest.json",
+        "sha256": "21ca81476dbfc30e483269aecd8656f02980baca76091e9cbfe6365fdf31ef48",
+        "seal_sha256": "76b983dab7bece484557ae4ddd1d0f30f4e3e520cc6aa27de324d8e11d46763a"
+      }
+    },
+    {
+      "task_id": "scrapy__scrapy__pr8067",
+      "method": "speckit",
+      "run_id": "speckit-detect-001",
+      "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+      "detection_manifest": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/speckit/update/sealed-input/detection-manifest.json",
+        "sha256": "80cf0a0183df7804132bce7cee161f58200249b7a52054ff97a9588cb9995a01",
+        "seal_sha256": "904cd9c526509cf3dd0a69a507d21287b967a567bba4e1cd2c8ae4f37fc0cdd5"
+      }
+    },
+    {
+      "task_id": "scrapy__scrapy__pr8073",
+      "method": "cc-sdd",
+      "run_id": "cc-sdd-detect-001",
+      "base_sha": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+      "detection_manifest": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/cc-sdd/update/sealed-input/detection-manifest.json",
+        "sha256": "179f057b0415479dcdfb86b52445a41d2f53b10360ea67ba6fe860f5e8733ab8",
+        "seal_sha256": "00621905667454e7d97895916908866030e68a789441d20eb888f39586863787"
+      }
+    },
+    {
+      "task_id": "scrapy__scrapy__pr8073",
+      "method": "openspec",
+      "run_id": "openspec-detect-001",
+      "base_sha": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+      "detection_manifest": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/openspec/update/sealed-input/detection-manifest.json",
+        "sha256": "8961d275c844f5a9f2fad81424f2c7e0810b29c27e93e5a5e2e7d5be50342324",
+        "seal_sha256": "175e429fa2baba4388adc95d8e936fa40cb43f98ff9919464f88ab4409644361"
+      }
+    },
+    {
+      "task_id": "scrapy__scrapy__pr8073",
+      "method": "speckit",
+      "run_id": "speckit-detect-001",
+      "base_sha": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+      "detection_manifest": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/speckit/update/sealed-input/detection-manifest.json",
+        "sha256": "d11bbcbc080021bd6ba811856aff39c9203e533e95f9d429efc7cf57e1f35bfc",
+        "seal_sha256": "46816c4870ee5ed801da4b662a1c5a1e7e9675705f7c8975a4afbf75105a93dc"
+      }
+    }
+  ],
+  "barrier_sha256": "994074fd6ad71690abc6eb2d23e08166debdddaefce1c4690e400585af63ef49"
+}

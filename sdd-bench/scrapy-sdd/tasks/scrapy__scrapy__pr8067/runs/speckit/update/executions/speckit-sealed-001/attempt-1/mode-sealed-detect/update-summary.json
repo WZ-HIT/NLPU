@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr8067",
+  "method": "speckit",
+  "update_run_id": "speckit-sealed-001",
+  "update_mode": "sealed-detect",
+  "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+  "status": "SEALED",
+  "tests_run": false,
+  "detection_visible_to_agent": true,
+  "sealed_planning_visible_to_agent": true,
+  "detection_manifest_sha256": "80cf0a0183df7804132bce7cee161f58200249b7a52054ff97a9588cb9995a01",
+  "update_policy_sha256": "9d60513f09bfd0f96576fdb9848af12179141098ff2c1f140e31dd4548baf057",
+  "candidate_patch_sha256": "aea048b2a9d7b8cdd54eb1adbfbc8981f1086cc3dd96376dc146eb854f5f1b00",
+  "candidate_modified_test_file_count": 2,
+  "violations": [],
+  "summary_sha256": "c56aa4829504ae87275e156568bfb13f4a55dfacc2bfa9be7d969095e3a625ce"
+}

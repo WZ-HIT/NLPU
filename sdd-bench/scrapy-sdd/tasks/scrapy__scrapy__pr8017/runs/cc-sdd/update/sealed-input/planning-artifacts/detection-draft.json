@@ -1,0 +1,166 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_cmdline/__init__.py",
+      "symbols": [
+        "test_default_settings",
+        "test_override_settings_using_set_arg",
+        "test_profiling",
+        "test_override_dict_settings",
+        "test_pathlib_path_as_feeds_key"
+      ],
+      "reason": "Module tests.test_cmdline is one of the remaining tests.* entries with check_untyped_defs = false in the pyproject.toml mypy overrides that PR 8017 types, so these command-line tests are the executable checks for that module once its bodies are type-checked."
+    },
+    {
+      "path": "tests/test_downloaderslotssettings.py",
+      "symbols": [
+        "DownloaderSlotsSettingsTestSpider",
+        "test_delay",
+        "test_params",
+        "test_get_slot_deprecated_spider_arg",
+        "test_none_slot_with_priority_queue"
+      ],
+      "reason": "tests.test_downloaderslotssettings is listed under the pyproject.toml mypy override with check_untyped_defs = false; typing this module changes its annotations, and these tests exercise downloader slot settings and delay computation."
+    },
+    {
+      "path": "tests/test_dupefilters.py",
+      "symbols": [
+        "TestRFPDupeFilter",
+        "TestBaseDupeFilter",
+        "FromCrawlerRFPDupeFilter",
+        "DirectDupeFilter"
+      ],
+      "reason": "tests.test_dupefilters is one of the last modules kept at check_untyped_defs = false; annotating it touches the RFP dupe filter test doubles and the request-fingerprint assertions these test classes cover."
+    },
+    {
+      "path": "tests/test_extension_statsmailer.py",
+      "symbols": [
+        "test_from_crawler_without_recipients_raises_notconfigured",
+        "test_from_crawler_with_recipients_initializes_extension",
+        "test_from_crawler_connects_spider_closed_signal",
+        "test_spider_closed_sends_email"
+      ],
+      "reason": "tests.test_extension_statsmailer is part of the pyproject.toml mypy override list that PR 8017 removes by typing the module, so these StatsMailer extension tests are the direct regression coverage."
+    },
+    {
+      "path": "tests/test_extension_throttle.py",
+      "symbols": [
+        "test_enabled",
+        "test_target_concurrency_invalid",
+        "test_mindelay_definition",
+        "test_maxdelay_definition",
+        "test_startdelay_definition",
+        "test_skipped",
+        "test_adjustment",
+        "test_adjustment_limits",
+        "test_adjustment_bad_response",
+        "test_debug",
+        "test_debug_disabled"
+      ],
+      "reason": "tests.test_extension_throttle is one of the last tests.* modules with check_untyped_defs = false; these parametrized auto-throttle tests, including their mock crawler helpers, are what must still pass after the module gains full type annotations."
+    },
+    {
+      "path": "tests/test_linkextractors.py",
+      "symbols": [
+        "TestLxmlLinkExtractor",
+        "TestLxmlParserLinkExtractor"
+      ],
+      "reason": "tests.test_linkextractors is listed in the pyproject.toml mypy override with check_untyped_defs = false, and this large untyped module is a primary target of the PR; the LinkExtractor test classes cover the behavior that must remain intact."
+    },
+    {
+      "path": "tests/test_logformatter.py",
+      "symbols": [
+        "TestLogFormatter",
+        "TestLogformatterSubclass",
+        "TestShowOrSkipMessages",
+        "LogFormatterSubclass",
+        "SkipMessagesLogFormatter",
+        "DropSomeItemsPipeline"
+      ],
+      "reason": "tests.test_logformatter is one of the remaining tests.* modules under check_untyped_defs = false, and typing it touches the custom item, formatter subclass, and pipeline test fixtures asserted by these test classes."
+    },
+    {
+      "path": "tests/test_mail.py",
+      "symbols": [
+        "TestMailSender"
+      ],
+      "reason": "tests.test_mail appears in the pyproject.toml mypy override list that PR 8017 clears by typing the module; TestMailSender contains the mail-sending behavior that backs the module's regression checks."
+    },
+    {
+      "path": "tests/test_pqueues.py",
+      "symbols": [
+        "TestPriorityQueue",
+        "TestDownloaderAwarePriorityQueue",
+        "test_slot_directory_removed_when_slot_drains",
+        "test_pop_order"
+      ],
+      "reason": "tests.test_pqueues is one of the last tests.* modules with check_untyped_defs = false; the priority queue tests, including the slot-directory and pop-order cases, are the coverage for this typing change."
+    },
+    {
+      "path": "tests/test_scheduler_base.py",
+      "symbols": [
+        "MinimalScheduler",
+        "SimpleScheduler",
+        "PathsSpider",
+        "InterfaceCheckMixin",
+        "TestBaseScheduler",
+        "TestMinimalScheduler",
+        "TestSimpleScheduler",
+        "TestMinimalSchedulerCrawl",
+        "TestSimpleSchedulerCrawl"
+      ],
+      "reason": "tests.test_scheduler_base is listed in the pyproject.toml mypy override with check_untyped_defs = false; annotating its scheduler test doubles and crawl tests is exactly the change under review."
+    },
+    {
+      "path": "tests/test_settings/__init__.py",
+      "symbols": [
+        "TestSettingsGlobalFuncs",
+        "TestSettingsAttribute",
+        "TestBaseSettings",
+        "TestSettings",
+        "test_add_to_list",
+        "test_remove_from_list",
+        "test_deprecated_dns_resolver_setting",
+        "test_deprecated_concurrent_requests_per_ip_setting",
+        "test_replace_in_component_priority_dict",
+        "test_set_in_component_priority_dict",
+        "test_setdefault_in_component_priority_dict"
+      ],
+      "reason": "tests.test_settings is one of the remaining tests.* modules kept at check_untyped_defs = false, and its settings behavior tests are the coverage that must keep passing once the package is fully annotated."
+    },
+    {
+      "path": "tests/test_squeues.py",
+      "symbols": [
+        "test_peek_unsupported",
+        "FifoDiskQueueTestMixin",
+        "MarshalFifoDiskQueueTest",
+        "PickleFifoDiskQueueTest",
+        "LifoDiskQueueTestMixin",
+        "MarshalLifoDiskQueueTest",
+        "PickleLifoDiskQueueTest"
+      ],
+      "reason": "tests.test_squeues is listed under the pyproject.toml mypy override with check_untyped_defs = false; the disk-queue test mixins and marshal/pickle queue tests are the executable checks for this module."
+    },
+    {
+      "path": "tests/test_squeues_request.py",
+      "symbols": [
+        "TestRequestQueueBase",
+        "TestPickleFifoDiskQueueRequest",
+        "TestPickleLifoDiskQueueRequest",
+        "TestMarshalFifoDiskQueueRequest",
+        "TestMarshalLifoDiskQueueRequest",
+        "TestFifoMemoryQueueRequest",
+        "TestLifoMemoryQueueRequest"
+      ],
+      "reason": "tests.test_squeues_request is one of the last tests.* modules with check_untyped_defs = false; these request-queue test classes inherit shared fixtures that gain annotations in the PR."
+    },
+    {
+      "path": "tests/test_stats.py",
+      "symbols": [
+        "TestCoreStatsExtension",
+        "TestStatsCollector"
+      ],
+      "reason": "tests.test_stats appears in the pyproject.toml mypy override list that PR 8017 removes by completing the module's annotations; the CoreStats and StatsCollector tests are the regression coverage for that module."
+    }
+  ]
+}

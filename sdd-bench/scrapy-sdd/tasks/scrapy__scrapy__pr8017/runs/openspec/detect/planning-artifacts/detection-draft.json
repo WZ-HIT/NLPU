@@ -1,0 +1,167 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_cmdline/__init__.py",
+      "symbols": [
+        "test_default_settings",
+        "test_override_settings_using_set_arg",
+        "test_profiling",
+        "test_override_dict_settings",
+        "test_pathlib_path_as_feeds_key"
+      ],
+      "reason": "This module is one of the remaining tests.* entries in the check_untyped_defs = false override; the typing change must check its command-line test bodies."
+    },
+    {
+      "path": "tests/test_downloaderslotssettings.py",
+      "symbols": [
+        "DownloaderSlotsSettingsTestSpider",
+        "test_delay",
+        "test_params",
+        "test_get_slot_deprecated_spider_arg",
+        "test_none_slot_with_priority_queue"
+      ],
+      "reason": "This module is explicitly exempted from check_untyped_defs and its async downloader-slot tests are in scope for annotations and type checking."
+    },
+    {
+      "path": "tests/test_dupefilters.py",
+      "symbols": [
+        "FromCrawlerRFPDupeFilter",
+        "DirectDupeFilter",
+        "TestRFPDupeFilter",
+        "TestBaseDupeFilter"
+      ],
+      "reason": "This module is one of the remaining check_untyped_defs exemptions, including dupe-filter setup helpers and test bodies that need coverage."
+    },
+    {
+      "path": "tests/test_extension_statsmailer.py",
+      "symbols": [
+        "test_from_crawler_without_recipients_raises_notconfigured",
+        "test_from_crawler_with_recipients_initializes_extension",
+        "test_from_crawler_connects_spider_closed_signal",
+        "test_spider_closed_sends_email"
+      ],
+      "reason": "This module is in the remaining check_untyped_defs override and exercises the stats-mailer extension through untyped fixtures and monkeypatches."
+    },
+    {
+      "path": "tests/test_extension_throttle.py",
+      "symbols": [
+        "test_enabled",
+        "test_target_concurrency_invalid",
+        "test_mindelay_definition",
+        "test_maxdelay_definition",
+        "test_startdelay_definition",
+        "test_skipped",
+        "test_adjustment",
+        "test_adjustment_limits",
+        "test_adjustment_bad_response",
+        "test_debug",
+        "test_debug_disabled"
+      ],
+      "reason": "This module is explicitly exempted from check_untyped_defs; its parametrized throttle tests and mock helpers must type-check after the override is removed."
+    },
+    {
+      "path": "tests/test_linkextractors.py",
+      "symbols": [
+        "TestLxmlLinkExtractor",
+        "TestLxmlParserLinkExtractor"
+      ],
+      "reason": "This module remains in the check_untyped_defs override and contains the main link-extractor assertions affected by the typing cleanup."
+    },
+    {
+      "path": "tests/test_logformatter.py",
+      "symbols": [
+        "TestLogFormatter",
+        "TestLogformatterSubclass",
+        "TestShowOrSkipMessages"
+      ],
+      "reason": "This module is one of the remaining exemptions; its log-formatter callbacks and async message tests need body checking."
+    },
+    {
+      "path": "tests/test_mail.py",
+      "symbols": [
+        "TestMailSender"
+      ],
+      "reason": "This module is listed under the check_untyped_defs = false override and covers the mail sender behavior with untyped test helpers."
+    },
+    {
+      "path": "tests/test_pqueues.py",
+      "symbols": [
+        "TestPriorityQueue",
+        "TestDownloaderAwarePriorityQueue",
+        "test_slot_directory_removed_when_slot_drains",
+        "test_pop_order"
+      ],
+      "reason": "This module is explicitly exempted from check_untyped_defs and contains priority-queue and downloader-aware queue tests in scope."
+    },
+    {
+      "path": "tests/test_scheduler_base.py",
+      "symbols": [
+        "MinimalScheduler",
+        "SimpleScheduler",
+        "PathsSpider",
+        "TestBaseScheduler",
+        "TestMinimalScheduler",
+        "TestSimpleScheduler",
+        "TestMinimalSchedulerCrawl",
+        "TestSimpleSchedulerCrawl"
+      ],
+      "reason": "This module is in the remaining override; its scheduler implementations, interface checks, and crawl tests are the behavior exercised by the typing change."
+    },
+    {
+      "path": "tests/test_settings/__init__.py",
+      "symbols": [
+        "TestSettingsGlobalFuncs",
+        "TestSettingsAttribute",
+        "TestBaseSettings",
+        "TestSettings",
+        "test_add_to_list",
+        "test_remove_from_list",
+        "test_deprecated_dns_resolver_setting",
+        "test_deprecated_concurrent_requests_per_ip_setting",
+        "test_replace_in_component_priority_dict",
+        "test_set_in_component_priority_dict",
+        "test_setdefault_in_component_priority_dict"
+      ],
+      "reason": "This package module is a remaining check_untyped_defs exemption and contains the large settings/component-priority test surface requiring checked bodies."
+    },
+    {
+      "path": "tests/test_squeues.py",
+      "symbols": [
+        "MyItem",
+        "NoPeekQueue",
+        "test_peek_unsupported",
+        "FifoDiskQueueTestMixin",
+        "MarshalFifoDiskQueueTest",
+        "PickleFifoDiskQueueTest",
+        "LifoDiskQueueTestMixin",
+        "MarshalLifoDiskQueueTest",
+        "PickleLifoDiskQueueTest"
+      ],
+      "reason": "This module is one of the remaining exemptions; its queue serialization implementations and inherited test classes need type-checked definitions."
+    },
+    {
+      "path": "tests/test_squeues_request.py",
+      "symbols": [
+        "crawler",
+        "TestRequestQueueBase",
+        "TestPickleFifoDiskQueueRequest",
+        "TestPickleLifoDiskQueueRequest",
+        "TestMarshalFifoDiskQueueRequest",
+        "TestMarshalLifoDiskQueueRequest",
+        "TestFifoMemoryQueueRequest",
+        "TestLifoMemoryQueueRequest"
+      ],
+      "reason": "This module is explicitly listed in the check_untyped_defs override and covers request-queue behavior through a shared typed test base."
+    },
+    {
+      "path": "tests/test_stats.py",
+      "symbols": [
+        "crawler",
+        "spider",
+        "TestCoreStatsExtension",
+        "TestStatsCollector"
+      ],
+      "reason": "This module remains under the check_untyped_defs override and exercises core stats collection and deprecated spider-argument behavior."
+    }
+  ]
+}

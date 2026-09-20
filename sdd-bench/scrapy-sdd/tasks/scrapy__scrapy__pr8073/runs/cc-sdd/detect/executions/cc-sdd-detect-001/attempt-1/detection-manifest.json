@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr8073",
+  "method": "cc-sdd",
+  "base_sha": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "cc-sdd-detect-001",
+    "session_sha256": "945ec35cb0917667cef37293faed999aba13d2c2152b067b4948ae0ede675ed6"
+  },
+  "task_input_sha256": "1166467f4855bbdfbf837bd9900a951e4a942361327844d5fe1f2e348e327b2b",
+  "candidates": [
+    {
+      "path": "tests/utils/bases/download_handlers_http.py",
+      "symbols": [
+        "TestHttpBase.test_timeout_download_from_spider_nodata_rcvd",
+        "TestHttpBase.test_timeout_download_from_spider_server_hangs"
+      ],
+      "reason": "Defines the two HTTP download-handler timeout tests that are currently disabled by an inline guard `if reactor_pytest == \"asyncio\" and sys.platform == \"win32\": pytest.skip(\"This test produces DirtyReactorAggregateError on Windows with asyncio\")` (blocks at lines 363-370 and 381-388; each block carries a `# https://twistedmatrix.com/trac/ticket/10279` comment between the guard and the `pytest.skip(...)` call). These are the only `DirtyReactorAggregateError` comment sites in the download-handler suite besides the FTP test, so re-enabling the tests behind those comments means removing these guards here. Note: TestHttpBase is an ABC, so these two tests are actually collected and run through the concrete subclasses in tests/test_downloader_handler_httpx.py, tests/test_downloader_handler_twisted_http11.py and tests/test_downloader_handler_twisted_http2.py; those modules are unchanged by the skip removal but are the execution entry points for the re-enabled tests."
+    },
+    {
+      "path": "tests/test_downloader_handler_twisted_ftp.py",
+      "symbols": [
+        "TestFTP.test_invalid_credentials"
+      ],
+      "reason": "Contains the third and last `DirtyReactorAggregateError` comment in the repository: `TestFTP.test_invalid_credentials` starts with `if reactor_pytest == \"asyncio\" and sys.platform == \"win32\": pytest.skip(\"This test produces DirtyReactorAggregateError on Windows with asyncio\")` (lines 176-180). It is a concrete FTP download-handler test (not an inherited base-class test), and `sys` is imported in this module only for this guard, so removing the guard touches this file alone."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 6,
+    "manifest_sha256": "8bac88f8da9b552e7ba245903b14844f92d74dd3fa175b6d540f7d9dd1df972c"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "00621905667454e7d97895916908866030e68a789441d20eb888f39586863787"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr8067",
+  "method": "cc-sdd",
+  "stage": "detect",
+  "run_id": "cc-sdd-detect-001",
+  "update_mode": null,
+  "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+  "created_at_utc": "2026-09-17T02:11:50Z",
+  "status": "SEALED",
+  "dry_run": false,
+  "tests_run": false,
+  "model_request_sent": true,
+  "provenance": {
+    "task_manifest_sha256": "a3a6d2369cba04599c6b2320a006706ffa5768d78afffa12b817083a3892af4c",
+    "policy_file_sha256": null,
+    "detection_manifest_sha256": "0e035840e7efbd5c01e801b995aeebd7fe12459096b45ce4732d1ea18b07a53c",
+    "compose_rendered_sha256": "80ebf2217427097f7886a8e0870fecbc52c0dcf22ddcaf55214a5f087cc644fb"
+  },
+  "checks": [
+    {
+      "id": "task-schema",
+      "status": "PASS"
+    },
+    {
+      "id": "recorded-base",
+      "status": "PASS"
+    },
+    {
+      "id": "detect-preflight",
+      "status": "PASS"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/cc-sdd/update/sealed-input/detection-manifest.json",
+      "sha256": "0e035840e7efbd5c01e801b995aeebd7fe12459096b45ce4732d1ea18b07a53c"
+    }
+  ],
+  "blockers": []
+}

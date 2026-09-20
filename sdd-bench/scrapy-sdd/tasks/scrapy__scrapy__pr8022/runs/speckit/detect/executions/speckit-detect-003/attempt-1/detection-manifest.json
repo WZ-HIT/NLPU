@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr8022",
+  "method": "speckit",
+  "base_sha": "916039ca4ca79ea4ed38e74d71e25c2584c1925e",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "speckit-detect-003",
+    "session_sha256": "3b60e8e8c784f1c0f019a51aeeaa35155bb39d5ac5c1a234841928785da32c04"
+  },
+  "task_input_sha256": "14dbabe9fd3eea58756ccb4127d0733106dc91c39caeecf4548695f92578ada1",
+  "candidates": [
+    {
+      "path": "tests/test_crawler.py",
+      "symbols": [
+        "TestAsyncCrawlerProcessReactorlessHelpers",
+        "test_signal_shutdown_reactorless_without_loop",
+        "test_signal_kill_reactorless_without_loop",
+        "test_signal_kill_reactorless_without_main_task",
+        "test_create_shutdown_task_closed_loop"
+      ],
+      "reason": "These unit tests directly exercise AsyncCrawlerProcess reactorless shutdown helpers affected by moving logging from signal-handler bodies to loop scheduling; the no-main-task test asserts on the same call_soon_threadsafe path that will now also dispatch the forced-shutdown log."
+    },
+    {
+      "path": "tests/test_crawler_subprocess.py",
+      "symbols": [
+        "TestCrawlerProcessSubprocessBase._test_shutdown_graceful",
+        "TestCrawlerProcessSubprocessBase.test_shutdown_graceful",
+        "TestCrawlerProcessSubprocessBase._test_shutdown_forced",
+        "TestCrawlerProcessSubprocessBase.test_shutdown_forced",
+        "TestCrawlerProcessSubprocessBase.test_shutdown_graceful_no_stop",
+        "TestAsyncCrawlerProcessSubprocess.test_reactorless_shutdown_graceful",
+        "TestAsyncCrawlerProcessSubprocess.test_reactorless_shutdown_forced",
+        "TestAsyncCrawlerProcessSubprocess.test_reactorless_shutdown_graceful_no_stop"
+      ],
+      "reason": "These subprocess tests exercise both first-signal and second-signal shutdown behavior and assert the exact user-visible messages produced by _log_shutdown and _log_kill, so they are the closest end-to-end coverage for the changed dispatch timing."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 8,
+    "manifest_sha256": "6bdac28f17e45182aa6128f3226404f2a077b4cf0de25f5f36a13c5f3bffe2df"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "0e0e2a0279673ace352270fa6dc46c38c98c5e87010007c98d34dc71abc033f8"
+  }
+}

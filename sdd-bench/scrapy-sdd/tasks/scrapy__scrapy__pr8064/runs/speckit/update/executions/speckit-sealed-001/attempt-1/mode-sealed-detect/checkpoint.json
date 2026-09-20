@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr8064",
+  "method": "speckit",
+  "stage": "update",
+  "run_id": "speckit-sealed-001",
+  "update_mode": "sealed-detect",
+  "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+  "created_at_utc": "2026-09-17T04:06:21Z",
+  "status": "SEALED",
+  "dry_run": false,
+  "tests_run": false,
+  "model_request_sent": true,
+  "provenance": {
+    "task_manifest_sha256": "314694774fa1588fa62c086cd2d3a6f9926c24ba2717f9e9514c992e06a1793e",
+    "policy_file_sha256": "9c475fa7e47907c1c29f5b6bd2e18b6cc9877b703a19086bbaebcaa4a4d3394c",
+    "detection_manifest_sha256": "4b52b1814d4706e7aeb7a474998058795ca35e57b7e3cc7738e0f8386ea61353",
+    "compose_rendered_sha256": "a61c5a8e521dba8e6ee9d81a08105192a6286acffb35fed28ea162660066c145"
+  },
+  "checks": [
+    {
+      "id": "policy-schema",
+      "status": "PASS"
+    },
+    {
+      "id": "policy-file-hash",
+      "status": "PASS"
+    },
+    {
+      "id": "policy-context",
+      "status": "PASS"
+    },
+    {
+      "id": "detect-prerequisite",
+      "status": "PASS"
+    },
+    {
+      "id": "update-preflight",
+      "status": "PASS"
+    },
+    {
+      "id": "mode-explicit",
+      "status": "PASS"
+    },
+    {
+      "id": "tests-only-policy",
+      "status": "PASS"
+    },
+    {
+      "id": "post-run-scope",
+      "status": "PASS"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/speckit/update/executions/speckit-sealed-001/attempt-1/mode-sealed-detect/artifacts/candidate.patch",
+      "sha256": "369b577f4e3024dca8d5831e07ee79485744ad54b10684ca56971dc79317b77c"
+    },
+    {
+      "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/speckit/update/executions/speckit-sealed-001/attempt-1/mode-sealed-detect/artifacts/scope-audit.json",
+      "sha256": "bc76c05c1f141b371ec5de5026176c6dba338d15d0c5535a34cb1a5cd9a8d5b1"
+    },
+    {
+      "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/speckit/update/executions/speckit-sealed-001/attempt-1/mode-sealed-detect/candidate-modified-files.json",
+      "sha256": "80223a7ec2c1ca19a414018eee2acbcde254de625facaee9a8595969478471d6"
+    }
+  ],
+  "blockers": []
+}

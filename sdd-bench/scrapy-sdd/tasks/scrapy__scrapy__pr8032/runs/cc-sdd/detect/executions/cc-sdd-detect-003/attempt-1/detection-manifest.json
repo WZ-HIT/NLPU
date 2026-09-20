@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr8032",
+  "method": "cc-sdd",
+  "base_sha": "e01783a493b7224ee616a97a310da8d19da11966",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "cc-sdd-detect-003",
+    "session_sha256": "2af1f1a4e849d7da8cb1c51c4684e8ee5da982e2812df30b11e7366953a02199"
+  },
+  "task_input_sha256": "80c8ead096562eed1c75b722bec56a5b02a56e4f2d04541dd042b92c632af101",
+  "candidates": [
+    {
+      "path": "tests/test_pipeline_files.py",
+      "symbols": [
+        "TestFilesPipeline.test_file_path_from_response"
+      ],
+      "reason": "This test is named directly by PR 8032. It exercises FilesPipeline.file_path() with a response-derived Content-Type extension while FILES_EXPIRES=0 forces the up-to-date check to require an expired/missing entry, and it mocks FSFilesStore.stat_file with last_modified=time.time(); the equality possible on Windows coarse clock resolution can make the entry look up-to-date and flake."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 1,
+    "manifest_sha256": "10eb20e07ce8fed96fac5b53ea59c10b1d7b354c3d2d6759d173f80303759f7d"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "6ea369f63081ab84f75f2684ad5b778698cae11a2e56d696d624cb6402fafc8c"
+  }
+}

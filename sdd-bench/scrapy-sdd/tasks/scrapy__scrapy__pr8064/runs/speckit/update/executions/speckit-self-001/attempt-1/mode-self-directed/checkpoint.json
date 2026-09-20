@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr8064",
+  "method": "speckit",
+  "stage": "update",
+  "run_id": "speckit-self-001",
+  "update_mode": "self-directed",
+  "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+  "created_at_utc": "2026-09-17T04:11:07Z",
+  "status": "SEALED",
+  "dry_run": false,
+  "tests_run": false,
+  "model_request_sent": true,
+  "provenance": {
+    "task_manifest_sha256": "314694774fa1588fa62c086cd2d3a6f9926c24ba2717f9e9514c992e06a1793e",
+    "policy_file_sha256": "7f6fb4ed13e1a7a227d290dcc00235b6e65a9e9a09740554db93913903b27df0",
+    "detection_manifest_sha256": "4b52b1814d4706e7aeb7a474998058795ca35e57b7e3cc7738e0f8386ea61353",
+    "compose_rendered_sha256": "a45de17b5596fb77b6e1a4329359b6b84e54638f6d4856243058b3068a56486a"
+  },
+  "checks": [
+    {
+      "id": "policy-schema",
+      "status": "PASS"
+    },
+    {
+      "id": "policy-file-hash",
+      "status": "PASS"
+    },
+    {
+      "id": "policy-context",
+      "status": "PASS"
+    },
+    {
+      "id": "detect-prerequisite",
+      "status": "PASS"
+    },
+    {
+      "id": "update-preflight",
+      "status": "PASS"
+    },
+    {
+      "id": "mode-explicit",
+      "status": "PASS"
+    },
+    {
+      "id": "tests-only-policy",
+      "status": "PASS"
+    },
+    {
+      "id": "post-run-scope",
+      "status": "PASS"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/speckit/update/executions/speckit-self-001/attempt-1/mode-self-directed/artifacts/candidate.patch",
+      "sha256": "f0a1086246727b23a19d7b1b44cbb6bdfcf03eee58e6c98db18ef1c1e612f34b"
+    },
+    {
+      "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/speckit/update/executions/speckit-self-001/attempt-1/mode-self-directed/artifacts/scope-audit.json",
+      "sha256": "9c5df4f98503e9b6d3db8ee85833faff7ad2e3499a18e00f908ca3da7d84e63a"
+    },
+    {
+      "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/speckit/update/executions/speckit-self-001/attempt-1/mode-self-directed/candidate-modified-files.json",
+      "sha256": "559da03d90d1ccea2a61f3e3cbc0a682353ded090e3c5e4c22530fce12ba7078"
+    }
+  ],
+  "blockers": []
+}

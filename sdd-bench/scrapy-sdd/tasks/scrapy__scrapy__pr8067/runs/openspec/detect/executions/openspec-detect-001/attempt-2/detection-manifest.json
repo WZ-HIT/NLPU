@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr8067",
+  "method": "openspec",
+  "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "openspec-detect-001",
+    "session_sha256": "e49825443d4c30b762ccc98f189ac58346fad6e525690b16dd65d1c438f6236e"
+  },
+  "task_input_sha256": "96249458de9093098dc7deadf5e5790072a7a703b7ef513ae6780621a1bfa89d",
+  "candidates": [
+    {
+      "path": "tests/test_utils_response.py",
+      "symbols": [
+        "_read_browser_output",
+        "test_open_in_browser",
+        "test_open_in_browser_text_response_uses_txt_extension",
+        "test_open_in_browser_raises_for_unsupported_response_type"
+      ],
+      "reason": "Direct unit coverage for open_in_browser, including the existing text extension and unsupported-response behavior that the Content-Type-aware extension logic must preserve or extend."
+    },
+    {
+      "path": "tests/test_commands.py",
+      "symbols": [
+        "TestViewCommand.test_view",
+        "TestViewCommand.test_non_text_response"
+      ],
+      "reason": "The view command is the integration path that currently rejects non-text responses; its tests cover both the successful browser invocation and the non-text behavior being changed."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 7,
+    "manifest_sha256": "bdc78b3ff5504552d713b0b8a009282d0d9b4ebf8814abcb3c6ba747282ccd5f"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "76b983dab7bece484557ae4ddd1d0f30f4e3e520cc6aa27de324d8e11d46763a"
+  }
+}

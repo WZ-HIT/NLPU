@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr8064",
+  "method": "openspec",
+  "stage": "update",
+  "run_id": "openspec-self-001",
+  "update_mode": "self-directed",
+  "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+  "created_at_utc": "2026-09-17T03:59:32Z",
+  "status": "SEALED",
+  "dry_run": false,
+  "tests_run": false,
+  "model_request_sent": true,
+  "provenance": {
+    "task_manifest_sha256": "314694774fa1588fa62c086cd2d3a6f9926c24ba2717f9e9514c992e06a1793e",
+    "policy_file_sha256": "3be059416d1393fc87d135871a4baadde9003193d54d8eacb9ec2f9ca3c0cd5f",
+    "detection_manifest_sha256": "06367ff44dfcc08107d96ee8b781b3774d0e6870d425181e2f58517f01d55c0b",
+    "compose_rendered_sha256": "0f52680e8b98031996eb774893226d4d981a20f1346425d98fd776eac779d219"
+  },
+  "checks": [
+    {
+      "id": "policy-schema",
+      "status": "PASS"
+    },
+    {
+      "id": "policy-file-hash",
+      "status": "PASS"
+    },
+    {
+      "id": "policy-context",
+      "status": "PASS"
+    },
+    {
+      "id": "detect-prerequisite",
+      "status": "PASS"
+    },
+    {
+      "id": "update-preflight",
+      "status": "PASS"
+    },
+    {
+      "id": "mode-explicit",
+      "status": "PASS"
+    },
+    {
+      "id": "tests-only-policy",
+      "status": "PASS"
+    },
+    {
+      "id": "post-run-scope",
+      "status": "PASS"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/update/executions/openspec-self-001/attempt-2/mode-self-directed/artifacts/candidate.patch",
+      "sha256": "a43154041e9695dab7c3127f3d5aeea3d101affe34c086124ba077b6d48defbd"
+    },
+    {
+      "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/update/executions/openspec-self-001/attempt-2/mode-self-directed/artifacts/scope-audit.json",
+      "sha256": "9c5df4f98503e9b6d3db8ee85833faff7ad2e3499a18e00f908ca3da7d84e63a"
+    },
+    {
+      "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/update/executions/openspec-self-001/attempt-2/mode-self-directed/candidate-modified-files.json",
+      "sha256": "94238e1334c453c2a047d44177b85b269678d5d2ff4762b4e9f89a425bfa4c89"
+    }
+  ],
+  "blockers": []
+}

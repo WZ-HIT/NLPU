@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr8022",
+  "repository": {
+    "owner": "scrapy",
+    "name": "scrapy"
+  },
+  "pr_id": 8022,
+  "baseline": {
+    "base_sha": "916039ca4ca79ea4ed38e74d71e25c2584c1925e"
+  },
+  "title": "Do not log from the shutdown signal handlers",
+  "body": "",
+  "adapter": {
+    "id": "scrapy",
+    "version": 1,
+    "path": "sdd-bench/scrapy-sdd/adapters/scrapy.json",
+    "sha256": "059dcc09eaa62f892f54118e65d4deccce3ab29cc5d9a4a36f4d999ff1aa27de"
+  }
+}

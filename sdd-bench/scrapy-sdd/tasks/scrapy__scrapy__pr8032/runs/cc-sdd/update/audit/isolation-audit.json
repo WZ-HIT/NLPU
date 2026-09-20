@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "status": "PASS",
+  "stage": "update",
+  "method": "cc-sdd",
+  "forbidden_signature_count": 9,
+  "finding_count": 0,
+  "findings": [],
+  "image_audit_sha256": "b036836667fde2a205e6c5bb3fd97520d47f9f9ffb53e956dd3e5f72716a6408",
+  "container_probe": {
+    "detection_sha256": "a9a29e05d36793953ced45967c233051072568a9299422a87d0f1214fd492061",
+    "detection_visible": true,
+    "method": "cc-sdd",
+    "network_interfaces": [
+      "lo"
+    ],
+    "other_input_entries": [
+      "detection-manifest.json"
+    ],
+    "stage": "update",
+    "task_input_files": [
+      "task.json",
+      "task.md"
+    ]
+  },
+  "cross_method_paths_visible": false,
+  "detect_workspace_visible_to_update": false,
+  "home_cache_session_reused": false,
+  "host_evaluator_visible": false
+}

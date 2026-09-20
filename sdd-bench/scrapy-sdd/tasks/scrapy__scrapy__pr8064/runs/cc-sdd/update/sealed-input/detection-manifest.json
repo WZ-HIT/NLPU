@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr8064",
+  "method": "cc-sdd",
+  "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "cc-sdd-detect-002",
+    "session_sha256": "a5ffd1a0526b5a6b0deb0e0efaeb4f2550d31684b559e4cbdfd3fa661f679645"
+  },
+  "task_input_sha256": "e750ca3103e918e71b879b921ba4967ce43b8b4e2cee161956c17f57c9a0655b",
+  "candidates": [
+    {
+      "path": "tests/test_utils_response.py",
+      "symbols": [
+        "_assert_open_in_browser_is_fast",
+        "test_open_in_browser_redos_comment",
+        "test_open_in_browser_redos_head"
+      ],
+      "reason": "This is the only test module that directly imports and exercises scrapy.utils.response.open_in_browser. It contains the shared CPU-time helper used by the ReDoS tests and the two exploit-input tests that the PR title targets, so it is the primary candidate for validating the flakiness and input fixes."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 1,
+    "manifest_sha256": "7768db5eab6e4eb1484cb1add64aeed206ca1d4a80b2e1e4ccdd137a6a92a810"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "ff3f427194c95e02f58a905537a3238eec1a9eccbdcfb20fb109edbd911edfc8"
+  }
+}

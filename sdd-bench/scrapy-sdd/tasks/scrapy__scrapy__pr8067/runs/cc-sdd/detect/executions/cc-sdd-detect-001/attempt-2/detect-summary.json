@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr8067",
+  "method": "cc-sdd",
+  "detect_run_id": "cc-sdd-detect-001",
+  "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+  "status": "SEALED",
+  "project_code_changed": false,
+  "tests_run": false,
+  "candidate_test_file_count": 2,
+  "detection_manifest_sha256": "0e035840e7efbd5c01e801b995aeebd7fe12459096b45ce4732d1ea18b07a53c",
+  "planning_artifacts_sha256": "f2ffee98420350714569a88b853e0036c2258bb3d54620df3cac987c902a57cd",
+  "task_manifest_sha256": "a3a6d2369cba04599c6b2320a006706ffa5768d78afffa12b817083a3892af4c",
+  "summary_sha256": "62a2ac408308a0e2f2a11a7179352eba9f9b2c0dba2c698a8a8edc35f8e9fae6"
+}

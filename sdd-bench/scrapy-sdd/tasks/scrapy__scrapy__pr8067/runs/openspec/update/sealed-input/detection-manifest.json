@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr8067",
+  "method": "openspec",
+  "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "openspec-detect-002",
+    "session_sha256": "58947f933177990f6fa929bace79b6d6463ec0b54c3ae1773c99b51ab1d3e8f4"
+  },
+  "task_input_sha256": "96249458de9093098dc7deadf5e5790072a7a703b7ef513ae6780621a1bfa89d",
+  "candidates": [
+    {
+      "path": "tests/test_utils_response.py",
+      "symbols": [
+        "open_in_browser",
+        "_read_browser_output",
+        "test_open_in_browser",
+        "test_open_in_browser_text_response_uses_txt_extension",
+        "test_open_in_browser_raises_for_unsupported_response_type",
+        "test_open_in_browser_preserves_html_comments",
+        "test_open_in_browser_keeps_base_url_of_response"
+      ],
+      "reason": "Unit tests for scrapy.utils.response, the module that owns open_in_browser(). The file imports open_in_browser and already asserts the behavior this change alters: test_open_in_browser and test_open_in_browser_raises_for_unsupported_response_type expect TypeError for a plain Response (binary body), while test_open_in_browser_text_response_uses_txt_extension pins the .txt suffix for text responses. New tests for Content-Type-driven suffixes (image/png, application/pdf, missing Content-Type) belong here as well."
+    },
+    {
+      "path": "tests/test_commands.py",
+      "symbols": [
+        "TestViewCommand",
+        "TestViewCommand.test_view",
+        "TestViewCommand.test_non_text_response"
+      ],
+      "reason": "TestViewCommand drives `scrapy view`, which delegates to open_in_browser() and currently rejects non-text responses via the TextResponse guard in scrapy/commands/view.py; test_non_text_response asserts the error message \"Cannot view a non-text response.\" for the mock server PNG (served as image/png). If the command now opens non-text responses, this test must change to assert the browser receives a file:// URL, so it is a candidate for the change's verification."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 6,
+    "manifest_sha256": "c4729af7124f021c1ad2df47264b96377dea3201ba3f7964338b551b0261ce5c"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "40b4134df2a5514bc9b356bd648b7667b6601fafff3d44fccc4a5112493c1731"
+  }
+}

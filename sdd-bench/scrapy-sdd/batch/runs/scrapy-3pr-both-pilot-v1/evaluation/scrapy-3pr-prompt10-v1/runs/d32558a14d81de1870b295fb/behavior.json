@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "artifact_type": "HOST_BEHAVIOR_RESULT",
+  "evaluation_id": "scrapy-3pr-prompt10-v1",
+  "target_id": "d32558a14d81de1870b295fb",
+  "classification": "MIXED_CODE_AND_TEST_PR",
+  "patch_application_ok": true,
+  "workspace_purity": {
+    "fresh_from_pinned_base": true,
+    "candidate_patch_only": true,
+    "gold_tests_injected": false,
+    "network": "none",
+    "cleaned": true
+  },
+  "resource_profile_sha256": "680bfbb7d23c20bca0fe4c940aef0bbba7b57be4ebe5f7bcac317e2ff6f207d6",
+  "runs": [
+    {
+      "outcome": "FAIL",
+      "exit_code": 1,
+      "duration_ms": 2952,
+      "counts": {
+        "passed": 23,
+        "failed": 2,
+        "errors": 0,
+        "skipped": 0
+      },
+      "command_sha256": "d762ace3ee84c870e2f1aa487faf155bff1bc783556a3795a849aceda70c8b58",
+      "log_sha256": "e67f098027291b8b90fe9ba9ff801d80ae68e2e29d222471a49705c998f5e07f",
+      "environment": "PURE_BASE"
+    },
+    {
+      "outcome": "PASS",
+      "exit_code": 0,
+      "duration_ms": 3810,
+      "counts": {
+        "passed": 25,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "command_sha256": "d762ace3ee84c870e2f1aa487faf155bff1bc783556a3795a849aceda70c8b58",
+      "log_sha256": "9d50d7aeddf611a4e7960dfe5b0364ba592ce7a3c5b1c91cd277db06afaab9d0",
+      "environment": "HIDDEN_PRODUCTION_PATCH"
+    }
+  ],
+  "transition": "DISCRIMINATING",
+  "behavior_sha256": "a6281afa3c59a415b39da3a7005ae5f3ccacf9d146fa3340bf057308c507e7e0"
+}

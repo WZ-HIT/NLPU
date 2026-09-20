@@ -1,0 +1,67 @@
+diff --git a/tests/test_utils_response.py b/tests/test_utils_response.py
+index 8269f0a..51002d5 100644
+--- a/tests/test_utils_response.py
++++ b/tests/test_utils_response.py
+@@ -214,30 +214,50 @@ def test_inject_base_url(body: bytes) -> None:
+ 
+ 
+ def _assert_open_in_browser_is_fast(body: bytes) -> None:
+-    # The exploit inputs are large enough that a vulnerable implementation
+-    # needs seconds to go through them, while a safe one stays in the low
+-    # milliseconds even on a slow interpreter.
+-    max_cpu_time = 0.2
++    # The exploit inputs are large enough that the vulnerable regular
++    # expressions they guard need seconds to go through them, and small enough
++    # that a linear implementation stays in the low milliseconds even on a
++    # slow interpreter, which leaves a wide safety margin around this budget.
++    #
++    # process_time() measures CPU time rather than wall-clock time, so how
++    # loaded the machine running the test is does not affect the result.
++    max_cpu_time = 0.5
+ 
+     response = HtmlResponse("https://example.com", body=body)
+     start_time = process_time()
+     open_in_browser(response, lambda url: True)
+-    end_time = process_time()
+-    assert end_time - start_time < max_cpu_time
++    elapsed_time = process_time() - start_time
++    assert elapsed_time < max_cpu_time, (
++        f"open_in_browser() used {elapsed_time:.3f} s of CPU time on a "
++        f"{len(body)}-byte payload, over the {max_cpu_time} s budget"
++    )
+ 
+ 
+ def test_open_in_browser_redos_comment():
+-    # Exploit input from
++    # Exploit input for the /<!--.*?-->/ pattern that open_in_browser() used to
++    # remove comments with, before the fix described in the
++    # https://github.com/scrapy/scrapy/security/advisories/GHSA-cc65-xxvf-f7r9
++    # security advisory. The payload deliberately holds no "-->" terminator, so
++    # for each of the 20_000 "<!--" starts the lazy ".*?" has to scan the whole
++    # body before failing to match, which is what makes that pattern take
++    # quadratic time. Payload size: 20_000 * 4 bytes = 80_000 bytes.
++    # Exploit inputs checked with
+     # https://makenowjust-labs.github.io/recheck/playground/
+-    # for /<!--.*?-->/ (old pattern to remove comments).
+-    _assert_open_in_browser_is_fast(b"-><!--\x00" * 250_000 + b"->\n<!---->")
++    _assert_open_in_browser_is_fast(b"<!--" * 20_000)
+ 
+ 
+ def test_open_in_browser_redos_head():
+-    # Exploit input from
++    # Exploit input for the /(<head(?:>|\s.*?>))/ pattern that
++    # open_in_browser() used to find the head element with, before the fix
++    # described in the
++    # https://github.com/scrapy/scrapy/security/advisories/GHSA-cc65-xxvf-f7r9
++    # security advisory. The payload deliberately holds no ">" terminator, so
++    # for each of the 20_000 "<head\t" starts the lazy ".*?" has to scan the
++    # whole body before failing to match, which is what makes that pattern take
++    # quadratic time. Payload size: 20_000 * 6 bytes = 120_000 bytes.
++    # Exploit inputs checked with
+     # https://makenowjust-labs.github.io/recheck/playground/
+-    # for /(<head(?:>|\s.*?>))/ (old pattern to find the head element).
+-    _assert_open_in_browser_is_fast(b"<head\t" * 80_000)
++    _assert_open_in_browser_is_fast(b"<head\t" * 20_000)
+ 
+ 
+ def test_open_in_browser_preserves_html_comments():

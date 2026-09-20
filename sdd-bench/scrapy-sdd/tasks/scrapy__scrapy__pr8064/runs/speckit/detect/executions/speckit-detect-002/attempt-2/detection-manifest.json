@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr8064",
+  "method": "speckit",
+  "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "speckit-detect-002",
+    "session_sha256": "bba124c27c821953fe57687833e22e7842e15fb8974bbd1dadf64b5f5be37e13"
+  },
+  "task_input_sha256": "e750ca3103e918e71b879b921ba4967ce43b8b4e2cee161956c17f57c9a0655b",
+  "candidates": [
+    {
+      "path": "tests/test_utils_response.py",
+      "symbols": [
+        "test_open_in_browser_redos_comment",
+        "test_open_in_browser_redos_head",
+        "_assert_open_in_browser_is_fast",
+        "test_open_in_browser",
+        "test_inject_base_url",
+        "test_open_in_browser_preserves_html_comments",
+        "test_open_in_browser_keeps_base_url_of_response",
+        "test_open_in_browser_injects_base_when_only_in_comment",
+        "test_open_in_browser_injects_base_before_head_contents",
+        "test_open_in_browser_text_response_uses_txt_extension",
+        "test_open_in_browser_raises_for_unsupported_response_type"
+      ],
+      "reason": "Primary test file for scrapy.utils.response.open_in_browser. It contains the two ReDoS regression tests that are flaky (timed against the hardcoded 0.2s CPU budget in the shared _assert_open_in_browser_is_fast helper) and the exploit bodies under change, including the comment body whose trailing b'<!---->' supplies the closing '-->' so the removed '<!--.*?-->' pattern matches early. It also holds every base-tag injection, comment-preservation, .txt and TypeError assertion that must stay green."
+    },
+    {
+      "path": "tests/test_commands.py",
+      "symbols": [
+        "TestViewCommand.test_view",
+        "TestViewCommand.test_non_text_response",
+        "TestHelpMessage.test_help_messages"
+      ],
+      "reason": "Only end-to-end coverage of open_in_browser: scrapy/commands/view.py calls it, and TestViewCommand runs the real command against a local mock server with a recorded browser script, asserting the rendered temp file and the non-text error path. It is the integration safety net if the injected base tag or response handling changes while fixing the ReDoS tests."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 9,
+    "manifest_sha256": "ee757fef1f198b8182dae886c40765b30fbdd2a62e8731ba6ff7751d1bce58ec"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "1477ccaae7f8d9556bae2fb1ea5ce29d4e00e0c0ff0f3b5710d17b76873bd1ac"
+  }
+}

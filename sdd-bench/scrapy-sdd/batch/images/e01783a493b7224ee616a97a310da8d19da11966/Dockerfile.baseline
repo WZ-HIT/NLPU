@@ -1,0 +1,17 @@
+ARG SOURCE_BASELINE_IMAGE=scrapy-sdd-scrapy:base-11079cb1c85b-py311
+FROM ${SOURCE_BASELINE_IMAGE}
+
+USER root
+RUN find /workspace -mindepth 1 -maxdepth 1 -exec rm -rf {} +
+COPY --from=purebase --chown=1007:1007 / /workspace
+RUN rm -rf /workspace/.git && test ! -e /workspace/.git
+
+LABEL org.opencontainers.image.title="scrapy-sdd frozen baseline" \
+      bench.repository="scrapy/scrapy" \
+      bench.base-sha="e01783a493b7224ee616a97a310da8d19da11966" \
+      bench.tree-sha="26022219fdb2d6c02aa7f37c263e58147107db34" \
+      bench.source-baseline-image="sha256:f59cdcb1f1be58c9ee0becf4eff13ea4979aea617aa5bf2c4619ae2c13c4adfa"
+
+USER 1007:1007
+WORKDIR /workspace
+CMD ["sleep", "infinity"]

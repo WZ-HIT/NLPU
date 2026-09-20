@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "seal_type": "IMMUTABLE_UPDATE_BUNDLE",
+  "task_id": "scrapy__scrapy__pr8073",
+  "method": "cc-sdd",
+  "run_id": "cc-sdd-self-001",
+  "update_mode": "self-directed",
+  "base_sha": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+  "bundle_manifest_sha256": "1cc38226c55a2296f6303f678b4e992fbe35e01b0734bbef4b5d43d1be1cfcea",
+  "entry_count": 5,
+  "status": "SEALED",
+  "seal_sha256": "67bef7f0bcc1e2abb0d2deca508011fffe9755a80afa9c4c37096cd0ce57e4a5"
+}

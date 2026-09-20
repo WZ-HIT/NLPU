@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr8064",
+  "method": "cc-sdd",
+  "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "cc-sdd-detect-001",
+    "session_sha256": "4d5a7105d904a6f58810a4d5ab7f616e73abec36c702821ac3e7af60af6a1fe4"
+  },
+  "task_input_sha256": "e750ca3103e918e71b879b921ba4967ce43b8b4e2cee161956c17f57c9a0655b",
+  "candidates": [
+    {
+      "path": "tests/test_utils_response.py",
+      "symbols": [
+        "test_open_in_browser_redos_comment",
+        "test_open_in_browser_redos_head",
+        "_assert_open_in_browser_is_fast",
+        "test_open_in_browser",
+        "test_inject_base_url",
+        "test_open_in_browser_preserves_html_comments",
+        "test_open_in_browser_keeps_base_url_of_response",
+        "test_open_in_browser_injects_base_when_only_in_comment",
+        "test_open_in_browser_injects_base_before_head_contents",
+        "test_open_in_browser_text_response_uses_txt_extension",
+        "test_open_in_browser_raises_for_unsupported_response_type"
+      ],
+      "reason": "Only test module in the repository that imports and drives scrapy.utils.response.open_in_browser, the function whose ReDoS regression tests this pull request touches. It contains the process_time-based _assert_open_in_browser_is_fast helper and the two exploit-payload tests (test_open_in_browser_redos_comment, test_open_in_browser_redos_head) behind both the reported timing flakiness and the broken exploit input, plus the surrounding open_in_browser behaviour tests (test_inject_base_url with its doctype/comment/head-less cases, base-tag override, .txt extension and TypeError cases) that the same code path must keep satisfying."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 6,
+    "manifest_sha256": "25d484bff34999fdbc68d6ebf79cddc545d8d7ff99e65855b59d70f929f2b647"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "57f6b9b755bfc6b862055804f5ffd6de1da36e3f68c9c14733d0001d64cf7edb"
+  }
+}

@@ -1,0 +1,155 @@
+diff --git a/tests/test_commands.py b/tests/test_commands.py
+index 08882fd..f770ac9 100644
+--- a/tests/test_commands.py
++++ b/tests/test_commands.py
+@@ -700,12 +700,31 @@ class TestViewCommand:
+         body = Path(url.removeprefix("file://")).read_text(encoding="utf-8")
+         assert "<p class='one'>Works</p>" in body
+ 
+-    def test_non_text_response(self, mockserver: MockServer) -> None:
++    @pytest.mark.skipif(
++        sys.platform == "win32", reason="requires a POSIX shell browser script"
++    )
++    def test_non_text_response(
++        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch, mockserver: MockServer
++    ) -> None:
++        opened = tmp_path / "opened.txt"
++        browser = tmp_path / "fake-browser.sh"
++        write_recording_browser(browser, opened)
++        monkeypatch.setenv("BROWSER", str(browser))
++
+         returncode, _, err = proc(
+-            "view", mockserver.url("/static/files/images/scrapy.png")
++            "view",
++            mockserver.url("/static/files/images/scrapy.png"),
++            cwd=tmp_path,
+         )
++
+         assert returncode == 0, err
+-        assert "Cannot view a non-text response." in err
++        assert "Cannot view a non-text response." not in err
++        url = opened.read_text(encoding="utf-8")
++        assert url.startswith("file://")
++        assert url.endswith(".png")
++        body = Path(url.removeprefix("file://")).read_bytes()
++        assert body.startswith(b"\x89PNG\r\n\x1a\n")
++        assert len(body) > 0
+ 
+ 
+ class TestEditCommand(TestProjectBase):
+diff --git a/tests/test_utils_response.py b/tests/test_utils_response.py
+index 8269f0a..931cc3f 100644
+--- a/tests/test_utils_response.py
++++ b/tests/test_utils_response.py
+@@ -37,9 +37,90 @@ def test_open_in_browser():
+     response = HtmlResponse(url, body=body)
+     assert open_in_browser(response, _openfunc=browser_open), "Browser not called"
+ 
+-    resp = Response(url, body=body)
+-    with pytest.raises(TypeError):
+-        open_in_browser(resp, _openfunc=browser_open)  # type: ignore[arg-type]
++
++@pytest.mark.parametrize(
++    ("response_cls", "headers", "expected_ext", "expected_body"),
++    [
++        pytest.param(
++            HtmlResponse,
++            {},
++            ".html",
++            b"<html><body>a</body></html>",
++            id="html-response",
++        ),
++        pytest.param(
++            HtmlResponse,
++            {b"Content-Type": b"application/xhtml+xml"},
++            ".html",
++            b"<html><body>a</body></html>",
++            id="html-response-with-non-text-content-type",
++        ),
++        pytest.param(
++            TextResponse,
++            {},
++            ".txt",
++            b"plain text",
++            id="text-response-uses-txt",
++        ),
++        pytest.param(
++            TextResponse,
++            {b"Content-Type": b"text/plain; charset=utf-8"},
++            ".txt",
++            b"plain text",
++            id="text-plain-response-uses-txt",
++        ),
++        pytest.param(
++            Response,
++            {b"Content-Type": b"image/png"},
++            ".png",
++            b"\x89PNG\r\n\x1a\n",
++            id="non-text-response-png",
++        ),
++        pytest.param(
++            Response,
++            {b"Content-Type": b"application/pdf"},
++            ".pdf",
++            b"%PDF-1.4",
++            id="non-text-response-pdf",
++        ),
++        pytest.param(
++            Response,
++            {b"Content-Type": b"image/jpeg"},
++            ".jpg",
++            b"\xff\xd8\xff\xe0",
++            id="non-text-response-jpeg",
++        ),
++        pytest.param(
++            Response,
++            {},
++            ".txt",
++            b"binary",
++            id="non-text-response-without-content-type-falls-back",
++        ),
++        pytest.param(
++            Response,
++            {b"Content-Type": b"application/x-unknown-type"},
++            ".txt",
++            b"binary",
++            id="non-text-response-with-unknown-content-type-falls-back",
++        ),
++    ],
++)
++def test_open_in_browser_uses_content_type_extension(
++    response_cls: type[Response],
++    headers: dict[bytes, bytes],
++    expected_ext: str,
++    expected_body: bytes,
++) -> None:
++    url = "http://www.example.com/some/page"
++
++    def browser_open(burl: str) -> bool:
++        assert burl.endswith(expected_ext), (burl, expected_ext)
++        assert _read_browser_output(burl) == expected_body
++        return True
++
++    resp = response_cls(url, headers=headers, body=expected_body)
++    assert open_in_browser(resp, _openfunc=browser_open), "Browser not called"
+ 
+ 
+ def test_get_meta_refresh():
+@@ -334,7 +415,14 @@ def test_open_in_browser_text_response_uses_txt_extension():
+     assert open_in_browser(response, _openfunc=check)
+ 
+ 
+-def test_open_in_browser_raises_for_unsupported_response_type():
++def test_open_in_browser_non_text_response_without_extension():
++    # A response with an unknown or missing Content-Type must not raise; it
++    # falls back to the default ``.txt`` extension.
+     response = Response("http://www.example.com", body=b"binary")
+-    with pytest.raises(TypeError):
+-        open_in_browser(response, _openfunc=lambda _: True)  # type: ignore[arg-type]
++
++    def check(burl):
++        assert burl.endswith(".txt")
++        assert _read_browser_output(burl) == b"binary"
++        return True
++
++    assert open_in_browser(response, _openfunc=check)  # type: ignore[arg-type]

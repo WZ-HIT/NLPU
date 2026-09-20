@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr8032",
+  "method": "openspec",
+  "base_sha": "e01783a493b7224ee616a97a310da8d19da11966",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "openspec-detect-003",
+    "session_sha256": "2fa3881ab4833deb8422573a374cb6c5eb4e7a3911121b09eb50b0816195cf3c"
+  },
+  "task_input_sha256": "80c8ead096562eed1c75b722bec56a5b02a56e4f2d04541dd042b92c632af101",
+  "candidates": [
+    {
+      "path": "tests/test_pipeline_files.py",
+      "symbols": [
+        "TestFilesPipeline.test_file_path_from_response"
+      ],
+      "reason": "This is the test named in the PR. It sets FILES_EXPIRES to 0 and mocks last_modified with time.time(), so on Windows the setup timestamp and the freshness check can share one coarse clock tick, making the cached file appear uptodate and causing the response-derived path to be skipped."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 6,
+    "manifest_sha256": "2ca50bb48b50e0d6ea72ea2e5496156fc39c2bf9460c363ef8e7671cecff8233"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "1ff3e25d57ad0ec18ef756a15576a1ebc2e9de0ba43c45a0a3063b497c899cae"
+  }
+}

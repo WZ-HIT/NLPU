@@ -1,0 +1,118 @@
+diff --git a/tests/test_utils_response.py b/tests/test_utils_response.py
+index 8269f0a..16d7c2c 100644
+--- a/tests/test_utils_response.py
++++ b/tests/test_utils_response.py
+@@ -1,5 +1,7 @@
+ from __future__ import annotations
+ 
++import re
++from collections.abc import Callable
+ from pathlib import Path
+ from time import process_time
+ from urllib.parse import urlparse
+@@ -213,31 +215,94 @@ def test_inject_base_url(body: bytes) -> None:
+     assert open_in_browser(resp, _openfunc=check_base_url)
+ 
+ 
++# The adversarial bodies below are repetitions of one of these units, taken
++# from https://makenowjust-labs.github.io/recheck/playground/. Each unit also
++# identifies the historical vulnerable pattern its body is an exploit for, so
++# the shared guard can prove that a body is still a genuine exploit without
++# having to change its ``(body: bytes)`` signature.
++_HISTORICAL_EXPLOITS: tuple[tuple[bytes, re.Pattern[bytes]], ...] = (
++    (b"-><!--\x00", re.compile(rb"<!--.*?-->")),  # old comment removal pattern
++    (b"<head\t", re.compile(rb"(<head(?:>|\s.*?>))")),  # old head lookup pattern
++)
++
++# A linear implementation roughly doubles when the body doubles, while
++# catastrophic backtracking grows about fourfold per doubling.
++_SUPERLINEAR_FACTOR = 2.0
++_MAX_DOUBLING_FACTOR = 3.0
++# Coarse hang guard only; a quadratic regression trips the ratio well first.
++_MAX_SECONDS = 5.0
++_MEASURE_REPEATS = 3
++
++
++def _min_process_time(func: Callable[[], object]) -> float:
++    # Measure CPU time (not wall clock) and keep the minimum so that noise from
++    # a busy or slow machine cannot inflate the comparison.
++    best = float("inf")
++    for _ in range(_MEASURE_REPEATS):
++        start_time = process_time()
++        func()
++        best = min(best, process_time() - start_time)
++    return best
++
++
+ def _assert_open_in_browser_is_fast(body: bytes) -> None:
+-    # The exploit inputs are large enough that a vulnerable implementation
+-    # needs seconds to go through them, while a safe one stays in the low
+-    # milliseconds even on a slow interpreter.
+-    max_cpu_time = 0.2
++    """Guard that ``open_in_browser`` stays linear on an adversarial body.
++
++    The body is only a useful regression guard if it is a real exploit for the
++    historical pattern it documents, so the pattern is first proven to scale
++    super-linearly on the body. The pass/fail decision then comes from how
++    ``open_in_browser`` scales between the body's first half and the whole
++    body: a linear implementation roughly doubles, catastrophic backtracking
++    grows about fourfold, and either way the comparison is relative to the body
++    itself, so it does not depend on the speed of the machine.
++    """
++    pattern = next(
++        (pattern for unit, pattern in _HISTORICAL_EXPLOITS if body.startswith(unit)),
++        None,
++    )
++    assert pattern is not None, (
++        "adversarial body does not correspond to a documented historical pattern"
++    )
++
++    short, full = body[: len(body) // 2], body
++
++    # The input must really be an exploit: the historical pattern has to grow
++    # super-linearly across the same doubling of the same bytes.
++    short_pattern_time = _min_process_time(lambda: pattern.search(short))
++    full_pattern_time = _min_process_time(lambda: pattern.search(full))
++    assert full_pattern_time > _SUPERLINEAR_FACTOR * short_pattern_time, (
++        f"adversarial input no longer triggers super-linear behaviour in "
++        f"{pattern.pattern!r}"
++    )
+ 
+-    response = HtmlResponse("https://example.com", body=body)
+-    start_time = process_time()
+-    open_in_browser(response, lambda url: True)
+-    end_time = process_time()
+-    assert end_time - start_time < max_cpu_time
++    # The implementation must not blow up on that same input.
++    def run(current: bytes) -> None:
++        response = HtmlResponse("https://example.com", body=current)
++        open_in_browser(response, lambda url: True)
++
++    short_time = _min_process_time(lambda: run(short))
++    full_time = _min_process_time(lambda: run(full))
++    assert full_time < _MAX_DOUBLING_FACTOR * short_time, (
++        f"open_in_browser took {short_time:.4f}s on {len(short)} bytes but "
++        f"{full_time:.4f}s on {len(full)} bytes; work is not staying linear"
++    )
++    assert full_time < _MAX_SECONDS, (
++        f"open_in_browser took {full_time:.4f}s, exceeding the hang guard"
++    )
+ 
+ 
+ def test_open_in_browser_redos_comment():
+     # Exploit input from
+     # https://makenowjust-labs.github.io/recheck/playground/
+     # for /<!--.*?-->/ (old pattern to remove comments).
+-    _assert_open_in_browser_is_fast(b"-><!--\x00" * 250_000 + b"->\n<!---->")
++    _assert_open_in_browser_is_fast(b"-><!--\x00" * 2_000 + b"->\n<!---->")
+ 
+ 
+ def test_open_in_browser_redos_head():
+     # Exploit input from
+     # https://makenowjust-labs.github.io/recheck/playground/
+     # for /(<head(?:>|\s.*?>))/ (old pattern to find the head element).
+-    _assert_open_in_browser_is_fast(b"<head\t" * 80_000)
++    _assert_open_in_browser_is_fast(b"<head\t" * 2_000)
+ 
+ 
+ def test_open_in_browser_preserves_html_comments():

@@ -1,0 +1,175 @@
+diff --git a/tests/test_commands.py b/tests/test_commands.py
+index 08882fd..764c961 100644
+--- a/tests/test_commands.py
++++ b/tests/test_commands.py
+@@ -16,6 +16,7 @@ from scrapy.commands import ScrapyCommand, ScrapyHelpFormatter
+ from scrapy.exceptions import ScrapyDeprecationWarning
+ from scrapy.settings import Settings
+ from scrapy.utils.reactor import _asyncio_reactor_path
++from tests import get_testdata
+ from tests.utils.bases.commands import TestProjectBase
+ from tests.utils.cmdline import (
+     call,
+@@ -700,12 +701,32 @@ class TestViewCommand:
+         body = Path(url.removeprefix("file://")).read_text(encoding="utf-8")
+         assert "<p class='one'>Works</p>" in body
+ 
+-    def test_non_text_response(self, mockserver: MockServer) -> None:
++    @pytest.mark.skipif(
++        sys.platform == "win32", reason="requires a POSIX shell browser script"
++    )
++    def test_non_text_response(
++        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch, mockserver: MockServer
++    ) -> None:
++        opened = tmp_path / "opened.txt"
++        browser = tmp_path / "fake-browser.sh"
++        write_recording_browser(browser, opened)
++        monkeypatch.setenv("BROWSER", str(browser))
++
+         returncode, _, err = proc(
+-            "view", mockserver.url("/static/files/images/scrapy.png")
++            "view", mockserver.url("/static/files/images/scrapy.png"), cwd=tmp_path
+         )
++
+         assert returncode == 0, err
+-        assert "Cannot view a non-text response." in err
++        assert "Cannot view a non-text response." not in err
++        url = opened.read_text(encoding="utf-8")
++        assert url.startswith("file://")
++        path = Path(url.removeprefix("file://"))
++        # The preview file extension is derived from the response Content-Type,
++        # and the served body is written to it byte-for-byte.
++        assert path.suffix == ".png"
++        assert path.read_bytes() == get_testdata(
++            "test_site", "files", "images", "scrapy.png"
++        )
+ 
+ 
+ class TestEditCommand(TestProjectBase):
+diff --git a/tests/test_utils_response.py b/tests/test_utils_response.py
+index 8269f0a..9d74175 100644
+--- a/tests/test_utils_response.py
++++ b/tests/test_utils_response.py
+@@ -16,11 +16,15 @@ from scrapy.utils.response import (
+ )
+ 
+ 
+-def _read_browser_output(burl: str) -> bytes:
++def _opened_path(burl: str) -> Path:
+     path = urlparse(burl).path
+     if not path or not Path(path).exists():
+         path = burl.replace("file://", "")
+-    return Path(path).read_bytes()
++    return Path(path)
++
++
++def _read_browser_output(burl: str) -> bytes:
++    return _opened_path(burl).read_bytes()
+ 
+ 
+ def test_open_in_browser():
+@@ -37,9 +41,18 @@ def test_open_in_browser():
+     response = HtmlResponse(url, body=body)
+     assert open_in_browser(response, _openfunc=browser_open), "Browser not called"
+ 
++    # Non-text responses must no longer be rejected (issue #3902): the raw body
++    # is written to the preview file and handed to the opener.
+     resp = Response(url, body=body)
+-    with pytest.raises(TypeError):
+-        open_in_browser(resp, _openfunc=browser_open)  # type: ignore[arg-type]
++    opened = []
++
++    def plain_browser_open(burl: str) -> bool:
++        opened.append(burl)
++        assert _read_browser_output(burl) == body
++        return True
++
++    assert open_in_browser(resp, _openfunc=plain_browser_open)
++    assert len(opened) == 1
+ 
+ 
+ def test_get_meta_refresh():
+@@ -334,7 +347,80 @@ def test_open_in_browser_text_response_uses_txt_extension():
+     assert open_in_browser(response, _openfunc=check)
+ 
+ 
+-def test_open_in_browser_raises_for_unsupported_response_type():
++# A binary body with bytes that are not valid UTF-8, to prove that the preview
++# file keeps the response body byte-for-byte.
++_BINARY_BODY = b"\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x01\x02\xff\xfe\x00binary\x00"
++
++
++@pytest.mark.parametrize(
++    ("content_type", "extension"),
++    [
++        ("image/png", ".png"),
++        ("application/pdf", ".pdf"),
++        ("application/zip", ".zip"),
++        # Parameters must be stripped before the media type is looked up.
++        ("image/png; charset=utf-8", ".png"),
++        ("image/png;charset=utf-8", ".png"),
++    ],
++)
++def test_open_in_browser_non_text_response_uses_content_type_extension(
++    content_type: str, extension: str
++):
++    response = Response(
++        "http://www.example.com/resource",
++        body=_BINARY_BODY,
++        headers={"Content-Type": content_type},
++    )
++    opened = []
++
++    def check(burl):
++        opened.append(burl)
++        assert burl.startswith("file://")
++        assert _opened_path(burl).suffix == extension
++        assert _read_browser_output(burl) == _BINARY_BODY
++        return True
++
++    assert open_in_browser(response, _openfunc=check)
++    assert len(opened) == 1
++
++
++@pytest.mark.parametrize(
++    "headers",
++    [
++        # No Content-Type header at all.
++        {},
++        # Empty Content-Type header.
++        {"Content-Type": ""},
++        # Media type with no registered extension.
++        {"Content-Type": "application/x-scrapy-unknown"},
++    ],
++)
++def test_open_in_browser_non_text_response_without_usable_content_type(
++    headers: dict[str, str],
++):
++    response = Response(
++        "http://www.example.com/resource",
++        body=_BINARY_BODY,
++        headers=headers,
++    )
++    opened = []
++
++    def check(burl):
++        opened.append(burl)
++        assert burl.startswith("file://")
++        path = _opened_path(burl)
++        # A preview file is still created and opened instead of raising. The
++        # concrete fallback suffix is left unspecified.
++        assert path.is_file()
++        assert path.read_bytes() == _BINARY_BODY
++        return True
++
++    assert open_in_browser(response, _openfunc=check)
++    assert len(opened) == 1
++
++
++def test_open_in_browser_non_text_response_does_not_raise():
++    # Regression guard for issue #3902: a plain, header-less Response must be
++    # accepted instead of raising TypeError.
+     response = Response("http://www.example.com", body=b"binary")
+-    with pytest.raises(TypeError):
+-        open_in_browser(response, _openfunc=lambda _: True)  # type: ignore[arg-type]
++    assert open_in_browser(response, _openfunc=lambda url: True)

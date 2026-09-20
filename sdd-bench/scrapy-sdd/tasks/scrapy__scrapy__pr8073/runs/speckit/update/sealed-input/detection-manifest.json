@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr8073",
+  "method": "speckit",
+  "base_sha": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "speckit-detect-002",
+    "session_sha256": "2a5b6aea2a56da193d73c3d3f9a53da1407dcb0ffc3da172c2de91bf96c57d4d"
+  },
+  "task_input_sha256": "1166467f4855bbdfbf837bd9900a951e4a942361327844d5fe1f2e348e327b2b",
+  "candidates": [
+    {
+      "path": "tests/test_downloader_handler_twisted_ftp.py",
+      "symbols": [
+        "TestFTP.test_invalid_credentials"
+      ],
+      "reason": "Contains the Windows-asyncio skip whose DirtyReactorAggregateError comment is targeted for re-enablement; the test asserts an FTP invalid-credentials ConnectionLost failure."
+    },
+    {
+      "path": "tests/utils/bases/download_handlers_http.py",
+      "symbols": [
+        "TestHttpBase.test_timeout_download_from_spider_nodata_rcvd",
+        "TestHttpBase.test_timeout_download_from_spider_server_hangs"
+      ],
+      "reason": "Defines both HTTP timeout tests carrying DirtyReactorAggregateError Windows-asyncio skip comments; concrete HTTP handler suites inherit these affected tests."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 7,
+    "manifest_sha256": "508320e7aff3ab183ff55eaacebfb7437d728e95429f2a2eeba16481c0e0df79"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "bfd4eed8a0929f0f12ddcb5fae1f40c2fde7374fe8254be6fc24003b127cc0fb"
+  }
+}

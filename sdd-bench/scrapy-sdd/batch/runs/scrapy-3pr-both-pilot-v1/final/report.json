@@ -1,0 +1,1507 @@
+{
+  "schema_version": 1,
+  "report_type": "BATCH_FINAL_OPERATIONAL_REPORT",
+  "batch_id": "scrapy-3pr-both-pilot-v1",
+  "status": "PASS_WITH_LIMITATIONS",
+  "semantics": {
+    "operational_metrics_only": true,
+    "correctness_assessed": false,
+    "gold_agreement_assessed": false,
+    "project_tests_run": false,
+    "evaluation_ready": true,
+    "evaluation_dispatched": false
+  },
+  "counts": {
+    "configured_targets": 27,
+    "terminal_sealed_targets": 27,
+    "detect_configured": 9,
+    "detect_sealed": 9,
+    "update_configured": 18,
+    "update_sealed": 18,
+    "sealed_detect_updates": 9,
+    "self_directed_updates": 9,
+    "historical_failed_events": 16,
+    "historical_detect_failures": 14,
+    "historical_update_failures": 2,
+    "final_scope_violations": 0
+  },
+  "detect_targets": [
+    {
+      "target": "scrapy__scrapy__pr8064:cc-sdd:detect:cc-sdd-detect-001:none",
+      "task_id": "scrapy__scrapy__pr8064",
+      "method": "cc-sdd",
+      "run_id": "cc-sdd-detect-001",
+      "attempt": 3,
+      "status": "SEALED",
+      "candidate_test_file_count": 1,
+      "planning_artifact_file_count": 6,
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/detect/executions/cc-sdd-detect-001/attempt-3"
+    },
+    {
+      "target": "scrapy__scrapy__pr8064:openspec:detect:openspec-detect-001:none",
+      "task_id": "scrapy__scrapy__pr8064",
+      "method": "openspec",
+      "run_id": "openspec-detect-001",
+      "attempt": 4,
+      "status": "SEALED",
+      "candidate_test_file_count": 2,
+      "planning_artifact_file_count": 8,
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/detect/executions/openspec-detect-001/attempt-4"
+    },
+    {
+      "target": "scrapy__scrapy__pr8064:speckit:detect:speckit-detect-001:none",
+      "task_id": "scrapy__scrapy__pr8064",
+      "method": "speckit",
+      "run_id": "speckit-detect-001",
+      "attempt": 3,
+      "status": "SEALED",
+      "candidate_test_file_count": 2,
+      "planning_artifact_file_count": 6,
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/speckit/detect/executions/speckit-detect-001/attempt-3"
+    },
+    {
+      "target": "scrapy__scrapy__pr8067:cc-sdd:detect:cc-sdd-detect-001:none",
+      "task_id": "scrapy__scrapy__pr8067",
+      "method": "cc-sdd",
+      "run_id": "cc-sdd-detect-001",
+      "attempt": 2,
+      "status": "SEALED",
+      "candidate_test_file_count": 2,
+      "planning_artifact_file_count": 2,
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/cc-sdd/detect/executions/cc-sdd-detect-001/attempt-2"
+    },
+    {
+      "target": "scrapy__scrapy__pr8067:openspec:detect:openspec-detect-001:none",
+      "task_id": "scrapy__scrapy__pr8067",
+      "method": "openspec",
+      "run_id": "openspec-detect-001",
+      "attempt": 2,
+      "status": "SEALED",
+      "candidate_test_file_count": 2,
+      "planning_artifact_file_count": 7,
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/openspec/detect/executions/openspec-detect-001/attempt-2"
+    },
+    {
+      "target": "scrapy__scrapy__pr8067:speckit:detect:speckit-detect-001:none",
+      "task_id": "scrapy__scrapy__pr8067",
+      "method": "speckit",
+      "run_id": "speckit-detect-001",
+      "attempt": 3,
+      "status": "SEALED",
+      "candidate_test_file_count": 2,
+      "planning_artifact_file_count": 9,
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/speckit/detect/executions/speckit-detect-001/attempt-3"
+    },
+    {
+      "target": "scrapy__scrapy__pr8073:cc-sdd:detect:cc-sdd-detect-001:none",
+      "task_id": "scrapy__scrapy__pr8073",
+      "method": "cc-sdd",
+      "run_id": "cc-sdd-detect-001",
+      "attempt": 1,
+      "status": "SEALED",
+      "candidate_test_file_count": 2,
+      "planning_artifact_file_count": 6,
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/cc-sdd/detect/executions/cc-sdd-detect-001/attempt-1"
+    },
+    {
+      "target": "scrapy__scrapy__pr8073:openspec:detect:openspec-detect-001:none",
+      "task_id": "scrapy__scrapy__pr8073",
+      "method": "openspec",
+      "run_id": "openspec-detect-001",
+      "attempt": 2,
+      "status": "SEALED",
+      "candidate_test_file_count": 2,
+      "planning_artifact_file_count": 6,
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/openspec/detect/executions/openspec-detect-001/attempt-2"
+    },
+    {
+      "target": "scrapy__scrapy__pr8073:speckit:detect:speckit-detect-001:none",
+      "task_id": "scrapy__scrapy__pr8073",
+      "method": "speckit",
+      "run_id": "speckit-detect-001",
+      "attempt": 2,
+      "status": "SEALED",
+      "candidate_test_file_count": 2,
+      "planning_artifact_file_count": 7,
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/speckit/detect/executions/speckit-detect-001/attempt-2"
+    }
+  ],
+  "update_targets": [
+    {
+      "target": "scrapy__scrapy__pr8064:cc-sdd:update:cc-sdd-sealed-001:sealed-detect",
+      "task_id": "scrapy__scrapy__pr8064",
+      "method": "cc-sdd",
+      "run_id": "cc-sdd-sealed-001",
+      "update_mode": "sealed-detect",
+      "attempt": 1,
+      "status": "SEALED",
+      "modified_test_file_count": 1,
+      "scope_violation_count": 0,
+      "sdd_artifacts_status": "NOT_CAPTURED_BY_V1_RUNNER",
+      "workspace_seal_status": "EXCLUDED",
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/update/executions/cc-sdd-sealed-001/attempt-1/mode-sealed-detect"
+    },
+    {
+      "target": "scrapy__scrapy__pr8064:cc-sdd:update:cc-sdd-self-001:self-directed",
+      "task_id": "scrapy__scrapy__pr8064",
+      "method": "cc-sdd",
+      "run_id": "cc-sdd-self-001",
+      "update_mode": "self-directed",
+      "attempt": 1,
+      "status": "SEALED",
+      "modified_test_file_count": 1,
+      "scope_violation_count": 0,
+      "sdd_artifacts_status": "NOT_CAPTURED_BY_V1_RUNNER",
+      "workspace_seal_status": "EXCLUDED",
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/update/executions/cc-sdd-self-001/attempt-1/mode-self-directed"
+    },
+    {
+      "target": "scrapy__scrapy__pr8064:openspec:update:openspec-sealed-001:sealed-detect",
+      "task_id": "scrapy__scrapy__pr8064",
+      "method": "openspec",
+      "run_id": "openspec-sealed-001",
+      "update_mode": "sealed-detect",
+      "attempt": 2,
+      "status": "SEALED",
+      "modified_test_file_count": 1,
+      "scope_violation_count": 0,
+      "sdd_artifacts_status": "NOT_CAPTURED_BY_V1_RUNNER",
+      "workspace_seal_status": "EXCLUDED",
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/update/executions/openspec-sealed-001/attempt-2/mode-sealed-detect"
+    },
+    {
+      "target": "scrapy__scrapy__pr8064:openspec:update:openspec-self-001:self-directed",
+      "task_id": "scrapy__scrapy__pr8064",
+      "method": "openspec",
+      "run_id": "openspec-self-001",
+      "update_mode": "self-directed",
+      "attempt": 2,
+      "status": "SEALED",
+      "modified_test_file_count": 1,
+      "scope_violation_count": 0,
+      "sdd_artifacts_status": "NOT_CAPTURED_BY_V1_RUNNER",
+      "workspace_seal_status": "EXCLUDED",
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/update/executions/openspec-self-001/attempt-2/mode-self-directed"
+    },
+    {
+      "target": "scrapy__scrapy__pr8064:speckit:update:speckit-sealed-001:sealed-detect",
+      "task_id": "scrapy__scrapy__pr8064",
+      "method": "speckit",
+      "run_id": "speckit-sealed-001",
+      "update_mode": "sealed-detect",
+      "attempt": 1,
+      "status": "SEALED",
+      "modified_test_file_count": 1,
+      "scope_violation_count": 0,
+      "sdd_artifacts_status": "NOT_CAPTURED_BY_V1_RUNNER",
+      "workspace_seal_status": "EXCLUDED",
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/speckit/update/executions/speckit-sealed-001/attempt-1/mode-sealed-detect"
+    },
+    {
+      "target": "scrapy__scrapy__pr8064:speckit:update:speckit-self-001:self-directed",
+      "task_id": "scrapy__scrapy__pr8064",
+      "method": "speckit",
+      "run_id": "speckit-self-001",
+      "update_mode": "self-directed",
+      "attempt": 1,
+      "status": "SEALED",
+      "modified_test_file_count": 1,
+      "scope_violation_count": 0,
+      "sdd_artifacts_status": "NOT_CAPTURED_BY_V1_RUNNER",
+      "workspace_seal_status": "EXCLUDED",
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/speckit/update/executions/speckit-self-001/attempt-1/mode-self-directed"
+    },
+    {
+      "target": "scrapy__scrapy__pr8067:cc-sdd:update:cc-sdd-sealed-001:sealed-detect",
+      "task_id": "scrapy__scrapy__pr8067",
+      "method": "cc-sdd",
+      "run_id": "cc-sdd-sealed-001",
+      "update_mode": "sealed-detect",
+      "attempt": 1,
+      "status": "SEALED",
+      "modified_test_file_count": 2,
+      "scope_violation_count": 0,
+      "sdd_artifacts_status": "NOT_CAPTURED_BY_V1_RUNNER",
+      "workspace_seal_status": "EXCLUDED",
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/cc-sdd/update/executions/cc-sdd-sealed-001/attempt-1/mode-sealed-detect"
+    },
+    {
+      "target": "scrapy__scrapy__pr8067:cc-sdd:update:cc-sdd-self-001:self-directed",
+      "task_id": "scrapy__scrapy__pr8067",
+      "method": "cc-sdd",
+      "run_id": "cc-sdd-self-001",
+      "update_mode": "self-directed",
+      "attempt": 1,
+      "status": "SEALED",
+      "modified_test_file_count": 2,
+      "scope_violation_count": 0,
+      "sdd_artifacts_status": "NOT_CAPTURED_BY_V1_RUNNER",
+      "workspace_seal_status": "EXCLUDED",
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/cc-sdd/update/executions/cc-sdd-self-001/attempt-1/mode-self-directed"
+    },
+    {
+      "target": "scrapy__scrapy__pr8067:openspec:update:openspec-sealed-001:sealed-detect",
+      "task_id": "scrapy__scrapy__pr8067",
+      "method": "openspec",
+      "run_id": "openspec-sealed-001",
+      "update_mode": "sealed-detect",
+      "attempt": 1,
+      "status": "SEALED",
+      "modified_test_file_count": 2,
+      "scope_violation_count": 0,
+      "sdd_artifacts_status": "NOT_CAPTURED_BY_V1_RUNNER",
+      "workspace_seal_status": "EXCLUDED",
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/openspec/update/executions/openspec-sealed-001/attempt-1/mode-sealed-detect"
+    },
+    {
+      "target": "scrapy__scrapy__pr8067:openspec:update:openspec-self-001:self-directed",
+      "task_id": "scrapy__scrapy__pr8067",
+      "method": "openspec",
+      "run_id": "openspec-self-001",
+      "update_mode": "self-directed",
+      "attempt": 1,
+      "status": "SEALED",
+      "modified_test_file_count": 1,
+      "scope_violation_count": 0,
+      "sdd_artifacts_status": "NOT_CAPTURED_BY_V1_RUNNER",
+      "workspace_seal_status": "EXCLUDED",
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/openspec/update/executions/openspec-self-001/attempt-1/mode-self-directed"
+    },
+    {
+      "target": "scrapy__scrapy__pr8067:speckit:update:speckit-sealed-001:sealed-detect",
+      "task_id": "scrapy__scrapy__pr8067",
+      "method": "speckit",
+      "run_id": "speckit-sealed-001",
+      "update_mode": "sealed-detect",
+      "attempt": 1,
+      "status": "SEALED",
+      "modified_test_file_count": 2,
+      "scope_violation_count": 0,
+      "sdd_artifacts_status": "NOT_CAPTURED_BY_V1_RUNNER",
+      "workspace_seal_status": "EXCLUDED",
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/speckit/update/executions/speckit-sealed-001/attempt-1/mode-sealed-detect"
+    },
+    {
+      "target": "scrapy__scrapy__pr8067:speckit:update:speckit-self-001:self-directed",
+      "task_id": "scrapy__scrapy__pr8067",
+      "method": "speckit",
+      "run_id": "speckit-self-001",
+      "update_mode": "self-directed",
+      "attempt": 1,
+      "status": "SEALED",
+      "modified_test_file_count": 2,
+      "scope_violation_count": 0,
+      "sdd_artifacts_status": "NOT_CAPTURED_BY_V1_RUNNER",
+      "workspace_seal_status": "EXCLUDED",
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/speckit/update/executions/speckit-self-001/attempt-1/mode-self-directed"
+    },
+    {
+      "target": "scrapy__scrapy__pr8073:cc-sdd:update:cc-sdd-sealed-001:sealed-detect",
+      "task_id": "scrapy__scrapy__pr8073",
+      "method": "cc-sdd",
+      "run_id": "cc-sdd-sealed-001",
+      "update_mode": "sealed-detect",
+      "attempt": 1,
+      "status": "SEALED",
+      "modified_test_file_count": 2,
+      "scope_violation_count": 0,
+      "sdd_artifacts_status": "NOT_CAPTURED_BY_V1_RUNNER",
+      "workspace_seal_status": "EXCLUDED",
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/cc-sdd/update/executions/cc-sdd-sealed-001/attempt-1/mode-sealed-detect"
+    },
+    {
+      "target": "scrapy__scrapy__pr8073:cc-sdd:update:cc-sdd-self-001:self-directed",
+      "task_id": "scrapy__scrapy__pr8073",
+      "method": "cc-sdd",
+      "run_id": "cc-sdd-self-001",
+      "update_mode": "self-directed",
+      "attempt": 1,
+      "status": "SEALED",
+      "modified_test_file_count": 2,
+      "scope_violation_count": 0,
+      "sdd_artifacts_status": "NOT_CAPTURED_BY_V1_RUNNER",
+      "workspace_seal_status": "EXCLUDED",
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/cc-sdd/update/executions/cc-sdd-self-001/attempt-1/mode-self-directed"
+    },
+    {
+      "target": "scrapy__scrapy__pr8073:openspec:update:openspec-sealed-001:sealed-detect",
+      "task_id": "scrapy__scrapy__pr8073",
+      "method": "openspec",
+      "run_id": "openspec-sealed-001",
+      "update_mode": "sealed-detect",
+      "attempt": 1,
+      "status": "SEALED",
+      "modified_test_file_count": 2,
+      "scope_violation_count": 0,
+      "sdd_artifacts_status": "NOT_CAPTURED_BY_V1_RUNNER",
+      "workspace_seal_status": "EXCLUDED",
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/openspec/update/executions/openspec-sealed-001/attempt-1/mode-sealed-detect"
+    },
+    {
+      "target": "scrapy__scrapy__pr8073:openspec:update:openspec-self-001:self-directed",
+      "task_id": "scrapy__scrapy__pr8073",
+      "method": "openspec",
+      "run_id": "openspec-self-001",
+      "update_mode": "self-directed",
+      "attempt": 1,
+      "status": "SEALED",
+      "modified_test_file_count": 2,
+      "scope_violation_count": 0,
+      "sdd_artifacts_status": "NOT_CAPTURED_BY_V1_RUNNER",
+      "workspace_seal_status": "EXCLUDED",
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/openspec/update/executions/openspec-self-001/attempt-1/mode-self-directed"
+    },
+    {
+      "target": "scrapy__scrapy__pr8073:speckit:update:speckit-sealed-001:sealed-detect",
+      "task_id": "scrapy__scrapy__pr8073",
+      "method": "speckit",
+      "run_id": "speckit-sealed-001",
+      "update_mode": "sealed-detect",
+      "attempt": 1,
+      "status": "SEALED",
+      "modified_test_file_count": 2,
+      "scope_violation_count": 0,
+      "sdd_artifacts_status": "NOT_CAPTURED_BY_V1_RUNNER",
+      "workspace_seal_status": "EXCLUDED",
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/speckit/update/executions/speckit-sealed-001/attempt-1/mode-sealed-detect"
+    },
+    {
+      "target": "scrapy__scrapy__pr8073:speckit:update:speckit-self-001:self-directed",
+      "task_id": "scrapy__scrapy__pr8073",
+      "method": "speckit",
+      "run_id": "speckit-self-001",
+      "update_mode": "self-directed",
+      "attempt": 1,
+      "status": "SEALED",
+      "modified_test_file_count": 2,
+      "scope_violation_count": 0,
+      "sdd_artifacts_status": "NOT_CAPTURED_BY_V1_RUNNER",
+      "workspace_seal_status": "EXCLUDED",
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/speckit/update/executions/speckit-self-001/attempt-1/mode-self-directed"
+    }
+  ],
+  "aggregates": {
+    "detect": {
+      "overall": [
+        {
+          "dimensions": {},
+          "metrics": {
+            "configured": 9,
+            "sealed": 9,
+            "historical_failed_events": 14,
+            "candidate_test_file_count": 17,
+            "planning_artifact_file_count": 57
+          }
+        }
+      ],
+      "by_classification": [
+        {
+          "dimensions": {
+            "classification": "MIXED_CODE_AND_TEST_PR"
+          },
+          "metrics": {
+            "configured": 3,
+            "sealed": 3,
+            "historical_failed_events": 4,
+            "candidate_test_file_count": 6,
+            "planning_artifact_file_count": 18
+          }
+        },
+        {
+          "dimensions": {
+            "classification": "TEST_ONLY_PR"
+          },
+          "metrics": {
+            "configured": 6,
+            "sealed": 6,
+            "historical_failed_events": 10,
+            "candidate_test_file_count": 11,
+            "planning_artifact_file_count": 39
+          }
+        }
+      ],
+      "by_method": [
+        {
+          "dimensions": {
+            "method": "cc-sdd"
+          },
+          "metrics": {
+            "configured": 3,
+            "sealed": 3,
+            "historical_failed_events": 4,
+            "candidate_test_file_count": 5,
+            "planning_artifact_file_count": 14
+          }
+        },
+        {
+          "dimensions": {
+            "method": "openspec"
+          },
+          "metrics": {
+            "configured": 3,
+            "sealed": 3,
+            "historical_failed_events": 5,
+            "candidate_test_file_count": 6,
+            "planning_artifact_file_count": 21
+          }
+        },
+        {
+          "dimensions": {
+            "method": "speckit"
+          },
+          "metrics": {
+            "configured": 3,
+            "sealed": 3,
+            "historical_failed_events": 5,
+            "candidate_test_file_count": 6,
+            "planning_artifact_file_count": 22
+          }
+        }
+      ],
+      "by_classification_method": [
+        {
+          "dimensions": {
+            "classification": "MIXED_CODE_AND_TEST_PR",
+            "method": "cc-sdd"
+          },
+          "metrics": {
+            "configured": 1,
+            "sealed": 1,
+            "historical_failed_events": 1,
+            "candidate_test_file_count": 2,
+            "planning_artifact_file_count": 2
+          }
+        },
+        {
+          "dimensions": {
+            "classification": "MIXED_CODE_AND_TEST_PR",
+            "method": "openspec"
+          },
+          "metrics": {
+            "configured": 1,
+            "sealed": 1,
+            "historical_failed_events": 1,
+            "candidate_test_file_count": 2,
+            "planning_artifact_file_count": 7
+          }
+        },
+        {
+          "dimensions": {
+            "classification": "MIXED_CODE_AND_TEST_PR",
+            "method": "speckit"
+          },
+          "metrics": {
+            "configured": 1,
+            "sealed": 1,
+            "historical_failed_events": 2,
+            "candidate_test_file_count": 2,
+            "planning_artifact_file_count": 9
+          }
+        },
+        {
+          "dimensions": {
+            "classification": "TEST_ONLY_PR",
+            "method": "cc-sdd"
+          },
+          "metrics": {
+            "configured": 2,
+            "sealed": 2,
+            "historical_failed_events": 3,
+            "candidate_test_file_count": 3,
+            "planning_artifact_file_count": 12
+          }
+        },
+        {
+          "dimensions": {
+            "classification": "TEST_ONLY_PR",
+            "method": "openspec"
+          },
+          "metrics": {
+            "configured": 2,
+            "sealed": 2,
+            "historical_failed_events": 4,
+            "candidate_test_file_count": 4,
+            "planning_artifact_file_count": 14
+          }
+        },
+        {
+          "dimensions": {
+            "classification": "TEST_ONLY_PR",
+            "method": "speckit"
+          },
+          "metrics": {
+            "configured": 2,
+            "sealed": 2,
+            "historical_failed_events": 3,
+            "candidate_test_file_count": 4,
+            "planning_artifact_file_count": 13
+          }
+        }
+      ]
+    },
+    "update": {
+      "overall": [
+        {
+          "dimensions": {},
+          "metrics": {
+            "configured": 18,
+            "sealed": 18,
+            "historical_failed_events": 2,
+            "modified_test_file_count": 29,
+            "scope_violation_count": 0
+          }
+        }
+      ],
+      "by_classification": [
+        {
+          "dimensions": {
+            "classification": "MIXED_CODE_AND_TEST_PR"
+          },
+          "metrics": {
+            "configured": 6,
+            "sealed": 6,
+            "historical_failed_events": 0,
+            "modified_test_file_count": 11,
+            "scope_violation_count": 0
+          }
+        },
+        {
+          "dimensions": {
+            "classification": "TEST_ONLY_PR"
+          },
+          "metrics": {
+            "configured": 12,
+            "sealed": 12,
+            "historical_failed_events": 2,
+            "modified_test_file_count": 18,
+            "scope_violation_count": 0
+          }
+        }
+      ],
+      "by_method": [
+        {
+          "dimensions": {
+            "method": "cc-sdd"
+          },
+          "metrics": {
+            "configured": 6,
+            "sealed": 6,
+            "historical_failed_events": 0,
+            "modified_test_file_count": 10,
+            "scope_violation_count": 0
+          }
+        },
+        {
+          "dimensions": {
+            "method": "openspec"
+          },
+          "metrics": {
+            "configured": 6,
+            "sealed": 6,
+            "historical_failed_events": 2,
+            "modified_test_file_count": 9,
+            "scope_violation_count": 0
+          }
+        },
+        {
+          "dimensions": {
+            "method": "speckit"
+          },
+          "metrics": {
+            "configured": 6,
+            "sealed": 6,
+            "historical_failed_events": 0,
+            "modified_test_file_count": 10,
+            "scope_violation_count": 0
+          }
+        }
+      ],
+      "by_mode": [
+        {
+          "dimensions": {
+            "update_mode": "sealed-detect"
+          },
+          "metrics": {
+            "configured": 9,
+            "sealed": 9,
+            "historical_failed_events": 1,
+            "modified_test_file_count": 15,
+            "scope_violation_count": 0
+          }
+        },
+        {
+          "dimensions": {
+            "update_mode": "self-directed"
+          },
+          "metrics": {
+            "configured": 9,
+            "sealed": 9,
+            "historical_failed_events": 1,
+            "modified_test_file_count": 14,
+            "scope_violation_count": 0
+          }
+        }
+      ],
+      "by_classification_method": [
+        {
+          "dimensions": {
+            "classification": "MIXED_CODE_AND_TEST_PR",
+            "method": "cc-sdd"
+          },
+          "metrics": {
+            "configured": 2,
+            "sealed": 2,
+            "historical_failed_events": 0,
+            "modified_test_file_count": 4,
+            "scope_violation_count": 0
+          }
+        },
+        {
+          "dimensions": {
+            "classification": "MIXED_CODE_AND_TEST_PR",
+            "method": "openspec"
+          },
+          "metrics": {
+            "configured": 2,
+            "sealed": 2,
+            "historical_failed_events": 0,
+            "modified_test_file_count": 3,
+            "scope_violation_count": 0
+          }
+        },
+        {
+          "dimensions": {
+            "classification": "MIXED_CODE_AND_TEST_PR",
+            "method": "speckit"
+          },
+          "metrics": {
+            "configured": 2,
+            "sealed": 2,
+            "historical_failed_events": 0,
+            "modified_test_file_count": 4,
+            "scope_violation_count": 0
+          }
+        },
+        {
+          "dimensions": {
+            "classification": "TEST_ONLY_PR",
+            "method": "cc-sdd"
+          },
+          "metrics": {
+            "configured": 4,
+            "sealed": 4,
+            "historical_failed_events": 0,
+            "modified_test_file_count": 6,
+            "scope_violation_count": 0
+          }
+        },
+        {
+          "dimensions": {
+            "classification": "TEST_ONLY_PR",
+            "method": "openspec"
+          },
+          "metrics": {
+            "configured": 4,
+            "sealed": 4,
+            "historical_failed_events": 2,
+            "modified_test_file_count": 6,
+            "scope_violation_count": 0
+          }
+        },
+        {
+          "dimensions": {
+            "classification": "TEST_ONLY_PR",
+            "method": "speckit"
+          },
+          "metrics": {
+            "configured": 4,
+            "sealed": 4,
+            "historical_failed_events": 0,
+            "modified_test_file_count": 6,
+            "scope_violation_count": 0
+          }
+        }
+      ],
+      "by_classification_method_mode": [
+        {
+          "dimensions": {
+            "classification": "MIXED_CODE_AND_TEST_PR",
+            "method": "cc-sdd",
+            "update_mode": "sealed-detect"
+          },
+          "metrics": {
+            "configured": 1,
+            "sealed": 1,
+            "historical_failed_events": 0,
+            "modified_test_file_count": 2,
+            "scope_violation_count": 0
+          }
+        },
+        {
+          "dimensions": {
+            "classification": "MIXED_CODE_AND_TEST_PR",
+            "method": "cc-sdd",
+            "update_mode": "self-directed"
+          },
+          "metrics": {
+            "configured": 1,
+            "sealed": 1,
+            "historical_failed_events": 0,
+            "modified_test_file_count": 2,
+            "scope_violation_count": 0
+          }
+        },
+        {
+          "dimensions": {
+            "classification": "MIXED_CODE_AND_TEST_PR",
+            "method": "openspec",
+            "update_mode": "sealed-detect"
+          },
+          "metrics": {
+            "configured": 1,
+            "sealed": 1,
+            "historical_failed_events": 0,
+            "modified_test_file_count": 2,
+            "scope_violation_count": 0
+          }
+        },
+        {
+          "dimensions": {
+            "classification": "MIXED_CODE_AND_TEST_PR",
+            "method": "openspec",
+            "update_mode": "self-directed"
+          },
+          "metrics": {
+            "configured": 1,
+            "sealed": 1,
+            "historical_failed_events": 0,
+            "modified_test_file_count": 1,
+            "scope_violation_count": 0
+          }
+        },
+        {
+          "dimensions": {
+            "classification": "MIXED_CODE_AND_TEST_PR",
+            "method": "speckit",
+            "update_mode": "sealed-detect"
+          },
+          "metrics": {
+            "configured": 1,
+            "sealed": 1,
+            "historical_failed_events": 0,
+            "modified_test_file_count": 2,
+            "scope_violation_count": 0
+          }
+        },
+        {
+          "dimensions": {
+            "classification": "MIXED_CODE_AND_TEST_PR",
+            "method": "speckit",
+            "update_mode": "self-directed"
+          },
+          "metrics": {
+            "configured": 1,
+            "sealed": 1,
+            "historical_failed_events": 0,
+            "modified_test_file_count": 2,
+            "scope_violation_count": 0
+          }
+        },
+        {
+          "dimensions": {
+            "classification": "TEST_ONLY_PR",
+            "method": "cc-sdd",
+            "update_mode": "sealed-detect"
+          },
+          "metrics": {
+            "configured": 2,
+            "sealed": 2,
+            "historical_failed_events": 0,
+            "modified_test_file_count": 3,
+            "scope_violation_count": 0
+          }
+        },
+        {
+          "dimensions": {
+            "classification": "TEST_ONLY_PR",
+            "method": "cc-sdd",
+            "update_mode": "self-directed"
+          },
+          "metrics": {
+            "configured": 2,
+            "sealed": 2,
+            "historical_failed_events": 0,
+            "modified_test_file_count": 3,
+            "scope_violation_count": 0
+          }
+        },
+        {
+          "dimensions": {
+            "classification": "TEST_ONLY_PR",
+            "method": "openspec",
+            "update_mode": "sealed-detect"
+          },
+          "metrics": {
+            "configured": 2,
+            "sealed": 2,
+            "historical_failed_events": 1,
+            "modified_test_file_count": 3,
+            "scope_violation_count": 0
+          }
+        },
+        {
+          "dimensions": {
+            "classification": "TEST_ONLY_PR",
+            "method": "openspec",
+            "update_mode": "self-directed"
+          },
+          "metrics": {
+            "configured": 2,
+            "sealed": 2,
+            "historical_failed_events": 1,
+            "modified_test_file_count": 3,
+            "scope_violation_count": 0
+          }
+        },
+        {
+          "dimensions": {
+            "classification": "TEST_ONLY_PR",
+            "method": "speckit",
+            "update_mode": "sealed-detect"
+          },
+          "metrics": {
+            "configured": 2,
+            "sealed": 2,
+            "historical_failed_events": 0,
+            "modified_test_file_count": 3,
+            "scope_violation_count": 0
+          }
+        },
+        {
+          "dimensions": {
+            "classification": "TEST_ONLY_PR",
+            "method": "speckit",
+            "update_mode": "self-directed"
+          },
+          "metrics": {
+            "configured": 2,
+            "sealed": 2,
+            "historical_failed_events": 0,
+            "modified_test_file_count": 3,
+            "scope_violation_count": 0
+          }
+        }
+      ]
+    },
+    "end_to_end": {
+      "overall": [
+        {
+          "dimensions": {},
+          "metrics": {
+            "configured_pairs": 9,
+            "ready_pairs": 9,
+            "historical_failed_events": 16
+          }
+        }
+      ],
+      "by_classification": [
+        {
+          "dimensions": {
+            "classification": "MIXED_CODE_AND_TEST_PR"
+          },
+          "metrics": {
+            "configured_pairs": 3,
+            "ready_pairs": 3,
+            "historical_failed_events": 4
+          }
+        },
+        {
+          "dimensions": {
+            "classification": "TEST_ONLY_PR"
+          },
+          "metrics": {
+            "configured_pairs": 6,
+            "ready_pairs": 6,
+            "historical_failed_events": 12
+          }
+        }
+      ],
+      "by_method": [
+        {
+          "dimensions": {
+            "method": "cc-sdd"
+          },
+          "metrics": {
+            "configured_pairs": 3,
+            "ready_pairs": 3,
+            "historical_failed_events": 4
+          }
+        },
+        {
+          "dimensions": {
+            "method": "openspec"
+          },
+          "metrics": {
+            "configured_pairs": 3,
+            "ready_pairs": 3,
+            "historical_failed_events": 7
+          }
+        },
+        {
+          "dimensions": {
+            "method": "speckit"
+          },
+          "metrics": {
+            "configured_pairs": 3,
+            "ready_pairs": 3,
+            "historical_failed_events": 5
+          }
+        }
+      ],
+      "by_classification_method": [
+        {
+          "dimensions": {
+            "classification": "MIXED_CODE_AND_TEST_PR",
+            "method": "cc-sdd"
+          },
+          "metrics": {
+            "configured_pairs": 1,
+            "ready_pairs": 1,
+            "historical_failed_events": 1
+          }
+        },
+        {
+          "dimensions": {
+            "classification": "MIXED_CODE_AND_TEST_PR",
+            "method": "openspec"
+          },
+          "metrics": {
+            "configured_pairs": 1,
+            "ready_pairs": 1,
+            "historical_failed_events": 1
+          }
+        },
+        {
+          "dimensions": {
+            "classification": "MIXED_CODE_AND_TEST_PR",
+            "method": "speckit"
+          },
+          "metrics": {
+            "configured_pairs": 1,
+            "ready_pairs": 1,
+            "historical_failed_events": 2
+          }
+        },
+        {
+          "dimensions": {
+            "classification": "TEST_ONLY_PR",
+            "method": "cc-sdd"
+          },
+          "metrics": {
+            "configured_pairs": 2,
+            "ready_pairs": 2,
+            "historical_failed_events": 3
+          }
+        },
+        {
+          "dimensions": {
+            "classification": "TEST_ONLY_PR",
+            "method": "openspec"
+          },
+          "metrics": {
+            "configured_pairs": 2,
+            "ready_pairs": 2,
+            "historical_failed_events": 6
+          }
+        },
+        {
+          "dimensions": {
+            "classification": "TEST_ONLY_PR",
+            "method": "speckit"
+          },
+          "metrics": {
+            "configured_pairs": 2,
+            "ready_pairs": 2,
+            "historical_failed_events": 3
+          }
+        }
+      ]
+    }
+  },
+  "failures": {
+    "taxonomy": [
+      "infrastructure",
+      "runtime",
+      "output",
+      "scope",
+      "unknown"
+    ],
+    "counts": {
+      "infrastructure": 7,
+      "runtime": 1,
+      "output": 7,
+      "scope": 0,
+      "unknown": 1
+    },
+    "events": [
+      {
+        "sequence": 13,
+        "target": "scrapy__scrapy__pr8064:cc-sdd:detect:cc-sdd-detect-001:none",
+        "stage": "detect",
+        "attempt": 1,
+        "classification": "infrastructure",
+        "attempt_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/detect/executions/cc-sdd-detect-001/attempt-1",
+        "evidence": [
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/detect/executions/cc-sdd-detect-001/attempt-1/agent.jsonl",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/detect/executions/cc-sdd-detect-001/attempt-1/agent.stderr.log",
+            "sha256": "05bf649bf825c68628d567ab2242e0d8a9c0f984755c1504b8ffd37345b9f196"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/detect/executions/cc-sdd-detect-001/attempt-1/rendered-compose.yaml",
+            "sha256": "99b99eb469361f1e25bb0a5727ec3457c1522b67efff6f4cc6c18210fd4c43cf"
+          }
+        ]
+      },
+      {
+        "sequence": 17,
+        "target": "scrapy__scrapy__pr8064:openspec:detect:openspec-detect-001:none",
+        "stage": "detect",
+        "attempt": 1,
+        "classification": "infrastructure",
+        "attempt_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/detect/executions/openspec-detect-001/attempt-1",
+        "evidence": [
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/detect/executions/openspec-detect-001/attempt-1/agent.jsonl",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/detect/executions/openspec-detect-001/attempt-1/agent.stderr.log",
+            "sha256": "c1d3e866d1f5454b393c7403387ab0a5275676a2784a86c0fe7c9485539e0c05"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/detect/executions/openspec-detect-001/attempt-1/rendered-compose.yaml",
+            "sha256": "ffa1774b227d1408abd00bc4e76bcacd2ef4fb5cb4d72bb49b2973edc48b0b94"
+          }
+        ]
+      },
+      {
+        "sequence": 21,
+        "target": "scrapy__scrapy__pr8064:speckit:detect:speckit-detect-001:none",
+        "stage": "detect",
+        "attempt": 1,
+        "classification": "infrastructure",
+        "attempt_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/speckit/detect/executions/speckit-detect-001/attempt-1",
+        "evidence": [
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/speckit/detect/executions/speckit-detect-001/attempt-1/agent.jsonl",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/speckit/detect/executions/speckit-detect-001/attempt-1/agent.stderr.log",
+            "sha256": "996f4ab858d47a163f54e3a0d04defdc50d729abb1ef856feaa3a6b17c8e87f7"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/speckit/detect/executions/speckit-detect-001/attempt-1/rendered-compose.yaml",
+            "sha256": "f875ac77fb0d8e38f33490684814bf1ce3659bbf8c80f7043f3d5ccde463123b"
+          }
+        ]
+      },
+      {
+        "sequence": 28,
+        "target": "scrapy__scrapy__pr8067:cc-sdd:detect:cc-sdd-detect-001:none",
+        "stage": "detect",
+        "attempt": 1,
+        "classification": "unknown",
+        "attempt_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/cc-sdd/detect/executions/cc-sdd-detect-001/attempt-1",
+        "evidence": [
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/cc-sdd/detect/executions/cc-sdd-detect-001/attempt-1/rendered-compose.yaml",
+            "sha256": "e3727a0f7b864da5e36f636a1b4dfc450b42efd663de3d87af5e409e3f375b25"
+          }
+        ]
+      },
+      {
+        "sequence": 32,
+        "target": "scrapy__scrapy__pr8064:cc-sdd:detect:cc-sdd-detect-001:none",
+        "stage": "detect",
+        "attempt": 2,
+        "classification": "runtime",
+        "attempt_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/detect/executions/cc-sdd-detect-001/attempt-2",
+        "evidence": [
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/detect/executions/cc-sdd-detect-001/attempt-2/agent.jsonl",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/detect/executions/cc-sdd-detect-001/attempt-2/agent.stderr.log",
+            "sha256": "b535d765306a3eb7c950782fa8d87c4a6eae5e4abb752a9690eb7a7105fc576a"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/detect/executions/cc-sdd-detect-001/attempt-2/codex-catalog.override.yaml",
+            "sha256": "acc37e4b796ce3b6a2e5ba8bbe2fc503e642c60e255dd70e7ef6835a00ec0357"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/detect/executions/cc-sdd-detect-001/attempt-2/rendered-compose.yaml",
+            "sha256": "598ff0cb714908c91b66ba208ca26b3bf13cfa997bd93c6d9850d687f3a27b96"
+          }
+        ]
+      },
+      {
+        "sequence": 36,
+        "target": "scrapy__scrapy__pr8064:cc-sdd:detect:cc-sdd-detect-001:none",
+        "stage": "detect",
+        "attempt": 3,
+        "classification": "infrastructure",
+        "attempt_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/detect/executions/cc-sdd-detect-001/attempt-3",
+        "evidence": [
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/detect/executions/cc-sdd-detect-001/attempt-3/agent.jsonl",
+            "sha256": "4d5a7105d904a6f58810a4d5ab7f616e73abec36c702821ac3e7af60af6a1fe4"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/detect/executions/cc-sdd-detect-001/attempt-3/agent.stderr.log",
+            "sha256": "ad8dcee667be4bf8f0754947d75e7e78f2a7d25df29608bb3c8af6523e8590d4"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/detect/executions/cc-sdd-detect-001/attempt-3/checkpoint.json",
+            "sha256": "9803c04b7f43f19d2a2129ed87501f44aaa717e7090aef06918863504591b47d"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/detect/executions/cc-sdd-detect-001/attempt-3/codex-catalog.override.yaml",
+            "sha256": "acc37e4b796ce3b6a2e5ba8bbe2fc503e642c60e255dd70e7ef6835a00ec0357"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/detect/executions/cc-sdd-detect-001/attempt-3/detect-summary.json",
+            "sha256": "bbe60c4bca72642c3e59c9f828defc952ea073320b50f28225def5b76887d8e1"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/detect/executions/cc-sdd-detect-001/attempt-3/detection-draft.json",
+            "sha256": "51a9d8779f54e3b8ec7e1315e4fa8f610d83670e66c0f7da56d69b07428592e6"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/detect/executions/cc-sdd-detect-001/attempt-3/detection-manifest.json",
+            "sha256": "aa83afff941e0bfaba2b35e70e0d0db072adcf312fb9c495fa5988b2d8a890f4"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/detect/executions/cc-sdd-detect-001/attempt-3/rendered-compose.yaml",
+            "sha256": "4173f53207b2b4678109fb98eaee33524ab1c70d61ec2269611d59533a33022b"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/detect/executions/cc-sdd-detect-001/attempt-3/sdd-artifacts/open-in-browser-redos-tests/design.md",
+            "sha256": "dca7093afc5090c93b9f68a0082429f9dc25e87e1466feed2a892de173fc8cb7"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/detect/executions/cc-sdd-detect-001/attempt-3/sdd-artifacts/open-in-browser-redos-tests/detection-draft.json",
+            "sha256": "51a9d8779f54e3b8ec7e1315e4fa8f610d83670e66c0f7da56d69b07428592e6"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/detect/executions/cc-sdd-detect-001/attempt-3/sdd-artifacts/open-in-browser-redos-tests/requirements.md",
+            "sha256": "13eb343605e38c6519b796489958aa4e8bd8bb9618d7251aa0bd23a8ffb1465a"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/detect/executions/cc-sdd-detect-001/attempt-3/sdd-artifacts/open-in-browser-redos-tests/research.md",
+            "sha256": "41a98cdffcd694cef5583ac193adea979524c07822838c8250dd1d5ddd8a9438"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/detect/executions/cc-sdd-detect-001/attempt-3/sdd-artifacts/open-in-browser-redos-tests/spec.json",
+            "sha256": "f08c42f7383764280c4bd4b7be80202d0b31b92ba11a8fde62dcccd4b2c11a19"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/detect/executions/cc-sdd-detect-001/attempt-3/sdd-artifacts/open-in-browser-redos-tests/tasks.md",
+            "sha256": "ce0f2111bfdbeb96bc97a32570d0a6b200fd11a5bd5f3b42653dc370d812a360"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/detect/executions/cc-sdd-detect-001/attempt-3/seal.json",
+            "sha256": "64443b18f1af2ecaa7b045ba643e547c34f5b4e2f158c315b94e976974874079"
+          }
+        ]
+      },
+      {
+        "sequence": 42,
+        "target": "scrapy__scrapy__pr8064:openspec:detect:openspec-detect-001:none",
+        "stage": "detect",
+        "attempt": 2,
+        "classification": "output",
+        "attempt_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/detect/executions/openspec-detect-001/attempt-2",
+        "evidence": [
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/detect/executions/openspec-detect-001/attempt-2/agent.jsonl",
+            "sha256": "b0abd7ebc05030909b0f1e95326ec8a61c989d5c29f436419227170ca66d3222"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/detect/executions/openspec-detect-001/attempt-2/agent.stderr.log",
+            "sha256": "1b3550fbf819363019da2fcde1ab84b443a4acd89cfb0bec80bdfa64e8d7b902"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/detect/executions/openspec-detect-001/attempt-2/codex-catalog.override.yaml",
+            "sha256": "28b9dd192aa87899214160dbfa1df1e66338e814354ce28deec9ebc03da2aafb"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/detect/executions/openspec-detect-001/attempt-2/rendered-compose.yaml",
+            "sha256": "ed9cd9da4a13445440959b2dc36ee818321c5a13edd6f34c4aa86ff60bfe5911"
+          }
+        ]
+      },
+      {
+        "sequence": 46,
+        "target": "scrapy__scrapy__pr8064:speckit:detect:speckit-detect-001:none",
+        "stage": "detect",
+        "attempt": 2,
+        "classification": "output",
+        "attempt_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/speckit/detect/executions/speckit-detect-001/attempt-2",
+        "evidence": [
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/speckit/detect/executions/speckit-detect-001/attempt-2/agent.jsonl",
+            "sha256": "d13d795f7980aef05beac1ac48f1206b8c43114729ff5c5a89817bf0bb9cb7af"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/speckit/detect/executions/speckit-detect-001/attempt-2/agent.stderr.log",
+            "sha256": "379fc71c1e9af14a9b308089bbdebbad06b594b6c1e0a1bf55f655dc8c47e778"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/speckit/detect/executions/speckit-detect-001/attempt-2/codex-catalog.override.yaml",
+            "sha256": "da41ad3610920d65371b4981aac49577348297041d18ff4b0674ba29ed98cc38"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/speckit/detect/executions/speckit-detect-001/attempt-2/rendered-compose.yaml",
+            "sha256": "3ab16bb8a23d067563fa758e6d187740e4c6bd69c3ded1b597f879454239189a"
+          }
+        ]
+      },
+      {
+        "sequence": 54,
+        "target": "scrapy__scrapy__pr8067:openspec:detect:openspec-detect-001:none",
+        "stage": "detect",
+        "attempt": 1,
+        "classification": "output",
+        "attempt_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/openspec/detect/executions/openspec-detect-001/attempt-1",
+        "evidence": [
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/openspec/detect/executions/openspec-detect-001/attempt-1/agent.jsonl",
+            "sha256": "849d35b9d32104afe777a8d962d66e9796001d6f747fcf7c258242e41ac276b6"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/openspec/detect/executions/openspec-detect-001/attempt-1/agent.stderr.log",
+            "sha256": "0984cc741b6c904e3288ece8fd9d897b22563c3d83078975ee30a49212539f50"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/openspec/detect/executions/openspec-detect-001/attempt-1/codex-catalog.override.yaml",
+            "sha256": "28b9dd192aa87899214160dbfa1df1e66338e814354ce28deec9ebc03da2aafb"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/openspec/detect/executions/openspec-detect-001/attempt-1/rendered-compose.yaml",
+            "sha256": "3afe38d6a2f47ecab3aba22de85eea59ed6522dc556e258b661f9c69f06c2274"
+          }
+        ]
+      },
+      {
+        "sequence": 58,
+        "target": "scrapy__scrapy__pr8067:speckit:detect:speckit-detect-001:none",
+        "stage": "detect",
+        "attempt": 1,
+        "classification": "output",
+        "attempt_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/speckit/detect/executions/speckit-detect-001/attempt-1",
+        "evidence": [
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/speckit/detect/executions/speckit-detect-001/attempt-1/agent.jsonl",
+            "sha256": "bb2e4030bb3d6037ae60e465664fdb196d1b06fbf03c6d47ab525f8eb5ca4b98"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/speckit/detect/executions/speckit-detect-001/attempt-1/agent.stderr.log",
+            "sha256": "ccc64c741f77a4d50175ee40c84b734ae79a6ea824f3aea543df0dfc242f8079"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/speckit/detect/executions/speckit-detect-001/attempt-1/codex-catalog.override.yaml",
+            "sha256": "da41ad3610920d65371b4981aac49577348297041d18ff4b0674ba29ed98cc38"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/speckit/detect/executions/speckit-detect-001/attempt-1/rendered-compose.yaml",
+            "sha256": "23badef25b7074853d73648a8f584438ce8a109237dcc96dbc0cfd7e64c0a86a"
+          }
+        ]
+      },
+      {
+        "sequence": 66,
+        "target": "scrapy__scrapy__pr8073:openspec:detect:openspec-detect-001:none",
+        "stage": "detect",
+        "attempt": 1,
+        "classification": "output",
+        "attempt_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/openspec/detect/executions/openspec-detect-001/attempt-1",
+        "evidence": [
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/openspec/detect/executions/openspec-detect-001/attempt-1/agent.jsonl",
+            "sha256": "78f89b5d8e686a5a75851b9e084855c0b44ea2a472888b9ccc23e4f16a68a28d"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/openspec/detect/executions/openspec-detect-001/attempt-1/agent.stderr.log",
+            "sha256": "dfde7d41e29e8743473ca90c163b897ea6a43d0b17afaf166e301aec48fb3eb4"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/openspec/detect/executions/openspec-detect-001/attempt-1/codex-catalog.override.yaml",
+            "sha256": "28b9dd192aa87899214160dbfa1df1e66338e814354ce28deec9ebc03da2aafb"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/openspec/detect/executions/openspec-detect-001/attempt-1/rendered-compose.yaml",
+            "sha256": "5c2bb1591176f5c7941a4a3a1c2d392ef72609ccc9c598e697f2f372bd8bab96"
+          }
+        ]
+      },
+      {
+        "sequence": 70,
+        "target": "scrapy__scrapy__pr8073:speckit:detect:speckit-detect-001:none",
+        "stage": "detect",
+        "attempt": 1,
+        "classification": "output",
+        "attempt_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/speckit/detect/executions/speckit-detect-001/attempt-1",
+        "evidence": [
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/speckit/detect/executions/speckit-detect-001/attempt-1/agent.jsonl",
+            "sha256": "c780243e51ea9edaab7c8531b29fbfe73cb3eed018cffba3a9dc2cdaa1a65f1e"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/speckit/detect/executions/speckit-detect-001/attempt-1/agent.stderr.log",
+            "sha256": "6e007327ca12db7e74b5295d0bac4be3ca56010934d63112fdfbed085c6abb7f"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/speckit/detect/executions/speckit-detect-001/attempt-1/codex-catalog.override.yaml",
+            "sha256": "da41ad3610920d65371b4981aac49577348297041d18ff4b0674ba29ed98cc38"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/speckit/detect/executions/speckit-detect-001/attempt-1/rendered-compose.yaml",
+            "sha256": "049df41fd3de7f3b8ad61d59b41699a718ee8a6a995700185e8cb462fa8c0ffd"
+          }
+        ]
+      },
+      {
+        "sequence": 74,
+        "target": "scrapy__scrapy__pr8064:openspec:detect:openspec-detect-001:none",
+        "stage": "detect",
+        "attempt": 3,
+        "classification": "infrastructure",
+        "attempt_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/detect/executions/openspec-detect-001/attempt-3",
+        "evidence": [
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/detect/executions/openspec-detect-001/attempt-3/agent.jsonl",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/detect/executions/openspec-detect-001/attempt-3/agent.stderr.log",
+            "sha256": "42c364fb7e76d4705a58663f36c365d116306f9105384da2502f928c93829867"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/detect/executions/openspec-detect-001/attempt-3/codex-catalog.override.yaml",
+            "sha256": "68092e7669f0a9aa338c28e5a19e1befa7cc363c9a3f786f38b7b7382c817492"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/detect/executions/openspec-detect-001/attempt-3/rendered-compose.yaml",
+            "sha256": "de4f5bf983f79167ad196024ffc08832109a2139fce6249c4ed9b148f56bc46d"
+          }
+        ]
+      },
+      {
+        "sequence": 93,
+        "target": "scrapy__scrapy__pr8067:speckit:detect:speckit-detect-001:none",
+        "stage": "detect",
+        "attempt": 2,
+        "classification": "output",
+        "attempt_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/speckit/detect/executions/speckit-detect-001/attempt-2",
+        "evidence": [
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/speckit/detect/executions/speckit-detect-001/attempt-2/agent.jsonl",
+            "sha256": "78478c191e6d2cd8e6f98f3033f2c83344f3207d01cf9e0da42a6c314413ea54"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/speckit/detect/executions/speckit-detect-001/attempt-2/agent.stderr.log",
+            "sha256": "485e8550e2ab32ff0b4e799c7eefcabd58c9b3986253a5593120df802c8edaca"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/speckit/detect/executions/speckit-detect-001/attempt-2/codex-catalog.override.yaml",
+            "sha256": "bff923d921b16abd45814a266c0c8a6d7e2544176f1b093da47ff3f505b6b4cf"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/speckit/detect/executions/speckit-detect-001/attempt-2/rendered-compose.yaml",
+            "sha256": "2dd793ac7ee1a0bbf020ad8fdbf95bb7cb44db5771d508a93721063170b01b74"
+          }
+        ]
+      },
+      {
+        "sequence": 136,
+        "target": "scrapy__scrapy__pr8064:openspec:update:openspec-sealed-001:sealed-detect",
+        "stage": "update",
+        "attempt": 1,
+        "classification": "infrastructure",
+        "attempt_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/update/executions/openspec-sealed-001/attempt-1/mode-sealed-detect",
+        "evidence": [
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/update/executions/openspec-sealed-001/attempt-1/mode-sealed-detect/artifacts/agent.jsonl",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/update/executions/openspec-sealed-001/attempt-1/mode-sealed-detect/artifacts/agent.stderr.log",
+            "sha256": "b37c799dd1b818df75fcc8edec28cff0bfbb73b1d04cf903bccec16d66c65881"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/update/executions/openspec-sealed-001/attempt-1/mode-sealed-detect/artifacts/codex-catalog.override.yaml",
+            "sha256": "e77f6ebfde27c01fb3f222f45e2976b324c7b96eb3a26dd302d935f21788fd40"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/update/executions/openspec-sealed-001/attempt-1/mode-sealed-detect/artifacts/rendered-compose.yaml",
+            "sha256": "5edd88f9a9174015355b3d6642ee93c8681cb1f719fd5e4b4fcdb30eb37bb920"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/update/executions/openspec-sealed-001/attempt-1/mode-sealed-detect/policy-mount.override.yaml",
+            "sha256": "da8338636c4ffa707ef460f860cda26e93aa27afb649d0e403ee12ade9c49340"
+          }
+        ]
+      },
+      {
+        "sequence": 140,
+        "target": "scrapy__scrapy__pr8064:openspec:update:openspec-self-001:self-directed",
+        "stage": "update",
+        "attempt": 1,
+        "classification": "infrastructure",
+        "attempt_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/update/executions/openspec-self-001/attempt-1/mode-self-directed",
+        "evidence": [
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/update/executions/openspec-self-001/attempt-1/mode-self-directed/artifacts/agent.jsonl",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/update/executions/openspec-self-001/attempt-1/mode-self-directed/artifacts/agent.stderr.log",
+            "sha256": "b0fc00eb65543e2978fbd2dd5894d62b8610667d6970356f94bad00b7c0711d2"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/update/executions/openspec-self-001/attempt-1/mode-self-directed/artifacts/codex-catalog.override.yaml",
+            "sha256": "e77f6ebfde27c01fb3f222f45e2976b324c7b96eb3a26dd302d935f21788fd40"
+          },
+          {
+            "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/update/executions/openspec-self-001/attempt-1/mode-self-directed/artifacts/rendered-compose.yaml",
+            "sha256": "4c4cc498a082587233ba0033eaad5da785f779c08df8b4b13f4357481c1027b3"
+          }
+        ]
+      }
+    ]
+  },
+  "limitations": [
+    {
+      "code": "UPDATE_WORKSPACE_EXCLUDED_FROM_V1_SEAL",
+      "status": "DISCLOSED",
+      "affected_targets": 18
+    },
+    {
+      "code": "UPDATE_SDD_ARTIFACTS_NOT_CAPTURED_BY_V1_RUNNER",
+      "status": "DISCLOSED",
+      "affected_targets": 18
+    }
+  ],
+  "disclosures": {
+    "execution_agent_gold_access": "NONE",
+    "report_generator_gold_access": "NONE_BY_CONSTRUCTION",
+    "host_continuation_session_gold_access": "ACCIDENTAL_READ_NOT_USED_IN_REPORT_OR_EXECUTION"
+  },
+  "report_sha256": "98dcb991ddf662baa49a60f6a39a6d61e675fe9c428a9b4b8bec6ad64d991e10"
+}

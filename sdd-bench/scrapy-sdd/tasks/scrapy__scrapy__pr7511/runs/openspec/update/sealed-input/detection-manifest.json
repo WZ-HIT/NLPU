@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr7511",
+  "method": "openspec",
+  "base_sha": "1420418c813ed01af78da62bc4a6e60bb4a7403b",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "openspec-detect-003",
+    "session_sha256": "62bd3023156616e3927d7b7ed08d095881a04d4926323fee3e966902b663d853"
+  },
+  "task_input_sha256": "4777e8f52c154bdd82f570aedcade2afbbd7228024e803f6d618a9280be15ce9",
+  "candidates": [
+    {
+      "path": "tests/test_utils_misc/__init__.py",
+      "symbols": [
+        "test_walk_modules",
+        "test_walk_modules_egg"
+      ],
+      "reason": "This test module directly imports scrapy.utils.misc.walk_modules_iter; test_walk_modules covers package traversal and import failure, while test_walk_modules_egg covers traversal through an egg importer."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 7,
+    "manifest_sha256": "1e9779e6a264133f753321ed1836d30f3427306321150d315a1526c556cac367"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "be4714fe5f6e7a4220e0d47b193dfd462e25d96bac8175a68792e49adf74958f"
+  }
+}

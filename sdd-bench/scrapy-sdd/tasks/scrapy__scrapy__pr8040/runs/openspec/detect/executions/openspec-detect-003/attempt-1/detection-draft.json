@@ -1,0 +1,18 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_selector.py",
+      "symbols": [
+        "TestSelector",
+        "TestSelector.test_flavor_detection",
+        "TestSelector.test_flavor_detection_json",
+        "TestSelector.test_flavor_detection_json_with_html_body",
+        "TestSelector.test_flavor_detection_text",
+        "TestJMESPath",
+        "TestJMESPath.test_json_has_html",
+        "TestJMESPath.test_html_has_json"
+      ],
+      "reason": "Primary selector test module; it already covers response-based selector type detection and nested JMESPath selection, so it is the direct place to add regression coverage for nested non-string JSON roots being typed by parsel."
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_selector.py",
+      "symbols": [
+        "TestSelector.test_flavor_detection",
+        "TestSelector.test_flavor_detection_json",
+        "TestSelector.test_flavor_detection_json_with_html_body",
+        "TestJMESPath.test_json_has_html",
+        "TestJMESPath.test_html_has_json"
+      ],
+      "reason": "This module contains the selector flavor-detection and JMESPath tests that exercise response-derived defaults and nested selectors created from parsed roots. The PR changes Selector construction when a root is supplied, so these symbols are the closest existing regression coverage; a nested-root JSON scalar case should be added here if it is not already covered."
+    }
+  ]
+}

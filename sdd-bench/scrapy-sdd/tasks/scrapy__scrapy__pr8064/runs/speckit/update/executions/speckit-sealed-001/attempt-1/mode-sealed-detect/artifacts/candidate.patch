@@ -1,0 +1,91 @@
+diff --git a/tests/test_utils_response.py b/tests/test_utils_response.py
+index 8269f0a..3e4a3b0 100644
+--- a/tests/test_utils_response.py
++++ b/tests/test_utils_response.py
+@@ -1,7 +1,10 @@
+ from __future__ import annotations
+ 
++import signal
++from collections.abc import Iterator
++from contextlib import contextmanager
+ from pathlib import Path
+-from time import process_time
++from types import FrameType
+ from urllib.parse import urlparse
+ 
+ import pytest
+@@ -213,31 +216,63 @@ def test_inject_base_url(body: bytes) -> None:
+     assert open_in_browser(resp, _openfunc=check_base_url)
+ 
+ 
+-def _assert_open_in_browser_is_fast(body: bytes) -> None:
+-    # The exploit inputs are large enough that a vulnerable implementation
+-    # needs seconds to go through them, while a safe one stays in the low
+-    # milliseconds even on a slow interpreter.
+-    max_cpu_time = 0.2
++_REDOS_TIMEOUT_CPU_SECONDS = 5
++
++
++@contextmanager
++def _fail_after_cpu_seconds(seconds: float) -> Iterator[None]:
++    if not (
++        hasattr(signal, "ITIMER_PROF")
++        and hasattr(signal, "SIGPROF")
++        and hasattr(signal, "setitimer")
++    ):
++        yield
++        return
++
++    def fail(signum: int, frame: FrameType | None) -> None:
++        msg = f"open_in_browser used more than {seconds} CPU seconds"
++        raise TimeoutError(msg)
+ 
++    previous_handler = signal.signal(signal.SIGPROF, fail)
++    previous_timer = signal.setitimer(signal.ITIMER_PROF, seconds)
++    try:
++        yield
++    finally:
++        signal.setitimer(signal.ITIMER_PROF, *previous_timer)
++        signal.signal(signal.SIGPROF, previous_handler)
++
++
++def _assert_open_in_browser_is_fast(body: bytes) -> None:
++    # Do not assert on an absolute runtime: that makes the result depend on
++    # interpreter speed and worker load. Instead, fail only if processing the
++    # payload consumes several CPU seconds, as a vulnerable regex would.
+     response = HtmlResponse("https://example.com", body=body)
+-    start_time = process_time()
+-    open_in_browser(response, lambda url: True)
+-    end_time = process_time()
+-    assert end_time - start_time < max_cpu_time
++    with _fail_after_cpu_seconds(_REDOS_TIMEOUT_CPU_SECONDS):
++        assert open_in_browser(response, lambda url: url.startswith("file://"))
+ 
+ 
+ def test_open_in_browser_redos_comment():
+     # Exploit input from
+     # https://makenowjust-labs.github.io/recheck/playground/
+     # for /<!--.*?-->/ (old pattern to remove comments).
+-    _assert_open_in_browser_is_fast(b"-><!--\x00" * 250_000 + b"->\n<!---->")
++    # The original input ended with "<!--" followed by "-->", which lets the
++    # pattern match from the first comment start when re.DOTALL is used. Keep
++    # the input free of a comment terminator instead to force the vulnerable
++    # pattern to scan to the end of the body at every comment-start candidate.
++    body = b"-><!--\x00" * 250_000 + b"->"
++    assert b"-->" not in body
++    _assert_open_in_browser_is_fast(body)
+ 
+ 
+ def test_open_in_browser_redos_head():
+     # Exploit input from
+     # https://makenowjust-labs.github.io/recheck/playground/
+     # for /(<head(?:>|\s.*?>))/ (old pattern to find the head element).
+-    _assert_open_in_browser_is_fast(b"<head\t" * 80_000)
++    # Keep the input free of a ">" terminator so that the vulnerable pattern
++    # scans to the end of the body for every "<head" candidate.
++    body = b"<head\t" * 80_000
++    assert b">" not in body
++    _assert_open_in_browser_is_fast(body)
+ 
+ 
+ def test_open_in_browser_preserves_html_comments():

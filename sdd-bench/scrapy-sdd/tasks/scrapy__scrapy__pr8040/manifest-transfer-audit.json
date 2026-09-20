@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "audit_type": "MANIFEST_TRANSFER",
+  "status": "PASS",
+  "task_id": "scrapy__scrapy__pr8040",
+  "formal_update_state": "AWAITING_FORMAL_SEAL",
+  "canary_boundary_validated": true,
+  "methods": [
+    {
+      "method": "openspec",
+      "same_task_only": true,
+      "same_method_only": true,
+      "seal_change_invalidates_evidence": true
+    },
+    {
+      "method": "speckit",
+      "same_task_only": true,
+      "same_method_only": true,
+      "seal_change_invalidates_evidence": true
+    },
+    {
+      "method": "cc-sdd",
+      "same_task_only": true,
+      "same_method_only": true,
+      "seal_change_invalidates_evidence": true
+    }
+  ]
+}

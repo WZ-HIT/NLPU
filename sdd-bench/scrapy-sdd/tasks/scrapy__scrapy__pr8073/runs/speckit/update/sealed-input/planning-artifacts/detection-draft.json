@@ -1,0 +1,19 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_downloader_handler_twisted_ftp.py",
+      "symbols": [
+        "TestFTP.test_invalid_credentials"
+      ],
+      "reason": "Contains the Windows-asyncio skip whose DirtyReactorAggregateError comment is targeted for re-enablement; the test asserts an FTP invalid-credentials ConnectionLost failure."
+    },
+    {
+      "path": "tests/utils/bases/download_handlers_http.py",
+      "symbols": [
+        "TestHttpBase.test_timeout_download_from_spider_nodata_rcvd",
+        "TestHttpBase.test_timeout_download_from_spider_server_hangs"
+      ],
+      "reason": "Defines both HTTP timeout tests carrying DirtyReactorAggregateError Windows-asyncio skip comments; concrete HTTP handler suites inherit these affected tests."
+    }
+  ]
+}

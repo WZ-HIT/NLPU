@@ -1,0 +1,182 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr8017",
+  "method": "speckit",
+  "base_sha": "1420418c813ed01af78da62bc4a6e60bb4a7403b",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "speckit-detect-003",
+    "session_sha256": "ba38996c6d8837a44d73c0ba9a53de76798d56a1d9e0ae594e156617953d6439"
+  },
+  "task_input_sha256": "1fb0caf03bbc0be062a0980a3361893d9329e4e3ad1f9bdf508b315b93be623d",
+  "candidates": [
+    {
+      "path": "tests/test_cmdline/__init__.py",
+      "symbols": [
+        "test_default_settings",
+        "test_override_settings_using_set_arg",
+        "test_profiling",
+        "test_override_dict_settings",
+        "test_pathlib_path_as_feeds_key"
+      ],
+      "reason": "This file carries tests for the tests.test_cmdline module, which still disables check_untyped_defs and is part of the final typing batch."
+    },
+    {
+      "path": "tests/test_downloaderslotssettings.py",
+      "symbols": [
+        "test_delay",
+        "test_params",
+        "test_get_slot_deprecated_spider_arg",
+        "test_none_slot_with_priority_queue"
+      ],
+      "reason": "This module is listed under the base check_untyped_defs=false override and needs annotations for its spider helpers and tests."
+    },
+    {
+      "path": "tests/test_dupefilters.py",
+      "symbols": [
+        "TestRFPDupeFilter",
+        "TestBaseDupeFilter"
+      ],
+      "reason": "This module is in the remaining mypy exemption list; its helper subclasses and test classes require strict body-checking annotations."
+    },
+    {
+      "path": "tests/test_extension_statsmailer.py",
+      "symbols": [
+        "test_from_crawler_without_recipients_raises_notconfigured",
+        "test_from_crawler_with_recipients_initializes_extension",
+        "test_from_crawler_connects_spider_closed_signal",
+        "test_spider_closed_sends_email"
+      ],
+      "reason": "This module is in the remaining mypy exemption list and contains mock-heavy fixtures and tests affected by enabling check_untyped_defs."
+    },
+    {
+      "path": "tests/test_extension_throttle.py",
+      "symbols": [
+        "test_enabled",
+        "test_target_concurrency_invalid",
+        "test_mindelay_definition",
+        "test_maxdelay_definition",
+        "test_startdelay_definition",
+        "test_skipped",
+        "test_adjustment",
+        "test_adjustment_limits",
+        "test_adjustment_bad_response",
+        "test_debug",
+        "test_debug_disabled"
+      ],
+      "reason": "This module is listed under the base check_untyped_defs=false override and contains helper functions and parametrized tests that need annotations."
+    },
+    {
+      "path": "tests/test_linkextractors.py",
+      "symbols": [
+        "TestLxmlLinkExtractor",
+        "TestLxmlParserLinkExtractor"
+      ],
+      "reason": "This module remains in the final mypy exemption list and its extractor test classes and local callbacks must pass strict body checking."
+    },
+    {
+      "path": "tests/test_logformatter.py",
+      "symbols": [
+        "TestLogFormatter",
+        "TestLogformatterSubclass",
+        "TestShowOrSkipMessages"
+      ],
+      "reason": "This module is in the remaining mypy exemption list and contains formatter subclasses plus synchronous and asynchronous tests requiring annotations."
+    },
+    {
+      "path": "tests/test_mail.py",
+      "symbols": [
+        "TestMailSender"
+      ],
+      "reason": "This reactor-marked module still disables check_untyped_defs and its mail sender tests and helper methods require strict typing."
+    },
+    {
+      "path": "tests/test_pqueues.py",
+      "symbols": [
+        "TestPriorityQueue",
+        "TestDownloaderAwarePriorityQueue",
+        "test_slot_directory_removed_when_slot_drains",
+        "test_pop_order"
+      ],
+      "reason": "This module is in the remaining mypy exemption list; its queue test classes and local request helpers must be typed."
+    },
+    {
+      "path": "tests/test_scheduler_base.py",
+      "symbols": [
+        "TestBaseScheduler",
+        "TestMinimalScheduler",
+        "TestSimpleScheduler",
+        "TestMinimalSchedulerCrawl",
+        "TestSimpleSchedulerCrawl"
+      ],
+      "reason": "This module is listed under the base check_untyped_defs=false override and includes scheduler implementations, interface mixins, and crawl tests."
+    },
+    {
+      "path": "tests/test_settings/__init__.py",
+      "symbols": [
+        "TestSettingsGlobalFuncs",
+        "TestSettingsAttribute",
+        "TestBaseSettings",
+        "TestSettings",
+        "test_add_to_list",
+        "test_remove_from_list",
+        "test_deprecated_dns_resolver_setting",
+        "test_deprecated_concurrent_requests_per_ip_setting",
+        "test_replace_in_component_priority_dict",
+        "test_set_in_component_priority_dict",
+        "test_setdefault_in_component_priority_dict"
+      ],
+      "reason": "This file carries tests for the tests.test_settings module, which remains in the final exempt-module list and has many helpers and test classes."
+    },
+    {
+      "path": "tests/test_squeues.py",
+      "symbols": [
+        "test_peek_unsupported",
+        "MarshalFifoDiskQueueTest",
+        "ChunkSize1MarshalFifoDiskQueueTest",
+        "ChunkSize2MarshalFifoDiskQueueTest",
+        "ChunkSize3MarshalFifoDiskQueueTest",
+        "ChunkSize4MarshalFifoDiskQueueTest",
+        "PickleFifoDiskQueueTest",
+        "ChunkSize1PickleFifoDiskQueueTest",
+        "ChunkSize2PickleFifoDiskQueueTest",
+        "ChunkSize3PickleFifoDiskQueueTest",
+        "ChunkSize4PickleFifoDiskQueueTest",
+        "MarshalLifoDiskQueueTest",
+        "PickleLifoDiskQueueTest"
+      ],
+      "reason": "This module is in the remaining mypy exemption list and contains queue mixins, concrete queue test classes, and serialization helpers."
+    },
+    {
+      "path": "tests/test_squeues_request.py",
+      "symbols": [
+        "TestRequestQueueBase",
+        "TestPickleFifoDiskQueueRequest",
+        "TestPickleLifoDiskQueueRequest",
+        "TestMarshalFifoDiskQueueRequest",
+        "TestMarshalLifoDiskQueueRequest",
+        "TestFifoMemoryQueueRequest",
+        "TestLifoMemoryQueueRequest"
+      ],
+      "reason": "This module is in the remaining mypy exemption list and its fixture and queue test hierarchy require check_untyped_defs-compatible annotations."
+    },
+    {
+      "path": "tests/test_stats.py",
+      "symbols": [
+        "TestCoreStatsExtension",
+        "TestStatsCollector"
+      ],
+      "reason": "This module remains under the base check_untyped_defs=false override and contains stats fixtures, mocks, and extension tests that require typing."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 8,
+    "manifest_sha256": "9844310b92fdad060c5412a1430fbf88fdbe5e7327411684a16d493c6cf0681c"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "e23c824be2ff7cd2a93237ab5263edd58f608eff68656990c0a0045f2a314829"
+  }
+}

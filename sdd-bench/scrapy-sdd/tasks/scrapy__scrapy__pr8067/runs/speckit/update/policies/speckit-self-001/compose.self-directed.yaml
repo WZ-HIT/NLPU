@@ -1,0 +1,53 @@
+services:
+  speckit-update-agent:
+    environment:
+      UPDATE_TARGET_POLICY: self-directed
+    volumes: !override
+      - type: bind
+        source: ${SPECKIT_UPDATE_WORKSPACE:-./runs/speckit/update/workspace}
+        target: /workspace
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${SPECKIT_UPDATE_OUTPUT:-./runs/speckit/update/output}
+        target: /output
+        read_only: false
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${UPDATE_TASK_INPUT:-./experiment-inputs}
+        target: /task-input
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: /home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/environments/agent-runtime/codex-0.153.4_node-24.20.0_uv-0.12.10_linux-amd64/config-templates/config.toml
+        target: /run/sdd-home/.codex/config.toml
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: /home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/environments/agent-runtime/codex-0.153.4_node-24.20.0_uv-0.12.10_linux-amd64/config-templates/deepseek-flash.config.toml
+        target: /run/sdd-home/.codex/deepseek-flash.config.toml
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: /home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/environments/agent-runtime/codex-0.153.4_node-24.20.0_uv-0.12.10_linux-amd64/config-templates/model-catalogs/deepseek-flash/models.json
+        target: /run/sdd-home/.codex/model-catalogs/deepseek-flash/models.json
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${SPECKIT_UPDATE_TESTS:-./runs/speckit/update/workspace/tests}
+        target: /workspace/tests
+        read_only: false
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${UPDATE_POLICY_FILE:?immutable update policy is required}
+        target: /run/sdd-policy/update-policy.json
+        read_only: true
+        bind:
+          create_host_path: false

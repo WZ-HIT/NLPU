@@ -1,0 +1,12 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_crawl.py",
+      "symbols": [
+        "TestCrawl.test_fixed_delay",
+        "TestCrawl.test_randomized_delay"
+      ],
+      "reason": "These are the fixed and randomized download-delay crawl tests; the PR makes them crawl enough pages for meaningful timing assertions instead of skipping."
+    }
+  ]
+}

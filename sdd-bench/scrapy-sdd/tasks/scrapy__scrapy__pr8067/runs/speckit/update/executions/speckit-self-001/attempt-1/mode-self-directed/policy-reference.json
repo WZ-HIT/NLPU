@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr8067",
+  "method": "speckit",
+  "run_id": "speckit-self-001",
+  "mode": "self-directed",
+  "policy_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/speckit/update/policies/speckit-self-001/update-policy.json",
+  "policy_sha256": "000552316a841f6d21df51f1f3881747ad8811332d2cc111cac59c2659dccf53",
+  "reference_sha256": "34fb61b279ec33d0c3afe1e494214e26d420229ed25f10ee27f2fc6cde3c7f97"
+}

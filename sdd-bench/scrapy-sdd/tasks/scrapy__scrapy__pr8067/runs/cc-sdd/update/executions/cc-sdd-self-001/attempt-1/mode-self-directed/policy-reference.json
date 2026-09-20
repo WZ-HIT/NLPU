@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr8067",
+  "method": "cc-sdd",
+  "run_id": "cc-sdd-self-001",
+  "mode": "self-directed",
+  "policy_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/cc-sdd/update/policies/cc-sdd-self-001/update-policy.json",
+  "policy_sha256": "6c21ad7fca89d5a79c935b9da613a28a9c6ee4d757f158a5839df78c257b5c52",
+  "reference_sha256": "caf6a6c2e9fe35d73253dcbcd25972f83459629f63252e4a8e892fe8a3a25bae"
+}

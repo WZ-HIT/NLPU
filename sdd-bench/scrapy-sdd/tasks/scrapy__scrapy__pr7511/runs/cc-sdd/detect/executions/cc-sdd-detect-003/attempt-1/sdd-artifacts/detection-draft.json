@@ -1,0 +1,51 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_utils_misc/__init__.py",
+      "symbols": [
+        "test_walk_modules",
+        "test_walk_modules_egg",
+        "walk_modules_iter",
+        "walk_modules"
+      ],
+      "reason": "Direct unit test for scrapy.utils.misc.walk_modules_iter, the symbol named in the PR checklist: it imports walk_modules_iter and walk_modules from scrapy.utils.misc and asserts the exact set of modules returned when walking a package (tests.test_utils_misc.test_walk_modules) and an egg (test.egg), plus the import-error path and the walk_modules deprecation warning. Any change to module-walking/import semantics under Python 3.15 surfaces here first."
+    },
+    {
+      "path": "tests/test_spiderloader/__init__.py",
+      "symbols": [
+        "TestSpiderLoader",
+        "TestSpiderLoader.test_load_spider_module",
+        "TestSpiderLoader.test_load_spider_module_multiple",
+        "TestSpiderLoader.test_load_spider_module_from_addons",
+        "TestSpiderLoader.test_bad_spider_modules_exception",
+        "TestSpiderLoader.test_bad_spider_modules_warning",
+        "TestSpiderLoader.test_syntax_error_exception",
+        "TestSpiderLoader.test_syntax_error_warning"
+      ],
+      "reason": "Closest indirect consumer: scrapy.spiderloader.SpiderLoader._load_all_spiders walks configured spider modules with scrapy.utils.misc.walk_modules_iter and relies on its error semantics (ImportError/SyntaxError, lazily raised while iterating). These tests exercise that walk for single, multiple and addon spider modules and for broken modules."
+    },
+    {
+      "path": "tests/test_commands.py",
+      "symbols": [
+        "TestCommandsModule",
+        "TestCommandsModule.test_listed",
+        "TestCommandsModule.test_run",
+        "execute"
+      ],
+      "reason": "Command discovery goes through scrapy.cmdline._iter_command_classes, which yields commands by calling walk_modules_iter over scrapy.commands and COMMANDS_MODULE. This file imports scrapy.cmdline.execute and runs the CLI in-process, so it traverses walk_modules_iter for both the built-in and project command modules."
+    },
+    {
+      "path": "tests/test_utils_misc/test_return_with_argument_inside_generator.py",
+      "symbols": [
+        "test_generators_return_something",
+        "test_generators_return_none",
+        "test_warn_on_generator_with_return_value_settings_disabled",
+        "test_indentation_error",
+        "test_partial",
+        "is_generator_with_return_value",
+        "warn_on_generator_with_return_value"
+      ],
+      "reason": "Co-located tests for the other version-sensitive behavior in scrapy/utils/misc.py: is_generator_with_return_value parses dedented source with ast, so interpreter-version changes to parsing/expectations are pinned here. It is the complementary scrapy.utils.misc test module for the same file touched by the PR."
+    }
+  ]
+}

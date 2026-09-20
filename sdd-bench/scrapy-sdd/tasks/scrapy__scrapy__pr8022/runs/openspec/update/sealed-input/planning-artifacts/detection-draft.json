@@ -1,0 +1,25 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_crawler.py",
+      "symbols": [
+        "TestAsyncCrawlerProcessReactorlessHelpers.test_signal_shutdown_reactorless_without_loop",
+        "TestAsyncCrawlerProcessReactorlessHelpers.test_signal_kill_reactorless_without_loop",
+        "TestAsyncCrawlerProcessReactorlessHelpers.test_signal_kill_reactorless_without_main_task"
+      ],
+      "reason": "Unit tests for the shutdown signal handlers that this change rewrites. They build a bare AsyncCrawlerProcess and assert exactly what the handler schedules on the event loop. test_signal_kill_reactorless_without_main_task currently asserts loop.call_soon_threadsafe is never called; after the change the handler schedules the kill notice there, so this test must change, and new assertions about the notice being scheduled on the loop belong in this class."
+    },
+    {
+      "path": "tests/test_crawler_subprocess.py",
+      "symbols": [
+        "TestCrawlerProcessSubprocessBase._test_shutdown_graceful",
+        "TestCrawlerProcessSubprocessBase._test_shutdown_forced",
+        "TestCrawlerProcessSubprocess.test_shutdown_graceful",
+        "TestCrawlerProcessSubprocess.test_shutdown_forced",
+        "TestAsyncCrawlerProcessSubprocess.test_shutdown_graceful",
+        "TestAsyncCrawlerProcessSubprocess.test_shutdown_forced"
+      ],
+      "reason": "End-to-end tests that drive the same handlers by sending SIGINT to a real crawler process and assert the user-visible shutdown notices (\"shutting down gracefully\", \"forcing unclean shutdown\") and their order on stderr. They are the observable-behaviour check for moving the notice out of the signal handler into the reactor/loop thread."
+    }
+  ]
+}

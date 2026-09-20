@@ -1,0 +1,47 @@
+{
+  "candidates": [
+    {
+      "path": "tests/utils/bases/download_handlers_http.py",
+      "symbols": [
+        "test_timeout_download_from_spider_nodata_rcvd",
+        "test_timeout_download_from_spider_server_hangs"
+      ],
+      "reason": "Both HTTP download-handler timeout tests contain the Windows/asyncio `DirtyReactorAggregateError` skip guards targeted by the pull request."
+    },
+    {
+      "path": "tests/test_downloader_handler_twisted_ftp.py",
+      "symbols": [
+        "TestFTP.test_invalid_credentials"
+      ],
+      "reason": "This FTP authentication test contains the remaining Windows/asyncio `DirtyReactorAggregateError` skip guard targeted by the pull request."
+    },
+    {
+      "path": "tests/test_downloader_handler_twisted_http11.py",
+      "symbols": [
+        "TestHttp.test_timeout_download_from_spider_nodata_rcvd",
+        "TestHttp.test_timeout_download_from_spider_server_hangs",
+        "TestHttps.test_timeout_download_from_spider_nodata_rcvd",
+        "TestHttps.test_timeout_download_from_spider_server_hangs"
+      ],
+      "reason": "These concrete HTTP/1.1 test classes inherit the two timeout tests whose Windows/asyncio skip guards are changed."
+    },
+    {
+      "path": "tests/test_downloader_handler_httpx.py",
+      "symbols": [
+        "TestHttp.test_timeout_download_from_spider_nodata_rcvd",
+        "TestHttp.test_timeout_download_from_spider_server_hangs",
+        "TestHttps.test_timeout_download_from_spider_nodata_rcvd",
+        "TestHttps.test_timeout_download_from_spider_server_hangs"
+      ],
+      "reason": "These concrete Httpx HTTP and HTTPS test classes inherit the two timeout tests whose Windows/asyncio skip guards are changed."
+    },
+    {
+      "path": "tests/test_downloader_handler_twisted_http2.py",
+      "symbols": [
+        "TestHttp2.test_timeout_download_from_spider_nodata_rcvd",
+        "TestHttp2.test_timeout_download_from_spider_server_hangs"
+      ],
+      "reason": "The concrete HTTP/2 HTTPS test class inherits both timeout tests from `TestHttpsBase` whose Windows/asyncio skip guards are changed."
+    }
+  ]
+}

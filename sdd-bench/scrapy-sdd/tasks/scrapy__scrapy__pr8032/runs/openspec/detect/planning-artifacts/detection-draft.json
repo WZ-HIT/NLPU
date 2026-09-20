@@ -1,0 +1,11 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_pipeline_files.py",
+      "symbols": [
+        "TestFilesPipeline.test_file_path_from_response"
+      ],
+      "reason": "This is the test named in the PR. It sets FILES_EXPIRES to 0 and mocks last_modified with time.time(), so on Windows the setup timestamp and the freshness check can share one coarse clock tick, making the cached file appear uptodate and causing the response-derived path to be skipped."
+    }
+  ]
+}

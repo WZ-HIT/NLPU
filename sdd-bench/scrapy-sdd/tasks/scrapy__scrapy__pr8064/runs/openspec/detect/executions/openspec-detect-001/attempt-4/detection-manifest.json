@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr8064",
+  "method": "openspec",
+  "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "openspec-detect-001",
+    "session_sha256": "040ae4d0b8d33203d43c075ebb2fe4dc79051a7434539ca9d2ed8635e5adcb51"
+  },
+  "task_input_sha256": "e750ca3103e918e71b879b921ba4967ce43b8b4e2cee161956c17f57c9a0655b",
+  "candidates": [
+    {
+      "path": "tests/test_utils_response.py",
+      "symbols": [
+        "_assert_open_in_browser_is_fast",
+        "test_open_in_browser_redos_comment",
+        "test_open_in_browser_redos_head",
+        "test_open_in_browser",
+        "test_inject_base_url",
+        "test_open_in_browser_preserves_html_comments",
+        "test_open_in_browser_keeps_base_url_of_response",
+        "test_open_in_browser_injects_base_when_only_in_comment",
+        "test_open_in_browser_injects_base_before_head_contents",
+        "test_open_in_browser_text_response_uses_txt_extension",
+        "test_open_in_browser_raises_for_unsupported_response_type"
+      ],
+      "reason": "Primary test module for scrapy.utils.response.open_in_browser. It holds both ReDoS guards (test_open_in_browser_redos_comment, test_open_in_browser_redos_head) and their shared helper _assert_open_in_browser_is_fast, which decides pass/fail with a fixed 0.2s process_time() budget and uses the comment-removal exploit input that the current implementation never evaluates. The same module contains all the open_in_browser behaviour tests (base-tag injection after a doctype, comment preservation, base-URL preservation, .txt extension, unsupported-type TypeError) that must keep passing."
+    },
+    {
+      "path": "tests/test_commands.py",
+      "symbols": [
+        "TestViewCommand.test_view",
+        "TestViewCommand.test_non_text_response"
+      ],
+      "reason": "Integration surface for the same helper: the `scrapy view` command calls open_in_browser on a real fetched response (scrapy/commands/view.py:28), so TestViewCommand exercises the body rewriting and temp-file writing path end to end and would surface a behaviour regression introduced while reworking the ReDoS guard."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 8,
+    "manifest_sha256": "2b3d9abdf4196704a296bc2c0e0ad7645615c017195576e9dd9cdbfbc30de1f4"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "1818b4122f91b6c8b9585243a635a4bd66617cea1440363518cf216df860f949"
+  }
+}

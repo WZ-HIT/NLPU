@@ -1,0 +1,162 @@
+{
+    "schema_version": 1,
+    "checkpoint_id": "pre-experiment-pr8027-20260919T120000Z",
+    "created_at_utc": "2026-09-19T12:00:00Z",
+    "purpose": "Rollback point for batch task scrapy__scrapy__pr8027 on Scrapy base da7c2fc, taken before any SDD stage ran",
+    "task_id": "scrapy__scrapy__pr8027",
+    "pr_id": null,
+    "task_base_sha": "da7c2fc59e286e796d0f8cfe01d4363d6fa3729f",
+    "task_base_tree": "35d90fb50999d87d54ccabf46aa9af8656d569b9",
+    "repositories": [
+        {
+            "name": "baseline",
+            "branch": null,
+            "detached": true,
+            "head": "da7c2fc59e286e796d0f8cfe01d4363d6fa3729f",
+            "reachable_commit_count": 1,
+            "remote_count": 0,
+            "tracked_worktree_clean": true,
+            "untracked_file_count": 0,
+            "untracked_roots": [],
+            "payload": "baseline-repo.tar.gz"
+        },
+        {
+            "name": "openspec",
+            "branch": null,
+            "detached": true,
+            "head": "da7c2fc59e286e796d0f8cfe01d4363d6fa3729f",
+            "reachable_commit_count": 1,
+            "remote_count": 0,
+            "tracked_worktree_clean": true,
+            "untracked_file_count": 2,
+            "untracked_roots": [
+                ".agents/",
+                "openspec/"
+            ],
+            "payload": "openspec-repo.tar.gz"
+        },
+        {
+            "name": "speckit",
+            "branch": null,
+            "detached": true,
+            "head": "da7c2fc59e286e796d0f8cfe01d4363d6fa3729f",
+            "reachable_commit_count": 1,
+            "remote_count": 0,
+            "tracked_worktree_clean": true,
+            "untracked_file_count": 2,
+            "untracked_roots": [
+                ".agents/",
+                ".specify/"
+            ],
+            "payload": "speckit-repo.tar.gz"
+        },
+        {
+            "name": "cc-sdd",
+            "branch": null,
+            "detached": true,
+            "head": "da7c2fc59e286e796d0f8cfe01d4363d6fa3729f",
+            "reachable_commit_count": 1,
+            "remote_count": 0,
+            "tracked_worktree_clean": true,
+            "untracked_file_count": 4,
+            "untracked_roots": [
+                ".agents/",
+                ".codex/",
+                ".kiro/",
+                "AGENTS.md"
+            ],
+            "payload": "cc-sdd-repo.tar.gz"
+        }
+    ],
+    "home_volumes": [],
+    "home_kind": "tmpfs:/run/sdd-home",
+    "detect_planning_artifacts": [
+        {
+            "method": "openspec",
+            "path": "runs/openspec/detect/planning-artifacts",
+            "container_mount": "/workspace/openspec/changes",
+            "file_count_at_capture": 1,
+            "manifest_sha256_at_capture": "194e16c54920234c2eda93fcd167a974f71f88b47825f7c41aa1176414c408a8",
+            "empty_at_capture": false
+        },
+        {
+            "method": "speckit",
+            "path": "runs/speckit/detect/planning-artifacts",
+            "container_mount": "/workspace/specs",
+            "file_count_at_capture": 0,
+            "manifest_sha256_at_capture": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+            "empty_at_capture": true
+        },
+        {
+            "method": "cc-sdd",
+            "path": "runs/cc-sdd/detect/planning-artifacts",
+            "container_mount": "/workspace/.kiro/specs",
+            "file_count_at_capture": 0,
+            "manifest_sha256_at_capture": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+            "empty_at_capture": true
+        }
+    ],
+    "initial_workspaces": [
+        {
+            "method": "openspec",
+            "detect_workspace": "runs/openspec/detect/workspace/",
+            "initial_workspace_sha256": "9f9020ba694ecfc431ff64f8540f0ba498783288cb62061cf99b5bbcfcecceef",
+            "workspace_file_count": 682,
+            "update_workspace_created": false
+        },
+        {
+            "method": "speckit",
+            "detect_workspace": "runs/speckit/detect/workspace/",
+            "initial_workspace_sha256": "a1d9ef23acc422a9a4ad81d440f7f6b9ea460aae719d849d12127a48a88f984c",
+            "workspace_file_count": 702,
+            "update_workspace_created": false
+        },
+        {
+            "method": "cc-sdd",
+            "detect_workspace": "runs/cc-sdd/detect/workspace/",
+            "initial_workspace_sha256": "8022e486fe6c3554038b4405276eacbc8e34267b3d17ee32152b1fb18404c798",
+            "workspace_file_count": 740,
+            "update_workspace_created": false
+        }
+    ],
+    "deployment": {
+        "compose_project": null,
+        "compose_project_template": "${COMPOSE_PROJECT_NAME}",
+        "compose_project_prefix": "scrapy-scrapy-pr8027-",
+        "agent_image": "scrapy-sdd-batch-agent:da7c2fc59e286e796d0f8cfe01d4363d6fa3729f",
+        "agent_image_id": "sha256:5234a21fcd2fa0de68b622e1da0da8709dfc805fdd68d55862e2f4c88cffa17b",
+        "proxy_image": "haproxy:3.2.23-alpine3.24",
+        "proxy_image_id": "sha256:6343ce34a132a5dceaa24767d739df2bd519f8f7c1079ae39e4821334e8eb42e",
+        "agent_container_count": 0,
+        "container_lifetime": "per-run",
+        "configuration_members": [
+            "tasks/scrapy__scrapy__pr8027/compose",
+            "tasks/scrapy__scrapy__pr8027/compose-deployment-lock.json",
+            "tasks/scrapy__scrapy__pr8027/compose.preflight.yaml",
+            "tasks/scrapy__scrapy__pr8027/compose.yaml",
+            "tasks/scrapy__scrapy__pr8027/evidence.sha256",
+            "tasks/scrapy__scrapy__pr8027/experiment-inputs",
+            "tasks/scrapy__scrapy__pr8027/initial-workspaces.json",
+            "tasks/scrapy__scrapy__pr8027/initialization",
+            "tasks/scrapy__scrapy__pr8027/isolation-audit.json",
+            "tasks/scrapy__scrapy__pr8027/manifest-transfer-audit.json",
+            "tasks/scrapy__scrapy__pr8027/permission-matrix.json",
+            "tasks/scrapy__scrapy__pr8027/preflight-summary.json",
+            "tasks/scrapy__scrapy__pr8027/provision-report.json",
+            "tasks/scrapy__scrapy__pr8027/run-preflight.sh",
+            "tasks/scrapy__scrapy__pr8027/stage-policy.json",
+            "tasks/scrapy__scrapy__pr8027/task.json"
+        ],
+        "configuration_payload": "deployment-config.tar.gz",
+        "offline_image_payload": "deployment-images.tar.gz",
+        "deployment_lock_sha256": "762ffb4e6095ea7755f636affbddeda9fc00983509568f670da65c88294e98a2"
+    },
+    "parent_repository": {
+        "branch": "scrapy-sdd-pr8073-deployment",
+        "commit": "7e7dabe"
+    },
+    "content_sha256": "1e2e03da366e3351ea1af84a716a4ee011f2786c1a7e76a1532779f640e8cd73",
+    "payload_total_bytes": 354520926,
+    "contains_api_secret": false,
+    "experiment_logs_included": false
+}

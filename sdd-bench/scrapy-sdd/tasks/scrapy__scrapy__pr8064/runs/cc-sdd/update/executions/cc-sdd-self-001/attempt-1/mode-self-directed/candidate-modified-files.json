@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr8064",
+  "method": "cc-sdd",
+  "update_run_id": "cc-sdd-self-001",
+  "update_mode": "self-directed",
+  "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+  "detection_manifest_sha256": "aa83afff941e0bfaba2b35e70e0d0db072adcf312fb9c495fa5988b2d8a890f4",
+  "update_policy_sha256": "8bcf8909e95e43240f2cdc69056e65d0c0cf2d9a61f54c41d0fe8efb83888acd",
+  "candidate_modified_test_files": [
+    {
+      "path": "tests/test_utils_response.py",
+      "change_type": "modified"
+    }
+  ],
+  "candidate_modified_test_file_count": 1,
+  "manifest_sha256": "02e3838cb9d0e3fde38e621e4ab7eead03b7f336fe4821ecbcebf0444ff06bff"
+}

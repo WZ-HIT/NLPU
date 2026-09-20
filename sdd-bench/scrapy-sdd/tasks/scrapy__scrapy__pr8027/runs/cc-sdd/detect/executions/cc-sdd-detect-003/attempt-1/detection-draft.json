@@ -1,0 +1,49 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_downloaderslotssettings.py",
+      "symbols": [
+        "test_delay",
+        "DownloaderSlotsSettingsTestSpider",
+        "DownloaderSlotsSettingsTestSpider.start",
+        "DownloaderSlotsSettingsTestSpider.parse",
+        "DownloaderSlotsSettingsTestSpider.not_parse",
+        "NoDelayDownloaderSlotsSpider"
+      ],
+      "reason": "Slot-level download delay test. DownloaderSlotsSettingsTestSpider chains only two requests per download slot (parse -> not_parse) and test_delay asserts the elapsed time of just that first pair (abs((second - first) - slots[slot].delay) < tolerance), so the remaining pages are never crawled. The PR should make this spider keep crawling pages per slot and check the delay between consecutive responses, which is the 'crawl more pages instead of skipping them' change."
+    },
+    {
+      "path": "tests/test_crawl.py",
+      "symbols": [
+        "TestCrawl",
+        "TestCrawl.test_follow_all",
+        "TestCrawl.test_fixed_delay",
+        "TestCrawl.test_randomized_delay",
+        "TestCrawl._test_delay"
+      ],
+      "reason": "Crawl-level download delay tests. test_fixed_delay and test_randomized_delay both call _test_delay(total=3, ...), which crawls FollowAllSpider over only three pages and then runs a second DOWNLOAD_DELAY=0 control crawl (assert average <= delay / tolerance) to prove the tiny page count/delay combination is still meaningful. Crawling more pages to make the average-delay assertion valid is the change described by the PR title."
+    },
+    {
+      "path": "tests/spiders.py",
+      "symbols": [
+        "MetaSpider",
+        "FollowAllSpider",
+        "FollowAllSpider.__init__",
+        "FollowAllSpider.parse",
+        "DelaySpider"
+      ],
+      "reason": "Shared spider used by the download delay crawls: FollowAllSpider(total, show, order, maxlatency) builds the /follow start URL and follows every extracted link, so this is where the number of pages a delay test reaches is decided. Changing the delay tests to crawl more pages may require adjusting this helper (and DelaySpider for latency-based assertions)."
+    },
+    {
+      "path": "tests/mockserver/http_resources.py",
+      "symbols": [
+        "Follow",
+        "Follow.render",
+        "Follow.renderRequest",
+        "Delay",
+        "Delay.render_GET"
+      ],
+      "reason": "Mockserver side of the delay tests: the Follow resource generates the links (total, show, order, maxlatency) that the delay-crawl spiders visit, so it determines how many distinct pages a delay crawl can reach, and the Delay resource serves the delayed responses used by latency assertions."
+    }
+  ]
+}

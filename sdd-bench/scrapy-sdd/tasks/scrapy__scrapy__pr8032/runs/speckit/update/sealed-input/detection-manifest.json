@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr8032",
+  "method": "speckit",
+  "base_sha": "e01783a493b7224ee616a97a310da8d19da11966",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "speckit-detect-003",
+    "session_sha256": "9667f528399a6d999b07cd22e6b154c0caf833d60920986cf63916cc61e3a377"
+  },
+  "task_input_sha256": "80c8ead096562eed1c75b722bec56a5b02a56e4f2d04541dd042b92c632af101",
+  "candidates": [
+    {
+      "path": "tests/test_pipeline_files.py",
+      "symbols": [
+        "TestFilesPipeline",
+        "TestFilesPipeline.test_file_path_from_response",
+        "TestFilesPipeline._create_pipeline",
+        "TestFilesPipeline.test_file_path_from_item"
+      ],
+      "reason": "Direct host of the flaky test named in the PR title: TestFilesPipeline.test_file_path_from_response drives ContentTypeFilesPipeline.file_path() with a response and FILES_EXPIRES=0 while FSFilesStore.stat_file is mocked with a live-clock last_modified, so the Windows clock-resolution flake (age 0 -> status 'uptodate' instead of 'downloaded') and its assertions are entirely inside this module."
+    },
+    {
+      "path": "tests/test_pipeline_images.py",
+      "symbols": [
+        "TestImagesPipeline",
+        "TestImagesPipeline.test_file_path"
+      ],
+      "reason": "Closest sibling coverage: ImagesPipeline subclasses FilesPipeline and reuses the same file_path rendering plus the shared store stat/freshness path in scrapy/pipelines/media.py, so changes to the response-based path behavior can surface here."
+    },
+    {
+      "path": "tests/test_pipeline_media.py",
+      "symbols": [
+        "TestBaseMediaPipeline",
+        "TestMediaPipeline",
+        "UserDefinedPipeline.file_path"
+      ],
+      "reason": "Covers the shared MediaPipeline.media_to_download/stat_file flow that the response-based path test depends on, including a custom file_path override on UserDefinedPipeline, making it a relevant regression check for the same freshness/path logic."
+    },
+    {
+      "path": "tests/test_pipeline_crawl.py",
+      "symbols": [
+        "TestFileDownloadCrawl",
+        "TestFileDownloadCrawl.test_download_media_file_path_error"
+      ],
+      "reason": "Integration-level coverage of the files pipeline that overrides file_path and asserts path error handling, useful as an end-to-end regression check for the file path/freshness behavior touched by this change."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 9,
+    "manifest_sha256": "f96d81ad6d617dd50a98dcdc51ca5bf019892d6d6b3bee5637a047a3f7033d23"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "5277f461f12623a535dbc47f285588f463cd65a39b70e25c055e8adf8371e006"
+  }
+}

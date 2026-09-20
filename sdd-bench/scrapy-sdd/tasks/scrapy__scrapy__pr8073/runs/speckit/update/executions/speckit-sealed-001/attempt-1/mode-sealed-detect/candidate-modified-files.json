@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr8073",
+  "method": "speckit",
+  "update_run_id": "speckit-sealed-001",
+  "update_mode": "sealed-detect",
+  "base_sha": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+  "detection_manifest_sha256": "d11bbcbc080021bd6ba811856aff39c9203e533e95f9d429efc7cf57e1f35bfc",
+  "update_policy_sha256": "2a2dad25fcfbcbb35bbea07abf90ffe013dcba01e1208460c81ae16eacc7d0f7",
+  "candidate_modified_test_files": [
+    {
+      "path": "tests/test_downloader_handler_twisted_ftp.py",
+      "change_type": "modified"
+    },
+    {
+      "path": "tests/utils/bases/download_handlers_http.py",
+      "change_type": "modified"
+    }
+  ],
+  "candidate_modified_test_file_count": 2,
+  "manifest_sha256": "e82ca968f1e62912aa2bb6daa1dbe34e5800346bb9f9637a09937a401d25d2fe"
+}

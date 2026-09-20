@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "policy_type": "UPDATE_TARGET_SELECTION",
+  "task_id": "scrapy__scrapy__pr8067",
+  "task_manifest_sha256": "a3a6d2369cba04599c6b2320a006706ffa5768d78afffa12b817083a3892af4c",
+  "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+  "method": "openspec",
+  "stage": "update",
+  "run_id": "openspec-self-001",
+  "mode": "self-directed",
+  "selected_at_utc": "2026-09-16T11:55:43Z",
+  "detect_must_complete_first": true,
+  "visibility": {
+    "sealed_detection_manifest": false,
+    "sealed_planning_artifacts": false,
+    "other_detection_results": false,
+    "detect_workspace": false,
+    "task_title_body": true
+  },
+  "filesystem": {
+    "writable_directories": [
+      "tests/"
+    ],
+    "production_writable": false,
+    "tests_writable": true
+  },
+  "enforcement": {
+    "target_source": "agent-reasoning",
+    "post_run_diff_rule": "adapter-tests-only",
+    "out_of_scope_result": "BLOCKED"
+  },
+  "compose": {
+    "base_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/compose.yaml",
+    "override_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/openspec/update/policies/openspec-self-001/compose.self-directed.yaml",
+    "override_sha256": "6df2e4a536994f0630ac1ea1be000706c6bb371441b3fe506121e192f37a87be"
+  },
+  "gold_blind": true,
+  "selection_source": "explicit-user-cli",
+  "policy_sha256": "556e6f932e4c8bd66e9e877cf86729dcc18ad533eb56f333ffb8fe8f7b500b9f"
+}

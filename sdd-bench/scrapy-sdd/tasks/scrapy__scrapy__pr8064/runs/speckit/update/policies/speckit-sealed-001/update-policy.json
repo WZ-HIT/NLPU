@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "policy_type": "UPDATE_TARGET_SELECTION",
+  "task_id": "scrapy__scrapy__pr8064",
+  "task_manifest_sha256": "314694774fa1588fa62c086cd2d3a6f9926c24ba2717f9e9514c992e06a1793e",
+  "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+  "method": "speckit",
+  "stage": "update",
+  "run_id": "speckit-sealed-001",
+  "mode": "sealed-detect",
+  "selected_at_utc": "2026-09-16T11:55:48Z",
+  "detect_must_complete_first": true,
+  "visibility": {
+    "sealed_detection_manifest": true,
+    "sealed_planning_artifacts": true,
+    "other_detection_results": false,
+    "detect_workspace": false,
+    "task_title_body": true
+  },
+  "filesystem": {
+    "writable_directories": [
+      "tests/"
+    ],
+    "production_writable": false,
+    "tests_writable": true
+  },
+  "enforcement": {
+    "target_source": "sealed-detection-candidates",
+    "post_run_diff_rule": "subset-of-sealed-candidates",
+    "out_of_scope_result": "BLOCKED"
+  },
+  "compose": {
+    "base_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/compose.yaml",
+    "override_path": null,
+    "override_sha256": null
+  },
+  "gold_blind": true,
+  "selection_source": "explicit-user-cli",
+  "policy_sha256": "d31df268f867068cc31043d24750ce14c9f992034ba3cd092789b1246cf37547"
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr8073",
+  "method": "openspec",
+  "update_run_id": "openspec-sealed-001",
+  "update_mode": "sealed-detect",
+  "base_sha": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+  "detection_manifest_sha256": "8961d275c844f5a9f2fad81424f2c7e0810b29c27e93e5a5e2e7d5be50342324",
+  "update_policy_sha256": "5c949aa29400ffb506beee4bd81d3d0e7336ab7b40d45d3287f6dbc0596e2a81",
+  "candidate_modified_test_files": [
+    {
+      "path": "tests/test_downloader_handler_twisted_ftp.py",
+      "change_type": "modified"
+    },
+    {
+      "path": "tests/utils/bases/download_handlers_http.py",
+      "change_type": "modified"
+    }
+  ],
+  "candidate_modified_test_file_count": 2,
+  "manifest_sha256": "ffcf92550c1d594c45901511641980d854e31afdb824768ef8ae894a804e5b22"
+}

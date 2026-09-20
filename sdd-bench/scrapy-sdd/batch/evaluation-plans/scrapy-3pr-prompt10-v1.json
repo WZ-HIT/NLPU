@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "plan_type": "HOST_ONLY_EVALUATION_PLAN",
+  "evaluation_id": "scrapy-3pr-prompt10-v1",
+  "evaluator_version": "prompt10-evaluator-v1",
+  "metric_definition_version": "prompt10-metrics-v1",
+  "batch_config": {
+    "path": "sdd-bench/scrapy-sdd/batch/pilot/scrapy-3pr-both-pilot-v1.json",
+    "sha256": "0edcc137078c8588e35455d3f21d71faf0c4765c13132fdfcefadc9d6603af87"
+  },
+  "raw_source": {
+    "path": "output/raw_prs/scrapy__scrapy.jsonl",
+    "sha256": "4cf2d27621963dc79b413f84b4c04e3a5a4fbd1e540c682be6d3e9c15dd239e1"
+  },
+  "ranking_cutoffs": [1, 3, 5],
+  "behavior": {
+    "timeout_seconds": 180,
+    "network": "none",
+    "cpus": "2",
+    "memory": "4g",
+    "pytest_argv": ["python", "-m", "pytest", "-q", "-p", "no:cacheprovider", "--basetemp=/tmp/pytest-evaluation"]
+  },
+  "aggregation": {
+    "task_weighting": "equal-task-macro",
+    "micro_definition": "summed-confusion-counts",
+    "classifications": ["TEST_ONLY_PR", "MIXED_CODE_AND_TEST_PR", "ALL"]
+  },
+  "pairing": {
+    "pair_modes": ["sealed-detect", "self-directed"],
+    "required_equal": ["task_id", "classification", "method", "base_sha", "resource_profile_sha256", "gold_seal_sha256", "metric_definition_version", "validity"]
+  },
+  "gates": {
+    "sealed_target_count": 27,
+    "gold_invalid_max": 0,
+    "policy_compliance_min": 1.0,
+    "update_file_macro_f1_min": 0.5,
+    "mixed_discrimination_min": 0.5,
+    "regression_max": 0,
+    "eligible_pair_count_min": 9
+  }
+}

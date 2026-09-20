@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr8067",
+  "method": "openspec",
+  "update_run_id": "openspec-self-001",
+  "update_mode": "self-directed",
+  "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+  "detection_manifest_sha256": "21ca81476dbfc30e483269aecd8656f02980baca76091e9cbfe6365fdf31ef48",
+  "update_policy_sha256": "eb7a691b7596af44121816c8a58eb43ee657d63d352e8907e5aa36336dab4388",
+  "candidate_modified_test_files": [
+    {
+      "path": "tests/test_utils_response.py",
+      "change_type": "modified"
+    }
+  ],
+  "candidate_modified_test_file_count": 1,
+  "manifest_sha256": "887668a1dfa788da8bd8b51646d91069451e9a3988120a3740a05bf1c017c1f7"
+}

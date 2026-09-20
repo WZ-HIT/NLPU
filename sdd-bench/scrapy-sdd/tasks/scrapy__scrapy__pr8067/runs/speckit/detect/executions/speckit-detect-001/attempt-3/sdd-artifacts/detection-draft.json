@@ -1,0 +1,23 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_utils_response.py",
+      "symbols": [
+        "test_open_in_browser",
+        "test_open_in_browser_text_response_uses_txt_extension",
+        "test_open_in_browser_raises_for_unsupported_response_type",
+        "_read_browser_output"
+      ],
+      "reason": "Direct unit-test module for scrapy.utils.response.open_in_browser. It asserts the current text-only contract (test_open_in_browser_text_response_uses_txt_extension) and that a plain non-text Response raises TypeError (test_open_in_browser_raises_for_unsupported_response_type, plus the pytest.raises(TypeError) block in test_open_in_browser), which is exactly the behavior this change replaces with Content-Type derived preview extensions. New non-text and Content-Type cases belong here, and the module already holds the helper (_read_browser_output) that reads the temporary file handed to the opener."
+    },
+    {
+      "path": "tests/test_commands.py",
+      "symbols": [
+        "TestViewCommand",
+        "TestViewCommand.test_view",
+        "TestViewCommand.test_non_text_response"
+      ],
+      "reason": "TestViewCommand exercises the scrapy view CLI end to end against the test server, and test_non_text_response currently asserts the refusal string 'Cannot view a non-text response.' produced by scrapy/commands/view.py. Removing that refusal and forwarding non-text responses to open_in_browser changes this expectation, so this module is expected to be updated alongside scrapy/commands/view.py."
+    }
+  ]
+}

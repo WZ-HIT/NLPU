@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "lock_type": "COMPOSE_DEPLOYMENT",
+  "task_id": "scrapy__scrapy__pr8067",
+  "run_id": "preflight-3pr-001",
+  "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+  "generated_at_utc": "2026-09-16T11:54:06Z",
+  "source": {
+    "compose_sha256": "3fb87dc6a36e7cf6ea430290c6720510b601e4f5d91ae9ebdefe4fa7a111ff57",
+    "preflight_override_sha256": "14a57b1b679c17b29b12d3a10b63c8536ea4d96740e42380490da2a1ac1a493f",
+    "probe_sha256": "a6809e2e17b49e9be933ba555d77126c94974b17bde41c8b5594f089a3c892b3",
+    "seccomp_sha256": "1a25ca5c611f8acd56d436b6bf61cce4dd4f9115291e22929152b50a9915ac25",
+    "apparmor_evidence_sha256": "33f819f380abd9c7851983165a75b732b2de03410b77a6105a16cc5dc2a98dce",
+    "proxy_config_sha256": "73ab4db6da9857ecf8c8c71b4d00bec70dfba321b0ddf785d2b6aee016b4a6b6",
+    "image_deployment_lock_sha256": "3770439db56d4470fabdbf454d4409f871fe9270e30e3bb26c9b09c350e582f3"
+  },
+  "images": {
+    "agent_image_id": "sha256:08b9f3a6b7cbd9794be7f7f83eece81f5b57d7fe034494b3537fb2e797663e58",
+    "proxy_image_id": "sha256:6343ce34a132a5dceaa24767d739df2bd519f8f7c1079ae39e4821334e8eb42e"
+  },
+  "rendered": [
+    {
+      "method": "openspec",
+      "stage": "detect",
+      "profile": "openspec-detect",
+      "project_name": "scrapy-scrapy-pr8067-openspec-detect-preflight-3pr-001",
+      "agent_service": "openspec-detect-agent",
+      "proxy_service": "openspec-detect-proxy",
+      "rendered_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/compose/rendered/openspec-detect-preflight-3pr-001.yaml",
+      "rendered_sha256": "ed0a55511d1b8738a75aa7257b18d48bd55ad15cbdb452f0a1f434caa717865d"
+    },
+    {
+      "method": "openspec",
+      "stage": "update",
+      "profile": "openspec-update",
+      "project_name": "scrapy-scrapy-pr8067-openspec-update-preflight-3pr-001",
+      "agent_service": "openspec-update-agent",
+      "proxy_service": "openspec-update-proxy",
+      "rendered_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/compose/rendered/openspec-update-preflight-3pr-001.yaml",
+      "rendered_sha256": "00164cdd9a22d0718f0489164929c786254d45a45ea9f0698b31ed9a991b922c"
+    },
+    {
+      "method": "speckit",
+      "stage": "detect",
+      "profile": "speckit-detect",
+      "project_name": "scrapy-scrapy-pr8067-speckit-detect-preflight-3pr-001",
+      "agent_service": "speckit-detect-agent",
+      "proxy_service": "speckit-detect-proxy",
+      "rendered_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/compose/rendered/speckit-detect-preflight-3pr-001.yaml",
+      "rendered_sha256": "ed53b298d8fde96772ffcf4262664c3df2915589b864188f95d1849f54f8ac84"
+    },
+    {
+      "method": "speckit",
+      "stage": "update",
+      "profile": "speckit-update",
+      "project_name": "scrapy-scrapy-pr8067-speckit-update-preflight-3pr-001",
+      "agent_service": "speckit-update-agent",
+      "proxy_service": "speckit-update-proxy",
+      "rendered_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/compose/rendered/speckit-update-preflight-3pr-001.yaml",
+      "rendered_sha256": "ad589eb23e034eb9fd6586e02775229e717f0801028b821f6f8f3671ca32c72f"
+    },
+    {
+      "method": "cc-sdd",
+      "stage": "detect",
+      "profile": "cc-sdd-detect",
+      "project_name": "scrapy-scrapy-pr8067-cc-sdd-detect-preflight-3pr-001",
+      "agent_service": "cc-sdd-detect-agent",
+      "proxy_service": "cc-sdd-detect-proxy",
+      "rendered_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/compose/rendered/cc-sdd-detect-preflight-3pr-001.yaml",
+      "rendered_sha256": "eda44f7cc3b74d7ec398b692226b5ce23e428c803d07b7bdc776a9ef04a3318c"
+    },
+    {
+      "method": "cc-sdd",
+      "stage": "update",
+      "profile": "cc-sdd-update",
+      "project_name": "scrapy-scrapy-pr8067-cc-sdd-update-preflight-3pr-001",
+      "agent_service": "cc-sdd-update-agent",
+      "proxy_service": "cc-sdd-update-proxy",
+      "rendered_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/compose/rendered/cc-sdd-update-preflight-3pr-001.yaml",
+      "rendered_sha256": "0862b0aaf8bd2ab0984f472ad7c6305d2f09c0f86fd47c2bf9aaedfa9f938c65"
+    }
+  ],
+  "formal_prompt_sent": false,
+  "model_request_sent": false,
+  "project_tests_run": false
+}

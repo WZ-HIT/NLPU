@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr8073",
+  "method": "openspec",
+  "stage": "detect",
+  "run_id": "openspec-detect-002",
+  "update_mode": null,
+  "base_sha": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+  "created_at_utc": "2026-09-19T07:56:59Z",
+  "status": "SEALED",
+  "dry_run": false,
+  "tests_run": false,
+  "model_request_sent": true,
+  "provenance": {
+    "task_manifest_sha256": "001750ebd290ee3919f3caacff1e49a6b66a7e83854a31afdc3b0c7e6126fe19",
+    "policy_file_sha256": null,
+    "detection_manifest_sha256": "2e33da1da56a996aa21384a22f4d02b748feb774f6c853f4285c610d3d477e40",
+    "compose_rendered_sha256": "6570e126fc0b5533aca5fc911be66a51a266d0cab0ba2bef9980ab91526a5216"
+  },
+  "checks": [
+    {
+      "id": "task-schema",
+      "status": "PASS"
+    },
+    {
+      "id": "recorded-base",
+      "status": "PASS"
+    },
+    {
+      "id": "detect-preflight",
+      "status": "PASS"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/openspec/update/sealed-input/detection-manifest.json",
+      "sha256": "2e33da1da56a996aa21384a22f4d02b748feb774f6c853f4285c610d3d477e40"
+    }
+  ],
+  "blockers": []
+}

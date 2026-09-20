@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "report_type": "PROVISION_REPORT",
+  "generated_at_utc": "2026-09-16T11:42:46Z",
+  "plan": {
+    "plan_id": "scrapy-3pr-pilot-8073-8064-8067-v1",
+    "path": "sdd-bench/scrapy-sdd/batch/plans/scrapy-3pr-pilot-8073-8064-8067-v1.json",
+    "sha256": "ca9a22b46ace7c1e882134ae8ff85f579a41a59fe993c1e883b89f33efb55654",
+    "explicitly_approved_plan_id": "scrapy-3pr-pilot-8073-8064-8067-v1"
+  },
+  "status": "TOPOLOGY_WARNING",
+  "task_count": 3,
+  "tasks": [
+    {
+      "task_id": "scrapy__scrapy__pr8064",
+      "repository": "scrapy/scrapy",
+      "pr_id": 8064,
+      "status": "TOPOLOGY_WARNING",
+      "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+      "tree_sha": "f91df0036138ff379424beda97807d845285e998",
+      "baseline_cache_reused": true,
+      "baseline_lock": {
+        "path": "sdd-bench/scrapy-sdd/batch/baselines/3857c6906b2da51e12ca6005434512b7704fd659/baseline-lock.json",
+        "sha256": "dc96cf0f56744caba675ea1d53e6ba067d551d4b29ee2251547992902451b667"
+      },
+      "topology_audit": {
+        "path": "sdd-bench/scrapy-sdd/batch/audits/topology/scrapy__scrapy__pr8064.json",
+        "sha256": "c2835f94429d898d8dfb61cffe91756b42d3c99682919d8a907a359aa5dbd34f"
+      },
+      "variant_workspaces": {
+        "openspec": "sdd-bench/scrapy-sdd/batch/workspaces/scrapy__scrapy__pr8064/openspec/repository",
+        "speckit": "sdd-bench/scrapy-sdd/batch/workspaces/scrapy__scrapy__pr8064/speckit/repository",
+        "cc-sdd": "sdd-bench/scrapy-sdd/batch/workspaces/scrapy__scrapy__pr8064/cc-sdd/repository"
+      },
+      "blocking_errors": [],
+      "warnings": [
+        "Git remotes are present",
+        "HEAD differs from recorded base_sha",
+        "baseline source HEAD differs from recorded base; provisioning still requests recorded base explicitly",
+        "extra Git refs are present",
+        "local branches are present",
+        "reflog files are present",
+        "target head/merge is reachable from HEAD",
+        "target merge commit object is present"
+      ]
+    },
+    {
+      "task_id": "scrapy__scrapy__pr8067",
+      "repository": "scrapy/scrapy",
+      "pr_id": 8067,
+      "status": "TOPOLOGY_WARNING",
+      "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+      "tree_sha": "f91df0036138ff379424beda97807d845285e998",
+      "baseline_cache_reused": true,
+      "baseline_lock": {
+        "path": "sdd-bench/scrapy-sdd/batch/baselines/3857c6906b2da51e12ca6005434512b7704fd659/baseline-lock.json",
+        "sha256": "dc96cf0f56744caba675ea1d53e6ba067d551d4b29ee2251547992902451b667"
+      },
+      "topology_audit": {
+        "path": "sdd-bench/scrapy-sdd/batch/audits/topology/scrapy__scrapy__pr8067.json",
+        "sha256": "35707479246f99f715549f8244ba6a303bd712ad89ca08d6c3995996c6672b7b"
+      },
+      "variant_workspaces": {
+        "openspec": "sdd-bench/scrapy-sdd/batch/workspaces/scrapy__scrapy__pr8067/openspec/repository",
+        "speckit": "sdd-bench/scrapy-sdd/batch/workspaces/scrapy__scrapy__pr8067/speckit/repository",
+        "cc-sdd": "sdd-bench/scrapy-sdd/batch/workspaces/scrapy__scrapy__pr8067/cc-sdd/repository"
+      },
+      "blocking_errors": [],
+      "warnings": [
+        "Git remotes are present",
+        "HEAD differs from recorded base_sha",
+        "baseline source HEAD differs from recorded base; provisioning still requests recorded base explicitly",
+        "extra Git refs are present",
+        "local branches are present",
+        "reflog files are present",
+        "target head/merge is reachable from HEAD",
+        "target merge commit object is present"
+      ]
+    },
+    {
+      "task_id": "scrapy__scrapy__pr8073",
+      "repository": "scrapy/scrapy",
+      "pr_id": 8073,
+      "status": "TOPOLOGY_WARNING",
+      "base_sha": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+      "tree_sha": "0b9ebb13cca2038ecf5f84ba1f3e7efd6e1cebf2",
+      "baseline_cache_reused": true,
+      "baseline_lock": {
+        "path": "sdd-bench/scrapy-sdd/batch/baselines/11079cb1c85b9e75a39a7269943c69d1a975d485/baseline-lock.json",
+        "sha256": "9eaf148760eb3063f1b6a4c9362afd2d22a8c7c66fa62a47d8ef6c47b153101e"
+      },
+      "topology_audit": {
+        "path": "sdd-bench/scrapy-sdd/batch/audits/topology/scrapy__scrapy__pr8073.json",
+        "sha256": "3261aede013c3329b9b4220dcc49bd4db8b5d4d71b4f8c72124301a619d5d2ee"
+      },
+      "variant_workspaces": {
+        "openspec": "sdd-bench/scrapy-sdd/batch/workspaces/scrapy__scrapy__pr8073/openspec/repository",
+        "speckit": "sdd-bench/scrapy-sdd/batch/workspaces/scrapy__scrapy__pr8073/speckit/repository",
+        "cc-sdd": "sdd-bench/scrapy-sdd/batch/workspaces/scrapy__scrapy__pr8073/cc-sdd/repository"
+      },
+      "blocking_errors": [],
+      "warnings": [
+        "Git remotes are present",
+        "HEAD differs from recorded base_sha",
+        "baseline source HEAD differs from recorded base; provisioning still requests recorded base explicitly",
+        "extra Git refs are present",
+        "local branches are present",
+        "reflog files are present",
+        "target head/merge is reachable from HEAD",
+        "target merge commit object is present"
+      ]
+    }
+  ],
+  "operations": {
+    "baseline_cache_created_or_verified": true,
+    "independent_variant_workspaces_created": true,
+    "docker_images_created": false,
+    "containers_created": false,
+    "volumes_created": false,
+    "networks_created": false,
+    "agents_started": false,
+    "tests_run": false
+  }
+}

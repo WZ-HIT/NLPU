@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr8040",
+  "repository": {
+    "owner": "scrapy",
+    "name": "scrapy"
+  },
+  "pr_id": 8040,
+  "baseline": {
+    "base_sha": "4f0b5fa5c3a275b068bc4e028dfd09dd2f878bc0"
+  },
+  "title": "Let parsel determine the type of nested selectors",
+  "body": "Resolves https://github.com/scrapy/scrapy/issues/8038",
+  "adapter": {
+    "id": "scrapy",
+    "version": 1,
+    "path": "sdd-bench/scrapy-sdd/adapters/scrapy.json",
+    "sha256": "059dcc09eaa62f892f54118e65d4deccce3ab29cc5d9a4a36f4d999ff1aa27de"
+  }
+}

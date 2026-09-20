@@ -1,0 +1,36 @@
+{
+  "feature_name": "open-in-browser-redos-tests",
+  "created_at": "2026-09-17T01:46:00Z",
+  "updated_at": "2026-09-17T01:46:00Z",
+  "language": "en",
+  "phase": "detected",
+  "source": {
+    "repository": "scrapy/scrapy",
+    "pull_request": "8064",
+    "base_commit": "3857c6906b2da51e12ca6005434512b7704fd659",
+    "title": "Fix open_in_browser ReDoS test flakiness and a broken exploit input"
+  },
+  "approvals": {
+    "requirements": {
+      "generated": true,
+      "approved": false
+    },
+    "design": {
+      "generated": true,
+      "approved": false
+    },
+    "tasks": {
+      "generated": true,
+      "approved": false
+    }
+  },
+  "ready_for_implementation": false,
+  "detection": {
+    "stage": "detect",
+    "draft": "/output/detection-draft.json",
+    "candidates": [
+      "tests/test_utils_response.py"
+    ],
+    "tests_executed": false
+  }
+}

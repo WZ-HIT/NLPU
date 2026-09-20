@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr8067",
+  "method": "speckit",
+  "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "speckit-detect-001",
+    "session_sha256": "db841f1f9e8852ca0af1467ac65c2a81c3571f4f7a2c12abbee59be1c4654eeb"
+  },
+  "task_input_sha256": "96249458de9093098dc7deadf5e5790072a7a703b7ef513ae6780621a1bfa89d",
+  "candidates": [
+    {
+      "path": "tests/test_utils_response.py",
+      "symbols": [
+        "test_open_in_browser",
+        "test_open_in_browser_text_response_uses_txt_extension",
+        "test_open_in_browser_raises_for_unsupported_response_type",
+        "_read_browser_output"
+      ],
+      "reason": "Direct unit-test module for scrapy.utils.response.open_in_browser. It asserts the current text-only contract (test_open_in_browser_text_response_uses_txt_extension) and that a plain non-text Response raises TypeError (test_open_in_browser_raises_for_unsupported_response_type, plus the pytest.raises(TypeError) block in test_open_in_browser), which is exactly the behavior this change replaces with Content-Type derived preview extensions. New non-text and Content-Type cases belong here, and the module already holds the helper (_read_browser_output) that reads the temporary file handed to the opener."
+    },
+    {
+      "path": "tests/test_commands.py",
+      "symbols": [
+        "TestViewCommand",
+        "TestViewCommand.test_view",
+        "TestViewCommand.test_non_text_response"
+      ],
+      "reason": "TestViewCommand exercises the scrapy view CLI end to end against the test server, and test_non_text_response currently asserts the refusal string 'Cannot view a non-text response.' produced by scrapy/commands/view.py. Removing that refusal and forwarding non-text responses to open_in_browser changes this expectation, so this module is expected to be updated alongside scrapy/commands/view.py."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 9,
+    "manifest_sha256": "5ece7541f85b69d71810836e6ad3f86efa5c5a498ce68d80f28795aea75f20d7"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "904cd9c526509cf3dd0a69a507d21287b967a567bba4e1cd2c8ae4f37fc0cdd5"
+  }
+}

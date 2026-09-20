@@ -1,0 +1,13 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_crawl.py",
+      "symbols": [
+        "TestCrawl.test_fixed_delay",
+        "TestCrawl.test_randomized_delay",
+        "TestCrawl._test_delay"
+      ],
+      "reason": "These are the download-delay tests that drive FollowAllSpider with a small page total. The change increases the number of distinct crawled pages and prevents repeated links from being skipped, so these tests and their shared helper are the direct verification targets."
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "policy_type": "UPDATE_TARGET_SELECTION",
+  "task_id": "scrapy__scrapy__pr8073",
+  "task_manifest_sha256": "001750ebd290ee3919f3caacff1e49a6b66a7e83854a31afdc3b0c7e6126fe19",
+  "base_sha": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+  "method": "cc-sdd",
+  "stage": "update",
+  "run_id": "cc-sdd-self-001",
+  "mode": "self-directed",
+  "selected_at_utc": "2026-09-16T11:55:47Z",
+  "detect_must_complete_first": true,
+  "visibility": {
+    "sealed_detection_manifest": false,
+    "sealed_planning_artifacts": false,
+    "other_detection_results": false,
+    "detect_workspace": false,
+    "task_title_body": true
+  },
+  "filesystem": {
+    "writable_directories": [
+      "tests/"
+    ],
+    "production_writable": false,
+    "tests_writable": true
+  },
+  "enforcement": {
+    "target_source": "agent-reasoning",
+    "post_run_diff_rule": "adapter-tests-only",
+    "out_of_scope_result": "BLOCKED"
+  },
+  "compose": {
+    "base_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/compose.yaml",
+    "override_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/cc-sdd/update/policies/cc-sdd-self-001/compose.self-directed.yaml",
+    "override_sha256": "f04c88fdb2a54122b74a01a079cad077c25c083a597cf471fd3d7a8a79510a27"
+  },
+  "gold_blind": true,
+  "selection_source": "explicit-user-cli",
+  "policy_sha256": "748e3e3d33e25f73fe931393bf8e98aa557084f80fda8c34ba7b9d64f36d43da"
+}

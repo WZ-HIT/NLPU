@@ -1,0 +1,26 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_utils_response.py",
+      "symbols": [
+        "open_in_browser",
+        "_read_browser_output",
+        "test_open_in_browser",
+        "test_open_in_browser_text_response_uses_txt_extension",
+        "test_open_in_browser_raises_for_unsupported_response_type",
+        "test_open_in_browser_preserves_html_comments",
+        "test_open_in_browser_keeps_base_url_of_response"
+      ],
+      "reason": "Unit tests for scrapy.utils.response, the module that owns open_in_browser(). The file imports open_in_browser and already asserts the behavior this change alters: test_open_in_browser and test_open_in_browser_raises_for_unsupported_response_type expect TypeError for a plain Response (binary body), while test_open_in_browser_text_response_uses_txt_extension pins the .txt suffix for text responses. New tests for Content-Type-driven suffixes (image/png, application/pdf, missing Content-Type) belong here as well."
+    },
+    {
+      "path": "tests/test_commands.py",
+      "symbols": [
+        "TestViewCommand",
+        "TestViewCommand.test_view",
+        "TestViewCommand.test_non_text_response"
+      ],
+      "reason": "TestViewCommand drives `scrapy view`, which delegates to open_in_browser() and currently rejects non-text responses via the TextResponse guard in scrapy/commands/view.py; test_non_text_response asserts the error message \"Cannot view a non-text response.\" for the mock server PNG (served as image/png). If the command now opens non-text responses, this test must change to assert the browser receives a file:// URL, so it is a candidate for the change's verification."
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr8073",
+  "method": "speckit",
+  "base_sha": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "speckit-detect-001",
+    "session_sha256": "b216cc8d5ae20c701b50bd02e4e128ee2d2a543cddc14c1cad8203d43650b074"
+  },
+  "task_input_sha256": "1166467f4855bbdfbf837bd9900a951e4a942361327844d5fe1f2e348e327b2b",
+  "candidates": [
+    {
+      "path": "tests/test_downloader_handler_twisted_ftp.py",
+      "symbols": [
+        "TestFTP.test_invalid_credentials"
+      ],
+      "reason": "This test conditionally skips on Windows with asyncio because it historically produced DirtyReactorAggregateError; PR 8073 proposes re-enabling it."
+    },
+    {
+      "path": "tests/utils/bases/download_handlers_http.py",
+      "symbols": [
+        "TestHttpBase.test_timeout_download_from_spider_nodata_rcvd",
+        "TestHttpBase.test_timeout_download_from_spider_server_hangs"
+      ],
+      "reason": "Both shared HTTP timeout tests contain conditional Windows asyncio skips citing DirtyReactorAggregateError and are affected by PR 8073; concrete downloader subclasses inherit them."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 7,
+    "manifest_sha256": "ed3cb1c9810dc5cc29075631bbd9eef44fa3b101e70a2e5e9359d3216886a477"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "46816c4870ee5ed801da4b662a1c5a1e7e9675705f7c8975a4afbf75105a93dc"
+  }
+}

@@ -1,0 +1,46 @@
+diff --git a/tests/test_utils_response.py b/tests/test_utils_response.py
+index 8269f0a..5261d04 100644
+--- a/tests/test_utils_response.py
++++ b/tests/test_utils_response.py
+@@ -37,10 +37,6 @@ def test_open_in_browser():
+     response = HtmlResponse(url, body=body)
+     assert open_in_browser(response, _openfunc=browser_open), "Browser not called"
+ 
+-    resp = Response(url, body=body)
+-    with pytest.raises(TypeError):
+-        open_in_browser(resp, _openfunc=browser_open)  # type: ignore[arg-type]
+-
+ 
+ def test_get_meta_refresh():
+     r1 = HtmlResponse(
+@@ -334,7 +330,26 @@ def test_open_in_browser_text_response_uses_txt_extension():
+     assert open_in_browser(response, _openfunc=check)
+ 
+ 
+-def test_open_in_browser_raises_for_unsupported_response_type():
+-    response = Response("http://www.example.com", body=b"binary")
+-    with pytest.raises(TypeError):
+-        open_in_browser(response, _openfunc=lambda _: True)  # type: ignore[arg-type]
++@pytest.mark.parametrize(
++    ("content_type", "extension"),
++    [
++        ("application/pdf", ".pdf"),
++        ("image/png", ".png"),
++    ],
++)
++def test_open_in_browser_non_text_response_uses_content_type(
++    content_type: str, extension: str
++) -> None:
++    body = b"binary content"
++    response = Response(
++        "http://www.example.com",
++        body=body,
++        headers={"Content-Type": content_type},
++    )
++
++    def check(burl):
++        assert burl.endswith(extension)
++        assert _read_browser_output(burl) == body
++        return True
++
++    assert open_in_browser(response, _openfunc=check)

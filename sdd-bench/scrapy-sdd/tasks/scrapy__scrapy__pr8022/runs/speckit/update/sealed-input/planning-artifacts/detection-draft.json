@@ -1,0 +1,29 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_crawler.py",
+      "symbols": [
+        "TestAsyncCrawlerProcessReactorlessHelpers",
+        "test_signal_shutdown_reactorless_without_loop",
+        "test_signal_kill_reactorless_without_loop",
+        "test_signal_kill_reactorless_without_main_task",
+        "test_create_shutdown_task_closed_loop"
+      ],
+      "reason": "These unit tests directly exercise AsyncCrawlerProcess reactorless shutdown helpers affected by moving logging from signal-handler bodies to loop scheduling; the no-main-task test asserts on the same call_soon_threadsafe path that will now also dispatch the forced-shutdown log."
+    },
+    {
+      "path": "tests/test_crawler_subprocess.py",
+      "symbols": [
+        "TestCrawlerProcessSubprocessBase._test_shutdown_graceful",
+        "TestCrawlerProcessSubprocessBase.test_shutdown_graceful",
+        "TestCrawlerProcessSubprocessBase._test_shutdown_forced",
+        "TestCrawlerProcessSubprocessBase.test_shutdown_forced",
+        "TestCrawlerProcessSubprocessBase.test_shutdown_graceful_no_stop",
+        "TestAsyncCrawlerProcessSubprocess.test_reactorless_shutdown_graceful",
+        "TestAsyncCrawlerProcessSubprocess.test_reactorless_shutdown_forced",
+        "TestAsyncCrawlerProcessSubprocess.test_reactorless_shutdown_graceful_no_stop"
+      ],
+      "reason": "These subprocess tests exercise both first-signal and second-signal shutdown behavior and assert the exact user-visible messages produced by _log_shutdown and _log_kill, so they are the closest end-to-end coverage for the changed dispatch timing."
+    }
+  ]
+}

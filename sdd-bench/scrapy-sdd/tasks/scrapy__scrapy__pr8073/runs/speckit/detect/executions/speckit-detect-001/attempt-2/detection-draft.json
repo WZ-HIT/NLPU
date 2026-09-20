@@ -1,0 +1,19 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_downloader_handler_twisted_ftp.py",
+      "symbols": [
+        "TestFTP.test_invalid_credentials"
+      ],
+      "reason": "This test conditionally skips on Windows with asyncio because it historically produced DirtyReactorAggregateError; PR 8073 proposes re-enabling it."
+    },
+    {
+      "path": "tests/utils/bases/download_handlers_http.py",
+      "symbols": [
+        "TestHttpBase.test_timeout_download_from_spider_nodata_rcvd",
+        "TestHttpBase.test_timeout_download_from_spider_server_hangs"
+      ],
+      "reason": "Both shared HTTP timeout tests contain conditional Windows asyncio skips citing DirtyReactorAggregateError and are affected by PR 8073; concrete downloader subclasses inherit them."
+    }
+  ]
+}

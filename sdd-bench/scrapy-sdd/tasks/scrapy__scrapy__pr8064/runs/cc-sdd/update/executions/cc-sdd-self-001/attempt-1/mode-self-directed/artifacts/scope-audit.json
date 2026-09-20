@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "mode": "self-directed",
+  "changed_paths": [
+    "tests/test_utils_response.py"
+  ],
+  "candidate_paths_sha256": "9e10b52cc7417feead69fcedee2128c8813287cb027ad51578ba08dce0965bd5",
+  "violations": [],
+  "status": "SEALED"
+}

@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "artifact_type": "PUBLIC_TARGET_SET",
+  "evaluation_id": "scrapy-3pr-prompt10-v1",
+  "target_id": "457d992112f56839701260b7",
+  "stage": "update",
+  "task_id": "scrapy__scrapy__pr8067",
+  "classification": "MIXED_CODE_AND_TEST_PR",
+  "method": "openspec",
+  "update_mode": "sealed-detect",
+  "metric_definition_version": "prompt10-metrics-v1",
+  "gold_seal_sha256": "abc8bf10e33f707604106c98d254a3a582f9408e546565404b83e550c18e7f2c",
+  "files": {
+    "predicted": [
+      {
+        "rank": 1,
+        "candidate": "tests/test_commands.py"
+      },
+      {
+        "rank": 2,
+        "candidate": "tests/test_utils_response.py",
+        "matched_gold_id": "g-dd45de4aece5f7a384a1bdec"
+      }
+    ],
+    "gold_ids": [
+      "g-dd45de4aece5f7a384a1bdec"
+    ],
+    "matched_gold_ids": [
+      "g-dd45de4aece5f7a384a1bdec"
+    ],
+    "invalid_evidence_ids": [],
+    "invalid_count": 0,
+    "missing_count": 0
+  },
+  "symbols": {
+    "predicted": [
+      {
+        "rank": 1,
+        "candidate": {
+          "path": "tests/test_commands.py",
+          "qualified_name": "TestViewCommand.test_non_text_response"
+        }
+      },
+      {
+        "rank": 2,
+        "candidate": {
+          "path": "tests/test_utils_response.py",
+          "qualified_name": "test_open_in_browser_non_text_response_uses_content_type_extension"
+        }
+      },
+      {
+        "rank": 3,
+        "candidate": {
+          "path": "tests/test_utils_response.py",
+          "qualified_name": "test_open_in_browser_non_text_response_uses_content_type_extension.check"
+        }
+      },
+      {
+        "rank": 4,
+        "candidate": {
+          "path": "tests/test_utils_response.py",
+          "qualified_name": "test_open_in_browser_raises_for_unknown_content_type"
+        }
+      }
+    ],
+    "gold_ids": [
+      "g-25ef7982708f792ea1845991",
+      "g-44476df5912df0c098cda352",
+      "g-446d848e9f1b7ccaa50fa2ea",
+      "g-cf2fc6899e1df2c52485f7da"
+    ],
+    "matched_gold_ids": [],
+    "invalid_evidence_ids": [],
+    "invalid_count": 0,
+    "missing_count": 4
+  },
+  "target_set_sha256": "01fba55cea22746ba37ed92067dea2e9d57386fc42f511ddf612d9d64ac477fe"
+}

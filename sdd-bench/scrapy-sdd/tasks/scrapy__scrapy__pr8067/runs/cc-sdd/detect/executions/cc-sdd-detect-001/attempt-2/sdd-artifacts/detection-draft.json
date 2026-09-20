@@ -1,0 +1,24 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_utils_response.py",
+      "symbols": [
+        "open_in_browser",
+        "test_open_in_browser",
+        "test_open_in_browser_text_response_uses_txt_extension",
+        "test_open_in_browser_raises_for_unsupported_response_type"
+      ],
+      "reason": "This module directly imports and unit-tests scrapy.utils.response.open_in_browser, the function changed by this PR. Its existing cases assert that an HtmlResponse is written with an .html extension, a TextResponse with a .txt extension, and a bare (non-text) Response raises TypeError. The PR replaces that TypeError path with extension selection driven by the Content-Type header, so these tests are the primary place to update/add cases (for example image/png -> .png, application/pdf -> .pdf, and fallback behavior for unknown or missing Content-Type)."
+    },
+    {
+      "path": "tests/test_commands.py",
+      "symbols": [
+        "TestViewCommand.test_view",
+        "TestViewCommand.test_non_text_response",
+        "scrapy.commands.view.Command._print_response",
+        "open_in_browser"
+      ],
+      "reason": "These integration tests exercise the 'scrapy view' command, which delegates to open_in_browser through scrapy.commands.view.Command._print_response. That method currently short-circuits with 'Cannot view a non-text response.' for every non-TextResponse, and TestViewCommand.test_non_text_response asserts that refusal. If this PR lifts the command-level restriction so non-text responses can be opened by Content-Type, this test must be updated to assert the browser is opened with a Content-Type-derived extension (the fixture already fetches /static/files/images/scrapy.png)."
+    }
+  ]
+}

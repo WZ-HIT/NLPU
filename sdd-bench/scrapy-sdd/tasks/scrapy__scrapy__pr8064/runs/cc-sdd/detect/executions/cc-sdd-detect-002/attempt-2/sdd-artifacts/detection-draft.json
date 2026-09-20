@@ -1,0 +1,13 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_utils_response.py",
+      "symbols": [
+        "_assert_open_in_browser_is_fast",
+        "test_open_in_browser_redos_comment",
+        "test_open_in_browser_redos_head"
+      ],
+      "reason": "This is the only test module that directly imports and exercises scrapy.utils.response.open_in_browser. It contains the shared CPU-time helper used by the ReDoS tests and the two exploit-input tests that the PR title targets, so it is the primary candidate for validating the flakiness and input fixes."
+    }
+  ]
+}

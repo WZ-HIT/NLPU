@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr8027",
+  "method": "speckit",
+  "base_sha": "da7c2fc59e286e796d0f8cfe01d4363d6fa3729f",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "speckit-detect-003",
+    "session_sha256": "f8904c4855ca8d3b64cb031c90a09c55ef24a6cc442f02031d421d0bba121976"
+  },
+  "task_input_sha256": "9e639ad7c8ce7122eb2d6974b2a65f2905cc7ea01ca2d02654477343a1abd885",
+  "candidates": [
+    {
+      "path": "tests/test_crawl.py",
+      "symbols": [
+        "TestCrawl.test_fixed_delay",
+        "TestCrawl.test_randomized_delay"
+      ],
+      "reason": "These are the fixed and randomized download-delay crawl tests; the PR makes them crawl enough pages for meaningful timing assertions instead of skipping."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 7,
+    "manifest_sha256": "852c50d670b1a8e1f476e003400547378ef318d5d397bd02f59503d37c036cd3"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "27a7f22917a2fef7f2992173c662cbd9c597e46715297cc3d353fda08a5ed5b0"
+  }
+}

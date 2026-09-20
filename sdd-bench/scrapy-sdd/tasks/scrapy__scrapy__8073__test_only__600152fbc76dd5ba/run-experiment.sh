@@ -51,7 +51,6 @@ Usage:
   run-experiment.sh prepare <pr8073-NNN>
   run-experiment.sh validate-config [experiment.json|pr8073-NNN]
   run-experiment.sh all [experiment.json|pr8073-NNN]
-  run-experiment.sh parallel-all [experiment.json|pr8073-NNN]
   run-experiment.sh begin <openspec|speckit|cc-sdd> [experiment.json|pr8073-NNN]
   run-experiment.sh phase <openspec|speckit|cc-sdd> <phase> [experiment.json|pr8073-NNN]
   run-experiment.sh finish <openspec|speckit|cc-sdd> [experiment.json|pr8073-NNN]
@@ -76,7 +75,7 @@ require_command() {
 
 require_runtime_commands() {
   local name
-  for name in awk cat cmp cp docker flock git grep id mktemp mv python3 realpath rm rmdir sha256sum sleep sort stat tee timeout; do
+  for name in awk cat cmp cp docker flock git grep id mktemp mv python3 realpath rm sha256sum sort stat tee timeout; do
     require_command "$name"
   done
 }
@@ -557,8 +556,8 @@ verify_execution_turn() {
   local variant="$1"
   local prior prior_state prior_status expected_config_sha actual_config_sha
 
-  # Coordinated `all` modes enforce ordering or a start barrier at the parent.
-  # A failed independent SDD must not gate another worker through state files.
+  # `all` itself serializes variants according to execution_order. A failed
+  # predecessor must not prevent the next independent SDD from being attempted.
   ((ALL_MODE == 0)) || return 0
   actual_config_sha="$(sha256sum -- "$CONFIG_FILE" | awk '{print $1}')"
   while IFS= read -r prior; do
@@ -1120,19 +1119,17 @@ PY
 
 write_all_summary() {
   local overall_status="$1"
-  local execution_mode="$2"
-  local start_barrier_status="$3"
-  shift 3
+  shift
   local root
   root="$(dirname -- "$(experiment_dir "$1")")"
 
-  python3 - "$root/all-summary.json" "$overall_status" "$execution_mode" "$start_barrier_status" "$EXECUTION_ORDER" "$@" <<'PY'
+  python3 - "$root/all-summary.json" "$overall_status" "$EXECUTION_ORDER" "$@" <<'PY'
 import datetime
 import json
 import pathlib
 import sys
 
-output, overall_status, execution_mode, start_barrier_status, execution_order, *variants = sys.argv[1:]
+output, overall_status, execution_order, *variants = sys.argv[1:]
 root = pathlib.Path(output).parent
 records = []
 for variant in variants:
@@ -1167,8 +1164,6 @@ data = {
     "schema_version": 1,
     "experiment_id": root.name,
     "status": overall_status,
-    "execution_mode": execution_mode,
-    "start_barrier_status": start_barrier_status,
     "execution_order": execution_order.split(","),
     "variants": records,
     "finished_at_utc": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
@@ -1180,22 +1175,17 @@ temporary.replace(path)
 PY
 }
 
-run_all_variant_preflight() {
-  local variant="$1"
-  local stage_file="$2"
-
-  printf '%s\n' preflight >"$stage_file"
-  [[ "$(sha256sum -- "$CONFIG_FILE" | awk '{print $1}')" == "$ALL_CONFIG_SHA256" ]] || \
-    die "experiment config changed during coordinated run"
-  verify_deployment_runtime "$variant" || return $?
-  verify_variant_pristine "$variant" || return $?
-}
-
-run_all_variant_workflow() {
+run_all_variant() {
   local variant="$1"
   local stage_file="$2"
   local phase
   local -a phases
+
+  printf '%s\n' preflight >"$stage_file"
+  [[ "$(sha256sum -- "$CONFIG_FILE" | awk '{print $1}')" == "$ALL_CONFIG_SHA256" ]] || \
+    die "experiment config changed during all run"
+  verify_deployment_runtime "$variant" || return $?
+  verify_variant_pristine "$variant" || return $?
 
   printf '%s\n' begin >"$stage_file"
   begin_experiment "$variant" || return $?
@@ -1206,28 +1196,6 @@ run_all_variant_workflow() {
   done
   printf '%s\n' finish >"$stage_file"
   finish_experiment "$variant" || return $?
-}
-
-run_all_variant() {
-  local variant="$1"
-  local stage_file="$2"
-
-  run_all_variant_preflight "$variant" "$stage_file" || return $?
-  run_all_variant_workflow "$variant" "$stage_file"
-}
-
-run_parallel_all_variant() {
-  local variant="$1"
-  local stage_file="$2"
-  local ready_file="$3"
-  local start_file="$4"
-
-  run_all_variant_preflight "$variant" "$stage_file" || return $?
-  printf '%s\n' ready >"$ready_file"
-  while [[ ! -f "$start_file" ]]; do
-    sleep 0.05
-  done
-  run_all_variant_workflow "$variant" "$stage_file"
 }
 
 run_all_experiments() {
@@ -1285,106 +1253,8 @@ run_all_experiments() {
     rm -f -- "$stage_file"
   done
 
-  write_all_summary "$overall_status" "sequential" "not_applicable" "${order[@]}"
+  write_all_summary "$overall_status" "${order[@]}"
   info "experiment_all=${overall_status}"
-  info "results=${AUDIT_ROOT}/${EXPERIMENT_ID}"
-  return "$overall_exit"
-}
-
-run_parallel_all_experiments() {
-  local variant root shared_input barrier_dir start_file deadline ready_count barrier_failed=0
-  local barrier_status="DEGRADED"
-  local variant_exit stage overall_exit=0 overall_status="AWAITING_MANUAL_REVIEW"
-  local -a order
-  local -A pids logs stages readies
-
-  validate_secret_file
-  acquire_run_lock
-  IFS=',' read -r -a order <<<"$EXECUTION_ORDER"
-
-  # Refuse the entire comparison before launching any worker if prior evidence
-  # would be overwritten.
-  for variant in "${order[@]}"; do
-    validate_variant "$variant"
-    root="$(experiment_dir "$variant")"
-    [[ ! -e "$root" ]] || die "experiment state already exists: ${root}"
-  done
-
-  shared_input="$(mktemp /tmp/sdd-parallel-task-input.XXXXXX)"
-  resolve_input "$shared_input"
-  ALL_TASK_INPUT_SHA256="$(sha256sum -- "$shared_input" | awk '{print $1}')"
-  ALL_CONFIG_SHA256="$(sha256sum -- "$CONFIG_FILE" | awk '{print $1}')"
-  rm -f -- "$shared_input"
-  ALL_MODE=1
-
-  barrier_dir="$(mktemp -d /tmp/sdd-parallel-all.XXXXXX)"
-  start_file="${barrier_dir}/start"
-  info "experiment_parallel_all=START"
-  info "execution_order=${EXECUTION_ORDER}"
-  info "execution_mode=parallel"
-
-  for variant in "${order[@]}"; do
-    logs[$variant]="$(mktemp "/tmp/sdd-parallel-${variant}.console.XXXXXX")"
-    stages[$variant]="$(mktemp "/tmp/sdd-parallel-${variant}.stage.XXXXXX")"
-    readies[$variant]="${barrier_dir}/${variant}.ready"
-    info "experiment_parallel_worker_launch=${variant}"
-    (
-      trap 'worker_exit=$?; if [[ ! -f "'"${readies[$variant]}"'" ]]; then printf "%s\n" "$worker_exit" >"'"${readies[$variant]}.failed"'"; fi' EXIT
-      run_parallel_all_variant "$variant" "${stages[$variant]}" \
-        "${readies[$variant]}" "$start_file"
-    ) >"${logs[$variant]}" 2>&1 &
-    pids[$variant]=$!
-  done
-
-  deadline=$((SECONDS + 60))
-  while :; do
-    ready_count=0
-    barrier_failed=0
-    for variant in "${order[@]}"; do
-      [[ -f "${readies[$variant]}" ]] && ready_count=$((ready_count + 1))
-      [[ -f "${readies[$variant]}.failed" ]] && barrier_failed=1
-    done
-    ((ready_count == ${#order[@]})) && break
-    ((barrier_failed == 0 && SECONDS < deadline)) || break
-    sleep 0.05
-  done
-
-  printf '%s\n' start >"$start_file"
-  if ((ready_count == ${#order[@]})); then
-    barrier_status="PASS"
-    info "parallel_start_barrier=PASS"
-  else
-    info "parallel_start_barrier=DEGRADED ready=${ready_count}/${#order[@]}"
-  fi
-
-  for variant in "${order[@]}"; do
-    set +e
-    wait "${pids[$variant]}"
-    variant_exit=$?
-    set -e
-
-    root="$(experiment_dir "$variant")"
-    mkdir -p -- "$root"
-    mv -- "${logs[$variant]}" "${root}/parallel-all.console.log"
-    stage="$(cat -- "${stages[$variant]}")"
-    [[ -n "$stage" ]] || stage="preflight"
-    if ((variant_exit != 0)); then
-      capture_failure_evidence "$variant" "$root"
-      record_variant_failure "$variant" "$stage" "$variant_exit" \
-        "${root}/parallel-all.console.log"
-      overall_exit=1
-      overall_status="FAIL"
-      info "experiment_parallel_worker_failed=${variant}"
-    else
-      info "experiment_parallel_worker_passed=${variant}"
-    fi
-    rm -f -- "${stages[$variant]}" "${readies[$variant]}" "${readies[$variant]}.failed"
-  done
-
-  rm -f -- "$start_file"
-  rmdir -- "$barrier_dir"
-  write_all_summary "$overall_status" "parallel" "$barrier_status" "${order[@]}"
-  info "experiment_parallel_all=${overall_status}"
   info "results=${AUDIT_ROOT}/${EXPERIMENT_ID}"
   return "$overall_exit"
 }
@@ -1428,13 +1298,6 @@ main() {
       require_runtime_commands
       load_config "$config"
       run_all_experiments
-      ;;
-    parallel-all)
-      (($# <= 1)) || { usage; exit 2; }
-      config="$(resolve_config_reference "${1:-$DEFAULT_CONFIG}")"
-      require_runtime_commands
-      load_config "$config"
-      run_parallel_all_experiments
       ;;
     begin)
       ((1 <= $# && $# <= 2)) || { usage; exit 2; }

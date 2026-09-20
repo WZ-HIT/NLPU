@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr8027",
+  "method": "openspec",
+  "base_sha": "da7c2fc59e286e796d0f8cfe01d4363d6fa3729f",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "openspec-detect-003",
+    "session_sha256": "075f609534789cdf56bee9d2fa9b9dc573eecd169c2c21117cb4abb606743dfd"
+  },
+  "task_input_sha256": "9e639ad7c8ce7122eb2d6974b2a65f2905cc7ea01ca2d02654477343a1abd885",
+  "candidates": [
+    {
+      "path": "tests/test_crawl.py",
+      "symbols": [
+        "TestCrawl.test_fixed_delay",
+        "TestCrawl.test_randomized_delay",
+        "TestCrawl._test_delay"
+      ],
+      "reason": "These are the download-delay tests that drive FollowAllSpider with a small page total. The change increases the number of distinct crawled pages and prevents repeated links from being skipped, so these tests and their shared helper are the direct verification targets."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 6,
+    "manifest_sha256": "e28cb7cd1edac9200650e1d435805abb0a2d216531d297e20f6163374834ccdd"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "8e277a771ec17eb606955faf9aeea80bdf8ee7499586a28f546098c55ceb6caa"
+  }
+}

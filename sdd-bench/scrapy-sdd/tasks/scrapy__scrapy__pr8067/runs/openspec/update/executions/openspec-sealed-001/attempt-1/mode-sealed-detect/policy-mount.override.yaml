@@ -1,0 +1,11 @@
+services:
+  openspec-update-agent:
+    environment:
+      UPDATE_TARGET_POLICY: sealed-detect
+    volumes:
+      - type: bind
+        source: /home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/openspec/update/policies/openspec-sealed-001/update-policy.json
+        target: /run/sdd-policy/update-policy.json
+        read_only: true
+        bind:
+          create_host_path: false

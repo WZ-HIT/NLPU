@@ -1,0 +1,19 @@
+{
+  "candidates": [
+    {
+      "path": "tests/utils/bases/download_handlers_http.py",
+      "symbols": [
+        "TestHttpBase.test_timeout_download_from_spider_nodata_rcvd",
+        "TestHttpBase.test_timeout_download_from_spider_server_hangs"
+      ],
+      "reason": "Defines the two HTTP download-handler timeout tests that are currently disabled by an inline guard `if reactor_pytest == \"asyncio\" and sys.platform == \"win32\": pytest.skip(\"This test produces DirtyReactorAggregateError on Windows with asyncio\")` (blocks at lines 363-370 and 381-388; each block carries a `# https://twistedmatrix.com/trac/ticket/10279` comment between the guard and the `pytest.skip(...)` call). These are the only `DirtyReactorAggregateError` comment sites in the download-handler suite besides the FTP test, so re-enabling the tests behind those comments means removing these guards here. Note: TestHttpBase is an ABC, so these two tests are actually collected and run through the concrete subclasses in tests/test_downloader_handler_httpx.py, tests/test_downloader_handler_twisted_http11.py and tests/test_downloader_handler_twisted_http2.py; those modules are unchanged by the skip removal but are the execution entry points for the re-enabled tests."
+    },
+    {
+      "path": "tests/test_downloader_handler_twisted_ftp.py",
+      "symbols": [
+        "TestFTP.test_invalid_credentials"
+      ],
+      "reason": "Contains the third and last `DirtyReactorAggregateError` comment in the repository: `TestFTP.test_invalid_credentials` starts with `if reactor_pytest == \"asyncio\" and sys.platform == \"win32\": pytest.skip(\"This test produces DirtyReactorAggregateError on Windows with asyncio\")` (lines 176-180). It is a concrete FTP download-handler test (not an inherited base-class test), and `sys` is imported in this module only for this guard, so removing the guard touches this file alone."
+    }
+  ]
+}

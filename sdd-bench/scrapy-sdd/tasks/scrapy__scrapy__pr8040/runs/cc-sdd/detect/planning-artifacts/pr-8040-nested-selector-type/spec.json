@@ -1,0 +1,29 @@
+{
+  "feature_name": "pr-8040-nested-selector-type",
+  "created_at": "2026-09-19T14:24:37Z",
+  "updated_at": "2026-09-19T14:24:37Z",
+  "language": "en",
+  "phase": "detect",
+  "source": {
+    "repository": "scrapy/scrapy",
+    "pull_request": 8040,
+    "issue": 8038,
+    "base_commit": "4f0b5fa5c3a275b068bc4e028dfd09dd2f878bc0",
+    "title": "Let parsel determine the type of nested selectors"
+  },
+  "approvals": {
+    "requirements": {
+      "generated": true,
+      "approved": false
+    },
+    "design": {
+      "generated": true,
+      "approved": false
+    },
+    "tasks": {
+      "generated": true,
+      "approved": false
+    }
+  },
+  "ready_for_implementation": false
+}

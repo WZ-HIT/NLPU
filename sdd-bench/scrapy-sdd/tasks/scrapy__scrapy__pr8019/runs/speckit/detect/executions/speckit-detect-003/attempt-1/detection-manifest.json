@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr8019",
+  "method": "speckit",
+  "base_sha": "916039ca4ca79ea4ed38e74d71e25c2584c1925e",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "speckit-detect-003",
+    "session_sha256": "c99bbeefceb5c4e2bcde5968306ff9c72c9abf8e9c7e3239f6ac4e116c184f39"
+  },
+  "task_input_sha256": "32da7759bea46a2a024d791787aa57a2aea4e782913f59d2e2423b43b24b9571",
+  "candidates": [
+    {
+      "path": "tests/test_pipeline_media.py",
+      "symbols": [
+        "TestMediaPipeline::test_wait_if_request_is_downloading",
+        "TestMediaPipeline::test_results_are_cached_for_requests_of_single_item",
+        "TestMediaPipeline::test_cached_failure_calls_errback",
+        "TestMediaPipeline::test_results_are_cached_across_multiple_items",
+        "TestMediaPipeline::test_failures_are_cached_across_multiple_items",
+        "TestBaseMediaPipeline::test_should_remove_req_res_references_before_caching_the_results",
+        "TestBaseMediaPipeline::test_default_process_item"
+      ],
+      "reason": "Only existing test file that imports the renamed private helper (scrapy.utils.defer._defer_sleep_async, used at line 446), and it directly exercises MediaPipeline._process_request and _cache_result_and_execute_waiters - the exact media code paths this PR rewrites (per-waiter call_later(_DEFER_DELAY, ...) replaced by direct callback/errback plus a _process_pending_io() yield before caching)."
+    },
+    {
+      "path": "tests/test_utils_defer.py",
+      "symbols": [
+        "TestMustbeDeferred::test_success_function",
+        "TestMustbeDeferred::test_unfired_deferred",
+        "TestParallelAsync::test_simple",
+        "TestParallelAsync::test_delays",
+        "TestDeferredFromCoro::test_coroutine",
+        "TestMaybeDeferredToFutureAsyncio::test_deferred"
+      ],
+      "reason": "Unit-test home of scrapy/utils/defer.py, where the fixed 100 ms helper (_defer_sleep_async) is defined and replaced by _process_pending_io; it covers the surrounding deferred/parallel helpers and the deprecated-helper behavior that must stay on the old delay."
+    },
+    {
+      "path": "tests/test_pipeline_crawl.py",
+      "symbols": [
+        "TestFileDownloadCrawl::test_download_media",
+        "TestFileDownloadCrawl::test_download_media_wrong_urls",
+        "TestFileDownloadCrawl::test_download_media_redirected_allowed",
+        "TestFileDownloadCrawl::test_download_media_file_path_error",
+        "TestImageDownloadCrawl"
+      ],
+      "reason": "End-to-end media pipeline crawl (files and images) that drives MediaPipeline.process_item through real request scheduling, exercising the 'media result' delivery delay removed by this PR."
+    },
+    {
+      "path": "tests/test_crawl.py",
+      "symbols": [
+        "TestCrawl::test_follow_all",
+        "TestCrawlSpider::test_crawlspider_with_async_callback",
+        "TestCrawlSpider::test_crawlspider_with_errback",
+        "TestCrawlSpider::test_async_def_parse",
+        "TestCrawlSpider::test_async_def_asyncgen_parse"
+      ],
+      "reason": "End-to-end crawl tests that invoke spider callbacks and errbacks for every response, which is the code path where the fixed 100 ms sleep before each callback (Scraper.call_spider_async) is removed."
+    },
+    {
+      "path": "tests/test_spidermiddleware.py",
+      "symbols": [
+        "TestBaseAsyncSpiderMiddleware::_get_middleware_result",
+        "TestProcessSpiderException::test_exc_simple",
+        "TestProcessSpiderException::test_exc_async",
+        "TestProcessSpiderException::test_exc_simple_async",
+        "TestProcessSpiderExceptionReRaise::test_process_spider_exception_return_none"
+      ],
+      "reason": "Calls SpiderMiddlewareManager.scrape_response_async directly and covers its exception path, the site where _defer_sleep_async() is replaced by _process_pending_io()."
+    },
+    {
+      "path": "tests/test_downloadermiddleware.py",
+      "symbols": [
+        "TestResponseFromProcessException::test_process_response_called",
+        "TestInvalidOutput::test_invalid_process_exception",
+        "TestResponseFromProcessRequest::test_download_func_not_called",
+        "TestMiddlewareUsingCoro::test_asyncdef",
+        "TestDefaults::test_200_and_invalid_gzipped_body_must_fail"
+      ],
+      "reason": "Exercises DownloaderMiddlewareManager.download_async, including the process_exception path that yields to the event loop after _process_request raises - one of the migrated fixed-delay call sites."
+    },
+    {
+      "path": "tests/test_core_scraper.py",
+      "symbols": [
+        "test_scraper_exception"
+      ],
+      "reason": "Scraper-level test of callback output/error handling; the callback invocation path that this PR makes non-blocking lives in Scraper.call_spider_async."
+    },
+    {
+      "path": "tests/test_request_left.py",
+      "symbols": [
+        "test_success",
+        "test_timeout",
+        "test_disconnect",
+        "test_noconnect"
+      ],
+      "reason": "Asserts the request_left_downloader signal fires exactly once per request, covering Downloader._download's failure path where the fixed delay before re-raising is removed and slot cleanup must remain intact."
+    },
+    {
+      "path": "tests/test_pipeline_files.py",
+      "symbols": [
+        "TestFilesPipeline::test_file_cached",
+        "TestFilesPipeline::test_file_not_expired",
+        "TestFilesPipeline::test_file_expired",
+        "TestFilesPipeline::test_process_item_filtered_request",
+        "TestFilesPipeline::test_media_failed_download_error"
+      ],
+      "reason": "FilesPipeline subclasses MediaPipeline and its caching/short-circuit tests hit the cached-result and waiter branches whose artificial 100 ms delay is removed."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 9,
+    "manifest_sha256": "e799067742762b9f0e2b3552fe87e53fe2ab75096c5812185775485510c69255"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "f8f2237e84c693c100c4f76401163ba162f974115aa6333b1cffab921cc8801d"
+  }
+}

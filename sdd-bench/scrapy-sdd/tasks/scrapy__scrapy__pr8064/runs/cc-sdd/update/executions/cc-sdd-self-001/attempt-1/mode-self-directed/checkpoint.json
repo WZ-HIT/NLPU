@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr8064",
+  "method": "cc-sdd",
+  "stage": "update",
+  "run_id": "cc-sdd-self-001",
+  "update_mode": "self-directed",
+  "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+  "created_at_utc": "2026-09-17T03:27:18Z",
+  "status": "SEALED",
+  "dry_run": false,
+  "tests_run": false,
+  "model_request_sent": true,
+  "provenance": {
+    "task_manifest_sha256": "314694774fa1588fa62c086cd2d3a6f9926c24ba2717f9e9514c992e06a1793e",
+    "policy_file_sha256": "8bcf8909e95e43240f2cdc69056e65d0c0cf2d9a61f54c41d0fe8efb83888acd",
+    "detection_manifest_sha256": "aa83afff941e0bfaba2b35e70e0d0db072adcf312fb9c495fa5988b2d8a890f4",
+    "compose_rendered_sha256": "95f498bf8ba910cdcaa59e3f2c69951d3288031f29bb9b07aea701bac0d2e86d"
+  },
+  "checks": [
+    {
+      "id": "policy-schema",
+      "status": "PASS"
+    },
+    {
+      "id": "policy-file-hash",
+      "status": "PASS"
+    },
+    {
+      "id": "policy-context",
+      "status": "PASS"
+    },
+    {
+      "id": "detect-prerequisite",
+      "status": "PASS"
+    },
+    {
+      "id": "update-preflight",
+      "status": "PASS"
+    },
+    {
+      "id": "mode-explicit",
+      "status": "PASS"
+    },
+    {
+      "id": "tests-only-policy",
+      "status": "PASS"
+    },
+    {
+      "id": "post-run-scope",
+      "status": "PASS"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/update/executions/cc-sdd-self-001/attempt-1/mode-self-directed/artifacts/candidate.patch",
+      "sha256": "622a2e1187076b69ebf7e773a27d8f8a3d6e12fd2220b44ba37d8ce2ded4165b"
+    },
+    {
+      "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/update/executions/cc-sdd-self-001/attempt-1/mode-self-directed/artifacts/scope-audit.json",
+      "sha256": "4acf39d863363256b9f29472c6e3450d4cf6ad7866074663dd3bd322256bf2c9"
+    },
+    {
+      "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/update/executions/cc-sdd-self-001/attempt-1/mode-self-directed/candidate-modified-files.json",
+      "sha256": "9b517bc4219227bc0c6d0b78e8fb80801344a25f77be3a6a336ed8e844a54dc7"
+    }
+  ],
+  "blockers": []
+}

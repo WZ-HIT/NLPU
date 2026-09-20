@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr8064",
+  "method": "openspec",
+  "run_id": "openspec-self-001",
+  "mode": "self-directed",
+  "policy_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/update/policies/openspec-self-001/update-policy.json",
+  "policy_sha256": "3be059416d1393fc87d135871a4baadde9003193d54d8eacb9ec2f9ca3c0cd5f",
+  "reference_sha256": "bcb3a25199aa2f3adfd41c2100fce6529cd006f562f116904c11e32a215e6eb3"
+}

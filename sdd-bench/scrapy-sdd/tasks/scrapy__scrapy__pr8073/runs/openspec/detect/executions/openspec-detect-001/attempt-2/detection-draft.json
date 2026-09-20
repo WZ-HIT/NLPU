@@ -1,0 +1,19 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_downloader_handler_twisted_ftp.py",
+      "symbols": [
+        "test_invalid_credentials"
+      ],
+      "reason": "Contains TestFTP::test_invalid_credentials, which is currently skipped on Windows with the asyncio reactor because it produced DirtyReactorAggregateError; the PR should remove that obsolete skip."
+    },
+    {
+      "path": "tests/utils/bases/download_handlers_http.py",
+      "symbols": [
+        "test_timeout_download_from_spider_nodata_rcvd",
+        "test_timeout_download_from_spider_server_hangs"
+      ],
+      "reason": "Contains TestHttpBase::test_timeout_download_from_spider_nodata_rcvd and TestHttpBase::test_timeout_download_from_spider_server_hangs, both currently skipped on Windows with the asyncio reactor because they produced DirtyReactorAggregateError; the PR should remove those obsolete skips."
+    }
+  ]
+}

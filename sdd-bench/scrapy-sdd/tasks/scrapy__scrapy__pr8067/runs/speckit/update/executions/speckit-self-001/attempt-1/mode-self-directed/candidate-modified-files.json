@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr8067",
+  "method": "speckit",
+  "update_run_id": "speckit-self-001",
+  "update_mode": "self-directed",
+  "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+  "detection_manifest_sha256": "80cf0a0183df7804132bce7cee161f58200249b7a52054ff97a9588cb9995a01",
+  "update_policy_sha256": "000552316a841f6d21df51f1f3881747ad8811332d2cc111cac59c2659dccf53",
+  "candidate_modified_test_files": [
+    {
+      "path": "tests/test_commands.py",
+      "change_type": "modified"
+    },
+    {
+      "path": "tests/test_utils_response.py",
+      "change_type": "modified"
+    }
+  ],
+  "candidate_modified_test_file_count": 2,
+  "manifest_sha256": "dad3f28ebf423572051186e113670c6a1b273da1e58af64f9e258867642c4aab"
+}

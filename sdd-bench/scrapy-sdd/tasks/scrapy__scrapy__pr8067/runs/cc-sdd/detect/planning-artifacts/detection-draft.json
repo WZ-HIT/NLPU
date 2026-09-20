@@ -1,0 +1,28 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_utils_response.py",
+      "symbols": [
+        "test_open_in_browser",
+        "test_inject_base_url",
+        "test_open_in_browser_redos_comment",
+        "test_open_in_browser_redos_head",
+        "test_open_in_browser_preserves_html_comments",
+        "test_open_in_browser_keeps_base_url_of_response",
+        "test_open_in_browser_injects_base_when_only_in_comment",
+        "test_open_in_browser_injects_base_before_head_contents",
+        "test_open_in_browser_text_response_uses_txt_extension",
+        "test_open_in_browser_raises_for_unsupported_response_type"
+      ],
+      "reason": "This module directly imports and exercises scrapy.utils.response.open_in_browser. test_open_in_browser and test_open_in_browser_raises_for_unsupported_response_type currently assert that a plain Response raises TypeError, which contradicts the requested non-text support; the text-extension and HTML base-injection tests cover the extension-selection and existing behavior that the change must preserve."
+    },
+    {
+      "path": "tests/test_commands.py",
+      "symbols": [
+        "TestViewCommand.test_view",
+        "TestViewCommand.test_non_text_response"
+      ],
+      "reason": "TestViewCommand covers the scrapy view command, whose Command._print_response currently rejects responses that are not TextResponse before calling open_in_browser. test_non_text_response asserts the old Cannot view a non-text response. error and must be updated to verify the Content-Type-based path, while test_view preserves the existing success-path contract."
+    }
+  ]
+}

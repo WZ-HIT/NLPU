@@ -1,0 +1,30 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_utils_response.py",
+      "symbols": [
+        "test_open_in_browser_redos_comment",
+        "test_open_in_browser_redos_head",
+        "_assert_open_in_browser_is_fast",
+        "test_open_in_browser",
+        "test_inject_base_url",
+        "test_open_in_browser_preserves_html_comments",
+        "test_open_in_browser_keeps_base_url_of_response",
+        "test_open_in_browser_injects_base_when_only_in_comment",
+        "test_open_in_browser_injects_base_before_head_contents",
+        "test_open_in_browser_text_response_uses_txt_extension",
+        "test_open_in_browser_raises_for_unsupported_response_type"
+      ],
+      "reason": "Primary test file for scrapy.utils.response.open_in_browser. It contains the two ReDoS regression tests that are flaky (timed against the hardcoded 0.2s CPU budget in the shared _assert_open_in_browser_is_fast helper) and the exploit bodies under change, including the comment body whose trailing b'<!---->' supplies the closing '-->' so the removed '<!--.*?-->' pattern matches early. It also holds every base-tag injection, comment-preservation, .txt and TypeError assertion that must stay green."
+    },
+    {
+      "path": "tests/test_commands.py",
+      "symbols": [
+        "TestViewCommand.test_view",
+        "TestViewCommand.test_non_text_response",
+        "TestHelpMessage.test_help_messages"
+      ],
+      "reason": "Only end-to-end coverage of open_in_browser: scrapy/commands/view.py calls it, and TestViewCommand runs the real command against a local mock server with a recorded browser script, asserting the rendered temp file and the non-text error path. It is the integration safety net if the injected base tag or response handling changes while fixing the ReDoS tests."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr8067",
+  "repository": {
+    "owner": "scrapy",
+    "name": "scrapy"
+  },
+  "pr_id": 8067,
+  "baseline": {
+    "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659"
+  },
+  "title": "Support non-text responses in open_in_browser via Content-Type",
+  "body": "Resolves https://github.com/scrapy/scrapy/issues/3902",
+  "adapter": {
+    "id": "scrapy",
+    "version": 1,
+    "path": "sdd-bench/scrapy-sdd/adapters/scrapy.json",
+    "sha256": "059dcc09eaa62f892f54118e65d4deccce3ab29cc5d9a4a36f4d999ff1aa27de"
+  }
+}

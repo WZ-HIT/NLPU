@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr8073",
+  "method": "cc-sdd",
+  "update_run_id": "cc-sdd-self-001",
+  "update_mode": "self-directed",
+  "base_sha": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+  "detection_manifest_sha256": "179f057b0415479dcdfb86b52445a41d2f53b10360ea67ba6fe860f5e8733ab8",
+  "update_policy_sha256": "a1bab640718c2e091b990f7deff60d7de0cc1fefca949039afdf2526df9b454c",
+  "candidate_modified_test_files": [
+    {
+      "path": "tests/test_downloader_handler_twisted_ftp.py",
+      "change_type": "modified"
+    },
+    {
+      "path": "tests/utils/bases/download_handlers_http.py",
+      "change_type": "modified"
+    }
+  ],
+  "candidate_modified_test_file_count": 2,
+  "manifest_sha256": "f6ed829954836ab7e664e3bca682ab4cd739c3ba2c1e92dab1bb7996e2f1b501"
+}

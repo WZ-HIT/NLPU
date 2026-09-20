@@ -1,0 +1,13 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_utils_response.py",
+      "symbols": [
+        "_assert_open_in_browser_is_fast",
+        "test_open_in_browser_redos_comment",
+        "test_open_in_browser_redos_head"
+      ],
+      "reason": "The only test module that exercises open_in_browser. It defines the shared ReDoS timing helper and both exploit-input regression tests: the helper must tolerate slow or loaded workers without losing the timing signal, and the comment input must drop its trailing <!----> terminator so a vulnerable comment pattern cannot complete after a single scan."
+    }
+  ]
+}

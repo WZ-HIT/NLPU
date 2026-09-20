@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "seal_type": "IMMUTABLE_UPDATE_BUNDLE",
+  "task_id": "scrapy__scrapy__pr8067",
+  "method": "openspec",
+  "run_id": "openspec-self-001",
+  "update_mode": "self-directed",
+  "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+  "bundle_manifest_sha256": "7a7a04385a63939c7b92be81904bdb28c92aa5543b6c44e5d14629b84e8076fe",
+  "entry_count": 5,
+  "status": "SEALED",
+  "seal_sha256": "2e3cbe71a2c2f830a0cb3ba2a6939e584b1de1c94e2db939c65516c308335b3c"
+}

@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "artifact_type": "PUBLIC_TARGET_SET",
+  "evaluation_id": "scrapy-3pr-prompt10-v1",
+  "target_id": "e921c5b4237820b931129076",
+  "stage": "update",
+  "task_id": "scrapy__scrapy__pr8064",
+  "classification": "TEST_ONLY_PR",
+  "method": "openspec",
+  "update_mode": "self-directed",
+  "metric_definition_version": "prompt10-metrics-v1",
+  "gold_seal_sha256": "abc8bf10e33f707604106c98d254a3a582f9408e546565404b83e550c18e7f2c",
+  "files": {
+    "predicted": [
+      {
+        "rank": 1,
+        "candidate": "tests/test_utils_response.py",
+        "matched_gold_id": "g-dd45de4aece5f7a384a1bdec"
+      }
+    ],
+    "gold_ids": [
+      "g-dd45de4aece5f7a384a1bdec"
+    ],
+    "matched_gold_ids": [
+      "g-dd45de4aece5f7a384a1bdec"
+    ],
+    "invalid_evidence_ids": [],
+    "invalid_count": 0,
+    "missing_count": 0
+  },
+  "symbols": {
+    "predicted": [
+      {
+        "rank": 1,
+        "candidate": {
+          "path": "tests/test_utils_response.py",
+          "qualified_name": "_assert_open_in_browser_is_fast"
+        }
+      },
+      {
+        "rank": 2,
+        "candidate": {
+          "path": "tests/test_utils_response.py",
+          "qualified_name": "test_open_in_browser_redos_comment"
+        },
+        "matched_gold_id": "g-3833982d3b9abb88dee713a4"
+      }
+    ],
+    "gold_ids": [
+      "g-3833982d3b9abb88dee713a4"
+    ],
+    "matched_gold_ids": [
+      "g-3833982d3b9abb88dee713a4"
+    ],
+    "invalid_evidence_ids": [],
+    "invalid_count": 0,
+    "missing_count": 0
+  },
+  "target_set_sha256": "1745dbea9825ecff5fd24ad9d6cf83f6046f992478cbcba0e61bcf0f20333dc6"
+}

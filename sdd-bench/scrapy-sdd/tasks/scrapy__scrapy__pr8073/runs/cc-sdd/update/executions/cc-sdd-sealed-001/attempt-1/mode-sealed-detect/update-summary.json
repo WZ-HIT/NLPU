@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr8073",
+  "method": "cc-sdd",
+  "update_run_id": "cc-sdd-sealed-001",
+  "update_mode": "sealed-detect",
+  "base_sha": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+  "status": "SEALED",
+  "tests_run": false,
+  "detection_visible_to_agent": true,
+  "sealed_planning_visible_to_agent": true,
+  "detection_manifest_sha256": "179f057b0415479dcdfb86b52445a41d2f53b10360ea67ba6fe860f5e8733ab8",
+  "update_policy_sha256": "e1f35170cccefbdaa2f45894d9fac722f0a0122f3de9a3ee99ee3e9e0098be1b",
+  "candidate_patch_sha256": "a88763cab76f93fb241ef00e5cd84efc11eac6c39ce07b1bc81ab82d39a76729",
+  "candidate_modified_test_file_count": 2,
+  "violations": [],
+  "summary_sha256": "47c400394410d7d52cec71d628f6e0787d5e7d72c152b29099e975a353e2149d"
+}

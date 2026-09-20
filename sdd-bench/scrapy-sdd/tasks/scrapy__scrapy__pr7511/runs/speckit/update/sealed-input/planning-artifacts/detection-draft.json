@@ -1,0 +1,35 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_utils_misc/__init__.py",
+      "symbols": [
+        "test_walk_modules",
+        "test_walk_modules_egg"
+      ],
+      "reason": "Directly imports and exercises scrapy.utils.misc.walk_modules_iter across package recursion, nested packages, leaf modules, missing modules, deprecation delegation, and egg-backed discovery. This is the primary regression surface named by the PR."
+    },
+    {
+      "path": "tests/test_spiderloader/__init__.py",
+      "symbols": [
+        "TestSpiderLoader.test_list",
+        "TestSpiderLoader.test_load_spider_module",
+        "TestSpiderLoader.test_load_spider_module_multiple",
+        "TestSpiderLoader.test_bad_spider_modules_exception",
+        "TestSpiderLoader.test_bad_spider_modules_warning",
+        "TestDuplicateSpiderNameLoader.test_dupename_warning",
+        "TestDuplicateSpiderNameLoader.test_multiple_dupename_warning"
+      ],
+      "reason": "SpiderLoader uses walk_modules_iter for recursive spider-module discovery and exercises import failures, warning-only fallback, and duplicate-module handling through a production consumer."
+    },
+    {
+      "path": "tests/test_commands.py",
+      "symbols": [
+        "TestCommandListing.test_outside_project",
+        "TestCommandListing.test_inside_project",
+        "TestCommandsModule.test_listed",
+        "TestCommandsModule.test_run"
+      ],
+      "reason": "CLI command discovery is implemented with walk_modules_iter and these tests verify built-in and project command modules are enumerated and executed correctly."
+    }
+  ]
+}

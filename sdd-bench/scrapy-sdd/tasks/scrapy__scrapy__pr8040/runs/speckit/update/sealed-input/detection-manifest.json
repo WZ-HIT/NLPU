@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr8040",
+  "method": "speckit",
+  "base_sha": "4f0b5fa5c3a275b068bc4e028dfd09dd2f878bc0",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "speckit-detect-003",
+    "session_sha256": "d5dc5e7dcb3acd1d774dd54b93801ef021e14f49ec9751ea95475ab73ac13465"
+  },
+  "task_input_sha256": "cb664d5050d3e2aa33a9f487e6a7dd0aa4cc562457a3ef451831ff24fa144cfe",
+  "candidates": [
+    {
+      "path": "tests/test_selector.py",
+      "symbols": [
+        "TestSelector.test_flavor_detection",
+        "TestSelector.test_flavor_detection_json",
+        "TestSelector.test_flavor_detection_json_with_html_body",
+        "TestJMESPath.test_json_has_html",
+        "TestJMESPath.test_html_has_json"
+      ],
+      "reason": "This module contains the selector flavor-detection and JMESPath tests that exercise response-derived defaults and nested selectors created from parsed roots. The PR changes Selector construction when a root is supplied, so these symbols are the closest existing regression coverage; a nested-root JSON scalar case should be added here if it is not already covered."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 9,
+    "manifest_sha256": "ec72b1468e68713ee0998b92ecc3ce362b9c50316028fa915d6470918ecbd09a"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "86096533fc64716361fb1bb4492ef8191e53b453a18aff0f132bc14cfc902040"
+  }
+}

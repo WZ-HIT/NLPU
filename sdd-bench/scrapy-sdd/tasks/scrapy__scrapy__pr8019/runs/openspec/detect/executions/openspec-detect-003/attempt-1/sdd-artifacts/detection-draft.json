@@ -1,0 +1,55 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_pipeline_media.py",
+      "symbols": [
+        "scrapy.utils.defer._defer_sleep_async",
+        "scrapy.pipelines.media.MediaPipeline._process_request",
+        "scrapy.pipelines.media.MediaPipeline._cache_result_and_execute_waiters",
+        "TestMediaPipeline.test_wait_if_request_is_downloading"
+      ],
+      "reason": "Only test module that imports the private helper being renamed (`_defer_sleep_async` -> a pending-I/O yield) and the module that directly tests media-result caching and waiter resolution, which the change reworks to drop the 100 ms delay."
+    },
+    {
+      "path": "tests/test_utils_defer.py",
+      "symbols": [
+        "scrapy.utils.defer._process_pending_io",
+        "scrapy.utils.defer.defer_succeed",
+        "scrapy.utils.defer.defer_fail"
+      ],
+      "reason": "Unit test module for `scrapy.utils.defer`, where the delay helper is defined and replaced; it is the natural place for coverage of the new helper and of the deprecated helpers that keep the delay constant."
+    },
+    {
+      "path": "tests/test_engine.py",
+      "symbols": [
+        "scrapy.core.engine.ExecutionEngine",
+        "scrapy.core.scraper.Scraper.call_spider_async",
+        "scrapy.core.downloader.Downloader._download"
+      ],
+      "reason": "Engine-level integration tests drive download scheduling, callback dispatch, and empty-heartbeat/idle waits, i.e. exactly the paths that previously slept 100 ms before every callback."
+    },
+    {
+      "path": "tests/test_core_scraper.py",
+      "symbols": [
+        "scrapy.core.engine.Scraper.handle_spider_output_async",
+        "scrapy.core.scraper.Scraper"
+      ],
+      "reason": "Dedicated Scraper test module, covering the callback dispatch object whose `call_spider_async()` yield is changed from a fixed sleep to a pending-I/O yield."
+    },
+    {
+      "path": "tests/test_downloadermiddleware.py",
+      "symbols": [
+        "scrapy.core.downloader.middleware.DownloaderMiddlewareManager.download_async",
+        "TestMiddlewareUsingCoro"
+      ],
+      "reason": "Exercises the downloader middleware manager, including the error/exception path where the sleep was awaited before `process_exception`, and contains coroutine-based middleware tests sensitive to event-loop scheduling."
+    },
+    {
+      "path": "tests/test_spidermiddleware.py",
+      "symbols": [
+        "scrapy.core.spidermw.SpiderMiddlewareManager.scrape_response_async"
+      ],
+      "reason": "Calls `scrape_response_async()` directly, including the invalid-middleware and exception-return paths where the fixed sleep was awaited before `_process_spider_exception()`."
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "candidates": [
+    {
+      "path": "tests/utils/bases/download_handlers_http.py",
+      "symbols": [
+        "TestHttpBase::test_timeout_download_from_spider_nodata_rcvd",
+        "TestHttpBase::test_timeout_download_from_spider_server_hangs"
+      ],
+      "reason": "Shared HTTP download-handler base mixin that currently guards these two timeout tests with 'if reactor_pytest == \"asyncio\" and sys.platform == \"win32\"' and pytest.skip(\"This test produces DirtyReactorAggregateError on Windows with asyncio\") at lines 362-372 and 380-390. These are 2 of the 3 DirtyReactorAggregateError skip comments in the repo, so this file is a primary re-enable site for the PR."
+    },
+    {
+      "path": "tests/test_downloader_handler_twisted_ftp.py",
+      "symbols": [
+        "TestFTP::test_invalid_credentials"
+      ],
+      "reason": "Concrete test module whose TestFTP.test_invalid_credentials carries the remaining DirtyReactorAggregateError skip (line 178, gated on asyncio + win32). The PR removes this comment/skip, so the test must be re-enabled and run here."
+    },
+    {
+      "path": "tests/test_downloader_handler_httpx.py",
+      "symbols": [
+        "TestHttp::test_timeout_download_from_spider_nodata_rcvd",
+        "TestHttp::test_timeout_download_from_spider_server_hangs",
+        "TestHttps::test_timeout_download_from_spider_nodata_rcvd",
+        "TestHttps::test_timeout_download_from_spider_server_hangs",
+        "TestHttp2::test_timeout_download_from_spider_nodata_rcvd",
+        "TestHttp2::test_timeout_download_from_spider_server_hangs"
+      ],
+      "reason": "Concrete httpx download-handler test module. TestHttp and TestHttps inherit TestHttpBase/TestHttpsBase (and TestHttp2 inherits TestHttps), so the two base-class timeout tests re-enabled by the PR actually execute as these subclass tests; this is where the behavior change is exercised."
+    },
+    {
+      "path": "tests/test_downloader_handler_twisted_http11.py",
+      "symbols": [
+        "TestHttp::test_timeout_download_from_spider_nodata_rcvd",
+        "TestHttp::test_timeout_download_from_spider_server_hangs",
+        "TestHttps::test_timeout_download_from_spider_nodata_rcvd",
+        "TestHttps::test_timeout_download_from_spider_server_hangs"
+      ],
+      "reason": "Concrete Twisted HTTP/1.1 download-handler test module. TestHttp and TestHttps subclass TestHttpBase/TestHttpsBase, so the re-enabled timeout tests run here as inherited tests."
+    },
+    {
+      "path": "tests/test_downloader_handler_twisted_http2.py",
+      "symbols": [
+        "TestHttp2::test_timeout_download_from_spider_nodata_rcvd",
+        "TestHttp2::test_timeout_download_from_spider_server_hangs"
+      ],
+      "reason": "Concrete Twisted HTTP/2 download-handler test module. TestHttp2 subclasses TestHttpsBase, so it inherits and runs both re-enabled timeout tests; the asyncio reactor path affected by the removed skip is exercised through this handler."
+    }
+  ]
+}

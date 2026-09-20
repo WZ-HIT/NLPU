@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr8064",
+  "method": "cc-sdd",
+  "stage": "update",
+  "run_id": "cc-sdd-sealed-001",
+  "update_mode": "sealed-detect",
+  "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+  "created_at_utc": "2026-09-17T03:21:24Z",
+  "status": "SEALED",
+  "dry_run": false,
+  "tests_run": false,
+  "model_request_sent": true,
+  "provenance": {
+    "task_manifest_sha256": "314694774fa1588fa62c086cd2d3a6f9926c24ba2717f9e9514c992e06a1793e",
+    "policy_file_sha256": "a10e602671b0d9d94e6df3a757e2fc3fc1b19c623787dad525cea21b14c580e8",
+    "detection_manifest_sha256": "aa83afff941e0bfaba2b35e70e0d0db072adcf312fb9c495fa5988b2d8a890f4",
+    "compose_rendered_sha256": "bdaebad84ce36a4d427ba77dc832407165ac8d3efc7f20d99b08483a59fb5bb3"
+  },
+  "checks": [
+    {
+      "id": "policy-schema",
+      "status": "PASS"
+    },
+    {
+      "id": "policy-file-hash",
+      "status": "PASS"
+    },
+    {
+      "id": "policy-context",
+      "status": "PASS"
+    },
+    {
+      "id": "detect-prerequisite",
+      "status": "PASS"
+    },
+    {
+      "id": "update-preflight",
+      "status": "PASS"
+    },
+    {
+      "id": "mode-explicit",
+      "status": "PASS"
+    },
+    {
+      "id": "tests-only-policy",
+      "status": "PASS"
+    },
+    {
+      "id": "post-run-scope",
+      "status": "PASS"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/update/executions/cc-sdd-sealed-001/attempt-1/mode-sealed-detect/artifacts/candidate.patch",
+      "sha256": "59d28fd02b204154189456ead1f8be862c7f8feedeadc6df13122afc57384c83"
+    },
+    {
+      "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/update/executions/cc-sdd-sealed-001/attempt-1/mode-sealed-detect/artifacts/scope-audit.json",
+      "sha256": "2f72618f5451f74165560fff306d9221ba6dc23fb0b0b4a5cf1f55366567085f"
+    },
+    {
+      "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/update/executions/cc-sdd-sealed-001/attempt-1/mode-sealed-detect/candidate-modified-files.json",
+      "sha256": "dcee5911e88b10ad4817851d485016e81edb274f3cb417d6f406a0dd3a929ff3"
+    }
+  ],
+  "blockers": []
+}

@@ -1,0 +1,75 @@
+{
+  "candidates": [
+    {
+      "path": "tests/test_pipeline_media.py",
+      "symbols": [
+        "TestMediaPipeline.test_wait_if_request_is_downloading",
+        "TestMediaPipeline.test_results_are_cached_across_multiple_items",
+        "TestMediaPipeline.test_results_are_cached_for_requests_of_single_item",
+        "TestMediaPipeline.test_cached_failure_calls_errback",
+        "TestMediaPipeline.test_mix_of_success_and_failure",
+        "TestBaseMediaPipeline.test_should_remove_req_res_references_before_caching_the_results"
+      ],
+      "reason": "Directly covers the media-result path the PR changes: MediaPipeline._process_request (scrapy/pipelines/media.py:180,200) and _cache_result_and_execute_waiters (scrapy/pipelines/media.py:281-283), where the 100 ms await _defer_sleep_async()/call_later(_DEFER_DELAY, ...) becomes _process_pending_io() plus immediate waiter callbacks. The module also does `from scrapy.utils.defer import _defer_sleep_async` (line 20) and calls it in test_wait_if_request_is_downloading (line 446), so it necessarily breaks/needs updating when the helper is renamed to _process_pending_io."
+    },
+    {
+      "path": "tests/test_utils_defer.py",
+      "symbols": [
+        "TestParallelAsync.test_simple",
+        "TestParallelAsync.test_delays",
+        "TestDeferredFromCoro",
+        "TestMaybeDeferredToFutureAsyncio"
+      ],
+      "reason": "Unit tests for scrapy/utils/defer.py, the module where the 100 ms helper lives (_defer_sleep_async, scrapy/utils/defer.py:89) and is replaced by _process_pending_io() (two sleep(0) yields). Any unit test for the new helper, or adjustment of the existing defer/awaitable helper tests, would land in this file."
+    },
+    {
+      "path": "tests/test_core_scraper.py",
+      "symbols": [
+        "test_scraper_exception"
+      ],
+      "reason": "Covers the scraper code path where the PR removes the sleep 'before every callback': Scraper.call_spider_async (scrapy/core/scraper.py:315) awaited _defer_sleep_async() before invoking every request callback/errback; this test drives that path through crawler.crawl_async and the Scraper error handling."
+    },
+    {
+      "path": "tests/test_crawl.py",
+      "symbols": [
+        "TestCrawl.test_follow_all",
+        "TestCrawlSpider.test_crawlspider_with_async_callback",
+        "TestCrawlSpider.test_async_def_parse",
+        "TestCrawlSpider.test_async_def_asyncgen_parse",
+        "TestCrawlSpider.test_async_def_deferred_direct"
+      ],
+      "reason": "End-to-end crawl tests that exercise callback scheduling (sync/async/async-generator callbacks and errbacks) through Engine -> Scraper -> SpiderMiddlewareManager, i.e. the timing-sensitive path that no longer includes the 100 ms sleep before each callback."
+    },
+    {
+      "path": "tests/test_downloadermiddleware.py",
+      "symbols": [
+        "TestResponseFromProcessException.test_process_response_called",
+        "TestMiddlewareUsingDeferreds",
+        "TestMiddlewareUsingCoro",
+        "TestInvalidOutput.test_invalid_process_exception"
+      ],
+      "reason": "Exercises DownloaderMiddlewareManager.download_async except-branch (scrapy/core/downloader/middleware.py:84), one of the call sites where _defer_sleep_async() is replaced by _process_pending_io(); these tests assert the process_exception/process_response ordering that the removed delay influenced."
+    },
+    {
+      "path": "tests/test_spidermiddleware_output_chain.py",
+      "symbols": [
+        "TestSpiderMiddleware.test_recovery",
+        "TestSpiderMiddleware.test_recovery_asyncgen",
+        "TestSpiderMiddleware.test_process_spider_input_with_errback",
+        "TestSpiderMiddleware.test_generator_callback",
+        "TestSpiderMiddleware.test_generator_callback_right_after_callback"
+      ],
+      "reason": "Crawler-driven tests of SpiderMiddlewareManager.scrape_response_async and its exception recovery path (scrapy/core/spidermw.py:227), where the PR swaps the 100 ms sleep for _process_pending_io() before _process_spider_exception."
+    },
+    {
+      "path": "tests/test_spidermiddleware.py",
+      "symbols": [
+        "TestSpiderMiddleware._scrape_response",
+        "TestProcessSpiderExceptionInvalidOutput.test_invalid_process_spider_exception",
+        "TestProcessSpiderExceptionReRaise.test_process_spider_exception_return_none",
+        "TestProcessSpiderOutputSimple.test_sync"
+      ],
+      "reason": "Direct unit tests that call SpiderMiddlewareManager.scrape_response_async (the exact coroutine whose except-branch sleep is removed in scrapy/core/spidermw.py:227), covering process_spider_exception return values and output chains."
+    }
+  ]
+}

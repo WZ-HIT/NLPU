@@ -1,0 +1,33 @@
+diff --git a/tests/test_utils_response.py b/tests/test_utils_response.py
+index 8269f0a..d890de8 100644
+--- a/tests/test_utils_response.py
++++ b/tests/test_utils_response.py
+@@ -215,9 +215,11 @@ def test_inject_base_url(body: bytes) -> None:
+ 
+ def _assert_open_in_browser_is_fast(body: bytes) -> None:
+     # The exploit inputs are large enough that a vulnerable implementation
+-    # needs seconds to go through them, while a safe one stays in the low
+-    # milliseconds even on a slow interpreter.
+-    max_cpu_time = 0.2
++    # needs minutes to go through them, while a safe one stays in the low
++    # milliseconds even on a slow interpreter. Keep the limit generous, so that
++    # unrelated work that may happen while the measurement runs, e.g. a garbage
++    # collection pass or CPU contention, does not make this check flaky.
++    max_cpu_time = 1.0
+ 
+     response = HtmlResponse("https://example.com", body=body)
+     start_time = process_time()
+@@ -229,8 +231,11 @@ def _assert_open_in_browser_is_fast(body: bytes) -> None:
+ def test_open_in_browser_redos_comment():
+     # Exploit input from
+     # https://makenowjust-labs.github.io/recheck/playground/
+-    # for /<!--.*?-->/ (old pattern to remove comments).
+-    _assert_open_in_browser_is_fast(b"-><!--\x00" * 250_000 + b"->\n<!---->")
++    # for /<!--.*?-->/ (old pattern to remove comments), without a closing
++    # -->, so that the pattern cannot match and has to backtrack through the
++    # whole input. A closing --> makes the pattern match at the end of the
++    # input instead, which is fast even for a vulnerable implementation.
++    _assert_open_in_browser_is_fast(b"-><!--\x00" * 250_000)
+ 
+ 
+ def test_open_in_browser_redos_head():

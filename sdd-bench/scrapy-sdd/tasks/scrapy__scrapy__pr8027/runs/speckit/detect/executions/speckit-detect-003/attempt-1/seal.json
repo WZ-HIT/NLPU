@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "seal_type": "IMMUTABLE_DETECTION_BUNDLE",
+  "task_id": "scrapy__scrapy__pr8027",
+  "method": "speckit",
+  "run_id": "speckit-detect-003",
+  "base_sha": "da7c2fc59e286e796d0f8cfe01d4363d6fa3729f",
+  "file_count": 15,
+  "files_manifest_sha256": "68c37c05b44f7a9fe71c71a06db7f83cf94393f879168e27066a543b309290d1",
+  "seal_sha256": "39945877e77aa2882a3de9e355f49c3de3f6b77e8505eb02cf3fe520c5114f90"
+}

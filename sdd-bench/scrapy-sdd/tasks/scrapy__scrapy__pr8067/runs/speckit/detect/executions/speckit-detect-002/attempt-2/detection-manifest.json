@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "manifest_type": "SEALED_DETECTION",
+  "task_id": "scrapy__scrapy__pr8067",
+  "method": "speckit",
+  "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+  "producer": {
+    "kind": "agent",
+    "stage": "detect",
+    "run_id": "speckit-detect-002",
+    "session_sha256": "cab35b36789789f6023299863b51484790939151a9822104f97b2e07cb367c5d"
+  },
+  "task_input_sha256": "96249458de9093098dc7deadf5e5790072a7a703b7ef513ae6780621a1bfa89d",
+  "candidates": [
+    {
+      "path": "tests/test_utils_response.py",
+      "symbols": [
+        "_read_browser_output",
+        "test_open_in_browser",
+        "test_open_in_browser_text_response_uses_txt_extension",
+        "test_open_in_browser_raises_for_unsupported_response_type"
+      ],
+      "reason": "Directly unit-tests open_in_browser, including the existing generic-response TypeError, text extension behavior, and the browser-output helper needed to assert Content-Type-based extensions and byte-preserving writes."
+    },
+    {
+      "path": "tests/test_commands.py",
+      "symbols": [
+        "TestViewCommand",
+        "test_view",
+        "test_non_text_response"
+      ],
+      "reason": "Command-level view tests cover both the existing successful HTML workflow and the current rejection of a PNG response; the non-text case must change to expect a successful .png browser target."
+    }
+  ],
+  "planning_artifacts": {
+    "file_count": 9,
+    "manifest_sha256": "5177426de152cf24d69d975ee485ae4ded30397ce6a496533e205248c96cd2d7"
+  },
+  "seal": {
+    "algorithm": "sha256-canonical-json-without-seal",
+    "payload_sha256": "4dc80173d5ce35a7cbc860b0694f999fa186a1f69f3bab6ceac22c13f367ca19"
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "artifact_type": "HOST_RUN_EVALUATION",
+  "evaluation_id": "scrapy-3pr-prompt10-v1",
+  "target_id": "e1e8abdf0bf0e6f715590e2c",
+  "target_key_sha256": "e1e8abdf0bf0e6f715590e2cd305954bd54e70e48cf744fa75215d507d4c543f",
+  "stage": "detect",
+  "task_id": "scrapy__scrapy__pr8073",
+  "classification": "TEST_ONLY_PR",
+  "method": "openspec",
+  "run_id": "openspec-detect-001",
+  "update_mode": null,
+  "metric_definition_version": "prompt10-metrics-v1",
+  "validity": {
+    "status": "VALID",
+    "reason_ids": []
+  },
+  "policy_compliance": {
+    "status": "NOT_APPLICABLE",
+    "compliant": false,
+    "scope_violation_count": 0,
+    "sealed_candidate_subset": true,
+    "performance_advantage_inferred": false
+  },
+  "model_performance": {
+    "file": {
+      "metric_definition_version": "prompt10-metrics-v1",
+      "gold_count": 2,
+      "predicted_count": 2,
+      "matched_count": 2,
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "exact_match": 1,
+      "any_hit": 1,
+      "all_hit": 1,
+      "hit_at_1": 1,
+      "recall_at_1": 0.5,
+      "hit_at_3": 1,
+      "recall_at_3": 1.0,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "gold_to_predicted_ratio": 1.0,
+      "invalid_count": 0,
+      "missing_count": 0,
+      "scorable_count": 2
+    },
+    "symbol": {
+      "metric_definition_version": "prompt10-metrics-v1",
+      "gold_count": 3,
+      "predicted_count": 3,
+      "matched_count": 3,
+      "tp": 3,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "exact_match": 1,
+      "any_hit": 1,
+      "all_hit": 1,
+      "hit_at_1": 1,
+      "recall_at_1": 0.3333333333333333,
+      "hit_at_3": 1,
+      "recall_at_3": 1.0,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "gold_to_predicted_ratio": 1.0,
+      "invalid_count": 0,
+      "missing_count": 0,
+      "scorable_count": 3
+    }
+  },
+  "handoff": null,
+  "execution": {
+    "behavior_path": null,
+    "behavior_sha256": null,
+    "resource_profile_sha256": "f0260054be995fb35dbd4d21bd1c6046380be1c3067a8b18c47ab7e249c45b99",
+    "project_tests_run_by_agent": false,
+    "project_tests_run_by_host": false
+  },
+  "attribution": {
+    "precedence": [
+      "invalid_evidence",
+      "infrastructure_failure",
+      "policy_violation",
+      "localization_miss",
+      "update_selection_miss",
+      "patch_application_failure",
+      "functional_failure",
+      "success"
+    ],
+    "result": "success"
+  },
+  "provenance": {
+    "base_sha": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+    "gold_seal_sha256": "abc8bf10e33f707604106c98d254a3a582f9408e546565404b83e550c18e7f2c",
+    "sealed_artifact_sha256": "175e429fa2baba4388adc95d8e936fa40cb43f98ff9919464f88ab4409644361",
+    "ledger_sha256": "9d315da6083257ddf750d0dcda3c6f4a6d92f2fc6e6a5a9b8b16852e44dee05e",
+    "detect_barrier_sha256": "994074fd6ad71690abc6eb2d23e08166debdddaefce1c4690e400585af63ef49"
+  },
+  "evaluation_sha256": "ff14ed5f2692bb9b30260d153ecd96652ac531722b1ae9372d2a7da2f524f0bb"
+}

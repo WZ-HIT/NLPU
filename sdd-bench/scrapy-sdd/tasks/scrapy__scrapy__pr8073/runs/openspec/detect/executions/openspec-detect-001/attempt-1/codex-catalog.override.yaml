@@ -1,0 +1,9 @@
+services:
+  openspec-detect-agent:
+    volumes:
+      - type: bind
+        source: /home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/environments/agent-runtime/codex-0.153.4_node-24.20.0_uv-0.12.10_linux-amd64/config-templates/model-catalogs/deepseek-flash/models.json
+        target: /home/bench/.codex/model-catalogs/deepseek-flash/models.json
+        read_only: true
+        bind:
+          create_host_path: false

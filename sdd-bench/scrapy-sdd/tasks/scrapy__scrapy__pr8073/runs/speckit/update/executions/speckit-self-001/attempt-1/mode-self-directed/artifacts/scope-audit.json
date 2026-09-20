@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "mode": "self-directed",
+  "changed_paths": [
+    "tests/test_downloader_handler_twisted_ftp.py",
+    "tests/utils/bases/download_handlers_http.py"
+  ],
+  "candidate_paths_sha256": "374ec1908a94a3669da675ac1d089ffd6c016ab8f502915d9f3c9fbc7fa12174",
+  "violations": [],
+  "status": "SEALED"
+}

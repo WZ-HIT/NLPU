@@ -1,0 +1,53 @@
+diff --git a/tests/test_downloader_handler_twisted_ftp.py b/tests/test_downloader_handler_twisted_ftp.py
+index 28a067f..52bba49 100644
+--- a/tests/test_downloader_handler_twisted_ftp.py
++++ b/tests/test_downloader_handler_twisted_ftp.py
+@@ -1,7 +1,6 @@
+ from __future__ import annotations
+ 
+ import os
+-import sys
+ from abc import ABC, abstractmethod
+ from pathlib import Path
+ from tempfile import mkstemp
+@@ -173,11 +172,6 @@ class TestFTP(TestFTPBase):
+     async def test_invalid_credentials(
+         self, server_url: str, dh: FTPDownloadHandler, reactor_pytest: str
+     ) -> None:
+-        if reactor_pytest == "asyncio" and sys.platform == "win32":
+-            pytest.skip(
+-                "This test produces DirtyReactorAggregateError on Windows with asyncio"
+-            )
+-
+         from twisted.protocols.ftp import ConnectionLost
+ 
+         meta = dict(self.req_meta)
+diff --git a/tests/utils/bases/download_handlers_http.py b/tests/utils/bases/download_handlers_http.py
+index a2d1d34..e2cac1b 100644
+--- a/tests/utils/bases/download_handlers_http.py
++++ b/tests/utils/bases/download_handlers_http.py
+@@ -362,12 +362,6 @@ class TestHttpBase(ABC):
+     async def test_timeout_download_from_spider_nodata_rcvd(
+         self, mockserver: MockServer, reactor_pytest: str
+     ) -> None:
+-        if reactor_pytest == "asyncio" and sys.platform == "win32":
+-            # https://twistedmatrix.com/trac/ticket/10279
+-            pytest.skip(
+-                "This test produces DirtyReactorAggregateError on Windows with asyncio"
+-            )
+-
+         # client connects but no data is received
+         meta = {"download_timeout": 0.5}
+         request = Request(mockserver.url("/wait", is_secure=self.is_secure), meta=meta)
+@@ -380,11 +374,6 @@ class TestHttpBase(ABC):
+     async def test_timeout_download_from_spider_server_hangs(
+         self, mockserver: MockServer, reactor_pytest: str
+     ) -> None:
+-        if reactor_pytest == "asyncio" and sys.platform == "win32":
+-            # https://twistedmatrix.com/trac/ticket/10279
+-            pytest.skip(
+-                "This test produces DirtyReactorAggregateError on Windows with asyncio"
+-            )
+         # client connects, server send headers and some body bytes but hangs
+         meta = {"download_timeout": 0.5}
+         request = Request(

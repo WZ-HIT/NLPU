@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr8067",
+  "method": "openspec",
+  "update_run_id": "openspec-sealed-001",
+  "update_mode": "sealed-detect",
+  "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+  "detection_manifest_sha256": "21ca81476dbfc30e483269aecd8656f02980baca76091e9cbfe6365fdf31ef48",
+  "update_policy_sha256": "a0bf7489b0e9aa4b8c2b8132304dc118d428d26ee1e36995492b3847342def3b",
+  "candidate_modified_test_files": [
+    {
+      "path": "tests/test_commands.py",
+      "change_type": "modified"
+    },
+    {
+      "path": "tests/test_utils_response.py",
+      "change_type": "modified"
+    }
+  ],
+  "candidate_modified_test_file_count": 2,
+  "manifest_sha256": "fbed53dd76dc01f4a3d8796eaccb6399d84f0fd3cf219cde761401c123f589d8"
+}
