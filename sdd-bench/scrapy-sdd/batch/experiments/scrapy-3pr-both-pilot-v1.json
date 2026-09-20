@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "experiment_id": "scrapy-3pr-both-pilot-v1",
+  "source_batch": {
+    "path": "sdd-bench/scrapy-sdd/batch/pilot/scrapy-3pr-both-pilot-v1.json",
+    "sha256": "0edcc137078c8588e35455d3f21d71faf0c4765c13132fdfcefadc9d6603af87"
+  },
+  "prs": [
+    8064,
+    8067,
+    8073
+  ],
+  "methods": [
+    "openspec",
+    "speckit",
+    "cc-sdd"
+  ],
+  "stages": [
+    "detect",
+    "update"
+  ],
+  "update_modes": [
+    "sealed-detect",
+    "self-directed"
+  ],
+  "evaluation": {
+    "kind": "host-plan",
+    "plan": {
+      "path": "sdd-bench/scrapy-sdd/batch/evaluation-plans/scrapy-3pr-prompt10-v1.json",
+      "sha256": "8ca3c44fa1b3272e281b687a3d9025da57d23bd908a03e0603b0165e7ffe78f9"
+    }
+  }
+}

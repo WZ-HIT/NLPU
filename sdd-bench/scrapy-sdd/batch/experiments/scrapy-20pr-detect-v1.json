@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "experiment_id": "scrapy-20pr-detect-v1",
+  "source_batch": {
+    "path": "sdd-bench/scrapy-sdd/batch/pilot/scrapy-20pr-detect-v1.json",
+    "sha256": "54922a4579064a6f2aeed8e58297f404077a02a506e9d13e7d22bf964d8cef95"
+  },
+  "prs": [
+    7702,
+    7808,
+    7841,
+    7846,
+    7879,
+    7886,
+    7918,
+    7920,
+    7948,
+    7966,
+    7968,
+    7971,
+    7985,
+    7986,
+    7993,
+    7995,
+    8002,
+    8008,
+    8009,
+    8020
+  ],
+  "methods": [
+    "openspec",
+    "speckit",
+    "cc-sdd"
+  ],
+  "stages": [
+    "detect"
+  ],
+  "update_modes": [],
+  "evaluation": {
+    "kind": "none"
+  }
+}
