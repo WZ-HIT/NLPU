@@ -1,0 +1,506 @@
+{
+  "schema_version": 1,
+  "manifest_type": "PREPARED_EXPERIMENT",
+  "experiment_id": "scrapy-3pr-both-pilot-v1",
+  "inputs": {
+    "user_config": {
+      "path": "sdd-bench/scrapy-sdd/batch/experiments/scrapy-3pr-both-pilot-v1.json",
+      "sha256": "ba2d352a81b832a8df88bb988e0f77cbca279243f27f75063aebabf8b9557731"
+    },
+    "source_batch": {
+      "path": "sdd-bench/scrapy-sdd/batch/pilot/scrapy-3pr-both-pilot-v1.json",
+      "sha256": "0edcc137078c8588e35455d3f21d71faf0c4765c13132fdfcefadc9d6603af87"
+    },
+    "batch_id": "scrapy-3pr-both-pilot-v1",
+    "approved_plan": {
+      "plan_id": "scrapy-3pr-pilot-8073-8064-8067-v1",
+      "path": "sdd-bench/scrapy-sdd/batch/plans/scrapy-3pr-pilot-8073-8064-8067-v1.json",
+      "sha256": "ca9a22b46ace7c1e882134ae8ff85f579a41a59fe993c1e883b89f33efb55654",
+      "provision_report_path": "sdd-bench/scrapy-sdd/batch/reports/scrapy-3pr-pilot-8073-8064-8067-v1.json",
+      "provision_report_sha256": "2935f6f7ad532d8114183444062cf3b78fce6217605864309aadbde1bd277965"
+    },
+    "evaluation": {
+      "kind": "host-plan",
+      "plan": {
+        "path": "sdd-bench/scrapy-sdd/batch/evaluation-plans/scrapy-3pr-prompt10-v1.json",
+        "sha256": "8ca3c44fa1b3272e281b687a3d9025da57d23bd908a03e0603b0165e7ffe78f9"
+      }
+    }
+  },
+  "images": [
+    {
+      "base_sha": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+      "baseline_lock": {
+        "path": "sdd-bench/scrapy-sdd/batch/baselines/11079cb1c85b9e75a39a7269943c69d1a975d485/baseline-lock.json",
+        "sha256": "9eaf148760eb3063f1b6a4c9362afd2d22a8c7c66fa62a47d8ef6c47b153101e"
+      },
+      "deployment_lock": {
+        "path": "sdd-bench/scrapy-sdd/batch/images/11079cb1c85b9e75a39a7269943c69d1a975d485/deployment-lock.json",
+        "sha256": "2af74ac5c7b90fb0424e95e2abb8b8633b7ea5ea1a66f51b778e76391aa779d3"
+      },
+      "agent": {
+        "tag": "scrapy-sdd-batch-agent:11079cb1c85b9e75a39a7269943c69d1a975d485",
+        "image_id": "sha256:b748d2718d2470a4ed01b3a70b83902ea8aaaeb55fefe8441ab11301362d10d6"
+      },
+      "baseline": {
+        "tag": "scrapy-sdd-batch-baseline:11079cb1c85b9e75a39a7269943c69d1a975d485",
+        "image_id": "sha256:f0fc3a2e6ac2f20468f1cad1aef0a7ab36db1e42ac43974e8cf9bc2b8237f8c6"
+      }
+    },
+    {
+      "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+      "baseline_lock": {
+        "path": "sdd-bench/scrapy-sdd/batch/baselines/3857c6906b2da51e12ca6005434512b7704fd659/baseline-lock.json",
+        "sha256": "dc96cf0f56744caba675ea1d53e6ba067d551d4b29ee2251547992902451b667"
+      },
+      "deployment_lock": {
+        "path": "sdd-bench/scrapy-sdd/batch/images/3857c6906b2da51e12ca6005434512b7704fd659/deployment-lock.json",
+        "sha256": "3770439db56d4470fabdbf454d4409f871fe9270e30e3bb26c9b09c350e582f3"
+      },
+      "agent": {
+        "tag": "scrapy-sdd-batch-agent:3857c6906b2da51e12ca6005434512b7704fd659",
+        "image_id": "sha256:08b9f3a6b7cbd9794be7f7f83eece81f5b57d7fe034494b3537fb2e797663e58"
+      },
+      "baseline": {
+        "tag": "scrapy-sdd-batch-baseline:3857c6906b2da51e12ca6005434512b7704fd659",
+        "image_id": "sha256:f112601aeec5a2d4e540c619608cc43a6ebfe84bd0b2600c9a5c87ab15f31bd3"
+      }
+    }
+  ],
+  "target_count": 27,
+  "targets": [
+    {
+      "target_id": "target-5dbd2468d7b7f277d416b7ce",
+      "task_id": "scrapy__scrapy__pr8064",
+      "method": "openspec",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "openspec-detect-001",
+      "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+      "task_manifest": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/task.json",
+        "sha256": "314694774fa1588fa62c086cd2d3a6f9926c24ba2717f9e9514c992e06a1793e"
+      },
+      "policy": null
+    },
+    {
+      "target_id": "target-f4e75111dd4c8d6755522392",
+      "task_id": "scrapy__scrapy__pr8064",
+      "method": "openspec",
+      "stage": "update",
+      "mode": "sealed-detect",
+      "run_id": "openspec-sealed-001",
+      "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+      "task_manifest": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/task.json",
+        "sha256": "314694774fa1588fa62c086cd2d3a6f9926c24ba2717f9e9514c992e06a1793e"
+      },
+      "policy": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/update/policies/openspec-sealed-001/update-policy.json",
+        "sha256": "efab267cf1acc9862d0a1793a3ab6d04094263a768b4bfeb5b11fc475f235a49"
+      }
+    },
+    {
+      "target_id": "target-e44227ae8c88ba18edb7c9c0",
+      "task_id": "scrapy__scrapy__pr8064",
+      "method": "openspec",
+      "stage": "update",
+      "mode": "self-directed",
+      "run_id": "openspec-self-001",
+      "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+      "task_manifest": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/task.json",
+        "sha256": "314694774fa1588fa62c086cd2d3a6f9926c24ba2717f9e9514c992e06a1793e"
+      },
+      "policy": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/update/policies/openspec-self-001/update-policy.json",
+        "sha256": "3be059416d1393fc87d135871a4baadde9003193d54d8eacb9ec2f9ca3c0cd5f"
+      }
+    },
+    {
+      "target_id": "target-3733931b1fcab12af6be4ddf",
+      "task_id": "scrapy__scrapy__pr8064",
+      "method": "speckit",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "speckit-detect-001",
+      "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+      "task_manifest": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/task.json",
+        "sha256": "314694774fa1588fa62c086cd2d3a6f9926c24ba2717f9e9514c992e06a1793e"
+      },
+      "policy": null
+    },
+    {
+      "target_id": "target-be3301b618f248b865a6cb8d",
+      "task_id": "scrapy__scrapy__pr8064",
+      "method": "speckit",
+      "stage": "update",
+      "mode": "sealed-detect",
+      "run_id": "speckit-sealed-001",
+      "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+      "task_manifest": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/task.json",
+        "sha256": "314694774fa1588fa62c086cd2d3a6f9926c24ba2717f9e9514c992e06a1793e"
+      },
+      "policy": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/speckit/update/policies/speckit-sealed-001/update-policy.json",
+        "sha256": "9c475fa7e47907c1c29f5b6bd2e18b6cc9877b703a19086bbaebcaa4a4d3394c"
+      }
+    },
+    {
+      "target_id": "target-e5badf595204bc069905e76c",
+      "task_id": "scrapy__scrapy__pr8064",
+      "method": "speckit",
+      "stage": "update",
+      "mode": "self-directed",
+      "run_id": "speckit-self-001",
+      "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+      "task_manifest": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/task.json",
+        "sha256": "314694774fa1588fa62c086cd2d3a6f9926c24ba2717f9e9514c992e06a1793e"
+      },
+      "policy": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/speckit/update/policies/speckit-self-001/update-policy.json",
+        "sha256": "7f6fb4ed13e1a7a227d290dcc00235b6e65a9e9a09740554db93913903b27df0"
+      }
+    },
+    {
+      "target_id": "target-25659c42ebea10d903f5baac",
+      "task_id": "scrapy__scrapy__pr8064",
+      "method": "cc-sdd",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "cc-sdd-detect-001",
+      "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+      "task_manifest": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/task.json",
+        "sha256": "314694774fa1588fa62c086cd2d3a6f9926c24ba2717f9e9514c992e06a1793e"
+      },
+      "policy": null
+    },
+    {
+      "target_id": "target-1d2243f62acf1137ab16db42",
+      "task_id": "scrapy__scrapy__pr8064",
+      "method": "cc-sdd",
+      "stage": "update",
+      "mode": "sealed-detect",
+      "run_id": "cc-sdd-sealed-001",
+      "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+      "task_manifest": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/task.json",
+        "sha256": "314694774fa1588fa62c086cd2d3a6f9926c24ba2717f9e9514c992e06a1793e"
+      },
+      "policy": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/update/policies/cc-sdd-sealed-001/update-policy.json",
+        "sha256": "a10e602671b0d9d94e6df3a757e2fc3fc1b19c623787dad525cea21b14c580e8"
+      }
+    },
+    {
+      "target_id": "target-ac0e18ce1f7902b1c81f6d96",
+      "task_id": "scrapy__scrapy__pr8064",
+      "method": "cc-sdd",
+      "stage": "update",
+      "mode": "self-directed",
+      "run_id": "cc-sdd-self-001",
+      "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+      "task_manifest": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/task.json",
+        "sha256": "314694774fa1588fa62c086cd2d3a6f9926c24ba2717f9e9514c992e06a1793e"
+      },
+      "policy": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/update/policies/cc-sdd-self-001/update-policy.json",
+        "sha256": "8bcf8909e95e43240f2cdc69056e65d0c0cf2d9a61f54c41d0fe8efb83888acd"
+      }
+    },
+    {
+      "target_id": "target-29969507163cbc0cd7e2f69a",
+      "task_id": "scrapy__scrapy__pr8067",
+      "method": "openspec",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "openspec-detect-001",
+      "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+      "task_manifest": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/task.json",
+        "sha256": "a3a6d2369cba04599c6b2320a006706ffa5768d78afffa12b817083a3892af4c"
+      },
+      "policy": null
+    },
+    {
+      "target_id": "target-8d86e36db85b312ef5fbaf90",
+      "task_id": "scrapy__scrapy__pr8067",
+      "method": "openspec",
+      "stage": "update",
+      "mode": "sealed-detect",
+      "run_id": "openspec-sealed-001",
+      "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+      "task_manifest": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/task.json",
+        "sha256": "a3a6d2369cba04599c6b2320a006706ffa5768d78afffa12b817083a3892af4c"
+      },
+      "policy": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/openspec/update/policies/openspec-sealed-001/update-policy.json",
+        "sha256": "a0bf7489b0e9aa4b8c2b8132304dc118d428d26ee1e36995492b3847342def3b"
+      }
+    },
+    {
+      "target_id": "target-c226377ae1adc70a07cb2092",
+      "task_id": "scrapy__scrapy__pr8067",
+      "method": "openspec",
+      "stage": "update",
+      "mode": "self-directed",
+      "run_id": "openspec-self-001",
+      "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+      "task_manifest": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/task.json",
+        "sha256": "a3a6d2369cba04599c6b2320a006706ffa5768d78afffa12b817083a3892af4c"
+      },
+      "policy": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/openspec/update/policies/openspec-self-001/update-policy.json",
+        "sha256": "eb7a691b7596af44121816c8a58eb43ee657d63d352e8907e5aa36336dab4388"
+      }
+    },
+    {
+      "target_id": "target-3b4a013a3c808ce130e7d88c",
+      "task_id": "scrapy__scrapy__pr8067",
+      "method": "speckit",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "speckit-detect-001",
+      "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+      "task_manifest": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/task.json",
+        "sha256": "a3a6d2369cba04599c6b2320a006706ffa5768d78afffa12b817083a3892af4c"
+      },
+      "policy": null
+    },
+    {
+      "target_id": "target-522590568c9cabd9437a0db8",
+      "task_id": "scrapy__scrapy__pr8067",
+      "method": "speckit",
+      "stage": "update",
+      "mode": "sealed-detect",
+      "run_id": "speckit-sealed-001",
+      "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+      "task_manifest": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/task.json",
+        "sha256": "a3a6d2369cba04599c6b2320a006706ffa5768d78afffa12b817083a3892af4c"
+      },
+      "policy": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/speckit/update/policies/speckit-sealed-001/update-policy.json",
+        "sha256": "9d60513f09bfd0f96576fdb9848af12179141098ff2c1f140e31dd4548baf057"
+      }
+    },
+    {
+      "target_id": "target-317a69e8d9f8a36087b0626a",
+      "task_id": "scrapy__scrapy__pr8067",
+      "method": "speckit",
+      "stage": "update",
+      "mode": "self-directed",
+      "run_id": "speckit-self-001",
+      "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+      "task_manifest": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/task.json",
+        "sha256": "a3a6d2369cba04599c6b2320a006706ffa5768d78afffa12b817083a3892af4c"
+      },
+      "policy": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/speckit/update/policies/speckit-self-001/update-policy.json",
+        "sha256": "000552316a841f6d21df51f1f3881747ad8811332d2cc111cac59c2659dccf53"
+      }
+    },
+    {
+      "target_id": "target-771ae787b41457dfcf051d8d",
+      "task_id": "scrapy__scrapy__pr8067",
+      "method": "cc-sdd",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "cc-sdd-detect-001",
+      "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+      "task_manifest": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/task.json",
+        "sha256": "a3a6d2369cba04599c6b2320a006706ffa5768d78afffa12b817083a3892af4c"
+      },
+      "policy": null
+    },
+    {
+      "target_id": "target-9aba878074161c784ccf3cf1",
+      "task_id": "scrapy__scrapy__pr8067",
+      "method": "cc-sdd",
+      "stage": "update",
+      "mode": "sealed-detect",
+      "run_id": "cc-sdd-sealed-001",
+      "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+      "task_manifest": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/task.json",
+        "sha256": "a3a6d2369cba04599c6b2320a006706ffa5768d78afffa12b817083a3892af4c"
+      },
+      "policy": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/cc-sdd/update/policies/cc-sdd-sealed-001/update-policy.json",
+        "sha256": "606918b67a551a747c4b85fc2d73882be4c18e1bbb97c4ee664870c2c89e608c"
+      }
+    },
+    {
+      "target_id": "target-2fecf2ed52b224ce376e9306",
+      "task_id": "scrapy__scrapy__pr8067",
+      "method": "cc-sdd",
+      "stage": "update",
+      "mode": "self-directed",
+      "run_id": "cc-sdd-self-001",
+      "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+      "task_manifest": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/task.json",
+        "sha256": "a3a6d2369cba04599c6b2320a006706ffa5768d78afffa12b817083a3892af4c"
+      },
+      "policy": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/cc-sdd/update/policies/cc-sdd-self-001/update-policy.json",
+        "sha256": "6c21ad7fca89d5a79c935b9da613a28a9c6ee4d757f158a5839df78c257b5c52"
+      }
+    },
+    {
+      "target_id": "target-ed140fd18f974663ed2468ac",
+      "task_id": "scrapy__scrapy__pr8073",
+      "method": "openspec",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "openspec-detect-001",
+      "base_sha": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+      "task_manifest": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/task.json",
+        "sha256": "001750ebd290ee3919f3caacff1e49a6b66a7e83854a31afdc3b0c7e6126fe19"
+      },
+      "policy": null
+    },
+    {
+      "target_id": "target-b3f49deaa56e4805593b7a62",
+      "task_id": "scrapy__scrapy__pr8073",
+      "method": "openspec",
+      "stage": "update",
+      "mode": "sealed-detect",
+      "run_id": "openspec-sealed-001",
+      "base_sha": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+      "task_manifest": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/task.json",
+        "sha256": "001750ebd290ee3919f3caacff1e49a6b66a7e83854a31afdc3b0c7e6126fe19"
+      },
+      "policy": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/openspec/update/policies/openspec-sealed-001/update-policy.json",
+        "sha256": "5c949aa29400ffb506beee4bd81d3d0e7336ab7b40d45d3287f6dbc0596e2a81"
+      }
+    },
+    {
+      "target_id": "target-5f2f51f6890ebdb74d4f276d",
+      "task_id": "scrapy__scrapy__pr8073",
+      "method": "openspec",
+      "stage": "update",
+      "mode": "self-directed",
+      "run_id": "openspec-self-001",
+      "base_sha": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+      "task_manifest": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/task.json",
+        "sha256": "001750ebd290ee3919f3caacff1e49a6b66a7e83854a31afdc3b0c7e6126fe19"
+      },
+      "policy": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/openspec/update/policies/openspec-self-001/update-policy.json",
+        "sha256": "3367ae8e770ceeb3df913264a1a1f7e97a004c91e679a32bf120367c0df66a00"
+      }
+    },
+    {
+      "target_id": "target-d967d0f94082f6412a21ad73",
+      "task_id": "scrapy__scrapy__pr8073",
+      "method": "speckit",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "speckit-detect-001",
+      "base_sha": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+      "task_manifest": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/task.json",
+        "sha256": "001750ebd290ee3919f3caacff1e49a6b66a7e83854a31afdc3b0c7e6126fe19"
+      },
+      "policy": null
+    },
+    {
+      "target_id": "target-b2be86e74dd7c26ae163bafb",
+      "task_id": "scrapy__scrapy__pr8073",
+      "method": "speckit",
+      "stage": "update",
+      "mode": "sealed-detect",
+      "run_id": "speckit-sealed-001",
+      "base_sha": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+      "task_manifest": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/task.json",
+        "sha256": "001750ebd290ee3919f3caacff1e49a6b66a7e83854a31afdc3b0c7e6126fe19"
+      },
+      "policy": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/speckit/update/policies/speckit-sealed-001/update-policy.json",
+        "sha256": "2a2dad25fcfbcbb35bbea07abf90ffe013dcba01e1208460c81ae16eacc7d0f7"
+      }
+    },
+    {
+      "target_id": "target-36a5d838061bc84f5d65f1f7",
+      "task_id": "scrapy__scrapy__pr8073",
+      "method": "speckit",
+      "stage": "update",
+      "mode": "self-directed",
+      "run_id": "speckit-self-001",
+      "base_sha": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+      "task_manifest": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/task.json",
+        "sha256": "001750ebd290ee3919f3caacff1e49a6b66a7e83854a31afdc3b0c7e6126fe19"
+      },
+      "policy": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/speckit/update/policies/speckit-self-001/update-policy.json",
+        "sha256": "184662922f8be142349951a109b485818e809630064c766f4c19cfaf128011aa"
+      }
+    },
+    {
+      "target_id": "target-5737114812400c23d47bf513",
+      "task_id": "scrapy__scrapy__pr8073",
+      "method": "cc-sdd",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "cc-sdd-detect-001",
+      "base_sha": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+      "task_manifest": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/task.json",
+        "sha256": "001750ebd290ee3919f3caacff1e49a6b66a7e83854a31afdc3b0c7e6126fe19"
+      },
+      "policy": null
+    },
+    {
+      "target_id": "target-04571e8ca673d295b8dc8fe3",
+      "task_id": "scrapy__scrapy__pr8073",
+      "method": "cc-sdd",
+      "stage": "update",
+      "mode": "sealed-detect",
+      "run_id": "cc-sdd-sealed-001",
+      "base_sha": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+      "task_manifest": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/task.json",
+        "sha256": "001750ebd290ee3919f3caacff1e49a6b66a7e83854a31afdc3b0c7e6126fe19"
+      },
+      "policy": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/cc-sdd/update/policies/cc-sdd-sealed-001/update-policy.json",
+        "sha256": "e1f35170cccefbdaa2f45894d9fac722f0a0122f3de9a3ee99ee3e9e0098be1b"
+      }
+    },
+    {
+      "target_id": "target-98844b873e6923b73ce17f87",
+      "task_id": "scrapy__scrapy__pr8073",
+      "method": "cc-sdd",
+      "stage": "update",
+      "mode": "self-directed",
+      "run_id": "cc-sdd-self-001",
+      "base_sha": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+      "task_manifest": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/task.json",
+        "sha256": "001750ebd290ee3919f3caacff1e49a6b66a7e83854a31afdc3b0c7e6126fe19"
+      },
+      "policy": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/cc-sdd/update/policies/cc-sdd-self-001/update-policy.json",
+        "sha256": "a1bab640718c2e091b990f7deff60d7de0cc1fefca949039afdf2526df9b454c"
+      }
+    }
+  ],
+  "prepared_id": "prepared-71a9d717549215694b160554"
+}
