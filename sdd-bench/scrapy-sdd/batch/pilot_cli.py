@@ -17,8 +17,10 @@ ROOT = BENCH.parents[1]
 
 def run(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="sdd-pilot")
-    parser.add_argument("command", choices=("detect", "update", "all", "status", "evaluate", "evaluate-host", "report"))
-    parser.add_argument("--config", type=Path, required=True)
+    parser.add_argument("command", choices=("detect", "update", "all", "inspect", "probe", "status", "evaluate", "evaluate-host", "report"))
+    source = parser.add_mutually_exclusive_group(required=True)
+    source.add_argument("--manifest", type=Path, help="frozen prepared-manifest-v1 input")
+    source.add_argument("--config", type=Path, help="legacy batch-run-v1 input")
     parser.add_argument(
         "--evaluation-plan",
         type=Path,
@@ -39,6 +41,8 @@ def run(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     try:
         if args.command in {"report", "evaluate-host"}:
+            if args.config is None:
+                raise BatchError("LEGACY_CONFIG_REQUIRED", "Final reporting currently requires a legacy batch config")
             controls = {
                 "dry_run": args.dry_run,
                 "resume": args.resume,
@@ -70,7 +74,8 @@ def run(argv: list[str] | None = None) -> int:
                 )
         else:
             value = orchestrate(
-                command=args.command, config_path=args.config.resolve(), bench=BENCH,
+                command=args.command, config_path=args.config.resolve() if args.config else None,
+                manifest_path=args.manifest.resolve() if args.manifest else None, bench=BENCH,
                 repository_root=ROOT, dry_run=args.dry_run, resume=args.resume,
                 retries=set(args.retry), task_ids=set(args.task), methods=set(args.method),
                 modes=set(args.mode), recover_detects=set(args.recover_detect),
@@ -86,3 +91,7 @@ def run(argv: list[str] | None = None) -> int:
 
 def main() -> None:
     raise SystemExit(run())
+
+
+if __name__ == "__main__":
+    main()

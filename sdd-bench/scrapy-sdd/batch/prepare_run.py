@@ -45,7 +45,8 @@ def _require(condition: bool, code: str, message: str, **details: Any) -> None:
         raise BatchError(code, message, **details)
 
 
-def verify_step(step: str, manifest: dict[str, Any], root: Path = ROOT) -> list[dict[str, str]]:
+def verify_step(step: str, manifest: dict[str, Any], root: Path = ROOT, *,
+                generate_missing: bool = False) -> list[dict[str, str]]:
     """Verify existing evidence; never trust a prior progress marker alone."""
     root = root.resolve()
     bench = root / "sdd-bench/scrapy-sdd"
@@ -101,7 +102,7 @@ def verify_step(step: str, manifest: dict[str, Any], root: Path = ROOT) -> list[
         for task_id in tasks:
             task = bench / "tasks" / task_id
             audit_path = task / "isolation-audit.json"
-            if not audit_path.exists():
+            if generate_missing and not audit_path.exists():
                 run_audit(task=task, plan_path=root / inputs["approved_plan"]["path"], bench=bench, repository_root=root)
             audit = _document(audit_path)
             _require(audit.get("status") == "PASS" and audit.get("task_id") == task_id and audit.get("gold_values_recorded") is False,
@@ -122,7 +123,7 @@ def verify_step(step: str, manifest: dict[str, Any], root: Path = ROOT) -> list[
         for task_id in tasks:
             task = bench / "tasks" / task_id
             summary_path = task / "preflight-summary.json"
-            if not summary_path.exists():
+            if generate_missing and not summary_path.exists():
                 run_preflight(task=task, bench=bench, repository_root=root, run_id="preflight-" + manifest["prepared_id"][9:])
             summary = _document(summary_path)
             _require(summary.get("task_id") == task_id and summary.get("runtime_preflight_status") == "READY"
@@ -249,7 +250,7 @@ def prepare(config_path: Path, output_dir: Path, *, root: Path = ROOT,
     state = _document(state_path) if state_path.exists() else {"schema_version": 1, "prepared_id": manifest["prepared_id"], "status": "IN_PROGRESS", "steps": {}}
     _require(state.get("prepared_id") == manifest["prepared_id"], "PREPARE_STATE_CONFLICT", "Progress state belongs to different inputs")
     for step in STEPS:
-        evidence = verify_step(step, manifest, root)
+        evidence = verify_step(step, manifest, root, generate_missing=True)
         digest = canonical_sha256(evidence)
         previous = state["steps"].get(step)
         if previous is not None:

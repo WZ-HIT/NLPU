@@ -10,7 +10,7 @@
     "batch_id": {"$ref": "#/$defs/id"},
     "sequence": {"type": "integer", "minimum": 1},
     "recorded_at_utc": {"type": "string", "format": "date-time"},
-    "action": {"enum": ["detect", "update", "evaluate", "dry-run"]},
+    "action": {"enum": ["detect", "update", "evaluate", "dry-run", "probe"]},
     "target": {
       "type": "object", "additionalProperties": false,
       "required": ["task_id", "method", "stage", "run_id", "update_mode"],

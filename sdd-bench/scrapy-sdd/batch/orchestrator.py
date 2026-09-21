@@ -15,6 +15,7 @@ from typing import Any, Iterable
 from jsonschema import Draft202012Validator, FormatChecker
 
 from .core import BatchError, canonical_sha256, sha256_file, write_json
+from .prepare_run import load_prepared
 from .stages import (
     detect_targets,
     update_tests,
@@ -129,6 +130,39 @@ def validate_batch_config(
                     "policy": policy_path, "policy_sha256": update["policy"]["sha256"],
                 })
     return config, targets
+
+
+def validate_prepared_manifest(
+    manifest_path: Path, bench: Path, repository_root: Path
+) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    """Load P1's frozen contract and adapt it to unchanged stage runners."""
+    manifest = load_prepared(manifest_path, root=repository_root)
+    targets = []
+    seen = set()
+    for item in manifest["targets"]:
+        identity = (item["task_id"], item["method"], item["stage"], item["mode"], item["run_id"])
+        if identity in seen:
+            raise BatchError("PREPARED_TARGET_DUPLICATE", "Prepared target identity is duplicated")
+        seen.add(identity)
+        task_manifest = _artifact(repository_root, item["task_manifest"], "task manifest")
+        policy = None
+        policy_sha256 = None
+        if item["policy"] is not None:
+            policy = _artifact(repository_root, item["policy"], "Update policy")
+            policy_sha256 = item["policy"]["sha256"]
+        targets.append({
+            "target_id": item["target_id"], "task_id": item["task_id"],
+            "task_manifest": task_manifest, "method": item["method"],
+            "stage": item["stage"], "run_id": item["run_id"],
+            "mode": item["mode"], "policy": policy,
+            "policy_sha256": policy_sha256,
+        })
+    return {
+        "batch_id": manifest["prepared_id"],
+        "prepared_id": manifest["prepared_id"],
+        "experiment_id": manifest["experiment_id"],
+        "manifest_path": str(manifest_path),
+    }, targets
 
 
 def target_key(target: dict[str, Any]) -> str:
@@ -257,7 +291,7 @@ def _latest(events: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     for event in events:
         # A resume skip records an idempotent observation; it must not replace
         # the terminal state it observed or a later --resume would run again.
-        if event["state"] == "SKIPPED_RESUME":
+        if event["state"] == "SKIPPED_RESUME" or event["action"] in {"dry-run", "probe"}:
             continue
         key = ":".join([
             event["target"]["task_id"], event["target"]["method"], event["target"]["stage"],
@@ -267,7 +301,7 @@ def _latest(events: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     return result
 
 
-MUTATING_COMMANDS = {"detect", "update", "all"}
+MUTATING_COMMANDS = {"detect", "update", "all", "probe"}
 
 
 @contextlib.contextmanager
@@ -299,26 +333,31 @@ def _run_duration_lock(run_root: Path, batch_id: str):
 
 def _batch_id_of(config_path: Path) -> str:
     try:
-        value = json.loads(config_path.read_text(encoding="utf-8"))["batch_id"]
+        document = json.loads(config_path.read_text(encoding="utf-8"))
+        value = document.get("prepared_id", document.get("batch_id"))
     except (OSError, json.JSONDecodeError, KeyError, TypeError):
         return ""
     return value if isinstance(value, str) else ""
 
 
 def orchestrate(
-    *, command: str, config_path: Path, bench: Path, repository_root: Path,
+    *, command: str, config_path: Path | None = None, manifest_path: Path | None = None,
+    bench: Path, repository_root: Path,
     dry_run: bool, resume: bool, retries: set[str], task_ids: set[str],
     methods: set[str], modes: set[str], recover_detects: set[str] | None = None,
     archive: bool = True,
 ) -> dict[str, Any]:
     """Public entry point: read-only commands run bare, the rest hold a run lock."""
     run = functools.partial(
-        _orchestrate, command=command, config_path=config_path, bench=bench,
+        _orchestrate, command=command, config_path=config_path, manifest_path=manifest_path, bench=bench,
         repository_root=repository_root, dry_run=dry_run, resume=resume,
         retries=retries, task_ids=task_ids, methods=methods, modes=modes,
         recover_detects=recover_detects, archive=archive,
     )
-    batch_id = _batch_id_of(config_path) if command in MUTATING_COMMANDS else ""
+    source_path = manifest_path or config_path
+    if source_path is None:
+        raise BatchError("RUN_SOURCE_REQUIRED", "A prepared manifest or legacy config is required")
+    batch_id = _batch_id_of(source_path) if command in MUTATING_COMMANDS else ""
     if not batch_id:
         return run()
     with _run_duration_lock(bench / "batch/runs" / batch_id, batch_id):
@@ -326,13 +365,20 @@ def orchestrate(
 
 
 def _orchestrate(
-    *, command: str, config_path: Path, bench: Path, repository_root: Path,
+    *, command: str, config_path: Path | None, manifest_path: Path | None,
+    bench: Path, repository_root: Path,
     dry_run: bool, resume: bool, retries: set[str], task_ids: set[str],
     methods: set[str], modes: set[str], recover_detects: set[str] | None = None,
     archive: bool = True,
 ) -> dict[str, Any]:
     recover_detects = recover_detects or set()
-    config, all_targets = validate_batch_config(config_path, bench, repository_root)
+    if manifest_path is not None:
+        config, all_targets = validate_prepared_manifest(manifest_path, bench, repository_root)
+    elif config_path is not None:
+        config, all_targets = validate_batch_config(config_path, bench, repository_root)
+    else:
+        raise BatchError("RUN_SOURCE_REQUIRED", "A prepared manifest or legacy config is required")
+    probe = command == "probe" or dry_run
     stages = {"detect"} if command == "detect" else {"update"} if command == "update" else {"detect", "update"}
     selected = _filter_targets(
         all_targets, task_ids=task_ids, methods=methods, modes=modes, stages=stages
@@ -340,11 +386,11 @@ def _orchestrate(
     selected.sort(key=lambda item: (0 if item["stage"] == "detect" else 1, item["task_id"], item["method"], item["run_id"]))
     if command in {"update", "all"} and "update" in stages and not any(x["stage"] == "update" for x in selected):
         raise BatchError("NO_EXPLICIT_UPDATE_POLICIES", "No explicitly selected Update policy matches this run")
-    if command in {"detect", "update", "all"} and not selected:
+    if command in {"detect", "update", "all", "probe"} and not selected:
         raise BatchError("NO_MATCHING_TARGETS", "No batch targets match the explicit filters")
     selected_keys = {target_key(item) for item in selected}
     unknown_retries = retries - selected_keys
-    if command in {"detect", "update", "all"} and unknown_retries:
+    if command in {"detect", "update", "all", "probe"} and unknown_retries:
         raise BatchError(
             "UNKNOWN_RETRY_TARGET", "Retry target is not part of this filtered run",
             targets=sorted(unknown_retries),
@@ -362,10 +408,11 @@ def _orchestrate(
     )
     events = ledger.read()
     latest = _latest(events)
-    if command == "status":
+    if command in {"status", "inspect"}:
         visible_keys = {target_key(item) for item in selected}
         return {
-            "schema_version": 1, "batch_id": config["batch_id"], "status": "OK",
+            "schema_version": 1, "batch_id": config["batch_id"],
+            "prepared_id": config.get("prepared_id"), "command": "inspect", "status": "OK",
             "ledger_valid": True, "event_count": len(events),
             "targets": [{"key": key, "state": value["state"], "attempt": value["attempt"],
                          "update_mode": value["target"]["update_mode"]}
@@ -394,7 +441,7 @@ def _orchestrate(
     results = []
     barrier_checked = False
     for target in selected:
-        if not dry_run and target["stage"] == "update" and not barrier_checked:
+        if not probe and target["stage"] == "update" and not barrier_checked:
             _ensure_detect_barrier(
                 config=config, all_targets=all_targets, latest=latest, run_root=run_root,
                 bench=bench, repository_root=repository_root,
@@ -405,7 +452,7 @@ def _orchestrate(
         # Dry-run evidence is append-only, but it is not a started formal
         # execution and therefore cannot force --resume/--retry for that run.
         formal_previous = previous
-        if previous and previous["action"] == "dry-run":
+        if probe or (previous and previous["action"] in {"dry-run", "probe"}):
             formal_previous = None
         retry = key in retries
         recover = key in recover_detects
@@ -424,12 +471,12 @@ def _orchestrate(
             if not resume:
                 raise BatchError("RUN_ALREADY_COMPLETE", "Use --resume to skip completed target", target=key)
             ledger.append(target["stage"], target, "SKIPPED_RESUME", formal_previous["attempt"], {"previous": formal_previous["event_sha256"]})
-            results.append({"target": key, "state": "SKIPPED_RESUME", "update_mode": target["mode"]})
+            results.append({"target": key, "target_id": target.get("target_id"), "state": "SKIPPED_RESUME", "update_mode": target["mode"], "attempt": formal_previous["attempt"]})
             continue
         if formal_previous and not retry and not resume:
             raise BatchError("RUN_ALREADY_STARTED", "Use --resume or an explicit --retry target", target=key)
         attempt = (formal_previous["attempt"] + 1) if retry else (formal_previous["attempt"] if formal_previous else 1)
-        if dry_run:
+        if probe:
             try:
                 if target["stage"] == "detect":
                     result = detect_targets(
@@ -447,8 +494,8 @@ def _orchestrate(
             except BatchError as exc:
                 result = {"error": exc.as_dict(), "update_mode": target["mode"]}
                 state = "BLOCKED"
-            ledger.append("dry-run", target, state, attempt, result)
-            results.append({"target": key, "state": state, "update_mode": target["mode"], "result": result})
+            ledger.append("probe", target, state, attempt, result)
+            results.append({"target": key, "target_id": target.get("target_id"), "state": state, "update_mode": target["mode"], "result": result})
             continue
         if target["stage"] == "detect":
             if not recover:
@@ -487,9 +534,11 @@ def _orchestrate(
                 result = {"error": exc.as_dict() if isinstance(exc, BatchError) else {"message": str(exc)}}
         event = ledger.append(target["stage"], target, state, attempt, result)
         latest[key] = event
-        results.append({"target": key, "state": state, "update_mode": target["mode"], "result": result})
+        results.append({"target": key, "target_id": target.get("target_id"), "state": state,
+                        "update_mode": target["mode"], "attempt": attempt,
+                        "ledger_sequence": event["sequence"], "result": result})
     barrier = None
-    if not dry_run and command in {"detect", "all"} and not any(
+    if not probe and command in {"detect", "all"} and not any(
         item["state"] in {"BLOCKED", "FAILED"} for item in results if ":detect:" in item["target"]
     ):
         barrier = _ensure_detect_barrier(
@@ -498,18 +547,19 @@ def _orchestrate(
         )
     summary = {
         "schema_version": 1, "batch_id": config["batch_id"], "command": command,
-        "dry_run": dry_run, "resume": resume, "selected_count": len(selected),
+        "prepared_id": config.get("prepared_id"), "dry_run": probe,
+        "resume": resume, "selected_count": len(selected),
         "status": "BLOCKED" if any(x["state"] in {"BLOCKED", "FAILED"} for x in results) else "READY",
         "results": results,
     }
     if barrier is not None:
         summary["detect_barrier_sha256"] = barrier["barrier_sha256"]
-    if dry_run:
+    if probe:
         run_root.mkdir(parents=True, exist_ok=True)
-        dry_path = run_root / "dry-run-report.json"
+        dry_path = run_root / "probe-report.json"
         if dry_path.exists():
             suffix = hashlib.sha256(json.dumps(summary, sort_keys=True).encode()).hexdigest()[:12]
-            dry_path = run_root / f"dry-run-report-{suffix}.json"
+            dry_path = run_root / f"probe-report-{suffix}.json"
         write_json(dry_path, summary, refuse_overwrite=True)
         summary["report"] = str(dry_path.relative_to(repository_root))
         # A dry run reaches no conclusion, so it can never archive. Returning
@@ -522,7 +572,7 @@ def _orchestrate(
             repository_root=repository_root,
             config=config,
             config_path=config_path,
-            enabled=archive,
+            enabled=archive and config_path is not None,
         )
     return summary
 
