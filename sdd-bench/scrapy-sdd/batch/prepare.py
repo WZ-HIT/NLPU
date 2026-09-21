@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from pathlib import Path
 from typing import Any
 
@@ -44,6 +45,39 @@ def _target(task_id: str, method: str, stage: str, mode: str | None, run_id: str
     return {
         "target_id": "target-" + canonical_sha256(identity)[:24],
         **identity, "base_sha": base_sha, "task_manifest": task_manifest, "policy": policy,
+    }
+
+
+
+def _image_record(root: Path, base_sha: str) -> dict[str, Any]:
+    """Pin the deployment lock and the exact image identities for one base."""
+    bench = root / "sdd-bench/scrapy-sdd"
+    baseline_path = bench / "batch/baselines" / base_sha / "baseline-lock.json"
+    deployment_path = bench / "batch/images" / base_sha / "deployment-lock.json"
+    for path in (baseline_path, deployment_path):
+        if path.is_symlink() or not path.is_file():
+            raise BatchError("PREPARE_IMAGE_LOCK_MISSING", "Image or baseline lock is missing", path=str(path))
+    baseline_sha = sha256_file(baseline_path)
+    deployment = json.loads(deployment_path.read_text(encoding="utf-8"))
+    if (deployment.get("status") != "READY" or deployment.get("base_sha") != base_sha
+            or deployment.get("baseline_lock_sha256") != baseline_sha):
+        raise BatchError("PREPARE_IMAGE_LOCK_MISMATCH", "Image deployment does not match the base and baseline lock", base_sha=base_sha)
+    images = deployment.get("images")
+    if not isinstance(images, dict):
+        raise BatchError("PREPARE_IMAGE_ID_INVALID", "Deployment lock has no image identities", base_sha=base_sha)
+    pinned = {}
+    for role in ("agent", "baseline"):
+        value = images.get(role)
+        if (not isinstance(value, dict) or not isinstance(value.get("tag"), str)
+                or not value["tag"] or not isinstance(value.get("image_id"), str)
+                or not re.fullmatch(r"sha256:[0-9a-f]{64}", value["image_id"])):
+            raise BatchError("PREPARE_IMAGE_ID_INVALID", "Deployment lock has an invalid image identity", base_sha=base_sha, role=role)
+        pinned[role] = {"tag": value["tag"], "image_id": value["image_id"]}
+    return {
+        "base_sha": base_sha,
+        "baseline_lock": {"path": baseline_path.relative_to(root).as_posix(), "sha256": baseline_sha},
+        "deployment_lock": {"path": deployment_path.relative_to(root).as_posix(), "sha256": sha256_file(deployment_path)},
+        **pinned,
     }
 
 
@@ -119,6 +153,7 @@ def compile_experiment(config_path: Path, *, repository_root: Path = ROOT) -> di
         if identity in seen:
             raise BatchError("PREPARE_TARGET_DUPLICATE", "Expanded target is duplicated", target=str(identity))
         seen.add(identity)
+    images = [_image_record(root, base_sha) for base_sha in sorted({target["base_sha"] for target in targets})]
     manifest = {
         "schema_version": 1, "manifest_type": "PREPARED_EXPERIMENT", "experiment_id": config["experiment_id"],
         "inputs": {
@@ -126,7 +161,7 @@ def compile_experiment(config_path: Path, *, repository_root: Path = ROOT) -> di
             "source_batch": config["source_batch"], "batch_id": source["batch_id"],
             "approved_plan": approved, "evaluation": evaluation,
         },
-        "target_count": len(targets), "targets": targets,
+        "images": images, "target_count": len(targets), "targets": targets,
     }
     manifest["prepared_id"] = "prepared-" + canonical_sha256(manifest)[:24]
     _validate(manifest, "prepared-manifest-v1.schema.json")
