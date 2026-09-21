@@ -162,6 +162,9 @@ def validate_prepared_manifest(
         "prepared_id": manifest["prepared_id"],
         "experiment_id": manifest["experiment_id"],
         "manifest_path": str(manifest_path),
+        "approved_plan": manifest["inputs"]["approved_plan"],
+        "evaluation": manifest["inputs"]["evaluation"],
+        "source_batch": manifest["inputs"]["source_batch"],
     }, targets
 
 

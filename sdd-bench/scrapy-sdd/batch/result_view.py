@@ -166,6 +166,16 @@ def validate(view: dict[str, Any], bench: Path) -> None:
         raise BatchError("RESULT_VIEW_ORDER_INVALID", "Target order and target index differ")
     if any(key != row["target_key"] for key, row in view["targets"].items()):
         raise BatchError("RESULT_VIEW_KEY_INVALID", "Target index key differs from its row")
+    rows = list(view["targets"].values())
+    expected_counts = {
+        "target_count": len(rows),
+        "detect_count": sum(row["stage"] == "detect" for row in rows),
+        "update_count": sum(row["stage"] == "update" for row in rows),
+        "terminal_count": sum(row["state"] in TERMINAL_STATES for row in rows),
+        "states": dict(sorted(Counter(row["state"] for row in rows).items())),
+    }
+    if view["counts"] != expected_counts:
+        raise BatchError("RESULT_VIEW_COUNTS_INVALID", "Result view counts differ from indexed targets")
 
 
 def write(source_path: Path, bench: Path, repository_root: Path, output: Path | None = None) -> tuple[dict[str, Any], Path]:

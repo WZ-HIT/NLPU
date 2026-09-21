@@ -41,8 +41,6 @@ def run(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     try:
         if args.command in {"report", "evaluate-host"}:
-            if args.config is None:
-                raise BatchError("LEGACY_CONFIG_REQUIRED", "Final reporting currently requires a legacy batch config")
             controls = {
                 "dry_run": args.dry_run,
                 "resume": args.resume,
@@ -63,11 +61,14 @@ def run(argv: list[str] | None = None) -> int:
                 )
             if args.command == "report":
                 value = generate_final_evidence(
-                    config_path=args.config.resolve(), bench=BENCH, repository_root=ROOT,
+                    config_path=args.config.resolve() if args.config else None,
+                    manifest_path=args.manifest.resolve() if args.manifest else None,
+                    bench=BENCH, repository_root=ROOT,
                 )
             else:
                 value = evaluate_host(
-                    config_path=args.config.resolve(),
+                    config_path=args.config.resolve() if args.config else None,
+                    manifest_path=args.manifest.resolve() if args.manifest else None,
                     evaluation_plan_path=args.evaluation_plan.resolve(),
                     bench=BENCH,
                     repository_root=ROOT,

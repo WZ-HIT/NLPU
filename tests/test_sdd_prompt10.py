@@ -159,6 +159,12 @@ class Prompt10ContractAndCliTests(unittest.TestCase):
         Draft202012Validator(schema).validate(plan)
         self.assertEqual(plan["metric_definition_version"], METRIC_VERSION)
         self.assertEqual(plan["gates"]["sealed_target_count"], 27)
+        plan_v2_schema = json.loads((BENCH / "schemas/host-evaluation-plan-v2.schema.json").read_text(encoding="utf-8"))
+        Draft202012Validator.check_schema(plan_v2_schema)
+        plan_v2 = copy.deepcopy(plan)
+        plan_v2["schema_version"] = 2
+        plan_v2["gates"]["sealed_target_count"] = 60
+        Draft202012Validator(plan_v2_schema).validate(plan_v2)
         for name in (
             "host-gold-store-v1.schema.json",
             "host-target-set-v1.schema.json",
@@ -175,6 +181,17 @@ class Prompt10ContractAndCliTests(unittest.TestCase):
             code = run(["evaluate-host", "--config", "unused.json"])
         self.assertEqual(code, 0)
         evaluate.assert_called_once()
+        orchestrate.assert_not_called()
+
+    def test_evaluate_host_accepts_prepared_manifest(self) -> None:
+        result = {"schema_version": 1, "status": "READY", "evaluation_id": "unit"}
+        with patch("batch.pilot_cli.evaluate_host", return_value=result) as evaluate, patch(
+            "batch.pilot_cli.orchestrate"
+        ) as orchestrate:
+            code = run(["evaluate-host", "--manifest", "prepared.json"])
+        self.assertEqual(code, 0)
+        self.assertIsNone(evaluate.call_args.kwargs["config_path"])
+        self.assertEqual(evaluate.call_args.kwargs["manifest_path"], Path("prepared.json").resolve())
         orchestrate.assert_not_called()
 
     def test_evaluate_host_rejects_execution_controls(self) -> None:

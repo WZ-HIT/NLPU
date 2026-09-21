@@ -24,7 +24,7 @@ from typing import Any, Iterable, Sequence
 from jsonschema import Draft202012Validator, FormatChecker
 
 from .core import BatchError, canonical_sha256, sha256_file
-from .orchestrator import Ledger, _latest, target_key, validate_batch_config
+from .orchestrator import Ledger, _latest, target_key, validate_batch_config, validate_prepared_manifest
 from .result_view import build as build_result_view, target_id as canonical_target_id
 from .reporting import (
     Evidence,
@@ -394,7 +394,10 @@ def _public_targets(
 
 def _load_plan(plan_path: Path, bench: Path, repository_root: Path) -> dict[str, Any]:
     plan = _read_json(plan_path)
-    _validate(plan, bench / "schemas/host-evaluation-plan-v1.schema.json", "EVALUATION_PLAN_INVALID")
+    version = plan.get("schema_version")
+    if version not in {1, 2}:
+        raise EvaluationError("EVALUATION_PLAN_INVALID", "Unsupported host evaluation plan version")
+    _validate(plan, bench / f"schemas/host-evaluation-plan-v{version}.schema.json", "EVALUATION_PLAN_INVALID")
     if plan.get("evaluator_version") != EVALUATOR_VERSION or plan.get("metric_definition_version") != METRIC_VERSION:
         raise EvaluationError("EVALUATION_VERSION_MISMATCH", "Evaluation plan pins another implementation")
     for field in ("batch_config", "raw_source"):
@@ -406,11 +409,14 @@ def _load_plan(plan_path: Path, bench: Path, repository_root: Path) -> dict[str,
 
 
 def _verify_sealed_batch(
-    *, config_path: Path, bench: Path, repository_root: Path
+    *, source_path: Path, prepared: bool, bench: Path, repository_root: Path
 ) -> tuple[dict[str, Any], list[dict[str, Any]], dict[str, dict[str, Any]], dict[tuple[str, str], dict[str, Any]], dict[str, Any], str]:
     """Verify all sealed outputs. This must complete before any gold read."""
-    config, targets = validate_batch_config(config_path, bench, repository_root)
-    result_view = build_result_view(config_path, bench, repository_root)
+    if prepared:
+        config, targets = validate_prepared_manifest(source_path, bench, repository_root)
+    else:
+        config, targets = validate_batch_config(source_path, bench, repository_root)
+    result_view = build_result_view(source_path, bench, repository_root)
     if set(result_view["targets"]) != {target_key(item) for item in targets}:
         raise EvaluationError("TARGET_UNIVERSE_INVALID", "Result view differs from configured targets")
     detect_targets = [item for item in targets if item["stage"] == "detect"]
@@ -1162,7 +1168,8 @@ def _existing_exact(
 
 def evaluate_host(
     *,
-    config_path: Path,
+    config_path: Path | None = None,
+    manifest_path: Path | None = None,
     evaluation_plan_path: Path,
     bench: Path,
     repository_root: Path,
@@ -1170,15 +1177,29 @@ def evaluate_host(
     """Verify, construct delayed gold, score, execute behavior, and publish."""
     repository_root = repository_root.resolve()
     bench = bench.resolve()
-    plan = _load_plan(evaluation_plan_path.resolve(), bench, repository_root)
+    if (config_path is None) == (manifest_path is None):
+        raise EvaluationError("RUN_SOURCE_REQUIRED", "Exactly one batch config or prepared manifest is required")
+    plan_path = evaluation_plan_path.resolve()
+    plan = _load_plan(plan_path, bench, repository_root)
     pinned_config = _repo_path(repository_root, plan["batch_config"]["path"])
-    if config_path.resolve() != pinned_config.resolve():
+    source_path = (manifest_path or config_path).resolve()
+    prepared = manifest_path is not None
+    if not prepared and source_path != pinned_config.resolve():
         raise EvaluationError("EVALUATION_CONFIG_MISMATCH", "CLI config differs from evaluation plan")
+    if prepared:
+        prepared_document = _read_json(source_path)
+        inputs = prepared_document.get("inputs", {})
+        evaluation = inputs.get("evaluation", {})
+        expected_plan = {"path": plan_path.relative_to(repository_root).as_posix(), "sha256": sha256_file(plan_path)}
+        if inputs.get("source_batch") != plan["batch_config"] or evaluation.get("kind") != "host-plan" or evaluation.get("plan") != expected_plan:
+            raise EvaluationError("EVALUATION_CONFIG_MISMATCH", "Prepared manifest does not pin this evaluation plan and source batch")
 
     # Gold must not be read above this point. This call validates every final seal.
     config, targets, latest, manifests, barrier, ledger_sha = _verify_sealed_batch(
-        config_path=pinned_config, bench=bench, repository_root=repository_root
+        source_path=source_path, prepared=prepared, bench=bench, repository_root=repository_root
     )
+    if plan["gates"]["sealed_target_count"] != len(targets):
+        raise EvaluationError("TARGET_UNIVERSE_INVALID", "Evaluation plan target count differs from the result view")
     store, _ = _construct_gold(
         plan=plan,
         config=config,

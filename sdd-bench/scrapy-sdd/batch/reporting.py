@@ -14,7 +14,7 @@ from typing import Any, Iterable
 from jsonschema import Draft202012Validator, FormatChecker
 
 from .core import BatchError, canonical_sha256, sha256_file
-from .orchestrator import Ledger, _latest, target_key, validate_batch_config
+from .orchestrator import Ledger, _latest, target_key, validate_batch_config, validate_prepared_manifest
 from .result_view import build as build_result_view
 
 REPORT_NAMES = ("report.json", "audit.json", "evidence-manifest.json")
@@ -482,15 +482,20 @@ def _publish(final_dir: Path, documents: dict[str, dict[str, Any]]) -> str:
     return "PUBLISHED"
 
 
-def generate_final_evidence(*, config_path: Path, bench: Path, repository_root: Path) -> dict[str, Any]:
+def generate_final_evidence(*, config_path: Path | None = None, manifest_path: Path | None = None, bench: Path, repository_root: Path) -> dict[str, Any]:
     """Verify the complete configured batch and atomically publish final evidence."""
     repository_root = repository_root.resolve()
     bench = bench.resolve()
-    config_path = config_path.resolve()
+    if (config_path is None) == (manifest_path is None):
+        raise ReportingError("RUN_SOURCE_REQUIRED", "Exactly one batch config or prepared manifest is required")
+    source_path = (manifest_path or config_path).resolve()
     evidence = Evidence(repository_root)
-    evidence.add(config_path)
-    config, targets = validate_batch_config(config_path, bench, repository_root)
-    result_view = build_result_view(config_path, bench, repository_root)
+    evidence.add(source_path)
+    if manifest_path is not None:
+        config, targets = validate_prepared_manifest(source_path, bench, repository_root)
+    else:
+        config, targets = validate_batch_config(source_path, bench, repository_root)
+    result_view = build_result_view(source_path, bench, repository_root)
     if set(result_view["targets"]) != {target_key(item) for item in targets}:
         raise ReportingError("TARGET_UNIVERSE_INVALID", "Result view differs from configured targets")
     run_root = bench / "batch/runs" / config["batch_id"]

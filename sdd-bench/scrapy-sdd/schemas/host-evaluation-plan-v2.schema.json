@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sdd-bench.local/schemas/host-evaluation-plan-v2.schema.json",
+  "title": "Host-only sealed batch evaluation plan v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "plan_type", "evaluation_id", "evaluator_version", "metric_definition_version", "batch_config", "raw_source", "ranking_cutoffs", "behavior", "aggregation", "pairing", "gates"],
+  "properties": {
+    "schema_version": {"const": 2},
+    "plan_type": {"const": "HOST_ONLY_EVALUATION_PLAN"},
+    "evaluation_id": {"$ref": "#/$defs/id"},
+    "evaluator_version": {"const": "prompt10-evaluator-v1"},
+    "metric_definition_version": {"const": "prompt10-metrics-v1"},
+    "batch_config": {"$ref": "#/$defs/artifact"},
+    "raw_source": {"$ref": "#/$defs/artifact"},
+    "ranking_cutoffs": {"type": "array", "prefixItems": [{"const": 1}, {"const": 3}, {"const": 5}], "items": false},
+    "behavior": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["timeout_seconds", "network", "cpus", "memory", "pytest_argv"],
+      "properties": {
+        "timeout_seconds": {"type": "integer", "minimum": 1, "maximum": 3600},
+        "network": {"const": "none"},
+        "cpus": {"type": "string", "pattern": "^[1-9][0-9]*(?:\\.[0-9]+)?$"},
+        "memory": {"type": "string", "pattern": "^[1-9][0-9]*[mg]$"},
+        "pytest_argv": {"type": "array", "minItems": 4, "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "aggregation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["task_weighting", "micro_definition", "classifications"],
+      "properties": {
+        "task_weighting": {"const": "equal-task-macro"},
+        "micro_definition": {"const": "summed-confusion-counts"},
+        "classifications": {"type": "array", "prefixItems": [{"const": "TEST_ONLY_PR"}, {"const": "MIXED_CODE_AND_TEST_PR"}, {"const": "ALL"}], "items": false}
+      }
+    },
+    "pairing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["pair_modes", "required_equal"],
+      "properties": {
+        "pair_modes": {"type": "array", "prefixItems": [{"const": "sealed-detect"}, {"const": "self-directed"}], "items": false},
+        "required_equal": {"type": "array", "minItems": 7, "uniqueItems": true, "items": {"enum": ["task_id", "classification", "method", "base_sha", "resource_profile_sha256", "gold_seal_sha256", "metric_definition_version", "validity"]}}
+      }
+    },
+    "gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sealed_target_count", "gold_invalid_max", "policy_compliance_min", "update_file_macro_f1_min", "mixed_discrimination_min", "regression_max", "eligible_pair_count_min"],
+      "properties": {
+        "sealed_target_count": {"type": "integer", "minimum": 1},
+        "gold_invalid_max": {"type": "integer", "minimum": 0},
+        "policy_compliance_min": {"type": "number", "minimum": 0, "maximum": 1},
+        "update_file_macro_f1_min": {"type": "number", "minimum": 0, "maximum": 1},
+        "mixed_discrimination_min": {"type": "number", "minimum": 0, "maximum": 1},
+        "regression_max": {"type": "integer", "minimum": 0},
+        "eligible_pair_count_min": {"type": "integer", "minimum": 0}
+      }
+    }
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{0,127}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "path": {"type": "string", "minLength": 1, "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\)(?!.*//).+$"},
+    "artifact": {"type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": {"path": {"$ref": "#/$defs/path"}, "sha256": {"$ref": "#/$defs/sha256"}}}
+  }
+}

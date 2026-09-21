@@ -93,6 +93,17 @@ class Prompt9CliTests(unittest.TestCase):
         report.assert_called_once()
         orchestrate.assert_not_called()
 
+    def test_report_accepts_prepared_manifest_without_orchestrator(self) -> None:
+        result = {"schema_version": 1, "batch_id": "prepared-unit", "status": "READY"}
+        with patch("batch.pilot_cli.generate_final_evidence", return_value=result) as report, patch(
+            "batch.pilot_cli.orchestrate"
+        ) as orchestrate:
+            code = run(["report", "--manifest", "prepared.json"])
+        self.assertEqual(code, 0)
+        self.assertIsNone(report.call_args.kwargs["config_path"])
+        self.assertEqual(report.call_args.kwargs["manifest_path"], Path("prepared.json").resolve())
+        orchestrate.assert_not_called()
+
 
 class Prompt9ProductionPackageTests(unittest.TestCase):
     FINAL = BENCH / "batch/runs/scrapy-3pr-both-pilot-v1/final"

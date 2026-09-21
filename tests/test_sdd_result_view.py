@@ -10,6 +10,7 @@ BENCH = ROOT / "sdd-bench/scrapy-sdd"
 sys.path.insert(0, str(BENCH))
 
 from batch.core import canonical_sha256, sha256_file
+from batch.orchestrator import target_key, validate_prepared_manifest
 from batch.result_view import build, load
 
 
@@ -27,6 +28,18 @@ class HistoricalResultViewTests(unittest.TestCase):
         self.assertEqual(len(value["targets"]), len(set(value["targets"])))
         self.assertEqual(len({row["target_id"] for row in value["targets"].values()}), 27)
         self.assertTrue(all(row["seal"] for row in value["targets"].values()))
+
+    def test_p2_targets_map_uniquely_to_p3_ledger_keys(self) -> None:
+        manifest = BENCH / "docs/refactor/simulation-3pr/prepared-manifest.json"
+        config, targets = validate_prepared_manifest(manifest, BENCH, ROOT)
+        keys = [target_key(target) for target in targets]
+        ids = [target["target_id"] for target in targets]
+        self.assertEqual((len(targets), len(set(keys)), len(set(ids))), (27, 27, 27))
+        self.assertEqual(config["evaluation"]["kind"], "host-plan")
+        self.assertEqual(
+            config["source_batch"]["path"],
+            "sdd-bench/scrapy-sdd/batch/pilot/scrapy-3pr-both-pilot-v1.json",
+        )
 
     def test_detect_only_partial_failure_view_matches_p0(self) -> None:
         value = self.view("scrapy-20pr-detect-v1")
