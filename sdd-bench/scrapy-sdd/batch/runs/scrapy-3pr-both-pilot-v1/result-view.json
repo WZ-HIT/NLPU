@@ -1,0 +1,654 @@
+{
+  "schema_version": 1,
+  "view_type": "TARGET_RESULT_VIEW",
+  "batch_id": "scrapy-3pr-both-pilot-v1",
+  "prepared_id": null,
+  "experiment_id": null,
+  "source": {
+    "type": "batch-config",
+    "path": "sdd-bench/scrapy-sdd/batch/pilot/scrapy-3pr-both-pilot-v1.json",
+    "sha256": "0edcc137078c8588e35455d3f21d71faf0c4765c13132fdfcefadc9d6603af87"
+  },
+  "ledger": {
+    "path": "sdd-bench/scrapy-sdd/batch/runs/scrapy-3pr-both-pilot-v1/ledger.jsonl",
+    "sha256": "9d315da6083257ddf750d0dcda3c6f4a6d92f2fc6e6a5a9b8b16852e44dee05e",
+    "event_count": 204,
+    "chain_tip_sha256": "491e9ab96293c3cc0c18e65ce8c0b1b4af1150212b21ed0603b5f29cf0a14d44"
+  },
+  "counts": {
+    "target_count": 27,
+    "detect_count": 9,
+    "update_count": 18,
+    "terminal_count": 27,
+    "states": {
+      "DETECT_SEALED": 9,
+      "UPDATE_SEALED": 18
+    }
+  },
+  "target_order": [
+    "scrapy__scrapy__pr8064:openspec:detect:openspec-detect-001:none",
+    "scrapy__scrapy__pr8064:openspec:update:openspec-sealed-001:sealed-detect",
+    "scrapy__scrapy__pr8064:openspec:update:openspec-self-001:self-directed",
+    "scrapy__scrapy__pr8064:speckit:detect:speckit-detect-001:none",
+    "scrapy__scrapy__pr8064:speckit:update:speckit-sealed-001:sealed-detect",
+    "scrapy__scrapy__pr8064:speckit:update:speckit-self-001:self-directed",
+    "scrapy__scrapy__pr8064:cc-sdd:detect:cc-sdd-detect-001:none",
+    "scrapy__scrapy__pr8064:cc-sdd:update:cc-sdd-sealed-001:sealed-detect",
+    "scrapy__scrapy__pr8064:cc-sdd:update:cc-sdd-self-001:self-directed",
+    "scrapy__scrapy__pr8067:openspec:detect:openspec-detect-001:none",
+    "scrapy__scrapy__pr8067:openspec:update:openspec-sealed-001:sealed-detect",
+    "scrapy__scrapy__pr8067:openspec:update:openspec-self-001:self-directed",
+    "scrapy__scrapy__pr8067:speckit:detect:speckit-detect-001:none",
+    "scrapy__scrapy__pr8067:speckit:update:speckit-sealed-001:sealed-detect",
+    "scrapy__scrapy__pr8067:speckit:update:speckit-self-001:self-directed",
+    "scrapy__scrapy__pr8067:cc-sdd:detect:cc-sdd-detect-001:none",
+    "scrapy__scrapy__pr8067:cc-sdd:update:cc-sdd-sealed-001:sealed-detect",
+    "scrapy__scrapy__pr8067:cc-sdd:update:cc-sdd-self-001:self-directed",
+    "scrapy__scrapy__pr8073:openspec:detect:openspec-detect-001:none",
+    "scrapy__scrapy__pr8073:openspec:update:openspec-sealed-001:sealed-detect",
+    "scrapy__scrapy__pr8073:openspec:update:openspec-self-001:self-directed",
+    "scrapy__scrapy__pr8073:speckit:detect:speckit-detect-001:none",
+    "scrapy__scrapy__pr8073:speckit:update:speckit-sealed-001:sealed-detect",
+    "scrapy__scrapy__pr8073:speckit:update:speckit-self-001:self-directed",
+    "scrapy__scrapy__pr8073:cc-sdd:detect:cc-sdd-detect-001:none",
+    "scrapy__scrapy__pr8073:cc-sdd:update:cc-sdd-sealed-001:sealed-detect",
+    "scrapy__scrapy__pr8073:cc-sdd:update:cc-sdd-self-001:self-directed"
+  ],
+  "targets": {
+    "scrapy__scrapy__pr8064:openspec:detect:openspec-detect-001:none": {
+      "target_key": "scrapy__scrapy__pr8064:openspec:detect:openspec-detect-001:none",
+      "target_id": "target-5dbd2468d7b7f277d416b7ce",
+      "task_id": "scrapy__scrapy__pr8064",
+      "pr_id": 8064,
+      "title": "Fix open_in_browser ReDoS test flakiness and a broken exploit input",
+      "method": "openspec",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "openspec-detect-001",
+      "state": "DETECT_SEALED",
+      "attempt": 4,
+      "ledger_event": {
+        "sequence": 78,
+        "event_sha256": "40e7f7f1ec518229972e1e7e95f5af6232b0b2450f81081ed04cfd1da658584f"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/detect/executions/openspec-detect-001/attempt-4",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/detect/executions/openspec-detect-001/attempt-4/seal.json",
+        "sha256": "7357053decd62ca9bb7995cb3c12d787a2c90aeb49e6095edc11f8627ae00408"
+      }
+    },
+    "scrapy__scrapy__pr8064:openspec:update:openspec-sealed-001:sealed-detect": {
+      "target_key": "scrapy__scrapy__pr8064:openspec:update:openspec-sealed-001:sealed-detect",
+      "target_id": "target-f4e75111dd4c8d6755522392",
+      "task_id": "scrapy__scrapy__pr8064",
+      "pr_id": 8064,
+      "title": "Fix open_in_browser ReDoS test flakiness and a broken exploit input",
+      "method": "openspec",
+      "stage": "update",
+      "mode": "sealed-detect",
+      "run_id": "openspec-sealed-001",
+      "state": "UPDATE_SEALED",
+      "attempt": 2,
+      "ledger_event": {
+        "sequence": 144,
+        "event_sha256": "e7607428c26ffc6cc75422bcf74bfca6069993172123cd53f3e27eda604594bc"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/update/executions/openspec-sealed-001/attempt-2/mode-sealed-detect",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/update/executions/openspec-sealed-001/attempt-2/mode-sealed-detect/seal.json",
+        "sha256": "4d440243b8893f24c72c26c47c8393ccd67d1981aba42b32a4a0613765e13d83"
+      }
+    },
+    "scrapy__scrapy__pr8064:openspec:update:openspec-self-001:self-directed": {
+      "target_key": "scrapy__scrapy__pr8064:openspec:update:openspec-self-001:self-directed",
+      "target_id": "target-e44227ae8c88ba18edb7c9c0",
+      "task_id": "scrapy__scrapy__pr8064",
+      "pr_id": 8064,
+      "title": "Fix open_in_browser ReDoS test flakiness and a broken exploit input",
+      "method": "openspec",
+      "stage": "update",
+      "mode": "self-directed",
+      "run_id": "openspec-self-001",
+      "state": "UPDATE_SEALED",
+      "attempt": 2,
+      "ledger_event": {
+        "sequence": 148,
+        "event_sha256": "dc57685d25f25be5aaf4db720165ca65f9b6718a04e5c58513f286e3af910845"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/update/executions/openspec-self-001/attempt-2/mode-self-directed",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/openspec/update/executions/openspec-self-001/attempt-2/mode-self-directed/seal.json",
+        "sha256": "6e742459b6eed47a652aaef44faae8356511b3f469ddd0ec51d5ab1ec662a26d"
+      }
+    },
+    "scrapy__scrapy__pr8064:speckit:detect:speckit-detect-001:none": {
+      "target_key": "scrapy__scrapy__pr8064:speckit:detect:speckit-detect-001:none",
+      "target_id": "target-3733931b1fcab12af6be4ddf",
+      "task_id": "scrapy__scrapy__pr8064",
+      "pr_id": 8064,
+      "title": "Fix open_in_browser ReDoS test flakiness and a broken exploit input",
+      "method": "speckit",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "speckit-detect-001",
+      "state": "DETECT_SEALED",
+      "attempt": 3,
+      "ledger_event": {
+        "sequence": 84,
+        "event_sha256": "2143a347372832370821c64545fd38fe04d06350e283179f409e76ca93d97403"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/speckit/detect/executions/speckit-detect-001/attempt-3",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/speckit/detect/executions/speckit-detect-001/attempt-3/seal.json",
+        "sha256": "06b54794e8463f3af98e912693f643623c92a9bb34085e4d79402a7a031f2dc8"
+      }
+    },
+    "scrapy__scrapy__pr8064:speckit:update:speckit-sealed-001:sealed-detect": {
+      "target_key": "scrapy__scrapy__pr8064:speckit:update:speckit-sealed-001:sealed-detect",
+      "target_id": "target-be3301b618f248b865a6cb8d",
+      "task_id": "scrapy__scrapy__pr8064",
+      "pr_id": 8064,
+      "title": "Fix open_in_browser ReDoS test flakiness and a broken exploit input",
+      "method": "speckit",
+      "stage": "update",
+      "mode": "sealed-detect",
+      "run_id": "speckit-sealed-001",
+      "state": "UPDATE_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 152,
+        "event_sha256": "afe992f7577fff24978c19dbd9788ea78c1183beb1d6a88c3ed444f0820eb794"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/speckit/update/executions/speckit-sealed-001/attempt-1/mode-sealed-detect",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/speckit/update/executions/speckit-sealed-001/attempt-1/mode-sealed-detect/seal.json",
+        "sha256": "a672ef0de5df966a2a6f0cbb9a24403eea798f59a24a73b8bb5db1420d057754"
+      }
+    },
+    "scrapy__scrapy__pr8064:speckit:update:speckit-self-001:self-directed": {
+      "target_key": "scrapy__scrapy__pr8064:speckit:update:speckit-self-001:self-directed",
+      "target_id": "target-e5badf595204bc069905e76c",
+      "task_id": "scrapy__scrapy__pr8064",
+      "pr_id": 8064,
+      "title": "Fix open_in_browser ReDoS test flakiness and a broken exploit input",
+      "method": "speckit",
+      "stage": "update",
+      "mode": "self-directed",
+      "run_id": "speckit-self-001",
+      "state": "UPDATE_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 156,
+        "event_sha256": "645abdc3379fa6efd377f357b98344faf4de55239a2d2084c918e5e32b340941"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/speckit/update/executions/speckit-self-001/attempt-1/mode-self-directed",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/speckit/update/executions/speckit-self-001/attempt-1/mode-self-directed/seal.json",
+        "sha256": "ba452c35e0aeb529d4ad2944c16795b249d1888941c6f2c972ac14cc5745109a"
+      }
+    },
+    "scrapy__scrapy__pr8064:cc-sdd:detect:cc-sdd-detect-001:none": {
+      "target_key": "scrapy__scrapy__pr8064:cc-sdd:detect:cc-sdd-detect-001:none",
+      "target_id": "target-25659c42ebea10d903f5baac",
+      "task_id": "scrapy__scrapy__pr8064",
+      "pr_id": 8064,
+      "title": "Fix open_in_browser ReDoS test flakiness and a broken exploit input",
+      "method": "cc-sdd",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "cc-sdd-detect-001",
+      "state": "DETECT_SEALED",
+      "attempt": 3,
+      "ledger_event": {
+        "sequence": 37,
+        "event_sha256": "ca800fc30e0e3c92d9771ad6762413fa435f1177164efffe8a709c584ba7f1d1"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/detect/executions/cc-sdd-detect-001/attempt-3",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/detect/executions/cc-sdd-detect-001/attempt-3/seal.json",
+        "sha256": "64443b18f1af2ecaa7b045ba643e547c34f5b4e2f158c315b94e976974874079"
+      }
+    },
+    "scrapy__scrapy__pr8064:cc-sdd:update:cc-sdd-sealed-001:sealed-detect": {
+      "target_key": "scrapy__scrapy__pr8064:cc-sdd:update:cc-sdd-sealed-001:sealed-detect",
+      "target_id": "target-1d2243f62acf1137ab16db42",
+      "task_id": "scrapy__scrapy__pr8064",
+      "pr_id": 8064,
+      "title": "Fix open_in_browser ReDoS test flakiness and a broken exploit input",
+      "method": "cc-sdd",
+      "stage": "update",
+      "mode": "sealed-detect",
+      "run_id": "cc-sdd-sealed-001",
+      "state": "UPDATE_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 128,
+        "event_sha256": "de94e28f9a8c1d3da7ee77f2d7135a5f4e27d371cc0240b2e423338401debdf9"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/update/executions/cc-sdd-sealed-001/attempt-1/mode-sealed-detect",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/update/executions/cc-sdd-sealed-001/attempt-1/mode-sealed-detect/seal.json",
+        "sha256": "323e312f9d52c348f175eb59bb39f63f4040d73f3bba0be043d82c53cadc217b"
+      }
+    },
+    "scrapy__scrapy__pr8064:cc-sdd:update:cc-sdd-self-001:self-directed": {
+      "target_key": "scrapy__scrapy__pr8064:cc-sdd:update:cc-sdd-self-001:self-directed",
+      "target_id": "target-ac0e18ce1f7902b1c81f6d96",
+      "task_id": "scrapy__scrapy__pr8064",
+      "pr_id": 8064,
+      "title": "Fix open_in_browser ReDoS test flakiness and a broken exploit input",
+      "method": "cc-sdd",
+      "stage": "update",
+      "mode": "self-directed",
+      "run_id": "cc-sdd-self-001",
+      "state": "UPDATE_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 132,
+        "event_sha256": "2a92ee241f243c4c666ed5948c3b7f385aedfd336771dc9eef4dc5d1660ba7f5"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/update/executions/cc-sdd-self-001/attempt-1/mode-self-directed",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8064/runs/cc-sdd/update/executions/cc-sdd-self-001/attempt-1/mode-self-directed/seal.json",
+        "sha256": "0ca34e2224260930f426abc524789a0c78b9aa42c69dc3c8bb6e691503140261"
+      }
+    },
+    "scrapy__scrapy__pr8067:openspec:detect:openspec-detect-001:none": {
+      "target_key": "scrapy__scrapy__pr8067:openspec:detect:openspec-detect-001:none",
+      "target_id": "target-29969507163cbc0cd7e2f69a",
+      "task_id": "scrapy__scrapy__pr8067",
+      "pr_id": 8067,
+      "title": "Support non-text responses in open_in_browser via Content-Type",
+      "method": "openspec",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "openspec-detect-001",
+      "state": "DETECT_SEALED",
+      "attempt": 2,
+      "ledger_event": {
+        "sequence": 89,
+        "event_sha256": "ae3410b243e5b7bae1125478146777d7bdea396eb0eafb50c778d22f0dff9bc9"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/openspec/detect/executions/openspec-detect-001/attempt-2",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/openspec/detect/executions/openspec-detect-001/attempt-2/seal.json",
+        "sha256": "9ac423a63a22e03b84f2d9cbdfbe79945158977047fc5aa9d4efc6a5495ca592"
+      }
+    },
+    "scrapy__scrapy__pr8067:openspec:update:openspec-sealed-001:sealed-detect": {
+      "target_key": "scrapy__scrapy__pr8067:openspec:update:openspec-sealed-001:sealed-detect",
+      "target_id": "target-8d86e36db85b312ef5fbaf90",
+      "task_id": "scrapy__scrapy__pr8067",
+      "pr_id": 8067,
+      "title": "Support non-text responses in open_in_browser via Content-Type",
+      "method": "openspec",
+      "stage": "update",
+      "mode": "sealed-detect",
+      "run_id": "openspec-sealed-001",
+      "state": "UPDATE_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 168,
+        "event_sha256": "eb03e63ccf282a740f71e034276c60df1fe8b93e7d8acdb179b11d1b0747803e"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/openspec/update/executions/openspec-sealed-001/attempt-1/mode-sealed-detect",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/openspec/update/executions/openspec-sealed-001/attempt-1/mode-sealed-detect/seal.json",
+        "sha256": "f2ae5095fde2a5a7e2cd500fb0236b1f6d5f30a6b7c7692adc015288b5148002"
+      }
+    },
+    "scrapy__scrapy__pr8067:openspec:update:openspec-self-001:self-directed": {
+      "target_key": "scrapy__scrapy__pr8067:openspec:update:openspec-self-001:self-directed",
+      "target_id": "target-c226377ae1adc70a07cb2092",
+      "task_id": "scrapy__scrapy__pr8067",
+      "pr_id": 8067,
+      "title": "Support non-text responses in open_in_browser via Content-Type",
+      "method": "openspec",
+      "stage": "update",
+      "mode": "self-directed",
+      "run_id": "openspec-self-001",
+      "state": "UPDATE_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 172,
+        "event_sha256": "3b05416776c94b411dd086e9d6663d57533ef6f620f3c7cd1458918a7b464c83"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/openspec/update/executions/openspec-self-001/attempt-1/mode-self-directed",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/openspec/update/executions/openspec-self-001/attempt-1/mode-self-directed/seal.json",
+        "sha256": "d50fb967cd455c1e72458a6971e224be9fe13c385dd6cf3651340d3c5eb346e7"
+      }
+    },
+    "scrapy__scrapy__pr8067:speckit:detect:speckit-detect-001:none": {
+      "target_key": "scrapy__scrapy__pr8067:speckit:detect:speckit-detect-001:none",
+      "target_id": "target-3b4a013a3c808ce130e7d88c",
+      "task_id": "scrapy__scrapy__pr8067",
+      "pr_id": 8067,
+      "title": "Support non-text responses in open_in_browser via Content-Type",
+      "method": "speckit",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "speckit-detect-001",
+      "state": "DETECT_SEALED",
+      "attempt": 3,
+      "ledger_event": {
+        "sequence": 106,
+        "event_sha256": "c6c577d1286a2a7d8a231478cfc440389d2d9188abfe0f64d3a268aac66f270b"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/speckit/detect/executions/speckit-detect-001/attempt-3",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/speckit/detect/executions/speckit-detect-001/attempt-3/seal.json",
+        "sha256": "a0ff50ea2e9a9b8de8accf8da69419387f67ffd776f2dc9e625ecd90eeb2647d"
+      }
+    },
+    "scrapy__scrapy__pr8067:speckit:update:speckit-sealed-001:sealed-detect": {
+      "target_key": "scrapy__scrapy__pr8067:speckit:update:speckit-sealed-001:sealed-detect",
+      "target_id": "target-522590568c9cabd9437a0db8",
+      "task_id": "scrapy__scrapy__pr8067",
+      "pr_id": 8067,
+      "title": "Support non-text responses in open_in_browser via Content-Type",
+      "method": "speckit",
+      "stage": "update",
+      "mode": "sealed-detect",
+      "run_id": "speckit-sealed-001",
+      "state": "UPDATE_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 176,
+        "event_sha256": "f1b4da9c0769da6d9b8f234e468f84d476e069f8e192c3726faf3daab3ea1fcb"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/speckit/update/executions/speckit-sealed-001/attempt-1/mode-sealed-detect",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/speckit/update/executions/speckit-sealed-001/attempt-1/mode-sealed-detect/seal.json",
+        "sha256": "a56e7f328e7d6e97077c93e34db41cbe1e91a7d8eb6fda4b2c789794035c7764"
+      }
+    },
+    "scrapy__scrapy__pr8067:speckit:update:speckit-self-001:self-directed": {
+      "target_key": "scrapy__scrapy__pr8067:speckit:update:speckit-self-001:self-directed",
+      "target_id": "target-317a69e8d9f8a36087b0626a",
+      "task_id": "scrapy__scrapy__pr8067",
+      "pr_id": 8067,
+      "title": "Support non-text responses in open_in_browser via Content-Type",
+      "method": "speckit",
+      "stage": "update",
+      "mode": "self-directed",
+      "run_id": "speckit-self-001",
+      "state": "UPDATE_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 180,
+        "event_sha256": "68e17e842543a943eb2793d740e74fe7ea98434055a7204b3763f583ff3ff758"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/speckit/update/executions/speckit-self-001/attempt-1/mode-self-directed",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/speckit/update/executions/speckit-self-001/attempt-1/mode-self-directed/seal.json",
+        "sha256": "a6f9aeb58426d0cc9d76707e06dc3b02a0d26a0c7226b04aecdb798015bfb75e"
+      }
+    },
+    "scrapy__scrapy__pr8067:cc-sdd:detect:cc-sdd-detect-001:none": {
+      "target_key": "scrapy__scrapy__pr8067:cc-sdd:detect:cc-sdd-detect-001:none",
+      "target_id": "target-771ae787b41457dfcf051d8d",
+      "task_id": "scrapy__scrapy__pr8067",
+      "pr_id": 8067,
+      "title": "Support non-text responses in open_in_browser via Content-Type",
+      "method": "cc-sdd",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "cc-sdd-detect-001",
+      "state": "DETECT_SEALED",
+      "attempt": 2,
+      "ledger_event": {
+        "sequence": 50,
+        "event_sha256": "d544a59ccfcb82c88ea3ac75bcb050a541bd9a6634ecc4175e2fa1917438c88d"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/cc-sdd/detect/executions/cc-sdd-detect-001/attempt-2",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/cc-sdd/detect/executions/cc-sdd-detect-001/attempt-2/seal.json",
+        "sha256": "d91a4cc345914bf368eb77d3062017bde206582f618608527eacdadfd8f06c47"
+      }
+    },
+    "scrapy__scrapy__pr8067:cc-sdd:update:cc-sdd-sealed-001:sealed-detect": {
+      "target_key": "scrapy__scrapy__pr8067:cc-sdd:update:cc-sdd-sealed-001:sealed-detect",
+      "target_id": "target-9aba878074161c784ccf3cf1",
+      "task_id": "scrapy__scrapy__pr8067",
+      "pr_id": 8067,
+      "title": "Support non-text responses in open_in_browser via Content-Type",
+      "method": "cc-sdd",
+      "stage": "update",
+      "mode": "sealed-detect",
+      "run_id": "cc-sdd-sealed-001",
+      "state": "UPDATE_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 160,
+        "event_sha256": "50994ee2410947a0ac06ee6e1e02ea88a0cfa4de437dc6af8748b83da4a65643"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/cc-sdd/update/executions/cc-sdd-sealed-001/attempt-1/mode-sealed-detect",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/cc-sdd/update/executions/cc-sdd-sealed-001/attempt-1/mode-sealed-detect/seal.json",
+        "sha256": "805082f3e0f4cf719603668a025995112d8baab2a57959d154d9ad83893daf73"
+      }
+    },
+    "scrapy__scrapy__pr8067:cc-sdd:update:cc-sdd-self-001:self-directed": {
+      "target_key": "scrapy__scrapy__pr8067:cc-sdd:update:cc-sdd-self-001:self-directed",
+      "target_id": "target-2fecf2ed52b224ce376e9306",
+      "task_id": "scrapy__scrapy__pr8067",
+      "pr_id": 8067,
+      "title": "Support non-text responses in open_in_browser via Content-Type",
+      "method": "cc-sdd",
+      "stage": "update",
+      "mode": "self-directed",
+      "run_id": "cc-sdd-self-001",
+      "state": "UPDATE_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 164,
+        "event_sha256": "c0aeff37aec4a5e9704e778ffd60f6198e26042a5a6dea0e599b545a8599db00"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/cc-sdd/update/executions/cc-sdd-self-001/attempt-1/mode-self-directed",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8067/runs/cc-sdd/update/executions/cc-sdd-self-001/attempt-1/mode-self-directed/seal.json",
+        "sha256": "8c4c38cb7703548a361df0851e9ec215463a52cecaf3dd04f10936ce59fb6c66"
+      }
+    },
+    "scrapy__scrapy__pr8073:openspec:detect:openspec-detect-001:none": {
+      "target_key": "scrapy__scrapy__pr8073:openspec:detect:openspec-detect-001:none",
+      "target_id": "target-ed140fd18f974663ed2468ac",
+      "task_id": "scrapy__scrapy__pr8073",
+      "pr_id": 8073,
+      "title": "Re-enable tests with DirtyReactorAggregateError comments.",
+      "method": "openspec",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "openspec-detect-001",
+      "state": "DETECT_SEALED",
+      "attempt": 2,
+      "ledger_event": {
+        "sequence": 98,
+        "event_sha256": "d13dbd2d31d27021064d2f5ba70363ab94b92ec2bbdd071288c8e8a0d6ece2a2"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/openspec/detect/executions/openspec-detect-001/attempt-2",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/openspec/detect/executions/openspec-detect-001/attempt-2/seal.json",
+        "sha256": "04addf6f7a6fcaf8d235c95140791da6fe79d2f9cecd9c2de22bf710fa4b1d4b"
+      }
+    },
+    "scrapy__scrapy__pr8073:openspec:update:openspec-sealed-001:sealed-detect": {
+      "target_key": "scrapy__scrapy__pr8073:openspec:update:openspec-sealed-001:sealed-detect",
+      "target_id": "target-b3f49deaa56e4805593b7a62",
+      "task_id": "scrapy__scrapy__pr8073",
+      "pr_id": 8073,
+      "title": "Re-enable tests with DirtyReactorAggregateError comments.",
+      "method": "openspec",
+      "stage": "update",
+      "mode": "sealed-detect",
+      "run_id": "openspec-sealed-001",
+      "state": "UPDATE_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 192,
+        "event_sha256": "226a78119a6fb272cf94f273b9f35bb42de055a9717e4c0eb0257f0057ab7052"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/openspec/update/executions/openspec-sealed-001/attempt-1/mode-sealed-detect",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/openspec/update/executions/openspec-sealed-001/attempt-1/mode-sealed-detect/seal.json",
+        "sha256": "a926e0a8dfb36d36b32f43a188a50847c121fef08b2b17c4438cfd82d9da8f04"
+      }
+    },
+    "scrapy__scrapy__pr8073:openspec:update:openspec-self-001:self-directed": {
+      "target_key": "scrapy__scrapy__pr8073:openspec:update:openspec-self-001:self-directed",
+      "target_id": "target-5f2f51f6890ebdb74d4f276d",
+      "task_id": "scrapy__scrapy__pr8073",
+      "pr_id": 8073,
+      "title": "Re-enable tests with DirtyReactorAggregateError comments.",
+      "method": "openspec",
+      "stage": "update",
+      "mode": "self-directed",
+      "run_id": "openspec-self-001",
+      "state": "UPDATE_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 196,
+        "event_sha256": "6c60d547ac344dcda47cda4aa08b4a46b641ee46135a78be98d54888121ea0aa"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/openspec/update/executions/openspec-self-001/attempt-1/mode-self-directed",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/openspec/update/executions/openspec-self-001/attempt-1/mode-self-directed/seal.json",
+        "sha256": "1988dd219a77e3268dc7e21e938136f6db6143fcad7a69d20ac4dd44e411f8a5"
+      }
+    },
+    "scrapy__scrapy__pr8073:speckit:detect:speckit-detect-001:none": {
+      "target_key": "scrapy__scrapy__pr8073:speckit:detect:speckit-detect-001:none",
+      "target_id": "target-d967d0f94082f6412a21ad73",
+      "task_id": "scrapy__scrapy__pr8073",
+      "pr_id": 8073,
+      "title": "Re-enable tests with DirtyReactorAggregateError comments.",
+      "method": "speckit",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "speckit-detect-001",
+      "state": "DETECT_SEALED",
+      "attempt": 2,
+      "ledger_event": {
+        "sequence": 102,
+        "event_sha256": "7f489dcff2254638347cbf5da5ff9f236a8e02d818ea93bcef43396365fd46f5"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/speckit/detect/executions/speckit-detect-001/attempt-2",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/speckit/detect/executions/speckit-detect-001/attempt-2/seal.json",
+        "sha256": "e08d21a7179000d7a28b6a344a244defec076b9ed0bcdc92a88695fa61b17445"
+      }
+    },
+    "scrapy__scrapy__pr8073:speckit:update:speckit-sealed-001:sealed-detect": {
+      "target_key": "scrapy__scrapy__pr8073:speckit:update:speckit-sealed-001:sealed-detect",
+      "target_id": "target-b2be86e74dd7c26ae163bafb",
+      "task_id": "scrapy__scrapy__pr8073",
+      "pr_id": 8073,
+      "title": "Re-enable tests with DirtyReactorAggregateError comments.",
+      "method": "speckit",
+      "stage": "update",
+      "mode": "sealed-detect",
+      "run_id": "speckit-sealed-001",
+      "state": "UPDATE_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 200,
+        "event_sha256": "eac65a9931e73d9aa93c157b5b7c10ffe3485912473471e6650087fb421ac8b8"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/speckit/update/executions/speckit-sealed-001/attempt-1/mode-sealed-detect",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/speckit/update/executions/speckit-sealed-001/attempt-1/mode-sealed-detect/seal.json",
+        "sha256": "0111d4b1bc1a4762426c73235bc67cbf37cb47a4abad3748b9d04cd7d6504039"
+      }
+    },
+    "scrapy__scrapy__pr8073:speckit:update:speckit-self-001:self-directed": {
+      "target_key": "scrapy__scrapy__pr8073:speckit:update:speckit-self-001:self-directed",
+      "target_id": "target-36a5d838061bc84f5d65f1f7",
+      "task_id": "scrapy__scrapy__pr8073",
+      "pr_id": 8073,
+      "title": "Re-enable tests with DirtyReactorAggregateError comments.",
+      "method": "speckit",
+      "stage": "update",
+      "mode": "self-directed",
+      "run_id": "speckit-self-001",
+      "state": "UPDATE_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 204,
+        "event_sha256": "491e9ab96293c3cc0c18e65ce8c0b1b4af1150212b21ed0603b5f29cf0a14d44"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/speckit/update/executions/speckit-self-001/attempt-1/mode-self-directed",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/speckit/update/executions/speckit-self-001/attempt-1/mode-self-directed/seal.json",
+        "sha256": "42c33fda2a1e354f70828571236192cb3a834ef42b2cd07c897c40cd660cb68f"
+      }
+    },
+    "scrapy__scrapy__pr8073:cc-sdd:detect:cc-sdd-detect-001:none": {
+      "target_key": "scrapy__scrapy__pr8073:cc-sdd:detect:cc-sdd-detect-001:none",
+      "target_id": "target-5737114812400c23d47bf513",
+      "task_id": "scrapy__scrapy__pr8073",
+      "pr_id": 8073,
+      "title": "Re-enable tests with DirtyReactorAggregateError comments.",
+      "method": "cc-sdd",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "cc-sdd-detect-001",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 62,
+        "event_sha256": "f4143e9a185885dc3dc6f34fb6368b6324774896f8103be733a1092f4a1d7f4e"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/cc-sdd/detect/executions/cc-sdd-detect-001/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/cc-sdd/detect/executions/cc-sdd-detect-001/attempt-1/seal.json",
+        "sha256": "1b1b3b20fcfb1e982151d5c0bba86f7653db0a4e4e9b435100cb3e2229401c0b"
+      }
+    },
+    "scrapy__scrapy__pr8073:cc-sdd:update:cc-sdd-sealed-001:sealed-detect": {
+      "target_key": "scrapy__scrapy__pr8073:cc-sdd:update:cc-sdd-sealed-001:sealed-detect",
+      "target_id": "target-04571e8ca673d295b8dc8fe3",
+      "task_id": "scrapy__scrapy__pr8073",
+      "pr_id": 8073,
+      "title": "Re-enable tests with DirtyReactorAggregateError comments.",
+      "method": "cc-sdd",
+      "stage": "update",
+      "mode": "sealed-detect",
+      "run_id": "cc-sdd-sealed-001",
+      "state": "UPDATE_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 184,
+        "event_sha256": "e0745549a8dc530b4a514b4df5d48600ada3d608b3fd68ef06e5da85ebc3d57c"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/cc-sdd/update/executions/cc-sdd-sealed-001/attempt-1/mode-sealed-detect",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/cc-sdd/update/executions/cc-sdd-sealed-001/attempt-1/mode-sealed-detect/seal.json",
+        "sha256": "6aca8e62a0e3e3c8c62ce73453b0ff2b2b88ec24f113df38953116f8eca252fb"
+      }
+    },
+    "scrapy__scrapy__pr8073:cc-sdd:update:cc-sdd-self-001:self-directed": {
+      "target_key": "scrapy__scrapy__pr8073:cc-sdd:update:cc-sdd-self-001:self-directed",
+      "target_id": "target-98844b873e6923b73ce17f87",
+      "task_id": "scrapy__scrapy__pr8073",
+      "pr_id": 8073,
+      "title": "Re-enable tests with DirtyReactorAggregateError comments.",
+      "method": "cc-sdd",
+      "stage": "update",
+      "mode": "self-directed",
+      "run_id": "cc-sdd-self-001",
+      "state": "UPDATE_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 188,
+        "event_sha256": "e2724b3b6e46e69474d29c9f74ecc946cfa0a41bb51d4c764ae555e45af1ffcd"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/cc-sdd/update/executions/cc-sdd-self-001/attempt-1/mode-self-directed",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8073/runs/cc-sdd/update/executions/cc-sdd-self-001/attempt-1/mode-self-directed/seal.json",
+        "sha256": "23c0e447df1378625cdb7973020030df1615fd93db1620e9d4111c41241474f5"
+      }
+    }
+  },
+  "view_sha256": "f7a5d78098b21a2b7cfe856fc7717e72f8376459a82f403f544e483d9824f6bf"
+}

@@ -516,7 +516,7 @@ class DetectMetricsDocumentTests(unittest.TestCase):
             self.assertEqual(json.dumps(fixture.compute(), sort_keys=True),
                              json.dumps(fixture.compute(), sort_keys=True))
 
-    def test_a_resume_event_changes_the_ledger_bytes_but_not_the_metrics(self) -> None:
+    def test_a_resume_event_changes_the_v2_evidence_binding_but_not_scores(self) -> None:
         with tempfile.TemporaryDirectory(prefix="sdd-detect-metrics-") as temporary:
             fixture = MetricsFixture(Path(temporary), methods=("openspec", "speckit"))
             fixture.seal_detect("openspec")
@@ -528,8 +528,8 @@ class DetectMetricsDocumentTests(unittest.TestCase):
             fixture._append("speckit", "SKIPPED_RESUME", 2)
 
             self.assertNotEqual(ledger_before, (fixture.run_root / "ledger.jsonl").read_bytes())
-            self.assertEqual(before, canonical_sha256(fixture.compute()))
-            self.assertNotIn("ledger", json.dumps(fixture.compute()))
+            self.assertNotEqual(before, canonical_sha256(fixture.compute()))
+            self.assertTrue(all("ledger_event" in row for row in fixture.compute()["rows"]))
 
     def test_the_recorded_document_satisfies_its_schema(self) -> None:
         with tempfile.TemporaryDirectory(prefix="sdd-detect-metrics-") as temporary:
@@ -542,7 +542,7 @@ class DetectMetricsDocumentTests(unittest.TestCase):
 
             self.assertEqual(result["status"], "OK")
             detect_metrics._schema_validate(
-                recorded, fixture.bench / "schemas/detect-metrics-v1.schema.json"
+                recorded, fixture.bench / "schemas/detect-metrics-v2.schema.json"
             )
             self.assertEqual(
                 recorded["metric_set_sha256"],
@@ -870,7 +870,7 @@ class DetectMetricsRollupTests(unittest.TestCase):
             )
 
             detect_metrics._schema_validate(
-                recorded, fixture.bench / "schemas/detect-metrics-rollup-v1.schema.json"
+                recorded, fixture.bench / "schemas/detect-metrics-rollup-v2.schema.json"
             )
             self.assertEqual(
                 recorded["metric_set_sha256"],
@@ -885,9 +885,9 @@ class DetectMetricsRollupTests(unittest.TestCase):
         the two schemas must agree on what a row is. This asserts on the real
         bench's schemas, not the fixture's, because the fixture copies them.
         """
-        batch = json.loads((BENCH / "schemas/detect-metrics-v1.schema.json").read_text(encoding="utf-8"))
+        batch = json.loads((BENCH / "schemas/detect-metrics-v2.schema.json").read_text(encoding="utf-8"))
         rollup = json.loads(
-            (BENCH / "schemas/detect-metrics-rollup-v1.schema.json").read_text(encoding="utf-8")
+            (BENCH / "schemas/detect-metrics-rollup-v2.schema.json").read_text(encoding="utf-8")
         )
 
         for name in ("id", "sha256", "pathList", "row", "metrics", "method"):

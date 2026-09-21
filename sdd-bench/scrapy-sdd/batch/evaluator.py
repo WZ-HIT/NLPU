@@ -25,6 +25,7 @@ from jsonschema import Draft202012Validator, FormatChecker
 
 from .core import BatchError, canonical_sha256, sha256_file
 from .orchestrator import Ledger, _latest, target_key, validate_batch_config
+from .result_view import build as build_result_view, target_id as canonical_target_id
 from .reporting import (
     Evidence,
     ReportingError,
@@ -116,7 +117,7 @@ def _opaque_id(evaluation_id: str, kind: str, identity: str) -> str:
 
 
 def _target_id(target: dict[str, Any]) -> str:
-    return hashlib.sha256(target_key(target).encode("utf-8")).hexdigest()[:24]
+    return canonical_target_id(target)
 
 
 def _patch_paths_in_order(text: str) -> list[str]:
@@ -409,10 +410,11 @@ def _verify_sealed_batch(
 ) -> tuple[dict[str, Any], list[dict[str, Any]], dict[str, dict[str, Any]], dict[tuple[str, str], dict[str, Any]], dict[str, Any], str]:
     """Verify all sealed outputs. This must complete before any gold read."""
     config, targets = validate_batch_config(config_path, bench, repository_root)
+    result_view = build_result_view(config_path, bench, repository_root)
+    if set(result_view["targets"]) != {target_key(item) for item in targets}:
+        raise EvaluationError("TARGET_UNIVERSE_INVALID", "Result view differs from configured targets")
     detect_targets = [item for item in targets if item["stage"] == "detect"]
     update_targets = [item for item in targets if item["stage"] == "update"]
-    if len(targets) != 27 or len(detect_targets) != 9 or len(update_targets) != 18:
-        raise EvaluationError("TARGET_UNIVERSE_INVALID", "Host evaluation requires exactly 9 Detect and 18 Update targets")
     run_root = bench / "batch/runs" / config["batch_id"]
     ledger_path = run_root / "ledger.jsonl"
     ledger_sha = sha256_file(ledger_path)

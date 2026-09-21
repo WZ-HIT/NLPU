@@ -15,6 +15,7 @@ from jsonschema import Draft202012Validator, FormatChecker
 
 from .core import BatchError, canonical_sha256, sha256_file
 from .orchestrator import Ledger, _latest, target_key, validate_batch_config
+from .result_view import build as build_result_view
 
 REPORT_NAMES = ("report.json", "audit.json", "evidence-manifest.json")
 FAILURE_CLASSES = ("infrastructure", "runtime", "output", "scope", "unknown")
@@ -413,7 +414,7 @@ def _aggregates(detect: list[dict[str, Any]], update: list[dict[str, Any]], fail
         updates = [item for item in update_rows if item["task_id"] == row["task_id"] and item["method"] == row["method"]]
         pair_rows.append({
             "classification": row["classification"], "method": row["method"], "configured_pairs": 1,
-            "ready_pairs": int(len(updates) == 2 and all(item["sealed"] for item in updates)),
+            "ready_pairs": int(bool(updates) and all(item["sealed"] for item in updates)),
             "historical_failed_events": row["historical_failed_events"] + sum(item["historical_failed_events"] for item in updates),
         })
     detect_metrics = ("configured", "sealed", "historical_failed_events", "candidate_test_file_count", "planning_artifact_file_count")
@@ -489,8 +490,9 @@ def generate_final_evidence(*, config_path: Path, bench: Path, repository_root: 
     evidence = Evidence(repository_root)
     evidence.add(config_path)
     config, targets = validate_batch_config(config_path, bench, repository_root)
-    if len(targets) != 27 or sum(item["stage"] == "detect" for item in targets) != 9 or sum(item["stage"] == "update" for item in targets) != 18:
-        raise ReportingError("TARGET_UNIVERSE_INVALID", "Final reporting requires exactly 9 Detect and 18 Update targets")
+    result_view = build_result_view(config_path, bench, repository_root)
+    if set(result_view["targets"]) != {target_key(item) for item in targets}:
+        raise ReportingError("TARGET_UNIVERSE_INVALID", "Result view differs from configured targets")
     run_root = bench / "batch/runs" / config["batch_id"]
     ledger_path = run_root / "ledger.jsonl"
     ledger_before = sha256_file(evidence.add(ledger_path))
@@ -516,19 +518,26 @@ def generate_final_evidence(*, config_path: Path, bench: Path, repository_root: 
     audit_targets: list[dict[str, Any]] = []
     for target in sorted(detect_targets, key=target_key):
         record, manifest, checks = _verify_detection(target, latest[target_key(target)], bench, repository_root, evidence)
+        indexed = result_view["targets"][target_key(target)]
+        record.update({"target_id": indexed["target_id"], "ledger_event": indexed["ledger_event"], "seal": indexed["seal"]})
         detect_records.append(record)
         detection_by_pair[(target["task_id"], target["method"])] = manifest
         audit_targets.append({"target": target_key(target), "stage": "detect", "status": "PASS", "checks": checks})
     update_records: list[dict[str, Any]] = []
     for target in sorted(update_targets, key=target_key):
         record, checks = _verify_update(target, latest[target_key(target)], detection_by_pair[(target["task_id"], target["method"])], bench, repository_root, evidence)
+        indexed = result_view["targets"][target_key(target)]
+        record.update({"target_id": indexed["target_id"], "ledger_event": indexed["ledger_event"], "seal": indexed["seal"]})
         update_records.append(record)
         audit_targets.append({"target": target_key(target), "stage": "update", "status": "PASS", "checks": checks})
-    evaluation = evidence.json(run_root / "evaluation-dispatch.json")
-    expected_update_keys = {target_key(target) for target in update_targets}
-    ready_keys = {item.get("target") for item in evaluation.get("targets", []) if item.get("ready") is True}
-    if evaluation.get("status") != "READY" or evaluation.get("evaluation_dispatched") is not False or ready_keys != expected_update_keys:
-        raise ReportingError("EVALUATION_READINESS_INVALID", "Evaluation readiness evidence differs from sealed Update universe")
+    evaluation_ready = False
+    if update_targets:
+        evaluation = evidence.json(run_root / "evaluation-dispatch.json")
+        expected_update_keys = {target_key(target) for target in update_targets}
+        ready_keys = {item.get("target") for item in evaluation.get("targets", []) if item.get("ready") is True}
+        if evaluation.get("status") != "READY" or evaluation.get("evaluation_dispatched") is not False or ready_keys != expected_update_keys:
+            raise ReportingError("EVALUATION_READINESS_INVALID", "Evaluation readiness evidence differs from sealed Update universe")
+        evaluation_ready = True
     target_map = {target_key(target): target for target in targets}
     failures = [_classify_failure(target_map[target_key({
         "task_id": event["target"]["task_id"], "method": event["target"]["method"], "stage": event["target"]["stage"],
@@ -539,16 +548,18 @@ def generate_final_evidence(*, config_path: Path, bench: Path, repository_root: 
     aggregates = _aggregates(detect_records, update_records, failures, classifications)
     legacy_updates = sum(item["sdd_artifacts_status"] == "NOT_CAPTURED_BY_V1_RUNNER" for item in update_records)
     report = {
-        "schema_version": 1, "report_type": "BATCH_FINAL_OPERATIONAL_REPORT", "batch_id": config["batch_id"],
-        "status": "PASS_WITH_LIMITATIONS",
+        "schema_version": 2, "report_type": "BATCH_FINAL_OPERATIONAL_REPORT", "batch_id": config["batch_id"],
+        "result_view_sha256": result_view["view_sha256"], "status": "PASS_WITH_LIMITATIONS",
         "semantics": {
             "operational_metrics_only": True, "correctness_assessed": False, "gold_agreement_assessed": False,
-            "project_tests_run": False, "evaluation_ready": True, "evaluation_dispatched": False,
+            "project_tests_run": False, "evaluation_ready": evaluation_ready, "evaluation_dispatched": False,
         },
         "counts": {
-            "configured_targets": 27, "terminal_sealed_targets": 27, "detect_configured": 9, "detect_sealed": 9,
-            "update_configured": 18, "update_sealed": 18, "sealed_detect_updates": 9,
-            "self_directed_updates": 9, "historical_failed_events": len(failures),
+            "configured_targets": len(targets), "terminal_sealed_targets": len(targets),
+            "detect_configured": len(detect_targets), "detect_sealed": len(detect_records),
+            "update_configured": len(update_targets), "update_sealed": len(update_records),
+            "sealed_detect_updates": sum(item["mode"] == "sealed-detect" for item in update_targets),
+            "self_directed_updates": sum(item["mode"] == "self-directed" for item in update_targets), "historical_failed_events": len(failures),
             "historical_detect_failures": failure_stage_counts["detect"], "historical_update_failures": failure_stage_counts["update"],
             "final_scope_violations": sum(item["scope_violation_count"] for item in update_records),
         },
@@ -592,7 +603,7 @@ def generate_final_evidence(*, config_path: Path, bench: Path, repository_root: 
         "output_files": output_files, "output_file_count": len(output_files), "output_files_sha256": canonical_sha256(output_files),
     }
     manifest["manifest_sha256"] = canonical_sha256(manifest)
-    _validate(report, bench / "schemas/batch-final-report-v1.schema.json", "FINAL_REPORT_SCHEMA_INVALID")
+    _validate(report, bench / "schemas/batch-final-report-v2.schema.json", "FINAL_REPORT_SCHEMA_INVALID")
     _validate(audit, bench / "schemas/batch-final-audit-v1.schema.json", "FINAL_AUDIT_SCHEMA_INVALID")
     _validate(manifest, bench / "schemas/batch-evidence-manifest-v1.schema.json", "EVIDENCE_MANIFEST_SCHEMA_INVALID")
     if sha256_file(ledger_path) != ledger_before:

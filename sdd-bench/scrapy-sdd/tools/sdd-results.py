@@ -61,6 +61,9 @@ class BatchTarget:
     attempt: int | None
     execution: Path | None
     error: str | None = None
+    target_key: str | None = None
+    target_id: str | None = None
+    seal: dict[str, str] | None = None
 
 
 @dataclass(frozen=True)
@@ -85,7 +88,7 @@ def load_json(path: Path) -> dict[str, Any] | None:
     return value if isinstance(value, dict) else None
 
 
-DETECT_METRICS_VERSION = "detect-metrics-v1"
+DETECT_METRICS_VERSION = "detect-metrics-v2"
 
 
 def detect_metrics(bench: Path, batch_id: str) -> dict[str, Any] | None:
@@ -237,6 +240,18 @@ def _discover_batches(bench: Path) -> list[Experiment]:
         previous = found.get(batch_id)
         if previous is None or str(candidate.config_path) < str(previous.config_path):
             found[batch_id] = candidate
+    for view_path in sorted(runs.glob("*/result-view.json")):
+        view = load_json(view_path)
+        if not view or view.get("view_type") != "TARGET_RESULT_VIEW":
+            continue
+        batch_id = view.get("batch_id")
+        source = view.get("source")
+        source_relative = source.get("path") if isinstance(source, dict) else None
+        source_path = _safe_child(bench.parents[1], source_relative) if isinstance(source_relative, str) else None
+        run_root = view_path.parent
+        if not isinstance(batch_id, str) or not SAFE_TASK_ID.fullmatch(batch_id) or source_path is None or not source_path.is_file():
+            continue
+        found[batch_id] = Experiment(batch_id, run_root.resolve(), "batch", view_path.stat().st_mtime, source_kind="batch", config_path=source_path.resolve(), batch_id=batch_id)
     # Expand into per-PR views only after the duplicate-config dedupe above, so a
     # task never gains two cards from two configs describing the same batch.
     expanded: dict[str, Experiment] = {}
@@ -252,6 +267,11 @@ def _discover_batches(bench: Path) -> list[Experiment]:
 def _config_task_ids(config: dict[str, Any] | None) -> list[str]:
     """Task ids eligible for their own card: well-formed and order-preserving deduped."""
     tasks = config.get("tasks") if config else None
+    if not isinstance(tasks, list) and config and config.get("manifest_type") == "PREPARED_EXPERIMENT":
+        targets = config.get("targets")
+        if not isinstance(targets, list):
+            return []
+        return list(dict.fromkeys(item["task_id"] for item in targets if isinstance(item, dict) and isinstance(item.get("task_id"), str) and SAFE_TASK_ID.fullmatch(item["task_id"])))
     if not isinstance(tasks, list):
         return []
     return list(
@@ -343,7 +363,64 @@ def _task_manifest(
     return task, manifest_path, None
 
 
+def _view_targets(exp: Experiment, bench: Path) -> list[BatchTarget] | None:
+    view_path = exp.root / "result-view.json"
+    view = load_json(view_path)
+    if not view or view.get("view_type") != "TARGET_RESULT_VIEW" or view.get("batch_id") != _batch_id(exp):
+        return None
+    payload = dict(view)
+    supplied = payload.pop("view_sha256", None)
+    if supplied != canonical_sha256(payload):
+        return None
+    repository_root = bench.parents[1]
+    for reference in (view.get("source"), view.get("ledger")):
+        if not isinstance(reference, dict):
+            return None
+        relative = reference.get("path")
+        path = _safe_child(repository_root, relative) if isinstance(relative, str) else None
+        if path is None or path.is_symlink() or not path.is_file() or file_sha256(path) != reference.get("sha256"):
+            return None
+    rows = view.get("targets")
+    order = view.get("target_order")
+    if not isinstance(rows, dict) or not isinstance(order, list) or order != list(rows):
+        return None
+    result = []
+    for key in order:
+        row = rows.get(key)
+        if not isinstance(row, dict) or row.get("target_key") != key:
+            return None
+        if exp.task_id_filter is not None and row.get("task_id") != exp.task_id_filter:
+            continue
+        execution = None
+        error = None
+        state = row.get("state", "NOT_RECORDED")
+        relative = row.get("execution_path")
+        if state in TERMINAL_STATES and isinstance(relative, str):
+            candidate = _safe_child(repository_root, relative)
+            seal = row.get("seal")
+            seal_relative = seal.get("path") if isinstance(seal, dict) else None
+            seal_path = _safe_child(repository_root, seal_relative) if isinstance(seal_relative, str) else None
+            if candidate is None or not candidate.is_dir() or candidate.is_symlink():
+                error = "result view execution path is unsafe or missing"
+            elif seal_path is None or seal_path.is_symlink() or not seal_path.is_file() or file_sha256(seal_path) != seal.get("sha256"):
+                error = "result view seal reference is missing or changed"
+            else:
+                execution = candidate
+        elif state not in TERMINAL_STATES:
+            error = f"latest target state is {state}"
+        result.append(BatchTarget(
+            task_id=row.get("task_id", ""), pr_id=row.get("pr_id"), title=row.get("title", ""),
+            method=row.get("method", ""), stage=row.get("stage", ""), run_id=row.get("run_id", ""),
+            mode=row.get("mode"), state=state, attempt=row.get("attempt"), execution=execution, error=error,
+            target_key=key, target_id=row.get("target_id"), seal=row.get("seal"),
+        ))
+    return result
+
+
 def batch_targets(exp: Experiment, bench: Path) -> list[BatchTarget]:
+    indexed = _view_targets(exp, bench)
+    if indexed is not None:
+        return indexed
     if exp.source_kind != "batch" or exp.config_path is None:
         return []
     config = load_json(exp.config_path)

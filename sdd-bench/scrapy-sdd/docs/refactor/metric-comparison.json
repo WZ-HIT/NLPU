@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "batch_id": "scrapy-3pr-detect-v2",
+  "old_metric_definition_version": "detect-metrics-v1",
+  "new_metric_definition_version": "detect-metrics-v2",
+  "old_metric_set_sha256": "38bf76367e9a93ed9ed71d6f05265ad6a266001ace52bd8c62e1b4678792d113",
+  "new_metric_set_sha256": "19b9c057b6dc5350ced28502b2272f619a9044a4165cdd277f1935515a66f35f",
+  "comparable_counts_equal": true,
+  "row_scores_equal": true,
+  "counts": {
+    "target_count": 9,
+    "ok_count": 9,
+    "error_count": 0,
+    "no_gold_count": 0,
+    "scorable_count": 9
+  },
+  "methods": [
+    {"method": "openspec", "a": 4, "b": 8, "hit_rate_micro": 0.5, "recall_micro": 1.0},
+    {"method": "speckit", "a": 4, "b": 6, "hit_rate_micro": 0.6666666666666666, "recall_micro": 1.0},
+    {"method": "cc-sdd", "a": 4, "b": 8, "hit_rate_micro": 0.5, "recall_micro": 1.0}
+  ],
+  "difference": "v2 adds target identity and immutable evidence bindings; score arithmetic is unchanged"
+}

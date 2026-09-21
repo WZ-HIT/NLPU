@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sdd-bench.local/schemas/batch-final-report-v2.schema.json",
+  "title": "Deterministic batch final operational report v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "report_type", "batch_id", "result_view_sha256", "status", "semantics", "counts", "detect_targets", "update_targets", "aggregates", "failures", "limitations", "disclosures", "report_sha256"],
+  "properties": {
+    "schema_version": {"const": 2},
+    "report_type": {"const": "BATCH_FINAL_OPERATIONAL_REPORT"},
+    "batch_id": {"$ref": "#/$defs/id"},
+    "result_view_sha256": {"$ref": "#/$defs/sha256"},
+    "status": {"const": "PASS_WITH_LIMITATIONS"},
+    "semantics": {"$ref": "#/$defs/semantics"},
+    "counts": {"$ref": "#/$defs/counts"},
+    "detect_targets": {"type": "array", "items": {"$ref": "#/$defs/detect"}},
+    "update_targets": {"type": "array", "items": {"$ref": "#/$defs/update"}},
+    "aggregates": {"type": "object"},
+    "failures": {"$ref": "#/$defs/failures"},
+    "limitations": {"type": "array", "minItems": 2, "items": {"$ref": "#/$defs/limitation"}},
+    "disclosures": {"$ref": "#/$defs/disclosures"},
+    "report_sha256": {"$ref": "#/$defs/sha256"}
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._:-]{0,255}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "path": {"type": "string", "minLength": 1, "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\)(?!.*//).+$"},
+    "artifact": {"type": "object", "required": ["path", "sha256"], "properties": {"path": {"$ref": "#/$defs/path"}, "sha256": {"$ref": "#/$defs/sha256"}}},
+    "semantics": {
+      "type": "object", "additionalProperties": false,
+      "required": ["operational_metrics_only", "correctness_assessed", "gold_agreement_assessed", "project_tests_run", "evaluation_ready", "evaluation_dispatched"],
+      "properties": {
+        "operational_metrics_only": {"const": true}, "correctness_assessed": {"const": false},
+        "gold_agreement_assessed": {"const": false}, "project_tests_run": {"const": false},
+        "evaluation_ready": {"type": "boolean"}, "evaluation_dispatched": {"const": false}
+      }
+    },
+    "counts": {
+      "type": "object", "additionalProperties": false,
+      "required": ["configured_targets", "terminal_sealed_targets", "detect_configured", "detect_sealed", "update_configured", "update_sealed", "sealed_detect_updates", "self_directed_updates", "historical_failed_events", "historical_detect_failures", "historical_update_failures", "final_scope_violations"],
+      "properties": {
+        "configured_targets": {"type": "integer", "minimum": 0}, "terminal_sealed_targets": {"type": "integer", "minimum": 0},
+        "detect_configured": {"type": "integer", "minimum": 0}, "detect_sealed": {"type": "integer", "minimum": 0},
+        "update_configured": {"type": "integer", "minimum": 0}, "update_sealed": {"type": "integer", "minimum": 0},
+        "sealed_detect_updates": {"type": "integer", "minimum": 0}, "self_directed_updates": {"type": "integer", "minimum": 0},
+        "historical_failed_events": {"type": "integer", "minimum": 0},
+        "historical_detect_failures": {"type": "integer", "minimum": 0},
+        "historical_update_failures": {"type": "integer", "minimum": 0},
+        "final_scope_violations": {"const": 0}
+      }
+    },
+    "detect": {
+      "type": "object", "additionalProperties": false,
+      "required": ["target", "target_id", "ledger_event", "seal", "task_id", "method", "run_id", "attempt", "status", "candidate_test_file_count", "planning_artifact_file_count", "execution_path"],
+      "properties": {
+        "target": {"$ref": "#/$defs/id"}, "target_id": {"type": "string"}, "ledger_event": {"type": "object"}, "seal": {"$ref": "#/$defs/artifact"}, "task_id": {"$ref": "#/$defs/id"},
+        "method": {"enum": ["openspec", "speckit", "cc-sdd"]}, "run_id": {"$ref": "#/$defs/id"},
+        "attempt": {"type": "integer", "minimum": 1}, "status": {"const": "SEALED"},
+        "candidate_test_file_count": {"type": "integer", "minimum": 0},
+        "planning_artifact_file_count": {"type": "integer", "minimum": 0}, "execution_path": {"$ref": "#/$defs/path"}
+      }
+    },
+    "update": {
+      "type": "object", "additionalProperties": false,
+      "required": ["target", "target_id", "ledger_event", "seal", "task_id", "method", "run_id", "update_mode", "attempt", "status", "modified_test_file_count", "scope_violation_count", "sdd_artifacts_status", "workspace_seal_status", "execution_path"],
+      "properties": {
+        "target": {"$ref": "#/$defs/id"}, "target_id": {"type": "string"}, "ledger_event": {"type": "object"}, "seal": {"$ref": "#/$defs/artifact"}, "task_id": {"$ref": "#/$defs/id"},
+        "method": {"enum": ["openspec", "speckit", "cc-sdd"]}, "run_id": {"$ref": "#/$defs/id"},
+        "update_mode": {"enum": ["sealed-detect", "self-directed"]}, "attempt": {"type": "integer", "minimum": 1},
+        "status": {"const": "SEALED"}, "modified_test_file_count": {"type": "integer", "minimum": 0},
+        "scope_violation_count": {"const": 0},
+        "sdd_artifacts_status": {"enum": ["NOT_CAPTURED_BY_V1_RUNNER", "CAPTURED_EMPTY", "CAPTURED_NONEMPTY"]},
+        "workspace_seal_status": {"const": "EXCLUDED"}, "execution_path": {"$ref": "#/$defs/path"}
+      }
+    },
+    "failures": {
+      "type": "object", "additionalProperties": false, "required": ["taxonomy", "counts", "events"],
+      "properties": {
+        "taxonomy": {"const": ["infrastructure", "runtime", "output", "scope", "unknown"]},
+        "counts": {
+          "type": "object", "additionalProperties": false,
+          "required": ["infrastructure", "runtime", "output", "scope", "unknown"],
+          "properties": {
+            "infrastructure": {"type": "integer", "minimum": 0}, "runtime": {"type": "integer", "minimum": 0},
+            "output": {"type": "integer", "minimum": 0}, "scope": {"type": "integer", "minimum": 0},
+            "unknown": {"type": "integer", "minimum": 0}
+          }
+        },
+        "events": {"type": "array", "items": {"type": "object"}}
+      }
+    },
+    "limitation": {
+      "type": "object", "additionalProperties": false, "required": ["code", "status", "affected_targets"],
+      "properties": {"code": {"type": "string", "minLength": 1}, "status": {"const": "DISCLOSED"}, "affected_targets": {"type": "integer", "minimum": 0}}
+    },
+    "disclosures": {
+      "type": "object", "additionalProperties": false,
+      "required": ["execution_agent_gold_access", "report_generator_gold_access", "host_continuation_session_gold_access"],
+      "properties": {
+        "execution_agent_gold_access": {"const": "NONE"}, "report_generator_gold_access": {"const": "NONE_BY_CONSTRUCTION"},
+        "host_continuation_session_gold_access": {"const": "ACCIDENTAL_READ_NOT_USED_IN_REPORT_OR_EXECUTION"}
+      }
+    }
+  }
+}

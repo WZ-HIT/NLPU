@@ -1,0 +1,535 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sdd-bench.local/schemas/detect-metrics-rollup-v2.schema.json",
+  "title": "Cross-batch file-level Detect hit-rate rollup v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "document_type",
+    "metric_definition_version",
+    "granularity",
+    "rollup_id",
+    "status",
+    "definitions",
+    "sources",
+    "counts",
+    "rows",
+    "methods",
+    "metric_set_sha256"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 2
+    },
+    "document_type": {
+      "const": "DETECT_HIT_RATE_ROLLUP"
+    },
+    "metric_definition_version": {
+      "const": "detect-metrics-v2"
+    },
+    "granularity": {
+      "const": "file"
+    },
+    "rollup_id": {
+      "$ref": "#/$defs/id"
+    },
+    "status": {
+      "enum": [
+        "OK",
+        "PARTIAL",
+        "EMPTY"
+      ]
+    },
+    "definitions": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/source"
+      }
+    },
+    "counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target_count",
+        "ok_count",
+        "error_count",
+        "no_gold_count",
+        "scorable_count",
+        "invalid_candidate_count",
+        "warning_count"
+      ],
+      "properties": {
+        "target_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "ok_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "error_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "no_gold_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "scorable_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "invalid_candidate_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "warning_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "rows": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/row"
+      }
+    },
+    "methods": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "$ref": "#/$defs/method"
+      }
+    },
+    "metric_set_sha256": {
+      "$ref": "#/$defs/sha256"
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]{0,127}$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "pathList": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "row": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target_key",
+        "target_id",
+        "ledger_event",
+        "seal",
+        "task_id",
+        "method",
+        "run_id",
+        "state",
+        "attempt",
+        "status",
+        "error_code",
+        "detail",
+        "gold_available",
+        "scorable",
+        "gold_store_sha256",
+        "detection_manifest_sha256",
+        "predicted_files",
+        "gold_files",
+        "matched_files",
+        "missing_gold_files",
+        "extra_files",
+        "invalid_files",
+        "warnings",
+        "metrics"
+      ],
+      "properties": {
+        "target_key": {"type": "string", "minLength": 1},
+        "target_id": {"type": "string", "pattern": "^target-[0-9a-f]{24}$"},
+        "ledger_event": {"anyOf": [{"type": "null"}, {"type": "object"}]},
+        "seal": {"anyOf": [{"type": "null"}, {"type": "object"}]},
+        "task_id": {
+          "$ref": "#/$defs/id"
+        },
+        "method": {
+          "enum": [
+            "openspec",
+            "speckit",
+            "cc-sdd"
+          ]
+        },
+        "run_id": {
+          "$ref": "#/$defs/id"
+        },
+        "state": {
+          "type": "string",
+          "minLength": 1
+        },
+        "attempt": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "status": {
+          "enum": [
+            "OK",
+            "NO_GOLD",
+            "ERROR"
+          ]
+        },
+        "error_code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "detail": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "gold_available": {
+          "type": "boolean"
+        },
+        "scorable": {
+          "type": "boolean"
+        },
+        "gold_store_sha256": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/sha256"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "detection_manifest_sha256": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/sha256"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "predicted_files": {
+          "$ref": "#/$defs/pathList"
+        },
+        "gold_files": {
+          "$ref": "#/$defs/pathList"
+        },
+        "matched_files": {
+          "$ref": "#/$defs/pathList"
+        },
+        "missing_gold_files": {
+          "$ref": "#/$defs/pathList"
+        },
+        "extra_files": {
+          "$ref": "#/$defs/pathList"
+        },
+        "invalid_files": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "metrics": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/metrics"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "metric_definition_version",
+        "gold_count",
+        "predicted_count",
+        "matched_count",
+        "tp",
+        "fp",
+        "fn",
+        "precision",
+        "recall",
+        "f1",
+        "exact_match",
+        "any_hit",
+        "all_hit",
+        "mrr",
+        "gold_to_predicted_ratio",
+        "invalid_count",
+        "missing_count",
+        "scorable_count"
+      ],
+      "patternProperties": {
+        "^(hit_at|recall_at)_[0-9]+$": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      },
+      "properties": {
+        "metric_definition_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "gold_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "predicted_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "matched_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "tp": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "fp": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "fn": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "precision": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "recall": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "f1": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "exact_match": {
+          "enum": [
+            0,
+            1
+          ]
+        },
+        "any_hit": {
+          "enum": [
+            0,
+            1
+          ]
+        },
+        "all_hit": {
+          "enum": [
+            0,
+            1
+          ]
+        },
+        "mrr": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "gold_to_predicted_ratio": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "invalid_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "missing_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "scorable_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "method": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "method",
+        "row_count",
+        "scorable_count",
+        "error_count",
+        "no_gold_count",
+        "a",
+        "b",
+        "gold_count",
+        "hit_rate_micro",
+        "recall_micro",
+        "f1_micro",
+        "hit_rate_macro",
+        "recall_macro",
+        "f1_macro"
+      ],
+      "properties": {
+        "method": {
+          "enum": [
+            "openspec",
+            "speckit",
+            "cc-sdd"
+          ]
+        },
+        "row_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "scorable_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "error_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "no_gold_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "a": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "b": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "gold_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "hit_rate_micro": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "recall_micro": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "f1_micro": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "hit_rate_macro": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "recall_macro": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "f1_macro": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "batch_id",
+        "status",
+        "path",
+        "row_count",
+        "metric_set_sha256"
+      ],
+      "properties": {
+        "batch_id": {
+          "$ref": "#/$defs/id"
+        },
+        "status": {
+          "enum": [
+            "OK",
+            "PARTIAL",
+            "EMPTY"
+          ]
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "row_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "metric_set_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    }
+  }
+}

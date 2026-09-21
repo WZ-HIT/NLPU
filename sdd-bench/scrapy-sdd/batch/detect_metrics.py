@@ -54,23 +54,24 @@ from jsonschema import Draft202012Validator
 from .archive.viewer import module
 from .core import BatchError, canonical_sha256, display_path, write_json
 from .evaluator import TEST_PREFIXES, EvaluationError, _safe_path, score_ranked
+from .result_view import build as build_result_view
 
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 DOCUMENT_TYPE = "DETECT_HIT_RATE"
 ROLLUP_DOCUMENT_TYPE = "DETECT_HIT_RATE_ROLLUP"
-METRIC_DEFINITION_VERSION = "detect-metrics-v1"
+METRIC_DEFINITION_VERSION = "detect-metrics-v2"
 GRANULARITY = "file"
 DETECTION_MANIFEST_TYPE = "SEALED_DETECTION"
 GOLD_STORE_TYPE = "HOST_ONLY_GOLD"
 GOLD_STORE_RELATIVE = PurePosixPath("batch") / "gold"
 REPORTS_RELATIVE = PurePosixPath("Log") / "reports" / "detect-metrics"
-SCHEMA_RELATIVE = PurePosixPath("schemas") / "detect-metrics-v1.schema.json"
+SCHEMA_RELATIVE = PurePosixPath("schemas") / "detect-metrics-v2.schema.json"
 # Rollups live in a subdirectory rather than beside the batch reports: `status`
 # globs the top level for batch reports, and a rollup is not one -- it names no
 # batch, consumes no ledger, and answering "which batches have been scored" with
 # a document that was scored from two of them would be a lie of omission.
 ROLLUPS_RELATIVE = REPORTS_RELATIVE / "rollups"
-ROLLUP_SCHEMA_RELATIVE = PurePosixPath("schemas") / "detect-metrics-rollup-v1.schema.json"
+ROLLUP_SCHEMA_RELATIVE = PurePosixPath("schemas") / "detect-metrics-rollup-v2.schema.json"
 # Fixed, and always all three, so a reader comparing methods never has to ask
 # whether a missing row means "no targets" or "the table dropped a column".
 METHOD_ORDER = ("openspec", "speckit", "cc-sdd")
@@ -260,9 +261,13 @@ def upstream_aborted(row: dict[str, Any]) -> bool:
     return UPSTREAM_ABORT_WARNING in row["warnings"]
 
 
-def _row(bench: Path, target: Any, gold: tuple[Any, ...]) -> dict[str, Any]:
+def _row(bench: Path, target: Any, indexed: dict[str, Any], gold: tuple[Any, ...]) -> dict[str, Any]:
     gold_files, gold_sha, gold_code, gold_detail = gold
     row: dict[str, Any] = {
+        "target_key": indexed["target_key"],
+        "target_id": indexed["target_id"],
+        "ledger_event": indexed["ledger_event"],
+        "seal": indexed["seal"],
         "task_id": target.task_id,
         "method": target.method,
         "run_id": target.run_id,
@@ -430,6 +435,7 @@ def compute(bench: Path, batch_id: str) -> dict[str, Any]:
     _validate_batch_id(batch_id)
     loaded = module(bench)
     experiment = _batch_experiment(loaded, bench, batch_id)
+    result_view = build_result_view(experiment.config_path, bench, bench.parents[1])
     targets = [item for item in loaded.batch_targets(experiment, bench) if item.stage == "detect"]
     targets.sort(
         key=lambda item: (
@@ -443,7 +449,9 @@ def compute(bench: Path, batch_id: str) -> dict[str, Any]:
     for target in targets:
         if target.task_id not in gold_cache:
             gold_cache[target.task_id] = _gold_sources(bench, target.task_id)
-        rows.append(_row(bench, target, gold_cache[target.task_id]))
+        key = loaded._target_key(target.task_id, target.method, target.stage, target.run_id, target.mode)
+        indexed = result_view["targets"][key]
+        rows.append(_row(bench, target, indexed, gold_cache[target.task_id]))
 
     methods = [
         _method_summary(method, [row for row in rows if row["method"] == method])
@@ -457,6 +465,7 @@ def compute(bench: Path, batch_id: str) -> dict[str, Any]:
         "metric_definition_version": METRIC_DEFINITION_VERSION,
         "granularity": GRANULARITY,
         "batch_id": batch_id,
+        "result_view_sha256": result_view["view_sha256"],
         "status": "EMPTY" if not rows else ("PARTIAL" if error_count or no_gold_count else "OK"),
         "definitions": DEFINITIONS,
         "counts": {

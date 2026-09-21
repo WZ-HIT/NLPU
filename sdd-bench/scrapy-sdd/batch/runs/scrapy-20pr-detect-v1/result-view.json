@@ -1,0 +1,1398 @@
+{
+  "schema_version": 1,
+  "view_type": "TARGET_RESULT_VIEW",
+  "batch_id": "scrapy-20pr-detect-v1",
+  "prepared_id": null,
+  "experiment_id": null,
+  "source": {
+    "type": "batch-config",
+    "path": "sdd-bench/scrapy-sdd/batch/pilot/scrapy-20pr-detect-v1.json",
+    "sha256": "54922a4579064a6f2aeed8e58297f404077a02a506e9d13e7d22bf964d8cef95"
+  },
+  "ledger": {
+    "path": "sdd-bench/scrapy-sdd/batch/runs/scrapy-20pr-detect-v1/ledger.jsonl",
+    "sha256": "e29a63968eb84279b511192da9af38e7ca9ea8047350865464b0472dbfdf9243",
+    "event_count": 404,
+    "chain_tip_sha256": "73bf16e398ac2695d3f1c4ca001bb9fe9dfaee9671e091b32fcb6ab20430bd9d"
+  },
+  "counts": {
+    "target_count": 60,
+    "detect_count": 60,
+    "update_count": 0,
+    "terminal_count": 55,
+    "states": {
+      "DETECT_SEALED": 55,
+      "FAILED": 5
+    }
+  },
+  "target_order": [
+    "scrapy__scrapy__pr7702:openspec:detect:openspec-detect-004:none",
+    "scrapy__scrapy__pr7702:speckit:detect:speckit-detect-004:none",
+    "scrapy__scrapy__pr7702:cc-sdd:detect:cc-sdd-detect-004:none",
+    "scrapy__scrapy__pr7808:openspec:detect:openspec-detect-004:none",
+    "scrapy__scrapy__pr7808:speckit:detect:speckit-detect-004:none",
+    "scrapy__scrapy__pr7808:cc-sdd:detect:cc-sdd-detect-004:none",
+    "scrapy__scrapy__pr7841:openspec:detect:openspec-detect-004:none",
+    "scrapy__scrapy__pr7841:speckit:detect:speckit-detect-004:none",
+    "scrapy__scrapy__pr7841:cc-sdd:detect:cc-sdd-detect-004:none",
+    "scrapy__scrapy__pr7846:openspec:detect:openspec-detect-004:none",
+    "scrapy__scrapy__pr7846:speckit:detect:speckit-detect-004:none",
+    "scrapy__scrapy__pr7846:cc-sdd:detect:cc-sdd-detect-004:none",
+    "scrapy__scrapy__pr7879:openspec:detect:openspec-detect-004:none",
+    "scrapy__scrapy__pr7879:speckit:detect:speckit-detect-004:none",
+    "scrapy__scrapy__pr7879:cc-sdd:detect:cc-sdd-detect-004:none",
+    "scrapy__scrapy__pr7886:openspec:detect:openspec-detect-004:none",
+    "scrapy__scrapy__pr7886:speckit:detect:speckit-detect-004:none",
+    "scrapy__scrapy__pr7886:cc-sdd:detect:cc-sdd-detect-004:none",
+    "scrapy__scrapy__pr7918:openspec:detect:openspec-detect-004:none",
+    "scrapy__scrapy__pr7918:speckit:detect:speckit-detect-004:none",
+    "scrapy__scrapy__pr7918:cc-sdd:detect:cc-sdd-detect-004:none",
+    "scrapy__scrapy__pr7920:openspec:detect:openspec-detect-004:none",
+    "scrapy__scrapy__pr7920:speckit:detect:speckit-detect-004:none",
+    "scrapy__scrapy__pr7920:cc-sdd:detect:cc-sdd-detect-004:none",
+    "scrapy__scrapy__pr7948:openspec:detect:openspec-detect-004:none",
+    "scrapy__scrapy__pr7948:speckit:detect:speckit-detect-004:none",
+    "scrapy__scrapy__pr7948:cc-sdd:detect:cc-sdd-detect-004:none",
+    "scrapy__scrapy__pr7966:openspec:detect:openspec-detect-004:none",
+    "scrapy__scrapy__pr7966:speckit:detect:speckit-detect-004:none",
+    "scrapy__scrapy__pr7966:cc-sdd:detect:cc-sdd-detect-004:none",
+    "scrapy__scrapy__pr7968:openspec:detect:openspec-detect-004:none",
+    "scrapy__scrapy__pr7968:speckit:detect:speckit-detect-004:none",
+    "scrapy__scrapy__pr7968:cc-sdd:detect:cc-sdd-detect-004:none",
+    "scrapy__scrapy__pr7971:openspec:detect:openspec-detect-004:none",
+    "scrapy__scrapy__pr7971:speckit:detect:speckit-detect-004:none",
+    "scrapy__scrapy__pr7971:cc-sdd:detect:cc-sdd-detect-004:none",
+    "scrapy__scrapy__pr7985:openspec:detect:openspec-detect-004:none",
+    "scrapy__scrapy__pr7985:speckit:detect:speckit-detect-004:none",
+    "scrapy__scrapy__pr7985:cc-sdd:detect:cc-sdd-detect-004:none",
+    "scrapy__scrapy__pr7986:openspec:detect:openspec-detect-004:none",
+    "scrapy__scrapy__pr7986:speckit:detect:speckit-detect-004:none",
+    "scrapy__scrapy__pr7986:cc-sdd:detect:cc-sdd-detect-004:none",
+    "scrapy__scrapy__pr7993:openspec:detect:openspec-detect-004:none",
+    "scrapy__scrapy__pr7993:speckit:detect:speckit-detect-004:none",
+    "scrapy__scrapy__pr7993:cc-sdd:detect:cc-sdd-detect-004:none",
+    "scrapy__scrapy__pr7995:openspec:detect:openspec-detect-004:none",
+    "scrapy__scrapy__pr7995:speckit:detect:speckit-detect-004:none",
+    "scrapy__scrapy__pr7995:cc-sdd:detect:cc-sdd-detect-004:none",
+    "scrapy__scrapy__pr8002:openspec:detect:openspec-detect-004:none",
+    "scrapy__scrapy__pr8002:speckit:detect:speckit-detect-004:none",
+    "scrapy__scrapy__pr8002:cc-sdd:detect:cc-sdd-detect-004:none",
+    "scrapy__scrapy__pr8008:openspec:detect:openspec-detect-004:none",
+    "scrapy__scrapy__pr8008:speckit:detect:speckit-detect-004:none",
+    "scrapy__scrapy__pr8008:cc-sdd:detect:cc-sdd-detect-004:none",
+    "scrapy__scrapy__pr8009:openspec:detect:openspec-detect-004:none",
+    "scrapy__scrapy__pr8009:speckit:detect:speckit-detect-004:none",
+    "scrapy__scrapy__pr8009:cc-sdd:detect:cc-sdd-detect-004:none",
+    "scrapy__scrapy__pr8020:openspec:detect:openspec-detect-004:none",
+    "scrapy__scrapy__pr8020:speckit:detect:speckit-detect-004:none",
+    "scrapy__scrapy__pr8020:cc-sdd:detect:cc-sdd-detect-004:none"
+  ],
+  "targets": {
+    "scrapy__scrapy__pr7702:openspec:detect:openspec-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7702:openspec:detect:openspec-detect-004:none",
+      "target_id": "target-80e5a0600abc6f5acb87fe2a",
+      "task_id": "scrapy__scrapy__pr7702",
+      "pr_id": 7702,
+      "title": "CI: warnings → errors",
+      "method": "openspec",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "openspec-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 2,
+      "ledger_event": {
+        "sequence": 307,
+        "event_sha256": "ec02292cd49ae58d53e82f66ea3b6fa07ad9b1de7e0e79ab3cfe3bb50a8c8609"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7702/runs/openspec/detect/executions/openspec-detect-004/attempt-2",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7702/runs/openspec/detect/executions/openspec-detect-004/attempt-2/seal.json",
+        "sha256": "c3d681fabd3427a14f64f3bf81a4a77659c08d31a0e1c750e72f8f780bd30430"
+      }
+    },
+    "scrapy__scrapy__pr7702:speckit:detect:speckit-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7702:speckit:detect:speckit-detect-004:none",
+      "target_id": "target-a25c879b819b994b8428a2f0",
+      "task_id": "scrapy__scrapy__pr7702",
+      "pr_id": 7702,
+      "title": "CI: warnings → errors",
+      "method": "speckit",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "speckit-detect-004",
+      "state": "FAILED",
+      "attempt": 2,
+      "ledger_event": {
+        "sequence": 311,
+        "event_sha256": "d84a021379a47b361571646470b2bf50f2be9bd78a63506f0e13a3d2159aca91"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7702/runs/speckit/detect/executions/speckit-detect-004/attempt-2",
+      "seal": null
+    },
+    "scrapy__scrapy__pr7702:cc-sdd:detect:cc-sdd-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7702:cc-sdd:detect:cc-sdd-detect-004:none",
+      "target_id": "target-9453a4c750f24fa0d7bd3977",
+      "task_id": "scrapy__scrapy__pr7702",
+      "pr_id": 7702,
+      "title": "CI: warnings → errors",
+      "method": "cc-sdd",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "cc-sdd-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 64,
+        "event_sha256": "8a07413a2e6f4d746dea5a1d4189aefde5583a71a4c3c66a3e608a64f78455f7"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7702/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7702/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-1/seal.json",
+        "sha256": "44bfa6c0848c322111e859ec45673b952e673e3ca2e7235aaba933cbe966e3db"
+      }
+    },
+    "scrapy__scrapy__pr7808:openspec:detect:openspec-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7808:openspec:detect:openspec-detect-004:none",
+      "target_id": "target-24a8ba307af6d17380fdf83d",
+      "task_id": "scrapy__scrapy__pr7808",
+      "pr_id": 7808,
+      "title": "Generalize the use of build_from_crawler() internally",
+      "method": "openspec",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "openspec-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 80,
+        "event_sha256": "667309bc4bae05824a10571283f1007525ba79a320c5f35b0db38e48d7e73da1"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7808/runs/openspec/detect/executions/openspec-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7808/runs/openspec/detect/executions/openspec-detect-004/attempt-1/seal.json",
+        "sha256": "4c9c35ee29d62d320ec8cac514d73ccfa29473babb6926a9b6e98244adbd104b"
+      }
+    },
+    "scrapy__scrapy__pr7808:speckit:detect:speckit-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7808:speckit:detect:speckit-detect-004:none",
+      "target_id": "target-6a5ce08ff7a54c82c590ad7b",
+      "task_id": "scrapy__scrapy__pr7808",
+      "pr_id": 7808,
+      "title": "Generalize the use of build_from_crawler() internally",
+      "method": "speckit",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "speckit-detect-004",
+      "state": "FAILED",
+      "attempt": 2,
+      "ledger_event": {
+        "sequence": 317,
+        "event_sha256": "b8f5f1460dd317a38177f5263d8b3c62e4315065dd30373d2777ea438be69a21"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7808/runs/speckit/detect/executions/speckit-detect-004/attempt-2",
+      "seal": null
+    },
+    "scrapy__scrapy__pr7808:cc-sdd:detect:cc-sdd-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7808:cc-sdd:detect:cc-sdd-detect-004:none",
+      "target_id": "target-3db2f47a20df24d22176fa1e",
+      "task_id": "scrapy__scrapy__pr7808",
+      "pr_id": 7808,
+      "title": "Generalize the use of build_from_crawler() internally",
+      "method": "cc-sdd",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "cc-sdd-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 76,
+        "event_sha256": "515eca6a3ef8586d4d695ed1b87c7f0d0a5727b5f2fa5edec13cdba55eb54f24"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7808/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7808/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-1/seal.json",
+        "sha256": "5a69831ab1641563ee25f56231a14e303ef531553b78903a69636e203a8f876c"
+      }
+    },
+    "scrapy__scrapy__pr7841:openspec:detect:openspec-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7841:openspec:detect:openspec-detect-004:none",
+      "target_id": "target-2879d9609c458a2ad04ac099",
+      "task_id": "scrapy__scrapy__pr7841",
+      "pr_id": 7841,
+      "title": "Improve the test coverage of scrapy.utils",
+      "method": "openspec",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "openspec-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 92,
+        "event_sha256": "1b5ea4e363458b5c4c7830d89f5612879c01d7a8250e48a2ea9a1eead97f7515"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7841/runs/openspec/detect/executions/openspec-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7841/runs/openspec/detect/executions/openspec-detect-004/attempt-1/seal.json",
+        "sha256": "20fc043cc3fee3b3c490b9320146d2e16c8aa5cc122c974faad127df6e7ff8c4"
+      }
+    },
+    "scrapy__scrapy__pr7841:speckit:detect:speckit-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7841:speckit:detect:speckit-detect-004:none",
+      "target_id": "target-1a43aa189fcd6d54f8caccfc",
+      "task_id": "scrapy__scrapy__pr7841",
+      "pr_id": 7841,
+      "title": "Improve the test coverage of scrapy.utils",
+      "method": "speckit",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "speckit-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 2,
+      "ledger_event": {
+        "sequence": 323,
+        "event_sha256": "217501bac79e11eabf88d07181e416e5627ae0048d77f3459c1a172e4ff57849"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7841/runs/speckit/detect/executions/speckit-detect-004/attempt-2",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7841/runs/speckit/detect/executions/speckit-detect-004/attempt-2/seal.json",
+        "sha256": "104ae80d91ecdc4be43909bd399b3cfd912214d539da7e0c840d856db7d24998"
+      }
+    },
+    "scrapy__scrapy__pr7841:cc-sdd:detect:cc-sdd-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7841:cc-sdd:detect:cc-sdd-detect-004:none",
+      "target_id": "target-2c941a94292137c3dbb47188",
+      "task_id": "scrapy__scrapy__pr7841",
+      "pr_id": 7841,
+      "title": "Improve the test coverage of scrapy.utils",
+      "method": "cc-sdd",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "cc-sdd-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 88,
+        "event_sha256": "52720a59acf148636987eec41ebc8e2e157d1e4bbdbf2a20e10d4e5823fd2904"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7841/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7841/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-1/seal.json",
+        "sha256": "c237d78bc64dab6db4bcfeaf575eeafd7ebc69d6fa6637f31bdaf176a43e5736"
+      }
+    },
+    "scrapy__scrapy__pr7846:openspec:detect:openspec-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7846:openspec:detect:openspec-detect-004:none",
+      "target_id": "target-b3099d916af1cdaa957d84fc",
+      "task_id": "scrapy__scrapy__pr7846",
+      "pr_id": 7846,
+      "title": "Support IDNA-2003-only domains by monkey-patching Twisted IDNA helpers",
+      "method": "openspec",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "openspec-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 2,
+      "ledger_event": {
+        "sequence": 331,
+        "event_sha256": "ddaa27963f27ac82cc6235c4d643d3ee82db5331823ad7c2aec6f3cadd906ca6"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7846/runs/openspec/detect/executions/openspec-detect-004/attempt-2",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7846/runs/openspec/detect/executions/openspec-detect-004/attempt-2/seal.json",
+        "sha256": "a54812c760c867720926d5f0a230f1cfa436b248f0b206ccc169e8d75e32dcd0"
+      }
+    },
+    "scrapy__scrapy__pr7846:speckit:detect:speckit-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7846:speckit:detect:speckit-detect-004:none",
+      "target_id": "target-3056f158cbdd49f605f47a1f",
+      "task_id": "scrapy__scrapy__pr7846",
+      "pr_id": 7846,
+      "title": "Support IDNA-2003-only domains by monkey-patching Twisted IDNA helpers",
+      "method": "speckit",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "speckit-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 108,
+        "event_sha256": "41a2dc9322b1502fefd1d8434a608f21e8dd06da3a5bffb9d3afcdbc466d58ec"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7846/runs/speckit/detect/executions/speckit-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7846/runs/speckit/detect/executions/speckit-detect-004/attempt-1/seal.json",
+        "sha256": "da39daf3fb871cce378f1e7732f314ba9927207dcde86cc0f1bd64c2f31f3065"
+      }
+    },
+    "scrapy__scrapy__pr7846:cc-sdd:detect:cc-sdd-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7846:cc-sdd:detect:cc-sdd-detect-004:none",
+      "target_id": "target-ccec6ed30a6b8ac5f0c95048",
+      "task_id": "scrapy__scrapy__pr7846",
+      "pr_id": 7846,
+      "title": "Support IDNA-2003-only domains by monkey-patching Twisted IDNA helpers",
+      "method": "cc-sdd",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "cc-sdd-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 2,
+      "ledger_event": {
+        "sequence": 327,
+        "event_sha256": "bfe10f53869ec264d07189ea247a20a3cdbed01f7f5069387b9d1dca529523e5"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7846/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-2",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7846/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-2/seal.json",
+        "sha256": "2fdbb8a3fac5d87b4a6ee2e1bab01e40ff98d4ce6f1514bab1474b0b4a89253f"
+      }
+    },
+    "scrapy__scrapy__pr7879:openspec:detect:openspec-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7879:openspec:detect:openspec-detect-004:none",
+      "target_id": "target-c87297a9f07782441fb887ea",
+      "task_id": "scrapy__scrapy__pr7879",
+      "pr_id": 7879,
+      "title": "Fix open_in_browser not adding a base tag without a head element",
+      "method": "openspec",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "openspec-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 116,
+        "event_sha256": "e4919348dd1c83b26c404a0370acce03d62bc030d1144a301fa89df24a1534bf"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7879/runs/openspec/detect/executions/openspec-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7879/runs/openspec/detect/executions/openspec-detect-004/attempt-1/seal.json",
+        "sha256": "29455ae4e3373c8975d997f7b94f7568a542e7fe54ea40fb0c349502f64dcbbe"
+      }
+    },
+    "scrapy__scrapy__pr7879:speckit:detect:speckit-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7879:speckit:detect:speckit-detect-004:none",
+      "target_id": "target-d68604cc16068839274f7b9e",
+      "task_id": "scrapy__scrapy__pr7879",
+      "pr_id": 7879,
+      "title": "Fix open_in_browser not adding a base tag without a head element",
+      "method": "speckit",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "speckit-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 120,
+        "event_sha256": "d68152228ed6d9b6fd1bf21c00dd90a829efd014b90296680aed8a86aedd324b"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7879/runs/speckit/detect/executions/speckit-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7879/runs/speckit/detect/executions/speckit-detect-004/attempt-1/seal.json",
+        "sha256": "a420515b7ed0e14fe759fb36158643a2aadc0f1a24deccf76ce43e936a704a65"
+      }
+    },
+    "scrapy__scrapy__pr7879:cc-sdd:detect:cc-sdd-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7879:cc-sdd:detect:cc-sdd-detect-004:none",
+      "target_id": "target-0829e07dc799f5c73ec40d78",
+      "task_id": "scrapy__scrapy__pr7879",
+      "pr_id": 7879,
+      "title": "Fix open_in_browser not adding a base tag without a head element",
+      "method": "cc-sdd",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "cc-sdd-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 112,
+        "event_sha256": "4e5fff602602060a8287037a394a75ed4edb380b1573790f849bef68f97e3846"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7879/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7879/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-1/seal.json",
+        "sha256": "faf8269849037ffcf38d615ba53ca8c253f93bef172e4c87d7ca306e5f98cac1"
+      }
+    },
+    "scrapy__scrapy__pr7886:openspec:detect:openspec-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7886:openspec:detect:openspec-detect-004:none",
+      "target_id": "target-a872ca4a680ee0690388e592",
+      "task_id": "scrapy__scrapy__pr7886",
+      "pr_id": 7886,
+      "title": "Support asynchronous callbacks in contracts",
+      "method": "openspec",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "openspec-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 128,
+        "event_sha256": "f916b6da46d319b7e25fbf6479bfee46337126647cded942d332478f73198723"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7886/runs/openspec/detect/executions/openspec-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7886/runs/openspec/detect/executions/openspec-detect-004/attempt-1/seal.json",
+        "sha256": "0e937c991b11d19eb23139f0cd3f71ea451af97d7ffbab211ba1965db34e0880"
+      }
+    },
+    "scrapy__scrapy__pr7886:speckit:detect:speckit-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7886:speckit:detect:speckit-detect-004:none",
+      "target_id": "target-9479c96b0a8c669219fc79fb",
+      "task_id": "scrapy__scrapy__pr7886",
+      "pr_id": 7886,
+      "title": "Support asynchronous callbacks in contracts",
+      "method": "speckit",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "speckit-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 2,
+      "ledger_event": {
+        "sequence": 341,
+        "event_sha256": "4319ac21aad89276ec21aa00c7d430972747d6bb39b7dabb18c8964cdfde96e2"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7886/runs/speckit/detect/executions/speckit-detect-004/attempt-2",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7886/runs/speckit/detect/executions/speckit-detect-004/attempt-2/seal.json",
+        "sha256": "187c1ab722f75effff12872e83eddc270732d16b669cdf6180a36312da209a54"
+      }
+    },
+    "scrapy__scrapy__pr7886:cc-sdd:detect:cc-sdd-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7886:cc-sdd:detect:cc-sdd-detect-004:none",
+      "target_id": "target-b3630664ed10207b937c6a83",
+      "task_id": "scrapy__scrapy__pr7886",
+      "pr_id": 7886,
+      "title": "Support asynchronous callbacks in contracts",
+      "method": "cc-sdd",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "cc-sdd-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 124,
+        "event_sha256": "8d0aca9cdfcd6c5f02999f58d66e048004a7bba124bccfbd0b8badbf1c8e7379"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7886/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7886/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-1/seal.json",
+        "sha256": "4ccc1e3b335bb52c44c24f7affb67d2ad764b9e2a297d048cecc5c2641d97a80"
+      }
+    },
+    "scrapy__scrapy__pr7918:openspec:detect:openspec-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7918:openspec:detect:openspec-detect-004:none",
+      "target_id": "target-d8be68e6918d2dfec5e74b92",
+      "task_id": "scrapy__scrapy__pr7918",
+      "pr_id": 7918,
+      "title": "Serialize dates and times as ISO 8601 in ScrapyJSONEncoder",
+      "method": "openspec",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "openspec-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 140,
+        "event_sha256": "09f0638b1498c2cf69b084a6d900f9418a21f927644c7142331d918cf0e889ec"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7918/runs/openspec/detect/executions/openspec-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7918/runs/openspec/detect/executions/openspec-detect-004/attempt-1/seal.json",
+        "sha256": "1d387f648e2cc584094c7fe133c781048416a00fd1b0baa66a42cd4ac1648af1"
+      }
+    },
+    "scrapy__scrapy__pr7918:speckit:detect:speckit-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7918:speckit:detect:speckit-detect-004:none",
+      "target_id": "target-83a176710412264d6984602a",
+      "task_id": "scrapy__scrapy__pr7918",
+      "pr_id": 7918,
+      "title": "Serialize dates and times as ISO 8601 in ScrapyJSONEncoder",
+      "method": "speckit",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "speckit-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 144,
+        "event_sha256": "6f88a5ec21aa53afff772eda3aa98e11aa8e4537134e1d5d28031c06e2aa4a0a"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7918/runs/speckit/detect/executions/speckit-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7918/runs/speckit/detect/executions/speckit-detect-004/attempt-1/seal.json",
+        "sha256": "3913b7ebcc5429ba404ec39a019cc6b1d756243f3c814cc39c079841aeadc429"
+      }
+    },
+    "scrapy__scrapy__pr7918:cc-sdd:detect:cc-sdd-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7918:cc-sdd:detect:cc-sdd-detect-004:none",
+      "target_id": "target-d995542db26be2773e40f30d",
+      "task_id": "scrapy__scrapy__pr7918",
+      "pr_id": 7918,
+      "title": "Serialize dates and times as ISO 8601 in ScrapyJSONEncoder",
+      "method": "cc-sdd",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "cc-sdd-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 136,
+        "event_sha256": "5de96572972d45f48cda8c2f04a45787cfcb8015eec9495c7fca3be60525eaea"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7918/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7918/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-1/seal.json",
+        "sha256": "faf517753c0662da55788537b09168d9b74f92164e1ec6748d03b140d9e2c255"
+      }
+    },
+    "scrapy__scrapy__pr7920:openspec:detect:openspec-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7920:openspec:detect:openspec-detect-004:none",
+      "target_id": "target-0f5ed26ff72365ac8b7d9404",
+      "task_id": "scrapy__scrapy__pr7920",
+      "pr_id": 7920,
+      "title": "Return exit code 1 from check, parse and fetch on bootstrap errors",
+      "method": "openspec",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "openspec-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 152,
+        "event_sha256": "8eff5911e555d8bbf7951a298657ff610db19da87ad99027cf71ec5004a541df"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7920/runs/openspec/detect/executions/openspec-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7920/runs/openspec/detect/executions/openspec-detect-004/attempt-1/seal.json",
+        "sha256": "ba74708736dbabc605f79af5204e1c4cf2c26b42bb3a6b9d1dcf74fce94bd49e"
+      }
+    },
+    "scrapy__scrapy__pr7920:speckit:detect:speckit-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7920:speckit:detect:speckit-detect-004:none",
+      "target_id": "target-25780f43281e0430c99479ef",
+      "task_id": "scrapy__scrapy__pr7920",
+      "pr_id": 7920,
+      "title": "Return exit code 1 from check, parse and fetch on bootstrap errors",
+      "method": "speckit",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "speckit-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 156,
+        "event_sha256": "42da1ec8bed78edfcd85964643077d128b607150fcdf4aed38b92fea385580de"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7920/runs/speckit/detect/executions/speckit-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7920/runs/speckit/detect/executions/speckit-detect-004/attempt-1/seal.json",
+        "sha256": "98faddc5c3536ee0862bd50eb3aa078a42986dafdb0d4626495b0c67df73c65b"
+      }
+    },
+    "scrapy__scrapy__pr7920:cc-sdd:detect:cc-sdd-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7920:cc-sdd:detect:cc-sdd-detect-004:none",
+      "target_id": "target-49449b96e2fc752a0ac84574",
+      "task_id": "scrapy__scrapy__pr7920",
+      "pr_id": 7920,
+      "title": "Return exit code 1 from check, parse and fetch on bootstrap errors",
+      "method": "cc-sdd",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "cc-sdd-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 148,
+        "event_sha256": "51517b63c2059a2a71b7bcfb96587c4ec0162ba4b5cf86fecdc53882b36c0795"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7920/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7920/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-1/seal.json",
+        "sha256": "d945982a1ecb57723a043bb7528d87a5b2b403c9b01fd890c7ba11c7e4b93add"
+      }
+    },
+    "scrapy__scrapy__pr7948:openspec:detect:openspec-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7948:openspec:detect:openspec-detect-004:none",
+      "target_id": "target-ad0c900242f547a1f107ca94",
+      "task_id": "scrapy__scrapy__pr7948",
+      "pr_id": 7948,
+      "title": "Add SSLKEYLOGFILE support",
+      "method": "openspec",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "openspec-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 2,
+      "ledger_event": {
+        "sequence": 352,
+        "event_sha256": "ceae943da3568b61e7bb64f144a054020e6ea1f3a6b4c3dc05911cb023556e84"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7948/runs/openspec/detect/executions/openspec-detect-004/attempt-2",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7948/runs/openspec/detect/executions/openspec-detect-004/attempt-2/seal.json",
+        "sha256": "b1902564eb18e87300b07280a78d12147fccf23e85b711af99c78ab43a2addf8"
+      }
+    },
+    "scrapy__scrapy__pr7948:speckit:detect:speckit-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7948:speckit:detect:speckit-detect-004:none",
+      "target_id": "target-4a34d47f33bbc9b5bf6b4a41",
+      "task_id": "scrapy__scrapy__pr7948",
+      "pr_id": 7948,
+      "title": "Add SSLKEYLOGFILE support",
+      "method": "speckit",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "speckit-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 168,
+        "event_sha256": "64dbdcdc7bfb3501a916a1a8d9f62b240d98aa5058ba3ca684ccfb38b3e78c46"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7948/runs/speckit/detect/executions/speckit-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7948/runs/speckit/detect/executions/speckit-detect-004/attempt-1/seal.json",
+        "sha256": "16c51660d22e0349f5bd43dee9468cf689692532db09166e1b9928b3e263e795"
+      }
+    },
+    "scrapy__scrapy__pr7948:cc-sdd:detect:cc-sdd-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7948:cc-sdd:detect:cc-sdd-detect-004:none",
+      "target_id": "target-fae35bf72363ebf05b3ad189",
+      "task_id": "scrapy__scrapy__pr7948",
+      "pr_id": 7948,
+      "title": "Add SSLKEYLOGFILE support",
+      "method": "cc-sdd",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "cc-sdd-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 160,
+        "event_sha256": "c3fd18a8e80bfff452e33fed18a0fb02925fb1aefb07a38ee0de2f64b40c8d82"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7948/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7948/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-1/seal.json",
+        "sha256": "7f34554453452020c8c31ffb0833d68cd68f7724cc632e5e662e49920328a494"
+      }
+    },
+    "scrapy__scrapy__pr7966:openspec:detect:openspec-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7966:openspec:detect:openspec-detect-004:none",
+      "target_id": "target-b4cf9756c041c47743fb4e35",
+      "task_id": "scrapy__scrapy__pr7966",
+      "pr_id": 7966,
+      "title": "Address warnings from the VCS workflow",
+      "method": "openspec",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "openspec-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 2,
+      "ledger_event": {
+        "sequence": 358,
+        "event_sha256": "803c8771e877fc3fa43135f314dcbf9f048abe01642f011e5d21def43d177250"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7966/runs/openspec/detect/executions/openspec-detect-004/attempt-2",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7966/runs/openspec/detect/executions/openspec-detect-004/attempt-2/seal.json",
+        "sha256": "f7020069a78e246e843f6785bc7a945774a1dc84e52871e02cab55ef2619c172"
+      }
+    },
+    "scrapy__scrapy__pr7966:speckit:detect:speckit-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7966:speckit:detect:speckit-detect-004:none",
+      "target_id": "target-905fd9b6be8683735035b701",
+      "task_id": "scrapy__scrapy__pr7966",
+      "pr_id": 7966,
+      "title": "Address warnings from the VCS workflow",
+      "method": "speckit",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "speckit-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 2,
+      "ledger_event": {
+        "sequence": 362,
+        "event_sha256": "df26db531c0d204af62474ae51c95942d5945df248d9eb26904b24f897476ca4"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7966/runs/speckit/detect/executions/speckit-detect-004/attempt-2",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7966/runs/speckit/detect/executions/speckit-detect-004/attempt-2/seal.json",
+        "sha256": "ab5f1c8cf30c343fc2f967a875a2932859e2a2a8e666b2ea01a68607d4285a30"
+      }
+    },
+    "scrapy__scrapy__pr7966:cc-sdd:detect:cc-sdd-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7966:cc-sdd:detect:cc-sdd-detect-004:none",
+      "target_id": "target-3dd3366860eb7d3c23b51179",
+      "task_id": "scrapy__scrapy__pr7966",
+      "pr_id": 7966,
+      "title": "Address warnings from the VCS workflow",
+      "method": "cc-sdd",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "cc-sdd-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 172,
+        "event_sha256": "0d84c9c91eca1edd133bb39b224d73c72ecfb1975ee660bc0dac25026f446605"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7966/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7966/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-1/seal.json",
+        "sha256": "c983f77f5c8972b18dfcf6562762d42255f6bb5a351bcaf3658588f002f10b6d"
+      }
+    },
+    "scrapy__scrapy__pr7968:openspec:detect:openspec-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7968:openspec:detect:openspec-detect-004:none",
+      "target_id": "target-630ec182cac9e66acec08c47",
+      "task_id": "scrapy__scrapy__pr7968",
+      "pr_id": 7968,
+      "title": "Type spider-related test modules",
+      "method": "openspec",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "openspec-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 188,
+        "event_sha256": "84e1895b5b4eda959ab1dc9d42a67ee41bad86c866e09772d578b938a46ee0fa"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7968/runs/openspec/detect/executions/openspec-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7968/runs/openspec/detect/executions/openspec-detect-004/attempt-1/seal.json",
+        "sha256": "1e905c707fb4c98dab6f72c8bd7d0606db222fa893aae8d840d5c75493a0c389"
+      }
+    },
+    "scrapy__scrapy__pr7968:speckit:detect:speckit-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7968:speckit:detect:speckit-detect-004:none",
+      "target_id": "target-f4341d7d380e0c6fa717f018",
+      "task_id": "scrapy__scrapy__pr7968",
+      "pr_id": 7968,
+      "title": "Type spider-related test modules",
+      "method": "speckit",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "speckit-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 192,
+        "event_sha256": "f2efae8d5ebf39f806d744ec9452692e7050c6860f3f91b40d2dbdd201b93207"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7968/runs/speckit/detect/executions/speckit-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7968/runs/speckit/detect/executions/speckit-detect-004/attempt-1/seal.json",
+        "sha256": "a685f9ee8412465386d21f33851444577ff4dd5a1be8b0ea187122564c57c0da"
+      }
+    },
+    "scrapy__scrapy__pr7968:cc-sdd:detect:cc-sdd-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7968:cc-sdd:detect:cc-sdd-detect-004:none",
+      "target_id": "target-5fe07af724c0c780b7c9afd8",
+      "task_id": "scrapy__scrapy__pr7968",
+      "pr_id": 7968,
+      "title": "Type spider-related test modules",
+      "method": "cc-sdd",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "cc-sdd-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 184,
+        "event_sha256": "b9f181e784d3f712a81ae0a3001adb5100fc8c366f47546840dbc85b9b38e839"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7968/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7968/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-1/seal.json",
+        "sha256": "6d770bf7e7b3103b58f4608a58ab852b3f7fc4fa05de6e6fe03ffa953b1f0200"
+      }
+    },
+    "scrapy__scrapy__pr7971:openspec:detect:openspec-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7971:openspec:detect:openspec-detect-004:none",
+      "target_id": "target-54e92f8a183f2de48ef540bd",
+      "task_id": "scrapy__scrapy__pr7971",
+      "pr_id": 7971,
+      "title": "Deprecate interpolating log formatter messages with the returned dict",
+      "method": "openspec",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "openspec-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 200,
+        "event_sha256": "9521ef9726de12649f7372675585833f204be9e224dc93bdc29df264d921f144"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7971/runs/openspec/detect/executions/openspec-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7971/runs/openspec/detect/executions/openspec-detect-004/attempt-1/seal.json",
+        "sha256": "72f94e33e64bf5348b3746fed15398027446752c8439b77a0b51d5876ce23fac"
+      }
+    },
+    "scrapy__scrapy__pr7971:speckit:detect:speckit-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7971:speckit:detect:speckit-detect-004:none",
+      "target_id": "target-0b0b1f9d3d435b33ef9973ca",
+      "task_id": "scrapy__scrapy__pr7971",
+      "pr_id": 7971,
+      "title": "Deprecate interpolating log formatter messages with the returned dict",
+      "method": "speckit",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "speckit-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 204,
+        "event_sha256": "89db8b9fb25e551c14c21a8d3aeeb76648a484cc8e1577417456ea53b9d9ddde"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7971/runs/speckit/detect/executions/speckit-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7971/runs/speckit/detect/executions/speckit-detect-004/attempt-1/seal.json",
+        "sha256": "c172732f424bc157cfa1407a61d3fe6322d86478286796a2aa6cc2d410e22e27"
+      }
+    },
+    "scrapy__scrapy__pr7971:cc-sdd:detect:cc-sdd-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7971:cc-sdd:detect:cc-sdd-detect-004:none",
+      "target_id": "target-ee26d834a2c1fad106454514",
+      "task_id": "scrapy__scrapy__pr7971",
+      "pr_id": 7971,
+      "title": "Deprecate interpolating log formatter messages with the returned dict",
+      "method": "cc-sdd",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "cc-sdd-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 196,
+        "event_sha256": "42f8ee7c40c8a0f6680b1d32f263adb0a181dce01aa0e115c61a8016dec3dc0c"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7971/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7971/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-1/seal.json",
+        "sha256": "3e2ac7a117e89a412826e08916b4b66bbb444c974afeb3806a3853ded598bfd2"
+      }
+    },
+    "scrapy__scrapy__pr7985:openspec:detect:openspec-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7985:openspec:detect:openspec-detect-004:none",
+      "target_id": "target-a444a502732fbd6d7859614c",
+      "task_id": "scrapy__scrapy__pr7985",
+      "pr_id": 7985,
+      "title": "Rerun tests that need real Internet access when they fail",
+      "method": "openspec",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "openspec-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 212,
+        "event_sha256": "804c5912694701750227eb82845fabd714f9637709f85b4e590088ce02e741b5"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7985/runs/openspec/detect/executions/openspec-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7985/runs/openspec/detect/executions/openspec-detect-004/attempt-1/seal.json",
+        "sha256": "080e195fdf6447ae93b30e2b1d38c0a861dafe9cea83d10430ad93e70ff94a96"
+      }
+    },
+    "scrapy__scrapy__pr7985:speckit:detect:speckit-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7985:speckit:detect:speckit-detect-004:none",
+      "target_id": "target-6ddaba88981789a0f7b40f40",
+      "task_id": "scrapy__scrapy__pr7985",
+      "pr_id": 7985,
+      "title": "Rerun tests that need real Internet access when they fail",
+      "method": "speckit",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "speckit-detect-004",
+      "state": "FAILED",
+      "attempt": 2,
+      "ledger_event": {
+        "sequence": 377,
+        "event_sha256": "418e4be8ed85fb0cc6118d7cbd68c90fbcbafeb47bb7872573ac432a4952212f"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7985/runs/speckit/detect/executions/speckit-detect-004/attempt-2",
+      "seal": null
+    },
+    "scrapy__scrapy__pr7985:cc-sdd:detect:cc-sdd-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7985:cc-sdd:detect:cc-sdd-detect-004:none",
+      "target_id": "target-2986f51df09899a7282bc1f3",
+      "task_id": "scrapy__scrapy__pr7985",
+      "pr_id": 7985,
+      "title": "Rerun tests that need real Internet access when they fail",
+      "method": "cc-sdd",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "cc-sdd-detect-004",
+      "state": "FAILED",
+      "attempt": 2,
+      "ledger_event": {
+        "sequence": 372,
+        "event_sha256": "204a57d17d39dac85c5098375466f21c2907fd3f76166cc49af565d01bfd81b0"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7985/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-2",
+      "seal": null
+    },
+    "scrapy__scrapy__pr7986:openspec:detect:openspec-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7986:openspec:detect:openspec-detect-004:none",
+      "target_id": "target-75a4fe23600994196da4c181",
+      "task_id": "scrapy__scrapy__pr7986",
+      "pr_id": 7986,
+      "title": "Stop marking the Twisted-based HTTP/2 download handler as experimental, and privatize its API",
+      "method": "openspec",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "openspec-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 224,
+        "event_sha256": "03c137e32f1a644c53213929fefa8b027b90493e89cb869c17dabde702dad245"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7986/runs/openspec/detect/executions/openspec-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7986/runs/openspec/detect/executions/openspec-detect-004/attempt-1/seal.json",
+        "sha256": "d40f2538d18c2b39499b1ef3763b523b0a6bfbfc3d4b45d56dd70215e32f2cd8"
+      }
+    },
+    "scrapy__scrapy__pr7986:speckit:detect:speckit-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7986:speckit:detect:speckit-detect-004:none",
+      "target_id": "target-8fe2bbd9c23fba15206e2572",
+      "task_id": "scrapy__scrapy__pr7986",
+      "pr_id": 7986,
+      "title": "Stop marking the Twisted-based HTTP/2 download handler as experimental, and privatize its API",
+      "method": "speckit",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "speckit-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 2,
+      "ledger_event": {
+        "sequence": 383,
+        "event_sha256": "097bfe346ccf7c3675f5edb0a7b6f5c1ea132c799877448ee94bb07c9d5d6d01"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7986/runs/speckit/detect/executions/speckit-detect-004/attempt-2",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7986/runs/speckit/detect/executions/speckit-detect-004/attempt-2/seal.json",
+        "sha256": "55788cf646b396dec8ddb8563cf051bab03e6d16e21eeb6c64949c242bcfa6db"
+      }
+    },
+    "scrapy__scrapy__pr7986:cc-sdd:detect:cc-sdd-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7986:cc-sdd:detect:cc-sdd-detect-004:none",
+      "target_id": "target-127929ab015ad728ee2a99f9",
+      "task_id": "scrapy__scrapy__pr7986",
+      "pr_id": 7986,
+      "title": "Stop marking the Twisted-based HTTP/2 download handler as experimental, and privatize its API",
+      "method": "cc-sdd",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "cc-sdd-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 220,
+        "event_sha256": "405acd669f5bc9547748ceed827ca63c919ef6ac1f0631832a30781efb9c4685"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7986/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7986/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-1/seal.json",
+        "sha256": "de9e7667ec3188a879beb5bb1ce7f4757281e67c71ea9482f3003044ec95e74a"
+      }
+    },
+    "scrapy__scrapy__pr7993:openspec:detect:openspec-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7993:openspec:detect:openspec-detect-004:none",
+      "target_id": "target-d09f147a835d02ee67d89f9f",
+      "task_id": "scrapy__scrapy__pr7993",
+      "pr_id": 7993,
+      "title": "Stop test_storage from expiring its cache entry on slow runners",
+      "method": "openspec",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "openspec-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 236,
+        "event_sha256": "dcaf3438488cba247d81b36778ef0a15ebcfef3afb3015af5e446eb1434a5702"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7993/runs/openspec/detect/executions/openspec-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7993/runs/openspec/detect/executions/openspec-detect-004/attempt-1/seal.json",
+        "sha256": "05403a358f49118c228c489b170210ae969b3b2ed9011a764614a52e65a4e401"
+      }
+    },
+    "scrapy__scrapy__pr7993:speckit:detect:speckit-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7993:speckit:detect:speckit-detect-004:none",
+      "target_id": "target-51bf0227d6172f08b1507ca0",
+      "task_id": "scrapy__scrapy__pr7993",
+      "pr_id": 7993,
+      "title": "Stop test_storage from expiring its cache entry on slow runners",
+      "method": "speckit",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "speckit-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 240,
+        "event_sha256": "870edbf7a5c9684a8f8433f7ed45b2601fabdd62ff7b6d6f43a7d64df970f05e"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7993/runs/speckit/detect/executions/speckit-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7993/runs/speckit/detect/executions/speckit-detect-004/attempt-1/seal.json",
+        "sha256": "27ee2ca84b8b7a290bb83f98f86c29aca22df4f3ee87ab509359facb768a23a0"
+      }
+    },
+    "scrapy__scrapy__pr7993:cc-sdd:detect:cc-sdd-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7993:cc-sdd:detect:cc-sdd-detect-004:none",
+      "target_id": "target-433f4425768c39a88d49ae51",
+      "task_id": "scrapy__scrapy__pr7993",
+      "pr_id": 7993,
+      "title": "Stop test_storage from expiring its cache entry on slow runners",
+      "method": "cc-sdd",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "cc-sdd-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 232,
+        "event_sha256": "ed116a688db56e460f7c71a40bd195aaa8c5d13824d2eb90b766873a7c1215b0"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7993/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7993/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-1/seal.json",
+        "sha256": "f224769abfd7691afbdbb838df8beb292aaf5ea240d6c244c4cd44420a315787"
+      }
+    },
+    "scrapy__scrapy__pr7995:openspec:detect:openspec-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7995:openspec:detect:openspec-detect-004:none",
+      "target_id": "target-7683766e66e9b0ebaeae119a",
+      "task_id": "scrapy__scrapy__pr7995",
+      "pr_id": 7995,
+      "title": "Stop the open_in_browser ReDoS tests from failing on slow interpreters",
+      "method": "openspec",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "openspec-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 248,
+        "event_sha256": "bb18556126ff2244115b5816724a11342d74c95cb6099df93081be7e48052f6d"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7995/runs/openspec/detect/executions/openspec-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7995/runs/openspec/detect/executions/openspec-detect-004/attempt-1/seal.json",
+        "sha256": "c1375807c0e9482978ed152b79ff310a470612dced104af3ee28205134e578b0"
+      }
+    },
+    "scrapy__scrapy__pr7995:speckit:detect:speckit-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7995:speckit:detect:speckit-detect-004:none",
+      "target_id": "target-9f2848b3bcc783e9926ffc1b",
+      "task_id": "scrapy__scrapy__pr7995",
+      "pr_id": 7995,
+      "title": "Stop the open_in_browser ReDoS tests from failing on slow interpreters",
+      "method": "speckit",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "speckit-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 252,
+        "event_sha256": "b62953d35919eb9dc7ef155e8552cf21a73cfa7587d2389a8fa70df37a73c9f3"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7995/runs/speckit/detect/executions/speckit-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7995/runs/speckit/detect/executions/speckit-detect-004/attempt-1/seal.json",
+        "sha256": "805b41a9c95f6be95af57b72d1c05de700fdca9263d219bda3420bdd8a74cc9f"
+      }
+    },
+    "scrapy__scrapy__pr7995:cc-sdd:detect:cc-sdd-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr7995:cc-sdd:detect:cc-sdd-detect-004:none",
+      "target_id": "target-90f3d4b05c96b40ef8cb5caa",
+      "task_id": "scrapy__scrapy__pr7995",
+      "pr_id": 7995,
+      "title": "Stop the open_in_browser ReDoS tests from failing on slow interpreters",
+      "method": "cc-sdd",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "cc-sdd-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 244,
+        "event_sha256": "b0617465604e08210648389092675ccc2d0ab67c285c6b7aa740d3c8ce8a6684"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7995/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7995/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-1/seal.json",
+        "sha256": "8424a9ef61b98509cc5f04160a175f471165039aa399b552d651105a7d6e3aaa"
+      }
+    },
+    "scrapy__scrapy__pr8002:openspec:detect:openspec-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr8002:openspec:detect:openspec-detect-004:none",
+      "target_id": "target-96503cfee55e02cbd6a21c2e",
+      "task_id": "scrapy__scrapy__pr8002",
+      "pr_id": 8002,
+      "title": "Merge LxmlLinkExtractor test classes.",
+      "method": "openspec",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "openspec-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 260,
+        "event_sha256": "fcf1ece77c5c83d5601b28dace0b9463fadfe59f79fb2a24ffbd25003ecae20e"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8002/runs/openspec/detect/executions/openspec-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8002/runs/openspec/detect/executions/openspec-detect-004/attempt-1/seal.json",
+        "sha256": "7093c37e583785679146068ea2f19f5b9dff336bc944935fe52a70cec38c32f7"
+      }
+    },
+    "scrapy__scrapy__pr8002:speckit:detect:speckit-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr8002:speckit:detect:speckit-detect-004:none",
+      "target_id": "target-92083edcdddf0e2b4ccb8b77",
+      "task_id": "scrapy__scrapy__pr8002",
+      "pr_id": 8002,
+      "title": "Merge LxmlLinkExtractor test classes.",
+      "method": "speckit",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "speckit-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 264,
+        "event_sha256": "f4c70b774d1e4691c3d47c5aa10d0d90fc7e4296c198518d8023526005ac1b00"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8002/runs/speckit/detect/executions/speckit-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8002/runs/speckit/detect/executions/speckit-detect-004/attempt-1/seal.json",
+        "sha256": "fe78438621f1641b6a9b98ba3add9d45381e33a311374e3c5be44eb9c5e8c341"
+      }
+    },
+    "scrapy__scrapy__pr8002:cc-sdd:detect:cc-sdd-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr8002:cc-sdd:detect:cc-sdd-detect-004:none",
+      "target_id": "target-0b6adae3269e8db51bb7d054",
+      "task_id": "scrapy__scrapy__pr8002",
+      "pr_id": 8002,
+      "title": "Merge LxmlLinkExtractor test classes.",
+      "method": "cc-sdd",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "cc-sdd-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 256,
+        "event_sha256": "46b5dd705c868e90a9eaefda642e664ef2bf9708d1318447f0e75c5bd2fa4904"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8002/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8002/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-1/seal.json",
+        "sha256": "69885c5ec89cf27486cde3c7b585634f20b754f69f79a2682acde25599c8d8ff"
+      }
+    },
+    "scrapy__scrapy__pr8008:openspec:detect:openspec-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr8008:openspec:detect:openspec-detect-004:none",
+      "target_id": "target-6236d1c22da1a262aa4caf76",
+      "task_id": "scrapy__scrapy__pr8008",
+      "pr_id": 8008,
+      "title": "fix flaky test_slow_pipeline by comparing items unordered",
+      "method": "openspec",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "openspec-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 272,
+        "event_sha256": "bb9adb9e6db3f74c6ef9094a8f37ca349693fa6f30f8b9f43726a6840d04c1a9"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8008/runs/openspec/detect/executions/openspec-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8008/runs/openspec/detect/executions/openspec-detect-004/attempt-1/seal.json",
+        "sha256": "e8a330065bbf143717135896e8b6b861b09de28f09f0fbd4d171edd7f360ff27"
+      }
+    },
+    "scrapy__scrapy__pr8008:speckit:detect:speckit-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr8008:speckit:detect:speckit-detect-004:none",
+      "target_id": "target-a9fde73501ecdee9bed63631",
+      "task_id": "scrapy__scrapy__pr8008",
+      "pr_id": 8008,
+      "title": "fix flaky test_slow_pipeline by comparing items unordered",
+      "method": "speckit",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "speckit-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 276,
+        "event_sha256": "de61e93ae762b4ec11ae3416296385d46462659abaf60f78144a2219893cef91"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8008/runs/speckit/detect/executions/speckit-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8008/runs/speckit/detect/executions/speckit-detect-004/attempt-1/seal.json",
+        "sha256": "f996bb23c0ed1fa1b1dc9b92e83a0fc7e53e79e0e8fdd3774babe1780a731a82"
+      }
+    },
+    "scrapy__scrapy__pr8008:cc-sdd:detect:cc-sdd-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr8008:cc-sdd:detect:cc-sdd-detect-004:none",
+      "target_id": "target-a6a3661c65018151b0ec6788",
+      "task_id": "scrapy__scrapy__pr8008",
+      "pr_id": 8008,
+      "title": "fix flaky test_slow_pipeline by comparing items unordered",
+      "method": "cc-sdd",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "cc-sdd-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 268,
+        "event_sha256": "ce46615bcbb863adbc410966f5e2b918eb32a3548d13c6c44846491efbb5d289"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8008/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8008/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-1/seal.json",
+        "sha256": "8153692af369e49347863677ce5873bcdbdcd045b4ee8ac6419a90a588742674"
+      }
+    },
+    "scrapy__scrapy__pr8009:openspec:detect:openspec-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr8009:openspec:detect:openspec-detect-004:none",
+      "target_id": "target-efd61f10c8b9a5bba6eadae9",
+      "task_id": "scrapy__scrapy__pr8009",
+      "pr_id": 8009,
+      "title": "Use compression.zstd/backports.zstd and make zstd support mandatory",
+      "method": "openspec",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "openspec-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 284,
+        "event_sha256": "888c7363e0561ccb24231168e50b94b5acc32d6acd67f760b461f1cf2bf5ae89"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8009/runs/openspec/detect/executions/openspec-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8009/runs/openspec/detect/executions/openspec-detect-004/attempt-1/seal.json",
+        "sha256": "97f40ecc0cd5a522caf9d89614d90786a530a383666e208b702fbbed2a00ba2d"
+      }
+    },
+    "scrapy__scrapy__pr8009:speckit:detect:speckit-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr8009:speckit:detect:speckit-detect-004:none",
+      "target_id": "target-75b94dc27393f189b7460886",
+      "task_id": "scrapy__scrapy__pr8009",
+      "pr_id": 8009,
+      "title": "Use compression.zstd/backports.zstd and make zstd support mandatory",
+      "method": "speckit",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "speckit-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 288,
+        "event_sha256": "e577c72031891b2f442cebc9daeacf57893007dfc429f865ccf5dc48914eab14"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8009/runs/speckit/detect/executions/speckit-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8009/runs/speckit/detect/executions/speckit-detect-004/attempt-1/seal.json",
+        "sha256": "16398efd947049486442889e37444cf7fb335593fffced828a20dba137dafc4d"
+      }
+    },
+    "scrapy__scrapy__pr8009:cc-sdd:detect:cc-sdd-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr8009:cc-sdd:detect:cc-sdd-detect-004:none",
+      "target_id": "target-2c2d9184de5bce64567efbbc",
+      "task_id": "scrapy__scrapy__pr8009",
+      "pr_id": 8009,
+      "title": "Use compression.zstd/backports.zstd and make zstd support mandatory",
+      "method": "cc-sdd",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "cc-sdd-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 280,
+        "event_sha256": "5f0bcc4d142c6e335dd9b283d3e2943875e38fa21f9ea7ea643377002993e10c"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8009/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8009/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-1/seal.json",
+        "sha256": "b529fedd2fe1ec513b813123d69635d5ec4d96500e86633225635edf73abf090"
+      }
+    },
+    "scrapy__scrapy__pr8020:openspec:detect:openspec-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr8020:openspec:detect:openspec-detect-004:none",
+      "target_id": "target-6309be6d1934fea50a6c12b5",
+      "task_id": "scrapy__scrapy__pr8020",
+      "pr_id": 8020,
+      "title": "Speed up the PyPy CI job and the tests that wait on the engine heartbeat",
+      "method": "openspec",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "openspec-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 296,
+        "event_sha256": "cde96b1fe68523864750c9ae107856b8cb1fbcc898146f83f15b7ce840f5ab4d"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8020/runs/openspec/detect/executions/openspec-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8020/runs/openspec/detect/executions/openspec-detect-004/attempt-1/seal.json",
+        "sha256": "d332e3d0fe62d9aba2dade3e6a3d614b789c8b31e2bf5ef6a6e2473d8d51b138"
+      }
+    },
+    "scrapy__scrapy__pr8020:speckit:detect:speckit-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr8020:speckit:detect:speckit-detect-004:none",
+      "target_id": "target-f4fcfb928bcfaaba6fc4f32e",
+      "task_id": "scrapy__scrapy__pr8020",
+      "pr_id": 8020,
+      "title": "Speed up the PyPy CI job and the tests that wait on the engine heartbeat",
+      "method": "speckit",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "speckit-detect-004",
+      "state": "FAILED",
+      "attempt": 2,
+      "ledger_event": {
+        "sequence": 404,
+        "event_sha256": "73bf16e398ac2695d3f1c4ca001bb9fe9dfaee9671e091b32fcb6ab20430bd9d"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8020/runs/speckit/detect/executions/speckit-detect-004/attempt-2",
+      "seal": null
+    },
+    "scrapy__scrapy__pr8020:cc-sdd:detect:cc-sdd-detect-004:none": {
+      "target_key": "scrapy__scrapy__pr8020:cc-sdd:detect:cc-sdd-detect-004:none",
+      "target_id": "target-ef1d91302433cb2856f3df5c",
+      "task_id": "scrapy__scrapy__pr8020",
+      "pr_id": 8020,
+      "title": "Speed up the PyPy CI job and the tests that wait on the engine heartbeat",
+      "method": "cc-sdd",
+      "stage": "detect",
+      "mode": null,
+      "run_id": "cc-sdd-detect-004",
+      "state": "DETECT_SEALED",
+      "attempt": 1,
+      "ledger_event": {
+        "sequence": 292,
+        "event_sha256": "9962026e24bd0790267d34f2af17d94bf518187b29919d59591b1a9f676c2cf7"
+      },
+      "execution_path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8020/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-1",
+      "seal": {
+        "path": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr8020/runs/cc-sdd/detect/executions/cc-sdd-detect-004/attempt-1/seal.json",
+        "sha256": "5f2de4c0dbccec96aad6747171092c8fe2db7e0457c057894023be3ad968986e"
+      }
+    }
+  },
+  "view_sha256": "51c10010b76e72b999aa6ce4aa31a1e360ee691c412c7282792896a96e0cc35c"
+}
