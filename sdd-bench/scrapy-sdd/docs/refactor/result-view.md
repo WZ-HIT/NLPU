@@ -9,7 +9,10 @@ ledger. The JSON contract is `schemas/target-result-view-v1.schema.json`.
 `target_id`, the latest formal ledger event commitment, the resolved state and
 attempt, and (when present) the immutable seal path and SHA-256. `target_order`
 preserves the source-manifest order. The view only references seals; it never
-rewrites them and contains no gold or evaluation values.
+rewrites them and contains no gold or evaluation values. The shared reader
+checks the source, ledger, and referenced seal hashes, then rebuilds the view
+from those inputs and rejects any row that differs, even if the view was
+rehashed. The page uses this reader before displaying indexed targets.
 
 The operational report, Detect metrics, host evaluator, and `sdd-results` page
 reader use this index. `sdd-pilot report` and `evaluate-host` accept either

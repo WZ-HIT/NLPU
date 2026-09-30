@@ -365,25 +365,24 @@ def _task_manifest(
 
 def _view_targets(exp: Experiment, bench: Path) -> list[BatchTarget] | None:
     view_path = exp.root / "result-view.json"
-    view = load_json(view_path)
-    if not view or view.get("view_type") != "TARGET_RESULT_VIEW" or view.get("batch_id") != _batch_id(exp):
+    if not view_path.is_file():
         return None
-    payload = dict(view)
-    supplied = payload.pop("view_sha256", None)
-    if supplied != canonical_sha256(payload):
-        return None
+    # The page uses the same source, ledger, and seal checks as report generation.
+    # Import here because the standalone tools script is also run outside PYTHONPATH.
+    if str(bench) not in sys.path:
+        sys.path.insert(0, str(bench))
+    from batch.core import BatchError
+    from batch.result_view import load as load_result_view
+
     repository_root = bench.parents[1]
-    for reference in (view.get("source"), view.get("ledger")):
-        if not isinstance(reference, dict):
-            return None
-        relative = reference.get("path")
-        path = _safe_child(repository_root, relative) if isinstance(relative, str) else None
-        if path is None or path.is_symlink() or not path.is_file() or file_sha256(path) != reference.get("sha256"):
-            return None
-    rows = view.get("targets")
-    order = view.get("target_order")
-    if not isinstance(rows, dict) or not isinstance(order, list) or order != list(rows):
+    try:
+        view = load_result_view(view_path, bench, repository_root)
+    except (BatchError, OSError, ValueError):
         return None
+    if view["batch_id"] != _batch_id(exp):
+        return None
+    rows = view["targets"]
+    order = view["target_order"]
     result = []
     for key in order:
         row = rows.get(key)

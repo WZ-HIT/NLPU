@@ -200,4 +200,7 @@ def load(path: Path, bench: Path, repository_root: Path, *, verify_evidence: boo
                 seal = repository_root / row["seal"]["path"]
                 if seal.is_symlink() or not seal.is_file() or sha256_file(seal) != row["seal"]["sha256"]:
                     raise BatchError("RESULT_VIEW_EVIDENCE_CHANGED", "Referenced seal changed", path=row["seal"]["path"])
+        rebuilt = build(repository_root / view["source"]["path"], bench, repository_root)
+        if view != rebuilt:
+            raise BatchError("RESULT_VIEW_CONTENT_MISMATCH", "Result view differs from its source and ledger")
     return view

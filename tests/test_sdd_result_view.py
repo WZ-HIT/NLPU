@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -9,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 BENCH = ROOT / "sdd-bench/scrapy-sdd"
 sys.path.insert(0, str(BENCH))
 
-from batch.core import canonical_sha256, sha256_file
+from batch.core import BatchError, canonical_sha256, sha256_file
 from batch.orchestrator import target_key, validate_prepared_manifest
 from batch.result_view import build, load
 
@@ -48,6 +49,20 @@ class HistoricalResultViewTests(unittest.TestCase):
         self.assertEqual(value["counts"]["update_count"], 0)
         self.assertEqual(value["counts"]["terminal_count"], 55)
         self.assertEqual(value["counts"]["states"], {"DETECT_SEALED": 55, "FAILED": 5})
+
+    def test_rehashed_view_cannot_change_target_identity_or_evidence(self) -> None:
+        original = self.view("scrapy-3pr-both-pilot-v1")
+        key = original["target_order"][0]
+        original["targets"][key]["title"] = "forged title"
+        payload = dict(original)
+        payload.pop("view_sha256")
+        original["view_sha256"] = canonical_sha256(payload)
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "result-view.json"
+            path.write_text(json.dumps(original), encoding="utf-8")
+            with self.assertRaises(BatchError) as raised:
+                load(path, BENCH, ROOT)
+        self.assertEqual(raised.exception.code, "RESULT_VIEW_CONTENT_MISMATCH")
 
     def test_view_is_gold_free_and_references_seals_without_mutating_them(self) -> None:
         path = BENCH / "batch/runs/scrapy-3pr-both-pilot-v1/result-view.json"
