@@ -43,6 +43,18 @@ DEFAULT_TEMPLATE_SHA = "3857c6906b2da51e12ca6005434512b7704fd659"
 # directory is the ancestor of every recipe rather than an instance of one.
 ROOT_BASE_SHA = "11079cb1c85b9e75a39a7269943c69d1a975d485"
 
+# Five frozen recipes predate the per-base installed-Scrapy audit. Their recipe
+# bytes are historical evidence, so verify their masked template against this
+# pinned digest instead of comparing them with the newer generated cohort.
+HISTORICAL_RECIPE_BASES = frozenset({
+    "1420418c813ed01af78da62bc4a6e60bb4a7403b",
+    "916039ca4ca79ea4ed38e74d71e25c2584c1925e",
+    "e01783a493b7224ee616a97a310da8d19da11966",
+    "da7c2fc59e286e796d0f8cfe01d4363d6fa3729f",
+    "4f0b5fa5c3a275b068bc4e028dfd09dd2f878bc0",
+})
+HISTORICAL_MASKED_RECIPE_SHA256 = "108ffb285d726a75b1c2aa5860bd419f1c83b1f6985c291164da83ce6fe0f158"
+
 # Images shared by every base. Their names embed the root base sha, so a naive
 # ``s/11079cb1c85b/<new>/`` corrupts them and ``build-images.sh`` later aborts
 # with "immutable source baseline ID mismatch", far from the edit.
@@ -646,25 +658,35 @@ def verify_all(bench: Path, repository_root: Path = REPOSITORY_ROOT) -> dict[str
 
     verified = [verify_directory(bench, name, repository_root) for name in sorted(generated)]
 
-    reference_name = sorted(generated)[0]
+    current = sorted(set(generated) - HISTORICAL_RECIPE_BASES)
+    reference_name = current[0] if current else sorted(generated)[0]
     reference = masked_recipe(images / reference_name)
     comparable = set(reference) - set(OPTIONAL_FILES)
     reference_smoke = smoke_node_id(reference)
-    for name in sorted(generated)[1:]:
+    for name in sorted(generated):
         candidate = masked_recipe(images / name)
-        differing = sorted(
-            key
-            for key in comparable | (set(candidate) - set(OPTIONAL_FILES))
-            if reference.get(key) != candidate.get(key)
-        )
-        if differing:
-            raise ImageError(
-                "RECIPES_DIVERGE",
-                "Two recipes differ outside the lines the rule table covers",
-                reference=reference_name,
-                other=name,
-                differing=differing,
+        if name in HISTORICAL_RECIPE_BASES:
+            payload = {key: value for key, value in candidate.items() if key not in OPTIONAL_FILES}
+            digest = sha256_bytes(json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8"))
+            if digest != HISTORICAL_MASKED_RECIPE_SHA256:
+                raise ImageError(
+                    "RECIPES_DIVERGE", "Frozen historical recipe differs from its template",
+                    reference="historical-template", other=name, differing=["historical-template-sha256"],
+                )
+        elif name != reference_name:
+            differing = sorted(
+                key
+                for key in comparable | (set(candidate) - set(OPTIONAL_FILES))
+                if reference.get(key) != candidate.get(key)
             )
+            if differing:
+                raise ImageError(
+                    "RECIPES_DIVERGE",
+                    "Two recipes differ outside the lines the rule table covers",
+                    reference=reference_name,
+                    other=name,
+                    differing=differing,
+                )
         # The smoke target is frozen into a per-base artifact, so two recipes
         # agreeing on everything else while auditing against different tests is
         # a difference the byte comparison above deliberately does not see.
