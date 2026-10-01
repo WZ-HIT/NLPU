@@ -8,6 +8,30 @@ The completed reference task is
 `scrapy__scrapy__8073__test_only__600152fbc76dd5ba`. Its deployment lock reports
 `deployment_ready` and `formal_run_ready=true`.
 
+## Experiment workflow
+
+Maintain one `batch/experiments/*.json` file for the PRs, methods, stages,
+Update modes and evaluation plan. Use `bin/sdd-experiment` from this directory:
+
+```bash
+bin/sdd-experiment prepare batch/experiments/scrapy-3pr-both-pilot-v1.json
+bin/sdd-experiment run batch/experiments/scrapy-3pr-both-pilot-v1.json
+bin/sdd-experiment run batch/experiments/scrapy-3pr-both-pilot-v1.json --stage detect --execute
+bin/sdd-experiment run batch/experiments/scrapy-3pr-both-pilot-v1.json --stage update --execute
+bin/sdd-experiment evaluate batch/experiments/scrapy-3pr-both-pilot-v1.json --kind both
+bin/sdd-experiment results list
+```
+
+`prepare` freezes `batch/prepared/<experiment-id>/prepared-manifest.json` and
+can resume an interrupted preparation. The default `run` action is read-only
+`inspect`; `probe` records a dry run. `detect`, `update` and `all` may call a
+paid Agent, so each requires `--execute`. `evaluate` runs on the host after
+sealed evidence exists; `compliance` verifies run evidence and `quality` uses
+the pinned host plan and hidden gold. Detect-only configs without a host plan
+support `--kind compliance`. `results list` and `results report` include the
+historical batches. See [the migration and acceptance notes](docs/refactor/experiment-entry.md)
+for options and compatibility.
+
 ## Quick Non-mutating Probe
 
 Run from the task directory. Keep the real credential path outside this Git
