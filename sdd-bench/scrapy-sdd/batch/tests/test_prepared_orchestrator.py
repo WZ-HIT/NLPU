@@ -109,6 +109,18 @@ class PreparedOrchestratorTests(unittest.TestCase):
         ledger = run_root / 'ledger.jsonl'
         self.assertFalse(ledger.exists())
 
+    def test_partial_detect_success_does_not_claim_global_barrier(self):
+        second = dict(self.targets[0], target_id='target-second', method='speckit', run_id='detect-002')
+        with patch('batch.orchestrator.validate_prepared_manifest', return_value=(self.config, [self.targets[0], second])), \
+             patch('batch.orchestrator.detect_targets', return_value={'status': 'SEALED'}), \
+             patch('batch.orchestrator._ensure_detect_barrier') as barrier:
+            result = orchestrate(command='detect', manifest_path=self.manifest_path, bench=self.bench,
+                repository_root=self.root, dry_run=False, resume=False, retries=set(), task_ids=set(),
+                methods={'openspec'}, modes=set(), recover_detects=set(), archive=False)
+        self.assertEqual(result['status'], 'READY')
+        self.assertEqual(result['results'][0]['state'], 'DETECT_SEALED')
+        barrier.assert_not_called()
+
     def test_interrupted_detect_can_start_a_new_attempt_without_overwriting(self):
         from batch.orchestrator import Ledger
         target = self.targets[0]

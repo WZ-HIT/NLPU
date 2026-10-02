@@ -554,9 +554,9 @@ def _orchestrate(
                         "update_mode": target["mode"], "attempt": attempt,
                         "ledger_sequence": event["sequence"], "result": result})
     barrier = None
-    if not probe and command in {"detect", "all"} and not any(
-        item["state"] in {"BLOCKED", "FAILED"} for item in results if ":detect:" in item["target"]
-    ):
+    detect_keys = [target_key(item) for item in all_targets if item["stage"] == "detect"]
+    if (not probe and command in {"detect", "all"} and detect_keys
+            and all(latest.get(key, {}).get("state") == "DETECT_SEALED" for key in detect_keys)):
         barrier = _ensure_detect_barrier(
             config=config, all_targets=all_targets, latest=latest, run_root=run_root,
             bench=bench, repository_root=repository_root,
