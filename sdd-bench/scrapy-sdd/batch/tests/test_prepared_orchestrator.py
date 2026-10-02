@@ -109,6 +109,28 @@ class PreparedOrchestratorTests(unittest.TestCase):
         ledger = run_root / 'ledger.jsonl'
         self.assertFalse(ledger.exists())
 
+    def test_interrupted_detect_can_start_a_new_attempt_without_overwriting(self):
+        from batch.orchestrator import Ledger
+        target = self.targets[0]
+        run_root = self.bench / 'batch/runs' / self.config['batch_id']
+        ledger = Ledger(run_root / 'ledger.jsonl', self.config['batch_id'],
+                        self.bench / 'schemas/batch-ledger-event-v1.schema.json')
+        for state in ('PLANNED', 'PREFLIGHT_READY', 'DETECT_RUNNING'):
+            ledger.append('detect', target, state, 1, {'target': target_key(target)})
+        previous = self.task.parent / 'runs/openspec/detect/executions/detect-001/attempt-1'
+        previous.mkdir(parents=True)
+        (previous / 'agent.stderr.log').write_text('interrupted before launch')
+        def fake_detect(**kwargs):
+            kwargs['output'].mkdir(parents=True)
+            return {'status': 'SEALED'}
+        with patch('batch.orchestrator.detect_targets', side_effect=fake_detect), \
+             patch('batch.orchestrator._ensure_detect_barrier', return_value={'barrier_sha256': 'b' * 64}):
+            result = self.invoke('detect', retries={target_key(target)}, task_ids={'task-pr1'})
+        self.assertEqual(result['results'][0]['attempt'], 2)
+        self.assertEqual(result['results'][0]['state'], 'DETECT_SEALED')
+        self.assertEqual((previous / 'agent.stderr.log').read_text(), 'interrupted before launch')
+        self.assertTrue((previous.parent / 'attempt-2').is_dir())
+
     def test_failed_target_requires_explicit_retry(self):
         only = [self.targets[0]]
         with patch('batch.orchestrator.validate_prepared_manifest', return_value=(self.config, only)), \

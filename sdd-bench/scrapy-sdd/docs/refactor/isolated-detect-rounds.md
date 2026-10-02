@@ -19,7 +19,7 @@ python3 bin/sdd-experiment archive "$CONFIG" --round "$ROUND"
 python3 bin/sdd-experiment results report --config "$CONFIG" --round "$ROUND"
 ```
 
-`prepare` 校验固定来源、计划、基线和镜像，创建每轮独立工作区，运行 gold 隔离审计和 Docker preflight，然后冻结 `prepared-round.json`。prepare 和 inspect 都不请求模型；**只有** `run --stage detect --execute` 发起正式 Agent 调用。prepare 中途失败时，使用相同命令续跑；已有任务必须核验后才能复用，哈希冲突会停止。`run --resume` 跳过已封存目标；失败目标按原运行器的 `--retry <target-key>` 或 `--recover-detect <target-key>` 处理。不要把新轮次当作旧轮次的重试：新轮次使用新的 `ROUND`。
+`prepare` 校验固定来源、计划、基线和镜像，创建每轮独立工作区，运行 gold 隔离审计和 Docker preflight，然后冻结 `prepared-round.json`。prepare 和 inspect 都不请求模型；**只有** `run --stage detect --execute` 发起正式 Agent 调用。prepare 中途失败时，使用相同命令续跑；已有任务必须核验后才能复用，哈希冲突会停止。`run --resume` 跳过已封存目标；失败目标按原运行器的 `--retry <target-key>` 或 `--recover-detect <target-key>` 处理。整轮中断后，`run --stage detect --execute --resume --retry-failed` 会为失败或中断的 Detect 目标开新 attempt，跳过已封存目标，并运行尚未开始的目标；旧 attempt 的 ledger 和文件保留。不要把新轮次当作旧轮次的重试：新轮次使用新的 `ROUND`。
 
 目标键是 `task_id:method:stage:run_id:mode`，Detect 的 mode 为 `none`。轮次 manifest v2 将此键对应的任务、输入文件 SHA-256、镜像锁、静态审计、preflight 和目标 ID 冻结。运行器仍使用追加式 ledger；结果视图 v2、页面、合规报告和宿主机 Detect 指标用同一键。全部 90 个 Detect 目标必须封存后，才可生成完整合规报告和归档。`evaluate --kind detect` 在宿主机读取隐藏 gold 并写入 `Log/reports/detect-metrics/`；gold 原始文件不进入 Agent 工作区或归档。指标沿用既有 Detect hit-rate v2 口径。
 

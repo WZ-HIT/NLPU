@@ -387,7 +387,7 @@ def _codex_catalog_override(method: str, stage: str, runtime: Path) -> str:
 
 
 def _run_compose_agent(
-    *, task_root: Path, method: str, stage: str, run_id: str, mode: str | None,
+    *, task_root: Path, bench: Path, method: str, stage: str, run_id: str, mode: str | None,
     env: dict[str, str], prompt: str, output: Path, override: Path | None,
 ) -> tuple[str, str]:
     compose_files = ["-f", str(task_root / "compose.yaml")]
@@ -396,7 +396,10 @@ def _run_compose_agent(
     # The pinned DeepSeek profile's model catalog path is /home/bench/... .
     # Formal containers use a fresh /run/sdd-home HOME, so expose the same
     # already-audited catalog at the profile's absolute path as read-only.
-    runtime = task_root.parents[1] / "environments/agent-runtime/codex-0.153.4_node-24.20.0_uv-0.12.10_linux-amd64/config-templates"
+    runtime = bench / "environments/agent-runtime/codex-0.153.4_node-24.20.0_uv-0.12.10_linux-amd64/config-templates"
+    catalog = runtime / "model-catalogs/deepseek-flash/models.json"
+    if catalog.is_symlink() or not catalog.is_file():
+        raise BatchError("MODEL_CATALOG_MISSING", "Pinned model catalog is missing", path=str(catalog))
     catalog_override = output / "codex-catalog.override.yaml"
     catalog_override.write_text(
         _codex_catalog_override(method, stage, runtime),
@@ -507,7 +510,7 @@ def detect_targets(
             "only in that same mounted planning directory."
         )
         session_sha, rendered_sha = _run_compose_agent(
-            task_root=task_root, method=method, stage="detect", run_id=run_id, mode=None,
+            task_root=task_root, bench=bench, method=method, stage="detect", run_id=run_id, mode=None,
             env=env, prompt=prompt, output=execution, override=None,
         )
     workspace_after = _workspace_snapshot(detect_workspace)
@@ -701,7 +704,7 @@ def update_tests(
             "workspace, HOME, cache, or session is available."
         )
     _, rendered_sha = _run_compose_agent(
-        task_root=task_root, method=method, stage="update", run_id=run_id, mode=mode,
+        task_root=task_root, bench=bench, method=method, stage="update", run_id=run_id, mode=mode,
         env=env, prompt=prompt, output=artifacts_dir, override=override,
     )
     changed = _changed_paths(initial_snapshot, _workspace_snapshot(workspace))

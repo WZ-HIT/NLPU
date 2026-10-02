@@ -478,8 +478,11 @@ def _orchestrate(
             raise BatchError(
                 "INVALID_DETECT_RECOVERY", "Recovery requires a failed Detect attempt", target=key
             )
-        if retry and (formal_previous is None or formal_previous["state"] not in {"BLOCKED", "FAILED"}):
-            raise BatchError("INVALID_EXPLICIT_RETRY", "Retry target has no failed/blocked prior attempt", target=key)
+        retryable = {"BLOCKED", "FAILED"}
+        if target["stage"] == "detect":
+            retryable.add("DETECT_RUNNING")
+        if retry and (formal_previous is None or formal_previous["state"] not in retryable):
+            raise BatchError("INVALID_EXPLICIT_RETRY", "Retry target has no failed, blocked, or interrupted Detect attempt", target=key)
         if formal_previous and formal_previous["state"] in TERMINAL:
             if not resume:
                 raise BatchError("RUN_ALREADY_COMPLETE", "Use --resume to skip completed target", target=key)

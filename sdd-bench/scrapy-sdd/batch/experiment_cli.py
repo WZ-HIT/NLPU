@@ -36,6 +36,7 @@ def _parser() -> argparse.ArgumentParser:
     running.add_argument("--method", choices=("openspec", "speckit", "cc-sdd"), action="append", default=[])
     running.add_argument("--mode", choices=("sealed-detect", "self-directed"), action="append", default=[])
     running.add_argument("--retry", action="append", default=[])
+    running.add_argument("--retry-failed", action="store_true", help="retry failed or interrupted Detect targets in an isolated round")
     running.add_argument("--recover-detect", action="append", default=[])
     running.add_argument("--no-archive", action="store_true")
 
@@ -154,14 +155,23 @@ def run(argv: list[str] | None = None) -> int:
                 raise BatchError("ROUND_OUTPUT_FIXED", "Round output directory is fixed by its identity")
             if args.round and args.stage in {"update", "all"}:
                 raise BatchError("ROUND_DETECT_ONLY", "This round config permits Detect only")
-            _, path = _round_frozen(args.config, args.round) if args.round else _frozen(args.config, args.prepared_dir)
+            frozen, path = _round_frozen(args.config, args.round) if args.round else _frozen(args.config, args.prepared_dir)
+            retries = set(args.retry)
+            if args.retry_failed:
+                if not args.round or args.stage != "detect" or not args.resume or args.task or args.method or args.mode:
+                    raise BatchError("ROUND_RETRY_ARGUMENTS", "--retry-failed requires a whole-round Detect --resume without target filters")
+                from .orchestrator import Ledger, _latest
+                ledger = Ledger(path.parent / "ledger.jsonl", frozen["prepared_id"], BENCH / "schemas/batch-ledger-event-v1.schema.json")
+                retries.update(key for key, event in _latest(ledger.read()).items() if event["state"] in {"FAILED", "BLOCKED", "DETECT_RUNNING"})
             value = orchestrate(
                 command=args.stage, manifest_path=path, config_path=None, bench=BENCH,
                 repository_root=ROOT, dry_run=False, resume=args.resume,
                 task_ids=set(args.task), methods=set(args.method), modes=set(args.mode),
-                retries=set(args.retry), recover_detects=set(args.recover_detect),
+                retries=retries, recover_detects=set(args.recover_detect),
                 archive=not args.no_archive,
             )
+            if args.retry_failed:
+                value["retry_count"] = len(retries)
             if args.stage != "inspect":
                 view, view_path = write_result_view(path, BENCH, ROOT)
                 value["result_view"] = {"path": str(view_path), "sha256": view["view_sha256"]}

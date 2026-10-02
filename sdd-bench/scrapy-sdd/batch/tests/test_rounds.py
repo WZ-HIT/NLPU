@@ -245,3 +245,69 @@ class RoundPrepareTests(unittest.TestCase):
                 write_json(target_path, {'task_id': task_id, 'tampered': True})
                 with self.assertRaises(BatchError):
                     prepare_round(config, 'rerun-001', root=root)
+
+
+class RoundRuntimeTests(unittest.TestCase):
+    def test_formal_compose_catalog_uses_bench_root_for_isolated_task(self) -> None:
+        import subprocess
+        from unittest.mock import patch
+        from batch.stages import _run_compose_agent
+        with tempfile.TemporaryDirectory(dir=REPO) as temp:
+            root = Path(temp)
+            bench = root / 'sdd-bench/scrapy-sdd'
+            task = bench / 'batch/runs/round-test/tasks/task-pr1'
+            task.mkdir(parents=True)
+            output = task / 'runs/openspec/detect/executions/detect-001/attempt-1'
+            output.mkdir(parents=True)
+            kwargs = {'task_root': task, 'bench': bench, 'method': 'openspec', 'stage': 'detect',
+                      'run_id': 'detect-001', 'mode': None, 'env': {}, 'prompt': 'test',
+                      'output': output, 'override': None}
+            with patch('batch.stages.subprocess.run') as docker:
+                with self.assertRaises(BatchError) as error:
+                    _run_compose_agent(**kwargs)
+            self.assertEqual(error.exception.code, 'MODEL_CATALOG_MISSING')
+            docker.assert_not_called()
+            catalog = bench / 'environments/agent-runtime/codex-0.153.4_node-24.20.0_uv-0.12.10_linux-amd64/config-templates/model-catalogs/deepseek-flash/models.json'
+            catalog.parent.mkdir(parents=True)
+            catalog.write_text('{}')
+            with patch('batch.stages.subprocess.run', side_effect=lambda args, **kw: subprocess.CompletedProcess(args, 0, 'services: {}\n', '')) as docker:
+                _run_compose_agent(**kwargs)
+            self.assertEqual(docker.call_count, 4)
+            override = (output / 'codex-catalog.override.yaml').read_text()
+            self.assertIn(str(catalog), override)
+            self.assertNotIn(str(task.parents[1] / 'environments'), override)
+
+
+class RoundRetryCliTests(unittest.TestCase):
+    def test_retry_failed_selects_only_failed_and_interrupted_targets(self) -> None:
+        import io
+        from contextlib import redirect_stdout
+        from unittest.mock import patch
+        from batch import experiment_cli
+        from batch.orchestrator import Ledger, target_key
+        with tempfile.TemporaryDirectory(dir=REPO) as temp:
+            root = Path(temp); bench = root / 'sdd-bench/scrapy-sdd'
+            schema = bench / 'schemas/batch-ledger-event-v1.schema.json'
+            schema.parent.mkdir(parents=True)
+            schema.write_bytes((BENCH / 'schemas/batch-ledger-event-v1.schema.json').read_bytes())
+            round_id = 'round-' + 'e' * 24
+            path = bench / 'batch/runs' / round_id / 'prepared-round.json'
+            path.parent.mkdir(parents=True)
+            prepared = {'prepared_id': round_id}
+            ledger = Ledger(path.parent / 'ledger.jsonl', round_id, schema)
+            targets = []
+            for method, state in (('openspec', 'FAILED'), ('speckit', 'DETECT_RUNNING'), ('cc-sdd', 'DETECT_SEALED')):
+                item = {'task_id': 'task-pr1', 'method': method, 'stage': 'detect', 'run_id': method + '-detect-001', 'mode': None}
+                targets.append(item)
+                ledger.append('detect', item, state, 1, {'test': True})
+            output = io.StringIO()
+            with patch.object(experiment_cli, 'BENCH', bench), \
+                 patch.object(experiment_cli, '_round_frozen', return_value=(prepared, path)), \
+                 patch.object(experiment_cli, 'orchestrate', return_value={'status': 'READY'}) as runner, \
+                 patch.object(experiment_cli, 'write_result_view', return_value=({'view_sha256': 'a' * 64}, path.parent / 'result-view.json')), \
+                 redirect_stdout(output):
+                code = experiment_cli.run(['run', 'config.json', '--round', 'rerun-001', '--stage', 'detect',
+                                           '--execute', '--resume', '--retry-failed'])
+            self.assertEqual(code, 0)
+            self.assertEqual(runner.call_args.kwargs['retries'], {target_key(item) for item in targets[:2]})
+            self.assertEqual(json.loads(output.getvalue())['retry_count'], 2)
