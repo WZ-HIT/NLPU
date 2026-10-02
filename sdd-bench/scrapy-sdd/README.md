@@ -101,3 +101,7 @@ Start with the final documents:
 - `Log/scrapy-pr8073-test-only-600152fbc76dd5ba-deployment-manifest.md`
 - `tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/deployment-lock.json`
 - `Log/scrapy-pr8073-test-only-600152fbc76dd5ba-sdd-deployment-steps-28-28.md`
+
+## 独立重跑 30 PR Detect
+
+配置和逐步命令见 [独立 Detect 轮次](docs/refactor/isolated-detect-rounds.md)。通过配置中的 `prs` 选择 PR，通过 `--round` 创建或续跑独立轮次；只有 `run --stage detect --execute` 会调用 Agent。

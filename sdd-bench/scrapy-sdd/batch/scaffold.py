@@ -199,7 +199,7 @@ def _validate_approval(plan: dict[str, Any], plan_path: Path, report: dict[str, 
         raise BatchError("PROVISION_PLAN_HASH_MISMATCH", "Provision report references a different plan")
 
 
-def scaffold_tasks(*, plan_path: Path, provision_report_path: Path, approved_plan_id: str, bench_root: Path, repository_root: Path) -> list[dict[str, Any]]:
+def scaffold_tasks(*, plan_path: Path, provision_report_path: Path, approved_plan_id: str, bench_root: Path, repository_root: Path, tasks_root: Path | None = None, task_ids: set[str] | None = None) -> list[dict[str, Any]]:
     plan = json.loads(plan_path.read_text(encoding="utf-8"))
     provision = json.loads(provision_report_path.read_text(encoding="utf-8"))
     _validate_approval(plan, plan_path, provision, provision_report_path, approved_plan_id, repository_root)
@@ -210,8 +210,11 @@ def scaffold_tasks(*, plan_path: Path, provision_report_path: Path, approved_pla
     results = []
 
     frozen_entries = {method: _load_entries(bench_root, method) for method in METHODS}
+    tasks_root = tasks_root or bench_root / "tasks"
     for planned in plan["tasks"]:
         task_id = planned["task_id"]
+        if task_ids is not None and task_id not in task_ids:
+            continue
         provisioned = report_by_task.get(task_id)
         if not provisioned or provisioned["status"] == "BLOCKED":
             raise BatchError("TASK_NOT_PROVISIONED", "Task has no usable provision result", task_id=task_id)
@@ -224,7 +227,7 @@ def scaffold_tasks(*, plan_path: Path, provision_report_path: Path, approved_pla
         if not isinstance(title, str) or not title.strip() or not isinstance(body, str):
             raise BatchError("INVALID_PUBLIC_DESCRIPTION", "Raw title/body are required", task_id=task_id)
 
-        task_root = bench_root / "tasks" / task_id
+        task_root = tasks_root / task_id
         if task_root.exists():
             existing_manifest = task_root / "task.json"
             if not existing_manifest.is_file():
@@ -264,6 +267,17 @@ def scaffold_tasks(*, plan_path: Path, provision_report_path: Path, approved_pla
                         "TASK_REUSE_INCOMPLETE", "Existing task cannot be safely reused",
                         task_id=task_id, method=method,
                     )
+            if task_root.parent != bench_root / "tasks":
+                lock_path = task_root / "initial-workspaces.json"
+                if not lock_path.is_file():
+                    raise BatchError("TASK_REUSE_INCOMPLETE", "Round workspace lock is missing", task_id=task_id)
+                lock = json.loads(lock_path.read_text(encoding="utf-8"))
+                by_method = {item["method"]: item for item in lock.get("workspaces", [])}
+                for method in METHODS:
+                    expected = by_method.get(method, {}).get("initial_workspace_sha256")
+                    actual = _content_manifest(task_root / "runs" / method / "detect" / "workspace")[1]
+                    if actual != expected:
+                        raise BatchError("TASK_REUSE_CONFLICT", "Round workspace changed since scaffolding", task_id=task_id, method=method)
             results.append({
                 "task_id": task_id, "status": "REUSED_VERIFIED",
                 "path": display_path(task_root, repository_root),
@@ -412,7 +426,7 @@ def scaffold_tasks(*, plan_path: Path, provision_report_path: Path, approved_pla
                     "base_sha": base_sha, "tree_sha": baseline_lock["tree_sha"], "baseline_cache_reused": True,
                     "baseline_lock": {"path": display_path(baseline_lock_path, repository_root), "sha256": sha256_file(baseline_lock_path)},
                     "topology_audit": provisioned["topology_audit"],
-                    "variant_workspaces": {m: f"tasks/{task_id}/runs/{m}/detect/workspace" for m in METHODS},
+                    "variant_workspaces": {m: display_path(task_root / "runs" / m / "detect" / "workspace", repository_root) for m in METHODS},
                     "blocking_errors": [], "warnings": [],
                 }],
                 "operations": {"baseline_cache_created_or_verified": True, "independent_variant_workspaces_created": True, "docker_images_created": False, "containers_created": False, "volumes_created": False, "networks_created": False, "agents_started": False, "tests_run": False},

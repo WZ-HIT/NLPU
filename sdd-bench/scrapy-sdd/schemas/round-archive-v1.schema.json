@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sdd-bench.local/schemas/round-archive-v1.schema.json",
+  "title": "Complete isolated Detect round evidence archive",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "archive_type",
+    "round_id",
+    "result_view_sha256",
+    "file_count",
+    "files",
+    "archive_sha256"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "archive_type": {
+      "const": "ISOLATED_DETECT_ROUND"
+    },
+    "round_id": {
+      "type": "string",
+      "pattern": "^round-[0-9a-f]{24}$"
+    },
+    "result_view_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "file_count": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "files": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "sha256",
+          "size_bytes"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sha256": {
+            "$ref": "#/$defs/sha256"
+          },
+          "size_bytes": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "archive_sha256": {
+      "$ref": "#/$defs/sha256"
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

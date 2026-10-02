@@ -1,0 +1,62 @@
+{
+  "schema_version": 2,
+  "experiment_id": "scrapy-30pr-detect-rerun-v1",
+  "sources": [
+    {
+      "path": "sdd-bench/scrapy-sdd/batch/pilot/scrapy-3pr-detect-v2.json",
+      "sha256": "bd40639e9a9745e33def0171b39a43cc9f942f42f1502ac1a63f99b4bfbaf378"
+    },
+    {
+      "path": "sdd-bench/scrapy-sdd/batch/pilot/scrapy-10pr-detect-v3.json",
+      "sha256": "27bdb93a1b95bf3e12176f5a9bebc41ed2e3490107620e9ccef3070a7e99c891"
+    },
+    {
+      "path": "sdd-bench/scrapy-sdd/batch/pilot/scrapy-20pr-detect-v1.json",
+      "sha256": "54922a4579064a6f2aeed8e58297f404077a02a506e9d13e7d22bf964d8cef95"
+    }
+  ],
+  "prs": [
+    8064,
+    8067,
+    8073,
+    8017,
+    7511,
+    8027,
+    8040,
+    8032,
+    8019,
+    8022,
+    7702,
+    7808,
+    7841,
+    7846,
+    7879,
+    7886,
+    7918,
+    7920,
+    7948,
+    7966,
+    7968,
+    7971,
+    7985,
+    7986,
+    7993,
+    7995,
+    8002,
+    8008,
+    8009,
+    8020
+  ],
+  "methods": [
+    "openspec",
+    "speckit",
+    "cc-sdd"
+  ],
+  "stages": [
+    "detect"
+  ],
+  "update_modes": [],
+  "evaluation": {
+    "kind": "detect-host"
+  }
+}

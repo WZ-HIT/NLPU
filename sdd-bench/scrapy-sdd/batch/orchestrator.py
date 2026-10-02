@@ -136,7 +136,12 @@ def validate_prepared_manifest(
     manifest_path: Path, bench: Path, repository_root: Path
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     """Load P1's frozen contract and adapt it to unchanged stage runners."""
-    manifest = load_prepared(manifest_path, root=repository_root)
+    raw = json.loads(manifest_path.read_text(encoding="utf-8"))
+    if raw.get("manifest_type") == "PREPARED_ROUND":
+        from .rounds import load_round
+        manifest = load_round(manifest_path, root=repository_root)
+    else:
+        manifest = load_prepared(manifest_path, root=repository_root)
     targets = []
     seen = set()
     for item in manifest["targets"]:
@@ -162,9 +167,10 @@ def validate_prepared_manifest(
         "prepared_id": manifest["prepared_id"],
         "experiment_id": manifest["experiment_id"],
         "manifest_path": str(manifest_path),
-        "approved_plan": manifest["inputs"]["approved_plan"],
+        "approved_plan": manifest["inputs"].get("approved_plan"),
+        "approved_plans": [json.loads(_artifact(repository_root, ref, "source batch").read_text(encoding="utf-8"))["approved_plan"] for ref in manifest["inputs"]["sources"]] if manifest.get("manifest_type") == "PREPARED_ROUND" else None,
         "evaluation": manifest["inputs"]["evaluation"],
-        "source_batch": manifest["inputs"]["source_batch"],
+        "source_batch": manifest["inputs"].get("source_batch"),
     }, targets
 
 
@@ -381,6 +387,10 @@ def _orchestrate(
         config, all_targets = validate_batch_config(config_path, bench, repository_root)
     else:
         raise BatchError("RUN_SOURCE_REQUIRED", "A prepared manifest or legacy config is required")
+    if manifest_path is not None and command in MUTATING_COMMANDS:
+        raw = json.loads(manifest_path.read_text(encoding="utf-8"))
+        if raw.get("manifest_type") == "PREPARED_ROUND" and (bench / "Log/reports/round-archives" / config["batch_id"]).exists():
+            raise BatchError("ROUND_ARCHIVED", "Archived round is immutable; choose a new round label")
     probe = command == "probe" or dry_run
     stages = {"detect"} if command == "detect" else {"update"} if command == "update" else {"detect", "update"}
     selected = _filter_targets(

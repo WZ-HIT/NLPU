@@ -1,0 +1,290 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sdd-bench.local/schemas/target-result-view-v2.schema.json",
+  "title": "Target-key indexed isolated round view v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "view_type",
+    "batch_id",
+    "prepared_id",
+    "experiment_id",
+    "source",
+    "ledger",
+    "counts",
+    "target_order",
+    "targets",
+    "view_sha256"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 2
+    },
+    "view_type": {
+      "const": "TARGET_RESULT_VIEW"
+    },
+    "batch_id": {
+      "$ref": "#/$defs/id"
+    },
+    "prepared_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "experiment_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/artifact"
+        }
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "round-manifest"
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "ledger": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/artifact"
+        }
+      ],
+      "properties": {
+        "event_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "chain_tip_sha256": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/sha256"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "event_count",
+        "chain_tip_sha256"
+      ]
+    },
+    "counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target_count",
+        "detect_count",
+        "update_count",
+        "terminal_count",
+        "states"
+      ],
+      "properties": {
+        "target_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "detect_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "update_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "terminal_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "states": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "target_order": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "targets": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/target"
+      }
+    },
+    "view_sha256": {
+      "$ref": "#/$defs/sha256"
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]{0,127}$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "path": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\)(?!.*//).+$"
+    },
+    "artifact": {
+      "type": "object",
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/path"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target_key",
+        "target_id",
+        "task_id",
+        "pr_id",
+        "title",
+        "method",
+        "stage",
+        "mode",
+        "run_id",
+        "state",
+        "attempt",
+        "ledger_event",
+        "execution_path",
+        "seal"
+      ],
+      "properties": {
+        "target_key": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target_id": {
+          "type": "string",
+          "pattern": "^target-[0-9a-f]{24}$"
+        },
+        "task_id": {
+          "$ref": "#/$defs/id"
+        },
+        "pr_id": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "title": {
+          "type": "string"
+        },
+        "method": {
+          "enum": [
+            "openspec",
+            "speckit",
+            "cc-sdd"
+          ]
+        },
+        "stage": {
+          "enum": [
+            "detect",
+            "update"
+          ]
+        },
+        "mode": {
+          "enum": [
+            null,
+            "sealed-detect",
+            "self-directed"
+          ]
+        },
+        "run_id": {
+          "$ref": "#/$defs/id"
+        },
+        "state": {
+          "type": "string",
+          "minLength": 1
+        },
+        "attempt": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "ledger_event": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "sequence",
+                "event_sha256"
+              ],
+              "properties": {
+                "sequence": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "event_sha256": {
+                  "$ref": "#/$defs/sha256"
+                }
+              }
+            }
+          ]
+        },
+        "execution_path": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/path"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "seal": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/artifact"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

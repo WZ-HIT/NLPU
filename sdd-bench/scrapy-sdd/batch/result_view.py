@@ -43,9 +43,9 @@ def _load_source(source_path: Path, bench: Path, repository_root: Path) -> tuple
         raise BatchError("RESULT_VIEW_SOURCE_INVALID", "Target source cannot be read", path=str(source_path)) from exc
     if not isinstance(raw, dict):
         raise BatchError("RESULT_VIEW_SOURCE_INVALID", "Target source must be a JSON object")
-    if raw.get("manifest_type") == "PREPARED_EXPERIMENT":
+    if raw.get("manifest_type") in {"PREPARED_EXPERIMENT", "PREPARED_ROUND"}:
         config, targets = validate_prepared_manifest(source_path, bench, repository_root)
-        return config, targets, "prepared-manifest"
+        return config, targets, "round-manifest" if raw["manifest_type"] == "PREPARED_ROUND" else "prepared-manifest"
     if "approved_plan" in raw:
         config, targets = validate_batch_config(source_path, bench, repository_root)
         return config, targets, "batch-config"
@@ -130,7 +130,7 @@ def build(source_path: Path, bench: Path, repository_root: Path) -> dict[str, An
     states = Counter(row["state"] for row in rows.values())
     stages = Counter(row["stage"] for row in rows.values())
     view: dict[str, Any] = {
-        "schema_version": VIEW_VERSION,
+        "schema_version": 2 if source_type == "round-manifest" else VIEW_VERSION,
         "view_type": VIEW_TYPE,
         "batch_id": config["batch_id"],
         "prepared_id": config.get("prepared_id"),
@@ -154,7 +154,10 @@ def build(source_path: Path, bench: Path, repository_root: Path) -> dict[str, An
 
 
 def validate(view: dict[str, Any], bench: Path) -> None:
-    schema = json.loads((bench / "schemas/target-result-view-v1.schema.json").read_text(encoding="utf-8"))
+    version = view.get("schema_version")
+    if version not in {1, 2}:
+        raise BatchError("RESULT_VIEW_SCHEMA_INVALID", "Unsupported result view version")
+    schema = json.loads((bench / f"schemas/target-result-view-v{version}.schema.json").read_text(encoding="utf-8"))
     errors = sorted(Draft202012Validator(schema).iter_errors(view), key=lambda error: list(error.path))
     if errors:
         raise BatchError("RESULT_VIEW_SCHEMA_INVALID", errors[0].message, location=errors[0].json_path)

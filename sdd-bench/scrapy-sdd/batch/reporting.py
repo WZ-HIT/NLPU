@@ -512,10 +512,17 @@ def generate_final_evidence(*, config_path: Path | None = None, manifest_path: P
     detect_targets = [target for target in targets if target["stage"] == "detect"]
     update_targets = [target for target in targets if target["stage"] == "update"]
     barrier = _verify_barrier(config, detect_targets, run_root, repository_root, evidence)
-    plan_path = _safe_repo_path(repository_root, config["approved_plan"]["path"])
-    plan = evidence.json(plan_path)
-    _check_artifact(plan_path, config["approved_plan"]["sha256"], evidence, "approved plan")
-    classifications = {item["task_id"]: item["classification"] for item in plan.get("tasks", [])}
+    approvals = config.get("approved_plans") or [config["approved_plan"]]
+    classifications = {}
+    for approved in approvals:
+        plan_path = _safe_repo_path(repository_root, approved["path"])
+        plan = evidence.json(plan_path)
+        _check_artifact(plan_path, approved["sha256"], evidence, "approved plan")
+        for item in plan.get("tasks", []):
+            if item["task_id"] in classifications and classifications[item["task_id"]] != item["classification"]:
+                raise ReportingError("PLAN_CLASSIFICATION_INVALID", "Approved plans disagree on task classification")
+            classifications[item["task_id"]] = item["classification"]
+    classifications = {task_id: value for task_id, value in classifications.items() if task_id in {target["task_id"] for target in targets}}
     if set(classifications) != {target["task_id"] for target in targets}:
         raise ReportingError("PLAN_CLASSIFICATION_INVALID", "Approved plan classifications do not cover configured tasks")
     detect_records: list[dict[str, Any]] = []

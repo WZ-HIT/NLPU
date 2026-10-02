@@ -1,0 +1,277 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sdd-bench.local/schemas/prepared-round-v2.schema.json",
+  "title": "Prepared isolated Detect round v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "manifest_type",
+    "experiment_id",
+    "round_label",
+    "prepared_id",
+    "inputs",
+    "images",
+    "evidence",
+    "target_count",
+    "targets"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 2
+    },
+    "manifest_type": {
+      "const": "PREPARED_ROUND"
+    },
+    "experiment_id": {
+      "$ref": "#/$defs/id"
+    },
+    "prepared_id": {
+      "type": "string",
+      "pattern": "^round-[0-9a-f]{24}$"
+    },
+    "inputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "user_config",
+        "sources",
+        "evaluation"
+      ],
+      "properties": {
+        "user_config": {
+          "$ref": "#/$defs/artifact"
+        },
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/artifact"
+          }
+        },
+        "evaluation": {
+          "const": {
+            "kind": "detect-host"
+          }
+        }
+      }
+    },
+    "images": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/image"
+      }
+    },
+    "target_count": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "targets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/target"
+      }
+    },
+    "round_label": {
+      "$ref": "#/$defs/id"
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/artifact"
+      }
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]{0,127}$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "path": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\)(?!.*//).+$"
+    },
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/path"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "image_identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tag",
+        "image_id"
+      ],
+      "properties": {
+        "tag": {
+          "type": "string",
+          "minLength": 1
+        },
+        "image_id": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      }
+    },
+    "image": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "base_sha",
+        "baseline_lock",
+        "deployment_lock",
+        "agent",
+        "baseline"
+      ],
+      "properties": {
+        "base_sha": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "baseline_lock": {
+          "$ref": "#/$defs/artifact"
+        },
+        "deployment_lock": {
+          "$ref": "#/$defs/artifact"
+        },
+        "agent": {
+          "$ref": "#/$defs/image_identity"
+        },
+        "baseline": {
+          "$ref": "#/$defs/image_identity"
+        }
+      }
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target_id",
+        "task_id",
+        "method",
+        "stage",
+        "mode",
+        "run_id",
+        "base_sha",
+        "task_manifest",
+        "policy"
+      ],
+      "properties": {
+        "target_id": {
+          "type": "string",
+          "pattern": "^target-[0-9a-f]{24}$"
+        },
+        "task_id": {
+          "$ref": "#/$defs/id"
+        },
+        "method": {
+          "enum": [
+            "openspec",
+            "speckit",
+            "cc-sdd"
+          ]
+        },
+        "stage": {
+          "enum": [
+            "detect",
+            "update"
+          ]
+        },
+        "mode": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            null,
+            "sealed-detect",
+            "self-directed"
+          ]
+        },
+        "run_id": {
+          "$ref": "#/$defs/id"
+        },
+        "base_sha": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "task_manifest": {
+          "$ref": "#/$defs/artifact"
+        },
+        "policy": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/artifact"
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "stage": {
+                "const": "detect"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "mode": {
+                "type": "null"
+              },
+              "policy": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "stage": {
+                "const": "update"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "mode": {
+                "enum": [
+                  "sealed-detect",
+                  "self-directed"
+                ]
+              },
+              "policy": {
+                "$ref": "#/$defs/artifact"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

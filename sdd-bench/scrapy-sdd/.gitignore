@@ -58,3 +58,8 @@ batch/viewer-reports/
 # them are the evidence that actually needs to travel.
 tasks/*/runs/**/workspace/
 batch/sources/scrapy/
+
+# Per-round configuration snapshots and isolated runtime evidence are local,
+# content-addressed artifacts. The complete archive lives under ignored Log/.
+batch/round-configs/
+batch/runs/round-*/

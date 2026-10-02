@@ -267,7 +267,7 @@ def _discover_batches(bench: Path) -> list[Experiment]:
 def _config_task_ids(config: dict[str, Any] | None) -> list[str]:
     """Task ids eligible for their own card: well-formed and order-preserving deduped."""
     tasks = config.get("tasks") if config else None
-    if not isinstance(tasks, list) and config and config.get("manifest_type") == "PREPARED_EXPERIMENT":
+    if not isinstance(tasks, list) and config and config.get("manifest_type") in {"PREPARED_EXPERIMENT", "PREPARED_ROUND"}:
         targets = config.get("targets")
         if not isinstance(targets, list):
             return []
