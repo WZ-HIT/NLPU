@@ -147,6 +147,15 @@ class RoundRunnerTests(unittest.TestCase):
                 metrics = compute(bench, round_id)
                 self.assertEqual(metrics["counts"]["target_count"], 1)
                 self.assertEqual(metrics["rows"][0]["target_key"], next(iter(view["targets"])))
+                from batch.archive.viewer import module as viewer_module
+                from batch.orchestrator import Ledger
+                current_ledger = Ledger(run / "ledger.jsonl", round_id, schemas / "batch-ledger-event-v1.schema.json")
+                current_ledger.append("detect", {**identity}, "SKIPPED_RESUME", 1, {"previous": "test"})
+                view_before = (run / "result-view.json").read_bytes()
+                loaded = viewer_module(bench)
+                experiment = next(item for item in loaded.discover(bench) if item.batch_id == round_id and item.task_id_filter is None)
+                self.assertEqual(len(loaded.batch_targets(experiment, bench)), 1)
+                self.assertEqual((run / "result-view.json").read_bytes(), view_before)
                 (bench / "Log/reports/round-archives" / round_id).mkdir(parents=True)
                 with self.assertRaises(BatchError) as error:
                     orchestrate(command="probe", **args)
@@ -311,3 +320,52 @@ class RoundRetryCliTests(unittest.TestCase):
             self.assertEqual(code, 0)
             self.assertEqual(runner.call_args.kwargs['retries'], {target_key(item) for item in targets[:2]})
             self.assertEqual(json.loads(output.getvalue())['retry_count'], 2)
+
+
+class RoundViewIntegrityTests(unittest.TestCase):
+    def test_stale_ledger_does_not_hide_a_changed_prior_seal(self) -> None:
+        from batch.orchestrator import Ledger
+        from batch.result_view import load_current_round
+        with tempfile.TemporaryDirectory(dir=REPO) as temp:
+            root = Path(temp)
+            bench = root / 'sdd-bench/scrapy-sdd'
+            schema = bench / 'schemas/batch-ledger-event-v1.schema.json'
+            schema.parent.mkdir(parents=True)
+            schema.write_bytes((BENCH / 'schemas/batch-ledger-event-v1.schema.json').read_bytes())
+            (bench / 'schemas/target-result-view-v2.schema.json').write_bytes(
+                (BENCH / 'schemas/target-result-view-v2.schema.json').read_bytes())
+            round_id = 'round-' + 'f' * 24
+            run = bench / 'batch/runs' / round_id
+            run.mkdir(parents=True)
+            source = run / 'prepared-round.json'
+            write_json(source, {'manifest_type': 'PREPARED_ROUND'})
+            ledger = Ledger(run / 'ledger.jsonl', round_id, schema)
+            task = {'task_id': 'task-pr1', 'method': 'openspec', 'stage': 'detect',
+                    'run_id': 'detect-001', 'mode': None}
+            ledger.append('detect', task, 'DETECT_SEALED', 1, {})
+            seal = run / 'seal.json'
+            write_json(seal, {'status': 'SEALED'})
+            key = 'task-pr1:openspec:detect:detect-001:none'
+            ref = lambda path: {'path': path.relative_to(root).as_posix(), 'sha256': sha256_file(path)}
+            row = {'target_key': key, 'target_id': 'target-' + 'a' * 24,
+                   'task_id': 'task-pr1', 'pr_id': 1, 'title': 'test', 'method': 'openspec',
+                   'stage': 'detect', 'mode': None, 'run_id': 'detect-001',
+                   'state': 'DETECT_SEALED', 'attempt': 1,
+                   'ledger_event': {'sequence': 1, 'event_sha256': ledger.read()[-1]['event_sha256']},
+                   'execution_path': None, 'seal': ref(seal)}
+            view = {'schema_version': 2, 'view_type': 'TARGET_RESULT_VIEW',
+                    'batch_id': round_id, 'prepared_id': round_id, 'experiment_id': 'test',
+                    'source': {'type': 'round-manifest', **ref(source)},
+                    'ledger': {**ref(ledger.path), 'event_count': 1,
+                               'chain_tip_sha256': ledger.read()[-1]['event_sha256']},
+                    'counts': {'target_count': 1, 'detect_count': 1, 'update_count': 0,
+                               'terminal_count': 1, 'states': {'DETECT_SEALED': 1}},
+                    'target_order': [key], 'targets': {key: row}}
+            view['view_sha256'] = canonical_sha256(view)
+            view_path = run / 'result-view.json'
+            write_json(view_path, view)
+            ledger.append('detect', task, 'SKIPPED_RESUME', 1, {})
+            write_json(seal, {'status': 'TAMPERED'})
+            with self.assertRaises(BatchError) as error:
+                load_current_round(view_path, source, bench, root)
+            self.assertEqual(error.exception.code, 'RESULT_VIEW_EVIDENCE_CHANGED')

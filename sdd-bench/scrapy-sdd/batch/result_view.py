@@ -207,3 +207,34 @@ def load(path: Path, bench: Path, repository_root: Path, *, verify_evidence: boo
         if view != rebuilt:
             raise BatchError("RESULT_VIEW_CONTENT_MISMATCH", "Result view differs from its source and ledger")
     return view
+
+
+def load_current_round(path: Path, source_path: Path, bench: Path, repository_root: Path) -> dict[str, Any]:
+    """Read a round during execution without writing a derived view.
+
+    A ledger append makes the stored view stale. Rebuild in memory only if its
+    pinned source and previously recorded seals remain byte-for-byte intact.
+    Other integrity errors still stop the page reader.
+    """
+    source_path = source_path.resolve()
+    if not path.exists():
+        return build(source_path, bench, repository_root)
+    try:
+        return load(path, bench, repository_root)
+    except BatchError as exc:
+        if exc.code != "RESULT_VIEW_EVIDENCE_CHANGED":
+            raise
+        stored = json.loads(path.read_text(encoding="utf-8"))
+        validate(stored, bench)
+        if (stored["schema_version"] != 2 or stored["source"]["type"] != "round-manifest"
+                or exc.details.get("path") != stored["ledger"]["path"]
+                or repository_root / stored["source"]["path"] != source_path):
+            raise
+        for reference in [stored["source"], *(row["seal"] for row in stored["targets"].values() if row["seal"] is not None)]:
+            evidence = repository_root / reference["path"]
+            if evidence.is_symlink() or not evidence.is_file() or sha256_file(evidence) != reference["sha256"]:
+                raise BatchError("RESULT_VIEW_EVIDENCE_CHANGED", "Previously indexed evidence changed", path=reference["path"])
+        current = build(source_path, bench, repository_root)
+        if current["batch_id"] != stored["batch_id"] or current["source"] != stored["source"]:
+            raise BatchError("RESULT_VIEW_SOURCE_CHANGED", "Rebuilt round view differs from frozen source")
+        return current

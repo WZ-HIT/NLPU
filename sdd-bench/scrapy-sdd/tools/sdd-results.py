@@ -240,6 +240,14 @@ def _discover_batches(bench: Path) -> list[Experiment]:
         previous = found.get(batch_id)
         if previous is None or str(candidate.config_path) < str(previous.config_path):
             found[batch_id] = candidate
+    for manifest_path in sorted(runs.glob("*/prepared-round.json")):
+        run_root = manifest_path.parent
+        ledger = run_root / "ledger.jsonl"
+        if (run_root.is_symlink() or manifest_path.is_symlink() or ledger.is_symlink() or not ledger.is_file()
+                or not SAFE_TASK_ID.fullmatch(run_root.name)):
+            continue
+        found[run_root.name] = Experiment(run_root.name, run_root.resolve(), "batch", ledger.stat().st_mtime,
+                                          source_kind="batch", config_path=manifest_path.resolve(), batch_id=run_root.name)
     for view_path in sorted(runs.glob("*/result-view.json")):
         view = load_json(view_path)
         if not view or view.get("view_type") != "TARGET_RESULT_VIEW":
@@ -365,18 +373,24 @@ def _task_manifest(
 
 def _view_targets(exp: Experiment, bench: Path) -> list[BatchTarget] | None:
     view_path = exp.root / "result-view.json"
-    if not view_path.is_file():
+    if not view_path.is_file() and exp.config_path is None:
         return None
     # The page uses the same source, ledger, and seal checks as report generation.
     # Import here because the standalone tools script is also run outside PYTHONPATH.
     if str(bench) not in sys.path:
         sys.path.insert(0, str(bench))
     from batch.core import BatchError
-    from batch.result_view import load as load_result_view
+    from batch.result_view import load as load_result_view, load_current_round
 
     repository_root = bench.parents[1]
     try:
-        view = load_result_view(view_path, bench, repository_root)
+        source = load_json(exp.config_path) if exp.config_path else None
+        if source and source.get("manifest_type") == "PREPARED_ROUND":
+            view = load_current_round(view_path, exp.config_path, bench, repository_root)
+        elif view_path.is_file():
+            view = load_result_view(view_path, bench, repository_root)
+        else:
+            return None
     except (BatchError, OSError, ValueError):
         return None
     if view["batch_id"] != _batch_id(exp):
