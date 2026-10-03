@@ -205,7 +205,7 @@ def _candidate_files(candidates: list[Any]) -> tuple[list[str], list[str]]:
     return predicted, invalid
 
 
-def _upstream_abort(bench: Path, target: Any) -> str | None:
+def _upstream_abort(bench: Path, target: Any, task_root: Path) -> str | None:
     """The model provider's abort message for a target, or ``None``.
 
     Reads only the Agent session that the ledger's current attempt already
@@ -216,7 +216,7 @@ def _upstream_abort(bench: Path, target: Any) -> str | None:
     if target.state != "FAILED" or target.attempt is None:
         return None
     execution = (
-        bench / "tasks" / target.task_id / "runs" / target.method
+        task_root / target.task_id / "runs" / target.method
         / "detect" / "executions" / target.run_id / f"attempt-{target.attempt}"
     )
     try:
@@ -261,7 +261,7 @@ def upstream_aborted(row: dict[str, Any]) -> bool:
     return UPSTREAM_ABORT_WARNING in row["warnings"]
 
 
-def _row(bench: Path, target: Any, indexed: dict[str, Any], gold: tuple[Any, ...]) -> dict[str, Any]:
+def _row(bench: Path, target: Any, indexed: dict[str, Any], gold: tuple[Any, ...], task_root: Path) -> dict[str, Any]:
     gold_files, gold_sha, gold_code, gold_detail = gold
     row: dict[str, Any] = {
         "target_key": indexed["target_key"],
@@ -297,7 +297,7 @@ def _row(bench: Path, target: Any, indexed: dict[str, Any], gold: tuple[Any, ...
         return row
 
     if target.execution is None:
-        abort = _upstream_abort(bench, target)
+        abort = _upstream_abort(bench, target, task_root)
         if abort is not None:
             # Scored rather than errored: the run reported no candidate, which
             # every rate reads as a miss. `detail` carries why, `warnings` makes
@@ -444,6 +444,7 @@ def compute(bench: Path, batch_id: str) -> dict[str, Any]:
         )
     )
 
+    task_root = experiment.root / "tasks" if result_view["source"]["type"] == "round-manifest" else bench / "tasks"
     gold_cache: dict[str, tuple[Any, ...]] = {}
     rows: list[dict[str, Any]] = []
     for target in targets:
@@ -451,7 +452,7 @@ def compute(bench: Path, batch_id: str) -> dict[str, Any]:
             gold_cache[target.task_id] = _gold_sources(bench, target.task_id)
         key = loaded._target_key(target.task_id, target.method, target.stage, target.run_id, target.mode)
         indexed = result_view["targets"][key]
-        rows.append(_row(bench, target, indexed, gold_cache[target.task_id]))
+        rows.append(_row(bench, target, indexed, gold_cache[target.task_id], task_root))
 
     methods = [
         _method_summary(method, [row for row in rows if row["method"] == method])

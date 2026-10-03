@@ -389,3 +389,23 @@ class ViewerDashboardTests(unittest.TestCase):
             loaded.assert_called_once()
             self.assertIn('PR 1', page)
             self.assertIn('PR 2', page)
+
+
+class RoundDetectMetricsTests(unittest.TestCase):
+    def test_upstream_abort_reads_this_round_attempt(self) -> None:
+        from types import SimpleNamespace
+        from batch.detect_metrics import _upstream_abort
+        with tempfile.TemporaryDirectory(dir=REPO) as temp:
+            bench = Path(temp) / 'sdd-bench/scrapy-sdd'
+            round_tasks = bench / 'batch/runs/round-test/tasks'
+            target = SimpleNamespace(task_id='task-pr1', method='speckit', state='FAILED',
+                                     run_id='detect-001', attempt=2)
+            relative = Path('task-pr1/runs/speckit/detect/executions/detect-001/attempt-2/agent.jsonl')
+            old = bench / 'tasks' / relative
+            old.parent.mkdir(parents=True)
+            old.write_text('{"type":"turn.failed","error":{"message":"unrelated failure"}}\n')
+            current = round_tasks / relative
+            current.parent.mkdir(parents=True)
+            current.write_text('{"type":"turn.failed","error":{"message":"shared rollout token budget exhausted"}}\n')
+            self.assertEqual(_upstream_abort(bench, target, round_tasks), 'shared rollout token budget exhausted')
+            self.assertIsNone(_upstream_abort(bench, target, bench / 'tasks'))
