@@ -369,3 +369,23 @@ class RoundViewIntegrityTests(unittest.TestCase):
             with self.assertRaises(BatchError) as error:
                 load_current_round(view_path, source, bench, root)
             self.assertEqual(error.exception.code, 'RESULT_VIEW_EVIDENCE_CHANGED')
+
+
+class ViewerDashboardTests(unittest.TestCase):
+    def test_dashboard_reads_each_batch_once_for_its_pr_cards(self) -> None:
+        from unittest.mock import patch
+        from batch.archive.viewer import module as viewer_module
+        viewer = viewer_module(BENCH)
+        with tempfile.TemporaryDirectory(dir=REPO) as temp:
+            root = Path(temp)
+            batch = viewer.Experiment('round-test', root, 'batch', 0, source_kind='batch', batch_id='round-test')
+            cards = [batch, *(viewer.Experiment(f'round-test/task-pr{pr}', root, 'batch', 0,
+                         source_kind='batch', batch_id='round-test', task_id_filter=f'task-pr{pr}')
+                              for pr in (1, 2))]
+            targets = [viewer.BatchTarget(f'task-pr{pr}', pr, 'test', 'openspec', 'detect',
+                       'detect-001', None, 'DETECT_SEALED', 1, root) for pr in (1, 2)]
+            with patch.object(viewer, 'batch_targets', return_value=targets) as loaded:
+                page = viewer.dashboard_html(cards, BENCH)
+            loaded.assert_called_once()
+            self.assertIn('PR 1', page)
+            self.assertIn('PR 2', page)

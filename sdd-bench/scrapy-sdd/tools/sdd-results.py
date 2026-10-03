@@ -1721,10 +1721,25 @@ const cards=[...document.querySelectorAll('.card')],input=document.querySelector
 def dashboard_html(experiments: list[Experiment], bench: Path | None = None) -> str:
     bench = bench or bench_default()
     cards = []
+    batch_cache: dict[str, list[BatchTarget]] = {}
     for exp in experiments:
-        status = overall_status(exp, bench)
-        present = _batch_present(exp, bench)
-        targets = batch_targets(exp, bench) if exp.source_kind == "batch" else []
+        if exp.source_kind == "batch":
+            batch_id = _batch_id(exp)
+            if batch_id not in batch_cache:
+                overview = replace(exp, experiment_id=batch_id, task_id_filter=None)
+                batch_cache[batch_id] = batch_targets(overview, bench)
+            targets = batch_cache[batch_id]
+            if exp.task_id_filter is not None:
+                targets = [item for item in targets if item.task_id == exp.task_id_filter]
+            status = (
+                "SEALED" if targets and all(item.state in TERMINAL_STATES and item.execution is not None for item in targets)
+                else "INCOMPLETE" if targets else "INVALID"
+            )
+            present = [name for name in VARIANTS if any(item.method == name for item in targets)]
+        else:
+            targets = []
+            status = overall_status(exp, bench)
+            present = _batch_present(exp, bench)
         batch_search = " ".join(
             " ".join(filter(None, (item.task_id, str(item.pr_id or ""), item.method, item.stage, item.mode or "")))
             for item in targets
@@ -1769,10 +1784,6 @@ def make_server(bench: Path, host: str, port: int) -> ThreadingHTTPServer:
 
         def do_GET(self) -> None:
             request_path = urlparse(self.path).path
-            current = discover(bench)
-            if request_path == "/":
-                self.send_page(dashboard_html(current, bench))
-                return
             if request_path == "/healthz":
                 payload = b"ok\n"
                 self.send_response(200)
@@ -1780,6 +1791,10 @@ def make_server(bench: Path, host: str, port: int) -> ThreadingHTTPServer:
                 self.send_header("Content-Length", str(len(payload)))
                 self.end_headers()
                 self.wfile.write(payload)
+                return
+            current = discover(bench)
+            if request_path == "/":
+                self.send_page(dashboard_html(current, bench))
                 return
             prefix = "/experiment/"
             if request_path.startswith(prefix):
