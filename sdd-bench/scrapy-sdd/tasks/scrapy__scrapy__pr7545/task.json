@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr7545",
+  "repository": {
+    "owner": "scrapy",
+    "name": "scrapy"
+  },
+  "pr_id": 7545,
+  "baseline": {
+    "base_sha": "4a165508591da164393c448eebc86c9aa48081da"
+  },
+  "title": "Convert tests that fail with testfixtures 12.0.0",
+  "body": "* `TestTopLevelFormatter`: `LogCapture` no longer inherits from `logging.Handler` so this breaks\r\n* `TestHttpErrorMiddlewareIntegrational`: for some reason the second usage of `LogCapture` fails asserts, but only on macOS",
+  "adapter": {
+    "id": "scrapy",
+    "version": 1,
+    "path": "sdd-bench/scrapy-sdd/adapters/scrapy.json",
+    "sha256": "059dcc09eaa62f892f54118e65d4deccce3ab29cc5d9a4a36f4d999ff1aa27de"
+  }
+}

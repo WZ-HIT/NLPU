@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr7566",
+  "repository": {
+    "owner": "scrapy",
+    "name": "scrapy"
+  },
+  "pr_id": 7566,
+  "baseline": {
+    "base_sha": "90deebe75e49e7217592072e4cb30b56750093c8"
+  },
+  "title": "Refactor test_crawl.py and test_crawler.py.",
+  "body": "Nothing interesting: testfixtures -> caplog, inline_callbacks_test -> coroutine_test, mockserver fixture, crawl() -> crawl_async()",
+  "adapter": {
+    "id": "scrapy",
+    "version": 1,
+    "path": "sdd-bench/scrapy-sdd/adapters/scrapy.json",
+    "sha256": "059dcc09eaa62f892f54118e65d4deccce3ab29cc5d9a4a36f4d999ff1aa27de"
+  }
+}

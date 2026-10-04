@@ -28,3 +28,22 @@ python3 bin/sdd-experiment results report --config "$CONFIG" --round "$ROUND"
 `archive` 将轮次的配置、固定输入引用、静态校验证据、ledger、封存产物、结果视图、报告和已有指标复制到 `Log/reports/round-archives/<round-id>/files/`，并写入各文件 SHA-256 清单。此目录与运行工作区分离，可用 `batch.round_archive.verify_archive(path)` 复核。归档不包含 baseline 工作区或原始 gold，归档目录仅宿主机可读。尚未完成的轮次保留在各自 `batch/runs/<round-id>/`，可继续运行，但不能标记为完整归档。完整归档后本轮禁止再写 ledger；若要重跑，请换一个 `ROUND`。
 
 旧配置 v1 与不带 `--round` 的命令继续按原参数语义运行，历史结果仍可用 `results list/report` 查看。修改工作配置后，可用 `results report --experiment <旧 round-id>` 查看旧轮次；如需续跑旧轮次，应将 `--config` 指向其 `batch/round-configs/<sha256>.json` 快照。不要用 `batch/experiments/scrapy-3pr-both-pilot-v1.json` 配置这次 30 PR Detect 重跑：它描述的是旧 3 PR Detect+Update 实验。
+
+## 扩容到 60 个不同 PR
+
+新增轮次使用 [`scrapy-next30-detect-v1.json`](../../batch/experiments/scrapy-next30-detect-v1.json)：它按库存顺序选出旧轮次之外的前 30 个 PR。旧 30 PR 的轮次与结果保持原样；新配置只包含新增 30 PR，按三种方法展开为 90 个 Detect 目标。两轮合计覆盖 60 个不同 PR。
+
+这批 PR 的固定来源是 [`scrapy-next30-detect-v1.json`](../../batch/pilot/scrapy-next30-detect-v1.json)，来源计划、provision 报告、任务清单、baseline 和镜像均按 SHA-256 固定。首次轮次标签为 `next30-001`，prepared ID 为 `round-ea687beb4344142e7c29bfe6`。prepare 已完成 30 个任务的 gold 隔离与中性 preflight；正式 Agent 尚未运行。
+
+在 `sdd-bench/scrapy-sdd` 目录继续：
+
+```bash
+CONFIG=batch/experiments/scrapy-next30-detect-v1.json
+ROUND=next30-001
+python3 bin/sdd-experiment run "$CONFIG" --round "$ROUND" --stage inspect
+python3 bin/sdd-experiment results summary --config "$CONFIG" --round "$ROUND"
+# 确认要发起正式 Agent 调用时，再执行：
+python3 bin/sdd-experiment run "$CONFIG" --round "$ROUND" --stage detect --execute
+```
+
+`inspect` 和 `results summary` 都是只读检查。需要再重跑同一批新增 PR 时，换一个新的 `ROUND` 标签并重新执行 `prepare`，旧轮次不会被覆盖。

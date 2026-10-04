@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr7460",
+  "repository": {
+    "owner": "scrapy",
+    "name": "scrapy"
+  },
+  "pr_id": 7460,
+  "baseline": {
+    "base_sha": "fc4c57e7958dbbc9532a38f3c622dd990c18591e"
+  },
+  "title": "Fixes for Python 3.14.",
+  "body": "Fixes extracted from #6604 without changing the CI.",
+  "adapter": {
+    "id": "scrapy",
+    "version": 1,
+    "path": "sdd-bench/scrapy-sdd/adapters/scrapy.json",
+    "sha256": "059dcc09eaa62f892f54118e65d4deccce3ab29cc5d9a4a36f4d999ff1aa27de"
+  }
+}

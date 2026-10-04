@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr7524",
+  "repository": {
+    "owner": "scrapy",
+    "name": "scrapy"
+  },
+  "pr_id": 7524,
+  "baseline": {
+    "base_sha": "a8a8f20d9c49ae7f611cbdc90676b64f6349dba2"
+  },
+  "title": "Add BaseStreamingDownloadHandler and migrate HttpxDownloadHandler to it.",
+  "body": "Synchronization with https://github.com/scrapy-plugins/scrapy-download-handlers-incubator/, though without HTTP/2 support for now (mostly because we would need to unconditionally to install `h2` in tests due to it being imported for `HttpxDownloadHandler` and that means some reshuffling of extra-deps).\r\n\r\nPart of #7252",
+  "adapter": {
+    "id": "scrapy",
+    "version": 1,
+    "path": "sdd-bench/scrapy-sdd/adapters/scrapy.json",
+    "sha256": "059dcc09eaa62f892f54118e65d4deccce3ab29cc5d9a4a36f4d999ff1aa27de"
+  }
+}

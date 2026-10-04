@@ -1,0 +1,457 @@
+{
+  "schema_version": 1,
+  "manifest_type": "FROZEN_SDD_INITIALIZATION",
+  "method": "cc-sdd",
+  "version": "3.0.2",
+  "initialization_command": {
+    "argv": [
+      "cc-sdd",
+      "--agent",
+      "codex-skills",
+      "--lang",
+      "en",
+      "--os",
+      "linux",
+      "--overwrite",
+      "force",
+      "--profile",
+      "full"
+    ],
+    "network": "none",
+    "model_request": false
+  },
+  "generated_roots": [
+    ".agents/",
+    ".codex/",
+    ".kiro/",
+    "AGENTS.md"
+  ],
+  "files": [
+    {
+      "path": ".agents/skills/kiro-debug/SKILL.md",
+      "sha256": "c5ce75a0f76d5f587830d5c79c57adf05d6515badc5cff9b3d547bd942bc9514",
+      "size_bytes": 5282,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-debug/agents/openai.yaml",
+      "sha256": "b758f4ab344af0fea6d29fbb950f6b816af1862d7d33e704b2ead3bd4954e87b",
+      "size_bytes": 178,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-discovery/SKILL.md",
+      "sha256": "f437f9e1cded21cd015ad26986ff3eedddf634f4784f725fedaf9947921ea7c1",
+      "size_bytes": 12983,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-discovery/agents/openai.yaml",
+      "sha256": "22ebe6712d9d0f89b6357faa83e48377b2853e5f72d0ab67b8102e6f745a6a36",
+      "size_bytes": 185,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-impl/SKILL.md",
+      "sha256": "9d7ddf5d5fb4e24800fb81b399a6dd0c4a1fed86d21e549a82c2f2323c76adab",
+      "size_bytes": 16135,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-impl/agents/openai.yaml",
+      "sha256": "9d1bf3f6d6f6356f56c51bdad8fd0373f247a4f7f356877158307facf8b4c3fc",
+      "size_bytes": 169,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-impl/templates/debugger-prompt.md",
+      "sha256": "3cb5073b42e786b5d3a3beaabac1e3651c8b17d10c4b419c5ad8b1fd3a324e4a",
+      "size_bytes": 3256,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-impl/templates/implementer-prompt.md",
+      "sha256": "64c4d35f5bd6981cb3e1470df15fdba672514fe82cb65918727e05f3702041f8",
+      "size_bytes": 6643,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-impl/templates/reviewer-prompt.md",
+      "sha256": "f63540c9d3c7cacd7e11a93491796b8855ae82241866e281303e0d94e1cd65b1",
+      "size_bytes": 5426,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-review/SKILL.md",
+      "sha256": "c68435ab6e7051226f235a75b616a47c78dc59ae93732c615ac2d2a2bea9940f",
+      "size_bytes": 7045,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-review/agents/openai.yaml",
+      "sha256": "d50d6c73ed0203ef24319e27fb66bfae96743d27fc753c4265d6703d019bcf00",
+      "size_bytes": 170,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-spec-batch/SKILL.md",
+      "sha256": "6b490abdbc1766e4a83680358c9184c4a9355cac99d1088121efcefdb6fb5f27",
+      "size_bytes": 8940,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-spec-batch/agents/openai.yaml",
+      "sha256": "312a60f578322711cb1c2cb8ec2046f4100c8a7543ee2f0e97dbffa1ebdd1208",
+      "size_bytes": 131,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-spec-design/SKILL.md",
+      "sha256": "f42864c32f7a7ff14e5ada96eee6e47d3074d0d080ffd83e382b996492a972c8",
+      "size_bytes": 11441,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-spec-design/agents/openai.yaml",
+      "sha256": "3f7a8457db937cb9ccf4e2586b2dbc31a90a8ff504fa4057186d3caf11434f8d",
+      "size_bytes": 166,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-spec-design/rules/design-discovery-full.md",
+      "sha256": "51a4386b8afeafddb32e2b115dafa05ffc09045beb092301deda5f656a7e4436",
+      "size_bytes": 3796,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-spec-design/rules/design-discovery-light.md",
+      "sha256": "cc96d009e42e2d4a030e24b72ba92025a520d35354684fa93a9d68e9a3e3947e",
+      "size_bytes": 1553,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-spec-design/rules/design-principles.md",
+      "sha256": "5033327db3fc6b93d2381a1795b27e4bb6e9f73561e84128a83dca54671d1bfe",
+      "size_bytes": 12015,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-spec-design/rules/design-review-gate.md",
+      "sha256": "05f885b59a064cb236f511d159ea3452a06885ca97334283cf21e758d6a8d4dd",
+      "size_bytes": 4063,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-spec-design/rules/design-synthesis.md",
+      "sha256": "e2b38d4a652973344ff5b69fab56798c8eebaecdf86df16024305e666ba0ba83",
+      "size_bytes": 1859,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-spec-init/SKILL.md",
+      "sha256": "33154fda0b4e083f463b69d859520bcc8ca549ffd24cdd833b5541464622f3b5",
+      "size_bytes": 3048,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-spec-init/agents/openai.yaml",
+      "sha256": "5da94bcd58bbad30ca72b36aaa32166500b99d928a725eb9cdd2a3bf67265afe",
+      "size_bytes": 171,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-spec-quick/SKILL.md",
+      "sha256": "b2594b492a363ac0e8051d48c6404942434544a3ad1d843a6d5597908dbeda8e",
+      "size_bytes": 8063,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-spec-quick/agents/openai.yaml",
+      "sha256": "14de92d462c4d8b4b773c0495dbf980decd52202a63edc0c919fb3f91e4492d2",
+      "size_bytes": 164,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-spec-requirements/SKILL.md",
+      "sha256": "72b20399dc768f316d46f89cb7163e60a344cf807b7d6bfaf8886845738145f8",
+      "size_bytes": 8814,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-spec-requirements/agents/openai.yaml",
+      "sha256": "abf191f0929e70b61e55ce643f0889fdd8b4d4294af8b103def6a973436ed27b",
+      "size_bytes": 170,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-spec-requirements/rules/ears-format.md",
+      "sha256": "930cc2e849c772c4d78756d8ac9d92217f98f45878f28f8d68a93ed66bdfb22c",
+      "size_bytes": 2953,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-spec-requirements/rules/requirements-review-gate.md",
+      "sha256": "80d3820e2c80af43fb114c54434940f4ded2cde0a5024fab247e6fa0b18c2f37",
+      "size_bytes": 3696,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-spec-status/SKILL.md",
+      "sha256": "5c7abdaa0ad500020c51c24338ff18784cc968b2d466f55468cce71b7c4b37e8",
+      "size_bytes": 2893,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-spec-status/agents/openai.yaml",
+      "sha256": "d74bee33607b29ccb151bbfd3b0c737ab9087705c5d0f02570671251b70e6705",
+      "size_bytes": 147,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-spec-tasks/SKILL.md",
+      "sha256": "9d79cc1ca267c9cd5f97b0e20f0876eb149805c8edbd77c57517ce7bd450b65f",
+      "size_bytes": 9982,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-spec-tasks/agents/openai.yaml",
+      "sha256": "e1bdb2eedec1372525e3d0a237f80ad0ea77b332c4792fb4d970510623b2a7f6",
+      "size_bytes": 157,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-spec-tasks/rules/tasks-generation.md",
+      "sha256": "d9be9998dcb6dc9ef7cbc348fd2f64350eb45a67aa16226a59510aa4fdcb8aaa",
+      "size_bytes": 11104,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-spec-tasks/rules/tasks-parallel-analysis.md",
+      "sha256": "e6c9dad086b3ec5e25a97313967d4a115c20bd58160a0d9c77fa1ea948f173b1",
+      "size_bytes": 2531,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-steering-custom/SKILL.md",
+      "sha256": "cac16690dc4c3388e66a6dc73c7b9844a8366897901ef1210cd29d3676d13ef6",
+      "size_bytes": 4826,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-steering-custom/agents/openai.yaml",
+      "sha256": "3a25cca2c5b682adb45cf8ff881cbc74d77033a0feb90d070e7829fde6e5bd08",
+      "size_bytes": 178,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-steering-custom/rules/steering-principles.md",
+      "sha256": "da53daeabb0299e9f429213af362b54cef93260a1a221b960965956c426df58f",
+      "size_bytes": 2374,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-steering/SKILL.md",
+      "sha256": "0ed80e5e6441ea677b45c86300172b294cca459b0b922e087a829f0874b01b77",
+      "size_bytes": 4558,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-steering/agents/openai.yaml",
+      "sha256": "e0568d48c6a5ead9a659b6f0d4a2acc9e333d36fcc429770442c3a67bf7445fd",
+      "size_bytes": 163,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-steering/rules/steering-principles.md",
+      "sha256": "da53daeabb0299e9f429213af362b54cef93260a1a221b960965956c426df58f",
+      "size_bytes": 2374,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-validate-design/SKILL.md",
+      "sha256": "cfe55680d725b588e296d1979b2819d738f3995e35ca5eed9c061e94b5a95250",
+      "size_bytes": 5066,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-validate-design/agents/openai.yaml",
+      "sha256": "a12e7c2f457ca2bd0d29f355b57f46e027922e803aa5f4ec03ee2f1ec6f1ce51",
+      "size_bytes": 171,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-validate-design/rules/design-review.md",
+      "sha256": "3917978761b6d94188abb3ee0d32a9885c77b2b956c37a22cfbea3c19d308a21",
+      "size_bytes": 4369,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-validate-gap/SKILL.md",
+      "sha256": "2536230bfc8abe45c83e6a04947f9c85c14a3e2588024cf3f11fd7cc7d73dec2",
+      "size_bytes": 5436,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-validate-gap/agents/openai.yaml",
+      "sha256": "f597ad952200df881ac6b78f7b7a8dc535dd6997698c8f170968cd731d385a6b",
+      "size_bytes": 179,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-validate-gap/rules/gap-analysis.md",
+      "sha256": "220c22c9cc8da70311ae9a8dff2a27b86623eb2f70197c4b9aff6cd4aec1d1a2",
+      "size_bytes": 5094,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-validate-impl/SKILL.md",
+      "sha256": "cdc68cb4d78bcf29c76f1858e796ec9cfb31aa3d3f3983aaeb42786c09cda3ba",
+      "size_bytes": 11303,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-validate-impl/agents/openai.yaml",
+      "sha256": "9fd7995d902e956dea248d19e0a96a62757d0cebd3d9153b6938eea09cb6e15f",
+      "size_bytes": 184,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-verify-completion/SKILL.md",
+      "sha256": "389b056b47c9295df32787fec284a97f53b02555443bdd4343d3e61ac499efbb",
+      "size_bytes": 3902,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/kiro-verify-completion/agents/openai.yaml",
+      "sha256": "05758a85e372d079199baadc94c392cddf24d1b85b4b7ee932bc40bbcf58ef9b",
+      "size_bytes": 159,
+      "mode": "0o644"
+    },
+    {
+      "path": ".codex/agents/spec-reviewer.toml",
+      "sha256": "a7226c0255ea8f60d3f8e3d75fbc2a8eaa3a795c71490f68165f91fac2f365d5",
+      "size_bytes": 661,
+      "mode": "0o644"
+    },
+    {
+      "path": ".kiro/settings/templates/specs/design.md",
+      "sha256": "0b9e3cbd75e4543880aa3b58e4c194670543b39287f5cb5c9d80d9a5f9ff99ff",
+      "size_bytes": 13306,
+      "mode": "0o644"
+    },
+    {
+      "path": ".kiro/settings/templates/specs/init.json",
+      "sha256": "dfc07543fb08e2f4401cae1f186993b02076a50309f9b31d405ec359558e601a",
+      "size_bytes": 437,
+      "mode": "0o644"
+    },
+    {
+      "path": ".kiro/settings/templates/specs/requirements-init.md",
+      "sha256": "ad3f8051e45003cc3f3b5a82bdd04c8b303c5e8d9f00e7d94c1593019c15ecf9",
+      "size_bytes": 159,
+      "mode": "0o644"
+    },
+    {
+      "path": ".kiro/settings/templates/specs/requirements.md",
+      "sha256": "876aed0185db39e9fd160331a408b84e856d1f0ad1143036615b663742ddbdca",
+      "size_bytes": 1297,
+      "mode": "0o644"
+    },
+    {
+      "path": ".kiro/settings/templates/specs/research.md",
+      "sha256": "a77becba2f120a2d020004a08ad331a602fb0cb30c5fa3c7cc9fa8acc8da0fde",
+      "size_bytes": 2355,
+      "mode": "0o644"
+    },
+    {
+      "path": ".kiro/settings/templates/specs/tasks.md",
+      "sha256": "6ed02fcc9b90988c594c4b4698c178ef8a1124371b80170a44faab9430996214",
+      "size_bytes": 1271,
+      "mode": "0o644"
+    },
+    {
+      "path": ".kiro/settings/templates/steering-custom/api-standards.md",
+      "sha256": "c091a4579807ffcfa2eb16f956b273f7925e92a1e11cb436c7ae95ee45ef4b34",
+      "size_bytes": 1662,
+      "mode": "0o644"
+    },
+    {
+      "path": ".kiro/settings/templates/steering-custom/authentication.md",
+      "sha256": "061aa606b4bd2ed0a40dcfcf78882c5e2c7acc82ed80008611896e22efb9607c",
+      "size_bytes": 2089,
+      "mode": "0o644"
+    },
+    {
+      "path": ".kiro/settings/templates/steering-custom/database.md",
+      "sha256": "b93f66bbed730c787ebf43577c4dfb1cbe98d788c79681763fa68034ed84f0c4",
+      "size_bytes": 1507,
+      "mode": "0o644"
+    },
+    {
+      "path": ".kiro/settings/templates/steering-custom/deployment.md",
+      "sha256": "462a787ccc6ac63ca0d6d311bcadea24aae5a1cf9a513aed7d1f316237a46f33",
+      "size_bytes": 1782,
+      "mode": "0o644"
+    },
+    {
+      "path": ".kiro/settings/templates/steering-custom/error-handling.md",
+      "sha256": "1a58856c020fd3cbfc779a67ad67571fe661399631b9f4ef497a218ee36396ae",
+      "size_bytes": 2205,
+      "mode": "0o644"
+    },
+    {
+      "path": ".kiro/settings/templates/steering-custom/security.md",
+      "sha256": "a00847516d574e6e0d54bddc1819b8fba975344316dd6307b9d1c4cbee6686be",
+      "size_bytes": 2092,
+      "mode": "0o644"
+    },
+    {
+      "path": ".kiro/settings/templates/steering-custom/testing.md",
+      "sha256": "e5679d6769bddd196b9e44fa5f3f8bf31cb8caad63a5905b34838d6e68fa2540",
+      "size_bytes": 1297,
+      "mode": "0o644"
+    },
+    {
+      "path": ".kiro/settings/templates/steering/product.md",
+      "sha256": "f233ba3cebcaa4e8303ba59d9c447d2fa1c95a0a6504b19e8dc3df63e236f73f",
+      "size_bytes": 355,
+      "mode": "0o644"
+    },
+    {
+      "path": ".kiro/settings/templates/steering/structure.md",
+      "sha256": "2d4ea086e3619750cc00166daeefa025cdfe75fdc3b745165cfabb6c53375910",
+      "size_bytes": 871,
+      "mode": "0o644"
+    },
+    {
+      "path": ".kiro/settings/templates/steering/tech.md",
+      "sha256": "ab20caddc4a2361ebccbb09978cf0798a88e10bf259ee20113975f2966051025",
+      "size_bytes": 792,
+      "mode": "0o644"
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "8c4c44e25a4454967f7f69d98376cfd6fd4e305b6ae20770794935fc329fa61f",
+      "size_bytes": 4532,
+      "mode": "0o644"
+    }
+  ],
+  "file_count": 68,
+  "files_manifest_sha256": "bc41205547ef092c40367484fed7e2f5e51b501534d80cc123e621feaa96d03c",
+  "reference_manifest_sha256": "3be430c9092a6396aa0d9f5ae4be85f9d66ac33ee3cb986c175334503abf4cca",
+  "planning_artifacts": {
+    "workspace_path": ".kiro/specs/",
+    "writable_mount_path": "/workspace/.kiro/specs",
+    "sealed_at_freeze": true
+  },
+  "workflow": {
+    "detect_phases": [
+      "spec",
+      "detect"
+    ],
+    "freeze": "seal_detection_manifest_and_planning_artifacts",
+    "update_phases": [
+      "implement"
+    ]
+  }
+}

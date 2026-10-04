@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr7643",
+  "repository": {
+    "owner": "scrapy",
+    "name": "scrapy"
+  },
+  "pr_id": 7643,
+  "baseline": {
+    "base_sha": "6393858c7e45ed5393fe98b570505f04855664c1"
+  },
+  "title": "Refactor and improve catching warnings in tests.",
+  "body": "Should help with #7262 (some resource warnings remain)\r\n\r\nThis mostly replaces `catch_warnings(record=True)` + manual examination of caught warnings (either with `pytest.warns()` or with some warning filter). \r\n\r\nOne note: I've tried using the `with warnings.catch_warnings(action=\"error\")` form but it [requires Python 3.11](https://docs.python.org/3/library/warnings.html#warnings.catch_warnings).",
+  "adapter": {
+    "id": "scrapy",
+    "version": 1,
+    "path": "sdd-bench/scrapy-sdd/adapters/scrapy.json",
+    "sha256": "059dcc09eaa62f892f54118e65d4deccce3ab29cc5d9a4a36f4d999ff1aa27de"
+  }
+}

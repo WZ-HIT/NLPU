@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr7632",
+  "repository": {
+    "owner": "scrapy",
+    "name": "scrapy"
+  },
+  "pr_id": 7632,
+  "baseline": {
+    "base_sha": "0a4a92e84334770a3aca3a3c44985cb08692535c"
+  },
+  "title": "Fix rel_has_nofollow to be case-insensitive per HTML spec",
+  "body": "## Bug\n\nThe HTML specification states that link type keywords such as `nofollow`\nare [ASCII case-insensitive](https://html.spec.whatwg.org/multipage/links.html#link-type-nofollow).\nHowever, `rel_has_nofollow` performs a case-sensitive check, so a page\nwith `rel=\"NoFollow\"` or `rel=\"NOFOLLOW\"` is incorrectly treated as a\nfollow link and Scrapy will crawl it when it should not.\n\n## Fix\n\nAdd `.lower()` before the token split in `scrapy/utils/misc.py`:\n\n```python\n# before\nreturn rel is not None and \"nofollow\" in rel.replace(\",\", \" \").split()\n# after\nreturn rel is not None and \"nofollow\" in rel.lower().replace(\",\", \" \").split()\n```\n\n## Verification\n\n```\npytest tests/test_utils_misc/ -k nofollow -v\n# 1 passed\n```\n\nAll 15 tests in `tests/test_utils_misc/` pass. The link extractor nofollow\ntest also passes.\n\n> Note: This fix was developed with AI assistance.",
+  "adapter": {
+    "id": "scrapy",
+    "version": 1,
+    "path": "sdd-bench/scrapy-sdd/adapters/scrapy.json",
+    "sha256": "059dcc09eaa62f892f54118e65d4deccce3ab29cc5d9a4a36f4d999ff1aa27de"
+  }
+}

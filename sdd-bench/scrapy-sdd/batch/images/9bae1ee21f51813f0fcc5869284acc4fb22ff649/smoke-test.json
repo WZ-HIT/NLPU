@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "path": "tests/test_toplevel.py",
+  "node_id": "tests/test_toplevel.py::test_version",
+  "argv": [
+    "python",
+    "-m",
+    "pytest",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "--basetemp=/tmp/pytest-smoke",
+    "tests/test_toplevel.py::test_version"
+  ],
+  "selected_rank": 0,
+  "selection_rule": "present at the base, named by no raw pull request record, and collects at least one module-level test",
+  "gold_blindness": {
+    "raw_record_count": 354,
+    "touched_file_count": 464,
+    "touched_files_sha256": "8f40c0e842cdd7b97ca7394ed4f76327609c407a55b6562468c444412535290f",
+    "path_in_touched_files": false
+  },
+  "base_evidence": {
+    "present_at_base": true,
+    "blob_sha256": "80754599d4dc01bf084ff68ef5a3875fb10c059612d02a8192d84c73a2da94c4"
+  },
+  "rejected": []
+}

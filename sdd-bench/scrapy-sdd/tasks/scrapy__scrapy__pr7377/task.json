@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr7377",
+  "repository": {
+    "owner": "scrapy",
+    "name": "scrapy"
+  },
+  "pr_id": 7377,
+  "baseline": {
+    "base_sha": "58d85282cf785369bd9f2eddcce0889f60d8a065"
+  },
+  "title": "improve handling of timedeltas",
+  "body": "- fix negative elapsed times when system clock changes\r\n- reduce flaky timeout behavior caused by clock adjustments\r\n- improve download latency accuracy\r\n- make delay scheduling more stable",
+  "adapter": {
+    "id": "scrapy",
+    "version": 1,
+    "path": "sdd-bench/scrapy-sdd/adapters/scrapy.json",
+    "sha256": "059dcc09eaa62f892f54118e65d4deccce3ab29cc5d9a4a36f4d999ff1aa27de"
+  }
+}

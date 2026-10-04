@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "manifest_type": "FROZEN_SDD_INITIALIZATION",
+  "method": "openspec",
+  "version": "1.12.0",
+  "initialization_command": {
+    "argv": [
+      "openspec",
+      "init",
+      "--tools",
+      "codex"
+    ],
+    "network": "none",
+    "model_request": false
+  },
+  "generated_roots": [
+    ".agents/skills/",
+    "openspec/"
+  ],
+  "files": [
+    {
+      "path": ".agents/skills/.openspec-target",
+      "sha256": "243b0dc9b847e66c440dca985e10fe0ce9e29c379b018ddd5747ba8948f84cc8",
+      "size_bytes": 6,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/openspec-apply-change/SKILL.md",
+      "sha256": "576a910af3021a6fd159140f864b17f07d654d72086eab3da8fb32e6d5e6aa88",
+      "size_bytes": 8423,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/openspec-archive-change/SKILL.md",
+      "sha256": "581ae5679612e832e93170a727216e714fbed17ba947848f806cacceb3228963",
+      "size_bytes": 10731,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/openspec-explore/SKILL.md",
+      "sha256": "28dba6d130b984c28ae3a3b9fa054e4e38b54cf6000c04bbceee6483529c8ba6",
+      "size_bytes": 18475,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/openspec-propose/SKILL.md",
+      "sha256": "5a1997695e482429e2f2a23301cd18cc028b9f5bdbab77d8ed262912316e3e81",
+      "size_bytes": 12433,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/openspec-sync-specs/SKILL.md",
+      "sha256": "e8d926b302b87319a25ca65842cc1ed971412891f79ae197702c6857708ae385",
+      "size_bytes": 12554,
+      "mode": "0o644"
+    },
+    {
+      "path": ".agents/skills/openspec-update-change/SKILL.md",
+      "sha256": "30181d7c0957c55420503c82f01e39a51cabba86bc1c266a191106b913087b76",
+      "size_bytes": 7502,
+      "mode": "0o644"
+    },
+    {
+      "path": "openspec/changes/archive/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0,
+      "mode": "0o644"
+    },
+    {
+      "path": "openspec/config.yaml",
+      "sha256": "2a791b0ccc50e2c2ebbb3ba28692a4ad0e4b6ab94ed2151375ac404d7056e89a",
+      "size_bytes": 922,
+      "mode": "0o644"
+    },
+    {
+      "path": "openspec/specs/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0,
+      "mode": "0o644"
+    }
+  ],
+  "file_count": 10,
+  "files_manifest_sha256": "97649e1e7ba13ab77b18a062b7f89b62657318fcf1618c3d516463653f616c61",
+  "reference_manifest_sha256": "70168a45d79ce6cd6d686c280476e3fbaf57179cc239cda700b49cac298c7141",
+  "planning_artifacts": {
+    "workspace_path": "openspec/changes/",
+    "writable_mount_path": "/workspace/openspec/changes",
+    "sealed_at_freeze": true
+  },
+  "workflow": {
+    "detect_phases": [
+      "propose",
+      "detect"
+    ],
+    "freeze": "seal_detection_manifest_and_planning_artifacts",
+    "update_phases": [
+      "apply"
+    ]
+  }
+}

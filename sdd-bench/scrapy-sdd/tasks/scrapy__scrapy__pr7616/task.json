@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr7616",
+  "repository": {
+    "owner": "scrapy",
+    "name": "scrapy"
+  },
+  "pr_id": 7616,
+  "baseline": {
+    "base_sha": "af30cfea120a0b0853984bedc350e8dc114bba25"
+  },
+  "title": "Assorted test fixes",
+  "body": "Also fixes `TestPythonRobotParser` failing on Python 3.13.14",
+  "adapter": {
+    "id": "scrapy",
+    "version": 1,
+    "path": "sdd-bench/scrapy-sdd/adapters/scrapy.json",
+    "sha256": "059dcc09eaa62f892f54118e65d4deccce3ab29cc5d9a4a36f4d999ff1aa27de"
+  }
+}

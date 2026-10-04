@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr7459",
+  "repository": {
+    "owner": "scrapy",
+    "name": "scrapy"
+  },
+  "pr_id": 7459,
+  "baseline": {
+    "base_sha": "4e25686b20b9f9c31e4917fb3509dbc538925624"
+  },
+  "title": "Fix the substitution pattern in open_in_browser().",
+  "body": "Surprisingly, `\\0` is not supported as a reference (https://stackoverflow.com/questions/58134893/why-doesnt-0-work-in-python-regexp-substitutions-i-e-with-sub-or-expand) and so the head tag was being replaced by a literal zero byte :)",
+  "adapter": {
+    "id": "scrapy",
+    "version": 1,
+    "path": "sdd-bench/scrapy-sdd/adapters/scrapy.json",
+    "sha256": "059dcc09eaa62f892f54118e65d4deccce3ab29cc5d9a4a36f4d999ff1aa27de"
+  }
+}

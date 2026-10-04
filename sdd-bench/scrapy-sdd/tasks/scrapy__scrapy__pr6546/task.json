@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr6546",
+  "repository": {
+    "owner": "scrapy",
+    "name": "scrapy"
+  },
+  "pr_id": 6546,
+  "baseline": {
+    "base_sha": "58af57a3ea3a109f05c5b3e9f7b6e1e24adc9834"
+  },
+  "title": "Add settings for TLS min/max version as a replacement for the TLS method",
+  "body": "Fixes #3288, fixes #4821\r\n\r\nDeprecates:\r\n* Setting the `DOWNLOADER_CLIENT_TLS_METHOD` setting to anything other than `TLS`\r\n* `scrapy.core.downloader.tls.METHOD_*` constants\r\n* `scrapy.core.downloader.tls.openssl_methods` dict\r\n\r\nIt also directly removes support for `DOWNLOADER_CLIENT_TLS_METHOD` from `HttpxDownloadHandler` (especially as the docs falsely claimed that it's not supported).",
+  "adapter": {
+    "id": "scrapy",
+    "version": 1,
+    "path": "sdd-bench/scrapy-sdd/adapters/scrapy.json",
+    "sha256": "059dcc09eaa62f892f54118e65d4deccce3ab29cc5d9a4a36f4d999ff1aa27de"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr7605",
+  "repository": {
+    "owner": "scrapy",
+    "name": "scrapy"
+  },
+  "pr_id": 7605,
+  "baseline": {
+    "base_sha": "a8ffdcf8517a8973391a14635234b6993b15a86a"
+  },
+  "title": "Fix strip_url() removing default port from password.",
+  "body": "### summary\r\nfixes `strip_url()` stripping default ports from passwords when `strip_credentials=False`.\r\n\r\n```python\r\nstrip_url(\"http://user:80@example.com:80/p\", strip_credentials=False)\r\n# before: 'http://user@example.com/p'\r\n# after:  'http://user:80@example.com/p'\r\n```\r\nfixes #7604\r\n\r\n### root cause\r\n\r\n`netloc.replace(f\":{parsed_url.port}\", \"\")` is a global substring replace and matches `:80` inside `user:password@` too.\r\n\r\n### fix\r\n\r\nsplit netloc on the rightmost `@` with `rpartition(\"@\")` and strip the `:port` suffix from the host side only.\r\n\r\n### changes\r\n\r\n- `scrapy/utils/url.py` — strip default port from host only\r\n- `tests/test_utils_url.py` — regression tests for passwords `80`, `443`, `21`\r\n- `docs/news.rst` — bug fix entry\r\n\r\n### test plan\r\n\r\n```\r\npytest tests/test_utils_url.py\r\npytest tests/test_spidermiddleware_referer.py\r\n```\r\n\r\nedge cases verified: no credentials, non-default ports, IPv6 with and without credentials, `strip_credentials=True` path.",
+  "adapter": {
+    "id": "scrapy",
+    "version": 1,
+    "path": "sdd-bench/scrapy-sdd/adapters/scrapy.json",
+    "sha256": "059dcc09eaa62f892f54118e65d4deccce3ab29cc5d9a4a36f4d999ff1aa27de"
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "schema_version": 2,
+  "experiment_id": "scrapy-next30-detect-v1",
+  "sources": [
+    {
+      "path": "sdd-bench/scrapy-sdd/batch/pilot/scrapy-next30-detect-v1.json",
+      "sha256": "e6973b3686889dc4db18e3b367e9f4cda45986bc987d1a145e38b3b64ef911a6"
+    }
+  ],
+  "prs": [
+    6438,
+    6546,
+    6604,
+    7208,
+    7377,
+    7449,
+    7459,
+    7460,
+    7466,
+    7490,
+    7506,
+    7520,
+    7524,
+    7532,
+    7545,
+    7564,
+    7566,
+    7575,
+    7585,
+    7586,
+    7595,
+    7596,
+    7605,
+    7616,
+    7627,
+    7632,
+    7639,
+    7643,
+    7647,
+    7655
+  ],
+  "methods": [
+    "openspec",
+    "speckit",
+    "cc-sdd"
+  ],
+  "stages": [
+    "detect"
+  ],
+  "update_modes": [],
+  "evaluation": {
+    "kind": "detect-host"
+  }
+}

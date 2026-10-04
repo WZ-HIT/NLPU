@@ -1,0 +1,41 @@
+ARG SOURCE_BASELINE_IMAGE=scrapy-sdd-scrapy:base-11079cb1c85b-py311
+FROM ${SOURCE_BASELINE_IMAGE}
+
+USER root
+RUN find /workspace -mindepth 1 -maxdepth 1 -exec rm -rf {} +
+COPY --from=purebase --chown=1007:1007 / /workspace
+RUN rm -rf /workspace/.git && test ! -e /workspace/.git
+
+# The shared source-baseline image installs Scrapy from a checkout of the root
+# base, and for most bases the root is *newer* than the base itself: revision
+# 11079cb1 postdates bases built before 2026-08-21 by up to 46 files under
+# scrapy/, so an agent could read a merged fix straight out of site-packages
+# or /opt/scrapy-source. Reinstalling from the base tree makes the installed
+# package the base revision, and drops the root checkout entirely. The
+# distribution metadata is re-stamped to match, because the deployment lock
+# records the version this reports.
+RUN set -eu; \
+    version="$(cat /workspace/scrapy/VERSION)"; \
+    rm -rf /opt/scrapy-source; \
+    rm -rf /usr/local/lib/python3.11/site-packages/scrapy; \
+    cp -a /workspace/scrapy /usr/local/lib/python3.11/site-packages/scrapy; \
+    find /usr/local/lib/python3.11/site-packages/scrapy -name __pycache__ -prune -exec rm -rf {} +; \
+    info="$(ls -d /usr/local/lib/python3.11/site-packages/scrapy-*.dist-info)"; \
+    sed -i "s|^Version: .*|Version: ${version}|" "$info/METADATA"; \
+    rm -f "$info/direct_url.json"; \
+    mv "$info" "/usr/local/lib/python3.11/site-packages/scrapy-${version}.dist-info"; \
+    cd /; \
+    test "$(python -c 'import importlib.metadata as m; print(m.version("Scrapy"))')" = "$version"; \
+    test "$(python -c 'import scrapy; print(scrapy.__file__)')" = "/usr/local/lib/python3.11/site-packages/scrapy/__init__.py"; \
+    test "$(sha256sum /usr/local/lib/python3.11/site-packages/scrapy/crawler.py | cut -d' ' -f1)" = "$(sha256sum /workspace/scrapy/crawler.py | cut -d' ' -f1)"; \
+    test ! -e /opt/scrapy-source
+
+LABEL org.opencontainers.image.title="scrapy-sdd frozen baseline" \
+      bench.repository="scrapy/scrapy" \
+      bench.base-sha="af30cfea120a0b0853984bedc350e8dc114bba25" \
+      bench.tree-sha="d2de6906377d61656c277ad364a814dcb8a152bf" \
+      bench.source-baseline-image="sha256:f59cdcb1f1be58c9ee0becf4eff13ea4979aea617aa5bf2c4619ae2c13c4adfa"
+
+USER 1007:1007
+WORKDIR /workspace
+CMD ["sleep", "infinity"]

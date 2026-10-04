@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "stage": "detect",
+  "method": "speckit",
+  "status": "READY",
+  "phases": [
+    "specify",
+    "plan",
+    "tasks",
+    "detect"
+  ],
+  "workspace": "workspace/",
+  "planning_artifacts": "planning-artifacts/",
+  "output": "output/",
+  "repository_mount": "read-only",
+  "planning_mount": {
+    "host": "planning-artifacts/",
+    "container": "/workspace/specs",
+    "mode": "read-write"
+  },
+  "forbidden": [
+    "run_tests",
+    "modify_scrapy",
+    "modify_tests",
+    "modify_project_configuration"
+  ]
+}

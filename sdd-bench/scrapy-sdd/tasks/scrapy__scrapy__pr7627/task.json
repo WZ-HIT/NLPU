@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr7627",
+  "repository": {
+    "owner": "scrapy",
+    "name": "scrapy"
+  },
+  "pr_id": 7627,
+  "baseline": {
+    "base_sha": "e74647572d692598ca943db539d45aefdc4956ac"
+  },
+  "title": "Document scrapy-lint, remove start_url check",
+  "body": "Resolves #4421.\r\n\r\nNot 100% sure about the URL check removal. I had originally planned to remove it as part of this change, but seeing how trivial it is, and that not all users will install scrapy-lint. Should we keep it?",
+  "adapter": {
+    "id": "scrapy",
+    "version": 1,
+    "path": "sdd-bench/scrapy-sdd/adapters/scrapy.json",
+    "sha256": "059dcc09eaa62f892f54118e65d4deccce3ab29cc5d9a4a36f4d999ff1aa27de"
+  }
+}
