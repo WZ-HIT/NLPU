@@ -1,2 +1,0 @@
-generated_manifest_diff_exit=0
-stdout_diff_exit=0

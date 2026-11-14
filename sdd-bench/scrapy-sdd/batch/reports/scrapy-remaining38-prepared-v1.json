@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "report_type": "DETECT_ROUND_PREPARATION_ACCEPTANCE",
+  "status": "FROZEN",
+  "experiment_id": "scrapy-remaining38-detect-v1",
+  "round_label": "remaining38-001",
+  "prepared_id": "round-8c57c466813dec1830e8b2b0",
+  "config": {
+    "path": "sdd-bench/scrapy-sdd/batch/experiments/scrapy-remaining38-detect-v1.json",
+    "sha256": "29ecf4f90af5c555c03741a13086bdaadb2fe47c4882bedd3a3c023c52e199a7"
+  },
+  "source_batch": {
+    "path": "sdd-bench/scrapy-sdd/batch/pilot/scrapy-remaining38-detect-v1.json",
+    "sha256": "22fc32755057cbd0be6041a8431b41ed0c915f664fd275d2ad82c62daa0ec034"
+  },
+  "prepared_manifest": {
+    "path": "sdd-bench/scrapy-sdd/batch/runs/round-8c57c466813dec1830e8b2b0/prepared-round.json",
+    "sha256": "8d7125b8f5dedb24e0bb6a1ecd26ff0428b948f52d8091e21c4e3ba28cd9ed0f"
+  },
+  "plan": {
+    "path": "sdd-bench/scrapy-sdd/batch/plans/scrapy-remaining38-detect-v1.json",
+    "sha256": "60b8bd278ecfc6db0ae65ec8794392b29226d5543d33a11216bb4f3689b1e3f0"
+  },
+  "image_preparation": {
+    "path": "sdd-bench/scrapy-sdd/batch/reports/scrapy-remaining38-images-v1.json",
+    "sha256": "7283425490d0d8864c30b51b863ce2c5c53f065251b767fed7ebb1f27fb1eed1"
+  },
+  "counts": {
+    "pr_count": 38,
+    "detect_targets": 114,
+    "update_targets": 0,
+    "image_pairs": 29,
+    "gold_isolation_pass": 38,
+    "preflight_ready": 38,
+    "evidence_refs_verified": 670
+  },
+  "checks": {
+    "source_and_config_schema_valid": true,
+    "prepared_manifest_schema_version": 2,
+    "deterministic_compilation": true,
+    "compiled_targets_sha256": "025f241ca65274f97e18d48812597a9c0c4c7b86cc95bd1cc433d4a767c3eb3d",
+    "all_target_ids_unique": true,
+    "host_gold_matches_pinned_inputs": true,
+    "host_gold_owner_only_permissions": true,
+    "live_image_ids_match": true,
+    "inspect_read_only": true,
+    "protected_file_hashes_unchanged": 97
+  },
+  "initial_results_counts": {
+    "target_count": 114,
+    "detect_count": 114,
+    "update_count": 0,
+    "terminal_count": 0,
+    "states": {
+      "NOT_RECORDED": 114
+    }
+  },
+  "ledger": {
+    "path": "sdd-bench/scrapy-sdd/batch/runs/round-8c57c466813dec1830e8b2b0/ledger.jsonl",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "initial_ledger_bytes": 0,
+  "model_requests_sent": false
+}

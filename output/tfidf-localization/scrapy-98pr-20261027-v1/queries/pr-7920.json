@@ -1,0 +1,4 @@
+{
+  "body": "Resolves https://github.com/scrapy/scrapy/issues/4292.",
+  "title": "Return exit code 1 from check, parse and fetch on bootstrap errors"
+}

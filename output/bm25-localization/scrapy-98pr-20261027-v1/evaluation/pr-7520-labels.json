@@ -1,0 +1,31 @@
+{
+  "base_sha": "2d007bc4508423bbd57ee9017da22c16bbd576e1",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "added",
+      "id": "tests/test_downloader_handlers_http_base.py::TestRealWebsiteBase.test_download"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_downloader_handlers_http_base.py::TestRealWebsiteBase.test_download_with_spider"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_downloader_handlers_http_base.py::TestRealWebsiteBase.test_verify_certs"
+    }
+  ],
+  "excluded_counts": {
+    "added": 3
+  },
+  "index_sha256": "838876e8bc61835157958ea7489ec405a8e1e8bf64107af4888794f7a13d275e",
+  "issues": [],
+  "labels_sha256": "ef45c6193f2188af155ee271f9a7f44e8f59b068434446680df4199b6a8b819f",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "7cfa3bd78f52c014f13a142cfc421e0bb88afc776d32cd4b7a9a669fc0cf5185",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_downloader_handlers_http_base.py::TestHttpBase.test_download_latency"
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "base_sha": "5b4828a012fcd136a8f46915e19be07a5029e57e",
+  "corpus_count": 2261,
+  "excluded_counts": {
+    "added": 2
+  },
+  "gold_count": 2,
+  "gold_ranks": {
+    "tests/test_feedexport.py::TestFeedExport.test_export_based_on_custom_filters": 28,
+    "tests/test_feedexport.py::TestFeedExport.test_export_based_on_item_classes": 103
+  },
+  "label_issues": [],
+  "labels_sha256": "6643fb9e50868fac7beda3aa24cf64948d7d635b38221c94681d7e7ba877d6d6",
+  "metrics": {
+    "100": {
+      "all_hit": 0,
+      "candidate_count": 100,
+      "candidate_fraction": 0.044228217602830605,
+      "fn": 1,
+      "fp": 99,
+      "gold_count": 2,
+      "hit_at_k": 1,
+      "matched_count": 1,
+      "precision": 0.01,
+      "recall": 0.5,
+      "recall_at_k": 0.5,
+      "tp": 1,
+      "zero_score_count": 0
+    },
+    "200": {
+      "all_hit": 1,
+      "candidate_count": 200,
+      "candidate_fraction": 0.08845643520566121,
+      "fn": 0,
+      "fp": 198,
+      "gold_count": 2,
+      "hit_at_k": 1,
+      "matched_count": 2,
+      "precision": 0.01,
+      "recall": 1.0,
+      "recall_at_k": 1.0,
+      "tp": 2,
+      "zero_score_count": 0
+    },
+    "50": {
+      "all_hit": 0,
+      "candidate_count": 50,
+      "candidate_fraction": 0.022114108801415303,
+      "fn": 1,
+      "fp": 49,
+      "gold_count": 2,
+      "hit_at_k": 1,
+      "matched_count": 1,
+      "precision": 0.02,
+      "recall": 0.5,
+      "recall_at_k": 0.5,
+      "tp": 1,
+      "zero_score_count": 0
+    }
+  },
+  "pr_id": 7824,
+  "prediction": {
+    "path": "predictions/pr-7824.json.gz",
+    "pr_id": 7824,
+    "sha256": "c4fe7fe6cb836e738045bdef20d28a78ec69b589ff71a4a69664c667ffd15100"
+  },
+  "query_sha256": "190b6e32bb20f2edff69a595c315759b8fc9507a4e905afc16dd4f563e2b26b7",
+  "rank_seconds": 0.001664692535996437,
+  "raw_line": 180,
+  "raw_record_sha256": "18cadea974b04c90d50ab3c4ec2edae254cf3b0f9e2ed4def2570706354aab40",
+  "repository": "scrapy/scrapy",
+  "scorable": true,
+  "status": "SCORED"
+}

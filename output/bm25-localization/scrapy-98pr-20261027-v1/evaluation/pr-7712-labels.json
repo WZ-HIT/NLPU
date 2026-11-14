@@ -1,0 +1,183 @@
+{
+  "base_sha": "870803b7fb1ed56c296eb6b51d0212f0460dfdda",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_addons.py::TestAddonManager.test_load_settings_order"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_cmdline_crawl_with_pipeline/__init__.py::TestCmdlineCrawlPipeline.test_exception_at_open_spider_in_pipeline"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_cmdline_crawl_with_pipeline/__init__.py::TestCmdlineCrawlPipeline.test_open_spider_normally_in_pipeline"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_cmdline_crawl_with_pipeline/__init__.py::test_exception_at_open_spider_in_pipeline"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_cmdline_crawl_with_pipeline/__init__.py::test_open_spider_normally_in_pipeline"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_downloadermiddleware_defaultheaders.py::TestDefaultHeadersMiddleware.test_process_request"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_downloadermiddleware_defaultheaders.py::TestDefaultHeadersMiddleware.test_update_headers"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_downloadermiddleware_defaultheaders.py::test_process_request"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_downloadermiddleware_defaultheaders.py::test_update_headers"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_downloadermiddleware_downloadtimeout.py::TestDownloadTimeoutMiddleware.test_default_download_timeout"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_downloadermiddleware_downloadtimeout.py::TestDownloadTimeoutMiddleware.test_request_has_download_timeout"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_downloadermiddleware_downloadtimeout.py::TestDownloadTimeoutMiddleware.test_setting_has_download_timeout"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_downloadermiddleware_downloadtimeout.py::TestDownloadTimeoutMiddleware.test_string_download_timeout"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_downloadermiddleware_downloadtimeout.py::TestDownloadTimeoutMiddleware.test_zero_download_timeout"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_downloadermiddleware_downloadtimeout.py::test_default_download_timeout"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_downloadermiddleware_downloadtimeout.py::test_request_has_download_timeout"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_downloadermiddleware_downloadtimeout.py::test_setting_has_download_timeout"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_downloadermiddleware_downloadtimeout.py::test_string_download_timeout"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_downloadermiddleware_downloadtimeout.py::test_zero_download_timeout"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_downloadermiddleware_useragent.py::TestUserAgentMiddleware.test_default_agent"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_downloadermiddleware_useragent.py::TestUserAgentMiddleware.test_header_agent"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_downloadermiddleware_useragent.py::TestUserAgentMiddleware.test_no_agent"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_downloadermiddleware_useragent.py::test_default_agent"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_downloadermiddleware_useragent.py::test_header_agent"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_downloadermiddleware_useragent.py::test_no_agent"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_http_cookies.py::TestCookieJar.test_set_policy"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_utils_iterators.py::TestLxmlXmliter.test_xmliter_objtype_exception"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_utils_iterators.py::TestXmliterBase.test_xmliter_objtype_exception"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_utils_log.py::TestFailureToExcInfo.test_non_failure"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_utils_misc/__init__.py::TestUtilsMisc.test_load_object_exceptions"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_utils_response.py::test_open_in_browser_raises_for_unsupported_response_type"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_utils_spider.py::test_iterate_spider_output"
+    }
+  ],
+  "excluded_counts": {
+    "added": 12,
+    "deleted": 12,
+    "mechanical_ast_equal": 8
+  },
+  "index_sha256": "e428380528aab18e392eadf7ce8506f7bc1883cd2348ad1680b2555e04e7bcc9",
+  "issues": [],
+  "labels_sha256": "0213a15c8b25c352061f5d584b0d0d1acea38d055ba3bcc9c44d552260d80612",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "b69f7fb6494e097ce90bf5b70528c234a96bd988ee499b97ed9db974ff8c9974",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_addons.py::TestAddonManager.test_fallback_workflow",
+    "tests/test_commands.py::TestCommandSettings.test_settings_json_string",
+    "tests/test_crawl.py::TestCrawl.test_engine_status",
+    "tests/test_crawl.py::TestCrawl.test_format_engine_status",
+    "tests/test_crawler.py::TestCrawlerLogging.test_spider_custom_settings_log_level",
+    "tests/test_dependencies.py::TestScrapyUtils.test_pinned_twisted_version",
+    "tests/test_downloader_handlers.py::TestDataURI.test_default_mediatype",
+    "tests/test_downloader_handlers.py::TestDataURI.test_default_mediatype_encoding",
+    "tests/test_downloader_handlers.py::TestDataURI.test_mediatype_parameters",
+    "tests/test_downloader_handlers.py::TestDataURI.test_text_charset",
+    "tests/test_downloadermiddleware.py::TestDownloadDeprecated.test_mwman_download",
+    "tests/test_downloadermiddleware.py::TestMiddlewareUsingDeferreds.test_deferred",
+    "tests/test_engine.py::test_request_scheduled_signal",
+    "tests/test_extension_periodic_log.py::TestPeriodicLog.test_log_delta",
+    "tests/test_extension_periodic_log.py::TestPeriodicLog.test_log_stats",
+    "tests/test_feedexport_batch.py::TestBatchDeliveries.test_s3_export",
+    "tests/test_feedexport_batch.py::TestBatchDeliveries.test_stats_batch_file_success",
+    "tests/test_responsetypes.py::TestResponseTypes.test_from_args",
+    "tests/test_responsetypes.py::TestResponseTypes.test_from_body",
+    "tests/test_responsetypes.py::TestResponseTypes.test_from_content_disposition",
+    "tests/test_responsetypes.py::TestResponseTypes.test_from_content_type",
+    "tests/test_scheduler.py::TestIntegrationWithDownloaderAwareInMemory.test_integration_downloader_aware_priority_queue",
+    "tests/test_signals.py::TestMockServer.test_simple_pipeline",
+    "tests/test_spidermiddleware_referer.py::test_referer_policies_setting",
+    "tests/test_spidermiddleware_referer.py::test_response_policy_only_supports_policy_names",
+    "tests/test_spidermiddleware_start.py::TestMiddleware.test_async",
+    "tests/test_utils_asyncio.py::TestParallelAsyncio.test_delays",
+    "tests/test_utils_asyncio.py::TestParallelAsyncio.test_simple",
+    "tests/test_utils_conf.py::TestFeedExportConfig.test_feed_complete_default_values_from_settings_empty",
+    "tests/test_utils_console.py::test_get_shell_embed_func_ipython",
+    "tests/test_utils_display.py::test_pformat_no_pygments",
+    "tests/test_utils_misc/__init__.py::TestUtilsMisc.test_build_from_crawler",
+    "tests/test_utils_response.py::test_open_in_browser",
+    "tests/test_utils_signal.py::TestSendCatchLog.test_send_catch_log",
+    "tests/test_utils_trackref.py::test_get_oldest"
+  ]
+}

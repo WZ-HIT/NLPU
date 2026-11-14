@@ -1,0 +1,16 @@
+{
+  "base_sha": "1157b3e235c957f89e5d598ad2cc2db7779dae9c",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [],
+  "excluded_counts": {},
+  "index_sha256": "5d2025c423ae4cb126d87e8f2ebb24b6b030bb810c25ba57c48b5764c1e99d38",
+  "issues": [],
+  "labels_sha256": "392054dd47048401976d8bc089e8f82c9857b40dc07020e7d030c38e17eb649a",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "0be270c0d8e8c6770a99097040a04f8bc32c79e2b1fa9957c44f13758431f980",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_settings/__init__.py::TestBaseSettings.test_update_iterable"
+  ]
+}

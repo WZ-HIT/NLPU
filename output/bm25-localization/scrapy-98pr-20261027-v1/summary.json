@@ -1,0 +1,64 @@
+{
+  "invalid_bases": {},
+  "metrics": {
+    "100": {
+      "all_hit_pr_count": 38,
+      "all_hit_pr_rate": 0.3958333333333333,
+      "gold_count": 1145,
+      "hit_pr_count": 72,
+      "macro_precision_at_k": 0.03145833333333333,
+      "macro_recall_at_k": 0.532805141259856,
+      "matched_count": 302,
+      "mean_candidate_count": 100.0,
+      "mean_candidate_fraction": 0.044968482521231985,
+      "micro_precision": 0.03145833333333333,
+      "micro_recall": 0.26375545851528387,
+      "returned_count": 9600,
+      "scored_pr_count": 96,
+      "task_hit_rate_at_k": 0.75,
+      "zero_score_candidate_count": 94
+    },
+    "200": {
+      "all_hit_pr_count": 47,
+      "all_hit_pr_rate": 0.4895833333333333,
+      "gold_count": 1145,
+      "hit_pr_count": 80,
+      "macro_precision_at_k": 0.020416666666666666,
+      "macro_recall_at_k": 0.6192593385279254,
+      "matched_count": 392,
+      "mean_candidate_count": 200.0,
+      "mean_candidate_fraction": 0.08993696504246397,
+      "micro_precision": 0.020416666666666666,
+      "micro_recall": 0.3423580786026201,
+      "returned_count": 19200,
+      "scored_pr_count": 96,
+      "task_hit_rate_at_k": 0.8333333333333334,
+      "zero_score_candidate_count": 294
+    },
+    "50": {
+      "all_hit_pr_count": 30,
+      "all_hit_pr_rate": 0.3125,
+      "gold_count": 1145,
+      "hit_pr_count": 60,
+      "macro_precision_at_k": 0.04416666666666667,
+      "macro_recall_at_k": 0.41490901450746837,
+      "matched_count": 212,
+      "mean_candidate_count": 50.0,
+      "mean_candidate_fraction": 0.022484241260615993,
+      "micro_precision": 0.04416666666666667,
+      "micro_recall": 0.1851528384279476,
+      "returned_count": 4800,
+      "scored_pr_count": 96,
+      "task_hit_rate_at_k": 0.625,
+      "zero_score_candidate_count": 40
+    }
+  },
+  "pr_count": 98,
+  "scored_pr_count": 96,
+  "status_counts": {
+    "NO_POSITIVE_GOLD": 2,
+    "SCORED": 96
+  },
+  "total_seconds": 74.38219121284783,
+  "unique_base_count": 75
+}

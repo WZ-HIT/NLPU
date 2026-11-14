@@ -1,0 +1,82 @@
+{
+  "base_sha": "e710b9c18e18f0a3fe104fbfc72d49c221dfe448",
+  "corpus_count": 2198,
+  "excluded_counts": {},
+  "gold_count": 12,
+  "gold_ranks": {
+    "tests/test_downloadermiddleware_stats.py::TestDownloaderStats.test_from_crawler_not_configured": 17,
+    "tests/test_downloadermiddleware_stats.py::TestDownloaderStats.test_process_exception": 15,
+    "tests/test_downloadermiddleware_stats.py::TestDownloaderStats.test_process_request": 10,
+    "tests/test_downloadermiddleware_stats.py::TestDownloaderStats.test_process_response": 13,
+    "tests/test_downloadermiddleware_stats.py::test_get_header_size_non_list_value": 39,
+    "tests/test_link.py::TestLink.test_bytes_url": 1,
+    "tests/test_link.py::TestLink.test_eq_and_hash": 135,
+    "tests/test_link.py::TestLink.test_eq_non_link": 5,
+    "tests/test_link.py::TestLink.test_repr": 76,
+    "tests/test_logstats.py::TestLogStats.test_stats_calculation_no_elapsed_time": 30,
+    "tests/test_logstats.py::TestLogStats.test_stats_calculations": 248,
+    "tests/test_logstats.py::TestLogStats.test_stats_calculations_no_time": 18
+  },
+  "label_issues": [],
+  "labels_sha256": "7fce2f067010e65527a3f7fe3aca9a41c79146d3e211b15a48b8a57b4bb58d04",
+  "metrics": {
+    "100": {
+      "all_hit": 0,
+      "candidate_count": 100,
+      "candidate_fraction": 0.04549590536851683,
+      "fn": 2,
+      "fp": 90,
+      "gold_count": 12,
+      "hit_at_k": 1,
+      "matched_count": 10,
+      "precision": 0.1,
+      "recall": 0.8333333333333334,
+      "recall_at_k": 0.8333333333333334,
+      "tp": 10,
+      "zero_score_count": 0
+    },
+    "200": {
+      "all_hit": 0,
+      "candidate_count": 200,
+      "candidate_fraction": 0.09099181073703366,
+      "fn": 1,
+      "fp": 189,
+      "gold_count": 12,
+      "hit_at_k": 1,
+      "matched_count": 11,
+      "precision": 0.055,
+      "recall": 0.9166666666666666,
+      "recall_at_k": 0.9166666666666666,
+      "tp": 11,
+      "zero_score_count": 0
+    },
+    "50": {
+      "all_hit": 0,
+      "candidate_count": 50,
+      "candidate_fraction": 0.022747952684258416,
+      "fn": 3,
+      "fp": 41,
+      "gold_count": 12,
+      "hit_at_k": 1,
+      "matched_count": 9,
+      "precision": 0.18,
+      "recall": 0.75,
+      "recall_at_k": 0.75,
+      "tp": 9,
+      "zero_score_count": 0
+    }
+  },
+  "pr_id": 7785,
+  "prediction": {
+    "path": "predictions/pr-7785.json.gz",
+    "pr_id": 7785,
+    "sha256": "b300ef43001b7a48922dc912018941cf990f3fc1cbe142ceb27a2008488c52e7"
+  },
+  "query_sha256": "c9856cf806fd32c08dd86c568720808fc83db6d1efd5cb04c1f1fd9d1c15df9a",
+  "rank_seconds": 0.0026781242340803146,
+  "raw_line": 198,
+  "raw_record_sha256": "1d2002e3628e42e845db5eff3f3070e6d8e35682a7f3467712522314986cb06d",
+  "repository": "scrapy/scrapy",
+  "scorable": true,
+  "status": "SCORED"
+}

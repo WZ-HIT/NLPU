@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr7672",
+  "repository": {
+    "owner": "scrapy",
+    "name": "scrapy"
+  },
+  "pr_id": 7672,
+  "baseline": {
+    "base_sha": "d8d7de2339b3aeabdc144fa7d0d11cae3ecfd1bb"
+  },
+  "title": "Improve test coverage for http/",
+  "body": "",
+  "adapter": {
+    "id": "scrapy",
+    "version": 1,
+    "path": "sdd-bench/scrapy-sdd/adapters/scrapy.json",
+    "sha256": "059dcc09eaa62f892f54118e65d4deccce3ab29cc5d9a4a36f4d999ff1aa27de"
+  }
+}

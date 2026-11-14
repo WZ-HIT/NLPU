@@ -1,0 +1,27 @@
+{
+  "base_sha": "e710b9c18e18f0a3fe104fbfc72d49c221dfe448",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [],
+  "excluded_counts": {},
+  "index_sha256": "f66ea30ed93ad61fcaab893f7cc27ea432b7329a94b8c05e2155318b6d51064d",
+  "issues": [],
+  "labels_sha256": "7fce2f067010e65527a3f7fe3aca9a41c79146d3e211b15a48b8a57b4bb58d04",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "1d2002e3628e42e845db5eff3f3070e6d8e35682a7f3467712522314986cb06d",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_downloadermiddleware_stats.py::TestDownloaderStats.test_from_crawler_not_configured",
+    "tests/test_downloadermiddleware_stats.py::TestDownloaderStats.test_process_exception",
+    "tests/test_downloadermiddleware_stats.py::TestDownloaderStats.test_process_request",
+    "tests/test_downloadermiddleware_stats.py::TestDownloaderStats.test_process_response",
+    "tests/test_downloadermiddleware_stats.py::test_get_header_size_non_list_value",
+    "tests/test_link.py::TestLink.test_bytes_url",
+    "tests/test_link.py::TestLink.test_eq_and_hash",
+    "tests/test_link.py::TestLink.test_eq_non_link",
+    "tests/test_link.py::TestLink.test_repr",
+    "tests/test_logstats.py::TestLogStats.test_stats_calculation_no_elapsed_time",
+    "tests/test_logstats.py::TestLogStats.test_stats_calculations",
+    "tests/test_logstats.py::TestLogStats.test_stats_calculations_no_time"
+  ]
+}

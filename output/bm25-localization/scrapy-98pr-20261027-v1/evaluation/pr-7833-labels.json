@@ -1,0 +1,35 @@
+{
+  "base_sha": "6cefaa5434da050bc23ffaaf2c1b38be1041bd31",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "added",
+      "id": "tests/test_crawler.py::TestCrawler.test_deprecated_spider_attr"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_crawler.py::TestCrawler.test_deprecated_spider_attr_ignored"
+    }
+  ],
+  "excluded_counts": {
+    "added": 2
+  },
+  "index_sha256": "372a9140443d71b2529b0b11388f5d90c43ce2030abe61b0057a0e2733a23347",
+  "issues": [],
+  "labels_sha256": "28ba1cacf80b6d2495f903871b40390a8cb0614434d7cb7e8b23d6e6db766165",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "709560b54b9c5ebb57fe48e80037c173f90353a2799da60f2b6259e475f82e5a",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_extension_throttle.py::test_adjustment",
+    "tests/test_extension_throttle.py::test_adjustment_bad_response",
+    "tests/test_extension_throttle.py::test_adjustment_limits",
+    "tests/test_extension_throttle.py::test_debug",
+    "tests/test_extension_throttle.py::test_debug_disabled",
+    "tests/test_extension_throttle.py::test_maxdelay_definition",
+    "tests/test_extension_throttle.py::test_mindelay_definition",
+    "tests/test_extension_throttle.py::test_skipped",
+    "tests/test_extension_throttle.py::test_startdelay_definition"
+  ]
+}

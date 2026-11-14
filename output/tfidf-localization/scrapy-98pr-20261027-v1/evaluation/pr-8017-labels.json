@@ -1,0 +1,72 @@
+{
+  "base_sha": "1420418c813ed01af78da62bc4a6e60bb4a7403b",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_dupefilters.py::TestBaseDupeFilter.test_log_deprecation"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_settings/__init__.py::TestBaseSettings.test_get_component_priority_dict_with_base_invalid_setting_name"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_settings/__init__.py::TestBaseSettings.test_get_component_priority_dict_with_base_warns_on_duplicate_mixed_type_and_path"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_settings/__init__.py::TestBaseSettings.test_getwithbase_invalid_setting_name"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_settings/__init__.py::TestBaseSettings.test_setmodule_only_load_uppercase_vars"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_settings/__init__.py::TestBaseSettings.test_update_kwargs"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_stats.py::TestStatsCollector.test_deprecated_spider_arg_custom_collector_subclass"
+    }
+  ],
+  "excluded_counts": {
+    "mechanical_ast_equal": 7
+  },
+  "index_sha256": "0bfa188ac1d755a06a91c66f51aa059e46d81443199ab964650ac00a34dae307",
+  "issues": [],
+  "labels_sha256": "1828adb8d182757f0859ffe8a8d0ca17bbbee93105893e8a916849b1947306b7",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "96631a4d4f3b180708cc2bcb17a31e99f9d5f6276d8befc1cb4be0b3160a61f3",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_cmdline/__init__.py::test_profiling",
+    "tests/test_downloaderslotssettings.py::test_params",
+    "tests/test_dupefilters.py::TestRFPDupeFilter.test_df_direct_scheduler",
+    "tests/test_dupefilters.py::TestRFPDupeFilter.test_df_from_crawler_scheduler",
+    "tests/test_extension_statsmailer.py::test_from_crawler_connects_spider_closed_signal",
+    "tests/test_extension_statsmailer.py::test_from_crawler_with_recipients_initializes_extension",
+    "tests/test_extension_throttle.py::test_skipped",
+    "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_canonicalize_once_per_link",
+    "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_tags_attrs_wildcard_and_deny",
+    "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_xhtml",
+    "tests/test_logformatter.py::TestLogFormatter.test_dropitem_custom_log_level",
+    "tests/test_logformatter.py::TestLogFormatter.test_dropitem_default_log_level",
+    "tests/test_logformatter.py::TestLogFormatter.test_dropped",
+    "tests/test_mail.py::TestMailSender.test_create_sender_factory_with_host",
+    "tests/test_pqueues.py::TestDownloaderAwarePriorityQueue.test_peek",
+    "tests/test_pqueues.py::TestDownloaderAwarePriorityQueue.test_pop_prefers_slot_with_fewer_active_downloads",
+    "tests/test_pqueues.py::TestDownloaderAwarePriorityQueue.test_push_pop",
+    "tests/test_pqueues.py::TestDownloaderAwarePriorityQueue.test_tie_breaking_keeps_rotation_after_selected_slot_is_deleted",
+    "tests/test_pqueues.py::TestDownloaderAwarePriorityQueue.test_tie_breaking_rotates_slots",
+    "tests/test_pqueues.py::TestPriorityQueue.test_init_prios_with_start_queue",
+    "tests/test_pqueues.py::TestPriorityQueue.test_peek",
+    "tests/test_pqueues.py::TestPriorityQueue.test_queue_push_pop_one",
+    "tests/test_pqueues.py::TestPriorityQueue.test_queue_push_pop_priorities",
+    "tests/test_pqueues.py::test_pop_order",
+    "tests/test_pqueues.py::test_slot_directory_removed_when_slot_drains",
+    "tests/test_settings/__init__.py::TestBaseSettings.test_getwithbase"
+  ]
+}

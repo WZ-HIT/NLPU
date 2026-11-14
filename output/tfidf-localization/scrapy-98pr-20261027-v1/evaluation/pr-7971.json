@@ -1,0 +1,74 @@
+{
+  "base_sha": "f1694269d8c9437461936ed449e81aa2ccb3b7cb",
+  "corpus_count": 2356,
+  "excluded_counts": {
+    "added": 1
+  },
+  "gold_count": 2,
+  "gold_ranks": {
+    "tests/test_utils_log.py::TestLogformatterAdapter.test_args": 89,
+    "tests/test_utils_log.py::TestLogformatterAdapter.test_empty_args": 51
+  },
+  "label_issues": [],
+  "labels_sha256": "108f07af292b8e05b2dfe78a132a94ea63c507ba48938707ac7034e23705781c",
+  "metrics": {
+    "100": {
+      "all_hit": 1,
+      "candidate_count": 100,
+      "candidate_fraction": 0.042444821731748725,
+      "fn": 0,
+      "fp": 98,
+      "gold_count": 2,
+      "hit_at_k": 1,
+      "matched_count": 2,
+      "precision": 0.02,
+      "recall": 1.0,
+      "recall_at_k": 1.0,
+      "tp": 2,
+      "zero_score_count": 0
+    },
+    "200": {
+      "all_hit": 1,
+      "candidate_count": 200,
+      "candidate_fraction": 0.08488964346349745,
+      "fn": 0,
+      "fp": 198,
+      "gold_count": 2,
+      "hit_at_k": 1,
+      "matched_count": 2,
+      "precision": 0.01,
+      "recall": 1.0,
+      "recall_at_k": 1.0,
+      "tp": 2,
+      "zero_score_count": 0
+    },
+    "50": {
+      "all_hit": 0,
+      "candidate_count": 50,
+      "candidate_fraction": 0.021222410865874362,
+      "fn": 2,
+      "fp": 50,
+      "gold_count": 2,
+      "hit_at_k": 0,
+      "matched_count": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "recall_at_k": 0.0,
+      "tp": 0,
+      "zero_score_count": 0
+    }
+  },
+  "pr_id": 7971,
+  "prediction": {
+    "path": "predictions/pr-7971.json.gz",
+    "pr_id": 7971,
+    "sha256": "c817344b7c73913b5fc11b705d2d8a0c8cdef0631d3db42b96d8f74e91085223"
+  },
+  "query_sha256": "66d502afe41844aaae0916b72825e4dbc1f63939894c8660db35bd8b45858c15",
+  "rank_seconds": 0.0018725860863924026,
+  "raw_line": 95,
+  "raw_record_sha256": "b4e30b31e87e2efb18b15fb19ec370ba31d5756061aabd5ee2c0fb38bc21af5c",
+  "repository": "scrapy/scrapy",
+  "scorable": true,
+  "status": "SCORED"
+}

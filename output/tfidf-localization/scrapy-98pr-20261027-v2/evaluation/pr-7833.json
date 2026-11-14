@@ -1,0 +1,81 @@
+{
+  "base_sha": "6cefaa5434da050bc23ffaaf2c1b38be1041bd31",
+  "corpus_count": 2317,
+  "excluded_counts": {
+    "added": 2
+  },
+  "gold_count": 9,
+  "gold_ranks": {
+    "tests/test_extension_throttle.py::test_adjustment": 71,
+    "tests/test_extension_throttle.py::test_adjustment_bad_response": 28,
+    "tests/test_extension_throttle.py::test_adjustment_limits": 15,
+    "tests/test_extension_throttle.py::test_debug": 107,
+    "tests/test_extension_throttle.py::test_debug_disabled": 182,
+    "tests/test_extension_throttle.py::test_maxdelay_definition": 49,
+    "tests/test_extension_throttle.py::test_mindelay_definition": 51,
+    "tests/test_extension_throttle.py::test_skipped": 63,
+    "tests/test_extension_throttle.py::test_startdelay_definition": 17
+  },
+  "label_issues": [],
+  "labels_sha256": "28ba1cacf80b6d2495f903871b40390a8cb0614434d7cb7e8b23d6e6db766165",
+  "metrics": {
+    "100": {
+      "all_hit": 0,
+      "candidate_count": 100,
+      "candidate_fraction": 0.04315925766076824,
+      "fn": 2,
+      "fp": 93,
+      "gold_count": 9,
+      "hit_at_k": 1,
+      "matched_count": 7,
+      "precision": 0.07,
+      "recall": 0.7777777777777778,
+      "recall_at_k": 0.7777777777777778,
+      "tp": 7,
+      "zero_score_count": 0
+    },
+    "200": {
+      "all_hit": 1,
+      "candidate_count": 200,
+      "candidate_fraction": 0.08631851532153648,
+      "fn": 0,
+      "fp": 191,
+      "gold_count": 9,
+      "hit_at_k": 1,
+      "matched_count": 9,
+      "precision": 0.045,
+      "recall": 1.0,
+      "recall_at_k": 1.0,
+      "tp": 9,
+      "zero_score_count": 0
+    },
+    "50": {
+      "all_hit": 0,
+      "candidate_count": 50,
+      "candidate_fraction": 0.02157962883038412,
+      "fn": 5,
+      "fp": 46,
+      "gold_count": 9,
+      "hit_at_k": 1,
+      "matched_count": 4,
+      "precision": 0.08,
+      "recall": 0.4444444444444444,
+      "recall_at_k": 0.4444444444444444,
+      "tp": 4,
+      "zero_score_count": 0
+    }
+  },
+  "pr_id": 7833,
+  "prediction": {
+    "path": "predictions/pr-7833.json.gz",
+    "pr_id": 7833,
+    "sha256": "2a65d2a247518325e8a8cd78fa04cc155b93d0f343154153a4b637a3559b472f"
+  },
+  "query_sha256": "0240e4af4752678734c674853405b7b8bd28927694911a9e44512d0a21e53c28",
+  "rank_seconds": 0.0018415292724967003,
+  "raw_line": 154,
+  "raw_record_sha256": "709560b54b9c5ebb57fe48e80037c173f90353a2799da60f2b6259e475f82e5a",
+  "repository": "scrapy/scrapy",
+  "scorable": true,
+  "status": "SCORED"
+}

@@ -1,0 +1,89 @@
+{
+  "base_sha": "af30cfea120a0b0853984bedc350e8dc114bba25",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "added",
+      "id": "tests/test_command_startproject.py::TestStartprojectTemplates.test_startproject_permissions_umask_002"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_command_startproject.py::TestStartprojectTemplates.test_startproject_permissions_umask_022"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_downloader_handlers_http_base.py::TestHttpBase.test_download_with_maxsize"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_http_response_text.py::TestTextResponse.test_bom_is_removed_from_body"
+    }
+  ],
+  "excluded_counts": {
+    "added": 1,
+    "deleted": 1,
+    "mechanical_ast_equal": 2
+  },
+  "index_sha256": "600dc96783fd4fd280b67523425b09932014810f7c93de71223b9e5b82a0378f",
+  "issues": [],
+  "labels_sha256": "8ee173fd6c282e21cd2d8bccce6644b9519296d30b1aba52be7f58e250a784a4",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "f72c339078c35d04d34d7b303db8ba595655a9839e31864b48ef802bf41fe895",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_addons.py::TestAddonManager.test_settings_priority",
+    "tests/test_commands.py::TestCommandCrawlerProcess.test_project_settings_empty",
+    "tests/test_contracts.py::TestContractsManager.test_meta",
+    "tests/test_contracts.py::TestContractsManager.test_regex",
+    "tests/test_contracts.py::TestCustomContractPrePostProcess.test_post_hook_keyboard_interrupt",
+    "tests/test_contracts.py::TestCustomContractPrePostProcess.test_pre_hook_keyboard_interrupt",
+    "tests/test_crawl.py::TestCrawl.test_format_engine_status",
+    "tests/test_crawl.py::TestCrawl.test_referer_header",
+    "tests/test_crawler.py::TestCrawler.test_get_downloader_middleware_no_engine",
+    "tests/test_crawler.py::TestCrawler.test_get_extension_no_engine",
+    "tests/test_crawler.py::TestCrawler.test_get_item_pipeline_no_engine",
+    "tests/test_crawler.py::TestCrawler.test_get_spider_middleware_no_engine",
+    "tests/test_crawler.py::TestCrawlerRunnerHasSpider.test_crawler_runner_asyncio_enabled_true",
+    "tests/test_downloader_handler_twisted_ftp.py::TestFTPBase.test_response_class",
+    "tests/test_downloadermiddleware_httpcache.py::DummyPolicyTestMixin.test_middleware_ignore_schemes",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_process_response_encoding_inside_body",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_process_response_force_recalculate_encoding",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_process_response_gzipped_gzip_file",
+    "tests/test_downloadermiddleware_redirect_base.py::Base.Test.test_redirect_urls",
+    "tests/test_dupefilters.py::TestRFPDupeFilter.test_dupefilter_path",
+    "tests/test_engine.py::TestEngine.test_crawler",
+    "tests/test_engine.py::test_request_scheduled_signal",
+    "tests/test_feedexport.py::TestFeedExport.test_stats_multiple_file",
+    "tests/test_feedexport_batch.py::TestBatchDeliveries.test_batch_item_count_feeds_setting",
+    "tests/test_feedexport_batch.py::TestBatchDeliveries.test_export_multiple_configs",
+    "tests/test_feedexport_batch.py::TestBatchDeliveries.test_s3_export",
+    "tests/test_feedexport_postprocess.py::TestFeedPostProcessedExports.test_lzma_plugin_check",
+    "tests/test_http2_client_protocol.py::TestHttps2ClientProtocol.test_invalid_negotiated_protocol",
+    "tests/test_http_request.py::TestRequest.test_copy",
+    "tests/test_http_request.py::TestRequest.test_init",
+    "tests/test_http_response.py::TestResponse.test_follow_all_whitespace",
+    "tests/test_http_response.py::TestResponse.test_follow_all_whitespace_links",
+    "tests/test_http_response.py::TestResponse.test_follow_whitespace_link",
+    "tests/test_http_response.py::TestResponse.test_follow_whitespace_url",
+    "tests/test_http_response_text.py::TestTextResponse.test_follow_encoding",
+    "tests/test_http_response_text.py::TestTextResponse.test_follow_selector",
+    "tests/test_logformatter.py::TestLogFormatter.test_crawled_with_referer",
+    "tests/test_logformatter.py::TestLogFormatter.test_crawled_without_referer",
+    "tests/test_logformatter.py::TestLogformatterSubclass.test_crawled_with_referer",
+    "tests/test_logformatter.py::TestLogformatterSubclass.test_crawled_without_referer",
+    "tests/test_robotstxt_interface.py::TestPythonRobotParser.test_allowed_wildcards",
+    "tests/test_robotstxt_interface.py::TestPythonRobotParser.test_length_based_precedence",
+    "tests/test_robotstxt_interface.py::TestPythonRobotParser.test_order_based_precedence",
+    "tests/test_scheduler_base.py::TestMinimalScheduler.test_enqueue_dequeue",
+    "tests/test_spidermiddleware_referer.py::TestRequestMetaSettingFallback.test",
+    "tests/test_spiderstate.py::test_not_configured",
+    "tests/test_spiderstate.py::test_state_attribute",
+    "tests/test_spiderstate.py::test_store_load",
+    "tests/test_utils_asyncio.py::TestParallelAsyncio.test_delays",
+    "tests/test_utils_asyncio.py::TestParallelAsyncio.test_simple",
+    "tests/test_utils_httpobj.py::test_urlparse_cached",
+    "tests/test_utils_log.py::TestLogCounterHandler.test_filtered_out_level",
+    "tests/test_utils_response.py::test_open_in_browser"
+  ]
+}

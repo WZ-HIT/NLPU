@@ -45,3 +45,10 @@ data/
 Log/
 # --- Tooling caches ---
 .claude/
+
+# --- Independently versioned project context ---
+/context/
+
+# Local third-party thesis checkout; local edits are published as a portable
+# snapshot under research/hithesis-local/ rather than an unconfigured gitlink.
+/hithesis/

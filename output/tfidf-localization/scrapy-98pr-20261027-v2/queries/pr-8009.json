@@ -1,0 +1,4 @@
+{
+  "body": "Resolves https://github.com/scrapy/scrapy/issues/6978, closes https://github.com/scrapy/scrapy/pull/7083",
+  "title": "Use compression.zstd/backports.zstd and make zstd support mandatory"
+}

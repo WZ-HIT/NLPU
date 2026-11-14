@@ -1,0 +1,16 @@
+{
+  "base_sha": "a6c017c2ca2b8a9bca8b46b692846f492fe77a00",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [],
+  "excluded_counts": {},
+  "index_sha256": "6e78f079eca577d1d1d9a145db4b047012ec7689293721cf88ebc9a7a3ad37f0",
+  "issues": [],
+  "labels_sha256": "1f5589baa37e06bec51d44011384bf25fdc7ad41fea42beb0054f574f3825174",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "1fd158ba4ad879a73811465c2402e24c9eb6e7e42d0da129b98f6323916af51c",
+  "schema_version": 1,
+  "testcases": [
+    "tests/utils/bases/download_handlers_http.py::TestHttpBase.test_download_with_warnsize"
+  ]
+}

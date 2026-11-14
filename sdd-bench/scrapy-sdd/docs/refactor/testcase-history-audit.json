@@ -1,0 +1,79 @@
+{
+  "audit_type": "READ_ONLY_TESTCASE_HISTORY",
+  "protected_file_count": 590,
+  "historical_files_unchanged": true,
+  "rounds": [
+    {
+      "batch_id": "round-8c57c466813dec1830e8b2b0",
+      "target_count": 114,
+      "counts": {
+        "target_count": 114,
+        "scored_count": 0,
+        "statuses": {
+          "PENDING": 114
+        }
+      },
+      "label_complete_tasks": 38,
+      "task_count": 38,
+      "label_issues": {},
+      "excluded_counts": {
+        "added": 158,
+        "deleted": 87,
+        "mechanical_ast_equal": 66
+      },
+      "evidence_errors": {},
+      "invalid_prediction_count": 0,
+      "result_view_sha256": "e6d425c045f99f5b8adf0a13b09d2b73b4d34601772feb8d9b66f529677da152"
+    },
+    {
+      "batch_id": "round-e952d4d4e37c6649f616fc7c",
+      "target_count": 90,
+      "counts": {
+        "target_count": 90,
+        "scored_count": 87,
+        "statuses": {
+          "FAILED_ZERO": 6,
+          "HISTORICAL_RESCORED": 81,
+          "NO_POSITIVE_GOLD": 3
+        }
+      },
+      "label_complete_tasks": 30,
+      "task_count": 30,
+      "label_issues": {},
+      "excluded_counts": {
+        "added": 133,
+        "mechanical_ast_equal": 29,
+        "deleted": 36
+      },
+      "evidence_errors": {},
+      "invalid_prediction_count": 965,
+      "result_view_sha256": "75d806e27d045043197db6cbb8458a6d33954be974f950a26b753faecc92421e"
+    },
+    {
+      "batch_id": "round-ea687beb4344142e7c29bfe6",
+      "target_count": 90,
+      "counts": {
+        "target_count": 90,
+        "scored_count": 86,
+        "statuses": {
+          "FAILED_ZERO": 12,
+          "HISTORICAL_RESCORED": 74,
+          "HISTORICAL_UNSCORABLE": 1,
+          "NO_POSITIVE_GOLD": 3
+        }
+      },
+      "label_complete_tasks": 30,
+      "task_count": 30,
+      "label_issues": {},
+      "excluded_counts": {
+        "added": 61,
+        "deleted": 45,
+        "mechanical_ast_equal": 5
+      },
+      "evidence_errors": {},
+      "invalid_prediction_count": 1220,
+      "result_view_sha256": "585b2900bdd6f1b7dc49ce692da5a8ba0976add5b169a7219d14ddf6d8022586"
+    }
+  ],
+  "note": "Read-only aggregate audit. Historical method outputs are retrospective, not new-protocol trials."
+}

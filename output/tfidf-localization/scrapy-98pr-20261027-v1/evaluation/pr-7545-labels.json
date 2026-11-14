@@ -1,0 +1,22 @@
+{
+  "base_sha": "4a165508591da164393c448eebc86c9aa48081da",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [],
+  "excluded_counts": {},
+  "index_sha256": "b5083214ba7acdaa386dfcbc57d354f90e63b1cd3b4309a496663a0170dcc5fc",
+  "issues": [],
+  "labels_sha256": "868d1bd8b5c17076527ef34f2ecbe37057c36e8309ebe4df6a8e9a6747bccbdf",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "7c771d17e1aed1569196a87d6ef8c475edac164a7de23b2e2458bd4031c7347f",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_spidermiddleware_httperror.py::TestHttpErrorMiddlewareIntegrational.test_logging",
+    "tests/test_spidermiddleware_httperror.py::TestHttpErrorMiddlewareIntegrational.test_logging_level",
+    "tests/test_spidermiddleware_httperror.py::TestHttpErrorMiddlewareIntegrational.test_middleware_works",
+    "tests/test_utils_log.py::TestTopLevelFormatter.test_children_logger",
+    "tests/test_utils_log.py::TestTopLevelFormatter.test_different_name_logger",
+    "tests/test_utils_log.py::TestTopLevelFormatter.test_overlapping_name_logger",
+    "tests/test_utils_log.py::TestTopLevelFormatter.test_top_level_logger"
+  ]
+}

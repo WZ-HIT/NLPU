@@ -1,0 +1,140 @@
+{
+  "base_sha": "a9f177030685281550481888a33e45cb0fc1c9ee",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_http_headers.py::TestHeaders.test_invalid_value"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_http_headers.py::TestHeaders.test_multivalue"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_http_headers.py::TestHeaders.test_setdefault"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_http_request_form.py::TestFormRequest.test_form_response_with_custom_invalid_formdata_value_error"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_http_request_form.py::TestFormRequest.test_form_response_with_invalid_formdata_type_error"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_http_request_form.py::TestFormRequest.test_from_response_drop_params"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_http_response_text.py::TestTextResponse.test_follow_selector_list"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_request_dict.py::TestRequestSerialization.test_callback_not_available"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_request_dict.py::TestRequestSerialization.test_mixin_private_callback_serialization"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_request_dict.py::TestRequestSerialization.test_private_callback_serialization"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_request_dict.py::TestRequestSerialization.test_private_reference_callback_serialization"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_request_dict.py::TestRequestSerialization.test_reference_callback_serialization"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_request_dict.py::TestRequestSerialization.test_unserializable_callback1"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/utils/bases/http_request.py::TestRequestBase.test_callback_and_errback_type"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/utils/bases/http_request.py::TestRequestBase.test_copy_inherited_classes"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/utils/bases/http_request.py::TestRequestBase.test_immutable_attributes"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/utils/bases/http_request.py::TestRequestBase.test_init"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/utils/bases/http_response.py::TestResponseBase.test_copy_inherited_classes"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/utils/bases/http_response.py::TestResponseBase.test_follow_None_url"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/utils/bases/http_response.py::TestResponseBase.test_follow_all_invalid"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/utils/bases/http_response.py::TestResponseBase.test_immutable_attributes"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/utils/bases/http_response.py::TestResponseBase.test_init"
+    }
+  ],
+  "excluded_counts": {
+    "mechanical_ast_equal": 22
+  },
+  "index_sha256": "2fd46662f87e20904212e4cb5fd14a53fa79357d8929b1f96d60ee3e461f1cb7",
+  "issues": [],
+  "labels_sha256": "7dd6e9cbeacd5c46ba726562f9ca31fefb71ef4a9b2a9f6a0be6e2da0767ebfe",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "ef6f87a88c6eb6a3ed9a243c18f479fbe3dc9d192195bb26f9c591b362d3414e",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_http_headers.py::TestHeaders.test_encode_latin1",
+    "tests/test_http_headers.py::TestHeaders.test_encode_multiple",
+    "tests/test_http_headers.py::TestHeaders.test_encode_utf8",
+    "tests/test_http_headers.py::TestHeaders.test_iterables",
+    "tests/test_http_request_form.py::TestFormRequest.test_custom_encoding_bytes",
+    "tests/test_http_request_form.py::TestFormRequest.test_default_encoding_bytes",
+    "tests/test_http_request_form.py::TestFormRequest.test_default_encoding_mixed_data",
+    "tests/test_http_request_form.py::TestFormRequest.test_default_encoding_textual_data",
+    "tests/test_http_request_form.py::TestFormRequest.test_formdata_overrides_querystring",
+    "tests/test_http_request_form.py::TestFormRequest.test_from_response_post_nonascii_bytes_latin1",
+    "tests/test_http_request_form.py::TestFormRequest.test_from_response_post_nonascii_bytes_utf8",
+    "tests/test_http_request_form.py::TestFormRequest.test_from_response_post_nonascii_unicode",
+    "tests/test_http_request_form.py::TestFormRequest.test_from_response_select",
+    "tests/test_http_request_form.py::TestFormRequest.test_from_response_unicode_clickdata",
+    "tests/test_http_request_form.py::TestFormRequest.test_from_response_unicode_clickdata_latin1",
+    "tests/test_http_request_form.py::TestFormRequest.test_multi_key_values",
+    "tests/test_http_response_text.py::TestCustomResponse.test_copy",
+    "tests/test_http_response_text.py::TestCustomResponse.test_replace",
+    "tests/test_http_response_text.py::TestTextResponse.test_replace",
+    "tests/test_request_attribute_binding.py::TestCrawl.test_downloader_middleware_do_not_override_in_process_exception",
+    "tests/test_request_attribute_binding.py::TestCrawl.test_downloader_middleware_override_in_process_exception",
+    "tests/test_request_attribute_binding.py::TestCrawl.test_downloader_middleware_raise_exception",
+    "tests/test_request_attribute_binding.py::TestCrawl.test_response_200",
+    "tests/test_request_attribute_binding.py::TestCrawl.test_response_error",
+    "tests/test_request_dict.py::TestRequestSerialization.test_unserializable_callback3",
+    "tests/test_request_left.py::TestCatching.test_disconnect",
+    "tests/test_request_left.py::TestCatching.test_noconnect",
+    "tests/test_request_left.py::TestCatching.test_success",
+    "tests/test_request_left.py::TestCatching.test_timeout",
+    "tests/utils/bases/http_request.py::TestRequestBase.test_callback_and_errback",
+    "tests/utils/bases/http_request.py::TestRequestBase.test_copy",
+    "tests/utils/bases/http_request.py::TestRequestBase.test_replace",
+    "tests/utils/bases/http_response.py::TestResponseBase.test_copy",
+    "tests/utils/bases/http_response.py::TestResponseBase.test_replace"
+  ]
+}

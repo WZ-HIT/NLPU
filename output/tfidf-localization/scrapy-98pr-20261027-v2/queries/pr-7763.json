@@ -1,0 +1,4 @@
+{
+  "body": "This makes `BaseSettings.update()` accept iterable key value pairs while keeping the existing behavior for mappings, JSON strings, and `BaseSettings` values.\r\n\r\nResolves #7759.",
+  "title": "Support iterable values in BaseSettings.update()"
+}

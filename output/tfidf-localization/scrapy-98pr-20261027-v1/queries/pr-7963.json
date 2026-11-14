@@ -1,0 +1,4 @@
+{
+  "body": "Fixes https://github.com/scrapy/scrapy/issues/2476",
+  "title": "Warn only once per request about the download warn size"
+}

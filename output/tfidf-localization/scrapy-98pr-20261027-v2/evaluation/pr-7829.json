@@ -1,0 +1,74 @@
+{
+  "base_sha": "7436afc95f521482b1b1473c88f6b5ab1d430bea",
+  "corpus_count": 2285,
+  "excluded_counts": {
+    "added": 26,
+    "deleted": 1
+  },
+  "gold_count": 1,
+  "gold_ranks": {
+    "tests/test_command_genspider.py::TestGenspiderCommand.test_same_name_as_project": 1278
+  },
+  "label_issues": [],
+  "labels_sha256": "fbf2a3492da4355c67dd8e940b844fca807a7bae6b0f63044f5ec07e2a981995",
+  "metrics": {
+    "100": {
+      "all_hit": 0,
+      "candidate_count": 100,
+      "candidate_fraction": 0.0437636761487965,
+      "fn": 1,
+      "fp": 100,
+      "gold_count": 1,
+      "hit_at_k": 0,
+      "matched_count": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "recall_at_k": 0.0,
+      "tp": 0,
+      "zero_score_count": 0
+    },
+    "200": {
+      "all_hit": 0,
+      "candidate_count": 200,
+      "candidate_fraction": 0.087527352297593,
+      "fn": 1,
+      "fp": 200,
+      "gold_count": 1,
+      "hit_at_k": 0,
+      "matched_count": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "recall_at_k": 0.0,
+      "tp": 0,
+      "zero_score_count": 0
+    },
+    "50": {
+      "all_hit": 0,
+      "candidate_count": 50,
+      "candidate_fraction": 0.02188183807439825,
+      "fn": 1,
+      "fp": 50,
+      "gold_count": 1,
+      "hit_at_k": 0,
+      "matched_count": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "recall_at_k": 0.0,
+      "tp": 0,
+      "zero_score_count": 0
+    }
+  },
+  "pr_id": 7829,
+  "prediction": {
+    "path": "predictions/pr-7829.json.gz",
+    "pr_id": 7829,
+    "sha256": "498d14676a80bbeba01c9490948aedfa4376d62267d32c3fc43338cf196f7f90"
+  },
+  "query_sha256": "9c399b2feeb98c544d5a6fcf0f954d03f4e6e7ac1a910de231cc8697aa71ca5d",
+  "rank_seconds": 0.011710723862051964,
+  "raw_line": 170,
+  "raw_record_sha256": "b2f35c5e87b5c107f77fd556adee9460b886871de86300f1780c2fbb21ba2a12",
+  "repository": "scrapy/scrapy",
+  "scorable": true,
+  "status": "SCORED"
+}

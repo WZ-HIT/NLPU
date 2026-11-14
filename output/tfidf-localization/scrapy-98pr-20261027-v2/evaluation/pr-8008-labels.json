@@ -1,0 +1,16 @@
+{
+  "base_sha": "488a762d7173922190ea027e0fb6f6d9d3b59880",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [],
+  "excluded_counts": {},
+  "index_sha256": "744ec99cbeba3b128abcdc3516e1d7025f6e92722cecf808666a477c1d2c9d22",
+  "issues": [],
+  "labels_sha256": "68479f1764c2fbf78720147210b54861a2cd3965bd44483bd3663f2140f3935f",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "91c61331f76759bd94ea38f7608a15e717737f280e9e4f321819717573532c5f",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_spider_start.py::test_slow_pipeline"
+  ]
+}

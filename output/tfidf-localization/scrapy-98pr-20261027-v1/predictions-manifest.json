@@ -1,0 +1,890 @@
+{
+  "document_type": "TFIDF_COSINE_PREDICTIONS_SEAL",
+  "predictions": [
+    {
+      "path": "predictions/pr-7466.json.gz",
+      "pr_id": 7466,
+      "sha256": "2f08d4cb22af2072d984574047d79850c027db777ab6cc8bbd96d84661412b48"
+    },
+    {
+      "path": "predictions/pr-7968.json.gz",
+      "pr_id": 7968,
+      "sha256": "14bf1054f0d7648c83b5bfc4e30a5b62c9a50f35e4bde85dc0005c330e4a0b1f"
+    },
+    {
+      "path": "predictions/pr-7632.json.gz",
+      "pr_id": 7632,
+      "sha256": "f445e9d69409f4f706731406f8cd03d2dea6a630a19303c2ce3696a3c7ca067f"
+    },
+    {
+      "path": "predictions/pr-8073.json.gz",
+      "pr_id": 8073,
+      "sha256": "4ce4b41f9f5ee3df67c64e58e343b4e98e6a1fba3a931da9384c2f7242cf923b"
+    },
+    {
+      "path": "predictions/pr-7763.json.gz",
+      "pr_id": 7763,
+      "sha256": "0a5c195933a8ecdfd96055a2da14fe1676776b33f58235ce85b24e99f456f9df"
+    },
+    {
+      "path": "predictions/pr-7511.json.gz",
+      "pr_id": 7511,
+      "sha256": "674a3f13b9eb6a87057887b8608c04ab3eeb56fdfa2460f6de258fb2ef6b44b2"
+    },
+    {
+      "path": "predictions/pr-8017.json.gz",
+      "pr_id": 8017,
+      "sha256": "a9ca56631355d7050de62ed2ca85952a4c559ed86383458f083e84d6a3fd39d7"
+    },
+    {
+      "path": "predictions/pr-7684.json.gz",
+      "pr_id": 7684,
+      "sha256": "8d8d7aebd65cf0f4594f9e29fc776a07f918adb16374ae80fb8bd84cb386463c"
+    },
+    {
+      "path": "predictions/pr-7692.json.gz",
+      "pr_id": 7692,
+      "sha256": "aa2bd15f42e7503ceb7c60457310b3c889221d91d563360e0fe4f693d7ea22d3"
+    },
+    {
+      "path": "predictions/pr-7918.json.gz",
+      "pr_id": 7918,
+      "sha256": "f2db2fd13dfd9d66bdaeecd1188827b6a4943d7114540abe1acc75d488100b7e"
+    },
+    {
+      "path": "predictions/pr-7920.json.gz",
+      "pr_id": 7920,
+      "sha256": "98c91f0b7aeeb3b94b793ccd55602e451c3aa8e790ae9a82f46bb39a4769f45c"
+    },
+    {
+      "path": "predictions/pr-7931.json.gz",
+      "pr_id": 7931,
+      "sha256": "cc50876184cf24ad814b28abbe2854b4e2a9355c5c2495e87a9ee3b318f5e00e"
+    },
+    {
+      "path": "predictions/pr-7935.json.gz",
+      "pr_id": 7935,
+      "sha256": "25f7657ef427aa9e5dcfcb585e79aee08ea512a06b98f49bba1970c462419a29"
+    },
+    {
+      "path": "predictions/pr-7945.json.gz",
+      "pr_id": 7945,
+      "sha256": "fd489940fa41118332d6ee6e49d3e15839448fa660a8ad62915ddd9d20892cca"
+    },
+    {
+      "path": "predictions/pr-7449.json.gz",
+      "pr_id": 7449,
+      "sha256": "58e6578731a3a62c29aaea2130d7f13e6bbe86dace8a8526c3da7aa77328c7ae"
+    },
+    {
+      "path": "predictions/pr-7865.json.gz",
+      "pr_id": 7865,
+      "sha256": "e80297e5b919ff764510d49eb91c80c7d16d1a22e56d36e1fbaa20bda140a304"
+    },
+    {
+      "path": "predictions/pr-7520.json.gz",
+      "pr_id": 7520,
+      "sha256": "538e89ef625c072f29366befc0aa0bdbf2139b484158d3f8ead676ca62cd4429"
+    },
+    {
+      "path": "predictions/pr-8064.json.gz",
+      "pr_id": 8064,
+      "sha256": "51b50ec644217bfcc0c71d3626315421ae75c5ef80052acea702aa5c0b5b7143"
+    },
+    {
+      "path": "predictions/pr-8067.json.gz",
+      "pr_id": 8067,
+      "sha256": "300ad18a00e8ec25a46e053dfe530eca593d34f926814ee4edb143d9dd4923f8"
+    },
+    {
+      "path": "predictions/pr-8009.json.gz",
+      "pr_id": 8009,
+      "sha256": "17db284a3951e262605529498195d70eb82df4113f63d543748af8758e990899"
+    },
+    {
+      "path": "predictions/pr-7639.json.gz",
+      "pr_id": 7639,
+      "sha256": "9911b1a5227411cc05e78cb90905069b084c98e66ce017cc3f89e7e6dd49257b"
+    },
+    {
+      "path": "predictions/pr-7846.json.gz",
+      "pr_id": 7846,
+      "sha256": "376eae868481f81077cf5a3a1ae43919636f03bc952b2b5e44f72ed463305bc0"
+    },
+    {
+      "path": "predictions/pr-8008.json.gz",
+      "pr_id": 8008,
+      "sha256": "809c31ef93007f7ab39d61e8b5999a1bce07555ef7699da2d0fe844b4d73c367"
+    },
+    {
+      "path": "predictions/pr-7545.json.gz",
+      "pr_id": 7545,
+      "sha256": "e381ccb4235036653f7702386b3e4cc331a6da93c5b4fd11643eed8e957daf15"
+    },
+    {
+      "path": "predictions/pr-7564.json.gz",
+      "pr_id": 7564,
+      "sha256": "2fb9128772eef06addc7c0275fd68482e5daebbbcda74f9b02d585230b74e10b"
+    },
+    {
+      "path": "predictions/pr-7694.json.gz",
+      "pr_id": 7694,
+      "sha256": "9578d1fdb1507cefebbfd401f38563df7cc8ea76524ca06f848a4df311b11175"
+    },
+    {
+      "path": "predictions/pr-7459.json.gz",
+      "pr_id": 7459,
+      "sha256": "9f0eba3a3b078a74088358cd770278c2d653ceea0e383561a13b1d7bd13bd101"
+    },
+    {
+      "path": "predictions/pr-7585.json.gz",
+      "pr_id": 7585,
+      "sha256": "2c7b79c59ac3f52c52c18a6f7c6a8a43a72648e96e33e7ad4f322303fb16f23a"
+    },
+    {
+      "path": "predictions/pr-7586.json.gz",
+      "pr_id": 7586,
+      "sha256": "43a67190ff27ccc802b4a226f8deef6f26c74969ccb58b9be89de2f07cae3d75"
+    },
+    {
+      "path": "predictions/pr-8040.json.gz",
+      "pr_id": 8040,
+      "sha256": "3a6a0742022a62a1f79884b7f11a78c9d5a54873920e3bee820d6f65ad751df7"
+    },
+    {
+      "path": "predictions/pr-7966.json.gz",
+      "pr_id": 7966,
+      "sha256": "885d1d67a7f159b080d3f011665787f1ba3e2716694c8b4d9a39897622c5150c"
+    },
+    {
+      "path": "predictions/pr-7867.json.gz",
+      "pr_id": 7867,
+      "sha256": "4ac35e6b234a52fbf5a889240e1a7ae99d04c2149b480d1ade68f80261bedb9e"
+    },
+    {
+      "path": "predictions/pr-6546.json.gz",
+      "pr_id": 6546,
+      "sha256": "ed787234a6c27b15e20294c43a063e07b79da91f8537249f57db5ce674ac4ef0"
+    },
+    {
+      "path": "predictions/pr-7377.json.gz",
+      "pr_id": 7377,
+      "sha256": "5f23b5af88becc6ce0f783500217e75cabd0c705d1b04285a6115dacbd20eeb9"
+    },
+    {
+      "path": "predictions/pr-7797.json.gz",
+      "pr_id": 7797,
+      "sha256": "99470670e774dac199b8d544c2950bc19b7e27fe082dcca0f2b2f9a7cfc4d244"
+    },
+    {
+      "path": "predictions/pr-7809.json.gz",
+      "pr_id": 7809,
+      "sha256": "b31e1d7b6c3d0b68dd8df4ffae057178c44ffec6e34c1e263cda7e7cb2ded607"
+    },
+    {
+      "path": "predictions/pr-7824.json.gz",
+      "pr_id": 7824,
+      "sha256": "c4fe7fe6cb836e738045bdef20d28a78ec69b589ff71a4a69664c667ffd15100"
+    },
+    {
+      "path": "predictions/pr-7643.json.gz",
+      "pr_id": 7643,
+      "sha256": "aa5036a4a389b710b314b527936a8e871818e8c4479b25e568392b03dd6f7bd7"
+    },
+    {
+      "path": "predictions/pr-7596.json.gz",
+      "pr_id": 7596,
+      "sha256": "051d836ab12716358d572c14b3d0fd394061ff90397d41129785ce4392f81331"
+    },
+    {
+      "path": "predictions/pr-7985.json.gz",
+      "pr_id": 7985,
+      "sha256": "e2c6498db6c69a69f6244c2413c2e9bd9d20e2c15723dd42179bf7de9be64a2c"
+    },
+    {
+      "path": "predictions/pr-7986.json.gz",
+      "pr_id": 7986,
+      "sha256": "8cbe1cd3c52a5bf95886904cb976c61b7b879d1e44ab2b537a0bfa3ff2c3c4ae"
+    },
+    {
+      "path": "predictions/pr-7833.json.gz",
+      "pr_id": 7833,
+      "sha256": "2a65d2a247518325e8a8cd78fa04cc155b93d0f343154153a4b637a3559b472f"
+    },
+    {
+      "path": "predictions/pr-7843.json.gz",
+      "pr_id": 7843,
+      "sha256": "701e85a2b12bc9e8f8fff5dc7a13d367e6160988009eacddb0db9b5a32c2182f"
+    },
+    {
+      "path": "predictions/pr-7829.json.gz",
+      "pr_id": 7829,
+      "sha256": "498d14676a80bbeba01c9490948aedfa4376d62267d32c3fc43338cf196f7f90"
+    },
+    {
+      "path": "predictions/pr-7647.json.gz",
+      "pr_id": 7647,
+      "sha256": "503a66f4d8640e15d07097fd5091537732f96abc0798736f33c269bbc14d83e2"
+    },
+    {
+      "path": "predictions/pr-7712.json.gz",
+      "pr_id": 7712,
+      "sha256": "e0e5b1399cd3ee37e25e798266a1b0f9bb8d88772975735976dd70e283722d26"
+    },
+    {
+      "path": "predictions/pr-7929.json.gz",
+      "pr_id": 7929,
+      "sha256": "f0d6ddea1545abfc2c1a6d853fba5ef4f468ac7c550da20137be688e2fa8a590"
+    },
+    {
+      "path": "predictions/pr-7566.json.gz",
+      "pr_id": 7566,
+      "sha256": "5b6cbf4db1b29de9c9f62564acee7d6bc22ce43d280673a29226e26a3d712c75"
+    },
+    {
+      "path": "predictions/pr-8019.json.gz",
+      "pr_id": 8019,
+      "sha256": "c5a7cd9a0632a055c5ba260a71956903ba3b75a6ee0e68127e933d6be68381e9"
+    },
+    {
+      "path": "predictions/pr-8022.json.gz",
+      "pr_id": 8022,
+      "sha256": "1b3194b82dba47b80922526b466a21e631478d5c0c1c2437afe1ae71280bf7c5"
+    },
+    {
+      "path": "predictions/pr-7595.json.gz",
+      "pr_id": 7595,
+      "sha256": "2094e6b5e4e42481bbb23a6cec285f94e4655c38a874060c054fb7f618ec95dd"
+    },
+    {
+      "path": "predictions/pr-7841.json.gz",
+      "pr_id": 7841,
+      "sha256": "eabeff885420540966ea870128ca73a78347f5f5b80ec5bafa2252a82c5d560e"
+    },
+    {
+      "path": "predictions/pr-8037.json.gz",
+      "pr_id": 8037,
+      "sha256": "daacc122a33f57518d432d1c9957ce9d971ec3cb904e7e06d0fdd73718d84c36"
+    },
+    {
+      "path": "predictions/pr-7208.json.gz",
+      "pr_id": 7208,
+      "sha256": "4e2cd4a3f95f91f1010683222701d4d5691982b1657c4fba8e00436add238b96"
+    },
+    {
+      "path": "predictions/pr-6438.json.gz",
+      "pr_id": 6438,
+      "sha256": "9914f71f410508b18819ffbcb329558bd0994b812672d75af3137b13a7346bcf"
+    },
+    {
+      "path": "predictions/pr-7490.json.gz",
+      "pr_id": 7490,
+      "sha256": "55f3a0471b3e5f1016b8e8699aa26caa7619be6e5809a053061177ed94c076c2"
+    },
+    {
+      "path": "predictions/pr-7853.json.gz",
+      "pr_id": 7853,
+      "sha256": "8bc4c9aacc134c6c7bf929b3f1b8989aafa73e6738cfe4b9febfcf88476dad0e"
+    },
+    {
+      "path": "predictions/pr-7858.json.gz",
+      "pr_id": 7858,
+      "sha256": "8793cb375715d43b5fddc388836bf366180d89d9a9969362a9430d585a9b662b"
+    },
+    {
+      "path": "predictions/pr-7884.json.gz",
+      "pr_id": 7884,
+      "sha256": "439da54ed845f1124fa3d9c7261fa2f3668d596eaac4d80dac1219a0dd6d2b43"
+    },
+    {
+      "path": "predictions/pr-7963.json.gz",
+      "pr_id": 7963,
+      "sha256": "66dcad426450749a313d85729386e8a0fe0e9e1096641a7c8499ef7fece82f89"
+    },
+    {
+      "path": "predictions/pr-7506.json.gz",
+      "pr_id": 7506,
+      "sha256": "580792719c1d502d8051ff79ca267596c33b4dabdbfb437feb1af88fb8737755"
+    },
+    {
+      "path": "predictions/pr-7524.json.gz",
+      "pr_id": 7524,
+      "sha256": "3d53f323ea941fdd0c561c04d385823bf6ba419fcfd20f66bca055b369649e8c"
+    },
+    {
+      "path": "predictions/pr-7532.json.gz",
+      "pr_id": 7532,
+      "sha256": "6c3e4752fd7d330f4ce03469cc0d7a4ab53afffc18d4b10e2846f547be468d00"
+    },
+    {
+      "path": "predictions/pr-7605.json.gz",
+      "pr_id": 7605,
+      "sha256": "7b406aee37532f5227ba233badb5e64e61d49e4ca0caa665c3c3f9decf856a7b"
+    },
+    {
+      "path": "predictions/pr-7864.json.gz",
+      "pr_id": 7864,
+      "sha256": "676bc5fc5d7dba5d603c95e50c4aa36d637aa936aaf05908e91a8972257c9049"
+    },
+    {
+      "path": "predictions/pr-7616.json.gz",
+      "pr_id": 7616,
+      "sha256": "dc6d55ed28c5c34787700a0737aabcb382b64f915ec005e849340ae429ef6f71"
+    },
+    {
+      "path": "predictions/pr-7736.json.gz",
+      "pr_id": 7736,
+      "sha256": "3bef0b43a58de178b6cf36b75b274142345de3290976146402ff7eee24065f11"
+    },
+    {
+      "path": "predictions/pr-7655.json.gz",
+      "pr_id": 7655,
+      "sha256": "182f89fbe231d4a00de9cbecc5dfa87d0d6adf8c501f7878df11b8cec6943e1e"
+    },
+    {
+      "path": "predictions/pr-8002.json.gz",
+      "pr_id": 8002,
+      "sha256": "4f96b38589c2a64939145eac29d67400d506b92c9e8b08b7c7670651c2c1aa81"
+    },
+    {
+      "path": "predictions/pr-7993.json.gz",
+      "pr_id": 7993,
+      "sha256": "c575a767de0aff32173351a3fe07932deb0bde4f2cb925dc075eb1147ae2c333"
+    },
+    {
+      "path": "predictions/pr-8001.json.gz",
+      "pr_id": 8001,
+      "sha256": "9419e2e7bf3f935fd7d274ad63ca22020dba24c89c4f1127672159c949e5bb00"
+    },
+    {
+      "path": "predictions/pr-7702.json.gz",
+      "pr_id": 7702,
+      "sha256": "c614388645a0d4e23337be043bee976d7a4c630c18ecd829377eeb9a07a609e6"
+    },
+    {
+      "path": "predictions/pr-7886.json.gz",
+      "pr_id": 7886,
+      "sha256": "669afcdbb162924e29a86f209db952dd6a18e6b6cb6f6feab665497299604fc0"
+    },
+    {
+      "path": "predictions/pr-7727.json.gz",
+      "pr_id": 7727,
+      "sha256": "077178cd6b8c68e7d77744b18b9f31a7d84010b3e43fe0349f8dd891bf77dbc0"
+    },
+    {
+      "path": "predictions/pr-7755.json.gz",
+      "pr_id": 7755,
+      "sha256": "a4cdd3afce32c7ebb15e39bd0ca4bf60a3e05e813dd0a28502debb3ffa0f6cb3"
+    },
+    {
+      "path": "predictions/pr-7995.json.gz",
+      "pr_id": 7995,
+      "sha256": "5c137b380de504114153acb915738c80b588df53ffc8883227e98949f6702c38"
+    },
+    {
+      "path": "predictions/pr-7772.json.gz",
+      "pr_id": 7772,
+      "sha256": "e855fc813fca9f451c67536af675272d236d21c06965e8f1fc3f462485ada496"
+    },
+    {
+      "path": "predictions/pr-7575.json.gz",
+      "pr_id": 7575,
+      "sha256": "03e7d6ddd604af3f6fd80a1fc03e55ba0c78ff2ac3d36952ecf4ca1e6d7a22a3"
+    },
+    {
+      "path": "predictions/pr-7879.json.gz",
+      "pr_id": 7879,
+      "sha256": "d0dd3e469ca9c902ff71da87c9250ecc9f1ba6f0387c8a41141457471ec957fc"
+    },
+    {
+      "path": "predictions/pr-7738.json.gz",
+      "pr_id": 7738,
+      "sha256": "d61e787506b1610a19e0eda7d5f931d1abe927e03e0bcecd00601bd96f02d701"
+    },
+    {
+      "path": "predictions/pr-7739.json.gz",
+      "pr_id": 7739,
+      "sha256": "087ccacf5fba1a639284ed47b6b1c603a416ce5f516bc6cd0d64516cdfb12b37"
+    },
+    {
+      "path": "predictions/pr-7741.json.gz",
+      "pr_id": 7741,
+      "sha256": "54a313776353a43ef33d71f2d7ea8397358c9b048aba8bc889b7388caf510a91"
+    },
+    {
+      "path": "predictions/pr-7672.json.gz",
+      "pr_id": 7672,
+      "sha256": "15ba099bbeb67f8e9b9fcc4caac311aa9f32548a5121a366a2ce90fa8347637b"
+    },
+    {
+      "path": "predictions/pr-8027.json.gz",
+      "pr_id": 8027,
+      "sha256": "b4a31b1067b03fb2909bc86388f57db90bd169f35efcf4120f865c3efcc2001f"
+    },
+    {
+      "path": "predictions/pr-7664.json.gz",
+      "pr_id": 7664,
+      "sha256": "64b38e4514d2a5f5f515c7876496da7c1db32d878fbc179b5fd154a125000ea8"
+    },
+    {
+      "path": "predictions/pr-7665.json.gz",
+      "pr_id": 7665,
+      "sha256": "03255151de9f452f4ba382f96db1357f78843bea91de33240cdefbe0989b2a60"
+    },
+    {
+      "path": "predictions/pr-8032.json.gz",
+      "pr_id": 8032,
+      "sha256": "0bcfa078e2f4ba2606316f9109cff7dc93fe8f37a867320e189af010aadc039e"
+    },
+    {
+      "path": "predictions/pr-7731.json.gz",
+      "pr_id": 7731,
+      "sha256": "65d2f4ec1d263324dd12fb82057297cd81156f8afd4987a0770f8c1d981fe12c"
+    },
+    {
+      "path": "predictions/pr-7785.json.gz",
+      "pr_id": 7785,
+      "sha256": "b300ef43001b7a48922dc912018941cf990f3fc1cbe142ceb27a2008488c52e7"
+    },
+    {
+      "path": "predictions/pr-7627.json.gz",
+      "pr_id": 7627,
+      "sha256": "2493466b79266b2490dcadf0ef6cd2b54142f9740c25e7a0757d99edc4c790ca"
+    },
+    {
+      "path": "predictions/pr-7753.json.gz",
+      "pr_id": 7753,
+      "sha256": "c8727818cfe7ffd49708fcce1c98b3bb452bd123555593b275e79367177cb3d8"
+    },
+    {
+      "path": "predictions/pr-7948.json.gz",
+      "pr_id": 7948,
+      "sha256": "dcb966ceecd2e52881eb2f47cbad3df39a8a275d9cdc7b75934a84b0794731ab"
+    },
+    {
+      "path": "predictions/pr-8020.json.gz",
+      "pr_id": 8020,
+      "sha256": "3ad2086cf6683128ba8ece5792ec9269decf2c0cc38410a874eb156922b2884e"
+    },
+    {
+      "path": "predictions/pr-7808.json.gz",
+      "pr_id": 7808,
+      "sha256": "51bbb6d9dac2ff68528e88bdb6c1c2012d2b948a91710246dd0d9b9d156e9583"
+    },
+    {
+      "path": "predictions/pr-7971.json.gz",
+      "pr_id": 7971,
+      "sha256": "c817344b7c73913b5fc11b705d2d8a0c8cdef0631d3db42b96d8f74e91085223"
+    },
+    {
+      "path": "predictions/pr-7793.json.gz",
+      "pr_id": 7793,
+      "sha256": "ab46cc5f19da8cb7e38963f03f7d976c7fffe47592207ff2a1647cd049584027"
+    },
+    {
+      "path": "predictions/pr-6604.json.gz",
+      "pr_id": 6604,
+      "sha256": "c221bc7dc099d4aad841333e70c4f6020aa93bc61bd6e9b352b990de7255d5e1"
+    },
+    {
+      "path": "predictions/pr-7460.json.gz",
+      "pr_id": 7460,
+      "sha256": "77394433e11c59dd35ef891266ce3630217a8c634d454a6cc56d54dc6615b768"
+    }
+  ],
+  "task_states": [
+    {
+      "pr_id": 6438,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 6546,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 6604,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7208,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7377,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7449,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7459,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7460,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7466,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7490,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7506,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7511,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7520,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7524,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7532,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7545,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7564,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7566,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7575,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7585,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7586,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7595,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7596,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7605,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7616,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7627,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7632,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7639,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7643,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7647,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7655,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7664,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7665,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7672,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7684,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7692,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7694,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7702,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7712,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7727,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7731,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7736,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7738,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7739,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7741,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7753,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7755,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7763,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7772,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7785,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7793,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7797,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7808,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7809,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7824,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7829,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7833,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7841,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7843,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7846,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7853,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7858,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7864,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7865,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7867,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7879,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7884,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7886,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7918,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7920,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7929,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7931,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7935,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7945,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7948,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7963,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7966,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7968,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7971,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7985,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7986,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7993,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 7995,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 8001,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 8002,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 8008,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 8009,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 8017,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 8019,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 8020,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 8022,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 8027,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 8032,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 8037,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 8040,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 8064,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 8067,
+      "status": "RANKED"
+    },
+    {
+      "pr_id": 8073,
+      "status": "RANKED"
+    }
+  ],
+  "version": "tfidf-cosine-testcase-v1"
+}

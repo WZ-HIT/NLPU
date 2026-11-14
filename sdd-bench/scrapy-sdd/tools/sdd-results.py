@@ -4,6 +4,8 @@
 from __future__ import annotations
 
 import argparse
+import copy
+from functools import lru_cache
 import datetime as dt
 import difflib
 import hashlib
@@ -16,10 +18,10 @@ from dataclasses import dataclass, replace
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path, PurePosixPath
 from typing import Any
-from urllib.parse import urlparse
+from urllib.parse import urlparse, parse_qs
 import webbrowser
 
-VERSION = "1.4.0"
+VERSION = "1.7.2"
 VARIANTS = ("openspec", "speckit", "cc-sdd")
 LABEL = {"openspec": "OpenSpec", "speckit": "Spec Kit", "cc-sdd": "cc-sdd"}
 ARTIFACT_DIRS = ("outputs", "output-files", "artifacts", "generated-files")
@@ -64,6 +66,7 @@ class BatchTarget:
     target_key: str | None = None
     target_id: str | None = None
     seal: dict[str, str] | None = None
+    view_sha256: str | None = None
 
 
 @dataclass(frozen=True)
@@ -425,7 +428,7 @@ def _view_targets(exp: Experiment, bench: Path) -> list[BatchTarget] | None:
             task_id=row.get("task_id", ""), pr_id=row.get("pr_id"), title=row.get("title", ""),
             method=row.get("method", ""), stage=row.get("stage", ""), run_id=row.get("run_id", ""),
             mode=row.get("mode"), state=state, attempt=row.get("attempt"), execution=execution, error=error,
-            target_key=key, target_id=row.get("target_id"), seal=row.get("seal"),
+            target_key=key, target_id=row.get("target_id"), seal=row.get("seal"), view_sha256=view["view_sha256"],
         ))
     return result
 
@@ -1294,6 +1297,11 @@ def _batch_target_html(target: BatchTarget) -> tuple[str, list[tuple[str, str]]]
         ("Attempt", target.attempt if target.attempt is not None else "—", False),
         ("Mode", target.mode or "—", False),
     )
+    if target.execution is not None:
+        _, read_usage = _token_tools()
+        log = target.execution / ('agent.jsonl' if target.stage == 'detect' else 'artifacts/agent.jsonl')
+        usage = read_usage(log)
+        facts += (("Latest attempt tokens", _token_number(usage['total_tokens']), False),)
     parts = [
         f'<article class="batch-target" id="{anchor}">',
         f'<div class="variant-heading"><div><p class="eyebrow">{esc(target.stage)} result</p><h3>{esc(label)}</h3></div>{badge(target.state)}</div>',
@@ -1389,6 +1397,219 @@ def _dedupe_targets(targets: list[BatchTarget]) -> list[BatchTarget]:
         seen.add(anchor)
         unique.append(target)
     return unique
+
+
+def _token_number(value: Any) -> str:
+    return f"{value:,}" if isinstance(value, int) and not isinstance(value, bool) else "未记录"
+
+
+def _token_tools():
+    if str(bench_default()) not in sys.path:
+        sys.path.insert(0, str(bench_default()))
+    from batch.token_usage import aggregate, read_usage
+    return aggregate, read_usage
+
+
+def batch_token_usage(exp: Experiment, targets: list[BatchTarget], bench: Path) -> dict[str, Any]:
+    """Include every ledger-referenced formal attempt, even failed attempts.
+
+    Read-only for old and new runs. No filesystem glob may invent an attempt or
+    make another round's workspace contribute to this round's cost.
+    """
+    aggregate, read_usage = _token_tools()
+    from batch.token_usage import missing
+    events, ledger_error = _ledger_events(exp)
+    if ledger_error:
+        return {'summary': aggregate([]), 'rows': [], 'error': ledger_error}
+    config = load_json(exp.config_path) if exp.config_path else None
+    entries = (config.get('targets') or config.get('tasks') or []) if config else []
+    roots = {}
+    for entry in entries:
+        if not isinstance(entry, dict):
+            continue
+        identifier = entry.get('task_id')
+        if not isinstance(identifier, str) or identifier in roots:
+            continue
+        task, path, error = _task_manifest(bench.parents[1], entry, identifier)
+        if task and path and not error:
+            roots[identifier] = path.parent
+    attempts = {}
+    for event in events:
+        target = event.get('target', {})
+        if event.get('action') not in {'detect', 'update'} or event.get('state') == 'SKIPPED_RESUME':
+            continue
+        if not isinstance(target, dict) or target.get('stage') != event.get('action'):
+            continue
+        names = [target.get(k) for k in ('task_id', 'method', 'stage', 'run_id')]
+        if not all(isinstance(n, str) and SAFE_TASK_ID.fullmatch(n) for n in names):
+            continue
+        mode = target.get('update_mode')
+        key = _target_key(*names, mode)
+        attempt = event.get('attempt')
+        if isinstance(attempt, int) and not isinstance(attempt, bool) and attempt > 0:
+            attempts.setdefault(key, {})[attempt] = event.get('state')
+    rows = []
+    for target in targets:
+        key = _target_key(target.task_id, target.method, target.stage, target.run_id, target.mode)
+        for number, state in sorted(attempts.get(key, {}).items()):
+            task_root = roots.get(target.task_id)
+            usage = missing()
+            log_relative = None
+            if task_root is not None:
+                relative = f'runs/{target.method}/{target.stage}/executions/{target.run_id}/attempt-{number}'
+                if target.stage == 'update':
+                    relative += f'/mode-{target.mode}/artifacts'
+                log = _safe_child(task_root, relative + '/agent.jsonl')
+                if log is not None and not log.is_symlink():
+                    usage = read_usage(log)
+                    log_relative = log.relative_to(bench.parents[1]).as_posix()
+            rows.append({'target_key': key, 'task_id': target.task_id, 'method': target.method,
+                         'stage': target.stage, 'mode': target.mode, 'run_id': target.run_id,
+                         'attempt': number, 'state': state, 'latest': number == target.attempt,
+                         'log_path': log_relative, 'usage': usage})
+    rows.sort(key=lambda row: (row['target_key'], row['attempt']))
+    return {'summary': aggregate(row['usage'] for row in rows), 'rows': rows, 'error': None}
+
+
+def _usage_table(document: dict[str, Any]) -> str:
+    aggregate, _ = _token_tools()
+    summary, rows = document['summary'], document['rows']
+    statuses = {'RECORDED': '完整', 'PARTIAL': '部分记录', 'NOT_RECORDED': '未记录', 'UNREADABLE': '无法读取'}
+    if document.get('error'):
+        return '<section><h3>Token 用量</h3><p>无法核对用量：' + esc(document['error']) + '</p></section>'
+    body, groups = [], []
+    for method in VARIANTS:
+        members = [row for row in rows if row['method'] == method]
+        if not members:
+            continue
+        total = aggregate(row['usage'] for row in members)
+        groups.append(f'<tr><td>{esc(LABEL[method])}</td>' + ''.join(
+            f'<td>{_token_number(total[field])}</td>' for field in ('input_tokens', 'cached_input_tokens', 'output_tokens', 'reasoning_output_tokens', 'total_tokens'))
+            + f'<td>{total["recorded_attempt_count"]}/{total["attempt_count"]}</td><td>{statuses[total["status"]]}</td></tr>')
+    for row in rows:
+        usage = row['usage']
+        body.append(f'<tr><td>{esc(row["task_id"])}</td><td>{esc(LABEL[row["method"]])}</td>'
+            f'<td>{esc(row["stage"])} {esc(row.get("mode") or "")}</td><td>{esc(row["run_id"])} · attempt {row["attempt"]}{"（最新）" if row["latest"] else ""}</td>'
+            f'<td>{esc(row["state"])}</td>' + ''.join(f'<td>{_token_number(usage[field])}</td>' for field in ('input_tokens','cached_input_tokens','output_tokens','reasoning_output_tokens','total_tokens'))
+            + f'<td>{esc(statuses.get(usage["status"], usage["status"]))}</td></tr>')
+    return ('<section><h3>Token 用量（含全部重试与失败尝试）</h3><div class="facts">'
+        + ''.join(f'<div class="fact"><span>{title}</span><strong>{_token_number(summary[field])}</strong></div>' for field,title in (
+            ('input_tokens','已记录输入 token'),('cached_input_tokens','其中缓存输入'),('output_tokens','已记录输出 token'),('total_tokens','已记录总 token')))
+        + '</div>' + f'<p>状态：{statuses[summary["status"]]} · 有用量记录 {summary["recorded_attempt_count"]}/{summary["attempt_count"]} 次尝试 · 缺失 {summary["missing_attempt_count"]} · 部分记录 {summary["partial_attempt_count"]}</p>'
+        + '<p class="source-path">总量 = 输入 + 输出；缓存输入已包含在输入中，推理输出已包含在输出中，不重复相加。部分记录仅为已知小计，未记录不等于零。Token 数不是费用。</p>'
+        + ('<div class="table-wrap"><table><thead><tr><th>方法</th><th>输入</th><th>缓存输入</th><th>输出</th><th>推理输出</th><th>合计</th><th>记录/尝试</th><th>状态</th></tr></thead><tbody>' + ''.join(groups) + '</tbody></table></div>' if groups else '<p>暂无已记录的模型用量。</p>')
+        + details('每次尝试的 token 用量', '<div class="table-wrap"><table><thead><tr><th>Task / Phase</th><th>方法</th><th>阶段 / 模式</th><th>Run / 尝试</th><th>状态</th><th>输入</th><th>缓存输入</th><th>输出</th><th>推理输出</th><th>合计</th><th>用量记录</th></tr></thead><tbody>' + ''.join(body) + '</tbody></table></div>')
+        + '</section>')
+
+
+def _legacy_token_usage(exp: Experiment) -> dict[str, Any]:
+    aggregate, read_usage = _token_tools()
+    rows = []
+    for method in VARIANTS:
+        directory = exp.root / method / 'phases'
+        if directory.is_symlink():
+            continue
+        for log in sorted(directory.glob('*.jsonl')):
+            if log.is_symlink() or not log.resolve().is_relative_to(exp.root.resolve()):
+                continue
+            rows.append({'task_id': log.stem, 'method': method, 'stage': 'legacy-phase', 'mode': None,
+                         'run_id': log.stem, 'attempt': 1, 'latest': True, 'state': '历史阶段日志',
+                         'usage': read_usage(log)})
+    return {'summary': aggregate(row['usage'] for row in rows), 'rows': rows, 'error': None}
+
+
+@lru_cache(maxsize=16)
+def _validated_testcase_metrics(content: bytes, schema_content: bytes) -> dict[str, Any] | None:
+    """Cache expensive schema validation by exact report AND schema bytes."""
+    try:
+        document = json.loads(content)
+        if not isinstance(document, dict) or document.get('metric_definition_version') != 'detect-metrics-v3':
+            return None
+        payload = dict(document)
+        supplied = payload.pop('metric_set_sha256', None)
+        if canonical_sha256(payload) != supplied:
+            return None
+        if not isinstance(document.get('rows'), list) or not isinstance(document.get('methods'), list):
+            return None
+        from jsonschema import Draft202012Validator
+        if next(Draft202012Validator(json.loads(schema_content)).iter_errors(document), None) is not None:
+            return None
+        return document
+    except (UnicodeError, TypeError, ValueError):
+        return None
+
+
+def testcase_metrics(bench: Path, batch_id: str) -> dict[str, Any] | None:
+    """Read numeric host summary; changed bytes always invalidate validation."""
+    try:
+        path = bench / 'Log/reports/testcase-metrics' / f'{batch_id}.json'
+        schema = bench / 'schemas/detect-metrics-v3.schema.json'
+        if path.is_symlink() or schema.is_symlink():
+            return None
+        document = _validated_testcase_metrics(path.read_bytes(), schema.read_bytes())
+        return copy.deepcopy(document)
+    except OSError:
+        return None
+
+
+def _testcase_table(bench: Path, batch_id: str, task_id: str | None = None, *, targets: list[BatchTarget] | None = None) -> str:
+    document = testcase_metrics(bench, batch_id)
+    command = f"python3 bin/sdd-detect-metrics check --batch {batch_id} --testcase"
+    if document is None:
+        report_path = bench / 'Log/reports/testcase-metrics' / f'{batch_id}.json'
+        reason = '尚未生成双粒度评分' if not report_path.exists() else '双粒度报告无法读取、版本不支持或校验失败'
+        return '<section><h3>文件级 / testcase 级指标</h3><p>' + reason + '。在宿主机执行：</p><code>' + esc(command) + '</code><p>页面只读，不自动调用模型或读取 gold 评分。</p></section>'
+    if targets is not None:
+        hashes = {t.view_sha256 for t in targets if t.view_sha256}
+        current = {_target_key(t.task_id,t.method,t.stage,t.run_id,t.mode):t for t in targets if t.stage == 'detect'}
+        reported = [r for r in document['rows'] if task_id is None or r['task_id'] == task_id]
+        changed = bool(hashes and hashes != {document['result_view_sha256']}) or any(t.error and t.state in TERMINAL_STATES for t in targets)
+        changed = changed or len(current) != len(reported) or any(
+            r['target_key'] not in current or (current[r['target_key']].state, current[r['target_key']].attempt) != (r['state'],r['attempt'])
+            for r in reported)
+        if changed:
+            return '<section><h3>文件级 / testcase 级指标</h3><p>评分已过期：运行状态或 ledger 已变化，请重新进行宿主机评分。</p><code>' + esc(command) + '</code></section>'
+    body = []
+    # Public pages render counts only. Gold identities and snippets stay host-only.
+    for row in document['rows']:
+        if task_id is not None and row['task_id'] != task_id:
+            continue
+        for level, title in (("legacy_file", "历史文件级"), ("scoped_file", "同范围文件级"), ("testcase", "testcase 级")):
+            metric = row.get(level) or {}
+            if row['status'] == 'NO_POSITIVE_GOLD' and level == 'testcase':
+                metric = {'predicted_count': row.get('false_alarm_count', 0), 'gold_count': 0, 'tp': 0}
+            body.append(f'<tr><td>{esc(row["task_id"])}</td><td>{esc(LABEL.get(row["method"], row["method"]))}</td>'
+                        f'<td>{title}</td><td>{esc(metric.get("predicted_count", "—"))}</td>'
+                        f'<td>{esc(metric.get("gold_count", "—"))}</td><td>{esc(metric.get("tp", "—"))}</td>'
+                        f'<td>{_rate(metric.get("precision"))}</td><td>{_rate(metric.get("recall"))}</td>'
+                        f'<td>{_rate(metric.get("f1"))}</td><td>{esc(row["status"])}</td></tr>')
+    summary = []
+    if task_id is None:
+        for method in document['legacy_file_methods']:
+            summary.append(f'<tr><td>{esc(LABEL.get(method["method"], method["method"]))}</td><td>历史文件级</td>'
+                f'<td>{esc(method["scorable_count"])}/{esc(method["row_count"])}</td>'
+                + ''.join(f'<td>{_rate(method[k])}</td>' for k in ('hit_rate_micro','recall_micro','f1_micro','hit_rate_macro','recall_macro','f1_macro')) + '</tr>')
+        for method in document['methods']:
+            for level, title in (("scoped_file", "同范围文件级"), ("testcase", "testcase 级"), ("successful_testcase", "仅成功 testcase（条件分数）")):
+                metric = method[level]
+                summary.append(f'<tr><td>{esc(LABEL.get(method["method"], method["method"]))}</td><td>{title}</td>'
+                    f'<td>{esc(metric["scored_count"])}/{esc(method["row_count"])}</td>'
+                    + ''.join(f'<td>{_rate(metric[k])}</td>' for k in ('precision_micro','recall_micro','f1_micro','precision_macro','recall_macro','f1_macro')) + '</tr>')
+    counts = document['counts']
+    if task_id is not None:
+        selected = [r for r in document['rows'] if r['task_id'] == task_id]
+        counts = {'target_count':len(selected), 'scored_count':sum(r['testcase'] is not None for r in selected),
+                  'failed_target_count':sum(r['state'] in {'FAILED','BLOCKED'} for r in selected),
+                  'unscorable_target_count':sum(r['testcase'] is None for r in selected),
+                  'invalid_prediction_count':sum(len(r['prediction']['invalid']) for r in selected),
+                  'no_positive_false_alarm_count':sum(r.get('false_alarm_count',0) for r in selected),
+                  'statuses':{status:sum(r['status']==status for r in selected) for status in sorted({r['status'] for r in selected})}}
+    return ('<section><h3>测试方法定位 · detect-metrics-v3</h3>'
+            + f'<p>协议 {esc(document["protocol"])} · Targets {esc(counts["target_count"])} · 已计分 {esc(counts["scored_count"])} · 失败 {esc(counts.get("failed_target_count", 0))} · 不可评分 {esc(counts.get("unscorable_target_count", 0))} · 无效预测 {esc(counts.get("invalid_prediction_count", 0))} · 无正目标误报 {esc(counts.get("no_positive_false_alarm_count", 0))} · {esc(json.dumps(counts["statuses"], ensure_ascii=False))}</p>'
+            + '<p>主指标为 testcase F1。失败在主指标中按零分计；历史不可评分和标签缺口明确列出。参数化按源码方法计数。</p>'
+            + ('<div class="table-wrap"><table><thead><tr><th>方法</th><th>粒度</th><th>计分/全部</th><th>P micro</th><th>R micro</th><th>F1 micro</th><th>P macro</th><th>R macro</th><th>F1 macro</th></tr></thead><tbody>' + ''.join(summary) + '</tbody></table></div>' if summary else '')
+            + details('双粒度明细', '<div class="table-wrap"><table><thead><tr><th>Task</th><th>方法</th><th>粒度</th><th>预测数</th><th>Gold 数</th><th>命中数</th><th>P</th><th>R</th><th>F1</th><th>状态</th></tr></thead><tbody>' + ''.join(body) + '</tbody></table></div>', opened=task_id is not None)
+            + '</section>')
 
 
 def _batch_pr_detect_section(bench: Path, batch_id: str, task_id: str | None) -> str:
@@ -1508,69 +1729,6 @@ def _batch_detect_table(bench: Path, batch_id: str) -> str:
     )
 
 
-def _batch_pr_overview(exp: Experiment, targets: list[BatchTarget], bench: Path) -> str:
-    first = targets[0] if targets else None
-    task_label = exp.task_id_filter or (first.task_id if first else "—")
-    heading = f"PR {first.pr_id}" if first is not None and first.pr_id is not None else task_label
-    title = first.title if first is not None and first.title else "—"
-    sealed = sum(item.state in TERMINAL_STATES and item.execution is not None for item in targets)
-    status = "NOT_RECORDED" if not targets else ("SEALED" if sealed == len(targets) else "INCOMPLETE")
-    facts = (
-        ("PR", heading),
-        ("Task", task_label),
-        ("Batch", _batch_id(exp)),
-        ("Targets", len(targets)),
-        ("Sealed", sealed),
-        ("Detect", sum(item.stage == "detect" for item in targets)),
-        ("Update", sum(item.stage == "update" for item in targets)),
-    )
-    parts = [
-        f'<div class="variant-heading"><div><p class="eyebrow">Batch成果</p><h2>{esc(heading)}</h2></div>{badge(status)}</div>',
-        f'<p class="source-path">{esc(title)} · {esc(task_label)}</p>',
-        '<div class="facts">' + "".join(
-            f'<div class="fact"><span>{esc(name)}</span><strong>{esc(value)}</strong></div>' for name, value in facts
-        ) + "</div>",
-    ]
-    rows = []
-    for method in VARIANTS:
-        items = [item for item in targets if item.method == method]
-        if not items:
-            continue
-        method_sealed = sum(item.state in TERMINAL_STATES and item.execution is not None for item in items)
-        outcomes = ", ".join(
-            f"{item.stage}{' · ' + item.mode if item.mode else ''}: {item.state}" for item in items
-        )
-        rows.append(
-            f'<div class="fact"><span>{esc(LABEL[method])}</span>'
-            f'<strong>{badge("SEALED" if method_sealed == len(items) else "INCOMPLETE")} {esc(method_sealed)}/{esc(len(items))}</strong>'
-            f'<p>{esc(outcomes)}</p></div>'
-        )
-    if rows:
-        parts.append('<section><h3>Methods</h3><div class="facts">' + "".join(rows) + "</div></section>")
-    parts.append(_batch_pr_detect_section(bench, _batch_id(exp), exp.task_id_filter or task_label))
-    parts.append('<p class="source-path">Read-only view of terminal sealed artifacts. Evaluation and gold data are excluded.</p>')
-    return "".join(parts)
-
-
-def render_batch_pr(exp: Experiment, bench: Path) -> tuple[dict[str, str], dict[str, list[tuple[str, str]]]]:
-    targets = _dedupe_targets(batch_targets(exp, bench))
-    panes = {"overview": _batch_pr_overview(exp, targets, bench)}
-    navigation: dict[str, list[tuple[str, str]]] = {"overview": []}
-    for method in VARIANTS:
-        items = [item for item in targets if item.method == method]
-        if not items:
-            continue
-        sealed = all(item.state in TERMINAL_STATES and item.execution is not None for item in items)
-        body, links = _batch_method_section(method, items)
-        panes[method] = (
-            f'<section id="method-{method}"><div class="variant-heading"><div><p class="eyebrow">SDD output</p>'
-            f'<h2>{esc(LABEL[method])}</h2></div>{badge("SEALED" if sealed else "INCOMPLETE")}</div>' + body + "</section>"
-        )
-        navigation[method] = links
-        navigation["overview"].append((LABEL[method], f"method-{method}"))
-    return panes, navigation
-
-
 def _page_shell(title: str, tabs: str, nav: str, panes: str) -> str:
     generated = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
     return (PAGE.replace("__TITLE__", esc(title))
@@ -1582,77 +1740,11 @@ def _page_shell(title: str, tabs: str, nav: str, panes: str) -> str:
 
 
 def build_batch_pr_html(exp: Experiment, bench: Path) -> str:
-    panes, navigation = render_batch_pr(exp, bench)
-    labels = {"overview": "Overview", **LABEL}
-    tabs = "".join(
-        f'<button class="tab-button{" active" if name == "overview" else ""}" data-tab="{name}">{esc(labels[name])}</button>'
-        for name in panes
-    )
-    nav = "".join(
-        f'<div class="nav-group{" active" if name == "overview" else ""}" data-nav="{name}"><h3>{esc(labels[name])}</h3>'
-        + "".join(f'<a href="#{esc(anchor)}">{esc(label)}</a>' for label, anchor in links)
-        + "</div>"
-        for name, links in navigation.items() if links
-    )
-    pane_html = "".join(
-        f'<main class="tab-pane{" active" if name == "overview" else ""}" id="tab-{name}">{value}</main>'
-        for name, value in panes.items()
-    )
-    return _page_shell(exp.experiment_id, tabs, nav or '<p class="source-path">No captured files.</p>', pane_html)
-
-
-def render_batch(exp: Experiment, bench: Path) -> tuple[str, list[tuple[str, str]]]:
-    targets = batch_targets(exp, bench)
-    task_order = list(dict.fromkeys(item.task_id for item in targets))
-    sealed = sum(item.state in TERMINAL_STATES and item.execution is not None for item in targets)
-    detect = sum(item.stage == "detect" for item in targets)
-    update = sum(item.stage == "update" for item in targets)
-    sections = [
-        f'<div class="variant-heading"><div><p class="eyebrow">Batch成果</p><h2>{esc(exp.experiment_id)}</h2></div>{badge("SEALED" if sealed == len(targets) and targets else "INCOMPLETE")}</div>',
-        '<div class="facts">'
-        f'<div class="fact"><span>Tasks</span><strong>{len(task_order)}</strong></div>'
-        f'<div class="fact"><span>Targets</span><strong>{len(targets)}</strong></div>'
-        f'<div class="fact"><span>Detect</span><strong>{detect}</strong></div>'
-        f'<div class="fact"><span>Update</span><strong>{update}</strong></div>'
-        f'<div class="fact"><span>Sealed available</span><strong>{sealed}</strong></div></div>',
-    ]
-    # Placed above the disclaimer rather than below it: that sentence says
-    # evaluation and gold data are excluded, and a table of gold-derived rates
-    # printed underneath it would read as if the sentence exempted itself.
-    detect_table = _batch_detect_table(bench, _batch_id(exp))
-    if detect_table:
-        sections.append(detect_table)
-    sections.append('<p class="source-path">Read-only view of terminal sealed artifacts. Evaluation and gold data are excluded.</p>')
-    navigation: list[tuple[str, str]] = []
-    for task_id_value in task_order:
-        items = [item for item in targets if item.task_id == task_id_value]
-        first = items[0]
-        task_anchor = "task-" + hashlib.sha256(task_id_value.encode()).hexdigest()[:12]
-        heading = f"PR {first.pr_id}" if first.pr_id is not None else task_id_value
-        sections.append(f'<section id="{task_anchor}"><h2>{esc(heading)}</h2><p class="source-path">{esc(first.title)} · {esc(task_id_value)}</p>')
-        navigation.append((heading, task_anchor))
-        for method in VARIANTS:
-            method_items = [item for item in items if item.method == method]
-            if not method_items:
-                continue
-            body, links = _batch_method_section(method, method_items)
-            sections.append(body)
-            navigation.extend((f"{heading} · {label}", anchor) for label, anchor in links)
-        sections.append("</section>")
-    return "".join(sections), navigation
+    return _layout().pr_page(sys.modules[__name__], bench, exp)
 
 
 def build_batch_html(exp: Experiment, bench: Path) -> str:
-    pane, links = render_batch(exp, bench)
-    nav = '<div class="nav-group active" data-nav="results"><h3>Sealed results</h3>' + "".join(
-        f'<a href="#{esc(anchor)}">{esc(label)}</a>' for label, anchor in links
-    ) + "</div>"
-    return _page_shell(
-        exp.experiment_id,
-        '<button class="tab-button active" data-tab="results">Results</button>',
-        nav,
-        f'<main class="tab-pane active" id="tab-results">{pane}</main>',
-    )
+    return _layout().batch_page(sys.modules[__name__], bench, exp)
 
 
 def build_html(exp: Experiment, bench: Path | None = None) -> str:
@@ -1660,7 +1752,7 @@ def build_html(exp: Experiment, bench: Path | None = None) -> str:
     if exp.source_kind == "batch":
         return build_batch_pr_html(exp, bench) if exp.task_id_filter else build_batch_html(exp, bench)
     available = [name for name in VARIANTS if (exp.root / name).is_dir()]
-    panes = {"overview": render_overview(exp, available)}
+    panes = {"overview": render_overview(exp, available) + _usage_table(_legacy_token_usage(exp))}
     navigation: dict[str, list[tuple[str, str]]] = {"overview": []}
     for name in available:
         panes[name], navigation[name] = render_variant(name, exp.root / name)
@@ -1709,62 +1801,15 @@ def write_report(bench: Path, exp: Experiment, output: Path | None) -> Path:
 
 
 
-DASHBOARD = """<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SDD Results Dashboard</title><style>
-:root{color-scheme:dark;--panel:#121a2d;--line:#293754;--text:#e8edf7;--muted:#9eabc2;--blue:#73a7ff;--green:#77d49b;--red:#ff8795;--amber:#f4c76d}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 15% 0,#182845 0,#0a0f1d 40%);color:var(--text);font:15px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,sans-serif}.shell{max-width:1250px;margin:auto;padding:48px 24px 80px}.eyebrow{color:var(--blue);font-size:11px;font-weight:800;letter-spacing:.15em;text-transform:uppercase}h1{font-size:clamp(32px,5vw,54px);line-height:1.05;margin:8px 0 12px}.lead{color:var(--muted);max-width:760px;font-size:17px}.toolbar{display:flex;gap:12px;margin:32px 0 20px}.search{flex:1;min-width:0;color:var(--text);background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:13px 15px;font:inherit}.refresh{color:var(--text);background:#18243a;border:1px solid var(--line);border-radius:12px;padding:12px 16px;text-decoration:none}.count{color:var(--muted);margin-bottom:12px}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(315px,1fr));gap:14px}.card{display:block;color:inherit;text-decoration:none;background:rgba(18,26,45,.9);border:1px solid var(--line);border-radius:14px;padding:18px;transition:.15s transform,.15s border-color}.card:hover{transform:translateY(-2px);border-color:var(--blue)}.card-top{display:flex;align-items:start;justify-content:space-between;gap:12px}.card h2{font-size:18px;margin:0;overflow-wrap:anywhere}.badge{display:inline-flex;padding:4px 9px;border-radius:999px;font-size:11px;font-weight:800;white-space:nowrap}.badge.pass{color:var(--green);background:#173426}.badge.fail{color:var(--red);background:#3a1921}.badge.pending{color:var(--amber);background:#382e17}.badge.unknown{color:var(--muted);background:#242d40}.meta{color:var(--muted);font-size:12px;margin:14px 0 0}.variants{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}.variant{color:#c9d7ed;background:#1a2740;border-radius:6px;padding:3px 7px;font-size:11px}.empty{color:var(--muted);padding:40px;border:1px dashed var(--line);border-radius:14px;text-align:center}@media(max-width:600px){.shell{padding:30px 16px}.toolbar{flex-direction:column}}
-</style></head><body><div class="shell"><p class="eyebrow">Local read-only viewer · v__VERSION__</p><h1>SDD experiment results</h1><p class="lead">Choose an experiment, then switch between OpenSpec, Spec Kit, and cc-sdd to inspect code changes, captured artifacts, Agent output, failures, and review status.</p><div class="toolbar"><input id="search" class="search" type="search" placeholder="Filter by experiment, task, status, or SDD…" autofocus><a class="refresh" href="/">Refresh</a></div><div class="count"><span id="visible">__COUNT__</span> of __COUNT__ experiments</div><div class="grid">__CARDS__</div></div><script>
-const cards=[...document.querySelectorAll('.card')],input=document.querySelector('#search'),visible=document.querySelector('#visible');input.addEventListener('input',()=>{const q=input.value.trim().toLowerCase();let n=0;cards.forEach(card=>{const show=!q||card.dataset.search.includes(q);card.style.display=show?'block':'none';if(show)n++});visible.textContent=n});
-</script></body></html>"""
+def _layout():
+    if str(bench_default()) not in sys.path:
+        sys.path.insert(0, str(bench_default()))
+    from batch import results_ui
+    return results_ui
 
 
 def dashboard_html(experiments: list[Experiment], bench: Path | None = None) -> str:
-    bench = bench or bench_default()
-    cards = []
-    batch_cache: dict[str, list[BatchTarget]] = {}
-    for exp in experiments:
-        if exp.source_kind == "batch":
-            batch_id = _batch_id(exp)
-            if batch_id not in batch_cache:
-                overview = replace(exp, experiment_id=batch_id, task_id_filter=None)
-                batch_cache[batch_id] = batch_targets(overview, bench)
-            targets = batch_cache[batch_id]
-            if exp.task_id_filter is not None:
-                targets = [item for item in targets if item.task_id == exp.task_id_filter]
-            status = (
-                "SEALED" if targets and all(item.state in TERMINAL_STATES and item.execution is not None for item in targets)
-                else "INCOMPLETE" if targets else "INVALID"
-            )
-            present = [name for name in VARIANTS if any(item.method == name for item in targets)]
-        else:
-            targets = []
-            status = overall_status(exp, bench)
-            present = _batch_present(exp, bench)
-        batch_search = " ".join(
-            " ".join(filter(None, (item.task_id, str(item.pr_id or ""), item.method, item.stage, item.mode or "")))
-            for item in targets
-        )
-        searchable = " ".join((exp.experiment_id, task_id(exp), status, exp.source_kind, batch_search, *present)).lower()
-        chips = "".join(f'<span class="variant">{esc(LABEL[name])}</span>' for name in present)
-        heading, meta_lead, source_label = exp.experiment_id, "", exp.audit_name
-        if exp.source_kind == "batch":
-            source_label = "Batch成果"
-        if exp.task_id_filter:
-            # Two batches can hold the same PR, so the card has to name its batch.
-            pr_id = next((item.pr_id for item in targets if item.pr_id is not None), None)
-            heading = f"PR {pr_id}" if pr_id is not None else exp.task_id_filter
-            meta_lead = f"{esc(exp.experiment_id)}<br>"
-            source_label = f"批次 {exp.batch_id}"
-        cards.append(
-            f'<a class="card" data-search="{esc(searchable)}" href="/experiment/{experiment_token(exp)}">'
-            f'<div class="card-top"><h2>{esc(heading)}</h2>{badge(status)}</div>'
-            f'<p class="meta">{meta_lead}Task: {esc(task_id(exp) or "not recorded")}<br>Updated: {esc(stamp(exp.modified))}<br>Source: {esc(source_label)}</p>'
-            f'<div class="variants">{chips}</div></a>'
-        )
-    body = "".join(cards) or '<div class="empty">No experiment results were found.</div>'
-    return (DASHBOARD.replace("__VERSION__", VERSION)
-        .replace("__COUNT__", str(len(experiments)))
-        .replace("__CARDS__", body))
+    return _layout().homepage(sys.modules[__name__], bench or bench_default(), experiments)
 
 
 def make_server(bench: Path, host: str, port: int) -> ThreadingHTTPServer:
@@ -1778,12 +1823,63 @@ def make_server(bench: Path, host: str, port: int) -> ThreadingHTTPServer:
             self.send_header("Content-Length", str(len(payload)))
             self.send_header("Cache-Control", "no-store")
             self.send_header("X-Content-Type-Options", "nosniff")
-            self.send_header("Content-Security-Policy", "default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; base-uri 'none'; frame-ancestors 'none'")
+            self.send_header("Content-Security-Policy", "default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; connect-src 'self'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'")
+            self.end_headers()
+            self.wfile.write(payload)
+
+        def do_POST(self) -> None:
+            # JSON plus a custom header prevents cross-site form submissions.
+            # Origin/Host are checked against the actual listener, including
+            # forwarded localhost addresses used by SSH/IDE port forwarding.
+            host_header = self.headers.get('Host', '')
+            parsed_host = urlparse('http://' + host_header)
+            origin = self.headers.get('Origin')
+            bound_host, bound_port = self.server.server_address[:2]
+            allowed_hosts = {'localhost', '127.0.0.1', '::1', bound_host}
+            try:
+                valid_host = parsed_host.hostname in allowed_hosts and (parsed_host.port or 80) == bound_port
+            except ValueError:
+                valid_host = False
+            if (urlparse(self.path).path != '/api/note' or not valid_host
+                    or self.headers.get('X-SDD-Viewer') != 'notes-v1'
+                    or self.headers.get('Content-Type', '').split(';')[0] != 'application/json'
+                    or (origin is not None and origin != 'http://' + host_header)):
+                self.send_json({'error': '禁止此备注请求'}, 403)
+                return
+            try:
+                size = int(self.headers.get('Content-Length', '0'))
+                if not 0 < size <= 65536:
+                    raise ValueError('请求大小无效')
+                value = json.loads(self.rfile.read(size))
+                if not isinstance(value, dict):
+                    raise ValueError('请求格式错误')
+                _layout().save_note(bench, value.get('round_id'), value.get('batch_id'), value.get('text'), value.get('expected'))
+            except (ValueError, OSError) as error:
+                self.send_json({'error': str(error)}, 409)
+                return
+            self.send_json({'saved': True})
+
+        def send_json(self, value: dict, status: int = 200) -> None:
+            payload = json.dumps(value, ensure_ascii=False).encode('utf-8')
+            self.send_response(status)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.send_header('Content-Length', str(len(payload)))
+            self.send_header('Cache-Control', 'no-store')
+            self.send_header('X-Content-Type-Options', 'nosniff')
             self.end_headers()
             self.wfile.write(payload)
 
         def do_GET(self) -> None:
+            try:
+                self.get_page()
+            except (ValueError, OSError, ViewerError) as error:
+                self.send_page('<!doctype html><title>无法读取</title><h1>无法读取结果</h1><p>' + esc(str(error)) + '</p><a href="/">返回首页</a>', 422)
+
+        def get_page(self) -> None:
             request_path = urlparse(self.path).path
+            content_request = request_path.startswith('/content/')
+            if content_request:
+                request_path = request_path[len('/content'):]
             if request_path == "/healthz":
                 payload = b"ok\n"
                 self.send_response(200)
@@ -1792,10 +1888,66 @@ def make_server(bench: Path, host: str, port: int) -> ThreadingHTTPServer:
                 self.end_headers()
                 self.wfile.write(payload)
                 return
+            if request_path.startswith('/api/intention-results/'):
+                from batch import intention_results
+                identifier = request_path[len('/api/intention-results/'):]
+                entry = next((e for e in _layout().registry(bench)
+                              if e['id'] == identifier and e.get('provider') == intention_results.PROVIDER), None)
+                if entry is None:
+                    self.send_json({'error': 'TI 轮次未登记'}, 404)
+                else:
+                    try:
+                        self.send_json(intention_results.snapshot(bench, entry))
+                    except (ValueError, OSError) as error:
+                        self.send_json({'error': str(error)}, 422)
+                return
+            if request_path.startswith('/api/production-results/'):
+                from batch import production_results
+                identifier = request_path[len('/api/production-results/'):]
+                entry = next((e for e in _layout().registry(bench)
+                              if e['id'] == identifier and e.get('provider') == production_results.PROVIDER), None)
+                if entry is None:
+                    self.send_json({'error': '两阶段轮次未登记'}, 404)
+                else:
+                    self.send_json(production_results.snapshot(bench, entry))
+                return
             current = discover(bench)
+            slow_page = (request_path.startswith(('/round/', '/experiment/', '/attempt/', '/production-pr/'))
+                         or (request_path == '/compare' and bool(urlparse(self.path).query)))
+            if slow_page and not content_request:
+                destination = '/content' + request_path
+                if urlparse(self.path).query:
+                    destination += '?' + urlparse(self.path).query
+                self.send_page(_layout().loading_page(sys.modules[__name__], destination))
+                return
             if request_path == "/":
                 self.send_page(dashboard_html(current, bench))
                 return
+            if request_path == '/history':
+                self.send_page(_layout().homepage(sys.modules[__name__], bench, current, history=True))
+                return
+            if request_path.startswith('/round/'):
+                self.send_page(_layout().round_page(sys.modules[__name__], bench, current, request_path[len('/round/'):]))
+                return
+            if request_path.startswith('/production-pr/'):
+                from batch import production_results
+                parts = request_path.split('/')
+                entry = next((e for e in _layout().registry(bench) if len(parts) == 4 and e['id'] == parts[2]
+                              and e.get('provider') == production_results.PROVIDER), None)
+                if entry is not None and parts[3].isdigit():
+                    self.send_page(production_results.pr_page(sys.modules[__name__], _layout(), bench, entry, int(parts[3])))
+                    return
+            if request_path == '/compare':
+                selected = parse_qs(urlparse(self.path).query).get('round', [])
+                self.send_page(_layout().compare_page(sys.modules[__name__], bench, current, selected))
+                return
+            if request_path.startswith('/attempt/'):
+                parts = request_path.split('/')
+                if len(parts) == 4:
+                    matches = [e for e in current if e.source_kind == 'batch' and experiment_token(e) == parts[2]]
+                    if len(matches) == 1:
+                        self.send_page(_layout().attempt_page(sys.modules[__name__], bench, matches[0], parts[3]))
+                        return
             prefix = "/experiment/"
             if request_path.startswith(prefix):
                 token = request_path[len(prefix):]

@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "source": "hithesis",
+  "upstream": "https://github.com/hithesis/hithesis.git",
+  "base_commit": "8264734219d84b47f1366e332d405be6110cfc36",
+  "files": [
+    {
+      "source_status": " M",
+      "path": "examples/hitart/reports/body/report_harbin_bachelor_opening.tex",
+      "bytes": 36887,
+      "sha256": "d0b3582276c715c98b422eca6942c26619799f3129774e98b3bc9e8d71052b6f"
+    },
+    {
+      "source_status": " M",
+      "path": "examples/hitart/reports/front/coverart.tex",
+      "bytes": 901,
+      "sha256": "717008e31ec4c4854179b37b8381e91619699c8aaa20a791445e35b1b46bf3d2"
+    },
+    {
+      "source_status": " M",
+      "path": "examples/hitart/reports/report.tex",
+      "bytes": 4618,
+      "sha256": "a244b4e55f0ba40af1e71b5577031e1a7b28c231a204539907a1afedcb2161de"
+    },
+    {
+      "source_status": "??",
+      "path": "examples/hitart/reports/.application-backup/附件1-哈尔滨工业大学本科综合设计（论文）重点项目申请书-未填写转换稿.docx",
+      "bytes": 111796,
+      "sha256": "ef2b17e81d2d39f0605dfeb1a0601131cbb902bfe6f23d3beded578ae878caf3"
+    },
+    {
+      "source_status": "??",
+      "path": "examples/hitart/reports/.application-preview/page-1.png",
+      "bytes": 73087,
+      "sha256": "32dd7cb8cea2e98470b749808be6003f8d1be7014c5c453f18c9ee313f3b0560"
+    },
+    {
+      "source_status": "??",
+      "path": "examples/hitart/reports/.application-preview/page-2.png",
+      "bytes": 180733,
+      "sha256": "c7adbdfe039920a335afb3e4b464725a407d966bcf06f1085eb2aad06a186bf5"
+    },
+    {
+      "source_status": "??",
+      "path": "examples/hitart/reports/.application-preview/page-3.png",
+      "bytes": 272719,
+      "sha256": "1e1a029c65373ffb0287be1537ff695450b48a9429b0623aeeb677d24af725ee"
+    },
+    {
+      "source_status": "??",
+      "path": "examples/hitart/reports/.application-preview/page-4.png",
+      "bytes": 215187,
+      "sha256": "936074d017113c5b36f999a0b90b42ab864b3eb7277409da90878ed1d00d784a"
+    },
+    {
+      "source_status": "??",
+      "path": "examples/hitart/reports/.application-preview/page-5.png",
+      "bytes": 104983,
+      "sha256": "2add8c9686572d914073fbab246e479f74c562358368af224e6011280a30bf89"
+    },
+    {
+      "source_status": "??",
+      "path": "examples/hitart/reports/.application-preview/page-6.png",
+      "bytes": 48714,
+      "sha256": "e6dcd92f95f6e561131c1f1fb2dde0bbf73d76c571d1f472f2e4f1d70216e2d6"
+    },
+    {
+      "source_status": "??",
+      "path": "examples/hitart/reports/body/开题报告流程图.pptx",
+      "bytes": 122303,
+      "sha256": "d4ac73aaa63d0f3384d7bbe81e17a4873499438a5df95676c39e9304ae7ab3a8"
+    },
+    {
+      "source_status": "??",
+      "path": "examples/hitart/reports/figures/research_workflow.tex",
+      "bytes": 3707,
+      "sha256": "c46f054e8dbc28c12bdce281f7d7585d163502a415178054e7dc023f8bcd054e"
+    },
+    {
+      "source_status": "??",
+      "path": "examples/hitart/reports/figures/research_workflow_preview.png",
+      "bytes": 183303,
+      "sha256": "57d5553df28276794e8a980ef23720c6fd53ef28aa3ac6d2e93511152d57e3dd"
+    },
+    {
+      "source_status": "??",
+      "path": "examples/hitart/reports/figures/research_workflow_preview.tex",
+      "bytes": 3707,
+      "sha256": "c46f054e8dbc28c12bdce281f7d7585d163502a415178054e7dc023f8bcd054e"
+    },
+    {
+      "source_status": "??",
+      "path": "examples/hitart/reports/figures/research_workflow_preview_v2.png",
+      "bytes": 183287,
+      "sha256": "ae3006c7f808f59c49e39912fb5b31f6b10ade44d6cea6666fe19993528b7af5"
+    },
+    {
+      "source_status": "??",
+      "path": "examples/hitart/reports/figures/research_workflow_preview_v3.png",
+      "bytes": 183303,
+      "sha256": "57d5553df28276794e8a980ef23720c6fd53ef28aa3ac6d2e93511152d57e3dd"
+    },
+    {
+      "source_status": "??",
+      "path": "examples/hitart/reports/ljk.md",
+      "bytes": 105678,
+      "sha256": "6aa024882f3151c9c49861942d5bcc5411b83aa5a2fb2361a6e347684a4c1d54"
+    },
+    {
+      "source_status": "??",
+      "path": "examples/hitart/reports/opening_workflow.pptx",
+      "bytes": 45103,
+      "sha256": "dca5a89e2ce5732c6171e8fd9d5ea0c6e8d42168160704cb25b4d952028a70b2"
+    },
+    {
+      "source_status": "??",
+      "path": "examples/hitart/reports/reference_opening.bib",
+      "bytes": 5526,
+      "sha256": "a2d6edf6223844ad037d17e431f774b3d1cc7f38056f0648de5e32bee0d50393"
+    },
+    {
+      "source_status": "??",
+      "path": "examples/hitart/reports/report.md",
+      "bytes": 14489,
+      "sha256": "ab4c09f767408fce2be0903294b0bd2f1f187dea07812ac05aa194b679c04ddb"
+    },
+    {
+      "source_status": "??",
+      "path": "examples/hitart/reports/附件1-哈尔滨工业大学本科综合设计（论文）重点项目申请书-已填写.docx",
+      "bytes": 115121,
+      "sha256": "33e17fb5136f1435bed8cd212fb10992ae638ad5926c56e2717b3ee4f3cb69eb"
+    }
+  ],
+  "purpose": "Preserve all local thesis edits in NLPU without publishing to third-party upstream"
+}

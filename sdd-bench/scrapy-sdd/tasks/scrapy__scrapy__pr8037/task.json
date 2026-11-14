@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr8037",
+  "repository": {
+    "owner": "scrapy",
+    "name": "scrapy"
+  },
+  "pr_id": 8037,
+  "baseline": {
+    "base_sha": "96823bb31dbe1d1f4d0d93e28c7c8bfae31955e9"
+  },
+  "title": "Make --pdb break on reported errors instead of on every Failure",
+  "body": "Resolves https://github.com/scrapy/scrapy/issues/3552",
+  "adapter": {
+    "id": "scrapy",
+    "version": 1,
+    "path": "sdd-bench/scrapy-sdd/adapters/scrapy.json",
+    "sha256": "059dcc09eaa62f892f54118e65d4deccce3ab29cc5d9a4a36f4d999ff1aa27de"
+  }
+}

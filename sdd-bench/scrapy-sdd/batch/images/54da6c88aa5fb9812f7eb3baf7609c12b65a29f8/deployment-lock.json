@@ -1,0 +1,423 @@
+{
+  "schema_version": 1,
+  "status": "READY",
+  "generated_at_utc": "2026-10-14T04:21:50Z",
+  "repository": "scrapy/scrapy",
+  "base_sha": "54da6c88aa5fb9812f7eb3baf7609c12b65a29f8",
+  "tree_sha": "75ad361003dd91e2e920508cecccbae36d5d23a3",
+  "baseline_lock_sha256": "ae7cc7dc3594329c6a793666269cf2e2f28b0cb5d03f882d1e42a891686c3a62",
+  "images": {
+    "source_baseline": {
+      "tag": "scrapy-sdd-scrapy:base-11079cb1c85b-py311",
+      "image_id": "sha256:f59cdcb1f1be58c9ee0becf4eff13ea4979aea617aa5bf2c4619ae2c13c4adfa"
+    },
+    "baseline": {
+      "tag": "scrapy-sdd-batch-baseline:54da6c88aa5fb9812f7eb3baf7609c12b65a29f8",
+      "image_id": "sha256:824627bb50f970a1233abc80a5fd4382bef7238b58290447c61fb461401a3ceb",
+      "repo_digests": [
+        "scrapy-sdd-batch-baseline@sha256:824627bb50f970a1233abc80a5fd4382bef7238b58290447c61fb461401a3ceb"
+      ],
+      "rootfs_layers": [
+        "sha256:6f94328331290cbd81edab450664d42da7b64c191416c9346cd5d28c84f76035",
+        "sha256:6c3d72b3145b3e6fd1cb9f40bec451653da28422c27bd821f217cffbf8e2ce56",
+        "sha256:801c4088600fc9b873e1c1e87708adfce646f06b31d533588ee4781bc917b8ed",
+        "sha256:d2505f5a762d70dc386767149afedd28f8d33c71d0aa8ad88a71bd71940ffe01",
+        "sha256:f94421fc34e126916f1adda085cd21ea14cc4800ffa6897a12cf1c6c1dad621b",
+        "sha256:77347e686fa24da7eeb84568d665f5dd8ee1110d5e567da68936614cf77fa62f",
+        "sha256:108fef11dc6ad5c5ef4d78c71226891eb68c0332fec0118dd0c4c8b742ff743b",
+        "sha256:62fe052d1af4ed2819c662731fa846bd73123dff7fb9dcf9f72df57827be366b",
+        "sha256:afb9b18337499da0bfb2d811e9abc04b53d2cc7e6f0735afa702368bd71a1e1d",
+        "sha256:bb0ed6b6bb5c5cc3fa5c42a9c84e184adc977e208e4f463e2e6be53fea4117d3",
+        "sha256:12606e9774d71d06637b149ecf621e2d6eb7ef2d9476581f09cb4ad678386479",
+        "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+        "sha256:cd82d8b5807490bb798e0b780fd448a1e79bde8cc617fdd5062f255f6cf6a0f2",
+        "sha256:cf457693d366630694c78de0c5c9e8d3b3ef2fa43e7d8334cc74e3355d18eed6",
+        "sha256:29686a0d75cef5c7be69e75aa624a37d91500ea6ba2cef1081d8573163208be9",
+        "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
+      ]
+    },
+    "common_runtime": {
+      "tag": "scrapy-sdd-agent:base-11079cb1c85b-codex-0.153.4-node-24.20.0-uv-0.12.10-official-bwrap-path-candidate",
+      "image_id": "sha256:5331d81398045534dfca13267402e4f97dad9d6ad43524a62b05286741e960a9"
+    },
+    "agent": {
+      "tag": "scrapy-sdd-batch-agent:54da6c88aa5fb9812f7eb3baf7609c12b65a29f8",
+      "image_id": "sha256:bc91cc77789eb06bc9f889df8ee8851e9ecfe8fd1ba78de23fe5d9a634a87d30",
+      "repo_digests": [
+        "scrapy-sdd-batch-agent@sha256:bc91cc77789eb06bc9f889df8ee8851e9ecfe8fd1ba78de23fe5d9a634a87d30"
+      ],
+      "rootfs_layers": [
+        "sha256:6f94328331290cbd81edab450664d42da7b64c191416c9346cd5d28c84f76035",
+        "sha256:6c3d72b3145b3e6fd1cb9f40bec451653da28422c27bd821f217cffbf8e2ce56",
+        "sha256:801c4088600fc9b873e1c1e87708adfce646f06b31d533588ee4781bc917b8ed",
+        "sha256:d2505f5a762d70dc386767149afedd28f8d33c71d0aa8ad88a71bd71940ffe01",
+        "sha256:f94421fc34e126916f1adda085cd21ea14cc4800ffa6897a12cf1c6c1dad621b",
+        "sha256:77347e686fa24da7eeb84568d665f5dd8ee1110d5e567da68936614cf77fa62f",
+        "sha256:108fef11dc6ad5c5ef4d78c71226891eb68c0332fec0118dd0c4c8b742ff743b",
+        "sha256:62fe052d1af4ed2819c662731fa846bd73123dff7fb9dcf9f72df57827be366b",
+        "sha256:afb9b18337499da0bfb2d811e9abc04b53d2cc7e6f0735afa702368bd71a1e1d",
+        "sha256:bb0ed6b6bb5c5cc3fa5c42a9c84e184adc977e208e4f463e2e6be53fea4117d3",
+        "sha256:12606e9774d71d06637b149ecf621e2d6eb7ef2d9476581f09cb4ad678386479",
+        "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+        "sha256:cd82d8b5807490bb798e0b780fd448a1e79bde8cc617fdd5062f255f6cf6a0f2",
+        "sha256:cf457693d366630694c78de0c5c9e8d3b3ef2fa43e7d8334cc74e3355d18eed6",
+        "sha256:29686a0d75cef5c7be69e75aa624a37d91500ea6ba2cef1081d8573163208be9",
+        "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+        "sha256:464ff9f0eb04c27d873197b84e8d32ab9d5d632fbc15a0cb348e9c2d515c6d17",
+        "sha256:180100a747025fade76ebd42a7e867b2e55ca0bc25ab249f7921378ee1d5a944",
+        "sha256:0de772a791538ec0f6b44de722275f667fadf45a68bab2811d2145c779852d54",
+        "sha256:0fa14255c4c543c7bb59c0b12f68f03020ea41beb918f95de702b3081c706c51",
+        "sha256:499edb2c498331a17e8e23ec3616c19bd9571db0a9213d59de6cf51535755366",
+        "sha256:ec4513de3b0e0c36744a0905f37d18e03425ffb8e55aa42b45bcb505d1fe3dc9",
+        "sha256:df0cbfd97113c7d702de53a14e729cdefc9c22e0be4785c0c83edec2b45b759c",
+        "sha256:92c84050f0da9d0bd4c306cb15f6114d913e686c70066d4c2d7da80d05d9f910",
+        "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
+      ]
+    }
+  },
+  "versions": {
+    "python": "3.11.15",
+    "scrapy": "2.17.0",
+    "pytest": "9.1.1",
+    "node": "v24.20.0",
+    "npm": "11.19.0",
+    "codex": "codex-cli 0.153.4",
+    "uv": "uv 0.12.10 (x86_64-unknown-linux-gnu)",
+    "bubblewrap": "bubblewrap built for Codex",
+    "openspec": "1.12.0",
+    "speckit": "specify 1.0.4",
+    "cc-sdd": "cc-sdd v3.0.2"
+  },
+  "python_dependencies": {
+    "count": 69,
+    "freeze_sha256": "99299f71ad68b0769810da2b0e10d09c9dd506c037e0134eed66d571ce08bd33",
+    "entries": [
+      "Automat==25.4.16",
+      "Incremental==24.11.0",
+      "Protego==0.6.2",
+      "PyDispatcher==2.0.7",
+      "Pygments==2.21.0",
+      "Scrapy==2.17.0",
+      "Twisted==26.4.0",
+      "aiohappyeyeballs==2.7.1",
+      "aiohttp==3.14.3",
+      "aiosignal==1.4.0",
+      "anyio==4.15.0",
+      "attrs==26.1.0",
+      "backports.zstd==1.7.0",
+      "brotli==1.2.0",
+      "certifi==2026.7.22",
+      "cffi==2.1.1",
+      "charset-normalizer==3.5.1",
+      "constantly==23.10.4",
+      "coverage==7.16.0",
+      "cryptography==50.0.1",
+      "cssselect==1.5.0",
+      "decorator==5.3.1",
+      "defusedxml==0.7.1",
+      "execnet==2.1.2",
+      "filelock==3.32.5",
+      "frozenlist==1.8.0",
+      "greenlet==3.5.5",
+      "h11==0.16.0",
+      "httpcore2==2.12.0",
+      "httpx2==2.12.0",
+      "hyperlink==21.0.0",
+      "idna==3.19",
+      "iniconfig==2.3.0",
+      "itemadapter==0.13.1",
+      "itemloaders==1.4.0",
+      "jmespath==1.1.0",
+      "lxml==6.1.3",
+      "multidict==6.7.1",
+      "packaging==26.3",
+      "parsel==1.11.0",
+      "pexpect==4.9.0",
+      "pip==24.0",
+      "platformdirs==4.11.7",
+      "pluggy==1.6.0",
+      "propcache==0.5.2",
+      "ptyprocess==0.7.0",
+      "pyOpenSSL==26.4.0",
+      "pycparser==3.0",
+      "pyftpdlib==2.2.0",
+      "pytest-cov==7.1.0",
+      "pytest-rerunfailures==16.6.1",
+      "pytest-timeout==2.4.0",
+      "pytest-twisted==1.14.3",
+      "pytest-xdist==3.8.0",
+      "pytest==9.1.1",
+      "queuelib==1.10.0",
+      "requests-file==3.0.1",
+      "requests==2.34.2",
+      "service-identity==26.1.0",
+      "setuptools==79.0.1",
+      "sybil==10.1.0",
+      "tldextract==5.3.2",
+      "truststore==0.10.4",
+      "typing_extensions==4.16.0",
+      "urllib3==2.7.0",
+      "w3lib==2.4.1",
+      "wheel==0.46.3",
+      "yarl==1.24.5",
+      "zope.interface==8.6"
+    ]
+  },
+  "system_packages": {
+    "count": 118,
+    "lock_sha256": "64f0c40b01ee309bbe5720aad5af411ba47676fb0d1fc40faa79b5a2e7d4a8a9",
+    "entries": [
+      "adduser=3.152",
+      "apt=3.0.3",
+      "base-files=13.8+deb13u6",
+      "base-passwd=3.6.7",
+      "bash=5.2.37-2+b9",
+      "bsdutils=1:2.41-5",
+      "ca-certificates=20250419",
+      "coreutils=9.7-3",
+      "dash=0.5.12-12",
+      "debconf=1.5.91",
+      "debian-archive-keyring=2025.1",
+      "debianutils=5.23.2",
+      "diffutils=1:3.10-4",
+      "dpkg=1.22.22",
+      "findutils=4.10.0-3",
+      "gcc-14-base=14.2.0-19",
+      "git-man=1:2.47.3-0+deb13u1",
+      "git=1:2.47.3-0+deb13u1",
+      "grep=3.11-4",
+      "gzip=1.13-1",
+      "hostname=3.25",
+      "init-system-helpers=1.69~deb13u1",
+      "libacl1=2.3.2-2+b1",
+      "libapt-pkg7.0=3.0.3",
+      "libattr1=1:2.5.2-3",
+      "libaudit-common=1:4.0.2-2",
+      "libaudit1=1:4.0.2-2+b2",
+      "libblkid1=2.41-5",
+      "libbrotli1=1.1.0-2+b7",
+      "libbsd0=0.12.2-2",
+      "libbz2-1.0=1.0.8-6",
+      "libc-bin=2.41-12+deb13u3",
+      "libc6=2.41-12+deb13u3",
+      "libcap-ng0=0.8.5-4+b1",
+      "libcap2=1:2.75-10+deb13u1+b1",
+      "libcom-err2=1.47.2-3+b11",
+      "libcrypt1=1:4.4.38-1",
+      "libcurl3t64-gnutls=8.14.1-2+deb13u4",
+      "libdb5.3t64=5.3.28+dfsg2-9",
+      "libdebconfclient0=0.280",
+      "liberror-perl=0.17030-1",
+      "libexpat1=2.8.3-1~deb13u1",
+      "libffi8=3.4.8-2",
+      "libgcc-s1=14.2.0-19",
+      "libgdbm-compat4t64=1.24-2",
+      "libgdbm6t64=1.24-2",
+      "libgmp10=2:6.3.0+dfsg-3",
+      "libgnutls30t64=3.8.9-3+deb13u4",
+      "libgssapi-krb5-2=1.21.3-5+deb13u1",
+      "libhogweed6t64=3.10.1-1",
+      "libidn2-0=2.3.8-2",
+      "libk5crypto3=1.21.3-5+deb13u1",
+      "libkeyutils1=1.6.3-6",
+      "libkrb5-3=1.21.3-5+deb13u1",
+      "libkrb5support0=1.21.3-5+deb13u1",
+      "liblastlog2-2=2.41-5",
+      "libldap2=2.6.10+dfsg-1",
+      "liblz4-1=1.10.0-4",
+      "liblzma5=5.8.1-1+deb13u1",
+      "libmd0=1.1.0-2+b1",
+      "libmount1=2.41-5",
+      "libncursesw6=6.5+20250216-2",
+      "libnettle8t64=3.10.1-1",
+      "libnghttp2-14=1.64.0-1.1+deb13u1",
+      "libnghttp3-9=1.8.0-1",
+      "libngtcp2-16=1.11.0-1+deb13u1",
+      "libngtcp2-crypto-gnutls8=1.11.0-1+deb13u1",
+      "libp11-kit0=0.25.5-3",
+      "libpam-modules-bin=1.7.0-5",
+      "libpam-modules=1.7.0-5",
+      "libpam-runtime=1.7.0-5",
+      "libpam0g=1.7.0-5",
+      "libpcre2-8-0=10.46-1~deb13u1",
+      "libperl5.40=5.40.1-6",
+      "libpsl5t64=0.21.2-1.1+b1",
+      "libreadline8t64=8.2-6",
+      "librtmp1=2.4+20151223.gitfa8646d.1-2+b5",
+      "libsasl2-2=2.1.28+dfsg1-9",
+      "libsasl2-modules-db=2.1.28+dfsg1-9",
+      "libseccomp2=2.6.0-2",
+      "libselinux1=3.8.1-1",
+      "libsemanage-common=3.8.1-1",
+      "libsemanage2=3.8.1-1",
+      "libsepol2=3.8.1-1",
+      "libsmartcols1=2.41-5",
+      "libsqlite3-0=3.46.1-7+deb13u1",
+      "libssh2-1t64=1.11.1-1+deb13u1",
+      "libssl3t64=3.5.6-1~deb13u2",
+      "libstdc++6=14.2.0-19",
+      "libsystemd0=257.13-1~deb13u1",
+      "libtasn1-6=4.20.0-2+deb13u1",
+      "libtinfo6=6.5+20250216-2",
+      "libudev1=257.13-1~deb13u1",
+      "libunistring5=1.3-2",
+      "libuuid1=2.41-5",
+      "libxxhash0=0.8.3-2",
+      "libzstd1=1.5.7+dfsg-1",
+      "login.defs=1:4.17.4-2",
+      "login=1:4.16.0-2+really2.41-5",
+      "mawk=1.3.4.20250131-1",
+      "mount=2.41-5",
+      "ncurses-base=6.5+20250216-2",
+      "ncurses-bin=6.5+20250216-2",
+      "netbase=6.5",
+      "openssl-provider-legacy=3.5.6-1~deb13u2",
+      "openssl=3.5.6-1~deb13u2",
+      "passwd=1:4.17.4-2",
+      "perl-base=5.40.1-6",
+      "perl-modules-5.40=5.40.1-6",
+      "perl=5.40.1-6",
+      "readline-common=8.2-6",
+      "sed=4.9-2+deb13u1",
+      "sqv=1.3.0-3+b2",
+      "sysvinit-utils=3.14-4",
+      "tar=1.35+dfsg-3.1",
+      "tzdata=2026b-0+deb13u1",
+      "util-linux=2.41-5",
+      "zlib1g=1:1.3.dfsg+really1.3.1-1+b1"
+    ]
+  },
+  "speckit_environment": {
+    "count": 15,
+    "freeze_sha256": "c7417b5ac7c83bb87922eb9db5b4626325b52b87e679c00a70814755faca149a",
+    "entries": [
+      "annotated-doc==0.0.5",
+      "click==8.5.0",
+      "json5==0.15.0",
+      "markdown-it-py==4.2.0",
+      "mdurl==0.1.2",
+      "packaging==26.3",
+      "pathspec==1.1.1",
+      "platformdirs==4.11.7",
+      "pygments==2.21.0",
+      "pyyaml==6.0.3",
+      "readchar==4.2.2",
+      "rich==15.0.0",
+      "shellingham==1.5.4",
+      "specify-cli==1.0.4",
+      "typer==0.27.2"
+    ]
+  },
+  "dependency_locks": {
+    "openspec_package_lock": {
+      "path": "sdd-bench/scrapy-sdd/environments/sdd-tools/openspec-1.12.0_node-24.20.0_npm-11.19.0_linux-amd64/package-lock.json",
+      "sha256": "c91b3c7c1dd3abf597291759371c9bf34b24f6bd8a04a580f20ab3af3864081f"
+    },
+    "openspec_artifact_manifest": {
+      "path": "sdd-bench/scrapy-sdd/environments/sdd-tools/openspec-1.12.0_node-24.20.0_npm-11.19.0_linux-amd64/npm-artifacts/artifact-manifest.json",
+      "sha256": "fb9ee0748d19a1f956867184488abfb2d3b3dbff4d33f4e1bbe982713cec3d74"
+    },
+    "cc_sdd_package_lock": {
+      "path": "sdd-bench/scrapy-sdd/environments/sdd-tools/cc-sdd-3.0.2_node-24.20.0_npm-11.19.0_linux-amd64/package-lock.json",
+      "sha256": "933c67ed634facbb5a724d45cb05089b0ac7bb31e7664489879a9ca9cf300000"
+    },
+    "cc_sdd_artifact_manifest": {
+      "path": "sdd-bench/scrapy-sdd/environments/sdd-tools/cc-sdd-3.0.2_node-24.20.0_npm-11.19.0_linux-amd64/npm-artifacts/artifact-manifest.json",
+      "sha256": "b4b8ce58e82144f5b85f36396313673b42e570f9fe7325368ea6dcd5e8b90f5d"
+    },
+    "speckit_install_lock": {
+      "path": "sdd-bench/scrapy-sdd/environments/sdd-tools/speckit-1.0.4_cb610277fdea_py-3.11.15_uv-0.12.10_linux-amd64/install-requirements.txt",
+      "sha256": "82bf7f378fb41407beae68fbe90e21995c41e234e8343a30448b89067419562b"
+    },
+    "speckit_artifact_manifest": {
+      "path": "sdd-bench/scrapy-sdd/environments/sdd-tools/speckit-1.0.4_cb610277fdea_py-3.11.15_uv-0.12.10_linux-amd64/artifact-manifest.json",
+      "sha256": "02341f37f1977a1e8ef4ce401a57e573b97778f22ce6389b954b155ec3f389e8"
+    }
+  },
+  "build": {
+    "network": "none",
+    "pull": false,
+    "provenance": false,
+    "source_date_epoch": 0,
+    "files": [
+      {
+        "path": "Dockerfile.baseline",
+        "sha256": "90ad411d0a4eb39f82101b6836370bb2f6eb91a1ee11d1ed5c4541eca7be5475"
+      },
+      {
+        "path": "Dockerfile.agent",
+        "sha256": "8debec53755f43965e445f82a563d7c214885d0649fea5e9223a5e95979f6f30"
+      },
+      {
+        "path": ".dockerignore",
+        "sha256": "defb830c30436c79b67443a8ed22a030f2b7f490b1d009cf3823b0ceb979311b"
+      },
+      {
+        "path": "entrypoint.sh",
+        "sha256": "91c3f09079fa4828f6d31e7829f05de00b3952cbcb3dfcc0ac71b5f0b3a7219c"
+      },
+      {
+        "path": "sitecustomize.py",
+        "sha256": "9a786031f8d06396375ad5f313e6a06efbc6690802b30b014ec37781120814ac"
+      },
+      {
+        "path": "build-images.sh",
+        "sha256": "d0cfb81c9ff585fe4ca6f811ab77f688cd97773c250f9212c8e34ea4af331e40"
+      },
+      {
+        "path": "run-stage.sh",
+        "sha256": "72e2596e6fa92db922fc86e7aa6a0523f32d5bb0d3c83eabbe595d96757ef35d"
+      },
+      {
+        "path": "verify-inputs.py",
+        "sha256": "8e4e461250a9bd5a78239d816aace47cdb1497eb8b456865e2edf5cba1c70829"
+      },
+      {
+        "path": "record-deployment.py",
+        "sha256": "197fefc70ab171a1b18977af2bbc254be8eb6e49a3b5ef9b16f48616b3e8c26c"
+      }
+    ],
+    "allowlisted_context_files": [
+      {
+        "path": "Dockerfile.baseline",
+        "sha256": "90ad411d0a4eb39f82101b6836370bb2f6eb91a1ee11d1ed5c4541eca7be5475"
+      },
+      {
+        "path": "Dockerfile.agent",
+        "sha256": "8debec53755f43965e445f82a563d7c214885d0649fea5e9223a5e95979f6f30"
+      },
+      {
+        "path": ".dockerignore",
+        "sha256": "defb830c30436c79b67443a8ed22a030f2b7f490b1d009cf3823b0ceb979311b"
+      },
+      {
+        "path": "entrypoint.sh",
+        "sha256": "91c3f09079fa4828f6d31e7829f05de00b3952cbcb3dfcc0ac71b5f0b3a7219c"
+      },
+      {
+        "path": "sitecustomize.py",
+        "sha256": "9a786031f8d06396375ad5f313e6a06efbc6690802b30b014ec37781120814ac"
+      }
+    ],
+    "build_context_sha256": "002b02fd48f48ea1b2e5dd0c9beb5f285ff850d1df6d7201a6147016baf0bca2"
+  },
+  "run_policy": {
+    "stages": [
+      "detect",
+      "update"
+    ],
+    "fresh_container_per_stage": true,
+    "shared_container": false,
+    "shared_workspace": false,
+    "shared_home": false,
+    "shared_cache": false,
+    "shared_model_session": false,
+    "detect_workspace": "read-only",
+    "update_repository": "read-only with nested tests/ writable mount",
+    "allowed_update_directories": [
+      "tests/"
+    ],
+    "agent_tests": "forbidden",
+    "runtime_dependency_installation": "forbidden"
+  }
+}

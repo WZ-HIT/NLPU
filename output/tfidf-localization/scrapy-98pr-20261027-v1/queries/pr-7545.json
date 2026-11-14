@@ -1,0 +1,4 @@
+{
+  "body": "* `TestTopLevelFormatter`: `LogCapture` no longer inherits from `logging.Handler` so this breaks\r\n* `TestHttpErrorMiddlewareIntegrational`: for some reason the second usage of `LogCapture` fails asserts, but only on macOS",
+  "title": "Convert tests that fail with testfixtures 12.0.0"
+}

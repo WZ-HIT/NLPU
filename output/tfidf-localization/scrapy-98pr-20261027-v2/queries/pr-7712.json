@@ -1,0 +1,4 @@
+{
+  "body": "List files with problems explicitly, fix problems in files with a small number of them. It should be easier to remove a fully fixed file from the list than to add `-> None` to all its test functions (I would still add type hints to parameters and fixtures though).",
+  "title": "More granular untyped defs checking in tests."
+}

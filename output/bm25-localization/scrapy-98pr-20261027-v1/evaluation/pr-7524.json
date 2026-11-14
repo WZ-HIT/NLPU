@@ -1,0 +1,76 @@
+{
+  "base_sha": "a8a8f20d9c49ae7f611cbdc90676b64f6349dba2",
+  "corpus_count": 2005,
+  "excluded_counts": {
+    "added": 1,
+    "deleted": 2
+  },
+  "gold_count": 3,
+  "gold_ranks": {
+    "tests/test_crawl.py::TestCrawlSpider.test_response_ssl_certificate": 81,
+    "tests/test_downloader_handler_httpx.py::TestHttps.test_verify_certs_deprecated": 125,
+    "tests/test_downloader_handlers_http_base.py::TestHttpWithCrawlerBase.test_response_ssl_certificate": 112
+  },
+  "label_issues": [],
+  "labels_sha256": "a9b47d2418257469979cec9a93e16a64de74cf5c2ae7ca6c7b5cb949e34f4baa",
+  "metrics": {
+    "100": {
+      "all_hit": 0,
+      "candidate_count": 100,
+      "candidate_fraction": 0.04987531172069826,
+      "fn": 2,
+      "fp": 99,
+      "gold_count": 3,
+      "hit_at_k": 1,
+      "matched_count": 1,
+      "precision": 0.01,
+      "recall": 0.3333333333333333,
+      "recall_at_k": 0.3333333333333333,
+      "tp": 1,
+      "zero_score_count": 0
+    },
+    "200": {
+      "all_hit": 1,
+      "candidate_count": 200,
+      "candidate_fraction": 0.09975062344139651,
+      "fn": 0,
+      "fp": 197,
+      "gold_count": 3,
+      "hit_at_k": 1,
+      "matched_count": 3,
+      "precision": 0.015,
+      "recall": 1.0,
+      "recall_at_k": 1.0,
+      "tp": 3,
+      "zero_score_count": 0
+    },
+    "50": {
+      "all_hit": 0,
+      "candidate_count": 50,
+      "candidate_fraction": 0.02493765586034913,
+      "fn": 3,
+      "fp": 50,
+      "gold_count": 3,
+      "hit_at_k": 0,
+      "matched_count": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "recall_at_k": 0.0,
+      "tp": 0,
+      "zero_score_count": 0
+    }
+  },
+  "pr_id": 7524,
+  "prediction": {
+    "path": "predictions/pr-7524.json.gz",
+    "pr_id": 7524,
+    "sha256": "5f6f910baa4c89d541b28d019c3c869f7cafa3ce59c8d5edd217cb01f98f9768"
+  },
+  "query_sha256": "50d594990acd11e2b1d642fccb75619caf6e1daaa786d11b944f13a71cb2e61f",
+  "rank_seconds": 0.0034368764609098434,
+  "raw_line": 251,
+  "raw_record_sha256": "d6663268f86deaa1fd72d6f111ccad4b27d8ef6d7d3ba25e0e70d92624e07b71",
+  "repository": "scrapy/scrapy",
+  "scorable": true,
+  "status": "SCORED"
+}

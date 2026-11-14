@@ -1,0 +1,76 @@
+{
+  "base_sha": "9ca206da6401b3edbc451a13d7146d7bc5e4d98e",
+  "corpus_count": 2051,
+  "excluded_counts": {
+    "deleted": 26
+  },
+  "gold_count": 4,
+  "gold_ranks": {
+    "tests/test_spidermiddleware_base.py::test_processed_both": 170,
+    "tests/test_spidermiddleware_base.py::test_processed_item": 200,
+    "tests/test_spidermiddleware_base.py::test_processed_request": 137,
+    "tests/test_spidermiddleware_base.py::test_trivial": 233
+  },
+  "label_issues": [],
+  "labels_sha256": "fd6e865f460cfc4807d880de69a4596f1df824723a60b586e900fd41acba3a83",
+  "metrics": {
+    "100": {
+      "all_hit": 0,
+      "candidate_count": 100,
+      "candidate_fraction": 0.04875670404680644,
+      "fn": 4,
+      "fp": 100,
+      "gold_count": 4,
+      "hit_at_k": 0,
+      "matched_count": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "recall_at_k": 0.0,
+      "tp": 0,
+      "zero_score_count": 0
+    },
+    "200": {
+      "all_hit": 0,
+      "candidate_count": 200,
+      "candidate_fraction": 0.09751340809361288,
+      "fn": 1,
+      "fp": 197,
+      "gold_count": 4,
+      "hit_at_k": 1,
+      "matched_count": 3,
+      "precision": 0.015,
+      "recall": 0.75,
+      "recall_at_k": 0.75,
+      "tp": 3,
+      "zero_score_count": 0
+    },
+    "50": {
+      "all_hit": 0,
+      "candidate_count": 50,
+      "candidate_fraction": 0.02437835202340322,
+      "fn": 4,
+      "fp": 50,
+      "gold_count": 4,
+      "hit_at_k": 0,
+      "matched_count": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "recall_at_k": 0.0,
+      "tp": 0,
+      "zero_score_count": 0
+    }
+  },
+  "pr_id": 7490,
+  "prediction": {
+    "path": "predictions/pr-7490.json.gz",
+    "pr_id": 7490,
+    "sha256": "55f3a0471b3e5f1016b8e8699aa26caa7619be6e5809a053061177ed94c076c2"
+  },
+  "query_sha256": "b44039984850f61875c61f2db467e5ff5ec0ffe8d89d866b733fb93c230c8e85",
+  "rank_seconds": 0.0017230343073606491,
+  "raw_line": 334,
+  "raw_record_sha256": "c87d4d94d13da4c76cb54d9bd6cad787a697459b0e29e3765a0c1287c9afd1cc",
+  "repository": "scrapy/scrapy",
+  "scorable": true,
+  "status": "SCORED"
+}

@@ -1,0 +1,4 @@
+{
+  "body": "This replaces the manual string rewriting in the command line settings test with `ast.literal_eval()`, which can parse the Python literal printed by the command directly. The existing truncation assertion is kept.",
+  "title": "Simplify cmdline settings test"
+}

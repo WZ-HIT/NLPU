@@ -1,0 +1,76 @@
+{
+  "base_sha": "58af57a3ea3a109f05c5b3e9f7b6e1e24adc9834",
+  "corpus_count": 2015,
+  "excluded_counts": {
+    "added": 4
+  },
+  "gold_count": 4,
+  "gold_ranks": {
+    "tests/test_core_downloader.py::TestContextFactoryTLSMethod.test_direct_init": 8,
+    "tests/test_core_downloader.py::TestContextFactoryTLSMethod.test_setting_bad": 3,
+    "tests/test_core_downloader.py::TestContextFactoryTLSMethod.test_setting_explicit": 5,
+    "tests/test_core_downloader.py::TestContextFactoryTLSMethod.test_setting_none": 1
+  },
+  "label_issues": [],
+  "labels_sha256": "c4410a8c874d6022048f6a62caf3670793831074a2f6f11715487f5ea617e29d",
+  "metrics": {
+    "100": {
+      "all_hit": 1,
+      "candidate_count": 100,
+      "candidate_fraction": 0.04962779156327544,
+      "fn": 0,
+      "fp": 96,
+      "gold_count": 4,
+      "hit_at_k": 1,
+      "matched_count": 4,
+      "precision": 0.04,
+      "recall": 1.0,
+      "recall_at_k": 1.0,
+      "tp": 4,
+      "zero_score_count": 0
+    },
+    "200": {
+      "all_hit": 1,
+      "candidate_count": 200,
+      "candidate_fraction": 0.09925558312655088,
+      "fn": 0,
+      "fp": 196,
+      "gold_count": 4,
+      "hit_at_k": 1,
+      "matched_count": 4,
+      "precision": 0.02,
+      "recall": 1.0,
+      "recall_at_k": 1.0,
+      "tp": 4,
+      "zero_score_count": 0
+    },
+    "50": {
+      "all_hit": 1,
+      "candidate_count": 50,
+      "candidate_fraction": 0.02481389578163772,
+      "fn": 0,
+      "fp": 46,
+      "gold_count": 4,
+      "hit_at_k": 1,
+      "matched_count": 4,
+      "precision": 0.08,
+      "recall": 1.0,
+      "recall_at_k": 1.0,
+      "tp": 4,
+      "zero_score_count": 0
+    }
+  },
+  "pr_id": 6546,
+  "prediction": {
+    "path": "predictions/pr-6546.json.gz",
+    "pr_id": 6546,
+    "sha256": "ed787234a6c27b15e20294c43a063e07b79da91f8537249f57db5ce674ac4ef0"
+  },
+  "query_sha256": "ad4f4678108aa8b87072b236a10253d640199f1e09ed927abfbe6c1fe742c485",
+  "rank_seconds": 0.0017653275281190872,
+  "raw_line": 254,
+  "raw_record_sha256": "12efbe50097b17711681f4d0f4623853e031bb9252f4de3ac061b8c7ba9b01ca",
+  "repository": "scrapy/scrapy",
+  "scorable": true,
+  "status": "SCORED"
+}

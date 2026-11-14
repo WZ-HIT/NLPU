@@ -1,0 +1,23 @@
+{
+  "base_sha": "916039ca4ca79ea4ed38e74d71e25c2584c1925e",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "added",
+      "id": "tests/test_utils_defer.py::test_process_pending_io"
+    }
+  ],
+  "excluded_counts": {
+    "added": 1
+  },
+  "index_sha256": "7092ea46f82df5834cf6458a56414f44bc42257b7a0dabad85d3321767633ede",
+  "issues": [],
+  "labels_sha256": "cf140cab5aa0bb41fe5e43ae4e6d96739f53335adc50e870a6b2d5f3c8d2b52a",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "992c52dd13a486fc625f1e97c6dadb6acbff858d84eb5ecf3a59c00b917fd90c",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_pipeline_media.py::TestMediaPipeline.test_wait_if_request_is_downloading"
+  ]
+}

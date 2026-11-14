@@ -1,0 +1,198 @@
+{
+  "base_sha": "06af687662112027b4482d31e2714a3cf280a91f",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_spider.py::TestCSVFeedSpider.test_parse_rows"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_spider.py::TestXMLFeedSpider.test_register_namespace"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_spider_crawl.py::TestCrawlSpider.test_process_links"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_spider_crawl.py::TestCrawlSpider.test_process_links_filter"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_spider_crawl.py::TestCrawlSpider.test_process_links_generator"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_spider_crawl.py::TestCrawlSpider.test_process_request"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_spider_crawl.py::TestCrawlSpider.test_process_request_instance_method"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_spider_crawl.py::TestCrawlSpider.test_process_request_instance_method_with_response"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_spider_crawl.py::TestCrawlSpider.test_process_request_with_response"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_spider_crawl.py::TestCrawlSpider.test_rule_without_link_extractor"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_spider_sitemap.py::TestSitemapSpider.test_compression_bomb_spider_attr"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_spider_sitemap.py::TestSitemapSpider.test_sitemap_filter"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_spider_sitemap.py::TestSitemapSpider.test_sitemap_filter_with_alternate_links"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_spider_sitemap.py::TestSitemapSpider.test_sitemap_follow"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_spider_sitemap.py::TestSitemapSpider.test_sitemap_urls"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_spider_sitemap.py::TestSitemapSpider.test_sitemapindex_filter"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/utils/bases/spider.py::TestSpiderBase.test_closed_signal_call"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/utils/bases/spider.py::TestSpiderBase.test_log"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/utils/bases/spider.py::TestSpiderBase.test_settings_in_from_crawler"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/utils/bases/spider.py::TestSpiderBase.test_spider_args"
+    }
+  ],
+  "excluded_counts": {
+    "mechanical_ast_equal": 20
+  },
+  "index_sha256": "bd1a5f6e7b224d83589a707c93e4917e9b7ea2c3fb4b5e6cc90c033ed57eaf3f",
+  "issues": [],
+  "labels_sha256": "1e9700a9fe4f59a5328af0910840e9523a70dcb01747febd1d76cab909c52b7d",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "67f39f3017ab6d89616f133115bc1b571252010a9d9066016d9e51f103ff5f97",
+  "schema_version": 1,
+  "testcases": [
+    "tests/benchmarks/test_crawl.py::test_overhead_engine",
+    "tests/benchmarks/test_crawl.py::test_overhead_http",
+    "tests/benchmarks/test_crawl.py::test_overhead_item_concurrency",
+    "tests/test_closespider.py::TestCloseSpider.test_closespider_errorcount",
+    "tests/test_closespider.py::TestCloseSpider.test_closespider_itemcount",
+    "tests/test_closespider.py::TestCloseSpider.test_closespider_pagecount",
+    "tests/test_closespider.py::TestCloseSpider.test_closespider_pagecount_no_item",
+    "tests/test_closespider.py::TestCloseSpider.test_closespider_pagecount_no_item_with_pagecount",
+    "tests/test_closespider.py::TestCloseSpider.test_closespider_timeout",
+    "tests/test_closespider.py::TestCloseSpider.test_closespider_timeout_no_item",
+    "tests/test_command_runspider.py::TestRunSpiderCommand.test_run_fail_spider",
+    "tests/test_command_runspider.py::TestRunSpiderCommand.test_run_good_spider",
+    "tests/test_contracts.py::TestContractsManager.test_cb_kwargs",
+    "tests/test_contracts.py::TestContractsManager.test_contracts",
+    "tests/test_contracts.py::TestContractsManager.test_custom_tagged_request_contract",
+    "tests/test_contracts.py::TestContractsManager.test_errback",
+    "tests/test_contracts.py::TestContractsManager.test_meta",
+    "tests/test_contracts.py::TestContractsManager.test_regex",
+    "tests/test_contracts.py::TestContractsManager.test_returns",
+    "tests/test_contracts.py::TestContractsManager.test_returns_and_scrapes_ignore_other_types",
+    "tests/test_contracts.py::TestContractsManager.test_returns_async",
+    "tests/test_contracts.py::TestContractsManager.test_returns_range_fail",
+    "tests/test_contracts.py::TestContractsManager.test_same_url",
+    "tests/test_contracts.py::TestContractsManager.test_scrapes",
+    "tests/test_contracts.py::TestCustomContractPrePostProcess.test_post_hook_async_generator",
+    "tests/test_contracts.py::TestCustomContractPrePostProcess.test_post_hook_error",
+    "tests/test_contracts.py::TestCustomContractPrePostProcess.test_post_hook_keyboard_interrupt",
+    "tests/test_contracts.py::TestCustomContractPrePostProcess.test_pre_hook_assertion_failure",
+    "tests/test_contracts.py::TestCustomContractPrePostProcess.test_pre_hook_async_callback",
+    "tests/test_contracts.py::TestCustomContractPrePostProcess.test_pre_hook_async_generator",
+    "tests/test_contracts.py::TestCustomContractPrePostProcess.test_pre_hook_error",
+    "tests/test_contracts.py::TestCustomContractPrePostProcess.test_pre_hook_keyboard_interrupt",
+    "tests/test_contracts.py::TestCustomContractPrePostProcess.test_pre_hook_success",
+    "tests/test_crawl.py::TestCrawl.test_engine_status",
+    "tests/test_crawl.py::TestCrawl.test_format_engine_status",
+    "tests/test_crawl.py::TestCrawlSpider.test_crawlspider_without_errback",
+    "tests/test_crawler.py::TestCrawlerLogging.test_spider_custom_settings_log_level",
+    "tests/test_crawler.py::TestSpiderSettings.test_spider_custom_settings",
+    "tests/test_downloadermiddleware_httpcache.py::StorageTestMixin.test_corrupted_cache_entry_ignore_missing",
+    "tests/test_downloadermiddleware_httpcache.py::StorageTestMixin.test_corrupted_cache_entry_is_a_miss",
+    "tests/test_downloadermiddleware_offsite.py::test_repeated_offsite_domain",
+    "tests/test_downloadermiddleware_retry.py::TestGetRetryRequest.test_basic_usage",
+    "tests/test_downloadermiddleware_retry.py::TestGetRetryRequest.test_custom_stats_key",
+    "tests/test_downloadermiddleware_retry.py::TestGetRetryRequest.test_max_retries_reached",
+    "tests/test_downloadermiddleware_retry.py::TestGetRetryRequest.test_one_retry",
+    "tests/test_downloadermiddleware_retry.py::TestGetRetryRequest.test_reason_builtin_exception",
+    "tests/test_downloadermiddleware_retry.py::TestGetRetryRequest.test_reason_builtin_exception_class",
+    "tests/test_downloadermiddleware_retry.py::TestGetRetryRequest.test_reason_custom_exception",
+    "tests/test_downloadermiddleware_retry.py::TestGetRetryRequest.test_reason_custom_exception_class",
+    "tests/test_downloadermiddleware_retry.py::TestGetRetryRequest.test_reason_string",
+    "tests/test_downloadermiddleware_retry.py::TestGetRetryRequest.test_two_retries",
+    "tests/test_downloadermiddleware_retry.py::TestRetry.test_503",
+    "tests/test_downloadermiddleware_retry.py::TestRetry.test_twistederrors",
+    "tests/test_downloaderslotssettings.py::test_none_slot_with_priority_queue",
+    "tests/test_dupefilters.py::TestRFPDupeFilter.test_log",
+    "tests/test_dupefilters.py::TestRFPDupeFilter.test_log_debug",
+    "tests/test_engine_loop.py::TestMain.test_close_during_start_iteration",
+    "tests/test_engine_loop.py::TestMain.test_close_spider_from_start",
+    "tests/test_engine_loop.py::TestMain.test_sleep",
+    "tests/test_engine_loop.py::TestMain.test_start_error",
+    "tests/test_engine_loop.py::TestRequestSendOrder.test_default",
+    "tests/test_engine_loop.py::TestRequestSendOrder.test_lazy",
+    "tests/test_engine_loop.py::TestRequestSendOrder.test_lifo_start",
+    "tests/test_engine_loop.py::TestRequestSendOrder.test_shared_queues",
+    "tests/test_extension_memdebug.py::test_crawl_sets_stats",
+    "tests/test_extension_memdebug.py::test_spider_closed_sets_stats",
+    "tests/test_extension_memusage.py::test_memusage_below_thresholds_logs_peak",
+    "tests/test_extension_memusage.py::test_memusage_limit_closes_spider_with_reason_and_error_log",
+    "tests/test_extension_memusage.py::test_memusage_warning_logs_but_allows_normal_finish",
+    "tests/test_extension_telnet.py::test_telnet_vars",
+    "tests/test_feedexport.py::TestFeedExport.test_stats_file_failed",
+    "tests/test_feedexport.py::TestFeedExport.test_stats_file_success",
+    "tests/test_feedexport.py::TestFeedExport.test_stats_multiple_file",
+    "tests/test_feedexport_batch.py::TestBatchDeliveries.test_s3_export",
+    "tests/test_feedexport_batch.py::TestBatchDeliveries.test_stats_batch_file_success",
+    "tests/test_pipeline_crawl.py::TestFileDownloadCrawl.test_download_media_redirected_allowed",
+    "tests/test_request_cb_kwargs.py::TestCallbackKeywordArguments.test_callback_kwargs",
+    "tests/test_scheduler.py::DownloaderAwareSchedulerTestMixin.test_logic",
+    "tests/test_scheduler.py::TestIntegrationWithDownloaderAwareInMemory.test_integration_downloader_aware_priority_queue",
+    "tests/test_spider.py::TestCSVFeedSpider.test_parse_row_not_defined",
+    "tests/test_spider.py::TestXMLFeedSpider.test_non_text_response",
+    "tests/test_spider.py::TestXMLFeedSpider.test_parse_node_not_defined",
+    "tests/test_spider.py::TestXMLFeedSpider.test_unsupported_iterator",
+    "tests/test_spider_crawl.py::TestCrawlSpider.test_parse_response_override",
+    "tests/test_spider_crawl.py::TestCrawlSpider.test_parse_response_use",
+    "tests/test_spider_crawl.py::TestCrawlSpider.test_parse_with_rules",
+    "tests/test_spider_crawl.py::TestCrawlSpider.test_parse_with_rules_without_following",
+    "tests/test_spider_sitemap.py::TestSitemapSpider.test_get_sitemap_body",
+    "tests/test_spider_sitemap.py::TestSitemapSpider.test_sitemap_empty_loc",
+    "tests/test_spider_sitemap.py::TestSitemapSpider.test_sitemap_rules_with_callable",
+    "tests/test_spidermiddleware_depth.py::test_priority_and_non_verbose_stats",
+    "tests/test_spidermiddleware_httperror.py::TestHttpErrorMiddlewareIntegrational.test_middleware_works",
+    "tests/test_utils_log.py::TestLogCounterHandler.test_accepted_level",
+    "tests/test_utils_log.py::TestLogCounterHandler.test_filtered_out_level",
+    "tests/test_utils_log.py::TestLogCounterHandler.test_init",
+    "tests/test_utils_request.py::TestCustomRequestFingerprinter.test_dont_canonicalize",
+    "tests/test_utils_request.py::TestCustomRequestFingerprinter.test_from_crawler",
+    "tests/test_utils_request.py::TestCustomRequestFingerprinter.test_include_headers",
+    "tests/test_utils_request.py::TestCustomRequestFingerprinter.test_meta",
+    "tests/test_utils_request.py::TestRequestFingerprinter.test_fingerprint"
+  ]
+}

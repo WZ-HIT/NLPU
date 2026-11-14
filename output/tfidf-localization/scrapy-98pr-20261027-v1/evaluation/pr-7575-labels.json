@@ -1,0 +1,43 @@
+{
+  "base_sha": "d2290c35c23b9fe1973764f75a5f7cb72033108a",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "added",
+      "id": "tests/test_downloader_handler_httpx.py::TestHttp2.test_data_loss_handling"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_downloader_handler_httpx.py::TestHttp2.test_protocol"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_downloader_handlers_http_base.py::TestHttpBase.test_timeout_download_from_spider_server_hangs"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_downloader_handlers_http_base.py::TestMitmProxyBase.test_download_with_socks_proxy"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_downloader_handlers_http_base.py::TestMitmProxyBase.test_socks_proxy_auth_error"
+    }
+  ],
+  "excluded_counts": {
+    "added": 4,
+    "mechanical_ast_equal": 1
+  },
+  "index_sha256": "e80861246657ee9cf61a6738c74838ae5c46924d22235b987ca74192a4c20e0d",
+  "issues": [],
+  "labels_sha256": "8f3898bdea347e9a78e29b5e5512177ef3e0c034344ce54bab3c52d23eafed52",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "beaf0143f57f72717f8af4ed3d8c6636e114d3367b9268d18100b0c57baafe3a",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_downloader_handlers_http_base.py::TestMitmProxyBase.test_dont_leak_proxy_authorization_header",
+    "tests/test_downloader_handlers_http_base.py::TestMitmProxyBase.test_http_proxy",
+    "tests/test_downloader_handlers_http_base.py::TestMitmProxyBase.test_http_proxy_auth_error",
+    "tests/test_downloader_handlers_http_base.py::TestMitmProxyBase.test_https_proxy"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "base_sha": "e810f5fca166e8cd03d005d07b6a6a2373407d6a",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "added",
+      "id": "tests/test_core_downloader.py::TestContextFactory.test_keylog"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_core_downloader.py::TestContextFactory.test_keylog_ignore_environment"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_downloader_handler_httpx.py::TestHttpsProxy.test_keylog"
+    },
+    {
+      "category": "added",
+      "id": "tests/utils/bases/download_handlers_http.py::TestHttpsBase.test_keylog"
+    },
+    {
+      "category": "added",
+      "id": "tests/utils/bases/download_handlers_http.py::TestHttpsBase.test_keylog_unwritable"
+    }
+  ],
+  "excluded_counts": {
+    "added": 5
+  },
+  "index_sha256": "f3914b79876fe570971112fb0a96b92747a69ffadff1b6bd72ec5523f826bbdd",
+  "issues": [],
+  "labels_sha256": "fd8dc15c3007cd1dfbf55e8cf5933278e59bf11c4e4a6dba83b9325a876ec80a",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "2cbc34b9362a07989c3bbabf4abcca22060986b98de2a2daace93ffc2a30a2ec",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_core_downloader.py::TestContextFactory.test_no_context_sharing"
+  ]
+}

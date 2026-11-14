@@ -1,0 +1,23 @@
+{
+  "base_sha": "6f87d3f86334855484c8e1b0888976c70596b0e9",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "added",
+      "id": "tests/test_utils_asyncio.py::test_sleep"
+    }
+  ],
+  "excluded_counts": {
+    "added": 1
+  },
+  "index_sha256": "2c57d53a0995267b02f58f0b012da97b215defa73998a11a75f4f484c6416eeb",
+  "issues": [],
+  "labels_sha256": "a26bf8b06fd3072be247904e518fd4dfdda692a15a7303d9892eb2276a3a67f2",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "31847a1bd241a1ef46df2ccf86320e27da077776402501a7da5bdc866a6c735d",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_engine_loop.py::TestMain.test_sleep"
+  ]
+}

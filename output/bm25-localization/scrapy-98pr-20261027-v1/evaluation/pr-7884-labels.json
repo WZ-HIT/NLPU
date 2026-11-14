@@ -1,0 +1,27 @@
+{
+  "base_sha": "a6c017c2ca2b8a9bca8b46b692846f492fe77a00",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "added",
+      "id": "tests/test_engine_loop.py::TestMain.test_close_spider_from_start"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_engine_loop.py::TestMain.test_start_error"
+    }
+  ],
+  "excluded_counts": {
+    "added": 2
+  },
+  "index_sha256": "6e78f079eca577d1d1d9a145db4b047012ec7689293721cf88ebc9a7a3ad37f0",
+  "issues": [],
+  "labels_sha256": "016d1a3d4426ba3ecf657bf58c415beedf9098fa7c17408c82f6f97ff3d98dd9",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "bec8225c5dd443fa7872f718e7c1b894e619b27c3c6cc323ca75e07c066600b2",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_crawler_subprocess.py::TestAsyncCrawlerProcessSubprocess.test_reactorless_import_hook"
+  ]
+}

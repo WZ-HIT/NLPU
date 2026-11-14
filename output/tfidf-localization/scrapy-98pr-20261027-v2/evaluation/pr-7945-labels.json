@@ -1,0 +1,17 @@
+{
+  "base_sha": "1bd839b57ddb614664a179b6213f49579bdfd3da",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [],
+  "excluded_counts": {},
+  "index_sha256": "32a1f102bce7141ce4205933376f2e0d853d6b35efe831ba590cfea495e97ee6",
+  "issues": [],
+  "labels_sha256": "4fd79423b510eed7374db74a4d46add50b77d4c776c7e0895e92867c194a5779",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "0de6034a9682567492e6f2e6c5f542bdce65731baf22ad3bd0b913e1f3a42691",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_feedexport_storages.py::TestGCSFeedStorage.test_store",
+    "tests/test_feedexport_storages.py::TestGCSFeedStorage.test_store_closes_file_on_upload_error"
+  ]
+}

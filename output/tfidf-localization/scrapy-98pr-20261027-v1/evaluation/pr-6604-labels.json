@@ -1,0 +1,25 @@
+{
+  "base_sha": "f7db039d1ca2bcfee003453ddbb2210578ed9b62",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "added",
+      "id": "tests/test_robotstxt_interface.py::TestPythonRobotParser.test_order_based_precedence"
+    }
+  ],
+  "excluded_counts": {
+    "added": 1
+  },
+  "index_sha256": "7d446383d6cd17d0be2f26fb0f3c9c88b961005b2634f07633e9da5a7ef902d8",
+  "issues": [],
+  "labels_sha256": "f1c55eb9886827c8b31d4423a82ba518445ad759da18c5c410350c3a1495e4e4",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "5b0e8fd7a684c9125b4c25046b428b10c010de0bd3000d861bf2fb7416d8c43c",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_crawler_subprocess.py::TestCrawlerProcessSubprocessBase.test_asyncio_enabled_reactor_same_loop",
+    "tests/test_robotstxt_interface.py::TestPythonRobotParser.test_allowed_wildcards",
+    "tests/test_robotstxt_interface.py::TestPythonRobotParser.test_length_based_precedence"
+  ]
+}

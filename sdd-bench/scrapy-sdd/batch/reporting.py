@@ -145,7 +145,7 @@ def _verify_detection(
     summary = evidence.json(summary_path)
     checkpoint = evidence.json(checkpoint_path)
     seal = evidence.json(seal_path)
-    _validate(manifest, bench / "schemas/detection-v1.schema.json", "DETECTION_SCHEMA_INVALID")
+    _validate(manifest, bench / ("schemas/detection-v2.schema.json" if manifest.get("schema_version") == 2 else "schemas/detection-v1.schema.json"), "DETECTION_SCHEMA_INVALID")
     _validate(checkpoint, bench / "schemas/stage-execution-v1.schema.json", "CHECKPOINT_SCHEMA_INVALID")
     payload = dict(manifest)
     manifest_seal = payload.pop("seal", None)

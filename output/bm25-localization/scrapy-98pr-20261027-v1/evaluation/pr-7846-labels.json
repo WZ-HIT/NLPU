@@ -1,0 +1,47 @@
+{
+  "base_sha": "488a762d7173922190ea027e0fb6f6d9d3b59880",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "added",
+      "id": "tests/test_core_downloader.py::TestContextFactory.test_idna_rejected_hostname"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_core_downloader.py::TestContextFactory.test_idna_rejected_hostname_verify_certificates"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_core_downloader.py::TestIdnaRejectedEndpoints.test_endpoint_for_uri"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_core_downloader.py::TestSafeHostnameBytes.test_host_as_bytes_and_text"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_core_downloader.py::TestSafeHostnameBytes.test_invalid"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_core_downloader.py::TestSafeHostnameBytes.test_valid"
+    },
+    {
+      "category": "added",
+      "id": "tests/utils/bases/download_handlers_http.py::TestHttpBase.test_idna_rejected_hostname"
+    }
+  ],
+  "excluded_counts": {
+    "added": 7
+  },
+  "index_sha256": "744ec99cbeba3b128abcdc3516e1d7025f6e92722cecf808666a477c1d2c9d22",
+  "issues": [],
+  "labels_sha256": "e869732aad9dade8a2553fb3a001fde6dc25e9274e3357a6a8657f42388cbf2b",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "cdcd311d7c2d1cbefc1cc994551d7805bfde113bdc0b12afefe747587caf8691",
+  "schema_version": 1,
+  "testcases": [
+    "tests/utils/bases/download_handlers_http.py::TestHttpWithCrawlerBase.test_response_ip_address"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "base_sha": "4e25686b20b9f9c31e4917fb3509dbc538925624",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [],
+  "excluded_counts": {},
+  "index_sha256": "99b5d6ff2dbe64fef1d17079d276e85b5d3bc3c9cf096a6da37a53f83a8e9ece",
+  "issues": [],
+  "labels_sha256": "4f48d5112ead2219b16778cfd746186deef565183df93ad58ad5400472dc2835",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "5b899a6e4438ddac52c5ad176696c2841b8ae3a9053c32329aebdab425d51b90",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_utils_response.py::test_inject_base_url"
+  ]
+}

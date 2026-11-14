@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr7833",
+  "repository": {
+    "owner": "scrapy",
+    "name": "scrapy"
+  },
+  "pr_id": 7833,
+  "baseline": {
+    "base_sha": "6cefaa5434da050bc23ffaaf2c1b38be1041bd31"
+  },
+  "title": "Deprecate the download_delay spider attribute, and fix the suggested replacement for max_concurrent_requests",
+  "body": "Split off from https://github.com/scrapy/scrapy/pull/6931.\r\n\r\nFixes #7167, closes #7175",
+  "adapter": {
+    "id": "scrapy",
+    "version": 1,
+    "path": "sdd-bench/scrapy-sdd/adapters/scrapy.json",
+    "sha256": "059dcc09eaa62f892f54118e65d4deccce3ab29cc5d9a4a36f4d999ff1aa27de"
+  }
+}

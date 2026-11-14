@@ -1,0 +1,73 @@
+{
+  "base_sha": "dd4549e6f9a92f4844b552aad49ab4431f73514f",
+  "corpus_count": 2086,
+  "excluded_counts": {
+    "added": 11
+  },
+  "gold_count": 1,
+  "gold_ranks": {
+    "tests/test_spidermiddleware_base.py::test_processed_request": 89
+  },
+  "label_issues": [],
+  "labels_sha256": "551e18a4e273636a3d2c7558fd35b842a70d777ef73f25de2061c31ebb92628d",
+  "metrics": {
+    "100": {
+      "all_hit": 1,
+      "candidate_count": 100,
+      "candidate_fraction": 0.04793863854266539,
+      "fn": 0,
+      "fp": 99,
+      "gold_count": 1,
+      "hit_at_k": 1,
+      "matched_count": 1,
+      "precision": 0.01,
+      "recall": 1.0,
+      "recall_at_k": 1.0,
+      "tp": 1,
+      "zero_score_count": 0
+    },
+    "200": {
+      "all_hit": 1,
+      "candidate_count": 200,
+      "candidate_fraction": 0.09587727708533078,
+      "fn": 0,
+      "fp": 199,
+      "gold_count": 1,
+      "hit_at_k": 1,
+      "matched_count": 1,
+      "precision": 0.005,
+      "recall": 1.0,
+      "recall_at_k": 1.0,
+      "tp": 1,
+      "zero_score_count": 0
+    },
+    "50": {
+      "all_hit": 0,
+      "candidate_count": 50,
+      "candidate_fraction": 0.023969319271332695,
+      "fn": 1,
+      "fp": 50,
+      "gold_count": 1,
+      "hit_at_k": 0,
+      "matched_count": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "recall_at_k": 0.0,
+      "tp": 0,
+      "zero_score_count": 0
+    }
+  },
+  "pr_id": 7664,
+  "prediction": {
+    "path": "predictions/pr-7664.json.gz",
+    "pr_id": 7664,
+    "sha256": "b467f96e4773f58291b9f15208ce5517316130ca967f7be40b6c7d1e34b8a8d1"
+  },
+  "query_sha256": "596f773bf281de8b99984138ac038079da6e0cdb630057761e557bd1d1738dd2",
+  "rank_seconds": 0.0022361166775226593,
+  "raw_line": 267,
+  "raw_record_sha256": "9520b8c246a8e91588b334275096da1fdcd3e84f91a09154afbbdd2d600e8212",
+  "repository": "scrapy/scrapy",
+  "scorable": true,
+  "status": "SCORED"
+}

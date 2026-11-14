@@ -47,3 +47,27 @@ python3 bin/sdd-experiment run "$CONFIG" --round "$ROUND" --stage detect --execu
 ```
 
 `inspect` 和 `results summary` 都是只读检查。需要再重跑同一批新增 PR 时，换一个新的 `ROUND` 标签并重新执行 `prepare`，旧轮次不会被覆盖。
+
+## 加入剩余 38 个 PR
+
+配置 [`scrapy-remaining38-detect-v1.json`](../../batch/experiments/scrapy-remaining38-detect-v1.json) 包含库存中此前两轮之外的剩余 38 个 PR；三轮配置合计覆盖全部 98 个不同 PR。新配置使用 OpenSpec、Spec Kit、cc-sdd 三种方法，只展开 Detect，共 114 个目标。
+
+固定来源为 [`scrapy-remaining38-detect-v1.json`](../../batch/pilot/scrapy-remaining38-detect-v1.json)，Detect run ID 使用各方法的 `*-detect-005`。首次轮次标签为 `remaining38-001`，prepared ID 为 `round-8c57c466813dec1830e8b2b0`。本次准备验收完成 38 个 PR 的 gold 隔离和串行 preflight，670 个证据引用均可验证；验收时 ledger 为空，114 个目标状态均为 `NOT_RECORDED`，没有发起正式模型请求。详见 [准备验收报告](../../batch/reports/scrapy-remaining38-prepared-v1.json)。
+
+在同一个终端设置目录和变量，随后查看准备状态：
+
+```bash
+cd ~/NLPU/sdd-bench/scrapy-sdd
+CONFIG=batch/experiments/scrapy-remaining38-detect-v1.json
+ROUND=remaining38-001
+python3 bin/sdd-experiment run "$CONFIG" --round "$ROUND" --stage inspect
+python3 bin/sdd-experiment results summary --config "$CONFIG" --round "$ROUND"
+```
+
+准备已完成。进入正式 Agent 实验时执行：
+
+```bash
+python3 bin/sdd-experiment run "$CONFIG" --round "$ROUND" --stage detect --execute
+```
+
+中断后按本文的 `--resume --retry-failed` 流程续跑同一轮。重新从 baseline 开始独立实验时，更换 `ROUND` 标签并执行 `prepare`。preflight 按 PR 串行运行，因为当前 Compose 使用固定子网。

@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "case_id": "pr-7520",
+  "pr_id": 7520,
+  "repo": "scrapy/scrapy",
+  "base_sha": "2d007bc4508423bbd57ee9017da22c16bbd576e1",
+  "head_sha": "7d2f13ec221c0c463c904f650990558d254699d9",
+  "merge_sha": "85c616c5c71d4de01746f9c190274fe3d2ac9ed0",
+  "classification": "MIXED_CODE_AND_TEST_PR",
+  "selection": {
+    "stratum": "no_edge",
+    "rationale": "Single modified test and three changed production symbols with no direct/indirect candidate."
+  },
+  "production_changes": [
+    {
+      "path": "scrapy/core/downloader/contextfactory.py",
+      "symbol": "_ScrapyClientContextFactory.creatorForNetloc",
+      "kind": "method",
+      "change_kind": "unknown",
+      "hunks": [
+        [
+          131,
+          137
+        ]
+      ],
+      "evidence_ref": "batch/gold/scrapy__scrapy__pr7520/gold-store.json#production_patches[1]"
+    },
+    {
+      "path": "scrapy/core/downloader/tls.py",
+      "symbol": "_ScrapyClientTLSOptions26.__init__",
+      "kind": "method",
+      "change_kind": "unknown",
+      "hunks": [
+        [
+          107,
+          140
+        ]
+      ],
+      "evidence_ref": "batch/gold/scrapy__scrapy__pr7520/gold-store.json#production_patches[2]"
+    },
+    {
+      "path": "scrapy/core/downloader/tls.py",
+      "symbol": "_ScrapyClientTLSOptions26._verifyCB.verifyCallback",
+      "kind": "method",
+      "change_kind": "unknown",
+      "hunks": [
+        [
+          145,
+          151
+        ]
+      ],
+      "evidence_ref": "batch/gold/scrapy__scrapy__pr7520/gold-store.json#production_patches[2]"
+    }
+  ],
+  "modified_tests": [
+    {
+      "path": "tests/test_downloader_handlers_http_base.py",
+      "qualified_name": "TestHttpBase.test_download_latency"
+    }
+  ],
+  "edges": [],
+  "no_edge_changes": [
+    {
+      "production": {
+        "path": "scrapy/core/downloader/contextfactory.py",
+        "symbol": "_ScrapyClientContextFactory.creatorForNetloc"
+      },
+      "change_kind": "unknown",
+      "counterfactual": "unknown",
+      "coverage_gap": false,
+      "affected_existing_tests": [],
+      "confidence": "low",
+      "status": "candidate",
+      "rationale": "No direct/indirect candidate from any modified existing test in the pre-classification."
+    },
+    {
+      "production": {
+        "path": "scrapy/core/downloader/tls.py",
+        "symbol": "_ScrapyClientTLSOptions26.__init__"
+      },
+      "change_kind": "unknown",
+      "counterfactual": "unknown",
+      "coverage_gap": false,
+      "affected_existing_tests": [],
+      "confidence": "low",
+      "status": "candidate",
+      "rationale": "No direct/indirect candidate from any modified existing test in the pre-classification."
+    },
+    {
+      "production": {
+        "path": "scrapy/core/downloader/tls.py",
+        "symbol": "_ScrapyClientTLSOptions26._verifyCB.verifyCallback"
+      },
+      "change_kind": "unknown",
+      "counterfactual": "unknown",
+      "coverage_gap": false,
+      "affected_existing_tests": [],
+      "confidence": "low",
+      "status": "candidate",
+      "rationale": "No direct/indirect candidate from any modified existing test in the pre-classification."
+    }
+  ],
+  "test_level": {
+    "positives": [
+      {
+        "path": "tests/test_downloader_handlers_http_base.py",
+        "qualified_name": "TestHttpBase.test_download_latency"
+      }
+    ],
+    "missed_updates": [],
+    "coverage_gaps": [],
+    "unknown": []
+  },
+  "review": {
+    "status": "draft",
+    "first_pass_at": null,
+    "second_pass_at": null,
+    "changed_verdicts": []
+  },
+  "notes": "Pre-classification dominant=no_edge counts={\"no_edge\": 3}. Auto-generated candidate record. Reviewer must confirm/reject every edge, assign change_kind and counterfactual, and check for resolver gaps."
+}

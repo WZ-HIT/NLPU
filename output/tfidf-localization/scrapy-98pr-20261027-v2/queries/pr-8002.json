@@ -1,0 +1,4 @@
+{
+  "body": "There is only one link extractor class now.",
+  "title": "Merge LxmlLinkExtractor test classes."
+}

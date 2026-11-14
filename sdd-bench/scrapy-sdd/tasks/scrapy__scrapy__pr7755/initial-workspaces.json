@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "lock_type": "INITIAL_DETECT_WORKSPACES",
+  "task_id": "scrapy__scrapy__pr7755",
+  "base_sha": "ca21306df769754ab4ad01596898a63f2fc90de6",
+  "tree_sha": "0f768701b56ebd3f50c52ba59af06b539d6d6279",
+  "baseline_lock": {
+    "path": "sdd-bench/scrapy-sdd/batch/baselines/ca21306df769754ab4ad01596898a63f2fc90de6/baseline-lock.json",
+    "sha256": "e4d669f1482d9f9bd3dc0622f0e7777ff15a4b9e07ffb4beff302353d8f02149"
+  },
+  "deployment_lock": {
+    "path": "sdd-bench/scrapy-sdd/batch/images/ca21306df769754ab4ad01596898a63f2fc90de6/deployment-lock.json",
+    "sha256": "86a4c06d5463f29b4db869aa07f3abab4aa602bc8b5e72da2557329ecf3cbdd0",
+    "agent_image_id": "sha256:5691d1a7cf28a09eeec9ea65ebf834e12c1af989817a07643f30f24bc7356cde"
+  },
+  "business_source_manifest_sha256": "9fd0162307c7a45c71f492c312da65346c04090029de9702962df1db3bfb2c30",
+  "all_methods_share_base_and_business_source": true,
+  "workspaces": [
+    {
+      "method": "openspec",
+      "base_sha": "ca21306df769754ab4ad01596898a63f2fc90de6",
+      "tree_sha": "0f768701b56ebd3f50c52ba59af06b539d6d6279",
+      "baseline_checkout_manifest_sha256": "9fd0162307c7a45c71f492c312da65346c04090029de9702962df1db3bfb2c30",
+      "initialization_manifest_sha256": "bb2f98805908b356151ed1a5f18874308e6e1f0420806cace4bb1e880ad8e31f",
+      "workspace_file_count": 656,
+      "initial_workspace_sha256": "ab4a9125f513a6cbfaf935003bd1837d189e90c0a8e173d62e49100a131eba55",
+      "detect_workspace": "runs/openspec/detect/workspace/",
+      "update_workspace_created": false
+    },
+    {
+      "method": "speckit",
+      "base_sha": "ca21306df769754ab4ad01596898a63f2fc90de6",
+      "tree_sha": "0f768701b56ebd3f50c52ba59af06b539d6d6279",
+      "baseline_checkout_manifest_sha256": "9fd0162307c7a45c71f492c312da65346c04090029de9702962df1db3bfb2c30",
+      "initialization_manifest_sha256": "6761b89ce39222dc45be3d708fdceb6f12fadb276e268d28e2cca22b459860cf",
+      "workspace_file_count": 676,
+      "initial_workspace_sha256": "4b8d392e4b10a035352b0fc0d228b064ab719e659635ea0d774959f23fab33e5",
+      "detect_workspace": "runs/speckit/detect/workspace/",
+      "update_workspace_created": false
+    },
+    {
+      "method": "cc-sdd",
+      "base_sha": "ca21306df769754ab4ad01596898a63f2fc90de6",
+      "tree_sha": "0f768701b56ebd3f50c52ba59af06b539d6d6279",
+      "baseline_checkout_manifest_sha256": "9fd0162307c7a45c71f492c312da65346c04090029de9702962df1db3bfb2c30",
+      "initialization_manifest_sha256": "04047727febf3e49eb44dcf7e5052c103ca5587564283c29774a1c5ca8ea50bc",
+      "workspace_file_count": 714,
+      "initial_workspace_sha256": "f8468e0a1a27f62f8c6fa57a2d666a44b5e65f8d80aec3356fa13b8fb9cf08d0",
+      "detect_workspace": "runs/cc-sdd/detect/workspace/",
+      "update_workspace_created": false
+    }
+  ]
+}

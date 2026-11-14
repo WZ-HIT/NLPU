@@ -1,0 +1,63 @@
+{
+  "schema_version": 2,
+  "experiment_id": "scrapy-remaining38-testcase-v1",
+  "sources": [
+    {
+      "path": "sdd-bench/scrapy-sdd/batch/pilot/scrapy-remaining38-detect-v1.json",
+      "sha256": "22fc32755057cbd0be6041a8431b41ed0c915f664fd275d2ad82c62daa0ec034"
+    }
+  ],
+  "prs": [
+    7664,
+    7665,
+    7672,
+    7684,
+    7692,
+    7694,
+    7712,
+    7727,
+    7731,
+    7736,
+    7738,
+    7739,
+    7741,
+    7753,
+    7755,
+    7763,
+    7772,
+    7785,
+    7793,
+    7797,
+    7809,
+    7824,
+    7829,
+    7833,
+    7843,
+    7853,
+    7858,
+    7864,
+    7865,
+    7867,
+    7884,
+    7929,
+    7931,
+    7935,
+    7945,
+    7963,
+    8001,
+    8037
+  ],
+  "methods": [
+    "openspec",
+    "speckit",
+    "cc-sdd"
+  ],
+  "stages": [
+    "detect"
+  ],
+  "update_modes": [],
+  "evaluation": {
+    "kind": "detect-host",
+    "localization_protocol": "testcase-v1"
+  }
+}

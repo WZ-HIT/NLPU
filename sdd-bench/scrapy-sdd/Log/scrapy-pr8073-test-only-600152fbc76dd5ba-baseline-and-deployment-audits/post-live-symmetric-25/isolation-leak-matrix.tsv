@@ -1,4 +1,0 @@
-group	private_home_marker	private_cache_marker	direct_external_connect	proxy_dns_mapping	sessions	shell_snapshots
-openspec	PASS	PASS	DENIED_ERRNO_101	172.28.11.2	0	0
-speckit	PASS	PASS	DENIED_ERRNO_101	172.28.12.2	0	0
-cc-sdd	PASS	PASS	DENIED_ERRNO_101	172.28.13.2	0	0

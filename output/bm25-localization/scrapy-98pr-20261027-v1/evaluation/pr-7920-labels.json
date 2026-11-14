@@ -1,0 +1,31 @@
+{
+  "base_sha": "1bd839b57ddb614664a179b6213f49579bdfd3da",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "added",
+      "id": "tests/test_command_check.py::TestCheckCommand.test_bootstrap_failure"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_command_fetch.py::TestFetchCommandWithSpider.test_bootstrap_failure"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_command_parse.py::TestParseCommand.test_bootstrap_failure"
+    }
+  ],
+  "excluded_counts": {
+    "added": 3
+  },
+  "index_sha256": "32a1f102bce7141ce4205933376f2e0d853d6b35efe831ba590cfea495e97ee6",
+  "issues": [],
+  "labels_sha256": "17bba3451ac407bfed486cfed34c409cc6e30cab7ac586a829a4400876db1a01",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "ef6b3d2e40eacb84420f277f658c9269a0b589c3f08e6efcf763e6c283d07738",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_command_check.py::TestCheckCommand.test_run_without_opts_list_does_not_crawl_spider_with_no_tested_methods"
+  ]
+}

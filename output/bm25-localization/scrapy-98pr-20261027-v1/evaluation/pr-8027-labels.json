@@ -1,0 +1,17 @@
+{
+  "base_sha": "da7c2fc59e286e796d0f8cfe01d4363d6fa3729f",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [],
+  "excluded_counts": {},
+  "index_sha256": "d79bc7fe2eb93d9ae1c5646d0a7b36b4f57a68f5df6df5be8716a71746987a2b",
+  "issues": [],
+  "labels_sha256": "b48db8296e46346ebe3aec3f81c645e7f3a47ad67f24a663dfdf33a4df886be1",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "b74352cb28c14790f411cd2a0316a1ab5ee981e62030b61f2e239576d2b86c89",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_crawl.py::TestCrawl.test_fixed_delay",
+    "tests/test_crawl.py::TestCrawl.test_randomized_delay"
+  ]
+}

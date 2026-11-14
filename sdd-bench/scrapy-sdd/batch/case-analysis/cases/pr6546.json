@@ -1,0 +1,571 @@
+{
+  "schema_version": 1,
+  "case_id": "pr-6546",
+  "pr_id": 6546,
+  "repo": "scrapy/scrapy",
+  "base_sha": "58af57a3ea3a109f05c5b3e9f7b6e1e24adc9834",
+  "head_sha": "6089d0f9fee7df9c891baf4bb0739cd42e7e5f6c",
+  "merge_sha": "d9e2f5fbf7da59ea61595cffea5e3399fb9c3574",
+  "classification": "MIXED_CODE_AND_TEST_PR",
+  "selection": {
+    "stratum": "mixed",
+    "rationale": "Direct raw-pair evidence: static_call, import"
+  },
+  "production_changes": [
+    {
+      "path": "scrapy/core/downloader/contextfactory.py",
+      "symbol": "<module>",
+      "kind": "module",
+      "change_kind": "unknown",
+      "hunks": [
+        [
+          1,
+          13
+        ],
+        [
+          16,
+          34
+        ]
+      ],
+      "evidence_ref": "batch/gold/scrapy__scrapy__pr6546/gold-store.json#production_patches[4]"
+    },
+    {
+      "path": "scrapy/core/downloader/contextfactory.py",
+      "symbol": "_filter_method_warning",
+      "kind": "function",
+      "change_kind": "unknown",
+      "hunks": [
+        [
+          38,
+          61
+        ]
+      ],
+      "evidence_ref": "batch/gold/scrapy__scrapy__pr6546/gold-store.json#production_patches[4]"
+    },
+    {
+      "path": "scrapy/core/downloader/contextfactory.py",
+      "symbol": "_ScrapyClientContextFactory.__init__",
+      "kind": "method",
+      "change_kind": "unknown",
+      "hunks": [
+        [
+          64,
+          78
+        ]
+      ],
+      "evidence_ref": "batch/gold/scrapy__scrapy__pr6546/gold-store.json#production_patches[4]"
+    },
+    {
+      "path": "scrapy/core/downloader/contextfactory.py",
+      "symbol": "_ScrapyClientContextFactory.from_crawler",
+      "kind": "method",
+      "change_kind": "unknown",
+      "hunks": [
+        [
+          85,
+          104
+        ]
+      ],
+      "evidence_ref": "batch/gold/scrapy__scrapy__pr6546/gold-store.json#production_patches[4]"
+    },
+    {
+      "path": "scrapy/core/downloader/contextfactory.py",
+      "symbol": "_ScrapyClientContextFactory.getCertificateOptions",
+      "kind": "method",
+      "change_kind": "unknown",
+      "hunks": [
+        [
+          108,
+          119
+        ]
+      ],
+      "evidence_ref": "batch/gold/scrapy__scrapy__pr6546/gold-store.json#production_patches[4]"
+    },
+    {
+      "path": "scrapy/core/downloader/contextfactory.py",
+      "symbol": "_ScrapyClientContextFactory.creatorForNetloc",
+      "kind": "method",
+      "change_kind": "unknown",
+      "hunks": [
+        [
+          137,
+          151
+        ]
+      ],
+      "evidence_ref": "batch/gold/scrapy__scrapy__pr6546/gold-store.json#production_patches[4]"
+    },
+    {
+      "path": "scrapy/core/downloader/contextfactory.py",
+      "symbol": "BrowserLikeContextFactory.__init__",
+      "kind": "method",
+      "change_kind": "unknown",
+      "hunks": [
+        [
+          170,
+          181
+        ]
+      ],
+      "evidence_ref": "batch/gold/scrapy__scrapy__pr6546/gold-store.json#production_patches[4]"
+    },
+    {
+      "path": "scrapy/core/downloader/contextfactory.py",
+      "symbol": "BrowserLikeContextFactory.creatorForNetloc",
+      "kind": "method",
+      "change_kind": "unknown",
+      "hunks": [
+        [
+          189,
+          199
+        ]
+      ],
+      "evidence_ref": "batch/gold/scrapy__scrapy__pr6546/gold-store.json#production_patches[4]"
+    },
+    {
+      "path": "scrapy/core/downloader/contextfactory.py",
+      "symbol": "_load_context_factory_from_settings",
+      "kind": "function",
+      "change_kind": "unknown",
+      "hunks": [
+        [
+          268,
+          273
+        ],
+        [
+          279,
+          291
+        ]
+      ],
+      "evidence_ref": "batch/gold/scrapy__scrapy__pr6546/gold-store.json#production_patches[4]"
+    },
+    {
+      "path": "scrapy/core/downloader/tls.py",
+      "symbol": "<module>",
+      "kind": "module",
+      "change_kind": "unknown",
+      "hunks": [
+        [
+          1,
+          6
+        ],
+        [
+          18,
+          25
+        ],
+        [
+          32,
+          48
+        ]
+      ],
+      "evidence_ref": "batch/gold/scrapy__scrapy__pr6546/gold-store.json#production_patches[5]"
+    },
+    {
+      "path": "scrapy/settings/default_settings.py",
+      "symbol": "<module>",
+      "kind": "module",
+      "change_kind": "unknown",
+      "hunks": [
+        [
+          16,
+          21
+        ],
+        [
+          64,
+          69
+        ],
+        [
+          264,
+          276
+        ]
+      ],
+      "evidence_ref": "batch/gold/scrapy__scrapy__pr6546/gold-store.json#production_patches[6]"
+    },
+    {
+      "path": "scrapy/settings/default_settings.py",
+      "symbol": "__getattr__",
+      "kind": "function",
+      "change_kind": "unknown",
+      "hunks": [
+        [
+          532,
+          538
+        ],
+        [
+          545,
+          548
+        ]
+      ],
+      "evidence_ref": "batch/gold/scrapy__scrapy__pr6546/gold-store.json#production_patches[6]"
+    },
+    {
+      "path": "scrapy/utils/_deps_compat.py",
+      "symbol": "<module>",
+      "kind": "module",
+      "change_kind": "unknown",
+      "hunks": [
+        [
+          6,
+          11
+        ]
+      ],
+      "evidence_ref": "batch/gold/scrapy__scrapy__pr6546/gold-store.json#production_patches[7]"
+    },
+    {
+      "path": "scrapy/utils/ssl.py",
+      "symbol": "<module>",
+      "kind": "module",
+      "change_kind": "unknown",
+      "hunks": [
+        [
+          2,
+          31
+        ]
+      ],
+      "evidence_ref": "batch/gold/scrapy__scrapy__pr6546/gold-store.json#production_patches[8]"
+    },
+    {
+      "path": "scrapy/utils/ssl.py",
+      "symbol": "_make_ssl_context",
+      "kind": "function",
+      "change_kind": "unknown",
+      "hunks": [
+        [
+          35,
+          54
+        ]
+      ],
+      "evidence_ref": "batch/gold/scrapy__scrapy__pr6546/gold-store.json#production_patches[8]"
+    },
+    {
+      "path": "scrapy/utils/ssl.py",
+      "symbol": "_log_ssl_conn_debug_info",
+      "kind": "function",
+      "change_kind": "unknown",
+      "hunks": [
+        [
+          154,
+          156
+        ]
+      ],
+      "evidence_ref": "batch/gold/scrapy__scrapy__pr6546/gold-store.json#production_patches[8]"
+    }
+  ],
+  "modified_tests": [
+    {
+      "path": "tests/test_core_downloader.py",
+      "qualified_name": "TestContextFactoryTLSMethod.test_direct_init"
+    },
+    {
+      "path": "tests/test_core_downloader.py",
+      "qualified_name": "TestContextFactoryTLSMethod.test_setting_bad"
+    },
+    {
+      "path": "tests/test_core_downloader.py",
+      "qualified_name": "TestContextFactoryTLSMethod.test_setting_explicit"
+    },
+    {
+      "path": "tests/test_core_downloader.py",
+      "qualified_name": "TestContextFactoryTLSMethod.test_setting_none"
+    }
+  ],
+  "edges": [
+    {
+      "edge_id": "pr-6546:TestContextFactoryTLSMethod.test_setting_bad->_load_context_factory_from_settings",
+      "test": {
+        "path": "tests/test_core_downloader.py",
+        "qualified_name": "TestContextFactoryTLSMethod.test_setting_bad"
+      },
+      "production": {
+        "path": "scrapy/core/downloader/contextfactory.py",
+        "symbol": "_load_context_factory_from_settings"
+      },
+      "relation": "direct",
+      "hops": 1,
+      "path": [
+        "TestContextFactoryTLSMethod.test_setting_bad",
+        "_load_context_factory_from_settings"
+      ],
+      "evidence": [
+        "static_call",
+        "import"
+      ],
+      "confidence": "high",
+      "status": "candidate",
+      "rationale": "Direct raw-pair evidence: static_call, import"
+    },
+    {
+      "edge_id": "pr-6546:TestContextFactoryTLSMethod.test_setting_explicit->_load_context_factory_from_settings",
+      "test": {
+        "path": "tests/test_core_downloader.py",
+        "qualified_name": "TestContextFactoryTLSMethod.test_setting_explicit"
+      },
+      "production": {
+        "path": "scrapy/core/downloader/contextfactory.py",
+        "symbol": "_load_context_factory_from_settings"
+      },
+      "relation": "direct",
+      "hops": 1,
+      "path": [
+        "TestContextFactoryTLSMethod.test_setting_explicit",
+        "_load_context_factory_from_settings"
+      ],
+      "evidence": [
+        "static_call",
+        "import"
+      ],
+      "confidence": "high",
+      "status": "candidate",
+      "rationale": "Direct raw-pair evidence: static_call, import"
+    },
+    {
+      "edge_id": "pr-6546:TestContextFactoryTLSMethod.test_setting_none->_load_context_factory_from_settings",
+      "test": {
+        "path": "tests/test_core_downloader.py",
+        "qualified_name": "TestContextFactoryTLSMethod.test_setting_none"
+      },
+      "production": {
+        "path": "scrapy/core/downloader/contextfactory.py",
+        "symbol": "_load_context_factory_from_settings"
+      },
+      "relation": "direct",
+      "hops": 1,
+      "path": [
+        "TestContextFactoryTLSMethod.test_setting_none",
+        "_load_context_factory_from_settings"
+      ],
+      "evidence": [
+        "static_call",
+        "import"
+      ],
+      "confidence": "high",
+      "status": "candidate",
+      "rationale": "Direct raw-pair evidence: static_call, import"
+    }
+  ],
+  "no_edge_changes": [
+    {
+      "production": {
+        "path": "scrapy/core/downloader/contextfactory.py",
+        "symbol": "<module>"
+      },
+      "change_kind": "unknown",
+      "counterfactual": "unknown",
+      "coverage_gap": false,
+      "affected_existing_tests": [],
+      "confidence": "low",
+      "status": "candidate",
+      "rationale": "No direct/indirect candidate from any modified existing test in the pre-classification."
+    },
+    {
+      "production": {
+        "path": "scrapy/core/downloader/contextfactory.py",
+        "symbol": "_filter_method_warning"
+      },
+      "change_kind": "unknown",
+      "counterfactual": "unknown",
+      "coverage_gap": false,
+      "affected_existing_tests": [],
+      "confidence": "low",
+      "status": "candidate",
+      "rationale": "No direct/indirect candidate from any modified existing test in the pre-classification."
+    },
+    {
+      "production": {
+        "path": "scrapy/core/downloader/contextfactory.py",
+        "symbol": "_ScrapyClientContextFactory.__init__"
+      },
+      "change_kind": "unknown",
+      "counterfactual": "unknown",
+      "coverage_gap": false,
+      "affected_existing_tests": [],
+      "confidence": "low",
+      "status": "candidate",
+      "rationale": "No direct/indirect candidate from any modified existing test in the pre-classification. Weak-only candidates (not counted as edges): TestContextFactoryTLSMethod.test_direct_init."
+    },
+    {
+      "production": {
+        "path": "scrapy/core/downloader/contextfactory.py",
+        "symbol": "_ScrapyClientContextFactory.from_crawler"
+      },
+      "change_kind": "unknown",
+      "counterfactual": "unknown",
+      "coverage_gap": false,
+      "affected_existing_tests": [],
+      "confidence": "low",
+      "status": "candidate",
+      "rationale": "No direct/indirect candidate from any modified existing test in the pre-classification."
+    },
+    {
+      "production": {
+        "path": "scrapy/core/downloader/contextfactory.py",
+        "symbol": "_ScrapyClientContextFactory.getCertificateOptions"
+      },
+      "change_kind": "unknown",
+      "counterfactual": "unknown",
+      "coverage_gap": false,
+      "affected_existing_tests": [],
+      "confidence": "low",
+      "status": "candidate",
+      "rationale": "No direct/indirect candidate from any modified existing test in the pre-classification."
+    },
+    {
+      "production": {
+        "path": "scrapy/core/downloader/contextfactory.py",
+        "symbol": "_ScrapyClientContextFactory.creatorForNetloc"
+      },
+      "change_kind": "unknown",
+      "counterfactual": "unknown",
+      "coverage_gap": false,
+      "affected_existing_tests": [],
+      "confidence": "low",
+      "status": "candidate",
+      "rationale": "No direct/indirect candidate from any modified existing test in the pre-classification."
+    },
+    {
+      "production": {
+        "path": "scrapy/core/downloader/contextfactory.py",
+        "symbol": "BrowserLikeContextFactory.__init__"
+      },
+      "change_kind": "unknown",
+      "counterfactual": "unknown",
+      "coverage_gap": false,
+      "affected_existing_tests": [],
+      "confidence": "low",
+      "status": "candidate",
+      "rationale": "No direct/indirect candidate from any modified existing test in the pre-classification."
+    },
+    {
+      "production": {
+        "path": "scrapy/core/downloader/contextfactory.py",
+        "symbol": "BrowserLikeContextFactory.creatorForNetloc"
+      },
+      "change_kind": "unknown",
+      "counterfactual": "unknown",
+      "coverage_gap": false,
+      "affected_existing_tests": [],
+      "confidence": "low",
+      "status": "candidate",
+      "rationale": "No direct/indirect candidate from any modified existing test in the pre-classification."
+    },
+    {
+      "production": {
+        "path": "scrapy/core/downloader/tls.py",
+        "symbol": "<module>"
+      },
+      "change_kind": "unknown",
+      "counterfactual": "unknown",
+      "coverage_gap": false,
+      "affected_existing_tests": [],
+      "confidence": "low",
+      "status": "candidate",
+      "rationale": "No direct/indirect candidate from any modified existing test in the pre-classification."
+    },
+    {
+      "production": {
+        "path": "scrapy/settings/default_settings.py",
+        "symbol": "<module>"
+      },
+      "change_kind": "unknown",
+      "counterfactual": "unknown",
+      "coverage_gap": false,
+      "affected_existing_tests": [],
+      "confidence": "low",
+      "status": "candidate",
+      "rationale": "No direct/indirect candidate from any modified existing test in the pre-classification."
+    },
+    {
+      "production": {
+        "path": "scrapy/settings/default_settings.py",
+        "symbol": "__getattr__"
+      },
+      "change_kind": "unknown",
+      "counterfactual": "unknown",
+      "coverage_gap": false,
+      "affected_existing_tests": [],
+      "confidence": "low",
+      "status": "candidate",
+      "rationale": "No direct/indirect candidate from any modified existing test in the pre-classification."
+    },
+    {
+      "production": {
+        "path": "scrapy/utils/_deps_compat.py",
+        "symbol": "<module>"
+      },
+      "change_kind": "unknown",
+      "counterfactual": "unknown",
+      "coverage_gap": false,
+      "affected_existing_tests": [],
+      "confidence": "low",
+      "status": "candidate",
+      "rationale": "No direct/indirect candidate from any modified existing test in the pre-classification."
+    },
+    {
+      "production": {
+        "path": "scrapy/utils/ssl.py",
+        "symbol": "<module>"
+      },
+      "change_kind": "unknown",
+      "counterfactual": "unknown",
+      "coverage_gap": false,
+      "affected_existing_tests": [],
+      "confidence": "low",
+      "status": "candidate",
+      "rationale": "No direct/indirect candidate from any modified existing test in the pre-classification."
+    },
+    {
+      "production": {
+        "path": "scrapy/utils/ssl.py",
+        "symbol": "_make_ssl_context"
+      },
+      "change_kind": "unknown",
+      "counterfactual": "unknown",
+      "coverage_gap": false,
+      "affected_existing_tests": [],
+      "confidence": "low",
+      "status": "candidate",
+      "rationale": "No direct/indirect candidate from any modified existing test in the pre-classification."
+    },
+    {
+      "production": {
+        "path": "scrapy/utils/ssl.py",
+        "symbol": "_log_ssl_conn_debug_info"
+      },
+      "change_kind": "unknown",
+      "counterfactual": "unknown",
+      "coverage_gap": false,
+      "affected_existing_tests": [],
+      "confidence": "low",
+      "status": "candidate",
+      "rationale": "No direct/indirect candidate from any modified existing test in the pre-classification."
+    }
+  ],
+  "test_level": {
+    "positives": [
+      {
+        "path": "tests/test_core_downloader.py",
+        "qualified_name": "TestContextFactoryTLSMethod.test_direct_init"
+      },
+      {
+        "path": "tests/test_core_downloader.py",
+        "qualified_name": "TestContextFactoryTLSMethod.test_setting_bad"
+      },
+      {
+        "path": "tests/test_core_downloader.py",
+        "qualified_name": "TestContextFactoryTLSMethod.test_setting_explicit"
+      },
+      {
+        "path": "tests/test_core_downloader.py",
+        "qualified_name": "TestContextFactoryTLSMethod.test_setting_none"
+      }
+    ],
+    "missed_updates": [],
+    "coverage_gaps": [],
+    "unknown": []
+  },
+  "review": {
+    "status": "draft",
+    "first_pass_at": null,
+    "second_pass_at": null,
+    "changed_verdicts": []
+  },
+  "notes": "Pre-classification dominant=no_edge counts={\"direct\": 3, \"no_edge\": 15, \"weak\": 1}. Auto-generated candidate record. Reviewer must confirm/reject every edge, assign change_kind and counterfactual, and check for resolver gaps."
+}

@@ -1,0 +1,50 @@
+{
+  "base_sha": "c7eacdbb30a4563bbbe04ed02781768f4e19eabb",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "added",
+      "id": "tests/test_contracts.py::TestContractsManager.test_async_callbacks"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_contracts.py::TestContractsManager.test_raises_async"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_contracts.py::TestContractsManager.test_returns_async_gen"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_contracts.py::TestContractsManager.test_returns_async_gen_sync"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_contracts.py::TestContractsManager.test_returns_coroutine"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_contracts.py::test_hook_override_deprecation"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_contracts.py::test_no_hook_override_deprecation"
+    }
+  ],
+  "excluded_counts": {
+    "added": 7
+  },
+  "index_sha256": "decbf361d55f6740b99a8c50146877dad1bcbfd5e2fc0a0fb9056a840f77510c",
+  "issues": [],
+  "labels_sha256": "e9f67f70e034257d8a378cd6ce45ce1db1639f9494345f075d93275a69d46bb9",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "1436e1d49d685baf7e20374c2fc3b5313b487d280b0f9498e0ce99c542febf3a",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_contracts.py::TestContractsManager.test_returns_async",
+    "tests/test_contracts.py::TestCustomContractPrePostProcess.test_post_hook_async_generator",
+    "tests/test_contracts.py::TestCustomContractPrePostProcess.test_pre_hook_async_callback",
+    "tests/test_contracts.py::TestCustomContractPrePostProcess.test_pre_hook_async_generator"
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "base_sha": "be3e24e607ff0df427d6329163c706c406d06f61",
+  "corpus_count": 2432,
+  "excluded_counts": {
+    "added": 32,
+    "deleted": 32
+  },
+  "gold_count": 3,
+  "gold_ranks": {
+    "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_canonicalize_once_per_link": 9,
+    "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_link_restrict_text": 8,
+    "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_skip_bad_links": 11
+  },
+  "label_issues": [],
+  "labels_sha256": "3bd00198194869dab333114fe888d9628e99910f3ece14355870ac20cb00dfe9",
+  "metrics": {
+    "100": {
+      "all_hit": 1,
+      "candidate_count": 100,
+      "candidate_fraction": 0.04111842105263158,
+      "fn": 0,
+      "fp": 97,
+      "gold_count": 3,
+      "hit_at_k": 1,
+      "matched_count": 3,
+      "precision": 0.03,
+      "recall": 1.0,
+      "recall_at_k": 1.0,
+      "tp": 3,
+      "zero_score_count": 0
+    },
+    "200": {
+      "all_hit": 1,
+      "candidate_count": 200,
+      "candidate_fraction": 0.08223684210526316,
+      "fn": 0,
+      "fp": 197,
+      "gold_count": 3,
+      "hit_at_k": 1,
+      "matched_count": 3,
+      "precision": 0.015,
+      "recall": 1.0,
+      "recall_at_k": 1.0,
+      "tp": 3,
+      "zero_score_count": 0
+    },
+    "50": {
+      "all_hit": 1,
+      "candidate_count": 50,
+      "candidate_fraction": 0.02055921052631579,
+      "fn": 0,
+      "fp": 47,
+      "gold_count": 3,
+      "hit_at_k": 1,
+      "matched_count": 3,
+      "precision": 0.06,
+      "recall": 1.0,
+      "recall_at_k": 1.0,
+      "tp": 3,
+      "zero_score_count": 0
+    }
+  },
+  "pr_id": 8002,
+  "prediction": {
+    "path": "predictions/pr-8002.json.gz",
+    "pr_id": 8002,
+    "sha256": "8178b135313aca676bc5a434657828fe32aed451893c92c7db3118a81622bace"
+  },
+  "query_sha256": "61ef6a80bb0123aed9ced274de067367e13011348ff9e171eed3ae3830449486",
+  "rank_seconds": 0.0027730055153369904,
+  "raw_line": 67,
+  "raw_record_sha256": "c01dd72a07dd20dea7963e05262a9948c7a810a3e4528268f435022a13b9ab10",
+  "repository": "scrapy/scrapy",
+  "scorable": true,
+  "status": "SCORED"
+}

@@ -1,0 +1,4 @@
+{
+  "body": "Resolves https://github.com/scrapy/scrapy/issues/3902",
+  "title": "Support non-text responses in open_in_browser via Content-Type"
+}

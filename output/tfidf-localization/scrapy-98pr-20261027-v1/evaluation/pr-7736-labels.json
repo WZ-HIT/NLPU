@@ -1,0 +1,333 @@
+{
+  "base_sha": "b3670369b8620ae645a08bb27f553ec6bf830573",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "deleted",
+      "id": "tests/test_crawl.py::TestCrawl.test_crawl_multiple"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_crawl.py::TestCrawl.test_crawlerrunner_accepts_crawler"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_crawler.py::TestAsyncCrawlerProcess.test_crawler_process_accepts_None"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_crawler.py::TestAsyncCrawlerProcess.test_crawler_process_accepts_dict"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_crawler.py::TestAsyncCrawlerRunner.test_crawler_runner_accepts_None"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_crawler.py::TestAsyncCrawlerRunner.test_crawler_runner_accepts_dict"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_crawler.py::TestAsyncCrawlerRunner.test_spider_manager_verify_interface"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_crawler.py::TestAsyncCrawlerRunnerHasSpider.test_crawler_runner_asyncio_enabled_true"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_crawler.py::TestCrawlerProcess.test_crawler_process_accepts_None"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_crawler.py::TestCrawlerProcess.test_crawler_process_accepts_dict"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_crawler.py::TestCrawlerRunner.test_crawler_runner_accepts_None"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_crawler.py::TestCrawlerRunner.test_crawler_runner_accepts_dict"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_crawler.py::TestCrawlerRunner.test_spider_manager_verify_interface"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_crawler.py::TestCrawlerRunnerHasSpider.test_crawler_runner_asyncio_enabled_true"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_crawler.py::TestCrawlerRunnerHasSpider.test_crawler_runner_bootstrap_failed"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_crawler.py::TestCrawlerRunnerHasSpider.test_crawler_runner_bootstrap_failed_for_several"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_crawler.py::TestCrawlerRunnerHasSpider.test_crawler_runner_bootstrap_successful"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_crawler.py::TestCrawlerRunnerHasSpider.test_crawler_runner_bootstrap_successful_for_several"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_crawler.py::test_crawl_rejects_spider_object"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_crawler.py::test_create_crawler_instance_consistent_with_spider_class"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_crawler.py::test_create_crawler_rejects_spider_object"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_crawler.py::test_runner_settings_applied_to_crawler_instance"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_crawler.py::test_spider_custom_settings_override_runner"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_crawler_runners.py::TestAsyncCrawlerProcess.test_crawler_process_accepts_None"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_crawler_runners.py::TestAsyncCrawlerProcess.test_crawler_process_accepts_dict"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_crawler_runners.py::TestAsyncCrawlerRunner.test_crawler_runner_accepts_None"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_crawler_runners.py::TestAsyncCrawlerRunner.test_crawler_runner_accepts_dict"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_crawler_runners.py::TestAsyncCrawlerRunner.test_spider_manager_verify_interface"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_crawler_runners.py::TestAsyncCrawlerRunnerHasSpider.test_crawler_runner_asyncio_enabled_true"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_crawler_runners.py::TestCrawlerProcess.test_crawler_process_accepts_None"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_crawler_runners.py::TestCrawlerProcess.test_crawler_process_accepts_dict"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_crawler_runners.py::TestCrawlerRunner.test_crawler_runner_accepts_None"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_crawler_runners.py::TestCrawlerRunner.test_crawler_runner_accepts_dict"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_crawler_runners.py::TestCrawlerRunner.test_spider_manager_verify_interface"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_crawler_runners.py::TestCrawlerRunnerHasSpider.test_crawler_runner_asyncio_enabled_true"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_crawler_runners.py::TestCrawlerRunnerHasSpider.test_crawler_runner_bootstrap_failed"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_crawler_runners.py::TestCrawlerRunnerHasSpider.test_crawler_runner_bootstrap_failed_for_several"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_crawler_runners.py::TestCrawlerRunnerHasSpider.test_crawler_runner_bootstrap_successful"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_crawler_runners.py::TestCrawlerRunnerHasSpider.test_crawler_runner_bootstrap_successful_for_several"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_crawler_runners.py::test_crawl_multiple"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_crawler_runners.py::test_crawl_rejects_spider_object"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_crawler_runners.py::test_crawlerrunner_accepts_crawler"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_crawler_runners.py::test_create_crawler_instance_consistent_with_spider_class"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_crawler_runners.py::test_create_crawler_rejects_spider_object"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_crawler_runners.py::test_runner_settings_applied_to_crawler_instance"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_crawler_runners.py::test_spider_custom_settings_override_runner"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_engine.py::TestEngineCloseSpider.test_exception_async_callback"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_engine.py::TestEngineCloseSpider.test_exception_callback"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_engine.py::TestEngineCloseSpider.test_exception_downloader"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_engine.py::TestEngineCloseSpider.test_exception_scheduler"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_engine.py::TestEngineCloseSpider.test_exception_scraper"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_engine.py::TestEngineCloseSpider.test_exception_signal"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_engine.py::TestEngineCloseSpider.test_exception_slot"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_engine.py::TestEngineCloseSpider.test_exception_stats"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_engine.py::TestEngineCloseSpider.test_no_slot"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_engine.py::TestEngineCloseSpider.test_no_spider"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_engine.py::TestEngineDownloadAsync.test_download_async_failure"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_engine.py::TestEngineDownloadAsync.test_download_async_no_spider"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_engine.py::TestEngineDownloadAsync.test_download_async_redirect"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_engine.py::TestEngineDownloadAsync.test_download_async_success"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_engine_close_spider.py::test_exception_async_callback"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_engine_close_spider.py::test_exception_callback"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_engine_close_spider.py::test_exception_downloader"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_engine_close_spider.py::test_exception_scheduler"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_engine_close_spider.py::test_exception_scraper"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_engine_close_spider.py::test_exception_signal"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_engine_close_spider.py::test_exception_slot"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_engine_close_spider.py::test_exception_stats"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_engine_close_spider.py::test_no_slot"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_engine_close_spider.py::test_no_spider"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_engine_download.py::TestEngineDownloadAsync.test_download_async_failure"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_engine_download.py::TestEngineDownloadAsync.test_download_async_no_spider"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_engine_download.py::TestEngineDownloadAsync.test_download_async_redirect"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_engine_download.py::TestEngineDownloadAsync.test_download_async_success"
+    }
+  ],
+  "excluded_counts": {
+    "added": 37,
+    "deleted": 37
+  },
+  "index_sha256": "db13df5adcfd226c42aac2661ac395b69411b34399b7f139f976f4b6d28e023c",
+  "issues": [],
+  "labels_sha256": "6c79710a75d12c4c3d1db09d16aaadc1e6d4080497ea9c0799ccec6badd8b14f",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "e24428d2855e4d33361e43af6019bd5afd3b15cbf72462c14e90b274d6f6b7ab",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_command_runspider.py::TestRunSpiderCommand.test_run_fail_spider",
+    "tests/test_command_runspider.py::TestRunSpiderCommand.test_run_good_spider",
+    "tests/test_commands.py::TestEditCommand.test_edit",
+    "tests/test_crawler.py::TestCrawler.test_crawler_accepts_None",
+    "tests/test_crawler.py::TestCrawler.test_crawler_accepts_dict",
+    "tests/test_feedexport.py::TestFeedExport.test_export_based_on_custom_filters",
+    "tests/test_feedexport.py::TestFeedExport.test_export_based_on_item_classes",
+    "tests/test_feedexport.py::TestFeedExport.test_export_feed_export_fields",
+    "tests/test_feedexport.py::TestFeedExport.test_export_items",
+    "tests/test_feedexport.py::TestFeedExport.test_export_multiple_item_classes",
+    "tests/test_feedexport.py::TestFeedExport.test_pathlib_uri_with_placeholders",
+    "tests/test_feedexport.py::TestFeedExport.test_pathlib_uri_with_spaces_and_unicode",
+    "tests/test_feedexport.py::TestFeedExport.test_start_finish_exporting_items",
+    "tests/test_feedexport.py::TestFeedExport.test_start_finish_exporting_items_exception",
+    "tests/test_feedexport.py::TestFeedExport.test_str_uri_with_percent_encoding_and_placeholder",
+    "tests/test_feedexport_batch.py::TestBatchDeliveries.test_batch_path_differ",
+    "tests/test_feedexport_batch.py::TestBatchDeliveries.test_export_items",
+    "tests/test_feedexport_batch.py::TestBatchDeliveries.test_s3_export"
+  ]
+}

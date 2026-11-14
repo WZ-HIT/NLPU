@@ -86,6 +86,10 @@ def compile_round(config_path: Path, round_label: str, *, root: Path = ROOT) -> 
                   'sha256': origin_ref['sha256']}
     prepared_id = 'round-' + canonical_sha256({'config': config_ref, 'round_label': round_label})[:24]
     images = [_image_record(root, base) for base in sorted({p['baseline']['base_sha'] for _, p, _ in owners.values()})]
+    from .test_intention import bundles
+    test_intentions = bundles(config, root, {image['base_sha'] for image in images})
+    from .dynamic_trace import bundles as trace_bundles
+    dynamic_traces = trace_bundles(config, root, {image['base_sha'] for image in images})
     targets = []
     for pr in config['prs']:
         task_id = f'scrapy__scrapy__pr{pr}'
@@ -106,7 +110,8 @@ def compile_round(config_path: Path, round_label: str, *, root: Path = ROOT) -> 
         raise BatchError('ROUND_TARGET_DUPLICATE', 'Expanded target identity is duplicated')
     return {'config': config, 'config_ref': config_ref, 'origin_ref': origin_ref, 'prepared_id': prepared_id,
             'round_label': round_label, 'sources': config['sources'], 'source_records': source_records,
-            'owners': owners, 'images': images, 'targets': targets}
+            'owners': owners, 'images': images, 'targets': targets, 'test_intentions': test_intentions,
+            'dynamic_traces': dynamic_traces}
 
 
 def round_path(config_path: Path, round_label: str, *, root: Path = ROOT) -> Path:
@@ -116,6 +121,10 @@ def round_path(config_path: Path, round_label: str, *, root: Path = ROOT) -> Pat
 
 def _verify_task(task_root: Path, source_task: dict[str, Any], root: Path) -> list[dict[str, str]]:
     evidence = []
+    if (task_root / 'test-intention.json').exists():
+        evidence.append(_ref(task_root / 'test-intention.json', root))
+    if (task_root / 'dynamic-trace.json').exists():
+        evidence.append(_ref(task_root / 'dynamic-trace.json', root))
     expected = source_task['task_manifest']['sha256']
     task_path = task_root / 'task.json'
     if not task_path.is_file() or sha256_file(task_path) != expected:
@@ -196,8 +205,16 @@ def prepare_round(config_path: Path, round_label: str, *, root: Path = ROOT) -> 
         if chosen:
             scaffold_tasks(plan_path=record['plan_path'], provision_report_path=record['report_path'],
                            approved_plan_id=record['approved_id'], bench_root=bench, repository_root=root,
-                           tasks_root=round_root / 'tasks', task_ids=chosen)
+                           tasks_root=round_root / 'tasks', task_ids=chosen,
+                           **({'test_intentions': compiled['test_intentions']}
+                              if compiled.get('test_intentions') else {}),
+                           **({'dynamic_traces': compiled['dynamic_traces']}
+                              if compiled.get('dynamic_traces') else {}))
     evidence = [compiled['config_ref'], *compiled['sources']]
+    if compiled['config'].get('test_intention'):
+        evidence.extend(compiled['config']['test_intention']['artifacts'].values())
+    if compiled['config'].get('dynamic_trace'):
+        evidence.extend(compiled['config']['dynamic_trace']['artifacts'].values())
     for record in compiled['source_records']:
         evidence.extend((_ref(record['plan_path'], root), _ref(record['report_path'], root)))
     for image in compiled['images']:
@@ -213,6 +230,23 @@ def prepare_round(config_path: Path, round_label: str, *, root: Path = ROOT) -> 
             run_preflight(task=task_root, bench=bench, repository_root=root,
                           run_id='preflight-' + compiled['prepared_id'][6:])
         evidence.extend(_verify_task(task_root, source_task, root))
+    testcase_indexes = {}
+    if compiled['config']['evaluation'].get('localization_protocol') == 'testcase-v1':
+        from .testcase_identity import inventory, verified_baseline
+        for image in compiled['images']:
+            base = image['base_sha']
+            repository, _ = verified_baseline(bench, base)
+            index = inventory(repository, base)
+            if index['errors']:
+                raise BatchError('TESTCASE_INDEX_INCOMPLETE', 'Baseline testcase index has unreadable sources', base_sha=base)
+            index_path = round_root / 'testcase-indexes' / (base + '.json')
+            if index_path.exists():
+                if _read(index_path) != index:
+                    raise BatchError('TESTCASE_INDEX_CONFLICT', 'Existing validation index differs from baseline')
+            else:
+                write_json(index_path, index, refuse_overwrite=True)
+            testcase_indexes[base] = _ref(index_path, root)
+            evidence.append(testcase_indexes[base])
     staged = []
     for target in compiled['targets']:
         item = dict(target)
@@ -227,6 +261,8 @@ def prepare_round(config_path: Path, round_label: str, *, root: Path = ROOT) -> 
                            'evaluation': compiled['config']['evaluation']},
                 'images': compiled['images'], 'evidence': evidence,
                 'target_count': len(staged), 'targets': staged}
+    if testcase_indexes:
+        manifest['testcase_indexes'] = testcase_indexes
     _validate(manifest, 'prepared-round-v2.schema.json')
     write_json(frozen_path, manifest, refuse_overwrite=True)
     (round_root / 'ledger.jsonl').touch(exist_ok=True)
@@ -248,6 +284,19 @@ def load_round(path: Path, *, root: Path = ROOT, expected: dict[str, Any] | None
         raise BatchError('ROUND_MANIFEST_CONFLICT', 'Frozen round differs from current pinned inputs')
     for item in manifest['evidence']:
         _pinned(root, item)
+    if compiled['config']['evaluation'].get('localization_protocol') == 'testcase-v1':
+        from .testcase_identity import inventory, verified_baseline
+        indexes = manifest.get('testcase_indexes', {})
+        expected_bases = {image['base_sha'] for image in compiled['images']}
+        if set(indexes) != expected_bases:
+            raise BatchError('TESTCASE_INDEX_MISSING', 'Prepared testcase indexes do not cover all bases')
+        for base, ref in indexes.items():
+            expected_path = path.parent / 'testcase-indexes' / (base + '.json')
+            if _pinned(root, ref) != expected_path:
+                raise BatchError('TESTCASE_INDEX_PATH', 'Validation index is outside its host-only directory')
+            repository, _ = verified_baseline(root / 'sdd-bench/scrapy-sdd', base)
+            if _read(expected_path) != inventory(repository, base):
+                raise BatchError('TESTCASE_INDEX_CONFLICT', 'Frozen index no longer matches baseline')
     for original, staged in zip(compiled['targets'], manifest['targets']):
         if {k: v for k, v in original.items() if k != 'task_manifest'} != {k: v for k, v in staged.items() if k != 'task_manifest'}:
             raise BatchError('ROUND_TARGET_CONFLICT', 'Frozen target identity differs from config')

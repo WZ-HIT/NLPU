@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr7884",
+  "repository": {
+    "owner": "scrapy",
+    "name": "scrapy"
+  },
+  "pr_id": 7884,
+  "baseline": {
+    "base_sha": "a6c017c2ca2b8a9bca8b46b692846f492fe77a00"
+  },
+  "title": "Report exceptions from Spider.start()",
+  "body": "Fixes https://github.com/scrapy/scrapy/issues/3463, closes https://github.com/scrapy/scrapy/pull/4058, fixes https://github.com/scrapy/scrapy/issues/4182, closes https://github.com/scrapy/scrapy/pull/6148.",
+  "adapter": {
+    "id": "scrapy",
+    "version": 1,
+    "path": "sdd-bench/scrapy-sdd/adapters/scrapy.json",
+    "sha256": "059dcc09eaa62f892f54118e65d4deccce3ab29cc5d9a4a36f4d999ff1aa27de"
+  }
+}

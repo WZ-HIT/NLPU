@@ -1,0 +1,73 @@
+{
+  "base_sha": "1bd839b57ddb614664a179b6213f49579bdfd3da",
+  "corpus_count": 2329,
+  "excluded_counts": {},
+  "gold_count": 3,
+  "gold_ranks": {
+    "tests/test_exporters.py::TestBaseItemExporter.test_field_order": 19,
+    "tests/test_exporters.py::TestBaseItemExporter.test_field_order_dict_item": 101,
+    "tests/test_exporters.py::TestBaseItemExporter.test_fields_to_export": 58
+  },
+  "label_issues": [],
+  "labels_sha256": "eaeefefe0aa16ee26ebb0519021241ab155be5091eab8939abec0d51aca8df71",
+  "metrics": {
+    "100": {
+      "all_hit": 0,
+      "candidate_count": 100,
+      "candidate_fraction": 0.042936882782310004,
+      "fn": 1,
+      "fp": 98,
+      "gold_count": 3,
+      "hit_at_k": 1,
+      "matched_count": 2,
+      "precision": 0.02,
+      "recall": 0.6666666666666666,
+      "recall_at_k": 0.6666666666666666,
+      "tp": 2,
+      "zero_score_count": 0
+    },
+    "200": {
+      "all_hit": 1,
+      "candidate_count": 200,
+      "candidate_fraction": 0.08587376556462001,
+      "fn": 0,
+      "fp": 197,
+      "gold_count": 3,
+      "hit_at_k": 1,
+      "matched_count": 3,
+      "precision": 0.015,
+      "recall": 1.0,
+      "recall_at_k": 1.0,
+      "tp": 3,
+      "zero_score_count": 0
+    },
+    "50": {
+      "all_hit": 0,
+      "candidate_count": 50,
+      "candidate_fraction": 0.021468441391155002,
+      "fn": 2,
+      "fp": 49,
+      "gold_count": 3,
+      "hit_at_k": 1,
+      "matched_count": 1,
+      "precision": 0.02,
+      "recall": 0.3333333333333333,
+      "recall_at_k": 0.3333333333333333,
+      "tp": 1,
+      "zero_score_count": 0
+    }
+  },
+  "pr_id": 7931,
+  "prediction": {
+    "path": "predictions/pr-7931.json.gz",
+    "pr_id": 7931,
+    "sha256": "cc50876184cf24ad814b28abbe2854b4e2a9355c5c2495e87a9ee3b318f5e00e"
+  },
+  "query_sha256": "b709948be67621a7a6092014016d2d9191139a0be8083cebed4d0e11a37b63fc",
+  "rank_seconds": 0.0016545634716749191,
+  "raw_line": 115,
+  "raw_record_sha256": "2cb2a6e84dfbde4e6c656708041effe245e198e70fbee373f6b55da77045e9e7",
+  "repository": "scrapy/scrapy",
+  "scorable": true,
+  "status": "SCORED"
+}

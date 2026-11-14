@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "rounds": [
+    {
+      "id": "scrapy-ti-d-first30-20261114-v1",
+      "name": "当前实验 · D组 TI＋调用图与两层共享 · 30 PR",
+      "provider": "test-intention-run-v1",
+      "run_root": "/data2/wangzuohit/NLPU-experiments/test-intention/dynamic-d-experiment-20261114-v1",
+      "plan_sha256": "b0ec9f43f495e654a676677d4770b303264ffa03d363f16413a0ef752d34c71b",
+      "groups": [
+        {
+          "batch_id": "scrapy-ti-d-first30-20261114-v1",
+          "name": "D组 · 首批30 PR · 三SDD"
+        }
+      ]
+    },
+    {
+      "id": "scrapy-all-tests-first30-v2",
+      "name": "历史实验 · 全量测试独立定位 · 首批30 PR",
+      "provider": "production-test-v1",
+      "snapshot": "Log/viewer/all-tests-first30-v2.json",
+      "manifest_sha256": "f10a02e63474b40e657dd3a3049c9f2356f50ea9bb8c5f78e4c6b5c5f3647189",
+      "historical_compare_round": "scrapy-testcase-002",
+      "historical_batch_id": "round-65f66ff1426e4c7d1f8da662",
+      "previous_strategy_round": "scrapy-production-test-first30-v1",
+      "groups": [
+        {
+          "batch_id": "scrapy-all-tests-first30-v2",
+          "name": "首批30 PR · 三SDD · 全量测试搜索"
+        }
+      ]
+    },
+    {
+      "id": "scrapy-production-test-first30-v1",
+      "name": "历史实验 · 生产候选关联测试 · 首批30 PR",
+      "provider": "production-test-v1",
+      "snapshot": "Log/viewer/production-first30-v1.json",
+      "manifest_sha256": "4d053141404c86f937dc4dcabf550de644bbbc523a1f11621b27472db16c4e8f",
+      "historical_compare_round": "scrapy-testcase-002",
+      "historical_batch_id": "round-65f66ff1426e4c7d1f8da662",
+      "groups": [
+        {
+          "batch_id": "scrapy-production-test-first30-v1",
+          "name": "首批30 PR · 三SDD独立两轮"
+        }
+      ]
+    },
+    {
+      "id": "scrapy-testcase-002",
+      "name": "测试方法定位 · testcase-002",
+      "groups": [
+        {
+          "batch_id": "round-65f66ff1426e4c7d1f8da662",
+          "name": "首批 30 PR"
+        },
+        {
+          "batch_id": "round-b9a87ccd6868207ed77d9480",
+          "name": "新增 30 PR"
+        },
+        {
+          "batch_id": "round-f584f81d83c0d41fcde84718",
+          "name": "剩余 38 PR"
+        }
+      ]
+    },
+    {
+      "id": "scrapy-file-first-98",
+      "name": "历史对照 · 文件级首轮（98 PR）",
+      "groups": [
+        {
+          "batch_id": "round-e952d4d4e37c6649f616fc7c",
+          "name": "首批 30 PR · rerun-001"
+        },
+        {
+          "batch_id": "round-ea687beb4344142e7c29bfe6",
+          "name": "新增 30 PR · next30-001"
+        },
+        {
+          "batch_id": "round-8c57c466813dec1830e8b2b0",
+          "name": "剩余 38 PR · remaining38-001"
+        }
+      ]
+    }
+  ]
+}

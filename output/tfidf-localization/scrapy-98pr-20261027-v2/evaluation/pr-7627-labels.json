@@ -1,0 +1,24 @@
+{
+  "base_sha": "e74647572d692598ca943db539d45aefdc4956ac",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "deleted",
+      "id": "tests/test_spider_crawl.py::TestCrawlSpider.test_start_url"
+    }
+  ],
+  "excluded_counts": {
+    "deleted": 1
+  },
+  "index_sha256": "367ad68ce052e577058c99621a8a491b9d8da470fc7288682c3977668b3026bc",
+  "issues": [],
+  "labels_sha256": "3c080a5358b6c59d280bd1841560b624cfd675cd4ff262530c9c417673c9614e",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "0b4fa7348293c9c01bc48cc9de6c7f4d196ff56e2edae236bbde92bd6838b578",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_downloadermiddleware_offsite.py::test_process_request_invalid_domains",
+    "tests/test_downloadermiddleware_offsite.py::test_request_scheduled_invalid_domains"
+  ]
+}

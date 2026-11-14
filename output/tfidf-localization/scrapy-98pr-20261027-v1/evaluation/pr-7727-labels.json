@@ -1,0 +1,51 @@
+{
+  "base_sha": "c9446931a80e63ea1d77e130ea5581b547e0f51b",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "added",
+      "id": "tests/test_pipeline_files.py::TestGCSFilesStore.test_create_perm_missing"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_pipeline_files.py::TestGCSFilesStore.test_get_perm_missing"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_pipeline_files.py::TestGCSFilesStore.test_init"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_pipeline_files.py::TestGCSFilesStore.test_persist_defaults"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_pipeline_files.py::TestGCSFilesStore.test_stat"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_pipeline_files.py::TestGCSFilesStore.test_stat_missing_blob"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_pipeline_files.py::TestGCSFilesStore.test_update_stores"
+    }
+  ],
+  "excluded_counts": {
+    "added": 7
+  },
+  "index_sha256": "dc2cae55745892e02a4fe5c604627e0a22faa237ccfb4fa9d455d85169057101",
+  "issues": [],
+  "labels_sha256": "2269616006bd2a9706c4af38fcb996ef68ac8f657ea871ca6b04155dc12aa5fe",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "8b0f8ee9ddd74dea5caab835d21d28419265c7ae2ae1c1398ada6071c93d1f81",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_pipeline_files.py::TestFTPFileStore.test_persist",
+    "tests/test_pipeline_files.py::TestGCSFilesStore.test_blob_path_consistency",
+    "tests/test_pipeline_files.py::TestGCSFilesStore.test_persist",
+    "tests/test_pipeline_files.py::TestS3FilesStore.test_persist",
+    "tests/test_pipeline_files.py::TestS3FilesStore.test_stat"
+  ]
+}

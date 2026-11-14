@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "case_id": "pr-7605",
+  "pr_id": 7605,
+  "repo": "scrapy/scrapy",
+  "base_sha": "a8ffdcf8517a8973391a14635234b6993b15a86a",
+  "head_sha": "292024b447f8658c9300169125c6e0322be3bae9",
+  "merge_sha": "f63a3aff254f43f06fa7de074159ff1f42546789",
+  "classification": "MIXED_CODE_AND_TEST_PR",
+  "selection": {
+    "stratum": "direct",
+    "rationale": "Direct raw-pair evidence: static_call, import"
+  },
+  "production_changes": [
+    {
+      "path": "scrapy/utils/url.py",
+      "symbol": "strip_url",
+      "kind": "function",
+      "change_kind": "unknown",
+      "hunks": [
+        [
+          139,
+          145
+        ]
+      ],
+      "evidence_ref": "batch/gold/scrapy__scrapy__pr7605/gold-store.json#production_patches[0]"
+    }
+  ],
+  "modified_tests": [
+    {
+      "path": "tests/test_utils_url.py",
+      "qualified_name": "TestStripUrl.test_default_ports"
+    }
+  ],
+  "edges": [
+    {
+      "edge_id": "pr-7605:TestStripUrl.test_default_ports->strip_url",
+      "test": {
+        "path": "tests/test_utils_url.py",
+        "qualified_name": "TestStripUrl.test_default_ports"
+      },
+      "production": {
+        "path": "scrapy/utils/url.py",
+        "symbol": "strip_url"
+      },
+      "relation": "direct",
+      "hops": 1,
+      "path": [
+        "TestStripUrl.test_default_ports",
+        "strip_url"
+      ],
+      "evidence": [
+        "static_call",
+        "import"
+      ],
+      "confidence": "high",
+      "status": "candidate",
+      "rationale": "Direct raw-pair evidence: static_call, import"
+    }
+  ],
+  "no_edge_changes": [],
+  "test_level": {
+    "positives": [
+      {
+        "path": "tests/test_utils_url.py",
+        "qualified_name": "TestStripUrl.test_default_ports"
+      }
+    ],
+    "missed_updates": [],
+    "coverage_gaps": [],
+    "unknown": []
+  },
+  "review": {
+    "status": "draft",
+    "first_pass_at": null,
+    "second_pass_at": null,
+    "changed_verdicts": []
+  },
+  "notes": "Pre-classification dominant=direct counts={\"direct\": 1, \"no_edge\": 0}. Auto-generated candidate record. Reviewer must confirm/reject every edge, assign change_kind and counterfactual, and check for resolver gaps."
+}

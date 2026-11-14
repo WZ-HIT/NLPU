@@ -1,0 +1,32 @@
+{
+  "base_sha": "8e94df65262f9d4d2d016bd3bc173c90c766c390",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "deleted",
+      "id": "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_process_response_br_unsupported"
+    }
+  ],
+  "excluded_counts": {
+    "deleted": 1
+  },
+  "index_sha256": "c56749a99842b77386e92418cd8ea6cd298c7aac37f5fafe6771485065fff467",
+  "issues": [],
+  "labels_sha256": "331bab9f59d4f40891fdee1ccb377bb4989938196ad653441de7c6887bac2172",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "a71be4ebe98e1f4534aa7ecd226ecda7ab23c65fb6e3ba4b01ef761199c72124",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_command_shell.py::TestInteractiveShell.test_fetch",
+    "tests/test_command_shell.py::TestInteractiveShell.test_shell_from_cfg",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_compression_bomb_request_meta_br",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_compression_bomb_setting_br",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_compression_bomb_spider_attr_br",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_download_warnsize_request_meta_br",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_download_warnsize_setting_br",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_download_warnsize_spider_attr_br",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_process_response_br",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_process_truncated_response_br"
+  ]
+}

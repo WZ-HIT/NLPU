@@ -1,0 +1,59 @@
+{
+  "base_sha": "b78ab3d6c8715d488ac657e0d09d0cf7bc6abc42",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "added",
+      "id": "tests/test_downloadermiddleware_cookies.py::TestCookiesMiddleware.test_debug_no_cookies"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_downloadermiddleware_downloadtimeout.py::TestDownloadTimeoutMiddleware.test_zero_download_timeout"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_no_crawler_constructor"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_downloadermiddleware_httpproxy.py::TestHttpProxyMiddleware.test_proxy_unparseable_url_clears_meta"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_downloadermiddleware_offsite.py::test_repeated_offsite_domain"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_downloadermiddleware_redirect.py::TestRedirectMiddleware.test_redirect_target_has_fragment"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_downloadermiddleware_redirect.py::test_not_configured"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_downloadermiddleware_redirect_metarefresh.py::test_not_configured"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_downloadermiddleware_stats.py::TestDownloaderStats.test_from_crawler_not_configured"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_downloadermiddleware_stats.py::test_get_header_size_non_list_value"
+    }
+  ],
+  "excluded_counts": {
+    "added": 10
+  },
+  "index_sha256": "2a0664f158b93b718627fdcbe9078abcabe2efbad3315426023c2b5427421d1a",
+  "issues": [],
+  "labels_sha256": "03b2491c5ddc1770e9449817ffdfc4c5336a207c48555c492ac9cb4f6173aabc",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "c5d0ab0cd4e243ff0180709587e5aa14d09f2b61b2368e0ccebe48724c034891",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_downloadermiddleware_httpcache.py::PolicyTestMixin.test_dont_cache"
+  ]
+}

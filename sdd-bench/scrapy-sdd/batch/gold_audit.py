@@ -47,6 +47,7 @@ def validate_schema(value,path):
  errors=list(Draft202012Validator(json.loads(path.read_text())).iter_errors(value))
  if errors:raise BatchError('SCHEMA_VALIDATION_FAILED','Generated artifact failed schema',schema=str(path),errors=[e.message for e in errors])
 def verify_detection(value,schema_path,task_id,method,base,input_sha,allow_canary=False):
+ if value.get('schema_version')==2:schema_path=schema_path.with_name('detection-v2.schema.json')
  validate_schema(value,schema_path)
  payload=dict(value);seal=payload.pop('seal')
  checks={'task_match':payload.get('task_id')==task_id,'method_match':payload.get('method')==method,'base_match':payload.get('base_sha')==base,'task_input_match':payload.get('task_input_sha256')==input_sha,'seal_valid':seal.get('payload_sha256')==canonical_sha256(payload),'producer_valid':payload.get('producer',{}).get('kind')=='agent' or allow_canary}

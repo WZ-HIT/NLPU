@@ -1,0 +1,31 @@
+{
+  "base_sha": "dd4549e6f9a92f4844b552aad49ab4431f73514f",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "added",
+      "id": "tests/test_core_downloader.py::TestContextFactoryCiphers.test_custom"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_core_downloader.py::TestContextFactoryCiphers.test_default"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_core_downloader.py::TestContextFactoryCiphers.test_none"
+    }
+  ],
+  "excluded_counts": {
+    "added": 3
+  },
+  "index_sha256": "8a654cb8d3cd540ba609ba0aa6699c8460bbc07974510f533f099660a9a3408a",
+  "issues": [],
+  "labels_sha256": "d7a8103d4539b7fdb168952f64177ed5bd5955fc7215ca8639122e63d54dfc0f",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "37f90c17add6e0059128156d49a260fd8069ddec9c2aafe01f8b8050e2136a8f",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_core_downloader.py::test_deprecated_tls_module_names"
+  ]
+}

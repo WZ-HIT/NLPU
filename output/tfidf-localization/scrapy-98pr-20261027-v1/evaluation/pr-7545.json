@@ -1,0 +1,77 @@
+{
+  "base_sha": "4a165508591da164393c448eebc86c9aa48081da",
+  "corpus_count": 2004,
+  "excluded_counts": {},
+  "gold_count": 7,
+  "gold_ranks": {
+    "tests/test_spidermiddleware_httperror.py::TestHttpErrorMiddlewareIntegrational.test_logging": 19,
+    "tests/test_spidermiddleware_httperror.py::TestHttpErrorMiddlewareIntegrational.test_logging_level": 2,
+    "tests/test_spidermiddleware_httperror.py::TestHttpErrorMiddlewareIntegrational.test_middleware_works": 325,
+    "tests/test_utils_log.py::TestTopLevelFormatter.test_children_logger": 5,
+    "tests/test_utils_log.py::TestTopLevelFormatter.test_different_name_logger": 10,
+    "tests/test_utils_log.py::TestTopLevelFormatter.test_overlapping_name_logger": 6,
+    "tests/test_utils_log.py::TestTopLevelFormatter.test_top_level_logger": 1
+  },
+  "label_issues": [],
+  "labels_sha256": "868d1bd8b5c17076527ef34f2ecbe37057c36e8309ebe4df6a8e9a6747bccbdf",
+  "metrics": {
+    "100": {
+      "all_hit": 0,
+      "candidate_count": 100,
+      "candidate_fraction": 0.0499001996007984,
+      "fn": 1,
+      "fp": 94,
+      "gold_count": 7,
+      "hit_at_k": 1,
+      "matched_count": 6,
+      "precision": 0.06,
+      "recall": 0.8571428571428571,
+      "recall_at_k": 0.8571428571428571,
+      "tp": 6,
+      "zero_score_count": 0
+    },
+    "200": {
+      "all_hit": 0,
+      "candidate_count": 200,
+      "candidate_fraction": 0.0998003992015968,
+      "fn": 1,
+      "fp": 194,
+      "gold_count": 7,
+      "hit_at_k": 1,
+      "matched_count": 6,
+      "precision": 0.03,
+      "recall": 0.8571428571428571,
+      "recall_at_k": 0.8571428571428571,
+      "tp": 6,
+      "zero_score_count": 0
+    },
+    "50": {
+      "all_hit": 0,
+      "candidate_count": 50,
+      "candidate_fraction": 0.0249500998003992,
+      "fn": 1,
+      "fp": 44,
+      "gold_count": 7,
+      "hit_at_k": 1,
+      "matched_count": 6,
+      "precision": 0.12,
+      "recall": 0.8571428571428571,
+      "recall_at_k": 0.8571428571428571,
+      "tp": 6,
+      "zero_score_count": 0
+    }
+  },
+  "pr_id": 7545,
+  "prediction": {
+    "path": "predictions/pr-7545.json.gz",
+    "pr_id": 7545,
+    "sha256": "e381ccb4235036653f7702386b3e4cc331a6da93c5b4fd11643eed8e957daf15"
+  },
+  "query_sha256": "da34ce887690d26cdf7dd6939921a881a8748a4ce56330c1591f89ee35d5afc6",
+  "rank_seconds": 0.0020691286772489548,
+  "raw_line": 250,
+  "raw_record_sha256": "7c771d17e1aed1569196a87d6ef8c475edac164a7de23b2e2458bd4031c7347f",
+  "repository": "scrapy/scrapy",
+  "scorable": true,
+  "status": "SCORED"
+}

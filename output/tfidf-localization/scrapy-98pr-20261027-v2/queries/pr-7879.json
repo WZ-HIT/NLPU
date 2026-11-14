@@ -1,0 +1,4 @@
+{
+  "body": "Fixes https://github.com/scrapy/scrapy/issues/6550.",
+  "title": "Fix open_in_browser not adding a base tag without a head element"
+}

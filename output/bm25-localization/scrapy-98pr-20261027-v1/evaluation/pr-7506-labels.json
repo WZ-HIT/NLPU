@@ -1,0 +1,45 @@
+{
+  "base_sha": "a8a8f20d9c49ae7f611cbdc90676b64f6349dba2",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "added",
+      "id": "tests/test_utils_response.py::test_open_in_browser_does_not_inject_base_when_present"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_response.py::test_open_in_browser_injects_base_at_real_head_not_commented_head"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_response.py::test_open_in_browser_injects_base_when_only_in_comment"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_response.py::test_open_in_browser_preserves_html_comments"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_response.py::test_open_in_browser_raises_for_unsupported_response_type"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_response.py::test_open_in_browser_text_response_uses_txt_extension"
+    }
+  ],
+  "excluded_counts": {
+    "added": 6
+  },
+  "index_sha256": "24ea599dee78c87680dd40289367207be02bdc37c759fe03c03513d5f133a997",
+  "issues": [],
+  "labels_sha256": "798dcc9b2474eca213e5ff63e08b2defc83fae366de2cfa37e9398f06ca2efb8",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "1f4e22d8757bb7c1b228f9d5eddba8e5944b5907ba0581372935da20838d6fcb",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_utils_response.py::test_inject_base_url",
+    "tests/test_utils_response.py::test_open_in_browser",
+    "tests/test_utils_response.py::test_remove_html_comments"
+  ]
+}

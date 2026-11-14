@@ -1,0 +1,21 @@
+{
+  "base_sha": "ca21306df769754ab4ad01596898a63f2fc90de6",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [],
+  "excluded_counts": {},
+  "index_sha256": "54ae87c3ba4d7f823611a26b3e51b57003703635b3340ddb09ee5d092c0f2e46",
+  "issues": [],
+  "labels_sha256": "e78f3856c822ee53396095fe0454bcdfb7c65f94e9bec2827fb6b7df12d52f30",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "f734e31cad9255e31f8865f91f2c10e38f6b4155c462a4989ead5a101e3f03a0",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_process_response_br_unsupported",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_process_response_zstd_unsupported",
+    "tests/test_feedexport_storages.py::TestGCSFeedStorage.test_parse_empty_acl",
+    "tests/test_feedexport_storages.py::TestGCSFeedStorage.test_parse_settings",
+    "tests/test_feedexport_storages.py::TestGCSFeedStorage.test_store",
+    "tests/test_feedexport_storages.py::TestGCSFeedStorage.test_store_closes_file_on_upload_error"
+  ]
+}

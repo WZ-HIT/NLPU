@@ -1,0 +1,4 @@
+{
+  "body": "Fixes https://github.com/scrapy/scrapy/issues/6681.",
+  "title": "Support asynchronous callbacks in contracts"
+}

@@ -105,3 +105,16 @@ Start with the final documents:
 ## 独立重跑 30 PR Detect
 
 配置和逐步命令见 [独立 Detect 轮次](docs/refactor/isolated-detect-rounds.md)。通过配置中的 `prs` 选择 PR，通过 `--round` 创建或续跑独立轮次；只有 `run --stage detect --execute` 会调用 Agent。
+
+## testcase 级定位与离线验收
+
+文件级与测试函数／方法级指标同时保留，见 [双粒度定位协议](docs/refactor/testcase-localization.md)。
+在 NLPU 根目录执行 `python3 sdd-bench/scrapy-sdd/bin/check-testcase` 一键离线验收，不调用模型或 Docker。
+
+## Token 用量与结果页面
+
+SDD Results v1.5.0 在实验卡片、批次和单 PR 页面展示输入、缓存输入、输出及含重试的 token 合计。新尝试保存 `token-usage.json`，旧日志只读兼容，缺失不按零计。详见 [token 记录与双粒度页面](docs/refactor/token-usage.md)。
+
+### 结果页面：按轮次组织
+
+`sdd-results` 1.6.1 首页按完整轮次选择，30 / 30 / 38 执行组和 PR 在轮次内查看；支持文件 / testcase 指标切换、独立轮次比较与每组备注。已有服务需重启后加载新版。归组方式、备注备份和离线验收见 [轮次版面说明](docs/refactor/results-layout.md)。

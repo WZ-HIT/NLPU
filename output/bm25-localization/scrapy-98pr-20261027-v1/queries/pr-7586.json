@@ -1,0 +1,4 @@
+{
+  "body": "Fixes #6958",
+  "title": " Replace _SettingsKeyT with str."
+}

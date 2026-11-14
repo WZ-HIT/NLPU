@@ -1,0 +1,31 @@
+{
+  "base_sha": "cec86f216e02072b2e9ed5b032810e061143277c",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "added",
+      "id": "tests/test_resolver.py::test_caching_hostname_resolver_cache_hit_uses_requested_port"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_resolver.py::test_caching_hostname_resolver_cache_hit_without_port"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_resolver.py::test_caching_hostname_resolver_cached_addresses_have_no_port"
+    }
+  ],
+  "excluded_counts": {
+    "added": 3
+  },
+  "index_sha256": "670673aab4e588ad1e36dce6d584785838a777729850d4bfa0c75b80572545e4",
+  "issues": [],
+  "labels_sha256": "8dbe3f3396fcfbcb00782242ed4bb6a5e5688c59322354a2194a58f5db351b3d",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "81520c918100e0a71e312bb5c50ea7a01b027aaede28bf706935c02e0141c287",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_resolver.py::test_caching_hostname_resolver_dnscache_disabled_rejects_storage"
+  ]
+}

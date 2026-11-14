@@ -1,0 +1,17 @@
+{
+  "base_sha": "d8ba1571e714b069216e5f21804f3754cdc2a032",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [],
+  "excluded_counts": {},
+  "index_sha256": "ebdce585a6e9af5ba9010d0718af42fdcd8d939eae36a2fca7791397f4874df6",
+  "issues": [],
+  "labels_sha256": "d0b72bf8ee2ff167b4075530cfefe3783b17cc19426aa6aec51cd710443fb2a6",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "0740b89c306101d44069e44a29c8e35bb79e90c68fada119707021e4128a7f11",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_downloader_handlers.py::TestS3.test_insecure_opt_out",
+    "tests/test_downloader_handlers.py::TestS3Anon.test_anon_request_insecure"
+  ]
+}

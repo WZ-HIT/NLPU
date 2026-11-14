@@ -1,0 +1,17 @@
+{
+  "base_sha": "4f0b5fa5c3a275b068bc4e028dfd09dd2f878bc0",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [],
+  "excluded_counts": {},
+  "index_sha256": "0c2d31f31cdad843aa476d893cf455a679d980e2548a65b6db47a6db18ffc1e6",
+  "issues": [],
+  "labels_sha256": "6a2b6f11d07f8160df2ce399441baad6aea407903676ea50105bc236fb271893",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "a5cceae4dd52d9e33e948ff95d10d4b124e246fb260fda8ee68d3ed33ec563aa",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_selector.py::TestJMESPath.test_html_has_json",
+    "tests/test_selector.py::TestJMESPath.test_json_has_html"
+  ]
+}

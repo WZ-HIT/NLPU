@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr7785",
+  "repository": {
+    "owner": "scrapy",
+    "name": "scrapy"
+  },
+  "pr_id": 7785,
+  "baseline": {
+    "base_sha": "e710b9c18e18f0a3fe104fbfc72d49c221dfe448"
+  },
+  "title": "Add type hints to test_link.py and test_downloadermiddleware_stats.py",
+  "body": "Adds full type annotations to two small, previously-untyped test\r\nmodules and removes them from the mypy allow_untyped_defs override\r\nlist in pyproject.toml.\r\n\r\nCONTRIBUTING.md mentions: \"If you enjoy code cleanup, we welcome\r\nfixes for issues detected by our static analysis tools. See\r\npyproject.toml for silenced issues that may need addressing.\"\r\n\r\nVerified locally with:\r\n- pytest tests/test_link.py tests/test_downloadermiddleware_stats.py\r\n- mypy tests/test_link.py tests/test_downloadermiddleware_stats.py\r\n- ruff check / ruff format --check\r\n\r\nNo behavior changes, only type annotations and one `# type: ignore`\r\ncomment for an intentional invalid-type test case.",
+  "adapter": {
+    "id": "scrapy",
+    "version": 1,
+    "path": "sdd-bench/scrapy-sdd/adapters/scrapy.json",
+    "sha256": "059dcc09eaa62f892f54118e65d4deccce3ab29cc5d9a4a36f4d999ff1aa27de"
+  }
+}

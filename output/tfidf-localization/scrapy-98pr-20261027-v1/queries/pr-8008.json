@@ -1,0 +1,4 @@
+{
+  "body": "Fixes #8006\r\n\r\n`test_slow_pipeline` asserts a strict item order (A then B), but both\r\nitems get an identical artificial delay in `SlowPipeline.process_item`.\r\nTheir completion order depends on event-loop scheduling rather than\r\nsubmission order, so the assertion is racy — reproduced on the Windows\r\n\"min\" CI job where timer resolution is coarser:\r\nhttps://github.com/scrapy/scrapy/actions/runs/32053018703/job/95456761821\r\n\r\nFix: added an `ordered` flag to `_test_spider` (default `True`, so every\r\nother test is unaffected). `test_slow_pipeline` now compares items\r\nunordered instead of asserting a strict sequence.\r\n\r\nVerified locally with 20x reruns via pytest-repeat, all passing.",
+  "title": "fix flaky test_slow_pipeline by comparing items unordered"
+}

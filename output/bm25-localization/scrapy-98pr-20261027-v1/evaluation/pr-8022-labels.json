@@ -1,0 +1,35 @@
+{
+  "base_sha": "916039ca4ca79ea4ed38e74d71e25c2584c1925e",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "added",
+      "id": "tests/test_crawler.py::TestAsyncCrawlerProcessReactorlessHelpers.test_signal_kill_reactorless_does_not_log_inline"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_crawler.py::TestAsyncCrawlerProcessReactorlessHelpers.test_signal_shutdown_reactorless_does_not_log_inline"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_crawler.py::TestCrawlerProcessBaseSignalHandlers.test_signal_kill_does_not_log_inline"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_crawler.py::TestCrawlerProcessBaseSignalHandlers.test_signal_shutdown_does_not_log_inline"
+    }
+  ],
+  "excluded_counts": {
+    "added": 4
+  },
+  "index_sha256": "7092ea46f82df5834cf6458a56414f44bc42257b7a0dabad85d3321767633ede",
+  "issues": [],
+  "labels_sha256": "7e731b7b5e0950b1dde84dc592c1a14426ab6bc359fc2cce908b3525163ace14",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "a7d22bcd9333dae6c168828a4dc6cec0dedf500f407396ccdecc675543ac67a5",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_crawler.py::TestAsyncCrawlerProcessReactorlessHelpers.test_signal_kill_reactorless_without_main_task"
+  ]
+}

@@ -199,7 +199,7 @@ def _validate_approval(plan: dict[str, Any], plan_path: Path, report: dict[str, 
         raise BatchError("PROVISION_PLAN_HASH_MISMATCH", "Provision report references a different plan")
 
 
-def scaffold_tasks(*, plan_path: Path, provision_report_path: Path, approved_plan_id: str, bench_root: Path, repository_root: Path, tasks_root: Path | None = None, task_ids: set[str] | None = None) -> list[dict[str, Any]]:
+def scaffold_tasks(*, plan_path: Path, provision_report_path: Path, approved_plan_id: str, bench_root: Path, repository_root: Path, tasks_root: Path | None = None, task_ids: set[str] | None = None, test_intentions: dict[str, Path] | None = None, dynamic_traces: dict[str, Path] | None = None) -> list[dict[str, Any]]:
     plan = json.loads(plan_path.read_text(encoding="utf-8"))
     provision = json.loads(provision_report_path.read_text(encoding="utf-8"))
     _validate_approval(plan, plan_path, provision, provision_report_path, approved_plan_id, repository_root)
@@ -219,6 +219,9 @@ def scaffold_tasks(*, plan_path: Path, provision_report_path: Path, approved_pla
         if not provisioned or provisioned["status"] == "BLOCKED":
             raise BatchError("TASK_NOT_PROVISIONED", "Task has no usable provision result", task_id=task_id)
         base_sha = planned["baseline"]["base_sha"]
+        if dynamic_traces:
+            from .dynamic_trace import verify_source_snapshot
+            verify_source_snapshot(dynamic_traces[base_sha], bench_root / 'batch/baselines' / base_sha / 'repository')
         raw = _raw_record(raw_path, planned["repository"], planned["pr_id"])
         if raw.get("base_sha") != base_sha:
             raise BatchError("BASE_SHA_MISMATCH", "Raw base SHA differs from plan", task_id=task_id)
@@ -229,6 +232,8 @@ def scaffold_tasks(*, plan_path: Path, provision_report_path: Path, approved_pla
 
         task_root = tasks_root / task_id
         if task_root.exists():
+            from .dynamic_trace import verify_reuse
+            verify_reuse(task_root, base_sha, dynamic_traces.get(base_sha) if dynamic_traces else None, METHODS)
             existing_manifest = task_root / "task.json"
             if not existing_manifest.is_file():
                 raise BatchError("TASK_ALREADY_EXISTS", "Existing task has no manifest", path=str(task_root))
@@ -337,6 +342,24 @@ def scaffold_tasks(*, plan_path: Path, provision_report_path: Path, approved_pla
                 for entry in frozen_entries[method]:
                     _copy_entry(source_root, init_files, entry)
                     _copy_entry(source_root, workspace, entry)
+                if test_intentions:
+                    from .test_intention import verify_bundle
+                    bundle = verify_bundle(test_intentions[base_sha] / 'manifest.json', base_sha)
+                    if dynamic_traces and json.loads((bundle / 'manifest.json').read_text()).get('material_group') == 'D':
+                        raise BatchError('DYNAMIC_INPUT_CONFLICT', 'D contains complete-only runtime evidence; do not also mount the original trace bundle')
+                    destination = workspace / 'test-intentions'
+                    if destination.exists():
+                        raise BatchError('INTENTION_DESTINATION_EXISTS', 'Base already contains the representation directory')
+                    shutil.copytree(bundle, destination)
+                    verify_bundle(destination / 'manifest.json', base_sha)
+                if dynamic_traces:
+                    from .dynamic_trace import verify_bundle as verify_trace_bundle
+                    bundle = verify_trace_bundle(dynamic_traces[base_sha] / 'manifest.json', base_sha)
+                    destination = workspace / 'test-traces'
+                    if destination.exists() or destination.is_symlink():
+                        raise BatchError('TRACE_DESTINATION_EXISTS', 'Base already contains the trace directory')
+                    shutil.copytree(bundle, destination)
+                    verify_trace_bundle(destination / 'manifest.json', base_sha)
                 (workspace / _safe_path(config["planning_workspace_path"])).mkdir(parents=True, exist_ok=True)
                 # Before the freeze below, which strips the write bits that
                 # mkdir needs. Both stages mount a tmpfs over this path.
@@ -393,6 +416,15 @@ def scaffold_tasks(*, plan_path: Path, provision_report_path: Path, approved_pla
                 })
                 initialization_records[method] = {"path": f"initialization/{method}/manifest.json", "sha256": sha256_file(init_root / "manifest.json")}
 
+            if test_intentions:
+                write_json(temporary / 'test-intention.json', {
+                    'base_sha': base_sha, 'entrypoint': 'test-intentions/README.md',
+                    'manifest_sha256': sha256_file(test_intentions[base_sha] / 'manifest.json'),
+                })
+            if dynamic_traces:
+                from .dynamic_trace import binding
+                write_json(temporary / 'dynamic-trace.json', binding(dynamic_traces[base_sha], base_sha))
+
             stage_policy = {
                 "schema_version": 1, "policy_type": "DETECT_UPDATE_STAGE_POLICY", "task_id": task_id,
                 "fresh_container_per_stage": True,
@@ -434,6 +466,8 @@ def scaffold_tasks(*, plan_path: Path, provision_report_path: Path, approved_pla
             write_json(temporary / "provision-report.json", task_report)
 
             metadata_paths = [temporary / "task.json", temporary / "experiment-inputs/task.md", temporary / "stage-policy.json", temporary / "initial-workspaces.json", temporary / "provision-report.json"]
+            if dynamic_traces:
+                metadata_paths.append(temporary / 'dynamic-trace.json')
             metadata_paths += [temporary / value["path"] for value in initialization_records.values()]
             text = b"\n".join(path.read_bytes() for path in metadata_paths)
             forbidden = [b"TEST_ONLY_PR", b"MIXED_CODE_AND_TEST_PR", b'"changed_files"', b'"gold_test"', b'"head_sha"', b'"merge_commit_sha"']

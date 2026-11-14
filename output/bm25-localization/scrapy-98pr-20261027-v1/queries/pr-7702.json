@@ -1,0 +1,4 @@
+{
+  "body": "Fixes #7262.\r\n\r\nDoing it only for \"latest\" envs seemed rather complicated, so I am exploring the possibility of simply doing it globally.",
+  "title": "CI: warnings → errors"
+}

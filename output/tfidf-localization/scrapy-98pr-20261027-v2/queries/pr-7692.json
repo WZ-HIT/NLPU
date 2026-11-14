@@ -1,0 +1,4 @@
+{
+  "body": "Fixes #7247, closes #7383.",
+  "title": "Solve timing issues with HTTP cache tests"
+}

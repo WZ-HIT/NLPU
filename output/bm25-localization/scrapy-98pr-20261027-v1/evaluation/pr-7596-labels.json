@@ -1,0 +1,32 @@
+{
+  "base_sha": "64358f547bfa562ca9a4a6d20ab1e7dec0ec4d00",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "added",
+      "id": "tests/test_utils_console.py::test_get_shell_embed_func_default"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_console.py::test_get_shell_embed_func_ptpython"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_console.py::test_get_shell_embed_func_python"
+    }
+  ],
+  "excluded_counts": {
+    "added": 3
+  },
+  "index_sha256": "312800914a6c0e6ef696e8af3df66689ddb3efe827d3afc143dfaa657a5d1f84",
+  "issues": [],
+  "labels_sha256": "ddd6eb70f4354b74477d6409a064c0a394164bc2a2c1c4e902ca855aa59671d8",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "b0dfa5b40153e475ce6ba7fdb87eacf3af26163dd887c2081aa6769eb2be54f8",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_utils_console.py::test_get_shell_embed_func_bpython",
+    "tests/test_utils_console.py::test_get_shell_embed_func_ipython"
+  ]
+}

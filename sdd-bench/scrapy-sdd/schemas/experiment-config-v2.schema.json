@@ -59,6 +59,9 @@
       "properties": {
         "kind": {
           "const": "detect-host"
+        },
+        "localization_protocol": {
+          "const": "testcase-v1"
         }
       }
     },
@@ -68,6 +71,52 @@
       "uniqueItems": true,
       "items": {
         "$ref": "#/$defs/artifact"
+      }
+    },
+    "test_intention": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "entrypoint",
+        "artifacts"
+      ],
+      "properties": {
+        "entrypoint": {
+          "const": "test-intentions/README.md"
+        },
+        "artifacts": {
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": {
+            "pattern": "^[0-9a-f]{40}$"
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/artifact"
+          }
+        }
+      }
+    },
+    "dynamic_trace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "entrypoint",
+        "artifacts"
+      ],
+      "properties": {
+        "entrypoint": {
+          "const": "test-traces/README.md"
+        },
+        "artifacts": {
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": {
+            "pattern": "^[0-9a-f]{40}$"
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/artifact"
+          }
+        }
       }
     }
   },

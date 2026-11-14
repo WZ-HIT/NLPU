@@ -1,0 +1,4 @@
+{
+  "body": "FIxes #6662, closes https://github.com/scrapy/scrapy/pull/6854.",
+  "title": "Export item fields in declaration order"
+}

@@ -1,0 +1,4 @@
+{
+  "body": "The PyPy job speed-up is by disabling coverage for subprocess there, which was responsible for most of the slowdown, and does not provide anything PyPy-specific that would report coverage gaps in Codecov.",
+  "title": "Speed up the PyPy CI job and the tests that wait on the engine heartbeat"
+}

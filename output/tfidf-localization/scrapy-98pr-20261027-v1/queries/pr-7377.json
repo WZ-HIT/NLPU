@@ -1,0 +1,4 @@
+{
+  "body": "- fix negative elapsed times when system clock changes\r\n- reduce flaky timeout behavior caused by clock adjustments\r\n- improve download latency accuracy\r\n- make delay scheduling more stable",
+  "title": "improve handling of timedeltas"
+}

@@ -1,0 +1,24 @@
+{
+  "base_sha": "3f3cb885eddf34fc6fd76a1acbeff601cbc6f506",
+  "corpus_count": 2053,
+  "excluded_counts": {
+    "added": 2,
+    "mechanical_ast_equal": 2
+  },
+  "gold_count": 0,
+  "label_issues": [],
+  "labels_sha256": "3ba83e2d8148bf9a7da5dfccf589373f5ceb79ae878b121602bff10494110711",
+  "pr_id": 7639,
+  "prediction": {
+    "path": "predictions/pr-7639.json.gz",
+    "pr_id": 7639,
+    "sha256": "01264c554a87cb127cb7ba4743863b055e435b90eacdfbd310d3e52c71a5b8ab"
+  },
+  "query_sha256": "77e68dfc4103a4a59a89ce94cf184d0dab81e4b84e6dbd7049c8afa430dab9c5",
+  "rank_seconds": 0.001899171620607376,
+  "raw_line": 280,
+  "raw_record_sha256": "6dcb76d692a3a23f984d1e8837d9c5eec9d1a5b8ef850c34f5e8f7bf94ef73eb",
+  "repository": "scrapy/scrapy",
+  "scorable": false,
+  "status": "NO_POSITIVE_GOLD"
+}

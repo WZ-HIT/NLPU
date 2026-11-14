@@ -1,0 +1,29 @@
+{
+  "base_sha": "fc4c57e7958dbbc9532a38f3c622dd990c18591e",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "deleted",
+      "id": "tests/test_utils_reactor.py::TestAsyncio.test_install_asyncio_reactor"
+    }
+  ],
+  "excluded_counts": {
+    "deleted": 1
+  },
+  "index_sha256": "e722d9c6892eb22782432660deb1c040ff835142326560f1e3b308e757c22b91",
+  "issues": [],
+  "labels_sha256": "62c103fbecc90798849085cabcedd21104a1dc8447ec1debb9dccd62a5b272e5",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "25a2da122e08098ebba9555c904e0eb73e444ea245542b135a4df3b63b2244ed",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_command_check.py::TestCheckCommand.test_printSummary_with_unsuccessful_test_result_with_both_failures_and_errors",
+    "tests/test_command_check.py::TestCheckCommand.test_printSummary_with_unsuccessful_test_result_with_only_errors",
+    "tests/test_command_check.py::TestCheckCommand.test_printSummary_with_unsuccessful_test_result_with_only_failures",
+    "tests/test_command_check.py::TestCheckCommand.test_printSummary_with_unsuccessful_test_result_without_errors_and_without_failures",
+    "tests/test_pipeline_files.py::TestFilesPipeline.test_file_path",
+    "tests/test_pipeline_files.py::TestFilesPipeline.test_file_path_query_parameters",
+    "tests/test_squeues.py::PickleFifoDiskQueueTest.test_non_pickable_object"
+  ]
+}

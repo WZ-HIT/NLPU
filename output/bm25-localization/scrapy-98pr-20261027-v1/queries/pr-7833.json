@@ -1,0 +1,4 @@
+{
+  "body": "Split off from https://github.com/scrapy/scrapy/pull/6931.\r\n\r\nFixes #7167, closes #7175",
+  "title": "Deprecate the download_delay spider attribute, and fix the suggested replacement for max_concurrent_requests"
+}

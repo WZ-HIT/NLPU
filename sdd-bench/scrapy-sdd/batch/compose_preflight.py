@@ -73,7 +73,7 @@ def _bind(source: str, target: str, read_only: bool) -> dict[str, Any]:
 
 
 def _environment(method: str, stage: str, run_id: str) -> dict[str, str]:
-    return {
+    value = {
         "SDD_STAGE": stage, "SDD_TOOL": method, "SDD_RUN_ID": run_id,
         "HOME": "/run/sdd-home", "CODEX_HOME": "/run/sdd-home/.codex",
         "XDG_CACHE_HOME": "/run/sdd-home/.cache",
@@ -83,6 +83,10 @@ def _environment(method: str, stage: str, run_id: str) -> dict[str, str]:
         "PYTHONPYCACHEPREFIX": "/run/sdd-home/.cache/pycache", "TOX_WORK_DIR": "/run/sdd-home/.cache/tox",
         "UV_CACHE_DIR": "/run/sdd-home/.cache/uv", "NPM_CONFIG_CACHE": "/run/sdd-home/.cache/npm",
     }
+    if stage == 'detect':
+        value['BASH_ENV'] = '/run/sdd-public/shell-env.sh'
+        value['PATH'] = '/opt/sdd-tools/bin:' + value['PATH']
+    return value
 
 
 def _compose_document(task: Path, bench: Path, image: str, run_id: str) -> dict[str, Any]:
@@ -114,6 +118,7 @@ def _compose_document(task: Path, bench: Path, image: str, run_id: str) -> dict[
                 _bind(str(runtime / "model-catalogs/deepseek-flash/models.json"), "/run/sdd-home/.codex/model-catalogs/deepseek-flash/models.json", True),
             ]
             if stage == "detect":
+                volumes.append(_bind(str(bench / 'batch/public_detect'), '/run/sdd-public', True))
                 planning_default = f"./runs/{method}/detect/planning-artifacts"
                 planning = f"${{{upper}_DETECT_PLANNING:-{planning_default}}}"
                 volumes.append(_bind(planning, METHODS[method]["planning_mount_path"], False))
@@ -215,6 +220,18 @@ permissions = {
     "output_write": write_state("/output"),
     "sealed_input_write": "NOT_APPLICABLE",
 }
+public_tools = {"pass": True, "status": "NOT_APPLICABLE"}
+if stage == "detect":
+    public_run = subprocess.run([
+        "/opt/agent/bwrap/bin/bwrap", "--ro-bind", "/", "/", "--bind", planning, planning,
+        "--tmpfs", "/tmp", "--dev", "/dev", "--proc", "/proc", "--unshare-net", "--",
+        "/usr/local/bin/python3", "/run/sdd-public/probe.py", "--method", method, "--planning", planning,
+    ], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, timeout=120)
+    try:
+        public_tools = json.loads(public_run.stdout)
+    except ValueError:
+        public_tools = {"pass": False, "code": "PUBLIC_TOOLS_PROBE_FAILED", "returncode": public_run.returncode,
+                        "stderr_sha256": __import__("hashlib").sha256(public_run.stderr.encode()).hexdigest()}
 input_entries = sorted(p.name for p in pathlib.Path("/input").iterdir()) if pathlib.Path("/input").is_dir() else []
 if stage == "update":
     permissions["sealed_input_write"] = write_state("/input")
@@ -229,6 +246,7 @@ runtime = [
     pathlib.Path("/run/sdd-home/.codex/model-catalogs/deepseek-flash/models.json"),
 ]
 result = {
+    "public_tools": public_tools,
     "stage": stage, "method": method, "permissions": permissions,
     "rootfs_read_only": bool(os.statvfs("/").f_flag & os.ST_RDONLY),
     "home_writable": os.access("/run/sdd-home", os.W_OK),
@@ -248,6 +266,7 @@ expected = {
     "update": {"scrapy_write": "DENIED", "tests_write": "ALLOWED", "planning_write": "DENIED", "output_write": "ALLOWED", "sealed_input_write": "DENIED"},
 }[stage]
 result["pass"] = all([
+    public_tools.get("pass") is True,
     permissions == expected, result["rootfs_read_only"], result["home_writable"], result["bubblewrap_pass"],
     result["direct_egress_denied"], result["dedicated_proxy_reachable"], result["secret_present"],
     result["secret_nonempty"], result["runtime_config_present"],
@@ -391,7 +410,8 @@ def run_preflight(*, task: Path, bench: Path, repository_root: Path, run_id: str
     seccomp = task / "compose/security/seccomp.json"
     rendered_dir = task / "compose/rendered"
     rendered_dir.mkdir(parents=True, exist_ok=True)
-    fixtures_root = Path(tempfile.mkdtemp(prefix=f"sdd-preflight-{task.name}-{run_id}-", dir="/tmp"))
+    fixtures_root = Path(tempfile.mkdtemp(prefix=f"sdd-preflight-{task.name}-{run_id}-",
+                                        dir=os.environ.get('SDD_PREFLIGHT_TMPDIR', '/tmp')))
     records: list[dict[str, Any]] = []
     envs: dict[tuple[str, str], dict[str, str]] = {}
     try:
@@ -553,6 +573,9 @@ def run_preflight(*, task: Path, bench: Path, repository_root: Path, run_id: str
             _validate_schema(report, bench / "schemas/preflight-v1.schema.json")
             report_dir = task / "runs" / method / stage / "preflight"
             report_dir.mkdir(parents=True, exist_ok=True)
+            # Preserve the evidence behind evidence_sha256 after fixtures are
+            # removed, including sandbox tool versions and contract checks.
+            write_json(report_dir / 'probe-evidence.json', evidence_basis)
             write_json(report_dir / "preflight-report.json", report)
             reports.append({
                 "method": method, "stage": stage, "status": status, "runtime_boundary_pass": runtime_ok,

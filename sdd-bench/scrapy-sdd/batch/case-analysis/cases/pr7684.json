@@ -1,0 +1,431 @@
+{
+  "schema_version": 1,
+  "case_id": "pr-7684",
+  "pr_id": 7684,
+  "repo": "scrapy/scrapy",
+  "base_sha": "185d6b9a20b7d0e77f4c60435d17e5072bd4d704",
+  "head_sha": "6830609a590686bf01c66dc8ad471e890a96fe16",
+  "merge_sha": "52147017b43baff1f9b4668e46ab11341aa8f400",
+  "classification": "MIXED_CODE_AND_TEST_PR",
+  "selection": {
+    "stratum": "mixed",
+    "rationale": "Raw pair reported only weak evidence; the base AST call graph supplies this path and hop count for reviewer confirmation. Leaf-name call graph cannot disambiguate: _test_request (2 defs); confirm the module-level path during review."
+  },
+  "production_changes": [
+    {
+      "path": "scrapy/downloadermiddlewares/cookies.py",
+      "symbol": "<module>",
+      "kind": "module",
+      "change_kind": "unknown",
+      "hunks": [
+        [
+          12,
+          17
+        ]
+      ],
+      "evidence_ref": "batch/gold/scrapy__scrapy__pr7684/gold-store.json#production_patches[0]"
+    },
+    {
+      "path": "scrapy/downloadermiddlewares/cookies.py",
+      "symbol": "CookiesMiddleware._format_cookie",
+      "kind": "method",
+      "change_kind": "unknown",
+      "hunks": [
+        [
+          134,
+          162
+        ]
+      ],
+      "evidence_ref": "batch/gold/scrapy__scrapy__pr7684/gold-store.json#production_patches[0]"
+    },
+    {
+      "path": "scrapy/downloadermiddlewares/cookies.py",
+      "symbol": "CookiesMiddleware._get_request_cookies",
+      "kind": "method",
+      "change_kind": "unknown",
+      "hunks": [
+        [
+          177,
+          187
+        ]
+      ],
+      "evidence_ref": "batch/gold/scrapy__scrapy__pr7684/gold-store.json#production_patches[0]"
+    },
+    {
+      "path": "scrapy/http/request/__init__.py",
+      "symbol": "VerboseCookie",
+      "kind": "header",
+      "change_kind": "unknown",
+      "hunks": [
+        [
+          51,
+          57
+        ]
+      ],
+      "evidence_ref": "batch/gold/scrapy__scrapy__pr7684/gold-store.json#production_patches[1]"
+    },
+    {
+      "path": "scrapy/utils/request.py",
+      "symbol": "<module>",
+      "kind": "module",
+      "change_kind": "unknown",
+      "hunks": [
+        [
+          7,
+          12
+        ],
+        [
+          25,
+          30
+        ]
+      ],
+      "evidence_ref": "batch/gold/scrapy__scrapy__pr7684/gold-store.json#production_patches[2]"
+    },
+    {
+      "path": "scrapy/utils/request.py",
+      "symbol": "_cookie_value_to_unicode",
+      "kind": "function",
+      "change_kind": "unknown",
+      "hunks": [
+        [
+          179,
+          195
+        ]
+      ],
+      "evidence_ref": "batch/gold/scrapy__scrapy__pr7684/gold-store.json#production_patches[2]"
+    },
+    {
+      "path": "scrapy/utils/request.py",
+      "symbol": "request_to_curl",
+      "kind": "function",
+      "change_kind": "unknown",
+      "hunks": [
+        [
+          201,
+          222
+        ]
+      ],
+      "evidence_ref": "batch/gold/scrapy__scrapy__pr7684/gold-store.json#production_patches[2]"
+    }
+  ],
+  "modified_tests": [
+    {
+      "path": "tests/test_downloadermiddleware_cookies.py",
+      "qualified_name": "TestCookiesMiddleware.test_invalid_cookies"
+    },
+    {
+      "path": "tests/test_downloadermiddleware_cookies.py",
+      "qualified_name": "TestCookiesMiddleware.test_request_cookies_encoding"
+    },
+    {
+      "path": "tests/test_utils_request.py",
+      "qualified_name": "TestRequestToCurl.test_cookies_dict"
+    },
+    {
+      "path": "tests/test_utils_request.py",
+      "qualified_name": "TestRequestToCurl.test_cookies_dict_bytes"
+    },
+    {
+      "path": "tests/test_utils_request.py",
+      "qualified_name": "TestRequestToCurl.test_cookies_list_verbose"
+    },
+    {
+      "path": "tests/test_utils_request.py",
+      "qualified_name": "TestRequestToCurl.test_cookies_list_verbose_non_string_value"
+    },
+    {
+      "path": "tests/test_utils_request.py",
+      "qualified_name": "TestRequestToCurl.test_get"
+    },
+    {
+      "path": "tests/test_utils_request.py",
+      "qualified_name": "TestRequestToCurl.test_headers"
+    },
+    {
+      "path": "tests/test_utils_request.py",
+      "qualified_name": "TestRequestToCurl.test_post"
+    }
+  ],
+  "edges": [
+    {
+      "edge_id": "pr-7684:TestCookiesMiddleware.test_invalid_cookies->CookiesMiddleware._format_cookie",
+      "test": {
+        "path": "tests/test_downloadermiddleware_cookies.py",
+        "qualified_name": "TestCookiesMiddleware.test_invalid_cookies"
+      },
+      "production": {
+        "path": "scrapy/downloadermiddlewares/cookies.py",
+        "symbol": "CookiesMiddleware._format_cookie"
+      },
+      "relation": "indirect",
+      "hops": 3,
+      "path": [
+        "TestCookiesMiddleware.test_invalid_cookies",
+        "process_request",
+        "_get_request_cookies",
+        "_format_cookie"
+      ],
+      "evidence": [
+        "static_call_path",
+        "import"
+      ],
+      "confidence": "medium",
+      "status": "candidate",
+      "rationale": "Raw pair reports static_call_path; draft BFS path and hop count shown for reviewer confirmation. Leaf-name call graph cannot disambiguate: process_request (15 defs); confirm the module-level path during review."
+    },
+    {
+      "edge_id": "pr-7684:TestCookiesMiddleware.test_request_cookies_encoding->CookiesMiddleware._get_request_cookies",
+      "test": {
+        "path": "tests/test_downloadermiddleware_cookies.py",
+        "qualified_name": "TestCookiesMiddleware.test_request_cookies_encoding"
+      },
+      "production": {
+        "path": "scrapy/downloadermiddlewares/cookies.py",
+        "symbol": "CookiesMiddleware._get_request_cookies"
+      },
+      "relation": "indirect",
+      "hops": 2,
+      "path": [
+        "TestCookiesMiddleware.test_request_cookies_encoding",
+        "process_request",
+        "_get_request_cookies"
+      ],
+      "evidence": [
+        "static_call_path",
+        "import"
+      ],
+      "confidence": "medium",
+      "status": "candidate",
+      "rationale": "Raw pair reports static_call_path; draft BFS path and hop count shown for reviewer confirmation. Leaf-name call graph cannot disambiguate: process_request (15 defs); confirm the module-level path during review."
+    },
+    {
+      "edge_id": "pr-7684:TestRequestToCurl.test_cookies_dict->request_to_curl",
+      "test": {
+        "path": "tests/test_utils_request.py",
+        "qualified_name": "TestRequestToCurl.test_cookies_dict"
+      },
+      "production": {
+        "path": "scrapy/utils/request.py",
+        "symbol": "request_to_curl"
+      },
+      "relation": "indirect",
+      "hops": 2,
+      "path": [
+        "TestRequestToCurl.test_cookies_dict",
+        "_test_request",
+        "request_to_curl"
+      ],
+      "evidence": [
+        "static_call_path",
+        "import"
+      ],
+      "confidence": "low",
+      "status": "candidate",
+      "rationale": "Raw pair reported only weak evidence; the base AST call graph supplies this path and hop count for reviewer confirmation. Leaf-name call graph cannot disambiguate: _test_request (2 defs); confirm the module-level path during review."
+    },
+    {
+      "edge_id": "pr-7684:TestRequestToCurl.test_cookies_dict_bytes->request_to_curl",
+      "test": {
+        "path": "tests/test_utils_request.py",
+        "qualified_name": "TestRequestToCurl.test_cookies_dict_bytes"
+      },
+      "production": {
+        "path": "scrapy/utils/request.py",
+        "symbol": "request_to_curl"
+      },
+      "relation": "indirect",
+      "hops": 2,
+      "path": [
+        "TestRequestToCurl.test_cookies_dict_bytes",
+        "_test_request",
+        "request_to_curl"
+      ],
+      "evidence": [
+        "static_call_path",
+        "import"
+      ],
+      "confidence": "low",
+      "status": "candidate",
+      "rationale": "Raw pair reported only weak evidence; the base AST call graph supplies this path and hop count for reviewer confirmation. Leaf-name call graph cannot disambiguate: _test_request (2 defs); confirm the module-level path during review."
+    },
+    {
+      "edge_id": "pr-7684:TestRequestToCurl.test_get->request_to_curl",
+      "test": {
+        "path": "tests/test_utils_request.py",
+        "qualified_name": "TestRequestToCurl.test_get"
+      },
+      "production": {
+        "path": "scrapy/utils/request.py",
+        "symbol": "request_to_curl"
+      },
+      "relation": "indirect",
+      "hops": 2,
+      "path": [
+        "TestRequestToCurl.test_get",
+        "_test_request",
+        "request_to_curl"
+      ],
+      "evidence": [
+        "static_call_path",
+        "import"
+      ],
+      "confidence": "low",
+      "status": "candidate",
+      "rationale": "Raw pair reported only weak evidence; the base AST call graph supplies this path and hop count for reviewer confirmation. Leaf-name call graph cannot disambiguate: _test_request (2 defs); confirm the module-level path during review."
+    },
+    {
+      "edge_id": "pr-7684:TestRequestToCurl.test_headers->request_to_curl",
+      "test": {
+        "path": "tests/test_utils_request.py",
+        "qualified_name": "TestRequestToCurl.test_headers"
+      },
+      "production": {
+        "path": "scrapy/utils/request.py",
+        "symbol": "request_to_curl"
+      },
+      "relation": "indirect",
+      "hops": 2,
+      "path": [
+        "TestRequestToCurl.test_headers",
+        "_test_request",
+        "request_to_curl"
+      ],
+      "evidence": [
+        "static_call_path",
+        "import"
+      ],
+      "confidence": "low",
+      "status": "candidate",
+      "rationale": "Raw pair reported only weak evidence; the base AST call graph supplies this path and hop count for reviewer confirmation. Leaf-name call graph cannot disambiguate: _test_request (2 defs); confirm the module-level path during review."
+    },
+    {
+      "edge_id": "pr-7684:TestRequestToCurl.test_post->request_to_curl",
+      "test": {
+        "path": "tests/test_utils_request.py",
+        "qualified_name": "TestRequestToCurl.test_post"
+      },
+      "production": {
+        "path": "scrapy/utils/request.py",
+        "symbol": "request_to_curl"
+      },
+      "relation": "indirect",
+      "hops": 2,
+      "path": [
+        "TestRequestToCurl.test_post",
+        "_test_request",
+        "request_to_curl"
+      ],
+      "evidence": [
+        "static_call_path",
+        "import"
+      ],
+      "confidence": "low",
+      "status": "candidate",
+      "rationale": "Raw pair reported only weak evidence; the base AST call graph supplies this path and hop count for reviewer confirmation. Leaf-name call graph cannot disambiguate: _test_request (2 defs); confirm the module-level path during review."
+    }
+  ],
+  "no_edge_changes": [
+    {
+      "production": {
+        "path": "scrapy/downloadermiddlewares/cookies.py",
+        "symbol": "<module>"
+      },
+      "change_kind": "unknown",
+      "counterfactual": "unknown",
+      "coverage_gap": false,
+      "affected_existing_tests": [],
+      "confidence": "low",
+      "status": "candidate",
+      "rationale": "No direct/indirect candidate from any modified existing test in the pre-classification."
+    },
+    {
+      "production": {
+        "path": "scrapy/http/request/__init__.py",
+        "symbol": "VerboseCookie"
+      },
+      "change_kind": "unknown",
+      "counterfactual": "unknown",
+      "coverage_gap": false,
+      "affected_existing_tests": [],
+      "confidence": "low",
+      "status": "candidate",
+      "rationale": "No direct/indirect candidate from any modified existing test in the pre-classification."
+    },
+    {
+      "production": {
+        "path": "scrapy/utils/request.py",
+        "symbol": "<module>"
+      },
+      "change_kind": "unknown",
+      "counterfactual": "unknown",
+      "coverage_gap": false,
+      "affected_existing_tests": [],
+      "confidence": "low",
+      "status": "candidate",
+      "rationale": "No direct/indirect candidate from any modified existing test in the pre-classification."
+    },
+    {
+      "production": {
+        "path": "scrapy/utils/request.py",
+        "symbol": "_cookie_value_to_unicode"
+      },
+      "change_kind": "unknown",
+      "counterfactual": "unknown",
+      "coverage_gap": false,
+      "affected_existing_tests": [],
+      "confidence": "low",
+      "status": "candidate",
+      "rationale": "No direct/indirect candidate from any modified existing test in the pre-classification."
+    }
+  ],
+  "test_level": {
+    "positives": [
+      {
+        "path": "tests/test_downloadermiddleware_cookies.py",
+        "qualified_name": "TestCookiesMiddleware.test_invalid_cookies"
+      },
+      {
+        "path": "tests/test_downloadermiddleware_cookies.py",
+        "qualified_name": "TestCookiesMiddleware.test_request_cookies_encoding"
+      },
+      {
+        "path": "tests/test_utils_request.py",
+        "qualified_name": "TestRequestToCurl.test_cookies_dict"
+      },
+      {
+        "path": "tests/test_utils_request.py",
+        "qualified_name": "TestRequestToCurl.test_cookies_dict_bytes"
+      },
+      {
+        "path": "tests/test_utils_request.py",
+        "qualified_name": "TestRequestToCurl.test_cookies_list_verbose"
+      },
+      {
+        "path": "tests/test_utils_request.py",
+        "qualified_name": "TestRequestToCurl.test_cookies_list_verbose_non_string_value"
+      },
+      {
+        "path": "tests/test_utils_request.py",
+        "qualified_name": "TestRequestToCurl.test_get"
+      },
+      {
+        "path": "tests/test_utils_request.py",
+        "qualified_name": "TestRequestToCurl.test_headers"
+      },
+      {
+        "path": "tests/test_utils_request.py",
+        "qualified_name": "TestRequestToCurl.test_post"
+      }
+    ],
+    "missed_updates": [],
+    "coverage_gaps": [],
+    "unknown": []
+  },
+  "review": {
+    "status": "draft",
+    "first_pass_at": null,
+    "second_pass_at": null,
+    "changed_verdicts": []
+  },
+  "notes": "Pre-classification dominant=indirect counts={\"indirect\": 7, \"no_edge\": 4, \"weak\": 2}. Auto-generated candidate record. Reviewer must confirm/reject every edge, assign change_kind and counterfactual, and check for resolver gaps."
+}

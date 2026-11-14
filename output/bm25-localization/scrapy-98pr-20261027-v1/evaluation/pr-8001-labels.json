@@ -1,0 +1,23 @@
+{
+  "base_sha": "c31602aca319f4203cbda24c41673f658ad4284b",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [],
+  "excluded_counts": {},
+  "index_sha256": "533dd9a8bc46a2c7e70c0756a1c14c745c1b8255afb36399cff680d5e3a6c8c8",
+  "issues": [],
+  "labels_sha256": "0ed2500319965cfb1ea0642315d5bd2756f840b0c618be317c45246bba04b47c",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "0d430ffaae31486a01d7d44c010e6f7a45b37506189775eee7022ac9d94ca4a5",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_skip_bad_links",
+    "tests/test_selector.py::TestSelector.test_flavor_detection_json",
+    "tests/test_selector.py::TestSelector.test_flavor_detection_json_with_html_body",
+    "tests/test_selector.py::test_jmespath_not_available",
+    "tests/utils/bases/http_response.py::TestResponseBase.test_follow_all_whitespace",
+    "tests/utils/bases/http_response.py::TestResponseBase.test_follow_all_whitespace_links",
+    "tests/utils/bases/http_response.py::TestResponseBase.test_follow_whitespace_link",
+    "tests/utils/bases/http_response.py::TestResponseBase.test_follow_whitespace_url"
+  ]
+}

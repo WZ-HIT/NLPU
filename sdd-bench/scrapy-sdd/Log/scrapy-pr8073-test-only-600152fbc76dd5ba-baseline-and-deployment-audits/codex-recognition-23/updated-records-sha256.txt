@@ -1,2 +1,0 @@
-c0e83181452bd13221c86f859e1440d829d0a0b3efb61d3edfade56b3cd1907c  /home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/deployment-lock.json
-f38fa9d6c6b291a3616ec021ff784ff5593999b95e0b506aad23da9279387c2b  /home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/Log/scrapy-pr8073-test-only-600152fbc76dd5ba-sdd-deployment-steps-19-27.md

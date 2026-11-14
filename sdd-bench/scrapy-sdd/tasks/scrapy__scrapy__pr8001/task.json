@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr8001",
+  "repository": {
+    "owner": "scrapy",
+    "name": "scrapy"
+  },
+  "pr_id": 8001,
+  "baseline": {
+    "base_sha": "c31602aca319f4203cbda24c41673f658ad4284b"
+  },
+  "title": "Move the parsel version check to _deps_compat, drop the w3lib ones",
+  "body": "A botocore check remains in `tests.test_feedexport_batch.TestBatchDeliveries.test_s3_export()` but as botocore is not a hard dep it may complicate the code too much.",
+  "adapter": {
+    "id": "scrapy",
+    "version": 1,
+    "path": "sdd-bench/scrapy-sdd/adapters/scrapy.json",
+    "sha256": "059dcc09eaa62f892f54118e65d4deccce3ab29cc5d9a4a36f4d999ff1aa27de"
+  }
+}

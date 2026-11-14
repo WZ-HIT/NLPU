@@ -1,0 +1,75 @@
+{
+  "base_sha": "27092b2cb703f2910b0a255a1b8250623999e12c",
+  "corpus_count": 2078,
+  "excluded_counts": {
+    "added": 7,
+    "deleted": 4
+  },
+  "gold_count": 2,
+  "gold_ranks": {
+    "tests/test_command_check.py::TestCheckCommand.test_run_with_opts_list_prints_spider": 195,
+    "tests/test_command_check.py::TestCheckCommand.test_run_without_opts_list_does_not_crawl_spider_with_no_tested_methods": 617
+  },
+  "label_issues": [],
+  "labels_sha256": "a86f65b4dd6b3e124620daaf58190fcc64d26c4789baf6da7381fa68859557bf",
+  "metrics": {
+    "100": {
+      "all_hit": 0,
+      "candidate_count": 100,
+      "candidate_fraction": 0.04812319538017324,
+      "fn": 2,
+      "fp": 100,
+      "gold_count": 2,
+      "hit_at_k": 0,
+      "matched_count": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "recall_at_k": 0.0,
+      "tp": 0,
+      "zero_score_count": 0
+    },
+    "200": {
+      "all_hit": 0,
+      "candidate_count": 200,
+      "candidate_fraction": 0.09624639076034648,
+      "fn": 1,
+      "fp": 199,
+      "gold_count": 2,
+      "hit_at_k": 1,
+      "matched_count": 1,
+      "precision": 0.005,
+      "recall": 0.5,
+      "recall_at_k": 0.5,
+      "tp": 1,
+      "zero_score_count": 0
+    },
+    "50": {
+      "all_hit": 0,
+      "candidate_count": 50,
+      "candidate_fraction": 0.02406159769008662,
+      "fn": 2,
+      "fp": 50,
+      "gold_count": 2,
+      "hit_at_k": 0,
+      "matched_count": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "recall_at_k": 0.0,
+      "tp": 0,
+      "zero_score_count": 0
+    }
+  },
+  "pr_id": 7449,
+  "prediction": {
+    "path": "predictions/pr-7449.json.gz",
+    "pr_id": 7449,
+    "sha256": "58e6578731a3a62c29aaea2130d7f13e6bbe86dace8a8526c3da7aa77328c7ae"
+  },
+  "query_sha256": "8de374f1da902a8961087042102d08e0256451fe821b2ac5a86e2d543f0a6e63",
+  "rank_seconds": 0.0014977846294641495,
+  "raw_line": 348,
+  "raw_record_sha256": "8719339db910bf46c94ca0fb4b7745a8c372688fdba4afd07b1b7b0d0891308a",
+  "repository": "scrapy/scrapy",
+  "scorable": true,
+  "status": "SCORED"
+}

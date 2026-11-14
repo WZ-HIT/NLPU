@@ -1,0 +1,31 @@
+{
+  "base_sha": "75f05d4e80b82705f54b2fe6b2948c463c7eb36b",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "added",
+      "id": "tests/test_crawler.py::test_create_crawler_instance_consistent_with_spider_class"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_crawler.py::test_runner_settings_applied_to_crawler_instance"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_crawler.py::test_spider_custom_settings_override_runner"
+    }
+  ],
+  "excluded_counts": {
+    "added": 3
+  },
+  "index_sha256": "e35885dd923d3b42518c00180787e0bd662db96d908e9afc3a8f6908a0d79a77",
+  "issues": [],
+  "labels_sha256": "c28113d8fccfdcfb394f5a31e5b458f8dbe2fed7fb57b526bbe1638144f5000e",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "28c70b69dec53116ad386c45c0df9c50b77d8c7244eec9bccdb3174063cda3f2",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_crawl.py::TestCrawl.test_crawlerrunner_accepts_crawler"
+  ]
+}

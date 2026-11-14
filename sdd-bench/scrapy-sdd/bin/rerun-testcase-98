@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+# Run the existing 30 + 30 + 38 PR configs serially, preserving all old rounds.
+set -u
+set -o pipefail
+
+if [[ $# -ne 1 || ! "$1" =~ ^[a-z0-9][a-z0-9._-]{0,127}$ ]]; then
+  echo '用法：bash bin/rerun-testcase-98 testcase-002' >&2
+  exit 2
+fi
+
+SDD_ROUND="$1"
+SDD_BENCH="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)" || exit 2
+cd -- "$SDD_BENCH" || exit 2
+
+printf '轮次：%s；三组共 98 PR / 294 个 Detect 目标。通过离线检查后会正式调用模型。\n' "$SDD_ROUND"
+python3 bin/check-testcase || exit "$?"
+SDD_PARTIAL_GROUPS=0
+
+for SDD_CONFIG in \
+  batch/experiments/scrapy-30pr-testcase-v1.json \
+  batch/experiments/scrapy-next30-testcase-v1.json \
+  batch/experiments/scrapy-remaining38-testcase-v1.json
+do
+  SDD_GROUP_PARTIAL=0
+  printf '\n开始：%s；轮次：%s\n' "$SDD_CONFIG" "$SDD_ROUND"
+
+  # A preparation/hash/contract error must stop before any Agent is called.
+  python3 bin/sdd-experiment prepare "$SDD_CONFIG" --round "$SDD_ROUND" || exit "$?"
+
+  if python3 bin/sdd-experiment run "$SDD_CONFIG" --round "$SDD_ROUND" \
+      --stage detect --execute --resume --retry-failed; then
+    echo '本组 Detect 已完成。'
+  else
+    SDD_STATUS=$?
+    if [[ "$SDD_STATUS" -ne 5 ]]; then
+      printf '运行被阻止（退出码 %s），停止后续组；请检查上方错误。\n' "$SDD_STATUS" >&2
+      exit "$SDD_STATUS"
+    fi
+    SDD_GROUP_PARTIAL=1
+    echo '本组存在失败目标，保留记录并继续宿主机评分。' >&2
+  fi
+
+  if python3 bin/sdd-experiment evaluate "$SDD_CONFIG" --round "$SDD_ROUND" --kind testcase; then
+    echo '本组评分完成。'
+  else
+    SDD_STATUS=$?
+    if [[ "$SDD_STATUS" -ne 5 ]]; then
+      printf '评分被阻止（退出码 %s），停止后续组。\n' "$SDD_STATUS" >&2
+      exit "$SDD_STATUS"
+    fi
+    SDD_GROUP_PARTIAL=1
+    echo '本组评分为 PARTIAL，请保留并检查报告。' >&2
+  fi
+
+  python3 bin/sdd-experiment results summary --config "$SDD_CONFIG" --round "$SDD_ROUND" |
+    python3 -c 'import json,sys; value=json.load(sys.stdin); print(json.dumps(value.get("counts", value), ensure_ascii=False, indent=2))' || exit 4
+  SDD_PARTIAL_GROUPS=$((SDD_PARTIAL_GROUPS + SDD_GROUP_PARTIAL))
+done
+
+if [[ "$SDD_PARTIAL_GROUPS" -gt 0 ]]; then
+  printf '\n三组均已处理，其中 %s 组未完全成功。再次执行相同命令可跳过已封存目标并重试失败目标。\n' "$SDD_PARTIAL_GROUPS" >&2
+  exit 5
+fi
+printf '\n三组全部处理成功。轮次：%s。请在 sdd-results 查看本轮结果。\n' "$SDD_ROUND"

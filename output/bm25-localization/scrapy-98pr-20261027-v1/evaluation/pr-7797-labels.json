@@ -1,0 +1,266 @@
+{
+  "base_sha": "5a65bdcc18e51a85fbc9eca0a25e4be7aa4ce4e3",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "deleted",
+      "id": "tests/test_utils_asyncgen.py::TestAsyncgenUtils.test_as_async_generator"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_utils_asyncgen.py::TestAsyncgenUtils.test_collect_asyncgen"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_asyncgen.py::test_as_async_generator"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_asyncgen.py::test_collect_asyncgen"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_utils_asyncio.py::TestAsyncio.test_is_asyncio_available"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_asyncio.py::test_is_asyncio_available"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_utils_datatypes.py::TestCaseInsensitiveDict.test_copy_keeps_values"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_utils_datatypes.py::TestCaseInsensitiveDictBase.test_normkey"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_utils_datatypes.py::TestCaseInsensitiveDictBase.test_normvalue"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_utils_deprecate.py::TestWarnWhenSubclassed.test_clsdict"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_utils_deprecate.py::TestWarnWhenSubclassed.test_custom_class_paths"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_utils_deprecate.py::TestWarnWhenSubclassed.test_deprecate_subclass_of_deprecated_class"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_utils_deprecate.py::TestWarnWhenSubclassed.test_isinstance"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_utils_deprecate.py::TestWarnWhenSubclassed.test_issubclass"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_utils_deprecate.py::TestWarnWhenSubclassed.test_subclassing_warning_message"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_utils_deprecate.py::TestWarnWhenSubclassed.test_subclassing_warns_once_by_default"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_utils_deprecate.py::TestWarnWhenSubclassed.test_subclassing_warns_only_on_direct_children"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_utils_deprecate.py::TestWarnWhenSubclassed.test_warning_auto_message"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_utils_misc/__init__.py::TestUtilsMisc.test_arg_to_iter"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_utils_misc/__init__.py::TestUtilsMisc.test_build_from_crawler"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_utils_misc/__init__.py::TestUtilsMisc.test_load_object_class"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_utils_misc/__init__.py::TestUtilsMisc.test_load_object_exceptions"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_utils_misc/__init__.py::TestUtilsMisc.test_load_object_function"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_utils_misc/__init__.py::TestUtilsMisc.test_rel_has_nofollow"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_utils_misc/__init__.py::TestUtilsMisc.test_set_environ"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_utils_misc/__init__.py::TestUtilsMisc.test_walk_modules"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_utils_misc/__init__.py::TestUtilsMisc.test_walk_modules_egg"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_misc/__init__.py::test_arg_to_iter"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_misc/__init__.py::test_build_from_crawler"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_misc/__init__.py::test_load_object_class"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_misc/__init__.py::test_load_object_exceptions"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_misc/__init__.py::test_load_object_function"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_misc/__init__.py::test_rel_has_nofollow"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_misc/__init__.py::test_set_environ"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_misc/__init__.py::test_walk_modules"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_misc/__init__.py::test_walk_modules_egg"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_utils_misc/test_return_with_argument_inside_generator.py::TestUtilsMisc.test_generators_return_none"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_utils_misc/test_return_with_argument_inside_generator.py::TestUtilsMisc.test_generators_return_none_with_decorator"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_utils_misc/test_return_with_argument_inside_generator.py::TestUtilsMisc.test_generators_return_something"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_utils_misc/test_return_with_argument_inside_generator.py::TestUtilsMisc.test_indentation_error"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_utils_misc/test_return_with_argument_inside_generator.py::TestUtilsMisc.test_partial"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_utils_misc/test_return_with_argument_inside_generator.py::TestUtilsMisc.test_warn_on_generator_with_return_value_settings_disabled"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_misc/test_return_with_argument_inside_generator.py::test_generators_return_none"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_misc/test_return_with_argument_inside_generator.py::test_generators_return_none_with_decorator"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_misc/test_return_with_argument_inside_generator.py::test_generators_return_something"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_misc/test_return_with_argument_inside_generator.py::test_indentation_error"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_misc/test_return_with_argument_inside_generator.py::test_partial"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_misc/test_return_with_argument_inside_generator.py::test_warn_on_generator_with_return_value_settings_disabled"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_utils_python.py::TestToBytes.test_converting_a_strange_object_should_raise_type_error"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_utils_python.py::TestToUnicode.test_converting_a_strange_object_should_raise_type_error"
+    }
+  ],
+  "excluded_counts": {
+    "added": 18,
+    "deleted": 18,
+    "mechanical_ast_equal": 14
+  },
+  "index_sha256": "26fd3bda121267a6b049a93fa9742c2e240a5b6f0cf6007984b93316598f0ed1",
+  "issues": [],
+  "labels_sha256": "5547bdec5cb689fa28b6cf53ee4d4411a6d34a72c91c8ff8aa411fd40004177c",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "0c2a8366d6e4e6f245fb8d73907e35e7f9f9c377106d243970caa6655d582a6c",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_utils_datatypes.py::TestCaseInsensitiveDictBase.test_init_mapping",
+    "tests/test_utils_datatypes.py::TestCaseInsensitiveDictBase.test_init_mutable_mapping",
+    "tests/test_utils_datatypes.py::TestLocalCache.test_cache_with_limit",
+    "tests/test_utils_datatypes.py::TestLocalCache.test_cache_with_zero_limit",
+    "tests/test_utils_datatypes.py::TestLocalCache.test_cache_without_limit",
+    "tests/test_utils_datatypes.py::TestLocalWeakReferencedCache.test_cache_non_weak_referenceable_objects",
+    "tests/test_utils_datatypes.py::TestLocalWeakReferencedCache.test_cache_with_limit",
+    "tests/test_utils_datatypes.py::TestLocalWeakReferencedCache.test_cache_without_limit",
+    "tests/test_utils_decorators.py::TestDeprecated.test_applied_without_parentheses",
+    "tests/test_utils_decorators.py::TestDeprecated.test_use_instead_in_message",
+    "tests/test_utils_decorators.py::TestDeprecated.test_warns_and_still_calls",
+    "tests/test_utils_decorators.py::TestWarnSpiderArg.test_async_warns_with_spider_arg",
+    "tests/test_utils_decorators.py::TestWarnSpiderArg.test_asyncgen_warns_with_spider_arg",
+    "tests/test_utils_decorators.py::TestWarnSpiderArg.test_sync_no_warning_without_spider_arg",
+    "tests/test_utils_decorators.py::TestWarnSpiderArg.test_sync_warns_with_spider_arg",
+    "tests/test_utils_defer.py::TestAiterErrback.test_aiter_errback_good",
+    "tests/test_utils_defer.py::TestAiterErrback.test_iter_errback_bad",
+    "tests/test_utils_defer.py::TestDeferredFromCoro.test_deferred",
+    "tests/test_utils_defer.py::TestDeferredFromCoro.test_future",
+    "tests/test_utils_defer.py::TestDeferredToFuture.test_deferred",
+    "tests/test_utils_defer.py::TestIterErrback.test_iter_errback_bad",
+    "tests/test_utils_defer.py::TestIterErrback.test_iter_errback_good",
+    "tests/test_utils_defer.py::TestMaybeDeferredToFutureAsyncio.test_deferred",
+    "tests/test_utils_defer.py::TestMaybeDeferredToFutureNotAsyncio.test_deferred",
+    "tests/test_utils_defer.py::TestParallelAsync.test_delays",
+    "tests/test_utils_defer.py::TestParallelAsync.test_simple",
+    "tests/test_utils_deprecate.py::TestWarnWhenSubclassed.test_warning_on_instance",
+    "tests/test_utils_display.py::test_pformat",
+    "tests/test_utils_display.py::test_pformat_dont_colorize",
+    "tests/test_utils_display.py::test_pformat_no_pygments",
+    "tests/test_utils_display.py::test_pformat_old_windows",
+    "tests/test_utils_display.py::test_pformat_windows",
+    "tests/test_utils_display.py::test_pformat_windows_no_terminal_processing",
+    "tests/test_utils_project.py::test_data_path_outside_project",
+    "tests/test_utils_python.py::test_get_func_args",
+    "tests/test_utils_python.py::test_memoizemethod_noargs",
+    "tests/test_utils_request.py::TestCustomRequestFingerprinter.test_dont_canonicalize",
+    "tests/test_utils_request.py::TestCustomRequestFingerprinter.test_from_crawler",
+    "tests/test_utils_request.py::TestCustomRequestFingerprinter.test_include_headers",
+    "tests/test_utils_request.py::TestCustomRequestFingerprinter.test_meta",
+    "tests/test_utils_request.py::TestRequestFingerprinter.test_fingerprint",
+    "tests/test_utils_response.py::test_remove_html_comments",
+    "tests/test_utils_template.py::test_simple_render",
+    "tests/test_utils_trackref.py::test_print_live_refs_empty",
+    "tests/test_utils_trackref.py::test_print_live_refs_with_objects",
+    "tests/test_utils_url.py::test_guess_scheme_skipped"
+  ]
+}

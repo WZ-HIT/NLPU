@@ -1,3 +1,0 @@
-probe	exit_code	expected
-missing_secret	1	FAIL_CLOSED
-empty_secret	1	FAIL_CLOSED

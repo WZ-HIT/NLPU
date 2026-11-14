@@ -1,0 +1,4 @@
+{
+  "body": "Fixes #7426.",
+  "title": "Restore 2.14 getwithbase, add a new method for class key deduplication"
+}

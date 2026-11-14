@@ -1,8 +1,0 @@
-preview_path=/tmp/openspec-init-preview-11
-head=11079cb1c85b9e75a39a7269943c69d1a975d485
-tree=0b9ebb13cca2038ecf5f84ba1f3e7efd6e1cebf2
-branch=experiment/openspec
-pre_status_count=0
-pre_file_count=678
-pre_tree_sha256=a7304ab31dbbff63f1b53f725bd6f9e9c79276577811f5fb061cc698138672d4
-protected_index_sha256=322e0d04dae482ca9192e0298259db168bea785444137c9d49f54ff1787f18e4

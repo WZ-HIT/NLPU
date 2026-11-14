@@ -499,6 +499,7 @@ def _orchestrate(
                         task_manifest=target["task_manifest"], method=target["method"],
                         run_id=target["run_id"], output=Path("/unused"), bench=bench,
                         repository_root=repository_root, dry_run=True,
+                        **({"localization_protocol": "testcase-v1"} if config.get("evaluation", {}).get("localization_protocol") == "testcase-v1" else {}),
                     )
                 else:
                     result = update_tests(
@@ -526,6 +527,7 @@ def _orchestrate(
                     task_manifest=target["task_manifest"], method=target["method"],
                     run_id=target["run_id"], output=output, bench=bench,
                     repository_root=repository_root, dry_run=False, recover_existing=recover,
+                    **({"localization_protocol": "testcase-v1"} if config.get("evaluation", {}).get("localization_protocol") == "testcase-v1" else {}),
                 )
                 state = "DETECT_SEALED"
             except Exception as exc:

@@ -1,0 +1,4 @@
+{
+  "body": "Alleviates the backward incompatibility of #7936.",
+  "title": "Deprecate interpolating log formatter messages with the returned dict"
+}

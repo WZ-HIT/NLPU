@@ -1,4 +1,0 @@
-[2m2026-09-10T09:04:03.252316Z[0m [31mERROR[0m [2mcodex_app_server[0m[2m:[0m Project-local config, hooks, and exec policies are disabled in the following folders until the project is trusted, but skills still load.
-    1. /workspace/.codex
-       To load project-local config, hooks, and exec policies, add /workspace as a trusted project in /home/bench/.codex/config.toml.
-

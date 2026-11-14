@@ -1,7 +1,0 @@
-path_set_match=true
-exact_file_matches=27
-timestamp_only_file_count=3
-timestamp_only_files=.specify/integrations/codex.manifest.json,.specify/integrations/speckit.manifest.json,.specify/workflows/workflow-registry.json
-normalized_preview_patch_sha256=6eda2ec4019724601cbc52d30a103e846097305883708b23af8934678a0fcff2
-normalized_formal_patch_sha256=6eda2ec4019724601cbc52d30a103e846097305883708b23af8934678a0fcff2
-normalized_patch_match=true

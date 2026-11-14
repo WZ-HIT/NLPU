@@ -1,0 +1,4 @@
+{
+  "body": "Fixes #1280.",
+  "title": "Do not ignore CrawlerProcess settings"
+}

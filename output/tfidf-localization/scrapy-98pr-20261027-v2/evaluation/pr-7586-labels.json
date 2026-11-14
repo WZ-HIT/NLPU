@@ -1,0 +1,17 @@
+{
+  "base_sha": "4e956bd2de5e319bebad2d603a2f5ee34d9d2ffb",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [],
+  "excluded_counts": {},
+  "index_sha256": "2cdb061f687abe446a37fe78c42a379cde52d66aef8c1aac4e270c2427695eaf",
+  "issues": [],
+  "labels_sha256": "768654df70ffc96e4e6e0d42160c1ce5869a41b4e017c5943a0c37a1fc5706ca",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "4c9072f80d36217fe9d47372345cfd56c2c10264d29d2b2e915914b8ad7d1a1c",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_crawler.py::TestCrawler.test_populate_spidercls_settings",
+    "tests/test_settings/__init__.py::TestBaseSettings.test_copy_to_dict"
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "base_sha": "185d6b9a20b7d0e77f4c60435d17e5072bd4d704",
+  "corpus_count": 2136,
+  "excluded_counts": {
+    "deleted": 2
+  },
+  "gold_count": 9,
+  "gold_ranks": {
+    "tests/test_downloadermiddleware_cookies.py::TestCookiesMiddleware.test_invalid_cookies": 35,
+    "tests/test_downloadermiddleware_cookies.py::TestCookiesMiddleware.test_request_cookies_encoding": 47,
+    "tests/test_utils_request.py::TestRequestToCurl.test_cookies_dict": 34,
+    "tests/test_utils_request.py::TestRequestToCurl.test_cookies_dict_bytes": 10,
+    "tests/test_utils_request.py::TestRequestToCurl.test_cookies_list_verbose": 20,
+    "tests/test_utils_request.py::TestRequestToCurl.test_cookies_list_verbose_non_string_value": 19,
+    "tests/test_utils_request.py::TestRequestToCurl.test_get": 36,
+    "tests/test_utils_request.py::TestRequestToCurl.test_headers": 194,
+    "tests/test_utils_request.py::TestRequestToCurl.test_post": 151
+  },
+  "label_issues": [],
+  "labels_sha256": "1e6b9e06490a0a7bdf688b6633fd81778d62768973878a000a7afbac8ed20939",
+  "metrics": {
+    "100": {
+      "all_hit": 0,
+      "candidate_count": 100,
+      "candidate_fraction": 0.04681647940074907,
+      "fn": 2,
+      "fp": 93,
+      "gold_count": 9,
+      "hit_at_k": 1,
+      "matched_count": 7,
+      "precision": 0.07,
+      "recall": 0.7777777777777778,
+      "recall_at_k": 0.7777777777777778,
+      "tp": 7,
+      "zero_score_count": 0
+    },
+    "200": {
+      "all_hit": 1,
+      "candidate_count": 200,
+      "candidate_fraction": 0.09363295880149813,
+      "fn": 0,
+      "fp": 191,
+      "gold_count": 9,
+      "hit_at_k": 1,
+      "matched_count": 9,
+      "precision": 0.045,
+      "recall": 1.0,
+      "recall_at_k": 1.0,
+      "tp": 9,
+      "zero_score_count": 0
+    },
+    "50": {
+      "all_hit": 0,
+      "candidate_count": 50,
+      "candidate_fraction": 0.023408239700374533,
+      "fn": 2,
+      "fp": 43,
+      "gold_count": 9,
+      "hit_at_k": 1,
+      "matched_count": 7,
+      "precision": 0.14,
+      "recall": 0.7777777777777778,
+      "recall_at_k": 0.7777777777777778,
+      "tp": 7,
+      "zero_score_count": 0
+    }
+  },
+  "pr_id": 7684,
+  "prediction": {
+    "path": "predictions/pr-7684.json.gz",
+    "pr_id": 7684,
+    "sha256": "8d8d7aebd65cf0f4594f9e29fc776a07f918adb16374ae80fb8bd84cb386463c"
+  },
+  "query_sha256": "acc008cfad2492f0b15e3cdd83bbfa829aa0e4408d108dcf026f6a974c046906",
+  "rank_seconds": 0.0028244499117136,
+  "raw_line": 241,
+  "raw_record_sha256": "bb173ad17102fb45da181f410812bbe1f1158b1d58e8fadf9ac6058fa6ac07ef",
+  "repository": "scrapy/scrapy",
+  "scorable": true,
+  "status": "SCORED"
+}

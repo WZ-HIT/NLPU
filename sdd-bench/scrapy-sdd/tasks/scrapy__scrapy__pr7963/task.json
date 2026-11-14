@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr7963",
+  "repository": {
+    "owner": "scrapy",
+    "name": "scrapy"
+  },
+  "pr_id": 7963,
+  "baseline": {
+    "base_sha": "a6c017c2ca2b8a9bca8b46b692846f492fe77a00"
+  },
+  "title": "Warn only once per request about the download warn size",
+  "body": "Fixes https://github.com/scrapy/scrapy/issues/2476",
+  "adapter": {
+    "id": "scrapy",
+    "version": 1,
+    "path": "sdd-bench/scrapy-sdd/adapters/scrapy.json",
+    "sha256": "059dcc09eaa62f892f54118e65d4deccce3ab29cc5d9a4a36f4d999ff1aa27de"
+  }
+}

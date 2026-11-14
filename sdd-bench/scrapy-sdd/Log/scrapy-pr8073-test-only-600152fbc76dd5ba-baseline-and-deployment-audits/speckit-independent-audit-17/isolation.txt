@@ -1,7 +1,0 @@
-/scrapy-sdd-8073-600152fbc76dd5ba-agent-openspec-agent-1 home=scrapy-sdd-8073-600152fbc76dd5ba-agent_openspec-home workspace=/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/runs/openspec/scrapy
-/scrapy-sdd-8073-600152fbc76dd5ba-agent-speckit-agent-1 home=scrapy-sdd-8073-600152fbc76dd5ba-agent_speckit-home workspace=/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/runs/speckit/scrapy
-/scrapy-sdd-8073-600152fbc76dd5ba-agent-cc-sdd-agent-1  workspace=/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/runs/cc-sdd/scrapyhome=scrapy-sdd-8073-600152fbc76dd5ba-agent_cc-sdd-home
-speckit-marker-visible
-openspec-cannot-see-speckit
-cc-sdd-cannot-see-speckit
-speckit-has-no-other-sdd

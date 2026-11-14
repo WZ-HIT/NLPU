@@ -1,0 +1,4 @@
+{
+  "body": "Resolves https://github.com/scrapy/scrapy/issues/4368",
+  "title": "Add SSLKEYLOGFILE support"
+}

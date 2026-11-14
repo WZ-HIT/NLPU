@@ -1,0 +1,78 @@
+{
+  "base_sha": "c31602aca319f4203cbda24c41673f658ad4284b",
+  "corpus_count": 2448,
+  "excluded_counts": {},
+  "gold_count": 8,
+  "gold_ranks": {
+    "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_skip_bad_links": 18,
+    "tests/test_selector.py::TestSelector.test_flavor_detection_json": 54,
+    "tests/test_selector.py::TestSelector.test_flavor_detection_json_with_html_body": 238,
+    "tests/test_selector.py::test_jmespath_not_available": 103,
+    "tests/utils/bases/http_response.py::TestResponseBase.test_follow_all_whitespace": 55,
+    "tests/utils/bases/http_response.py::TestResponseBase.test_follow_all_whitespace_links": 56,
+    "tests/utils/bases/http_response.py::TestResponseBase.test_follow_whitespace_link": 19,
+    "tests/utils/bases/http_response.py::TestResponseBase.test_follow_whitespace_url": 15
+  },
+  "label_issues": [],
+  "labels_sha256": "0ed2500319965cfb1ea0642315d5bd2756f840b0c618be317c45246bba04b47c",
+  "metrics": {
+    "100": {
+      "all_hit": 0,
+      "candidate_count": 100,
+      "candidate_fraction": 0.04084967320261438,
+      "fn": 2,
+      "fp": 94,
+      "gold_count": 8,
+      "hit_at_k": 1,
+      "matched_count": 6,
+      "precision": 0.06,
+      "recall": 0.75,
+      "recall_at_k": 0.75,
+      "tp": 6,
+      "zero_score_count": 0
+    },
+    "200": {
+      "all_hit": 0,
+      "candidate_count": 200,
+      "candidate_fraction": 0.08169934640522876,
+      "fn": 1,
+      "fp": 193,
+      "gold_count": 8,
+      "hit_at_k": 1,
+      "matched_count": 7,
+      "precision": 0.035,
+      "recall": 0.875,
+      "recall_at_k": 0.875,
+      "tp": 7,
+      "zero_score_count": 0
+    },
+    "50": {
+      "all_hit": 0,
+      "candidate_count": 50,
+      "candidate_fraction": 0.02042483660130719,
+      "fn": 5,
+      "fp": 47,
+      "gold_count": 8,
+      "hit_at_k": 1,
+      "matched_count": 3,
+      "precision": 0.06,
+      "recall": 0.375,
+      "recall_at_k": 0.375,
+      "tp": 3,
+      "zero_score_count": 0
+    }
+  },
+  "pr_id": 8001,
+  "prediction": {
+    "path": "predictions/pr-8001.json.gz",
+    "pr_id": 8001,
+    "sha256": "9419e2e7bf3f935fd7d274ad63ca22020dba24c89c4f1127672159c949e5bb00"
+  },
+  "query_sha256": "948ed941ccbd501782f19632cc3302ddc5650eb6c5d430d4e97256858577c2c3",
+  "rank_seconds": 0.0024252813309431076,
+  "raw_line": 66,
+  "raw_record_sha256": "0d430ffaae31486a01d7d44c010e6f7a45b37506189775eee7022ac9d94ca4a5",
+  "repository": "scrapy/scrapy",
+  "scorable": true,
+  "status": "SCORED"
+}

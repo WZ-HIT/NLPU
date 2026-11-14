@@ -1,0 +1,23 @@
+{
+  "checks": [
+    "input/code/report hashes",
+    "prediction seals",
+    "corpus and query identities",
+    "complete deterministic rankings",
+    "per-PR and aggregate metrics independently recomputed"
+  ],
+  "pr_count": 98,
+  "ranked_pr_count": 98,
+  "scored_pr_count": 96,
+  "source_manifest_sha256": "92857f920afbb3490abe61bf70601bcab13e3c82c159f491d52518d7e67e94a2",
+  "status": "PASS",
+  "offline_tests": {
+    "count": 26,
+    "status": "PASS"
+  },
+  "ranking_reproduction_check": {
+    "previous_run": "output/tfidf-localization/scrapy-98pr-20261027-v1",
+    "identical_prediction_hash_count": 98
+  },
+  "candidate_csv_rows": 19600
+}

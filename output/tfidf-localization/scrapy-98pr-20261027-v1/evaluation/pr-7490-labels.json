@@ -1,0 +1,126 @@
+{
+  "base_sha": "9ca206da6401b3edbc451a13d7146d7bc5e4d98e",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "deleted",
+      "id": "tests/test_spider_start.py::TestMain.test_deprecated"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_spider_start.py::TestMain.test_deprecated_non_generator_exception"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_spider_start.py::TestMain.test_deprecated_subclass"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_spider_start.py::TestMain.test_start_deprecated_super"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_spider_start.py::TestMain.test_universal"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_spider_start.py::TestMain.test_universal_subclass"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_spidermiddleware_process_start.py::TestMain.test_deprecated_mw_deprecated_spider"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_spidermiddleware_process_start.py::TestMain.test_deprecated_mw_modern_spider"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_spidermiddleware_process_start.py::TestMain.test_deprecated_mw_modern_spider_subclass"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_spidermiddleware_process_start.py::TestMain.test_deprecated_mw_universal_spider"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_spidermiddleware_process_start.py::TestMain.test_modern_mw_deprecated_mw_deprecated_spider"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_spidermiddleware_process_start.py::TestMain.test_modern_mw_deprecated_mw_modern_spider"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_spidermiddleware_process_start.py::TestMain.test_modern_mw_deprecated_mw_universal_spider"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_spidermiddleware_process_start.py::TestMain.test_modern_mw_deprecated_spider"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_spidermiddleware_process_start.py::TestMain.test_modern_mw_universal_mw_deprecated_spider"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_spidermiddleware_process_start.py::TestMain.test_modern_mw_universal_mw_modern_spider"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_spidermiddleware_process_start.py::TestMain.test_modern_mw_universal_mw_universal_spider"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_spidermiddleware_process_start.py::TestMain.test_modern_mw_universal_spider"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_spidermiddleware_process_start.py::TestMain.test_universal_mw_deprecated_mw_deprecated_spider"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_spidermiddleware_process_start.py::TestMain.test_universal_mw_deprecated_mw_modern_spider"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_spidermiddleware_process_start.py::TestMain.test_universal_mw_deprecated_mw_universal_spider"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_spidermiddleware_process_start.py::TestMain.test_universal_mw_deprecated_spider"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_spidermiddleware_process_start.py::TestMain.test_universal_mw_modern_spider"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_spidermiddleware_process_start.py::TestMain.test_universal_mw_universal_spider"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_spidermiddleware_process_start.py::TestMain.test_universal_mw_uses_process_start"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_spidermiddleware_start.py::TestMiddleware.test_sync"
+    }
+  ],
+  "excluded_counts": {
+    "deleted": 26
+  },
+  "index_sha256": "1840b36ae476b83c7530a77f1c7aa991704757e9c80760fd04f7988391839b3b",
+  "issues": [],
+  "labels_sha256": "fd6e865f460cfc4807d880de69a4596f1df824723a60b586e900fd41acba3a83",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "c87d4d94d13da4c76cb54d9bd6cad787a697459b0e29e3765a0c1287c9afd1cc",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_spidermiddleware_base.py::test_processed_both",
+    "tests/test_spidermiddleware_base.py::test_processed_item",
+    "tests/test_spidermiddleware_base.py::test_processed_request",
+    "tests/test_spidermiddleware_base.py::test_trivial"
+  ]
+}

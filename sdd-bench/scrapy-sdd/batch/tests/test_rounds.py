@@ -279,6 +279,9 @@ class RoundRuntimeTests(unittest.TestCase):
             catalog = bench / 'environments/agent-runtime/codex-0.153.4_node-24.20.0_uv-0.12.10_linux-amd64/config-templates/model-catalogs/deepseek-flash/models.json'
             catalog.parent.mkdir(parents=True)
             catalog.write_text('{}')
+            import shutil
+            shutil.copytree(Path(__file__).resolve().parents[1] / 'public_detect', bench / 'batch/public_detect',
+                            ignore=shutil.ignore_patterns('__pycache__', '*.pyc'))
             with patch('batch.stages.subprocess.run', side_effect=lambda args, **kw: subprocess.CompletedProcess(args, 0, 'services: {}\n', '')) as docker:
                 _run_compose_agent(**kwargs)
             self.assertEqual(docker.call_count, 4)
@@ -372,7 +375,7 @@ class RoundViewIntegrityTests(unittest.TestCase):
 
 
 class ViewerDashboardTests(unittest.TestCase):
-    def test_dashboard_reads_each_batch_once_for_its_pr_cards(self) -> None:
+    def test_dashboard_reads_each_registered_batch_once_without_pr_cards(self) -> None:
         from unittest.mock import patch
         from batch.archive.viewer import module as viewer_module
         viewer = viewer_module(BENCH)
@@ -384,11 +387,14 @@ class ViewerDashboardTests(unittest.TestCase):
                               for pr in (1, 2))]
             targets = [viewer.BatchTarget(f'task-pr{pr}', pr, 'test', 'openspec', 'detect',
                        'detect-001', None, 'DETECT_SEALED', 1, root) for pr in (1, 2)]
-            with patch.object(viewer, 'batch_targets', return_value=targets) as loaded:
+            entry={'id':'round-test','name':'完整实验','groups':[{'batch_id':'round-test','name':'第一组'}]}
+            with patch.object(viewer, 'batch_targets', return_value=targets) as loaded, patch.object(viewer._layout(),'registry',return_value=[entry]):
                 page = viewer.dashboard_html(cards, BENCH)
             loaded.assert_called_once()
-            self.assertIn('PR 1', page)
-            self.assertIn('PR 2', page)
+            self.assertIn('完整实验', page)
+            self.assertIn('2 PR', page)
+            self.assertNotIn('PR 1', page)
+            self.assertNotIn('PR 2', page)
 
 
 class RoundDetectMetricsTests(unittest.TestCase):

@@ -1,0 +1,27 @@
+{
+  "base_sha": "4b2b56f3848111d55151ccfefddfc6b3d84d1302",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "added",
+      "id": "tests/test_item.py::TestItem.test_fields_order"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_item.py::TestItem.test_fields_order_inheritance"
+    }
+  ],
+  "excluded_counts": {
+    "added": 2
+  },
+  "index_sha256": "9e4d54c511f2b17292bfe891298bfb78ee5516c0adf1ff80c044ddf8473bc839",
+  "issues": [],
+  "labels_sha256": "e07673fd5eace91f127040eff57d23de2aacaa01525c9a39c917c7168cd8ecef",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "54df05094d609adb40732f3b1dd76214a11eb497b77682cd706063a91e1d5f32",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_feedexport.py::TestFeedExport.test_export_based_on_item_classes"
+  ]
+}

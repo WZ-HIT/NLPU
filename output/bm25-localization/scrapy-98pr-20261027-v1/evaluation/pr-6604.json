@@ -1,0 +1,75 @@
+{
+  "base_sha": "f7db039d1ca2bcfee003453ddbb2210578ed9b62",
+  "corpus_count": 2026,
+  "excluded_counts": {
+    "added": 1
+  },
+  "gold_count": 3,
+  "gold_ranks": {
+    "tests/test_crawler_subprocess.py::TestCrawlerProcessSubprocessBase.test_asyncio_enabled_reactor_same_loop": 1,
+    "tests/test_robotstxt_interface.py::TestPythonRobotParser.test_allowed_wildcards": 638,
+    "tests/test_robotstxt_interface.py::TestPythonRobotParser.test_length_based_precedence": 669
+  },
+  "label_issues": [],
+  "labels_sha256": "f1c55eb9886827c8b31d4423a82ba518445ad759da18c5c410350c3a1495e4e4",
+  "metrics": {
+    "100": {
+      "all_hit": 0,
+      "candidate_count": 100,
+      "candidate_fraction": 0.049358341559723594,
+      "fn": 2,
+      "fp": 99,
+      "gold_count": 3,
+      "hit_at_k": 1,
+      "matched_count": 1,
+      "precision": 0.01,
+      "recall": 0.3333333333333333,
+      "recall_at_k": 0.3333333333333333,
+      "tp": 1,
+      "zero_score_count": 0
+    },
+    "200": {
+      "all_hit": 0,
+      "candidate_count": 200,
+      "candidate_fraction": 0.09871668311944719,
+      "fn": 2,
+      "fp": 199,
+      "gold_count": 3,
+      "hit_at_k": 1,
+      "matched_count": 1,
+      "precision": 0.005,
+      "recall": 0.3333333333333333,
+      "recall_at_k": 0.3333333333333333,
+      "tp": 1,
+      "zero_score_count": 0
+    },
+    "50": {
+      "all_hit": 0,
+      "candidate_count": 50,
+      "candidate_fraction": 0.024679170779861797,
+      "fn": 2,
+      "fp": 49,
+      "gold_count": 3,
+      "hit_at_k": 1,
+      "matched_count": 1,
+      "precision": 0.02,
+      "recall": 0.3333333333333333,
+      "recall_at_k": 0.3333333333333333,
+      "tp": 1,
+      "zero_score_count": 0
+    }
+  },
+  "pr_id": 6604,
+  "prediction": {
+    "path": "predictions/pr-6604.json.gz",
+    "pr_id": 6604,
+    "sha256": "fd035679e95a76bb13c3657c73d12bf0f539aab07e5fb6ac891f65b692e3209d"
+  },
+  "query_sha256": "0c94716b1c88b19bf647cfe3477d1df8d5e065027d15d137bf58f7dc6c4e95fb",
+  "rank_seconds": 0.005211708135902882,
+  "raw_line": 322,
+  "raw_record_sha256": "5b0e8fd7a684c9125b4c25046b428b10c010de0bd3000d861bf2fb7416d8c43c",
+  "repository": "scrapy/scrapy",
+  "scorable": true,
+  "status": "SCORED"
+}

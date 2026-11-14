@@ -1,0 +1,84 @@
+{
+  "base_sha": "068aa69b350ab7e06df5d4cb372cfd15b256ea39",
+  "corpus_count": 2082,
+  "excluded_counts": {
+    "added": 3,
+    "deleted": 8
+  },
+  "gold_count": 11,
+  "gold_ranks": {
+    "tests/test_downloader_handler_twisted_http2.py::TestHttps2.test_concurrent_requests_same_domain": 30,
+    "tests/test_downloader_handler_twisted_http2.py::TestHttps2.test_connect_request": 36,
+    "tests/test_downloader_handler_twisted_http2.py::TestHttps2.test_custom_content_length_bad": 207,
+    "tests/test_downloader_handler_twisted_http2.py::TestHttps2.test_custom_content_length_good": 135,
+    "tests/test_downloader_handler_twisted_http2.py::TestHttps2.test_protocol": 14,
+    "tests/test_downloader_handler_twisted_http2.py::TestHttps2Proxy.test_download_with_proxy_https_timeout": 181,
+    "tests/test_downloader_handler_twisted_http2.py::TestHttps2Proxy.test_download_with_proxy_without_http_scheme": 182,
+    "tests/test_downloader_handlers_http_base.py::TestHttp11Base.test_download_allow_data_loss_via_setting": 1,
+    "tests/test_downloader_handlers_http_base.py::TestHttp11Base.test_download_cause_data_loss": 4,
+    "tests/test_downloader_handlers_http_base.py::TestHttp11Base.test_download_cause_data_loss_double_warning": 8,
+    "tests/test_downloader_handlers_http_base.py::TestHttp11Base.test_download_conn_aborted": 49
+  },
+  "label_issues": [],
+  "labels_sha256": "0a26ed628aefd5580eac1f1e92740d77b0bd4a6d64020bb496e54f35f238b52c",
+  "metrics": {
+    "100": {
+      "all_hit": 0,
+      "candidate_count": 100,
+      "candidate_fraction": 0.04803073967339097,
+      "fn": 4,
+      "fp": 93,
+      "gold_count": 11,
+      "hit_at_k": 1,
+      "matched_count": 7,
+      "precision": 0.07,
+      "recall": 0.6363636363636364,
+      "recall_at_k": 0.6363636363636364,
+      "tp": 7,
+      "zero_score_count": 0
+    },
+    "200": {
+      "all_hit": 0,
+      "candidate_count": 200,
+      "candidate_fraction": 0.09606147934678194,
+      "fn": 1,
+      "fp": 190,
+      "gold_count": 11,
+      "hit_at_k": 1,
+      "matched_count": 10,
+      "precision": 0.05,
+      "recall": 0.9090909090909091,
+      "recall_at_k": 0.9090909090909091,
+      "tp": 10,
+      "zero_score_count": 0
+    },
+    "50": {
+      "all_hit": 0,
+      "candidate_count": 50,
+      "candidate_fraction": 0.024015369836695485,
+      "fn": 4,
+      "fp": 43,
+      "gold_count": 11,
+      "hit_at_k": 1,
+      "matched_count": 7,
+      "precision": 0.14,
+      "recall": 0.6363636363636364,
+      "recall_at_k": 0.6363636363636364,
+      "tp": 7,
+      "zero_score_count": 0
+    }
+  },
+  "pr_id": 7466,
+  "prediction": {
+    "path": "predictions/pr-7466.json.gz",
+    "pr_id": 7466,
+    "sha256": "2f08d4cb22af2072d984574047d79850c027db777ab6cc8bbd96d84661412b48"
+  },
+  "query_sha256": "2c683d8e4999c6122260bb7f7aa9e09ebdced441388ed7c25aa1685d37e7285f",
+  "rank_seconds": 0.0023998813703656197,
+  "raw_line": 341,
+  "raw_record_sha256": "441656d91e1a4aba4fc37645f9310e64e4ebb586ff35add20230a5afe4b6adbf",
+  "repository": "scrapy/scrapy",
+  "scorable": true,
+  "status": "SCORED"
+}

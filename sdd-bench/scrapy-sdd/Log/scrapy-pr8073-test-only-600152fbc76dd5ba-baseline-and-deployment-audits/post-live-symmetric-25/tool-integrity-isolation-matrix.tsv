@@ -1,4 +1,0 @@
-group	assigned_tool	version	dependency_check	entrypoint_sha256	direct_console_entry	foreign_tool_count
-openspec	OpenSpec	1.12.0	PASS	ca136f0e9fd4951dcf93d8ed729ebc97b2d97d3980cd9dc9d42fc80e32e797c6	fixed-node-entrypoint:PASS	0
-speckit	Spec Kit	specify 1.0.4	PASS	fa8dccedd2eda9578062981ce76c90bc9fe63654f3bddc88b1f6c22dea8e2ffd	venv-console-script:PASS;trusted-python-plus-private-site-packages:PASS	0
-cc-sdd	cc-sdd	cc-sdd v3.0.2	PASS	4f8f5a293e4f73172177f1bd47092d77f48e0a9e76a80610f04a6de7f826cd1e	fixed-node-entrypoint:PASS	0

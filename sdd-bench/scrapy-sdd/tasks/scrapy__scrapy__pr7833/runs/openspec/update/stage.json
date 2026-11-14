@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "stage": "update",
+  "method": "openspec",
+  "status": "AWAITING_DETECT_SEAL",
+  "phases": [
+    "apply"
+  ],
+  "workspace": null,
+  "workspace_created": false,
+  "output": "output/",
+  "reconstruct_from": [
+    "pure_baseline",
+    "frozen_initialization",
+    "sealed_detection_artifacts"
+  ],
+  "repository_mount": "read-only",
+  "writable_paths": [
+    "/workspace/tests"
+  ],
+  "forbidden": [
+    "run_tests",
+    "modify_scrapy",
+    "modify_project_configuration"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "base_sha": "96823bb31dbe1d1f4d0d93e28c7c8bfae31955e9",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "added",
+      "id": "tests/test_commands.py::TestGlobalOptions.test_pdb_on_handled_failure"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_commands.py::TestGlobalOptions.test_pdb_on_logged_error"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_commands.py::TestGlobalOptions.test_pdb_on_logged_error_without_exception"
+    }
+  ],
+  "excluded_counts": {
+    "added": 3
+  },
+  "index_sha256": "8d11e8a39e7a238dc299f0735d0d2d37c91ddfa82c8886696809720c2807c36f",
+  "issues": [],
+  "labels_sha256": "19e404bbd0bcdfdb6e036b737f4fcf1fe3ae98ea7fd454a260102081010eab04",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "b9c4af3c11dd9217f16d56996685a4d3b7cec310d97490aa4950516d7db3e24c",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_commands.py::TestCommandSettings.test_pdb_uses_ipdb_if_installed",
+    "tests/test_commands.py::TestGlobalOptions.test_pdb"
+  ]
+}

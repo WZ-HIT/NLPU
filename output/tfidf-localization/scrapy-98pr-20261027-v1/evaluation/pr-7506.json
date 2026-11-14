@@ -1,0 +1,75 @@
+{
+  "base_sha": "a8a8f20d9c49ae7f611cbdc90676b64f6349dba2",
+  "corpus_count": 2005,
+  "excluded_counts": {
+    "added": 6
+  },
+  "gold_count": 3,
+  "gold_ranks": {
+    "tests/test_utils_response.py::test_inject_base_url": 46,
+    "tests/test_utils_response.py::test_open_in_browser": 1,
+    "tests/test_utils_response.py::test_remove_html_comments": 10
+  },
+  "label_issues": [],
+  "labels_sha256": "798dcc9b2474eca213e5ff63e08b2defc83fae366de2cfa37e9398f06ca2efb8",
+  "metrics": {
+    "100": {
+      "all_hit": 1,
+      "candidate_count": 100,
+      "candidate_fraction": 0.04987531172069826,
+      "fn": 0,
+      "fp": 97,
+      "gold_count": 3,
+      "hit_at_k": 1,
+      "matched_count": 3,
+      "precision": 0.03,
+      "recall": 1.0,
+      "recall_at_k": 1.0,
+      "tp": 3,
+      "zero_score_count": 0
+    },
+    "200": {
+      "all_hit": 1,
+      "candidate_count": 200,
+      "candidate_fraction": 0.09975062344139651,
+      "fn": 0,
+      "fp": 197,
+      "gold_count": 3,
+      "hit_at_k": 1,
+      "matched_count": 3,
+      "precision": 0.015,
+      "recall": 1.0,
+      "recall_at_k": 1.0,
+      "tp": 3,
+      "zero_score_count": 0
+    },
+    "50": {
+      "all_hit": 1,
+      "candidate_count": 50,
+      "candidate_fraction": 0.02493765586034913,
+      "fn": 0,
+      "fp": 47,
+      "gold_count": 3,
+      "hit_at_k": 1,
+      "matched_count": 3,
+      "precision": 0.06,
+      "recall": 1.0,
+      "recall_at_k": 1.0,
+      "tp": 3,
+      "zero_score_count": 0
+    }
+  },
+  "pr_id": 7506,
+  "prediction": {
+    "path": "predictions/pr-7506.json.gz",
+    "pr_id": 7506,
+    "sha256": "580792719c1d502d8051ff79ca267596c33b4dabdbfb437feb1af88fb8737755"
+  },
+  "query_sha256": "511cecab5a3c30ff8c18960034db4f0502056339d674497429e2b6124d08d40c",
+  "rank_seconds": 0.002492212690412998,
+  "raw_line": 309,
+  "raw_record_sha256": "1f4e22d8757bb7c1b228f9d5eddba8e5944b5907ba0581372935da20838d6fcb",
+  "repository": "scrapy/scrapy",
+  "scorable": true,
+  "status": "SCORED"
+}

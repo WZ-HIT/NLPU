@@ -1,0 +1,4 @@
+{
+  "body": "",
+  "title": "Replace import tests with find_spec() or importorskip()."
+}

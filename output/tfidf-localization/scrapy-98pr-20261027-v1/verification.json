@@ -1,0 +1,14 @@
+{
+  "checks": [
+    "input/code/report hashes",
+    "prediction seals",
+    "corpus and query identities",
+    "complete deterministic rankings",
+    "per-PR and aggregate metrics independently recomputed"
+  ],
+  "pr_count": 98,
+  "ranked_pr_count": 98,
+  "scored_pr_count": 96,
+  "source_manifest_sha256": "0b50cbced5da886bb14a5b38474bd0e8666324dfab18f97f20270aa055048827",
+  "status": "PASS"
+}

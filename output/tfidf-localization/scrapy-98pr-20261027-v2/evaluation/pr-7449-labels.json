@@ -1,0 +1,65 @@
+{
+  "base_sha": "27092b2cb703f2910b0a255a1b8250623999e12c",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "added",
+      "id": "tests/test_settings/__init__.py::TestBaseSettings.test_get_component_priority_dict_with_base_handles_load_object_exceptions"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_settings/__init__.py::TestBaseSettings.test_get_component_priority_dict_with_base_invalid_setting_name"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_settings/__init__.py::TestBaseSettings.test_get_component_priority_dict_with_base_override_none_by_type"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_settings/__init__.py::TestBaseSettings.test_get_component_priority_dict_with_base_override_value_by_type"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_settings/__init__.py::TestBaseSettings.test_get_component_priority_dict_with_base_warns_on_duplicate_import_paths"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_settings/__init__.py::TestBaseSettings.test_get_component_priority_dict_with_base_warns_on_duplicate_mixed_type_and_path"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_settings/__init__.py::TestBaseSettings.test_getwithbase_for_dotted_keys"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_settings/__init__.py::TestBaseSettings.test_getwithbase_override_none_by_type"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_settings/__init__.py::TestBaseSettings.test_getwithbase_override_value_by_type"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_settings/__init__.py::TestBaseSettings.test_getwithbase_warns_on_duplicate_import_paths"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_settings/__init__.py::TestBaseSettings.test_getwithbase_warns_on_duplicate_mixed_type_and_path"
+    }
+  ],
+  "excluded_counts": {
+    "added": 7,
+    "deleted": 4
+  },
+  "index_sha256": "0cedc33cc8f1801b295168b1b0813a588d089d875dae75bd3bf5bf66e0f39ce1",
+  "issues": [],
+  "labels_sha256": "a86f65b4dd6b3e124620daaf58190fcc64d26c4789baf6da7381fa68859557bf",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "8719339db910bf46c94ca0fb4b7745a8c372688fdba4afd07b1b7b0d0891308a",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_command_check.py::TestCheckCommand.test_run_with_opts_list_prints_spider",
+    "tests/test_command_check.py::TestCheckCommand.test_run_without_opts_list_does_not_crawl_spider_with_no_tested_methods"
+  ]
+}

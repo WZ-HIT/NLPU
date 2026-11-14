@@ -1,0 +1,34 @@
+{
+  "base_sha": "3857c6906b2da51e12ca6005434512b7704fd659",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_utils_response.py::test_open_in_browser"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_response.py::test_open_in_browser_raises_for_unrecognized_content_type"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_utils_response.py::test_open_in_browser_raises_for_unsupported_response_type"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_response.py::test_open_in_browser_uses_content_type_for_extension"
+    }
+  ],
+  "excluded_counts": {
+    "added": 2,
+    "mechanical_ast_equal": 2
+  },
+  "index_sha256": "ae845d6e39635d56b82b7c5fae88d92e8c5b20ba414470b53e7abddf509e1948",
+  "issues": [],
+  "labels_sha256": "e36f2dfa4e33f93c3cb8f22b42ab27b0d91358a03955101b1ae6da4d45717d4f",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "48fcc96c59b4ef9b01a0dcbff35c3d3bec7a796d19556d61ba1519f7894c6c40",
+  "schema_version": 1,
+  "testcases": []
+}

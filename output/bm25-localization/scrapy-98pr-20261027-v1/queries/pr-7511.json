@@ -1,0 +1,4 @@
+{
+  "body": "~~Windows is blocked by lxml~~\r\n\r\n- [x] `scrapy/utils/misc.py::scrapy.utils.misc.walk_modules_iter`\r\n",
+  "title": "Add Python 3.15 to CI."
+}

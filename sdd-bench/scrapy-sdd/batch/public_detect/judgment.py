@@ -1,0 +1,22 @@
+"""One public, gold-free judgment rule for every method and material group."""
+VERSION = 'update-judgment-v2'
+RULE = (
+    'Use task requirements plus current source, never an unseen future patch, to judge method edits. '
+    'Keep short investigation records only for candidates actually investigated using '
+    'python3 /run/sdd-public/decisions.py save --directory {planning} --repository /workspace '
+    'with one JSON record on stdin; see /run/sdd-public/decision-example.json. '
+    'These records are separate from detection-draft.json and never change its schema. '
+    'Track support, counterevidence, uncertainty and whether only a name, a complete result, '
+    'or relevant source was visible. Update a candidate only when new evidence changes its assessment; '
+    'do not log every search hit or write long reasoning. '
+    'Paired maintenance examples: an explicit API migration plus an obsolete call inside an existing '
+    'method may require that method to change; moving the test itself is outside the method-content target. '
+    'A task changing a mock target or asserted call can require a local edit; if a shared helper suffices, '
+    'do not select all helper users. An explicit migration scope may require annotations in affected methods; '
+    'a missing annotation alone does not establish that the task requires one. Changed expected behavior '
+    'may invalidate an assertion; a production-internal refactor preserving the test interface and '
+    'assertions provides no such evidence. An explicitly set configuration value may insulate a test '
+    'from a changed default. Behavior preservation alone never excludes reference maintenance, '
+    'and a shared reference alone never proves an edit is needed. '
+    'If evidence is insufficient keep pending questions separate from the formal final output. '
+)

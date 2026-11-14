@@ -1,0 +1,76 @@
+{
+  "base_sha": "ca21306df769754ab4ad01596898a63f2fc90de6",
+  "corpus_count": 2186,
+  "excluded_counts": {},
+  "gold_count": 6,
+  "gold_ranks": {
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_process_response_br_unsupported": 28,
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_process_response_zstd_unsupported": 75,
+    "tests/test_feedexport_storages.py::TestGCSFeedStorage.test_parse_empty_acl": 110,
+    "tests/test_feedexport_storages.py::TestGCSFeedStorage.test_parse_settings": 84,
+    "tests/test_feedexport_storages.py::TestGCSFeedStorage.test_store": 62,
+    "tests/test_feedexport_storages.py::TestGCSFeedStorage.test_store_closes_file_on_upload_error": 70
+  },
+  "label_issues": [],
+  "labels_sha256": "e78f3856c822ee53396095fe0454bcdfb7c65f94e9bec2827fb6b7df12d52f30",
+  "metrics": {
+    "100": {
+      "all_hit": 0,
+      "candidate_count": 100,
+      "candidate_fraction": 0.04574565416285453,
+      "fn": 1,
+      "fp": 95,
+      "gold_count": 6,
+      "hit_at_k": 1,
+      "matched_count": 5,
+      "precision": 0.05,
+      "recall": 0.8333333333333334,
+      "recall_at_k": 0.8333333333333334,
+      "tp": 5,
+      "zero_score_count": 0
+    },
+    "200": {
+      "all_hit": 1,
+      "candidate_count": 200,
+      "candidate_fraction": 0.09149130832570906,
+      "fn": 0,
+      "fp": 194,
+      "gold_count": 6,
+      "hit_at_k": 1,
+      "matched_count": 6,
+      "precision": 0.03,
+      "recall": 1.0,
+      "recall_at_k": 1.0,
+      "tp": 6,
+      "zero_score_count": 0
+    },
+    "50": {
+      "all_hit": 0,
+      "candidate_count": 50,
+      "candidate_fraction": 0.022872827081427266,
+      "fn": 5,
+      "fp": 49,
+      "gold_count": 6,
+      "hit_at_k": 1,
+      "matched_count": 1,
+      "precision": 0.02,
+      "recall": 0.16666666666666666,
+      "recall_at_k": 0.16666666666666666,
+      "tp": 1,
+      "zero_score_count": 0
+    }
+  },
+  "pr_id": 7755,
+  "prediction": {
+    "path": "predictions/pr-7755.json.gz",
+    "pr_id": 7755,
+    "sha256": "a4cdd3afce32c7ebb15e39bd0ca4bf60a3e05e813dd0a28502debb3ffa0f6cb3"
+  },
+  "query_sha256": "ac21f918c1510315fcee9e4c3037c5651d0064c2d334c86cb426aec4ad000c8b",
+  "rank_seconds": 0.0017898203805088997,
+  "raw_line": 212,
+  "raw_record_sha256": "f734e31cad9255e31f8865f91f2c10e38f6b4155c462a4989ead5a101e3f03a0",
+  "repository": "scrapy/scrapy",
+  "scorable": true,
+  "status": "SCORED"
+}

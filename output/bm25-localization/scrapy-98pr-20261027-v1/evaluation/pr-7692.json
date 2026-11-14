@@ -1,0 +1,72 @@
+{
+  "base_sha": "185d6b9a20b7d0e77f4c60435d17e5072bd4d704",
+  "corpus_count": 2136,
+  "excluded_counts": {},
+  "gold_count": 2,
+  "gold_ranks": {
+    "tests/test_downloadermiddleware_httpcache.py::StorageTestMixin.test_storage": 28,
+    "tests/test_downloadermiddleware_httpcache.py::StorageTestMixin.test_storage_never_expire": 991
+  },
+  "label_issues": [],
+  "labels_sha256": "ca8dd336c87d4a5a9772f2c536544d5ec1811b409a8782f548539e62abb45491",
+  "metrics": {
+    "100": {
+      "all_hit": 0,
+      "candidate_count": 100,
+      "candidate_fraction": 0.04681647940074907,
+      "fn": 1,
+      "fp": 99,
+      "gold_count": 2,
+      "hit_at_k": 1,
+      "matched_count": 1,
+      "precision": 0.01,
+      "recall": 0.5,
+      "recall_at_k": 0.5,
+      "tp": 1,
+      "zero_score_count": 0
+    },
+    "200": {
+      "all_hit": 0,
+      "candidate_count": 200,
+      "candidate_fraction": 0.09363295880149813,
+      "fn": 1,
+      "fp": 199,
+      "gold_count": 2,
+      "hit_at_k": 1,
+      "matched_count": 1,
+      "precision": 0.005,
+      "recall": 0.5,
+      "recall_at_k": 0.5,
+      "tp": 1,
+      "zero_score_count": 0
+    },
+    "50": {
+      "all_hit": 0,
+      "candidate_count": 50,
+      "candidate_fraction": 0.023408239700374533,
+      "fn": 1,
+      "fp": 49,
+      "gold_count": 2,
+      "hit_at_k": 1,
+      "matched_count": 1,
+      "precision": 0.02,
+      "recall": 0.5,
+      "recall_at_k": 0.5,
+      "tp": 1,
+      "zero_score_count": 0
+    }
+  },
+  "pr_id": 7692,
+  "prediction": {
+    "path": "predictions/pr-7692.json.gz",
+    "pr_id": 7692,
+    "sha256": "bd5245e9515c28d95d86a0cefa6e0436a1958695df81e1eaf9ee52a64821d8a4"
+  },
+  "query_sha256": "a26780e353b7a0c7c31b359f83717ab695c58eb3163663c50bb4cbf1b41ce54c",
+  "rank_seconds": 0.002406701445579529,
+  "raw_line": 244,
+  "raw_record_sha256": "0d975ff3dc9d05f6d9a17c3cc6089bf15c59b3ead822a653edfe8dc3e9eaed29",
+  "repository": "scrapy/scrapy",
+  "scorable": true,
+  "status": "SCORED"
+}

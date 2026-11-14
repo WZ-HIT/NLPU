@@ -1,0 +1,227 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nlpu.local/schemas/case-record.schema.json",
+  "title": "NLPU connection case record",
+  "description": "One historical PR analyzed for connections between modified existing tests and package Python production changes. Host-only analysis artifact; not a model input.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "case_id",
+    "pr_id",
+    "repo",
+    "base_sha",
+    "classification",
+    "selection",
+    "production_changes",
+    "modified_tests",
+    "edges",
+    "no_edge_changes",
+    "test_level",
+    "review",
+    "notes"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "case_id": { "type": "string", "pattern": "^pr-[0-9]+$" },
+    "pr_id": { "type": "integer", "minimum": 1 },
+    "repo": { "type": "string" },
+    "base_sha": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "head_sha": { "type": ["string", "null"], "pattern": "^[0-9a-f]{40}$" },
+    "merge_sha": { "type": ["string", "null"], "pattern": "^[0-9a-f]{40}$" },
+    "classification": { "const": "MIXED_CODE_AND_TEST_PR" },
+    "selection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stratum", "rationale"],
+      "properties": {
+        "stratum": { "enum": ["direct", "indirect", "no_edge", "mixed"] },
+        "rationale": { "type": "string", "minLength": 1 }
+      }
+    },
+    "production_changes": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/production_change" }
+    },
+    "modified_tests": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/test_ref" }
+    },
+    "edges": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/edge" }
+    },
+    "no_edge_changes": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/no_edge_change" }
+    },
+    "test_level": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["positives", "missed_updates", "coverage_gaps", "unknown"],
+      "properties": {
+        "positives": {
+          "type": "array",
+          "description": "Existing tests actually modified by the PR. Main scoring positives.",
+          "items": { "$ref": "#/$defs/test_ref" }
+        },
+        "missed_updates": {
+          "type": "array",
+          "description": "Existing tests a reviewer judges should have been modified but were not. Reported separately, never folded into positives.",
+          "items": { "$ref": "#/$defs/test_ref" }
+        },
+        "coverage_gaps": {
+          "type": "array",
+          "description": "Cases where a new test is needed rather than an existing test being updated.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["description", "rationale"],
+            "properties": {
+              "description": { "type": "string" },
+              "test_path": { "type": ["string", "null"] },
+              "rationale": { "type": "string" }
+            }
+          }
+        },
+        "unknown": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/test_ref" }
+        }
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "first_pass_at", "second_pass_at", "changed_verdicts"],
+      "properties": {
+        "status": { "enum": ["draft", "reviewed", "frozen"] },
+        "first_pass_at": { "type": ["string", "null"], "format": "date-time" },
+        "second_pass_at": { "type": ["string", "null"], "format": "date-time" },
+        "changed_verdicts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["field", "from", "to", "rationale"],
+            "properties": {
+              "field": { "type": "string" },
+              "from": { "type": "string" },
+              "to": { "type": "string" },
+              "rationale": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "notes": { "type": "string" }
+  },
+  "$defs": {
+    "node_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "symbol"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "symbol": { "type": "string", "minLength": 1 }
+      }
+    },
+    "test_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "qualified_name"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "qualified_name": { "type": "string", "minLength": 1 }
+      }
+    },
+    "production_change": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "symbol", "kind", "change_kind", "hunks", "evidence_ref"],
+      "properties": {
+        "path": { "type": "string" },
+        "symbol": { "type": "string" },
+        "kind": { "enum": ["function", "method", "async_function", "async_method", "class", "module", "header", "unknown"] },
+        "change_kind": { "enum": ["behavior", "refactor", "typing", "docs", "unknown"] },
+        "hunks": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "prefixItems": [{ "type": "integer" }, { "type": "integer" }],
+            "minItems": 2,
+            "maxItems": 2
+          }
+        },
+        "evidence_ref": { "type": "string", "minLength": 1 }
+      }
+    },
+    "edge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "edge_id",
+        "test",
+        "production",
+        "relation",
+        "hops",
+        "path",
+        "evidence",
+        "confidence",
+        "status",
+        "rationale"
+      ],
+      "properties": {
+        "edge_id": { "type": "string", "minLength": 1 },
+        "test": { "$ref": "#/$defs/test_ref" },
+        "production": { "$ref": "#/$defs/node_ref" },
+        "relation": { "enum": ["direct", "indirect"] },
+        "hops": {
+          "type": ["integer", "null"],
+          "minimum": 1,
+          "description": "Shortest static/behavioral path length. Null for non-call relations such as config or event propagation."
+        },
+        "path": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Ordered node IDs from test to production symbol. May be empty when hops is null."
+        },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "enum": ["static_call", "static_call_path", "import", "coverage", "data_flow", "config", "event", "manual"] }
+        },
+        "confidence": { "enum": ["high", "medium", "low"] },
+        "status": { "enum": ["candidate", "confirmed", "rejected"] },
+        "rationale": { "type": "string", "minLength": 1 }
+      }
+    },
+    "no_edge_change": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "production",
+        "change_kind",
+        "counterfactual",
+        "coverage_gap",
+        "affected_existing_tests",
+        "confidence",
+        "status",
+        "rationale"
+      ],
+      "properties": {
+        "production": { "$ref": "#/$defs/node_ref" },
+        "change_kind": { "enum": ["behavior", "refactor", "typing", "docs", "unknown"] },
+        "counterfactual": { "enum": ["no_update_needed", "missed", "unknown"] },
+        "coverage_gap": { "type": "boolean" },
+        "affected_existing_tests": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/test_ref" }
+        },
+        "confidence": { "enum": ["high", "medium", "low"] },
+        "status": { "enum": ["candidate", "confirmed", "rejected"] },
+        "rationale": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

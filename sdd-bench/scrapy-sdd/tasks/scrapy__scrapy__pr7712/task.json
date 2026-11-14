@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr7712",
+  "repository": {
+    "owner": "scrapy",
+    "name": "scrapy"
+  },
+  "pr_id": 7712,
+  "baseline": {
+    "base_sha": "870803b7fb1ed56c296eb6b51d0212f0460dfdda"
+  },
+  "title": "More granular untyped defs checking in tests.",
+  "body": "List files with problems explicitly, fix problems in files with a small number of them. It should be easier to remove a fully fixed file from the list than to add `-> None` to all its test functions (I would still add type hints to parameters and fixtures though).",
+  "adapter": {
+    "id": "scrapy",
+    "version": 1,
+    "path": "sdd-bench/scrapy-sdd/adapters/scrapy.json",
+    "sha256": "059dcc09eaa62f892f54118e65d4deccce3ab29cc5d9a4a36f4d999ff1aa27de"
+  }
+}

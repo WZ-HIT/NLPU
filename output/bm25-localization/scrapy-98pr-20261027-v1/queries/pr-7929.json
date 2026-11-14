@@ -1,0 +1,4 @@
+{
+  "body": "Resolves https://github.com/scrapy/scrapy/issues/4698",
+  "title": "Make brotli a hard dependency"
+}

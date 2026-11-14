@@ -1,0 +1,19 @@
+{
+  "base_sha": "65b37286cc56b6a87c4d1eca6bdff79f658f09d2",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [],
+  "excluded_counts": {},
+  "index_sha256": "94fdc0f69cc1cde746497b6dad365f1e072b4d69b304603146619041f2d7d72b",
+  "issues": [],
+  "labels_sha256": "910535ae47dd5b2a45dfdf7b9634381a8221c86f0216c7aac53d432f81fb5338",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "a9ab1bba59a48977b1553e54f55480fafd3b5dd1db1f3a4bf1e48e2e99621aa3",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_downloader_handler_twisted_http2.py::TestHttp2.test_custom_content_length_bad",
+    "tests/test_http2_client_protocol.py::TestHttps2ClientProtocol.test_connection_timeout",
+    "tests/test_http2_client_protocol.py::TestHttps2ClientProtocol.test_inactive_stream",
+    "tests/test_http2_client_protocol.py::TestHttps2ClientProtocol.test_invalid_negotiated_protocol"
+  ]
+}

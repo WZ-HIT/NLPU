@@ -1,0 +1,11 @@
+{
+  "id": "tests/test_client.py::TestClient.test_timeout",
+  "task_requirement": "Migrate client construction to the specified public factory",
+  "state": "pending",
+  "edit_scope": "method_content",
+  "method_edit_reason": "This method directly constructs the old client; compatibility is not yet confirmed",
+  "support": ["tests/test_client.py:42 old constructor called inside method"],
+  "against": [],
+  "unknowns": ["Does the task retain the old construction API?"],
+  "exposure": {"stage": "source_expanded", "refs": ["tests/test_client.py:40-49"]}
+}

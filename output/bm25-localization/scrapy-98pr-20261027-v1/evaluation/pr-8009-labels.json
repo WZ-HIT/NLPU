@@ -1,0 +1,30 @@
+{
+  "base_sha": "3c6a62db47536df89676ab9d7347acf5c5c8a2e4",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "deleted",
+      "id": "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_process_response_zstd_unsupported"
+    }
+  ],
+  "excluded_counts": {
+    "deleted": 1
+  },
+  "index_sha256": "8294e2ca38530bb2d39b863b7d4d0ade9a779118d8ad3e8f46cd0757d5d00fcb",
+  "issues": [],
+  "labels_sha256": "420b7aba1e2223d23e3890ee4d9a7605194694dd8fc8c324be1d085b774dc0d2",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "7bcc5ddfaa2686d190a73caff04576dfa6cb30b018992d104833a5beae93792e",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_compression_bomb_request_meta_zstd",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_compression_bomb_setting_zstd",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_compression_bomb_spider_attr_zstd",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_download_warnsize_request_meta_zstd",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_download_warnsize_setting_zstd",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_download_warnsize_spider_attr_zstd",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_process_response_zstd",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_process_truncated_response_zstd"
+  ]
+}

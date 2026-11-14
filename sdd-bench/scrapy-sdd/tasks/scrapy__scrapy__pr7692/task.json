@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr7692",
+  "repository": {
+    "owner": "scrapy",
+    "name": "scrapy"
+  },
+  "pr_id": 7692,
+  "baseline": {
+    "base_sha": "185d6b9a20b7d0e77f4c60435d17e5072bd4d704"
+  },
+  "title": "Solve timing issues with HTTP cache tests",
+  "body": "Fixes #7247, closes #7383.",
+  "adapter": {
+    "id": "scrapy",
+    "version": 1,
+    "path": "sdd-bench/scrapy-sdd/adapters/scrapy.json",
+    "sha256": "059dcc09eaa62f892f54118e65d4deccce3ab29cc5d9a4a36f4d999ff1aa27de"
+  }
+}

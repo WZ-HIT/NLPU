@@ -43,6 +43,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         command.add_argument("--batch", required=True, metavar="ID", help="The batch id")
 
     check_parser = subparsers.choices["check"]
+    check_parser.add_argument("--testcase", action="store_true", help="Write separate v3 testcase and scoped-file metrics")
     check_parser.add_argument(
         "--dry-run",
         action="store_true",
@@ -88,6 +89,11 @@ def run(argv: list[str] | None = None) -> int:
     bench = args.bench_root.expanduser().resolve()
     try:
         if args.command == "check":
+            if args.testcase:
+                from .testcase_metrics import check as check_testcase
+                result = check_testcase(bench, args.batch, dry_run=args.dry_run)
+                _json_print(result)
+                return 5 if result['status'] != 'OK' else 0
             result = check(bench, args.batch, dry_run=args.dry_run)
             _json_print({"schema_version": 1, "command": "check", **result})
             if args.strict and result["counts"]["error_count"]:

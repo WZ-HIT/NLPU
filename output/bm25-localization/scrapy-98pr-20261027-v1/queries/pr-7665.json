@@ -1,0 +1,4 @@
+{
+  "body": "Fixes #7499.",
+  "title": "Make DOWNLOADER_CLIENT_TLS_CIPHERS=None enable Twisted defaults"
+}

@@ -1,0 +1,51 @@
+{
+  "bm25_reference": "https://lucene.apache.org/core/9_12_1/core/org/apache/lucene/search/similarities/BM25Similarity.html",
+  "completed_at_utc": "2026-10-27T03:09:24.854570+00:00",
+  "created_at_utc": "2026-10-27T03:08:10.720265+00:00",
+  "cutoffs": [
+    50,
+    100,
+    200
+  ],
+  "document": "base path + qualified_name + full source including decorators",
+  "idf": "log(1 + (N-df+0.5)/(df+0.5))",
+  "implementation_sha256": {
+    "/home/wangzuohit/NLPU/experiment/bm25_localization.py": "3c5609cf0b39c858867c3706504077f5f0e12e3b6d601b0f5217a6fe7d6d45af",
+    "/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/batch/core.py": "6eb1a4e71d71e3c1ab97df51bee7cd2125d9876c5d2c00321bab1603e19cccbf",
+    "/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/batch/testcase_identity.py": "a8304248aaaec1c14b785aff631400aa3661d5dc1b32283534f189217bc59729",
+    "/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/batch/testcase_labels.py": "afc4f8dba2ac5ee51ce906196f633d09462dd8dfdf86322a19fbee737fcf85a9"
+  },
+  "inventory": {
+    "path": "/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/batch/inventories/scrapy-pr-inventory.json",
+    "sha256": "24ce5f3f2443ae5ae8af0acaf199928cbcb4ba6080cbc643f640f7eb1de25aca"
+  },
+  "parameters": {
+    "b": 0.75,
+    "k1": 1.2
+  },
+  "pr_count": 98,
+  "predictions_manifest_sha256": "e5e44507699a2aeba9757e22e4af33dbb1cdefaaf92e111bc4e369331166460b",
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "query": "raw title + two newlines + raw body; whitelist only",
+  "query_term_frequency": "count duplicates",
+  "raw": {
+    "path": "/home/wangzuohit/NLPU/output/raw_prs/scrapy__scrapy.jsonl",
+    "sha256": "4cf2d27621963dc79b413f84b4c04e3a5a4fbd1e540c682be6d3e9c15dd239e1"
+  },
+  "report_sha256": "7593def124834cf3b6ad68aec91ba69e815c103cb1454c5a8331b6c18ba612dc",
+  "state": "COMPLETE",
+  "status_counts": {
+    "NO_POSITIVE_GOLD": 2,
+    "SCORED": 96
+  },
+  "summary_sha256": "7b66590d93e6d0355f3db97858e4ded876085a31f3b888083368bdbbe0c86d79",
+  "ties": "score descending, source identity ascending",
+  "tokenizer": "unicode-alnum-camel-snake-digits-lower-v1",
+  "total_seconds": 74.38219121284783,
+  "user_confirmations": {
+    "selected_scope_is_intentional": true,
+    "title_body_unedited": true
+  },
+  "version": "bm25-testcase-v1",
+  "zero_scores": "included"
+}

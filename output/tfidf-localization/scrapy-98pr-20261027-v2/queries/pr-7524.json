@@ -1,0 +1,4 @@
+{
+  "body": "Synchronization with https://github.com/scrapy-plugins/scrapy-download-handlers-incubator/, though without HTTP/2 support for now (mostly because we would need to unconditionally to install `h2` in tests due to it being imported for `HttpxDownloadHandler` and that means some reshuffling of extra-deps).\r\n\r\nPart of #7252",
+  "title": "Add BaseStreamingDownloadHandler and migrate HttpxDownloadHandler to it."
+}

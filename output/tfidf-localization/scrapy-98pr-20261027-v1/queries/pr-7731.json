@@ -1,0 +1,4 @@
+{
+  "body": "Fixes #6585\r\n\r\nDeprecate `scrapy.interfaces` and `scrapy.extensions.feedexport.IFeedStorage`.",
+  "title": "Remove non-Twisted uses of zope.interface"
+}

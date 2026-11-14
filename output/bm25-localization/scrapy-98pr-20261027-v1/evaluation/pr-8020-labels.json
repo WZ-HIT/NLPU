@@ -1,0 +1,17 @@
+{
+  "base_sha": "ed98aafd0f6301647916c86811acacd0a1b59dbd",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [],
+  "excluded_counts": {},
+  "index_sha256": "5b5193579da479516692b1cefe78d98977168e5d96a3932bad6c526f6b649b6d",
+  "issues": [],
+  "labels_sha256": "86b1812b05d85d49dfbd8f613ea9156b4101d6819d59f5bfc830272b82a2ae2d",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "830bf20da6e99093795f8b834ed24a5e406c6b07e300de1dc72f910453ad8a88",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_downloaderslotssettings.py::test_none_slot_with_priority_queue",
+    "tests/test_engine_loop.py::TestMain.test_sleep"
+  ]
+}

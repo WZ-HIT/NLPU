@@ -1,0 +1,1169 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sdd-bench.local/schemas/detect-metrics-v3.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "document_type",
+    "metric_definition_version",
+    "batch_id",
+    "protocol",
+    "result_view_sha256",
+    "legacy_metric_set_sha256",
+    "legacy_file_methods",
+    "source_refs",
+    "tasks",
+    "rows",
+    "methods",
+    "counts",
+    "status",
+    "metric_set_sha256"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 3
+    },
+    "document_type": {
+      "const": "DETECT_LOCALIZATION_METRICS"
+    },
+    "metric_definition_version": {
+      "const": "detect-metrics-v3"
+    },
+    "batch_id": {
+      "type": "string"
+    },
+    "protocol": {
+      "enum": [
+        "file-v1",
+        "testcase-v1"
+      ]
+    },
+    "result_view_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "legacy_metric_set_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "legacy_file_methods": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "method",
+          "row_count",
+          "scorable_count",
+          "error_count",
+          "no_gold_count",
+          "a",
+          "b",
+          "gold_count",
+          "hit_rate_micro",
+          "recall_micro",
+          "f1_micro",
+          "hit_rate_macro",
+          "recall_macro",
+          "f1_macro"
+        ],
+        "properties": {
+          "method": {
+            "enum": [
+              "openspec",
+              "speckit",
+              "cc-sdd"
+            ]
+          },
+          "row_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "scorable_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "error_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "no_gold_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "a": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "b": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "gold_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "hit_rate_micro": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 1
+          },
+          "recall_micro": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 1
+          },
+          "f1_micro": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 1
+          },
+          "hit_rate_macro": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 1
+          },
+          "recall_macro": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 1
+          },
+          "f1_macro": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 1
+          }
+        }
+      }
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "sha256"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      }
+    },
+    "tasks": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "base_sha",
+          "baseline_lock",
+          "index",
+          "labels"
+        ],
+        "properties": {
+          "base_sha": {
+            "type": "string"
+          },
+          "baseline_lock": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "path",
+              "sha256"
+            ],
+            "properties": {
+              "path": {
+                "type": "string"
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            }
+          },
+          "index": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "schema_version",
+              "document_type",
+              "protocol",
+              "base_sha",
+              "index_sha256",
+              "entries",
+              "errors"
+            ],
+            "properties": {
+              "schema_version": {
+                "const": 1
+              },
+              "document_type": {
+                "const": "BASE_TESTCASE_INDEX"
+              },
+              "protocol": {
+                "const": "testcase-v1"
+              },
+              "base_sha": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{40}$"
+              },
+              "index_sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "entries": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "path",
+                    "qualified_name",
+                    "start_line",
+                    "end_line",
+                    "file_sha256",
+                    "ast_sha256"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "qualified_name": {
+                      "type": "string"
+                    },
+                    "start_line": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "end_line": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "file_sha256": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    },
+                    "ast_sha256": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    }
+                  }
+                }
+              },
+              "errors": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "path",
+                    "code"
+                  ],
+                  "properties": {
+                    "path": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "labels": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "schema_version",
+              "document_type",
+              "protocol",
+              "base_sha",
+              "index_sha256",
+              "raw_record_sha256",
+              "labels_sha256",
+              "testcases",
+              "excluded",
+              "excluded_counts",
+              "issues",
+              "complete"
+            ],
+            "properties": {
+              "schema_version": {
+                "const": 1
+              },
+              "document_type": {
+                "const": "HOST_TESTCASE_LABELS"
+              },
+              "protocol": {
+                "const": "testcase-v1"
+              },
+              "base_sha": {
+                "type": "string"
+              },
+              "index_sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "raw_record_sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "labels_sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "testcases": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "excluded": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "category"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "category": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "excluded_counts": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "issues": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "complete": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      }
+    },
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "target_key",
+          "target_id",
+          "task_id",
+          "method",
+          "run_id",
+          "state",
+          "attempt",
+          "ledger_event",
+          "seal",
+          "protocol",
+          "error_code",
+          "index_sha256",
+          "labels_sha256",
+          "legacy_file",
+          "status",
+          "prediction",
+          "testcase",
+          "scoped_file"
+        ],
+        "properties": {
+          "target_key": {
+            "type": "string"
+          },
+          "target_id": {
+            "type": "string"
+          },
+          "task_id": {
+            "type": "string"
+          },
+          "method": {
+            "enum": [
+              "openspec",
+              "speckit",
+              "cc-sdd"
+            ]
+          },
+          "run_id": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "attempt": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer",
+                "minimum": 0
+              }
+            ]
+          },
+          "ledger_event": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "sequence",
+                  "event_sha256"
+                ],
+                "properties": {
+                  "sequence": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "event_sha256": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  }
+                }
+              }
+            ]
+          },
+          "seal": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "path",
+                  "sha256"
+                ],
+                "properties": {
+                  "path": {
+                    "type": "string"
+                  },
+                  "sha256": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  }
+                }
+              }
+            ]
+          },
+          "protocol": {
+            "enum": [
+              "file-v1",
+              "testcase-v1"
+            ]
+          },
+          "error_code": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "index_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "labels_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "legacy_file": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object"
+              }
+            ]
+          },
+          "status": {
+            "enum": [
+              "OK",
+              "FAILED_ZERO",
+              "PENDING",
+              "HISTORICAL_RESCORED",
+              "HISTORICAL_UNSCORABLE",
+              "LABELS_INCOMPLETE",
+              "NO_POSITIVE_GOLD",
+              "EVIDENCE_INVALID"
+            ]
+          },
+          "prediction": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "testcases",
+              "invalid",
+              "files",
+              "duplicate_count"
+            ],
+            "properties": {
+              "testcases": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "invalid": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "files": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "duplicate_count": {
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          },
+          "testcase": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "tp",
+                  "fp",
+                  "fn",
+                  "predicted_count",
+                  "gold_count",
+                  "invalid_count",
+                  "precision",
+                  "recall",
+                  "f1"
+                ],
+                "properties": {
+                  "tp": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "fp": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "fn": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "predicted_count": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "gold_count": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "invalid_count": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "precision": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "recall": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "f1": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  }
+                }
+              }
+            ]
+          },
+          "scoped_file": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "tp",
+                  "fp",
+                  "fn",
+                  "predicted_count",
+                  "gold_count",
+                  "invalid_count",
+                  "precision",
+                  "recall",
+                  "f1"
+                ],
+                "properties": {
+                  "tp": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "fp": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "fn": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "predicted_count": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "gold_count": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "invalid_count": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "precision": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "recall": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "f1": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  }
+                }
+              }
+            ]
+          },
+          "false_alarm_count": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "methods": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "method",
+          "row_count",
+          "statuses",
+          "testcase",
+          "scoped_file",
+          "successful_testcase"
+        ],
+        "properties": {
+          "method": {
+            "type": "string"
+          },
+          "row_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "statuses": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "testcase": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "scored_count",
+              "tp",
+              "fp",
+              "fn",
+              "predicted_count",
+              "gold_count",
+              "invalid_count",
+              "precision_micro",
+              "recall_micro",
+              "f1_micro",
+              "precision_macro",
+              "recall_macro",
+              "f1_macro"
+            ],
+            "properties": {
+              "scored_count": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "tp": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "fp": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "fn": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "predicted_count": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "gold_count": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "invalid_count": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "precision_micro": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  }
+                ]
+              },
+              "recall_micro": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  }
+                ]
+              },
+              "f1_micro": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  }
+                ]
+              },
+              "precision_macro": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  }
+                ]
+              },
+              "recall_macro": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  }
+                ]
+              },
+              "f1_macro": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  }
+                ]
+              }
+            }
+          },
+          "scoped_file": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "scored_count",
+              "tp",
+              "fp",
+              "fn",
+              "predicted_count",
+              "gold_count",
+              "invalid_count",
+              "precision_micro",
+              "recall_micro",
+              "f1_micro",
+              "precision_macro",
+              "recall_macro",
+              "f1_macro"
+            ],
+            "properties": {
+              "scored_count": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "tp": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "fp": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "fn": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "predicted_count": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "gold_count": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "invalid_count": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "precision_micro": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  }
+                ]
+              },
+              "recall_micro": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  }
+                ]
+              },
+              "f1_micro": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  }
+                ]
+              },
+              "precision_macro": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  }
+                ]
+              },
+              "recall_macro": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  }
+                ]
+              },
+              "f1_macro": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  }
+                ]
+              }
+            }
+          },
+          "successful_testcase": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "scored_count",
+              "tp",
+              "fp",
+              "fn",
+              "predicted_count",
+              "gold_count",
+              "invalid_count",
+              "precision_micro",
+              "recall_micro",
+              "f1_micro",
+              "precision_macro",
+              "recall_macro",
+              "f1_macro"
+            ],
+            "properties": {
+              "scored_count": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "tp": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "fp": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "fn": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "predicted_count": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "gold_count": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "invalid_count": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "precision_micro": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  }
+                ]
+              },
+              "recall_micro": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  }
+                ]
+              },
+              "f1_micro": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  }
+                ]
+              },
+              "precision_macro": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  }
+                ]
+              },
+              "recall_macro": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  }
+                ]
+              },
+              "f1_macro": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target_count",
+        "scored_count",
+        "statuses",
+        "invalid_prediction_count",
+        "duplicate_prediction_count",
+        "no_positive_false_alarm_count",
+        "failed_target_count",
+        "unscorable_target_count"
+      ],
+      "properties": {
+        "target_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "scored_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "statuses": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "invalid_prediction_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "duplicate_prediction_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "no_positive_false_alarm_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "failed_target_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "unscorable_target_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "status": {
+      "enum": [
+        "OK",
+        "PARTIAL"
+      ]
+    },
+    "metric_set_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

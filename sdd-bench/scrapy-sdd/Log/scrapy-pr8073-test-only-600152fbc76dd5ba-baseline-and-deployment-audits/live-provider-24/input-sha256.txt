@@ -1,3 +1,0 @@
-8f770432e3f31183e6ef2d18ef20858e09b197d27b98c584dc84d85a0169da2e  /home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/Log/scrapy-pr8073-test-only-600152fbc76dd5ba-baseline-and-deployment-audits/live-provider-24/prompt.txt
-f3bd12b5225d1d1c529ef2df3bce58a837f41fb7587300a5c84f6cced41460a7  /home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/run-agent.sh
-c0e83181452bd13221c86f859e1440d829d0a0b3efb61d3edfade56b3cd1907c  /home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/deployment-lock.json

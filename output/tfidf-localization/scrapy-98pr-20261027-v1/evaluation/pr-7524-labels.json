@@ -1,0 +1,34 @@
+{
+  "base_sha": "a8a8f20d9c49ae7f611cbdc90676b64f6349dba2",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "deleted",
+      "id": "tests/test_downloader_handler_httpx.py::TestHttp.test_unsupported_proxy"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_downloader_handler_httpx.py::TestHttpsWithCrawler.test_response_ssl_certificate"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_downloader_handlers_http_base.py::TestRealWebsiteBase.test_tls_logging"
+    }
+  ],
+  "excluded_counts": {
+    "added": 1,
+    "deleted": 2
+  },
+  "index_sha256": "24ea599dee78c87680dd40289367207be02bdc37c759fe03c03513d5f133a997",
+  "issues": [],
+  "labels_sha256": "a9b47d2418257469979cec9a93e16a64de74cf5c2ae7ca6c7b5cb949e34f4baa",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "d6663268f86deaa1fd72d6f111ccad4b27d8ef6d7d3ba25e0e70d92624e07b71",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_crawl.py::TestCrawlSpider.test_response_ssl_certificate",
+    "tests/test_downloader_handler_httpx.py::TestHttps.test_verify_certs_deprecated",
+    "tests/test_downloader_handlers_http_base.py::TestHttpWithCrawlerBase.test_response_ssl_certificate"
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "base_sha": "3c6a62db47536df89676ab9d7347acf5c5c8a2e4",
+  "corpus_count": 2454,
+  "excluded_counts": {
+    "deleted": 1
+  },
+  "gold_count": 8,
+  "gold_ranks": {
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_compression_bomb_request_meta_zstd": 2,
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_compression_bomb_setting_zstd": 3,
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_compression_bomb_spider_attr_zstd": 1,
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_download_warnsize_request_meta_zstd": 5,
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_download_warnsize_setting_zstd": 6,
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_download_warnsize_spider_attr_zstd": 4,
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_process_response_zstd": 9,
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_process_truncated_response_zstd": 8
+  },
+  "label_issues": [],
+  "labels_sha256": "420b7aba1e2223d23e3890ee4d9a7605194694dd8fc8c324be1d085b774dc0d2",
+  "metrics": {
+    "100": {
+      "all_hit": 1,
+      "candidate_count": 100,
+      "candidate_fraction": 0.040749796251018745,
+      "fn": 0,
+      "fp": 92,
+      "gold_count": 8,
+      "hit_at_k": 1,
+      "matched_count": 8,
+      "precision": 0.08,
+      "recall": 1.0,
+      "recall_at_k": 1.0,
+      "tp": 8,
+      "zero_score_count": 0
+    },
+    "200": {
+      "all_hit": 1,
+      "candidate_count": 200,
+      "candidate_fraction": 0.08149959250203749,
+      "fn": 0,
+      "fp": 192,
+      "gold_count": 8,
+      "hit_at_k": 1,
+      "matched_count": 8,
+      "precision": 0.04,
+      "recall": 1.0,
+      "recall_at_k": 1.0,
+      "tp": 8,
+      "zero_score_count": 0
+    },
+    "50": {
+      "all_hit": 1,
+      "candidate_count": 50,
+      "candidate_fraction": 0.020374898125509373,
+      "fn": 0,
+      "fp": 42,
+      "gold_count": 8,
+      "hit_at_k": 1,
+      "matched_count": 8,
+      "precision": 0.16,
+      "recall": 1.0,
+      "recall_at_k": 1.0,
+      "tp": 8,
+      "zero_score_count": 0
+    }
+  },
+  "pr_id": 8009,
+  "prediction": {
+    "path": "predictions/pr-8009.json.gz",
+    "pr_id": 8009,
+    "sha256": "17db284a3951e262605529498195d70eb82df4113f63d543748af8758e990899"
+  },
+  "query_sha256": "70c4be7c02acab52af2320abb7f2fd183aee25ed7e40dfff4f0c27230b58e188",
+  "rank_seconds": 0.0017823884263634682,
+  "raw_line": 64,
+  "raw_record_sha256": "7bcc5ddfaa2686d190a73caff04576dfa6cb30b018992d104833a5beae93792e",
+  "repository": "scrapy/scrapy",
+  "scorable": true,
+  "status": "SCORED"
+}

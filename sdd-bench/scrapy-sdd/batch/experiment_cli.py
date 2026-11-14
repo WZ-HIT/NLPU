@@ -44,7 +44,7 @@ def _parser() -> argparse.ArgumentParser:
     evaluation.add_argument("config", type=Path)
     evaluation.add_argument("--prepared-dir", type=Path)
     evaluation.add_argument("--round", help="isolated rerun label for v2 config")
-    evaluation.add_argument("--kind", choices=("compliance", "quality", "both", "detect"), default="compliance")
+    evaluation.add_argument("--kind", choices=("compliance", "quality", "both", "detect", "testcase"), default="compliance")
 
     results = commands.add_parser("results", help="read the indexed result view or historical pages")
     results.add_argument("action", choices=("summary", "list", "report", "serve"))
@@ -179,22 +179,32 @@ def run(argv: list[str] | None = None) -> int:
             if args.round:
                 if args.prepared_dir is not None:
                     raise BatchError("ROUND_OUTPUT_FIXED", "Round output directory is fixed by its identity")
-                if args.kind not in {"compliance", "detect"}:
+                if args.kind not in {"compliance", "detect", "testcase"}:
                     raise BatchError("ROUND_DETECT_ONLY", "Detect rounds support compliance or Detect metrics")
                 frozen, path = _round_frozen(args.config, args.round)
                 from .orchestrator import Ledger, _latest, _ensure_detect_barrier, validate_prepared_manifest
                 config, targets = validate_prepared_manifest(path, BENCH, ROOT)
                 ledger = Ledger(path.parent / "ledger.jsonl", config["batch_id"], BENCH / "schemas/batch-ledger-event-v1.schema.json")
-                _ensure_detect_barrier(config=config, all_targets=targets, latest=_latest(ledger.read()), run_root=path.parent, bench=BENCH, repository_root=ROOT)
-                if args.kind == "compliance":
+                if args.kind != "testcase":
+                    _ensure_detect_barrier(config=config, all_targets=targets, latest=_latest(ledger.read()), run_root=path.parent, bench=BENCH, repository_root=ROOT)
+                if args.kind == "testcase":
+                    from .testcase_metrics import check as check_testcase
+                    metrics = check_testcase(BENCH, frozen["prepared_id"])
+                    value = {"schema_version": 3, "command": "evaluate", "status": "READY" if metrics["status"] == "OK" else "PARTIAL", "round_id": frozen["prepared_id"], "testcase_metrics": metrics}
+                elif args.kind == "compliance":
                     report = generate_final_evidence(manifest_path=path, bench=BENCH, repository_root=ROOT)
                     value = {"schema_version": 2, "command": "evaluate", "status": "READY", "round_id": frozen["prepared_id"], "compliance": report}
                 else:
                     from .detect_metrics import check
                     metrics = check(BENCH, frozen["prepared_id"])
                     value = {"schema_version": 2, "command": "evaluate", "status": "READY", "round_id": frozen["prepared_id"], "detect_metrics": metrics}
+                    if frozen['inputs']['evaluation'].get('localization_protocol') == 'testcase-v1':
+                        from .testcase_metrics import check as check_testcase
+                        value['testcase_metrics'] = check_testcase(BENCH, frozen['prepared_id'])
+                        if value['testcase_metrics']['status'] != 'OK':
+                            value['status'] = 'PARTIAL'
             else:
-                if args.kind == "detect":
+                if args.kind in {"detect", "testcase"}:
                     raise BatchError("EXPERIMENT_EVALUATION_UNAVAILABLE", "Detect metrics for v1 batches use the existing metrics command")
                 frozen, path = _frozen(args.config, args.prepared_dir)
                 evaluation = frozen["inputs"]["evaluation"]

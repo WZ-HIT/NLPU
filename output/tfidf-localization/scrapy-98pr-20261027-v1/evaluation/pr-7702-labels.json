@@ -1,0 +1,20 @@
+{
+  "base_sha": "c7eacdbb30a4563bbbe04ed02781768f4e19eabb",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [],
+  "excluded_counts": {},
+  "index_sha256": "decbf361d55f6740b99a8c50146877dad1bcbfd5e2fc0a0fb9056a840f77510c",
+  "issues": [],
+  "labels_sha256": "123989526611b4ce019767ac5d79aa5e1502fd2a3f4612cca934a765fa24ed45",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "5483b30b08a86e138775ec4451fefab19e18a43c10128007838e0a76ae6f997a",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_command_shell.py::TestInteractiveShell.test_fetch",
+    "tests/test_command_shell.py::TestInteractiveShell.test_shell_from_cfg",
+    "tests/test_command_shell.py::TestInteractiveShell.test_shell_ipython",
+    "tests/test_feedexport_storages.py::TestBlockingFeedStorage.test_default_temp_dir",
+    "tests/test_feedexport_storages.py::TestBlockingFeedStorage.test_temp_file"
+  ]
+}

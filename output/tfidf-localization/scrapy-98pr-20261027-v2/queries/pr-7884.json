@@ -1,0 +1,4 @@
+{
+  "body": "Fixes https://github.com/scrapy/scrapy/issues/3463, closes https://github.com/scrapy/scrapy/pull/4058, fixes https://github.com/scrapy/scrapy/issues/4182, closes https://github.com/scrapy/scrapy/pull/6148.",
+  "title": "Report exceptions from Spider.start()"
+}

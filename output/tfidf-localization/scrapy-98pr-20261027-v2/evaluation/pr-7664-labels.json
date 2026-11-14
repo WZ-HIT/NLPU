@@ -1,0 +1,63 @@
+{
+  "base_sha": "dd4549e6f9a92f4844b552aad49ab4431f73514f",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "added",
+      "id": "tests/test_spidermiddleware_depth.py::test_priority_and_non_verbose_stats"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_spidermiddleware_referer.py::TestPolicyMethodResponseParamRename.test_missing_request"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_spidermiddleware_referer.py::TestPolicyMethodResponseParamRename.test_missing_response"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_spidermiddleware_referer.py::TestReferrerPolicyHelpers.test_origin_referrer_local_scheme"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_spidermiddleware_referer.py::TestReferrerPolicyHelpers.test_potentially_trustworthy_data_scheme"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_spidermiddleware_referer.py::TestReferrerPolicyHelpers.test_strip_url_empty"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_spidermiddleware_referer.py::test_default_policy"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_spidermiddleware_referer.py::test_no_settings_constructor"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_spidermiddleware_referer.py::test_not_configured_when_disabled"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_spidermiddleware_start.py::TestMiddleware.test_spider_output_not_marked"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_spidermiddleware_urllength.py::test_not_configured_without_limit"
+    }
+  ],
+  "excluded_counts": {
+    "added": 11
+  },
+  "index_sha256": "8a654cb8d3cd540ba609ba0aa6699c8460bbc07974510f533f099660a9a3408a",
+  "issues": [],
+  "labels_sha256": "551e18a4e273636a3d2c7558fd35b842a70d777ef73f25de2061c31ebb92628d",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "9520b8c246a8e91588b334275096da1fdcd3e84f91a09154afbbdd2d600e8212",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_spidermiddleware_base.py::test_processed_request"
+  ]
+}

@@ -1,0 +1,128 @@
+{
+  "base_sha": "7436afc95f521482b1b1473c88f6b5ab1d430bea",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "added",
+      "id": "tests/test_command_crawl.py::TestCrawlCommand.test_multiple_spiders"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_command_crawl.py::TestCrawlCommand.test_no_spider"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_command_fetch.py::TestFetchCommand.test_bad_arguments"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_command_fetch.py::TestFetchCommandWithSpider.test_spider"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_command_genspider.py::TestGenspiderCommand.test_name_not_starting_with_a_letter"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_command_genspider.py::TestGenspiderCommand.test_unknown_template"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_command_parse.py::TestParseCommand.test_bad_arguments"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_command_parse.py::TestParseCommand.test_invalid_json"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_command_parse.py::TestParseCommand.test_legacy_item_processor"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_command_parse.py::TestParseCommand.test_no_items_no_links"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_command_parse.py::TestParseCommand.test_spider_found_by_url"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_command_parse.py::TestParseCommand.test_unknown_spider"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_command_runspider.py::TestRunSpiderCommand.test_runspider_bad_arguments"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_command_shell.py::TestShellCommandWithSpider.test_spider"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_commands.py::TestEditCommand.test_edit_no_spider"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_commands.py::TestGlobalOptions.test_invalid_set"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_commands.py::TestGlobalOptions.test_invalid_spider_argument"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_commands.py::TestGlobalOptions.test_logfile"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_commands.py::TestGlobalOptions.test_loglevel"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_commands.py::TestGlobalOptions.test_nolog"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_commands.py::TestGlobalOptions.test_pdb"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_commands.py::TestGlobalOptions.test_pidfile"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_commands.py::TestSettingsCommand.test_get"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_commands.py::TestSettingsCommand.test_no_option"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_commands.py::TestViewCommand.test_methods"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_commands.py::TestViewCommand.test_non_text_response"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_commands.py::TestViewCommand.test_view"
+    }
+  ],
+  "excluded_counts": {
+    "added": 26,
+    "deleted": 1
+  },
+  "index_sha256": "60c313317c87be9c12be1cf996f4b4409dac308390db3b341fb6f573675aafe4",
+  "issues": [],
+  "labels_sha256": "fbf2a3492da4355c67dd8e940b844fca807a7bae6b0f63044f5ec07e2a981995",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "b2f35c5e87b5c107f77fd556adee9460b886871de86300f1780c2fbb21ba2a12",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_command_genspider.py::TestGenspiderCommand.test_same_name_as_project"
+  ]
+}

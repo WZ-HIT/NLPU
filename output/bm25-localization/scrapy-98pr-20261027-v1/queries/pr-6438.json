@@ -1,0 +1,4 @@
+{
+  "body": "To do:\r\n- [x] Write a section on using form2request.\r\n- [x] Remove `FormRequest` from the docs.\r\n- [x] Review remaining appearances of `FormRequest`.",
+  "title": "Deprecate FormRequest in favor of form2request"
+}

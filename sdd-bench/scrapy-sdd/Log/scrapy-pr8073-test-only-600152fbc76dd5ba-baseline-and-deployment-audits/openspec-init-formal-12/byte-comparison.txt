@@ -1,3 +1,0 @@
-reference_file_count=10
-byte_comparison=identical
-reference_cleanup=pass

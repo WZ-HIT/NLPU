@@ -1,0 +1,104 @@
+{
+  "base_sha": "a499dc9511005e026860c5ce72296ba1ff3aae1b",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_downloadermiddleware_redirect.py::test_no_warning_when_referer_middleware_present"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_downloadermiddleware_redirect.py::test_warning_redirect_middleware"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_downloadermiddleware_redirect.py::test_warning_subclass"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_downloadermiddleware_redirect_metarefresh.py::test_warning_meta_refresh_middleware"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_downloadermiddleware_retry.py::TestGetRetryRequest.test_no_spider"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_downloadermiddleware_robotstxt.py::TestRobotsTxtMiddleware.test_robotstxt_local_file"
+    }
+  ],
+  "excluded_counts": {
+    "mechanical_ast_equal": 6
+  },
+  "index_sha256": "9da2fdce6639ea0a243e74388dcc1039a89cfd901e71bf27aec83e80db06186a",
+  "issues": [],
+  "labels_sha256": "38c5bf2cdc535f20f2689b37d36a639980f876691ba6ec127ab954adf0aed285",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "09dddcb66c45983d9d9d394f758b849a604f7b2175b4c77718690c34fee7c5c0",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_downloadermiddleware_cookies.py::TestCookiesMiddleware.test_complex_cookies",
+    "tests/test_downloadermiddleware_httpcache.py::DummyPolicyTestMixin.test_revalidation_keeps_cached_response",
+    "tests/test_downloadermiddleware_httpcache.py::RFC2616PolicyTestMixin.test_process_exception",
+    "tests/test_downloadermiddleware_httpcache.py::RFC2616PolicyTestMixin.test_request_cacheability",
+    "tests/test_downloadermiddleware_httpcache.py::StorageTestMixin.test_corrupted_cache_entry_ignore_missing",
+    "tests/test_downloadermiddleware_httpcache.py::StorageTestMixin.test_corrupted_cache_entry_is_a_miss",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_compression_bomb_setting_logs_warning",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_multi_compression_multiple_header",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_multi_compression_multiple_header_invalid_compression",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_multi_compression_single_and_multiple_header",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_multi_compression_single_and_multiple_header_invalid_compression",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_multi_compression_single_header",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_multi_compression_single_header_invalid_compression",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_multipleencodings",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_process_response_br",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_process_response_br_unsupported",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_process_response_gzip",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_process_response_gzip_app_octetstream_contenttype",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_process_response_gzip_binary_octetstream_contenttype",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_process_response_gzipped_contenttype",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_process_response_head_request_no_decode_required",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_process_response_no_content_type_header",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_process_response_rawdeflate",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_process_response_zlibdelate",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_process_response_zstd",
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_process_response_zstd_unsupported",
+    "tests/test_downloadermiddleware_httpproxy.py::TestHttpProxyMiddleware.test_no_environment_proxies",
+    "tests/test_downloadermiddleware_offsite.py::test_process_request_allow_offsite",
+    "tests/test_downloadermiddleware_offsite.py::test_process_request_dont_filter",
+    "tests/test_downloadermiddleware_offsite.py::test_process_request_no_allowed_domains",
+    "tests/test_downloadermiddleware_offsite.py::test_repeated_offsite_domain",
+    "tests/test_downloadermiddleware_offsite.py::test_request_scheduled_domain_filtering",
+    "tests/test_downloadermiddleware_offsite.py::test_request_scheduled_dont_filter",
+    "tests/test_downloadermiddleware_offsite.py::test_request_scheduled_invalid_domains",
+    "tests/test_downloadermiddleware_offsite.py::test_request_scheduled_no_allowed_domains",
+    "tests/test_downloadermiddleware_redirect.py::TestRedirectMiddleware.test_request_meta_handling",
+    "tests/test_downloadermiddleware_redirect.py::test_response_referrer_policy",
+    "tests/test_downloadermiddleware_redirect_metarefresh.py::TestMetaRefreshMiddleware.test_meta_refresh_trough_posted_request",
+    "tests/test_downloadermiddleware_retry.py::TestGetRetryRequest.test_custom_stats_key",
+    "tests/test_downloadermiddleware_retry.py::TestGetRetryRequest.test_priority_adjust_argument",
+    "tests/test_downloadermiddleware_retry.py::TestGetRetryRequest.test_priority_adjust_setting",
+    "tests/test_downloadermiddleware_retry.py::TestRetry.test_503",
+    "tests/test_downloadermiddleware_retry.py::TestRetry.test_dont_retry",
+    "tests/test_downloadermiddleware_retry.py::TestRetry.test_priority_adjust",
+    "tests/test_downloadermiddleware_retry.py::TestRetry.test_twistederrors",
+    "tests/test_downloadermiddleware_robotstxt.py::TestRobotsTxtMiddleware.test_ignore_robotstxt_request",
+    "tests/test_downloadermiddleware_robotstxt.py::TestRobotsTxtMiddleware.test_robotstxt_error",
+    "tests/test_robotstxt_interface.py::BaseRobotParserTest.test_allowed",
+    "tests/test_robotstxt_interface.py::BaseRobotParserTest.test_allowed_wildcards",
+    "tests/test_robotstxt_interface.py::BaseRobotParserTest.test_crawl_delay",
+    "tests/test_robotstxt_interface.py::BaseRobotParserTest.test_crawl_delay_unset",
+    "tests/test_robotstxt_interface.py::BaseRobotParserTest.test_empty_response",
+    "tests/test_robotstxt_interface.py::BaseRobotParserTest.test_garbage_response",
+    "tests/test_robotstxt_interface.py::BaseRobotParserTest.test_length_based_precedence",
+    "tests/test_robotstxt_interface.py::BaseRobotParserTest.test_order_based_precedence",
+    "tests/test_robotstxt_interface.py::BaseRobotParserTest.test_unicode_url_and_useragent",
+    "tests/test_robotstxt_interface.py::TestProtegoRobotParser.test_order_based_precedence",
+    "tests/test_robotstxt_interface.py::TestPythonRobotParser.test_allowed_wildcards",
+    "tests/test_robotstxt_interface.py::TestPythonRobotParser.test_length_based_precedence",
+    "tests/test_robotstxt_interface.py::TestPythonRobotParser.test_order_based_precedence",
+    "tests/test_robotstxt_interface.py::TestRerpRobotParser.test_length_based_precedence",
+    "tests/test_robotstxt_interface.py::TestRobotParser.test_crawl_delay_unsupported"
+  ]
+}

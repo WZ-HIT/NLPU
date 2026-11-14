@@ -1,0 +1,72 @@
+{
+  "base_sha": "1bd839b57ddb614664a179b6213f49579bdfd3da",
+  "corpus_count": 2329,
+  "excluded_counts": {},
+  "gold_count": 2,
+  "gold_ranks": {
+    "tests/test_crawler_subprocess.py::TestCrawlerProcessSubprocessBase.test_caching_hostname_resolver_ipv6": 2,
+    "tests/test_crawler_subprocess.py::TestCrawlerProcessSubprocessBase.test_ipv6_default_name_resolver": 11
+  },
+  "label_issues": [],
+  "labels_sha256": "8efe9581fd8eb5e80d196c188f29a99de9d0515896528f14d59ae091d50361b7",
+  "metrics": {
+    "100": {
+      "all_hit": 1,
+      "candidate_count": 100,
+      "candidate_fraction": 0.042936882782310004,
+      "fn": 0,
+      "fp": 98,
+      "gold_count": 2,
+      "hit_at_k": 1,
+      "matched_count": 2,
+      "precision": 0.02,
+      "recall": 1.0,
+      "recall_at_k": 1.0,
+      "tp": 2,
+      "zero_score_count": 0
+    },
+    "200": {
+      "all_hit": 1,
+      "candidate_count": 200,
+      "candidate_fraction": 0.08587376556462001,
+      "fn": 0,
+      "fp": 198,
+      "gold_count": 2,
+      "hit_at_k": 1,
+      "matched_count": 2,
+      "precision": 0.01,
+      "recall": 1.0,
+      "recall_at_k": 1.0,
+      "tp": 2,
+      "zero_score_count": 0
+    },
+    "50": {
+      "all_hit": 1,
+      "candidate_count": 50,
+      "candidate_fraction": 0.021468441391155002,
+      "fn": 0,
+      "fp": 48,
+      "gold_count": 2,
+      "hit_at_k": 1,
+      "matched_count": 2,
+      "precision": 0.04,
+      "recall": 1.0,
+      "recall_at_k": 1.0,
+      "tp": 2,
+      "zero_score_count": 0
+    }
+  },
+  "pr_id": 7935,
+  "prediction": {
+    "path": "predictions/pr-7935.json.gz",
+    "pr_id": 7935,
+    "sha256": "25f7657ef427aa9e5dcfcb585e79aee08ea512a06b98f49bba1970c462419a29"
+  },
+  "query_sha256": "4cda8a16623628f99f8b5a3ef6c21185640aa8c35521936940febdeb42215c29",
+  "rank_seconds": 0.0017540128901600838,
+  "raw_line": 144,
+  "raw_record_sha256": "372f41c0928696cdd42c44e3cc958feb2718acfe980ed9333c2fda32ed0691e5",
+  "repository": "scrapy/scrapy",
+  "scorable": true,
+  "status": "SCORED"
+}

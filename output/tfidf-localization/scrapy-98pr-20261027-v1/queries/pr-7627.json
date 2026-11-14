@@ -1,0 +1,4 @@
+{
+  "body": "Resolves #4421.\r\n\r\nNot 100% sure about the URL check removal. I had originally planned to remove it as part of this change, but seeing how trivial it is, and that not all users will install scrapy-lint. Should we keep it?",
+  "title": "Document scrapy-lint, remove start_url check"
+}

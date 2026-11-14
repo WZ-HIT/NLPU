@@ -9,6 +9,7 @@ import re
 import shutil
 import stat
 import subprocess
+import time
 from datetime import datetime, timezone
 from pathlib import Path, PurePosixPath
 from typing import Any
@@ -207,7 +208,10 @@ def _read_detection_draft(execution: Path, planning_source: Path) -> tuple[dict[
     try:
         draft = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
-        raise BatchError("INVALID_DETECTION_DRAFT", "Detection draft is not valid JSON") from exc
+        raise BatchError("INVALID_DETECTION_DRAFT", "Detection draft is not valid JSON", errors=[{
+            'layer': 'structure', 'code': 'JSON_PARSE' if isinstance(exc, json.JSONDecodeError) else 'DRAFT_IO',
+            'field': '$', 'line': getattr(exc, 'lineno', None), 'column': getattr(exc, 'colno', None),
+        }]) from exc
     return draft, path
 
 
@@ -314,7 +318,7 @@ def validate_detection_prerequisite(
     if not manifest_path.is_file() or not planning.is_dir():
         raise BatchError("DETECT_NOT_SEALED", "Formal Detect seal is missing", method=method)
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    _validate(manifest, bench / "schemas/detection-v1.schema.json", "DETECTION_SCHEMA_INVALID")
+    _validate(manifest, bench / ("schemas/detection-v2.schema.json" if manifest.get("schema_version") == 2 else "schemas/detection-v1.schema.json"), "DETECTION_SCHEMA_INVALID")
     payload = dict(manifest)
     seal = payload.pop("seal")
     if seal["payload_sha256"] != canonical_sha256(payload):
@@ -373,16 +377,50 @@ def _checkpoint(
     return value
 
 
-def _codex_catalog_override(method: str, stage: str, runtime: Path) -> str:
+def _codex_catalog_override(method: str, stage: str, runtime: Path, public_runtime: Path | None = None) -> str:
     """Render the per-attempt Codex mountpoint and audited model catalog."""
+    public = (
+        f"      - type: bind\n        source: {public_runtime}\n"
+        "        target: /run/sdd-public\n        read_only: true\n"
+        "        bind:\n          create_host_path: false\n"
+    ) if public_runtime is not None else ""
+    environment = (
+        "    environment:\n"
+        "      BASH_ENV: /run/sdd-public/shell-env.sh\n"
+        "      PATH: /opt/sdd-tools/bin:/opt/agent/bwrap/bin:/opt/agent/bin:/opt/agent/node/bin:/usr/local/bin:/usr/bin:/bin\n"
+        '      SDD_DETECT_DEADLINE_EPOCH: "${SDD_DETECT_DEADLINE_EPOCH:-0}"\n'
+    ) if public_runtime is not None else ""
     return (
         f"services:\n  {method}-{stage}-agent:\n"
+        + environment +
         "    tmpfs:\n"
         "      - /workspace/.codex:rw,nosuid,nodev,noexec,mode=0700,uid=1007,gid=1007,size=1m\n"
         "    volumes:\n"
         f"      - type: bind\n        source: {runtime / 'model-catalogs/deepseek-flash/models.json'}\n"
         "        target: /home/bench/.codex/model-catalogs/deepseek-flash/models.json\n"
         "        read_only: true\n        bind:\n          create_host_path: false\n"
+        + public
+    )
+
+
+def _formal_launch(public_environment: bool = True) -> str:
+    """Pinned launcher with explicit public child environment overrides."""
+    child_environment = (
+        "-c 'shell_environment_policy.set.BASH_ENV=\"/run/sdd-public/shell-env.sh\"' "
+        '-c "shell_environment_policy.set.SDD_DETECT_DEADLINE_EPOCH=\\\"$SDD_DETECT_DEADLINE_EPOCH\\\"" '
+    ) if public_environment else ""
+    return (
+        "set -eu; "
+        "export CODEX_HOME=/run/sdd-home/.codex-run; "
+        "mkdir -p \"$CODEX_HOME/model-catalogs/deepseek-flash\"; "
+        "cp /run/sdd-home/.codex/config.toml \"$CODEX_HOME/config.toml\"; "
+        "cp /run/sdd-home/.codex/deepseek-flash.config.toml \"$CODEX_HOME/deepseek-flash.config.toml\"; "
+        "cp /run/sdd-home/.codex/model-catalogs/deepseek-flash/models.json "
+        "\"$CODEX_HOME/model-catalogs/deepseek-flash/models.json\"; "
+        "exec timeout --foreground --signal=TERM --kill-after=30s 2700s "
+        "codex exec --strict-config --profile deepseek-flash --ephemeral --json "
+        + child_environment +
+        "--color never -C /workspace -"
     )
 
 
@@ -400,9 +438,28 @@ def _run_compose_agent(
     catalog = runtime / "model-catalogs/deepseek-flash/models.json"
     if catalog.is_symlink() or not catalog.is_file():
         raise BatchError("MODEL_CATALOG_MISSING", "Pinned model catalog is missing", path=str(catalog))
+    public_snapshot = None
+    if stage == "detect":
+        # A private host snapshot prevents later edits from changing an active run.
+        public_source = bench / 'batch/public_detect'
+        public_snapshot = task_root / 'runtime-inputs' / f'{method}-{stage}-{run_id}'
+        if not public_source.is_dir() or any(p.is_symlink() for p in public_source.rglob('*')):
+            raise BatchError('PUBLIC_RUNTIME_INVALID', 'Public runtime must be a regular source directory')
+        if public_snapshot.exists():
+            raise BatchError('PUBLIC_RUNTIME_EXISTS', 'Refusing to replace a runtime snapshot')
+        public_snapshot.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copytree(public_source, public_snapshot, ignore=shutil.ignore_patterns('__pycache__', '*.pyc'))
+        _make_read_only(public_snapshot)
+        public_files, public_sha = _file_manifest(public_snapshot)
+        from .public_detect.contract import version as contract_version
+        write_json(output / 'public-runtime-manifest.json', {
+            'contract': contract_version(), 'files': public_files, 'manifest_sha256': public_sha,
+            'mount': '/run/sdd-public', 'read_only': True,
+        })
+        env = dict(env, SDD_DETECT_DEADLINE_EPOCH=str(int(time.time()) + 2700))
     catalog_override = output / "codex-catalog.override.yaml"
     catalog_override.write_text(
-        _codex_catalog_override(method, stage, runtime),
+        _codex_catalog_override(method, stage, runtime, public_snapshot),
         encoding="utf-8",
     )
     compose_files += ["-f", str(catalog_override)]
@@ -420,24 +477,17 @@ def _run_compose_agent(
     rendered_sha = sha256_file(rendered_path)
     subprocess.run(base + ["up", "-d", "--wait", "--wait-timeout", "120", proxy], cwd=task_root, env=env, check=True)
     try:
-        launch = (
-            "set -eu; "
-            "export CODEX_HOME=/run/sdd-home/.codex-run; "
-            "mkdir -p \"$CODEX_HOME/model-catalogs/deepseek-flash\"; "
-            "cp /run/sdd-home/.codex/config.toml \"$CODEX_HOME/config.toml\"; "
-            "cp /run/sdd-home/.codex/deepseek-flash.config.toml \"$CODEX_HOME/deepseek-flash.config.toml\"; "
-            "cp /run/sdd-home/.codex/model-catalogs/deepseek-flash/models.json "
-            "\"$CODEX_HOME/model-catalogs/deepseek-flash/models.json\"; "
-            "exec timeout --foreground --signal=TERM --kill-after=30s 2700s "
-            "codex exec --strict-config --profile deepseek-flash --ephemeral --json "
-            "--color never -C /workspace -"
-        )
+        launch = _formal_launch(public_environment=stage == 'detect')
         result = subprocess.run(
             base + ["run", "--no-deps", agent, "/bin/sh", "-c", launch],
             cwd=task_root, env=env, input=prompt, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
         )
         (output / "agent.jsonl").write_text(result.stdout, encoding="utf-8")
         (output / "agent.stderr.log").write_text(result.stderr, encoding="utf-8")
+        from .token_usage import record_usage
+        record_usage(output / "agent.jsonl", exit_code=result.returncode)
+        if public_snapshot is not None and _file_manifest(public_snapshot)[1] != public_sha:
+            raise BatchError('PUBLIC_RUNTIME_CHANGED', 'Public runtime snapshot changed during execution')
         if result.returncode:
             raise BatchError("AGENT_RUN_FAILED", "Formal Agent process failed", returncode=result.returncode)
         return hashlib.sha256(result.stdout.encode()).hexdigest(), rendered_sha
@@ -445,10 +495,110 @@ def _run_compose_agent(
         subprocess.run(base + ["down", "-v", "--remove-orphans"], cwd=task_root, env=env, check=False)
 
 
+def detect_prompt(method: str, protocol: str) -> str:
+    """Gold-free shared execution contract; keeps all existing SDD phases."""
+    planning = METHODS[method]['planning_mount_path']
+    phases = ', '.join(METHODS[method]['detect_phases'])
+    prompt = (
+        f'Perform only the {method} Detect planning phases ({phases}). Read /task-input/task.md. '
+        'Do not run tests and do not modify project code or tests. '
+        f'The mounted method planning directory is exactly {planning}. '
+        f'Write exactly one detection-draft.json at {planning}/detection-draft.json; '
+        'write all other necessary planning artifacts inside that same planning directory. '
+        'The output is an object, never an array: {"candidates": []}. '
+        'Each nonempty candidate contains exactly path, symbols, reason. Paths are repository-relative. '
+        'Use the identical host/Agent validator: python3 /run/sdd-public/contract.py validate '
+        f'--protocol {protocol} --repository /workspace --file {planning}/detection-draft.json. '
+        'Structure and source identity are separate checks; neither proves update necessity. '
+        'SDD tools openspec/specify/cc-sdd are shell functions loaded by BASH_ENV; '
+        'the interpreter-explicit fallback is python3 /run/sdd-public/tool.py TOOL ARGS. '
+        'Use git grep, grep, find or python3 '
+        'when rg is unavailable. Do not install missing tools, scan /run/sdd-home or other runtime '
+        'configuration, or fetch the target PR/diff. The checked-out repository is the task base. '
+        f'Save a revisable draft with python3 /run/sdd-public/contract.py save --directory {planning} '
+        '[--pending QUESTION] reading JSON from stdin; this saves progress outside the formal output. '
+        f'After resolving pending items, use finalize --directory {planning} --repository /workspace '
+        f'--protocol {protocol} on the same script, which atomically writes and validates the final draft. '
+        'Do not freeze candidates merely to finish early. Complete required SDD planning artifacts. '
+        'Reserve the last 180 seconds and act on native rollout-budget reminders to finish necessary '
+        'planning, minimal validation and termination. status reports remaining wall time; token '
+        'remaining is unknown unless the runtime explicitly reports it, never estimate it from bytes. '
+        'The helper caches unchanged-draft checks and permits an initial validation plus two repairs. '
+        'After validation, end the session promptly; avoid validation/expansion loops. '
+    )
+    if protocol == 'testcase-v1':
+        from .public_detect.judgment import RULE as judgment_rule
+        prompt += (
+            'Locate existing test functions/methods whose contents need updating for this task, '
+            'not merely related tests to run. Count parameterized source methods once. '
+            'Each symbols array must be nonempty and contain exact fully qualified source names '
+            '(Outer.Inner.test_method or test_function at module scope). '
+            'Never expand a selected file to all its methods. Use an empty candidates array if none need updating. '
+            'Identity/scoring rule: exclude newly added/deleted tests, helpers/fixtures and renames or '
+            'moves of the test method itself; replacing an import, mock target, logger name, annotation '
+            'or constructor inside the same existing method is not automatically excluded merely '
+            'because behavior stays the same. AST-identical formatting is excluded; AST-changing '
+            'equivalent rewrites may be labels, so do not redefine the target as behavior changes only. '
+            'Prediction rule: still require evidence linking the task requirements to the current '
+            'source and why this method itself needs edits. A reference or annotation alone is '
+            'insufficient; do not guess the unseen future patch. '
+            'Paired examples: an explicitly required API migration and a method using the obsolete API '
+            'can justify selection after checking compatibility; an internal production refactor '
+            'with valid unchanged test interfaces/assertions does not justify selection by relatedness; '
+            'if editing only a shared helper suffices, do not select all its test users. '
+        )
+        prompt += judgment_rule.format(planning=planning)
+    else:
+        prompt += 'Locate candidate test files. '
+    return prompt
+
+
+def matched_material_prompt(group: str) -> str:
+    """Only available material differs; judgment/output rules stay in detect_prompt."""
+    if group not in {'B', 'C', 'D'}:
+        raise ValueError('Unknown matched material group')
+    common = (
+        ' Public base test material is available at /workspace/test-intentions/README.md. '
+        'Read the short guide and use python3 test-intentions/read.py search for bounded ranked '
+        'results across all existing tests. Repeat --query for OR or use --mode and; follow '
+        'next_cursor with identical options. show, match, facts, maintenance, sensitive, point '
+        'and source provide on-demand evidence; follow next_offset for non-search continuations. '
+        'Static syntax, associated context and relevance scores do not prove execution or required edits. '
+        'Verify task-to-method evidence in current source. Do not dump whole databases, manifests, '
+        'summaries or graphs. Do not restrict candidates by file or neighbors, or add a production stage. '
+    )
+    material = common + (
+        'This group provides static facts only, with uniform STATIC_ONLY status. No generated '
+        'goals, inputs, mocks, scenarios or model uncertainties are provided. '
+        if group == 'B' else
+        'This group adds generated goals, inputs, mocks, scenarios and model uncertainties to '
+        'the same static facts; use scenarios/detail as needed. GENERATED/STATIC_FALLBACK '
+        'reports semantic availability. Interpretations and missing semantics never prove update necessity. '
+    )
+    if group == 'D':
+        material += (
+            'D preserves C material and search, adding complete-only method-level runtime evidence. '
+            'show includes dynamic status and query entrances. Use coverage TEST_ID, trace TEST_ID '
+            '(two layers by default; --depth 0 for the full paged graph), and shared TEST_ID '
+            '(the same production function within two layers in both tests). '
+            'When task/TI/source suggests a candidate may need edits, consider shared to investigate '
+            'overlooked tests, then inspect their TI and assertions. No automatic recursive selection. '
+            'shared TEST_ID --with OTHER_TEST_ID expands all path witnesses; follow next_offset. '
+            'Paths retain separate valid execution IDs; never splice different instances. '
+            'Partial/unavailable/not_discovered methods retain original TI only; missing runtime '
+            'evidence is unknown, not irrelevance. Static relations/neighbors stay static. '
+            'Runtime observations cover test bodies only, not fixture/setup/teardown, scenario '
+            'attribution, assertion dependence or proof that edits are required. '
+        )
+    return material
+
+
 def detect_targets(
     *, task_manifest: Path, method: str, run_id: str, output: Path, bench: Path,
-    repository_root: Path, dry_run: bool, recover_existing: bool = False,
+    repository_root: Path, dry_run: bool, recover_existing: bool = False, localization_protocol: str = "file-v1",
 ) -> dict[str, Any]:
+    if localization_protocol not in {"file-v1", "testcase-v1"}:
+        raise BatchError("DETECT_PROTOCOL_INVALID", "Unknown localization protocol")
     _safe_id(run_id, "run_id")
     if method not in METHODS:
         raise BatchError("INVALID_METHOD", "Unknown SDD method")
@@ -477,6 +627,11 @@ def detect_targets(
     else:
         execution.mkdir(parents=True)
     detect_workspace = task_root / "runs" / method / "detect" / "workspace"
+    if (task_root / 'test-intention.json').exists() or (task_root / 'dynamic-trace.json').exists():
+        _verify_initial_detect_workspace(task_root, method, detect_workspace)
+    if (task_root / 'dynamic-trace.json').exists():
+        from .dynamic_trace import verify_workspace as verify_trace_workspace
+        verify_trace_workspace(task_root, detect_workspace, task['baseline']['base_sha'])
     workspace_before = _workspace_snapshot(detect_workspace)
     planning_source = task_root / "runs" / method / "detect/planning-artifacts"
     if recover_existing:
@@ -500,15 +655,75 @@ def detect_targets(
             f"{upper}_DETECT_PLANNING": str(planning_source),
             "PREFLIGHT_TASK_INPUT": str(task_root / "experiment-inputs"),
         })
-        phases = ", ".join(METHODS[method]["detect_phases"])
-        prompt = (
-            f"Perform only the {method} Detect planning phases ({phases}). Read /task-input/task.md. "
-            "Do not run tests and do not modify project code or tests. Locate candidate test files. "
-            "Write exactly one detection-draft.json inside the mounted method planning directory; "
-            "it must contain only a candidates array, and each candidate has path, symbols, and reason. "
-            "Paths must be repository-relative test paths. Write all other method planning artifacts "
-            "only in that same mounted planning directory."
-        )
+        prompt = detect_prompt(method, localization_protocol)
+        if (task_root / 'dynamic-trace.json').exists():
+            from .dynamic_trace import prompt as trace_prompt
+            prompt += trace_prompt()
+        intention_path = task_root / 'test-intention.json'
+        if intention_path.exists():
+            from .test_intention import verify_bundle, ENTRYPOINT
+            intention = json.loads(intention_path.read_text())
+            bundle_manifest = detect_workspace / 'test-intentions/manifest.json'
+            if (intention.get('entrypoint') != ENTRYPOINT
+                    or sha256_file(bundle_manifest) != intention.get('manifest_sha256')):
+                raise BatchError('INTENTION_INPUT_CHANGED', 'Frozen representation input differs')
+            verify_bundle(bundle_manifest, task['baseline']['base_sha'])
+            bundle_metadata = json.loads(bundle_manifest.read_text())
+            representation_format = bundle_metadata.get('representation_format')
+            if representation_format in {'matched-intention-v1', 'dynamic-intention-v1'}:
+                prompt += matched_material_prompt(bundle_metadata.get('material_group'))
+            elif representation_format in {'compact-intention-v3','compact-intention-v4','compact-intention-v5','compact-intention-v6'}:
+                prompt += (
+                    ' Compact base-derived intentions are available at /workspace/test-intentions/README.md. '
+                    'Read that short guide, then use python3 test-intentions/read.py search for short '
+                    'ranked results across all tests and saved static/semantic fields, including STATIC_FALLBACK. '
+                    'Repeated --query clauses use OR; --mode and requires every clause. Follow next_cursor '
+                    'with the same query/options for search pages. Use match TEST_ID --ref REF to inspect '
+                    'the original hit and its associated scenario/fact; show/scenarios/detail/facts/source '
+                    'provide further evidence with next_offset. Verify relevant original source. '
+                    'Do not dump databases, manifests, whole graphs, all summaries or broad recursive outputs. '
+                    'Missing previews are not missing tests or scenarios. Scores and model interpretations '
+                    'do not prove required updates. File membership and neighbors are not selection gates. '
+                    'Do not add a production-localization stage.'
+                )
+                if representation_format in {'compact-intention-v4','compact-intention-v5','compact-intention-v6'}:
+                    prompt += (
+                        ' New maintenance fields contain source annotations, inheritance expressions, '
+                        'bounded associated-context calls, lexical import candidates and outer guards. '
+                        'Use maintenance TEST_ID --field CATEGORY only when useful; match returns the '
+                        'source span/hash, uncertainty and fact ID. source TEST_ID --ref maintenance:FACT_ID '
+                        'reads its associated base source. Truncation/coverage limits are explicit. '
+                        'Bindings, inheritance/MRO, dispatch and branch truth are not runtime proofs. '
+                        'These facts do not establish update necessity; no automatic relation expansion is enabled.'
+                    )
+                if representation_format == 'compact-intention-v6':
+                    prompt += (
+                        ' Use sensitive TEST_ID for short source-point navigation and point TEST_ID --ref REF '
+                        'to inspect one saved fact with source hash, location and uncertainty. '
+                        'This view adds no extraction or ranking and never predicts required updates.'
+                    )
+            elif representation_format == 'compact-intention-v2':
+                prompt += (
+                    ' Compact base-derived intentions are available at /workspace/test-intentions/README.md. '
+                    'Read that short guide, then use python3 test-intentions/read.py files/search/show '
+                    'to read small pages. Use scenarios/detail/facts/source/relations/contexts only as '
+                    'needed for particular test IDs, following next_offset for additional evidence. '
+                    'Do not dump the database, manifest, whole graph, all summaries, or broad recursive '
+                    'search outputs. Missing previews are not missing tests or missing scenarios. '
+                    'All tests and complete semantic fields remain searchable; file organization and '
+                    'neighbors are not selection gates. Verify relevant original source. '
+                    'Model interpretations are not facts about required changes. '
+                    'Do not add a production-localization stage.'
+                )
+            else:
+                prompt += (
+                    ' Additional base-derived test behavior material is available at '
+                    '/workspace/test-intentions/README.md. Read its index and consult relevant '
+                    'structured test intentions and dependency records as useful, checking original '
+                    'source evidence. Model interpretations and unresolved fields are not facts about '
+                    'required updates. All existing tests remain searchable; do not restrict the '
+                    'search to selected files or graph neighbors. Do not add a production-localization stage.'
+                )
         session_sha, rendered_sha = _run_compose_agent(
             task_root=task_root, bench=bench, method=method, stage="detect", run_id=run_id, mode=None,
             env=env, prompt=prompt, output=execution, override=None,
@@ -521,18 +736,29 @@ def detect_targets(
             changed_paths=changed,
         )
     draft, draft_path = _read_detection_draft(execution, planning_source)
-    if set(draft) != {"candidates"} or not isinstance(draft["candidates"], list):
-        raise BatchError("INVALID_DETECTION_DRAFT", "Detection draft has unknown or missing fields")
-    for candidate in draft["candidates"]:
-        if (
-            not isinstance(candidate, dict)
-            or set(candidate) != {"path", "symbols", "reason"}
-            or not _safe_test_path(candidate.get("path", ""))
-            or not isinstance(candidate.get("symbols"), list)
-            or not isinstance(candidate.get("reason"), str)
-            or not candidate["reason"]
-        ):
-            raise BatchError("INVALID_DETECTION_CANDIDATE", "Detection candidate is invalid")
+    progress = planning_source / '.detect-progress/progress.json'
+    if progress.exists():
+        if progress.is_symlink():
+            raise BatchError('DETECTION_PROGRESS_UNFINISHED', 'Progress may not be a symlink')
+        try:
+            state = json.loads(progress.read_text())
+        except (OSError, json.JSONDecodeError) as error:
+            raise BatchError('DETECTION_PROGRESS_UNFINISHED', 'Invalid progress state; refusing to seal') from error
+        if not isinstance(state, dict):
+            raise BatchError('DETECTION_PROGRESS_UNFINISHED', 'Invalid progress state root')
+        if state.get('phase') != 'PUBLISHED' or state.get('draft') != draft or state.get('pending'):
+            raise BatchError('DETECTION_PROGRESS_UNFINISHED', 'Draft is still provisional; refusing to seal')
+    from .public_detect.contract import validate, version as contract_version
+    runtime_manifest = execution / 'public-runtime-manifest.json'
+    if runtime_manifest.exists() and json.loads(runtime_manifest.read_text())['contract'] != contract_version():
+        raise BatchError('PUBLIC_CONTRACT_CHANGED', 'Host validator differs from Agent snapshot')
+    contract_check = validate(draft, detect_workspace, localization_protocol)
+    write_json(execution / 'draft-validation.json', contract_check)
+    if not contract_check['structure_valid']:
+        errors = [e for e in contract_check['errors'] if e['layer'] == 'structure']
+        code = 'TESTCASE_SYMBOLS_REQUIRED' if any(e['code'] == 'TESTCASE_SYMBOLS_REQUIRED' for e in errors) else 'INVALID_DETECTION_DRAFT'
+        raise BatchError(code, 'Shared public draft validation failed', errors=errors)
+    # Invalid identities stay in the sealed prediction and incur FP as before.
     sealed_root = task_root / "runs" / method / "update/sealed-input"
     if sealed_root.exists():
         raise BatchError("DETECTION_ALREADY_SEALED", "Refusing to overwrite Detect seal")
@@ -548,10 +774,12 @@ def detect_targets(
         "candidates": draft["candidates"],
         "planning_artifacts": {"file_count": len(entries), "manifest_sha256": planning_sha},
     }
+    if localization_protocol == "testcase-v1":
+        payload.update(schema_version=2, localization_protocol=localization_protocol)
     manifest = {**payload, "seal": {
         "algorithm": "sha256-canonical-json-without-seal", "payload_sha256": canonical_sha256(payload)
     }}
-    _validate(manifest, bench / "schemas/detection-v1.schema.json", "DETECTION_SCHEMA_INVALID")
+    _validate(manifest, bench / ("schemas/detection-v2.schema.json" if manifest.get("schema_version") == 2 else "schemas/detection-v1.schema.json"), "DETECTION_SCHEMA_INVALID")
     manifest_path = sealed_root / "detection-manifest.json"
     write_json(manifest_path, manifest, refuse_overwrite=True)
     shutil.copyfile(manifest_path, execution / "detection-manifest.json")

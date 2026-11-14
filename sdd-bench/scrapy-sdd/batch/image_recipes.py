@@ -9,8 +9,8 @@ hand, which is a five-edit operation per base whose failure mode -- a mismatched
 label -- surfaces two stages later as a Docker image id mismatch.
 
 The recipe is a fixed set of files with the base identity substituted in eight
-places. That is the whole transform, so the generator asserts it rather than
-re-deriving it: any line the rule table does not cover is copied verbatim, and
+places, plus a guarded distribution-metadata rename for new recipes. The
+generator asserts both transforms: other lines are copied verbatim, and
 ``verify`` re-checks that no hex identifier other than the base, its tree, and
 the two cross-base images survives.
 """
@@ -107,6 +107,25 @@ class ImageError(Exception):
         self.code = code
         self.message = message
         self.detail = detail
+
+
+# Frozen recipes retain their old bytes. New recipes handle an unchanged
+# distribution directory name without attempting to move it into itself.
+METADATA_RENAME_LEGACY = '    mv "$info" "/usr/local/lib/python3.11/site-packages/scrapy-${version}.dist-info"; \\\n'
+METADATA_RENAME_SAFE = '    metadata_target="/usr/local/lib/python3.11/site-packages/scrapy-${version}.dist-info"; \\\n    if [ "$info" != "$metadata_target" ]; then mv "$info" "$metadata_target"; fi; \\\n'
+
+
+def protect_metadata_rename(text: str) -> str:
+    """Recognize exactly the legacy or corrected metadata-rename operation."""
+    legacy_count = text.count(METADATA_RENAME_LEGACY)
+    safe_count = text.count(METADATA_RENAME_SAFE)
+    if legacy_count + safe_count != 1:
+        raise ImageError(
+            "METADATA_RENAME_ANCHOR_MISMATCH",
+            "Baseline recipe must contain exactly one recognized metadata rename",
+            legacy_count=legacy_count, safe_count=safe_count,
+        )
+    return text.replace(METADATA_RENAME_LEGACY, METADATA_RENAME_SAFE)
 
 
 @dataclass(frozen=True)
@@ -465,6 +484,8 @@ def render_recipe(
     for path, rules in per_file.items():
         text, matched = apply_rules((template / path).read_text(encoding="utf-8"), rules, values)
         total += matched
+        if path == "Dockerfile.baseline":
+            text = protect_metadata_rename(text)
         products[path] = text
 
     for name in VERBATIM_FILES:
@@ -629,6 +650,8 @@ def masked_recipe(directory: Path) -> dict[str, str]:
         for rule in RULES:
             if rule.path == path:
                 text = substitute(text, rule, values[rule.value])
+        if path == "Dockerfile.baseline" and directory.name not in HISTORICAL_RECIPE_BASES:
+            text = protect_metadata_rename(text)
         masked[path] = text
     for name in VERBATIM_FILES:
         masked[name] = (directory / name).read_text(encoding="utf-8")

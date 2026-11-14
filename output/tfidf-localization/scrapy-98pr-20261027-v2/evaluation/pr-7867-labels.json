@@ -1,0 +1,134 @@
+{
+  "base_sha": "54da6c88aa5fb9812f7eb3baf7609c12b65a29f8",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_feedexport_storages.py::TestS3FeedStorage.test_from_crawler_with_region_name"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_feedexport_storages.py::TestS3FeedStorage.test_init_with_region_name"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_feedexport_storages.py::TestS3FeedStorage.test_without_region_name"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_item.py::TestItem.test_fields_order"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_item.py::TestItem.test_fields_order_inheritance"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_item.py::TestItem.test_metaclass_inheritance"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_item.py::TestItem.test_raise_setattr"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_item.py::TestItemMeta.test_new_method_propagates_classcell"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_loader.py::TestSelectortemLoader.test_init_method_with_base_response"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_pipeline_files.py::TestFilesPipeline.test_file_path"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_pipeline_files.py::TestFilesPipeline.test_rejects_non_list_file_urls"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_pipeline_files.py::TestFilesPipelineFieldsMixin.test_item_fields_default"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_pipeline_files.py::TestFilesPipelineFieldsMixin.test_item_fields_override_settings"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_pipeline_media.py::TestMediaPipeline.test_get_media_requests"
+    }
+  ],
+  "excluded_counts": {
+    "mechanical_ast_equal": 14
+  },
+  "index_sha256": "e5e08c9f5f76a26ae9774e755676a7cc36cd368804f513096c3b03bd36436e0b",
+  "issues": [],
+  "labels_sha256": "adc3840b2e787e1e0e836591a65299dbd19116065018506fad942eb71e23f4de",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "9b7126ea6fe2d1068e517ee95a221b0891411fb4da1bb9df98e049eef5900407",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_exporters.py::TestBaseItemExporter.test_export_item",
+    "tests/test_exporters.py::TestCsvItemExporter.test_errors_default",
+    "tests/test_exporters.py::TestCustomExporterItem.test_exporter_custom_serializer",
+    "tests/test_exporters.py::TestPythonItemExporter.test_export_item_dict_list",
+    "tests/test_exporters.py::TestPythonItemExporter.test_export_list",
+    "tests/test_feedexport.py::TestFeedExport.test_export_based_on_custom_filters",
+    "tests/test_feedexport.py::TestFeedExport.test_export_encoding",
+    "tests/test_feedexport.py::TestFeedExport.test_export_indentation",
+    "tests/test_feedexport.py::TestFeedExport.test_export_items_empty_field_list",
+    "tests/test_feedexport.py::TestFeedExport.test_extend_kwargs",
+    "tests/test_feedexport.py::TestFeedExport.test_start_finish_exporting_no_items",
+    "tests/test_feedexport.py::TestFeedExport.test_start_finish_exporting_no_items_exception",
+    "tests/test_feedexport.py::TestFeedExport.test_stats_file_failed",
+    "tests/test_feedexport.py::TestFeedExport.test_stats_file_success",
+    "tests/test_feedexport.py::TestFeedExport.test_stats_multiple_file",
+    "tests/test_feedexport.py::TestFeedExport.test_storage_file_no_postprocessing",
+    "tests/test_feedexport.py::TestFeedExport.test_storage_file_postprocessing",
+    "tests/test_feedexport.py::TestFeedExportInit.test_unsupported_storage",
+    "tests/test_feedexport_postprocess.py::TestFeedPostProcessedExports.test_exports_compatibility_with_postproc",
+    "tests/test_feedexport_storages.py::TestBlockingFeedStorage.test_default_temp_dir",
+    "tests/test_feedexport_storages.py::TestBlockingFeedStorage.test_invalid_folder",
+    "tests/test_feedexport_storages.py::TestBlockingFeedStorage.test_temp_file",
+    "tests/test_feedexport_storages.py::TestFTPFeedStorage.test_uri_auth_quote",
+    "tests/test_feedexport_storages.py::TestGCSFeedStorage.test_parse_empty_acl",
+    "tests/test_item.py::TestItem.test_custom_methods",
+    "tests/test_item.py::TestItem.test_metaclass",
+    "tests/test_item.py::TestItem.test_metaclass_with_fields_attribute",
+    "tests/test_loader.py::TestSubselectorLoader.test_nested_css",
+    "tests/test_loader.py::TestSubselectorLoader.test_nested_xpath",
+    "tests/test_pipeline_files.py::TestBuildFromCrawler.test_has_from_crawler_and_init",
+    "tests/test_pipeline_files.py::TestFTPFileStore.test_persist",
+    "tests/test_pipeline_files.py::TestFilesPipeline.test_file_path_from_item",
+    "tests/test_pipeline_files.py::TestFilesPipelineCustomSettings.test_file_pipeline_using_pathlike_objects",
+    "tests/test_pipeline_files.py::test_files_pipeline_raises_notconfigured_when_files_store_invalid",
+    "tests/test_pipeline_images.py::TestImagesPipeline.test_convert_image",
+    "tests/test_pipeline_images.py::TestImagesPipeline.test_file_path",
+    "tests/test_pipeline_images.py::TestImagesPipeline.test_get_images",
+    "tests/test_pipeline_images.py::TestImagesPipeline.test_get_images_exception",
+    "tests/test_pipeline_images.py::TestImagesPipeline.test_get_transposed_images",
+    "tests/test_pipeline_images.py::TestImagesPipeline.test_rejects_non_list_image_urls",
+    "tests/test_pipeline_images.py::TestImagesPipeline.test_thumbnail_name",
+    "tests/test_pipeline_images.py::TestImagesPipeline.test_thumbnail_name_from_item",
+    "tests/test_pipeline_images.py::TestImagesPipelineFieldsMixin.test_item_fields_default",
+    "tests/test_pipeline_images.py::TestImagesPipelineFieldsMixin.test_item_fields_override_settings",
+    "tests/test_pipeline_media.py::TestBaseMediaPipeline.test_default_item_completed",
+    "tests/test_pipeline_media.py::TestBaseMediaPipeline.test_item_completed_filtered_request_not_logged",
+    "tests/test_pipeline_media.py::TestBaseMediaPipeline.test_should_remove_req_res_references_before_caching_the_results",
+    "tests/test_pipeline_media.py::TestBuildFromCrawler.test_has_from_crawler",
+    "tests/test_pipeline_media.py::TestBuildFromCrawler.test_has_from_crawler_and_init",
+    "tests/test_pipeline_media.py::TestMediaFailedFailure.test_result_failure",
+    "tests/test_pipeline_media.py::TestMediaFailedNone.test_result_none",
+    "tests/test_pipeline_media.py::TestMediaPipeline.test_cached_failure_calls_errback",
+    "tests/test_pipeline_media.py::TestMediaPipeline.test_failures_are_cached_across_multiple_items",
+    "tests/test_pipeline_media.py::TestMediaPipeline.test_mix_of_success_and_failure",
+    "tests/test_pipeline_media.py::TestMediaPipeline.test_result_failure",
+    "tests/test_pipeline_media.py::TestMediaPipeline.test_result_succeed",
+    "tests/test_pipeline_media.py::TestMediaPipeline.test_results_are_cached_across_multiple_items",
+    "tests/test_pipeline_media.py::TestMediaPipeline.test_results_are_cached_for_requests_of_single_item",
+    "tests/test_pipeline_media.py::TestMediaPipeline.test_use_media_to_download_result",
+    "tests/test_pipeline_media.py::TestMediaPipeline.test_wait_if_request_is_downloading"
+  ]
+}

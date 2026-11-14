@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "report_type": "PROVISION_REPORT",
+  "generated_at_utc": "2026-10-14T05:08:03Z",
+  "plan": {
+    "plan_id": "scrapy-remaining38-detect-v1",
+    "path": "sdd-bench/scrapy-sdd/batch/plans/scrapy-remaining38-detect-v1.json",
+    "sha256": "60b8bd278ecfc6db0ae65ec8794392b29226d5543d33a11216bb4f3689b1e3f0",
+    "explicitly_approved_plan_id": "scrapy-remaining38-detect-v1"
+  },
+  "status": "READY",
+  "task_count": 1,
+  "tasks": [
+    {
+      "task_id": "scrapy__scrapy__pr7684",
+      "repository": "scrapy/scrapy",
+      "pr_id": 7684,
+      "status": "READY",
+      "base_sha": "185d6b9a20b7d0e77f4c60435d17e5072bd4d704",
+      "tree_sha": "22f68f3db98b1b651b157d43ba5ef61b98c6f50d",
+      "baseline_cache_reused": true,
+      "baseline_lock": {
+        "path": "sdd-bench/scrapy-sdd/batch/baselines/185d6b9a20b7d0e77f4c60435d17e5072bd4d704/baseline-lock.json",
+        "sha256": "e9662122cfb60f3862509fda94565fa52e17f256000b4ca9a58bd954017dacf4"
+      },
+      "topology_audit": {
+        "path": "sdd-bench/scrapy-sdd/batch/audits/topology/scrapy__scrapy__pr7684.json",
+        "sha256": "a15e3dac76f28fc314963cb0d37f3e150e12161eb69402993b5ad9be44c807de"
+      },
+      "variant_workspaces": {
+        "openspec": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7684/runs/openspec/detect/workspace",
+        "speckit": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7684/runs/speckit/detect/workspace",
+        "cc-sdd": "sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__pr7684/runs/cc-sdd/detect/workspace"
+      },
+      "blocking_errors": [],
+      "warnings": []
+    }
+  ],
+  "operations": {
+    "baseline_cache_created_or_verified": true,
+    "independent_variant_workspaces_created": true,
+    "docker_images_created": false,
+    "containers_created": false,
+    "volumes_created": false,
+    "networks_created": false,
+    "agents_started": false,
+    "tests_run": false
+  }
+}

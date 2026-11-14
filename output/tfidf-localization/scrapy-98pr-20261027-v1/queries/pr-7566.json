@@ -1,0 +1,4 @@
+{
+  "body": "Nothing interesting: testfixtures -> caplog, inline_callbacks_test -> coroutine_test, mockserver fixture, crawl() -> crawl_async()",
+  "title": "Refactor test_crawl.py and test_crawler.py."
+}

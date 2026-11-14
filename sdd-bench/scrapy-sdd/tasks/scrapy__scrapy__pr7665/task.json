@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr7665",
+  "repository": {
+    "owner": "scrapy",
+    "name": "scrapy"
+  },
+  "pr_id": 7665,
+  "baseline": {
+    "base_sha": "dd4549e6f9a92f4844b552aad49ab4431f73514f"
+  },
+  "title": "Make DOWNLOADER_CLIENT_TLS_CIPHERS=None enable Twisted defaults",
+  "body": "Fixes #7499.",
+  "adapter": {
+    "id": "scrapy",
+    "version": 1,
+    "path": "sdd-bench/scrapy-sdd/adapters/scrapy.json",
+    "sha256": "059dcc09eaa62f892f54118e65d4deccce3ab29cc5d9a4a36f4d999ff1aa27de"
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "base_sha": "5b4828a012fcd136a8f46915e19be07a5029e57e",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "added",
+      "id": "tests/test_downloadermiddleware_httpcache.py::DummyPolicyTestMixin.test_revalidation_keeps_cached_response"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_downloadermiddleware_httpcache.py::RFC2616PolicyTestMixin.test_max_stale_with_value"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_downloadermiddleware_httpcache.py::RFC2616PolicyTestMixin.test_middleware_ignore_schemes"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_downloadermiddleware_httpcache.py::RFC2616PolicyTestMixin.test_response_dated_in_the_future"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_extension_memusage.py::test_memusage_below_thresholds_logs_peak"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_extension_memusage.py::test_memusage_limit_stops_crawler_without_spider"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_extension_periodic_log.py::TestPeriodicLog.test_log_timing"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_extension_periodic_log.py::TestPeriodicLog.test_no_interval"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_extension_periodic_log.py::TestPeriodicLog.test_nothing_enabled"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_extension_telnet.py::test_telnet_vars"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_feedexport.py::TestFeedExportInit.test_disabled_storage"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_feedexport.py::TestItemFilter.test_no_feed_options"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_feedexport_postprocess.py::TestFeedPostProcessedExports.test_tell_reports_target_file_position"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_feedexport_storages.py::TestFTPFeedStorage.test_uri_without_hostname"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_feedexport_storages.py::test_s3_without_boto3"
+    }
+  ],
+  "excluded_counts": {
+    "added": 15
+  },
+  "index_sha256": "decc0a8c3309e9fe247cef00062616a5b9b44ce91baf5778c93880de0085b03e",
+  "issues": [],
+  "labels_sha256": "f411fd9c851fcd5bb750b75d0952d7807adfab90b9b55c15c3c65a300f918701",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "7a0308ad40ae9d0f6250af3e5e34071060468fc5b4555fd119b1c5b2783aa3da",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_extension_memusage.py::test_memusage_warning_logs_but_allows_normal_finish"
+  ]
+}

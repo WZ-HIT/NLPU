@@ -1,0 +1,4 @@
+{
+  "body": "Fixes #3288, fixes #4821\r\n\r\nDeprecates:\r\n* Setting the `DOWNLOADER_CLIENT_TLS_METHOD` setting to anything other than `TLS`\r\n* `scrapy.core.downloader.tls.METHOD_*` constants\r\n* `scrapy.core.downloader.tls.openssl_methods` dict\r\n\r\nIt also directly removes support for `DOWNLOADER_CLIENT_TLS_METHOD` from `HttpxDownloadHandler` (especially as the docs falsely claimed that it's not supported).",
+  "title": "Add settings for TLS min/max version as a replacement for the TLS method"
+}

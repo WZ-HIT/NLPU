@@ -1,0 +1,38 @@
+{
+  "base_sha": "e3229052552c51df18f88b5c106e0de694d6be3e",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "deleted",
+      "id": "tests/test_crawler_runners.py::TestAsyncCrawlerRunner.test_spider_manager_verify_interface"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_crawler_runners.py::TestCrawlerRunner.test_spider_manager_verify_interface"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_feedexport_storages.py::TestFileFeedStorage.test_interface"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_spiderloader/__init__.py::TestSpiderLoader.test_interface"
+    }
+  ],
+  "excluded_counts": {
+    "deleted": 4
+  },
+  "index_sha256": "b05537b56bd153813b9783585366be969d5920451dd755c2b81e473d20f85f67",
+  "issues": [],
+  "labels_sha256": "d56b5a6740f034a1893b8dabfa53bb76a76a6e0c6e681cbd117e777800ecc0af",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "eae4de1fca80008d89234698d09c0ee262e7e69581ac2db3fe461c423d4c0acc",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_feedexport.py::TestFeedExport.test_storage_file_no_postprocessing",
+    "tests/test_feedexport.py::TestFeedExport.test_storage_file_postprocessing",
+    "tests/test_feedexport_batch.py::TestBatchDeliveries.test_s3_export",
+    "tests/test_feedexport_storages.py::TestS3FeedStorage.test_store"
+  ]
+}

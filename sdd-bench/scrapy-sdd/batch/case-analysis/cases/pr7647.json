@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "case_id": "pr-7647",
+  "pr_id": 7647,
+  "repo": "scrapy/scrapy",
+  "base_sha": "75f05d4e80b82705f54b2fe6b2948c463c7eb36b",
+  "head_sha": "ce26f6eb39eb96e2666c456a51d7ebdde2c84c37",
+  "merge_sha": "b6596de317acb16c1a0de0a77496640f7542364b",
+  "classification": "MIXED_CODE_AND_TEST_PR",
+  "selection": {
+    "stratum": "indirect",
+    "rationale": "Raw pair reports static_call_path; draft BFS path and hop count shown for reviewer confirmation. Leaf-name call graph cannot disambiguate: crawl (3 defs); confirm the module-level path during review."
+  },
+  "production_changes": [
+    {
+      "path": "scrapy/crawler.py",
+      "symbol": "CrawlerRunnerBase.create_crawler",
+      "kind": "method",
+      "change_kind": "unknown",
+      "hunks": [
+        [
+          363,
+          371
+        ],
+        [
+          376,
+          381
+        ]
+      ],
+      "evidence_ref": "batch/gold/scrapy__scrapy__pr7647/gold-store.json#production_patches[0]"
+    }
+  ],
+  "modified_tests": [
+    {
+      "path": "tests/test_crawl.py",
+      "qualified_name": "TestCrawl.test_crawlerrunner_accepts_crawler"
+    }
+  ],
+  "edges": [
+    {
+      "edge_id": "pr-7647:TestCrawl.test_crawlerrunner_accepts_crawler->CrawlerRunnerBase.create_crawler",
+      "test": {
+        "path": "tests/test_crawl.py",
+        "qualified_name": "TestCrawl.test_crawlerrunner_accepts_crawler"
+      },
+      "production": {
+        "path": "scrapy/crawler.py",
+        "symbol": "CrawlerRunnerBase.create_crawler"
+      },
+      "relation": "indirect",
+      "hops": 2,
+      "path": [
+        "TestCrawl.test_crawlerrunner_accepts_crawler",
+        "crawl",
+        "create_crawler"
+      ],
+      "evidence": [
+        "static_call_path",
+        "import"
+      ],
+      "confidence": "medium",
+      "status": "candidate",
+      "rationale": "Raw pair reports static_call_path; draft BFS path and hop count shown for reviewer confirmation. Leaf-name call graph cannot disambiguate: crawl (3 defs); confirm the module-level path during review."
+    }
+  ],
+  "no_edge_changes": [],
+  "test_level": {
+    "positives": [
+      {
+        "path": "tests/test_crawl.py",
+        "qualified_name": "TestCrawl.test_crawlerrunner_accepts_crawler"
+      }
+    ],
+    "missed_updates": [],
+    "coverage_gaps": [],
+    "unknown": []
+  },
+  "review": {
+    "status": "draft",
+    "first_pass_at": null,
+    "second_pass_at": null,
+    "changed_verdicts": []
+  },
+  "notes": "Pre-classification dominant=indirect counts={\"indirect\": 1, \"no_edge\": 0}. Auto-generated candidate record. Reviewer must confirm/reject every edge, assign change_kind and counterfactual, and check for resolver gaps."
+}

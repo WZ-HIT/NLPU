@@ -1,0 +1,35 @@
+{
+  "base_sha": "185d6b9a20b7d0e77f4c60435d17e5072bd4d704",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "deleted",
+      "id": "tests/test_utils_request.py::TestRequestToCurl.test_cookies_list"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_utils_request.py::TestRequestToCurl.test_cookies_list_bytes_nonstandard_key"
+    }
+  ],
+  "excluded_counts": {
+    "deleted": 2
+  },
+  "index_sha256": "a63eea6bd79633e932060c9294feb9198b048f92b3f1ebcb36ad0d7e103664d4",
+  "issues": [],
+  "labels_sha256": "1e6b9e06490a0a7bdf688b6633fd81778d62768973878a000a7afbac8ed20939",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "bb173ad17102fb45da181f410812bbe1f1158b1d58e8fadf9ac6058fa6ac07ef",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_downloadermiddleware_cookies.py::TestCookiesMiddleware.test_invalid_cookies",
+    "tests/test_downloadermiddleware_cookies.py::TestCookiesMiddleware.test_request_cookies_encoding",
+    "tests/test_utils_request.py::TestRequestToCurl.test_cookies_dict",
+    "tests/test_utils_request.py::TestRequestToCurl.test_cookies_dict_bytes",
+    "tests/test_utils_request.py::TestRequestToCurl.test_cookies_list_verbose",
+    "tests/test_utils_request.py::TestRequestToCurl.test_cookies_list_verbose_non_string_value",
+    "tests/test_utils_request.py::TestRequestToCurl.test_get",
+    "tests/test_utils_request.py::TestRequestToCurl.test_headers",
+    "tests/test_utils_request.py::TestRequestToCurl.test_post"
+  ]
+}

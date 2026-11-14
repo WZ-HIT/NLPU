@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "audit_type": "HOST_ONLY_IMAGE_AUDIT",
+  "audited_at_utc": "2026-10-14T04:25:21Z",
+  "status": "PASS",
+  "repository": "scrapy/scrapy",
+  "base_sha": "5b4828a012fcd136a8f46915e19be07a5029e57e",
+  "tree_sha": "02f05d244725cb52b9f9f7a11068f5ec544605ae",
+  "deployment_lock": {
+    "path": "sdd-bench/scrapy-sdd/batch/images/5b4828a012fcd136a8f46915e19be07a5029e57e/deployment-lock.json",
+    "sha256": "a50190ea5ba4c5703877d3e65c848d91ca4de56d83d33173f31cf2e63e2c8e78"
+  },
+  "version_validation": {
+    "status": "PASS",
+    "actual": {
+      "python": "3.11.15",
+      "scrapy": "2.17.0",
+      "pytest": "9.1.1",
+      "node": "v24.20.0",
+      "npm": "11.19.0",
+      "codex": "codex-cli 0.153.4",
+      "uv": "uv 0.12.10 (x86_64-unknown-linux-gnu)",
+      "bubblewrap": "bubblewrap built for Codex",
+      "openspec": "1.12.0",
+      "speckit": "specify 1.0.4",
+      "cc-sdd": "cc-sdd v3.0.2"
+    },
+    "expected": {
+      "python": "3.11.15",
+      "scrapy": "2.17.0",
+      "pytest": "9.1.1",
+      "node": "v24.20.0",
+      "npm": "11.19.0",
+      "codex": "codex-cli 0.153.4",
+      "uv": "uv 0.12.10 (x86_64-unknown-linux-gnu)",
+      "bubblewrap": "bubblewrap built for Codex",
+      "openspec": "1.12.0",
+      "speckit": "specify 1.0.4",
+      "cc-sdd": "cc-sdd v3.0.2"
+    }
+  },
+  "smoke_test": {
+    "status": "PASS",
+    "exit_code": 0,
+    "argv": [
+      "python",
+      "-m",
+      "pytest",
+      "-q",
+      "-p",
+      "no:cacheprovider",
+      "--basetemp=/tmp/pytest-smoke",
+      "tests/test_toplevel.py::test_version"
+    ],
+    "source": "image-dir",
+    "stdout_tail": ".                                                                        [100%]\n1 passed in 0.15s\n",
+    "stderr_tail": "",
+    "tracked_manifest_before": "9c8855a17a64864ac468695ca36461ea34f6e514210b85ddcc338f938ac01831",
+    "tracked_manifest_after": "9c8855a17a64864ac468695ca36461ea34f6e514210b85ddcc338f938ac01831",
+    "frozen_cache_manifest_before": "9c8855a17a64864ac468695ca36461ea34f6e514210b85ddcc338f938ac01831",
+    "frozen_cache_manifest_after": "9c8855a17a64864ac468695ca36461ea34f6e514210b85ddcc338f938ac01831"
+  },
+  "stage_isolation": {
+    "status": "PASS",
+    "records": [
+      {
+        "stage": "detect",
+        "exit_code": 0,
+        "container_id": "a6cfc675ad91"
+      },
+      {
+        "stage": "update",
+        "exit_code": 0,
+        "container_id": "a821e1d59087"
+      }
+    ],
+    "distinct_container_ids": true,
+    "distinct_workspace_paths": true,
+    "tmpfs_home_per_container": true
+  },
+  "leak_scan": {
+    "status": "PASS",
+    "history": {
+      "status": "PASS",
+      "hit_labels": []
+    },
+    "added_layers": {
+      "status": "PASS",
+      "added_layer_count": 9,
+      "hits": []
+    },
+    "filesystem": {
+      "status": "PASS",
+      "regular_files_scanned": 22974,
+      "hits": []
+    },
+    "scope_note": "Target-specific path names are scanned in agent-added layers. Baseline-native paths remain readable by Detect by design; no host-side target selection metadata is added.",
+    "pattern_values_recorded": false
+  },
+  "frozen_baseline_unchanged": true
+}

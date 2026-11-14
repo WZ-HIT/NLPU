@@ -1,0 +1,71 @@
+{
+  "base_sha": "1420418c813ed01af78da62bc4a6e60bb4a7403b",
+  "corpus_count": 2460,
+  "excluded_counts": {},
+  "gold_count": 1,
+  "gold_ranks": {
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_process_response_gzipped_gzip_file": 963
+  },
+  "label_issues": [],
+  "labels_sha256": "770ae1b7fd6fb11221065227e24618a1731da5a6d978cff42ee423475adfc59a",
+  "metrics": {
+    "100": {
+      "all_hit": 0,
+      "candidate_count": 100,
+      "candidate_fraction": 0.04065040650406504,
+      "fn": 1,
+      "fp": 100,
+      "gold_count": 1,
+      "hit_at_k": 0,
+      "matched_count": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "recall_at_k": 0.0,
+      "tp": 0,
+      "zero_score_count": 0
+    },
+    "200": {
+      "all_hit": 0,
+      "candidate_count": 200,
+      "candidate_fraction": 0.08130081300813008,
+      "fn": 1,
+      "fp": 200,
+      "gold_count": 1,
+      "hit_at_k": 0,
+      "matched_count": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "recall_at_k": 0.0,
+      "tp": 0,
+      "zero_score_count": 0
+    },
+    "50": {
+      "all_hit": 0,
+      "candidate_count": 50,
+      "candidate_fraction": 0.02032520325203252,
+      "fn": 1,
+      "fp": 50,
+      "gold_count": 1,
+      "hit_at_k": 0,
+      "matched_count": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "recall_at_k": 0.0,
+      "tp": 0,
+      "zero_score_count": 0
+    }
+  },
+  "pr_id": 7511,
+  "prediction": {
+    "path": "predictions/pr-7511.json.gz",
+    "pr_id": 7511,
+    "sha256": "6b54567945eca3b5e570359dc57a6208fc7f4bf5887adb3b0f441162268c1ed9"
+  },
+  "query_sha256": "469af5c6f29d59beac33fac489522c372abae3bbecb0c4e33f529769131030f4",
+  "rank_seconds": 0.0030389828607439995,
+  "raw_line": 24,
+  "raw_record_sha256": "af5fbbdd05d749be9a5b99b5dbf6689e2a719ad9cd51de5e07decd7936113cdd",
+  "repository": "scrapy/scrapy",
+  "scorable": true,
+  "status": "SCORED"
+}

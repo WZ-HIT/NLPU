@@ -1,0 +1,29 @@
+{
+  "base_sha": "9ca206da6401b3edbc451a13d7146d7bc5e4d98e",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "added",
+      "id": "tests/test_contracts.py::TestContractsManager.test_custom_tagged_request_contract"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_contracts.py::TestContractsManager.test_form_contract"
+    }
+  ],
+  "excluded_counts": {
+    "added": 1,
+    "deleted": 1
+  },
+  "index_sha256": "1840b36ae476b83c7530a77f1c7aa991704757e9c80760fd04f7988391839b3b",
+  "issues": [],
+  "labels_sha256": "c72585c96763d100a809c79a342c47b8f2ec6aa12d2c510706940bdecb36908a",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "b34427dc1a46baae94f6f5cd1c734a95d9f94bb55ca35ae8e12c8e5559c4685a",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_contracts.py::TestContractsManager.test_inherited_contracts",
+    "tests/test_request_dict.py::TestRequestSerialization.test_request_class"
+  ]
+}

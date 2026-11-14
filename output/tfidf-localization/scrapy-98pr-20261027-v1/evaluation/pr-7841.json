@@ -1,0 +1,79 @@
+{
+  "base_sha": "95c16aa9af7c51f26ba3ea8512b4ba782f5d216f",
+  "corpus_count": 2357,
+  "excluded_counts": {
+    "added": 69
+  },
+  "gold_count": 7,
+  "gold_ranks": {
+    "tests/test_command_shell.py::TestInteractiveShell.test_fetch": 401,
+    "tests/test_command_shell.py::TestInteractiveShell.test_shell_from_cfg": 87,
+    "tests/test_downloaderslotssettings.py::TestCrawl.test_delay": 1175,
+    "tests/test_squeues_request.py::TestRequestQueueBase.test_one_element": 1154,
+    "tests/test_squeues_request.py::TestRequestQueueBase.test_order": 823,
+    "tests/test_utils_python.py::test_get_func_args": 1,
+    "tests/test_utils_trackref.py::test_iter_all": 1179
+  },
+  "label_issues": [],
+  "labels_sha256": "45747a68303ac55910357227d1228f1f26855e94d531f1bcd686dc18151b1bdf",
+  "metrics": {
+    "100": {
+      "all_hit": 0,
+      "candidate_count": 100,
+      "candidate_fraction": 0.04242681374628765,
+      "fn": 5,
+      "fp": 98,
+      "gold_count": 7,
+      "hit_at_k": 1,
+      "matched_count": 2,
+      "precision": 0.02,
+      "recall": 0.2857142857142857,
+      "recall_at_k": 0.2857142857142857,
+      "tp": 2,
+      "zero_score_count": 0
+    },
+    "200": {
+      "all_hit": 0,
+      "candidate_count": 200,
+      "candidate_fraction": 0.0848536274925753,
+      "fn": 5,
+      "fp": 198,
+      "gold_count": 7,
+      "hit_at_k": 1,
+      "matched_count": 2,
+      "precision": 0.01,
+      "recall": 0.2857142857142857,
+      "recall_at_k": 0.2857142857142857,
+      "tp": 2,
+      "zero_score_count": 0
+    },
+    "50": {
+      "all_hit": 0,
+      "candidate_count": 50,
+      "candidate_fraction": 0.021213406873143825,
+      "fn": 6,
+      "fp": 49,
+      "gold_count": 7,
+      "hit_at_k": 1,
+      "matched_count": 1,
+      "precision": 0.02,
+      "recall": 0.14285714285714285,
+      "recall_at_k": 0.14285714285714285,
+      "tp": 1,
+      "zero_score_count": 0
+    }
+  },
+  "pr_id": 7841,
+  "prediction": {
+    "path": "predictions/pr-7841.json.gz",
+    "pr_id": 7841,
+    "sha256": "eabeff885420540966ea870128ca73a78347f5f5b80ec5bafa2252a82c5d560e"
+  },
+  "query_sha256": "0b59143f1893563e1d398653bb81ef2db7dd35276bb99838efc9bb85294362cd",
+  "rank_seconds": 0.0028684986755251884,
+  "raw_line": 80,
+  "raw_record_sha256": "484cb9be4bbdfaa361dc7676e012d43f9c14b51e3ce14c9cc9335fc4fc1bf8cc",
+  "repository": "scrapy/scrapy",
+  "scorable": true,
+  "status": "SCORED"
+}

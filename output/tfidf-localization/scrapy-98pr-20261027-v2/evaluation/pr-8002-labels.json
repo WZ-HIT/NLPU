@@ -1,0 +1,278 @@
+{
+  "base_sha": "be3e24e607ff0df427d6329163c706c406d06f61",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "deleted",
+      "id": "tests/test_linkextractors.py::Base.TestLinkExtractorBase.test_area_tag_with_unicode_present"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_linkextractors.py::Base.TestLinkExtractorBase.test_attrs"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_linkextractors.py::Base.TestLinkExtractorBase.test_base_url_with_restrict_xpaths"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_linkextractors.py::Base.TestLinkExtractorBase.test_encoded_url"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_linkextractors.py::Base.TestLinkExtractorBase.test_encoded_url_in_restricted_xpath"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_linkextractors.py::Base.TestLinkExtractorBase.test_extract_all_links"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_linkextractors.py::Base.TestLinkExtractorBase.test_extract_filter_allow"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_linkextractors.py::Base.TestLinkExtractorBase.test_extract_filter_allow_and_deny"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_linkextractors.py::Base.TestLinkExtractorBase.test_extract_filter_allow_no_duplicates_canonicalize"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_linkextractors.py::Base.TestLinkExtractorBase.test_extract_filter_allow_with_duplicates"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_linkextractors.py::Base.TestLinkExtractorBase.test_extract_filter_allow_with_duplicates_canonicalize"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_linkextractors.py::Base.TestLinkExtractorBase.test_extract_filter_allowed_domains"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_linkextractors.py::Base.TestLinkExtractorBase.test_extraction_using_single_values"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_linkextractors.py::Base.TestLinkExtractorBase.test_ftp_links"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_linkextractors.py::Base.TestLinkExtractorBase.test_ignored_extensions"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_linkextractors.py::Base.TestLinkExtractorBase.test_link_extractor_aggregation"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_linkextractors.py::Base.TestLinkExtractorBase.test_link_wrong_href"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_linkextractors.py::Base.TestLinkExtractorBase.test_matches"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_linkextractors.py::Base.TestLinkExtractorBase.test_nofollow"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_linkextractors.py::Base.TestLinkExtractorBase.test_pickle_extractor"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_linkextractors.py::Base.TestLinkExtractorBase.test_process_value"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_linkextractors.py::Base.TestLinkExtractorBase.test_restrict_css"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_linkextractors.py::Base.TestLinkExtractorBase.test_restrict_css_and_restrict_xpaths_together"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_linkextractors.py::Base.TestLinkExtractorBase.test_restrict_xpaths"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_linkextractors.py::Base.TestLinkExtractorBase.test_restrict_xpaths_concat_in_handle_data"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_linkextractors.py::Base.TestLinkExtractorBase.test_restrict_xpaths_encoding"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_linkextractors.py::Base.TestLinkExtractorBase.test_restrict_xpaths_with_html_entities"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_linkextractors.py::Base.TestLinkExtractorBase.test_tags"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_linkextractors.py::Base.TestLinkExtractorBase.test_tags_attrs"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_linkextractors.py::Base.TestLinkExtractorBase.test_tags_attrs_wildcard_and_deny"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_linkextractors.py::Base.TestLinkExtractorBase.test_urls_type"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_linkextractors.py::Base.TestLinkExtractorBase.test_xhtml"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_area_tag_with_unicode_present"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_attrs"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_base_url_with_restrict_xpaths"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_encoded_url"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_encoded_url_in_restricted_xpath"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_extract_all_links"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_extract_filter_allow"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_extract_filter_allow_and_deny"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_extract_filter_allow_no_duplicates_canonicalize"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_extract_filter_allow_with_duplicates"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_extract_filter_allow_with_duplicates_canonicalize"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_extract_filter_allowed_domains"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_extraction_using_single_values"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_ftp_links"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_ignored_extensions"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_link_extractor_aggregation"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_link_wrong_href"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_matches"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_nofollow"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_pickle_extractor"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_process_value"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_restrict_css"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_restrict_css_and_restrict_xpaths_together"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_restrict_xpaths"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_restrict_xpaths_concat_in_handle_data"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_restrict_xpaths_encoding"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_restrict_xpaths_with_html_entities"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_tags"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_tags_attrs"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_tags_attrs_wildcard_and_deny"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_urls_type"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_xhtml"
+    }
+  ],
+  "excluded_counts": {
+    "added": 32,
+    "deleted": 32
+  },
+  "index_sha256": "2e4ebf2c1201784c785e5dc9fcce44ad06b967ee27d14fc831681cae0c1a5f17",
+  "issues": [],
+  "labels_sha256": "3bd00198194869dab333114fe888d9628e99910f3ece14355870ac20cb00dfe9",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "c01dd72a07dd20dea7963e05262a9948c7a810a3e4528268f435022a13b9ab10",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_canonicalize_once_per_link",
+    "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_link_restrict_text",
+    "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_skip_bad_links"
+  ]
+}

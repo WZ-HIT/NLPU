@@ -1,0 +1,16 @@
+{
+  "base_sha": "1420418c813ed01af78da62bc4a6e60bb4a7403b",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [],
+  "excluded_counts": {},
+  "index_sha256": "0bfa188ac1d755a06a91c66f51aa059e46d81443199ab964650ac00a34dae307",
+  "issues": [],
+  "labels_sha256": "770ae1b7fd6fb11221065227e24618a1731da5a6d978cff42ee423475adfc59a",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "af5fbbdd05d749be9a5b99b5dbf6689e2a719ad9cd51de5e07decd7936113cdd",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_process_response_gzipped_gzip_file"
+  ]
+}

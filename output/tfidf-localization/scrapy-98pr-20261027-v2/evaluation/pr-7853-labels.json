@@ -1,0 +1,16 @@
+{
+  "base_sha": "a499dc9511005e026860c5ce72296ba1ff3aae1b",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [],
+  "excluded_counts": {},
+  "index_sha256": "9da2fdce6639ea0a243e74388dcc1039a89cfd901e71bf27aec83e80db06186a",
+  "issues": [],
+  "labels_sha256": "ba48acc536345e9da0cbb0b2520dbc2f3d76baa18f045f2b894ab4bcb962d571",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "b48eb5a30e297c5667c37d4cb0d994c1bc9ab9d9b2306aded59d968bb465d18f",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_cmdline/__init__.py::TestCmdline.test_override_dict_settings"
+  ]
+}

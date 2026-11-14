@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr7731",
+  "repository": {
+    "owner": "scrapy",
+    "name": "scrapy"
+  },
+  "pr_id": 7731,
+  "baseline": {
+    "base_sha": "e3229052552c51df18f88b5c106e0de694d6be3e"
+  },
+  "title": "Remove non-Twisted uses of zope.interface",
+  "body": "Fixes #6585\r\n\r\nDeprecate `scrapy.interfaces` and `scrapy.extensions.feedexport.IFeedStorage`.",
+  "adapter": {
+    "id": "scrapy",
+    "version": 1,
+    "path": "sdd-bench/scrapy-sdd/adapters/scrapy.json",
+    "sha256": "059dcc09eaa62f892f54118e65d4deccce3ab29cc5d9a4a36f4d999ff1aa27de"
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "base_sha": "9ca206da6401b3edbc451a13d7146d7bc5e4d98e",
+  "corpus_count": 2051,
+  "excluded_counts": {
+    "added": 1,
+    "deleted": 1
+  },
+  "gold_count": 2,
+  "gold_ranks": {
+    "tests/test_contracts.py::TestContractsManager.test_inherited_contracts": 1402,
+    "tests/test_request_dict.py::TestRequestSerialization.test_request_class": 67
+  },
+  "label_issues": [],
+  "labels_sha256": "c72585c96763d100a809c79a342c47b8f2ec6aa12d2c510706940bdecb36908a",
+  "metrics": {
+    "100": {
+      "all_hit": 0,
+      "candidate_count": 100,
+      "candidate_fraction": 0.04875670404680644,
+      "fn": 1,
+      "fp": 99,
+      "gold_count": 2,
+      "hit_at_k": 1,
+      "matched_count": 1,
+      "precision": 0.01,
+      "recall": 0.5,
+      "recall_at_k": 0.5,
+      "tp": 1,
+      "zero_score_count": 0
+    },
+    "200": {
+      "all_hit": 0,
+      "candidate_count": 200,
+      "candidate_fraction": 0.09751340809361288,
+      "fn": 1,
+      "fp": 199,
+      "gold_count": 2,
+      "hit_at_k": 1,
+      "matched_count": 1,
+      "precision": 0.005,
+      "recall": 0.5,
+      "recall_at_k": 0.5,
+      "tp": 1,
+      "zero_score_count": 0
+    },
+    "50": {
+      "all_hit": 0,
+      "candidate_count": 50,
+      "candidate_fraction": 0.02437835202340322,
+      "fn": 2,
+      "fp": 50,
+      "gold_count": 2,
+      "hit_at_k": 0,
+      "matched_count": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "recall_at_k": 0.0,
+      "tp": 0,
+      "zero_score_count": 0
+    }
+  },
+  "pr_id": 6438,
+  "prediction": {
+    "path": "predictions/pr-6438.json.gz",
+    "pr_id": 6438,
+    "sha256": "9914f71f410508b18819ffbcb329558bd0994b812672d75af3137b13a7346bcf"
+  },
+  "query_sha256": "1811ce9bf053654778e1956ddb0eded6e130da05e6dbe87dddfd5ed668e5d4cf",
+  "rank_seconds": 0.0017178962007164955,
+  "raw_line": 312,
+  "raw_record_sha256": "b34427dc1a46baae94f6f5cd1c734a95d9f94bb55ca35ae8e12c8e5559c4685a",
+  "repository": "scrapy/scrapy",
+  "scorable": true,
+  "status": "SCORED"
+}

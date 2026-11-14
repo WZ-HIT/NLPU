@@ -210,7 +210,10 @@ class SddResultsBatchFixtureTests(unittest.TestCase):
             targets = sdd_results.batch_targets(experiment, bench)
             self.assertEqual(len(targets), 2)
             self.assertEqual(targets[0].attempt, 2)
-            html = sdd_results.build_html(experiment, bench)
+            batch_html = sdd_results.build_html(experiment, bench)
+            self.assertNotIn("VISIBLE_SPEC", batch_html)
+            self.assertIn("PR 列表", batch_html)
+            html = sdd_results.build_html(next(e for e in experiments if e.task_id_filter), bench)
             for expected in (
                 "VISIBLE_SPEC",
                 "VISIBLE_DETECT_MESSAGE",

@@ -1,0 +1,17 @@
+{
+  "base_sha": "1bd839b57ddb614664a179b6213f49579bdfd3da",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [],
+  "excluded_counts": {},
+  "index_sha256": "32a1f102bce7141ce4205933376f2e0d853d6b35efe831ba590cfea495e97ee6",
+  "issues": [],
+  "labels_sha256": "8efe9581fd8eb5e80d196c188f29a99de9d0515896528f14d59ae091d50361b7",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "372f41c0928696cdd42c44e3cc958feb2718acfe980ed9333c2fda32ed0691e5",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_crawler_subprocess.py::TestCrawlerProcessSubprocessBase.test_caching_hostname_resolver_ipv6",
+    "tests/test_crawler_subprocess.py::TestCrawlerProcessSubprocessBase.test_ipv6_default_name_resolver"
+  ]
+}

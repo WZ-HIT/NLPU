@@ -1,0 +1,4 @@
+{
+  "body": "Followup to #7603 and #7675. I've rebased a WIP branch with type hints in `tests/test_utils_request.py` and found several issues:\r\n\r\n1. The dict form of `Request.cookies` is currently type hinted as `dict[str, str]` - in fact we support bytes as both keys and values, as this form is internally converted into the verbose list form which explicitly supports bytes.This is not documented but it doesn't make sense to disable it, and there were tests for bytes values. I've upadted the hint and added tests for bytes keys.\r\n2. The original `request_to_curl()` code supports cookies as a list of one-item dicts since it was added in #5892, this is an oversight, but the recent PRs extended this. I've removed the support and the tests for it.\r\n3. I've extracted some helpers to reduce code duplication.",
+  "title": "Cleanup cookie handling in request_to_curl()"
+}

@@ -1,0 +1,18 @@
+{
+  "base_sha": "11079cb1c85b9e75a39a7269943c69d1a975d485",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [],
+  "excluded_counts": {},
+  "index_sha256": "d442b873201f942782f9151a825ae642def5b639694353634f75c55210ddd7ec",
+  "issues": [],
+  "labels_sha256": "b2265b7eb32cc8ff8f420b230f0022d17e987664f32b802549d406455261e292",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "cfe69b4b32d1b79423df9fb0eb52e74e97cd4e42229c8c7b5f7ee88c206d54c7",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_downloader_handler_twisted_ftp.py::TestFTP.test_invalid_credentials",
+    "tests/utils/bases/download_handlers_http.py::TestHttpBase.test_timeout_download_from_spider_nodata_rcvd",
+    "tests/utils/bases/download_handlers_http.py::TestHttpBase.test_timeout_download_from_spider_server_hangs"
+  ]
+}

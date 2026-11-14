@@ -1,0 +1,34 @@
+{
+  "base_sha": "3f3cb885eddf34fc6fd76a1acbeff601cbc6f506",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "added",
+      "id": "tests/test_linkextractors.py::TestLxmlParserLinkExtractor.test_extract_links"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_linkextractors.py::TestLxmlParserLinkExtractor.test_strip_false"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_spider.py::TestSpider.test_base_spider"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_utils_python.py::test_get_func_args"
+    }
+  ],
+  "excluded_counts": {
+    "added": 2,
+    "mechanical_ast_equal": 2
+  },
+  "index_sha256": "5fd3c0595b829d482786282efd568b229aaf7ed7549ce0f7c7cf9500660401a1",
+  "issues": [],
+  "labels_sha256": "3ba83e2d8148bf9a7da5dfccf589373f5ceb79ae878b121602bff10494110711",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "6dcb76d692a3a23f984d1e8837d9c5eec9d1a5b8ef850c34f5e8f7bf94ef73eb",
+  "schema_version": 1,
+  "testcases": []
+}

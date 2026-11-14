@@ -1,0 +1,4 @@
+{
+  "body": "Resolves https://github.com/scrapy/scrapy/issues/8038",
+  "title": "Let parsel determine the type of nested selectors"
+}

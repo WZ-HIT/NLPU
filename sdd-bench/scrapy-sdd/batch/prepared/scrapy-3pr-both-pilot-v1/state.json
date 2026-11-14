@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "prepared_id": "prepared-71a9d717549215694b160554",
+  "status": "FROZEN",
+  "steps": {
+    "inputs": {
+      "status": "VERIFIED",
+      "evidence_sha256": "f061d439879a4f00b58c3a8dfb4e5961ba4b4aaa1aeff3535e411b52a78497d3",
+      "file_count": 5
+    },
+    "baseline": {
+      "status": "VERIFIED",
+      "evidence_sha256": "ab713eebc6b9bb614a1597d006c998c3cc779a7fc58c699928d2b13cd06ab960",
+      "file_count": 2
+    },
+    "images": {
+      "status": "VERIFIED",
+      "evidence_sha256": "4607a1043fc197f0ecc07214e1e933c1895f9072f2ea8ede283e4629ac0eacb3",
+      "file_count": 4
+    },
+    "scaffold": {
+      "status": "VERIFIED",
+      "evidence_sha256": "449cb28c33a292b65c7bba2ffc93b34337779f3718328c1eac50b10025f61324",
+      "file_count": 6
+    },
+    "gold": {
+      "status": "VERIFIED",
+      "evidence_sha256": "e9678de576e25bbdb708f5c1399f9a24f81c8d2516034b8bd2be7ac4238d326b",
+      "file_count": 39
+    },
+    "preflight": {
+      "status": "VERIFIED",
+      "evidence_sha256": "754dd42863dfa628b3948f5606686eba4b65bea39bcdd7f9bf37bc5f3afc4627",
+      "file_count": 6
+    },
+    "update_policy": {
+      "status": "VERIFIED",
+      "evidence_sha256": "09ff35b7f98908fca64e30a1c41758461452f91fb36a0132656c17cb856e8662",
+      "file_count": 18
+    }
+  }
+}

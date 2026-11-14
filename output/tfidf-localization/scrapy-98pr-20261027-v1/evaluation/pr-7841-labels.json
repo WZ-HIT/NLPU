@@ -1,0 +1,301 @@
+{
+  "base_sha": "95c16aa9af7c51f26ba3ea8512b4ba782f5d216f",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "added",
+      "id": "tests/test_command_shell.py::TestInteractiveShell.test_shell_ipython"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_crawl.py::TestCrawl.test_print_engine_status"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_downloader_handlers.py::TestWrapTwistedExceptions.test_mapping"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_downloader_handlers.py::TestWrapTwistedExceptions.test_other_exceptions_pass_through"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_deflate_chunked_output_leaves_nothing_to_flush"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_downloadermiddleware_httpcompression.py::TestHttpCompression.test_deflate_extra_data_after_stream"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_feedexport_storages.py::TestFTPFeedStorage.test_missing_parent_directories"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_linkextractors.py::TestLxmlParserLinkExtractor.test_deduplicates_by_canonical_url"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_squeues.py::test_peek_unsupported"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_benchserver.py::test_getarg"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_benchserver.py::test_render"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_conf.py::TestBuildComponentList.test_duplicate_components_in_dict"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_conf.py::TestBuildComponentList.test_invalid_value"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_conf.py::test_get_sources"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_console.py::test_embed_bpython_shell"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_console.py::test_get_shell_embed_func_known_shells"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_curl.py::TestCurlToRequestKwargs.test_get_cookie_file_option"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_curl.py::TestCurlToRequestKwargs.test_get_cookie_option"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_defer.py::TestDeferredToFutureNotAsyncio.test_deferred"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_defer.py::test_maybe_deferred_coro_deferred"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_deprecate.py::TestAttribute.test_custom_version"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_deprecate.py::TestAttribute.test_default_version"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_deprecate.py::TestWarnWhenSubclassed.test_unknown_parent_module"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_display.py::test_enable_windows_terminal_processing"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_iterators.py::TestBodyOrStr.test_body_or_str_unsupported_type"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_iterators.py::TestUtilsCsv.test_csviter_empty"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_iterators.py::TestXmliter.test_xmliter_namespaced_nodename_other_prefixes"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_iterators.py::TestXmliter.test_xmliter_non_text_response"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_job.py::test_existing_jobdir"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_job.py::test_missing_jobdir"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_job.py::test_no_jobdir"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_log.py::TestConfigureLogging.test_captures_warnings"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_log.py::TestConfigureLogging.test_keeps_warnoptions"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_log.py::TestConfigureLogging.test_log_stdout"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_log.py::TestConfigureLogging.test_reinstall_root_handler_removed_from_root"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_log.py::TestStreamLogger.test_flush"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_ossignal.py::test_install"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_ossignal.py::test_keeps_custom_sigint_handler"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_ossignal.py::test_overrides_default_sigint_handler"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_project.py::test_data_path_createdir"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_project.py::test_inside_project_unimportable_settings_module"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_project.py::test_project_data_dir_default"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_project.py::test_project_data_dir_from_scrapy_cfg"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_project.py::test_project_data_dir_outside_project"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_project.py::test_project_data_dir_without_scrapy_cfg"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_python.py::test_binaryistext_not_bytes"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_python.py::test_get_func_args_not_callable"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_python.py::test_get_spec_not_callable"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_python.py::test_looks_like_import_path"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_reactor.py::TestListenTcp.test_empty_portrange"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_reactor.py::TestListenTcp.test_invalid_portrange"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_reactor.py::TestListenTcp.test_no_free_port"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_reactor.py::TestListenTcp.test_single_port"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_reactor.py::TestListenTcp.test_skips_used_ports"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_reactor.py::TestVerifyWithoutReactor.test_verify_installed_asyncio_event_loop"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_reactor.py::TestVerifyWithoutReactor.test_verify_installed_reactor"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_signal.py::TestSendCatchLog.test_send_catch_log_dont_log"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_sitemap.py::test_sitemap_str"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_spider.py::TestSpiderclsForRequest.test_log_multiple"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_spider.py::TestSpiderclsForRequest.test_log_none"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_spider.py::TestSpiderclsForRequest.test_multiple_matches"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_spider.py::TestSpiderclsForRequest.test_no_match"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_spider.py::TestSpiderclsForRequest.test_single_match"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_ssl.py::test_ffi_buf_to_string"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_ssl.py::test_get_openssl_version"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_ssl.py::test_get_temp_key_info"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_ssl.py::test_log_ssl_conn_debug_info_no_certificate"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_ssl.py::test_x509name_to_string"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_utils_trackref.py::test_get_oldest_all_dead"
+    }
+  ],
+  "excluded_counts": {
+    "added": 69
+  },
+  "index_sha256": "5b4de7e2d5baf7853506fc6e7bfff1c44f6a4cee6b4cf60e93265cdb324c3e3e",
+  "issues": [],
+  "labels_sha256": "45747a68303ac55910357227d1228f1f26855e94d531f1bcd686dc18151b1bdf",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "484cb9be4bbdfaa361dc7676e012d43f9c14b51e3ce14c9cc9335fc4fc1bf8cc",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_command_shell.py::TestInteractiveShell.test_fetch",
+    "tests/test_command_shell.py::TestInteractiveShell.test_shell_from_cfg",
+    "tests/test_downloaderslotssettings.py::TestCrawl.test_delay",
+    "tests/test_squeues_request.py::TestRequestQueueBase.test_one_element",
+    "tests/test_squeues_request.py::TestRequestQueueBase.test_order",
+    "tests/test_utils_python.py::test_get_func_args",
+    "tests/test_utils_trackref.py::test_iter_all"
+  ]
+}

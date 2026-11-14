@@ -1,0 +1,18 @@
+{
+  "base_sha": "1bd839b57ddb614664a179b6213f49579bdfd3da",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [],
+  "excluded_counts": {},
+  "index_sha256": "32a1f102bce7141ce4205933376f2e0d853d6b35efe831ba590cfea495e97ee6",
+  "issues": [],
+  "labels_sha256": "4653452c2eb7b8137c7e8be97e31828c2685bb425a0aca9750bc1eab1afd0933",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "af1840f1c0bf439ce7029bf1ac0bfc5f09bb91ef09ffd5bd8c5dd5c4f6e85179",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_exporters.py::TestJsonItemExporter.test_nonstring_types_item",
+    "tests/test_exporters.py::TestJsonLinesItemExporter.test_nonstring_types_item",
+    "tests/test_utils_serialize.py::TestJsonEncoder.test_encode_decode"
+  ]
+}

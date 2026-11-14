@@ -1,0 +1,4 @@
+{
+  "body": "Adds full type annotations to two small, previously-untyped test\r\nmodules and removes them from the mypy allow_untyped_defs override\r\nlist in pyproject.toml.\r\n\r\nCONTRIBUTING.md mentions: \"If you enjoy code cleanup, we welcome\r\nfixes for issues detected by our static analysis tools. See\r\npyproject.toml for silenced issues that may need addressing.\"\r\n\r\nVerified locally with:\r\n- pytest tests/test_link.py tests/test_downloadermiddleware_stats.py\r\n- mypy tests/test_link.py tests/test_downloadermiddleware_stats.py\r\n- ruff check / ruff format --check\r\n\r\nNo behavior changes, only type annotations and one `# type: ignore`\r\ncomment for an intentional invalid-type test case.",
+  "title": "Add type hints to test_link.py and test_downloadermiddleware_stats.py"
+}

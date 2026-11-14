@@ -1,0 +1,4 @@
+{
+  "body": "Resolves https://github.com/scrapy/scrapy/issues/5475.",
+  "title": "Use client.bucket() in GCSFeedStorage so object-level GCS permissions suffice"
+}

@@ -1,0 +1,50 @@
+#!/usr/bin/env python3
+"""One-command offline acceptance. No models, containers or external processes."""
+from pathlib import Path
+import contextlib
+import io
+import sys
+import unittest
+from unittest.mock import patch
+
+BENCH = Path(__file__).resolve().parent.parent
+ROOT = BENCH.parents[1]
+sys.path[:0] = [str(BENCH), str(ROOT)]
+
+GROUPS = (
+    ('测试身份与标签', ('batch.tests.test_testcase.IdentityLabelsTests',)),
+    ('双粒度指标与 token 记录', ('batch.tests.test_testcase.MetricsTests', 'batch.tests.test_token_usage')),
+    ('假 Agent 封存、评分与页面', ('batch.tests.test_testcase.PreparationTests', 'batch.tests.test_testcase.FakeFlowTests')),
+    ('轮次版面与备注', ('tests.test_sdd_results_layout.LayoutTests',)),
+    ('历史兼容与运行边界', ('tests.test_sdd_detect_metrics.DetectMetricsScoringTests',
+                          'tests.test_sdd_detect_metrics.DetectMetricsDocumentTests',
+                          'tests.test_sdd_detect_metrics.DetectMetricsCliTests',
+                          'tests.test_sdd_detect_metrics.DetectMetricsViewerTests',
+                          'tests.test_sdd_detect_metrics.DetectMetricsRollupTests',
+                          'tests.test_sdd_results.SddResultsBatchFixtureTests',
+                          'batch.tests.test_rounds', 'batch.tests.test_experiment_cli')),
+)
+
+
+def main() -> int:
+    passed = count = 0
+    # Fail closed if an acceptance case accidentally escapes its fake runtime.
+    with patch('subprocess.Popen', side_effect=RuntimeError('Offline acceptance forbids external processes')), \
+         patch('socket.socket.connect', side_effect=RuntimeError('Offline acceptance forbids network access')):
+        for label, names in GROUPS:
+            output = io.StringIO()
+            suite = unittest.defaultTestLoader.loadTestsFromNames(names)
+            with contextlib.redirect_stdout(output), contextlib.redirect_stderr(output):
+                result = unittest.TextTestRunner(stream=output, verbosity=0).run(suite)
+            count += result.testsRun
+            if result.wasSuccessful():
+                passed += 1
+                print(f'PASS  {label} ({result.testsRun} tests)', flush=True)
+            else:
+                print(f'FAIL  {label}\n{output.getvalue()}', flush=True)
+    print(f'验收{"通过" if passed == len(GROUPS) else "失败"}：{passed}/{len(GROUPS)} 组，{count} tests；无模型、Docker 或网络调用。')
+    return 0 if passed == len(GROUPS) else 1
+
+
+if __name__ == '__main__':
+    raise SystemExit(main())

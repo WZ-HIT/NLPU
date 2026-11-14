@@ -1,0 +1,142 @@
+% !TeX program = xelatex
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage[UTF8]{ctex}
+\usetikzlibrary{arrows.meta,positioning,fit,backgrounds,calc}
+
+\definecolor{hitblue}{RGB}{39,82,128}
+\definecolor{inputfill}{RGB}{235,242,248}
+\definecolor{detectfill}{RGB}{225,239,247}
+\definecolor{selectfill}{RGB}{231,244,240}
+\definecolor{evalfill}{RGB}{246,240,225}
+\definecolor{improvefill}{RGB}{239,234,246}
+\definecolor{goldfill}{RGB}{248,238,232}
+\definecolor{textgray}{RGB}{45,50,56}
+
+\tikzset{
+  stage/.style={
+    rectangle,
+    rounded corners=2pt,
+    draw=hitblue,
+    line width=0.8pt,
+    minimum width=3.15cm,
+    minimum height=2.35cm,
+    align=center,
+    inner sep=5pt,
+    text=textgray,
+    font=\small
+  },
+  stage title/.style={
+    font=\bfseries\small,
+    text=hitblue
+  },
+  flow/.style={
+    -{Latex[length=2.5mm,width=1.7mm]},
+    line width=0.9pt,
+    draw=hitblue
+  },
+  gold/.style={
+    rectangle,
+    rounded corners=2pt,
+    draw=black!55,
+    fill=goldfill,
+    line width=0.7pt,
+    minimum width=3.15cm,
+    minimum height=0.95cm,
+    align=center,
+    font=\small,
+    text=textgray
+  },
+  goldflow/.style={
+    -{Latex[length=2.3mm,width=1.6mm]},
+    densely dashed,
+    line width=0.8pt,
+    draw=black!60
+  },
+  note/.style={
+    font=\scriptsize,
+    text=black!65,
+    align=center
+  }
+}
+
+\begin{document}
+\begin{tikzpicture}[node distance=0.56cm]
+
+\node[stage,fill=inputfill] (input) {
+  {\bfseries\color{hitblue}实验输入}\\[3pt]
+  PR 标题与正文\\
+  base 版本仓库\\[2pt]
+  {\scriptsize 统一任务描述}
+};
+
+\node[stage,fill=detectfill,right=of input] (detect) {
+  {\bfseries\color{hitblue}测试目标检测}\\[3pt]
+  OpenSpec / Spec Kit\\
+  cc-sdd / IssueExec\\[2pt]
+  {\scriptsize 生成原始目标与理由}
+};
+
+\node[stage,fill=selectfill,right=of detect] (select) {
+  {\bfseries\color{hitblue}文件级目标选择}\\[3pt]
+  路径解析与规范化\\
+  存在性、测试属性检查\\
+  去重形成候选集合
+};
+
+\node[stage,fill=evalfill,right=of select] (evaluate) {
+  {\bfseries\color{hitblue}效果评价}\\[3pt]
+  命中率与召回率\\
+  micro / macro 指标\\
+  运行状态与案例分析
+};
+
+\node[stage,fill=improvefill,right=of evaluate] (improve) {
+  {\bfseries\color{hitblue}方法改进}\\[3pt]
+  分析误检与漏检\\
+  优化需求表示\\
+  关联分析与候选选择
+};
+
+\draw[flow] (input) -- (detect);
+\draw[flow] (detect) -- (select);
+\draw[flow] (select) -- (evaluate);
+\draw[flow] (evaluate) -- (improve);
+
+\node[gold,below=1.05cm of detect] (head) {
+  head 中实际修改的测试文件
+};
+\node[gold,right=0.56cm of head] (goldset) {
+  独立封存的 gold 集合
+};
+
+\draw[goldflow] (head) -- (goldset);
+\draw[goldflow] (goldset.east) -| node[pos=0.72,below,note] {仅在评价阶段解封} (evaluate.south);
+
+\coordinate (inputdetectmid) at ($(input.east)!0.5!(detect.west)$);
+\coordinate (feedbackbottomright) at ($(improve.south)+(0,-2.75)$);
+\coordinate (feedbackbottomleft) at (inputdetectmid |- feedbackbottomright);
+
+% 反馈回路：全程使用带箭头的虚线，终点位于第一条主流程蓝色箭头的中点。
+\draw[goldflow]
+  (improve.south)
+  -- (feedbackbottomright)
+  -- node[midway,below=2pt,note] {反馈优化}
+     (feedbackbottomleft)
+  -- (inputdetectmid);
+
+\begin{scope}[on background layer]
+  \node[
+    draw=black!35,
+    densely dashed,
+    rounded corners=3pt,
+    fit=(head)(goldset),
+    inner sep=7pt,
+    label={[note]below:参考答案隔离区}
+  ] {};
+\end{scope}
+
+\node[note,above=0.16cm of detect] {相同模型、预算、权限与运行环境};
+\node[note,below=0.16cm of select] {统一输出为仓库相对测试文件路径};
+
+\end{tikzpicture}
+\end{document}

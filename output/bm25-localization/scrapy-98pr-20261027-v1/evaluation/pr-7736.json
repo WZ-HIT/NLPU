@@ -1,0 +1,91 @@
+{
+  "base_sha": "b3670369b8620ae645a08bb27f553ec6bf830573",
+  "corpus_count": 2165,
+  "excluded_counts": {
+    "added": 37,
+    "deleted": 37
+  },
+  "gold_count": 18,
+  "gold_ranks": {
+    "tests/test_command_runspider.py::TestRunSpiderCommand.test_run_fail_spider": 919,
+    "tests/test_command_runspider.py::TestRunSpiderCommand.test_run_good_spider": 551,
+    "tests/test_commands.py::TestEditCommand.test_edit": 689,
+    "tests/test_crawler.py::TestCrawler.test_crawler_accepts_None": 1281,
+    "tests/test_crawler.py::TestCrawler.test_crawler_accepts_dict": 712,
+    "tests/test_feedexport.py::TestFeedExport.test_export_based_on_custom_filters": 208,
+    "tests/test_feedexport.py::TestFeedExport.test_export_based_on_item_classes": 281,
+    "tests/test_feedexport.py::TestFeedExport.test_export_feed_export_fields": 24,
+    "tests/test_feedexport.py::TestFeedExport.test_export_items": 552,
+    "tests/test_feedexport.py::TestFeedExport.test_export_multiple_item_classes": 95,
+    "tests/test_feedexport.py::TestFeedExport.test_pathlib_uri_with_placeholders": 225,
+    "tests/test_feedexport.py::TestFeedExport.test_pathlib_uri_with_spaces_and_unicode": 13,
+    "tests/test_feedexport.py::TestFeedExport.test_start_finish_exporting_items": 696,
+    "tests/test_feedexport.py::TestFeedExport.test_start_finish_exporting_items_exception": 736,
+    "tests/test_feedexport.py::TestFeedExport.test_str_uri_with_percent_encoding_and_placeholder": 4,
+    "tests/test_feedexport_batch.py::TestBatchDeliveries.test_batch_path_differ": 26,
+    "tests/test_feedexport_batch.py::TestBatchDeliveries.test_export_items": 707,
+    "tests/test_feedexport_batch.py::TestBatchDeliveries.test_s3_export": 226
+  },
+  "label_issues": [],
+  "labels_sha256": "6c79710a75d12c4c3d1db09d16aaadc1e6d4080497ea9c0799ccec6badd8b14f",
+  "metrics": {
+    "100": {
+      "all_hit": 0,
+      "candidate_count": 100,
+      "candidate_fraction": 0.046189376443418015,
+      "fn": 13,
+      "fp": 95,
+      "gold_count": 18,
+      "hit_at_k": 1,
+      "matched_count": 5,
+      "precision": 0.05,
+      "recall": 0.2777777777777778,
+      "recall_at_k": 0.2777777777777778,
+      "tp": 5,
+      "zero_score_count": 0
+    },
+    "200": {
+      "all_hit": 0,
+      "candidate_count": 200,
+      "candidate_fraction": 0.09237875288683603,
+      "fn": 13,
+      "fp": 195,
+      "gold_count": 18,
+      "hit_at_k": 1,
+      "matched_count": 5,
+      "precision": 0.025,
+      "recall": 0.2777777777777778,
+      "recall_at_k": 0.2777777777777778,
+      "tp": 5,
+      "zero_score_count": 0
+    },
+    "50": {
+      "all_hit": 0,
+      "candidate_count": 50,
+      "candidate_fraction": 0.023094688221709007,
+      "fn": 14,
+      "fp": 46,
+      "gold_count": 18,
+      "hit_at_k": 1,
+      "matched_count": 4,
+      "precision": 0.08,
+      "recall": 0.2222222222222222,
+      "recall_at_k": 0.2222222222222222,
+      "tp": 4,
+      "zero_score_count": 0
+    }
+  },
+  "pr_id": 7736,
+  "prediction": {
+    "path": "predictions/pr-7736.json.gz",
+    "pr_id": 7736,
+    "sha256": "98bd9244c7e9c7f5aa4cee098749080455214bac9da661228e7caea9cef77b96"
+  },
+  "query_sha256": "d5deddb8b11887104e74aec0d9c10ad88b0c9a2234bfebe1c4c44fcff0b68ceb",
+  "rank_seconds": 0.0036305729299783707,
+  "raw_line": 219,
+  "raw_record_sha256": "e24428d2855e4d33361e43af6019bd5afd3b15cbf72462c14e90b274d6f6b7ab",
+  "repository": "scrapy/scrapy",
+  "scorable": true,
+  "status": "SCORED"
+}

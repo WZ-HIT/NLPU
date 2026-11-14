@@ -1,0 +1,28 @@
+{
+  "status": "PASS",
+  "checks": [
+    "source and implementation hashes",
+    "prediction barrier and all 98 ranking hashes",
+    "75 index identities and baseline lock hashes",
+    "query whitelist equals raw title/body",
+    "complete unique sorted full-base rankings",
+    "all 96 PR metrics recomputed from rankings and labels",
+    "all aggregate recall/hit/precision and zero counts recomputed",
+    "two no-positive tasks separately accounted",
+    "19600 readable candidate rows match sealed top-200 rankings"
+  ],
+  "pr_count": 98,
+  "scored_pr_count": 96,
+  "unique_base_count": 75,
+  "reference_target_count": 1145,
+  "source_manifest_sha256": "39d008d2e2ba42993fa6674b8e122c4e74fef1bf24d839673171a1815207bd9b",
+  "derived_artifacts_sha256": {
+    "analysis.md": "5f117a59f7265e2dfb9b2f9c7efaa5b7ab0337aec806060e56db50742ce18f74",
+    "candidates-top200.csv": "bf947d863a6ed50eb63db593eb394cc4b22eda2783149107e317071e723337d4"
+  },
+  "offline_tests": {
+    "tests.test_bm25_localization": 12,
+    "tests.test_sdd_prompt10.Prompt10MetricTests": 5,
+    "status": "PASS"
+  }
+}

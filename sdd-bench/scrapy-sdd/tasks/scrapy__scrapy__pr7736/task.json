@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "scrapy__scrapy__pr7736",
+  "repository": {
+    "owner": "scrapy",
+    "name": "scrapy"
+  },
+  "pr_id": 7736,
+  "baseline": {
+    "base_sha": "b3670369b8620ae645a08bb27f553ec6bf830573"
+  },
+  "title": "Test restructuring",
+  "body": "Random file splits/moving helpers out of test files to reduce `from test_foo import` imports. We could do much more but that needs more thinking about e.g. test_engine, test_crawl and test_crawler which are mixed bags of e2e and unit tests of various parts.\r\n\r\nNo code or behavior changes. ",
+  "adapter": {
+    "id": "scrapy",
+    "version": 1,
+    "path": "sdd-bench/scrapy-sdd/adapters/scrapy.json",
+    "sha256": "059dcc09eaa62f892f54118e65d4deccce3ab29cc5d9a4a36f4d999ff1aa27de"
+  }
+}

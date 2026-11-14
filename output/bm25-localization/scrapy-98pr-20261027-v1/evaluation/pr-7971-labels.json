@@ -1,0 +1,24 @@
+{
+  "base_sha": "f1694269d8c9437461936ed449e81aa2ccb3b7cb",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "added",
+      "id": "tests/test_utils_log.py::TestLogformatterAdapter.test_msg_mapping_placeholders_without_args"
+    }
+  ],
+  "excluded_counts": {
+    "added": 1
+  },
+  "index_sha256": "8d5420dffa6a540d0e12dea32d05fd902b70b6df4103116acaba7f0c185c3ec2",
+  "issues": [],
+  "labels_sha256": "108f07af292b8e05b2dfe78a132a94ea63c507ba48938707ac7034e23705781c",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "b4e30b31e87e2efb18b15fb19ec370ba31d5756061aabd5ee2c0fb38bc21af5c",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_utils_log.py::TestLogformatterAdapter.test_args",
+    "tests/test_utils_log.py::TestLogformatterAdapter.test_empty_args"
+  ]
+}

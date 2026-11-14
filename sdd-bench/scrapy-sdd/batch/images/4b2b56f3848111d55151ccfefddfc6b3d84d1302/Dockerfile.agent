@@ -1,0 +1,90 @@
+ARG BASELINE_IMAGE=scrapy-sdd-batch-baseline:4b2b56f3848111d55151ccfefddfc6b3d84d1302
+ARG COMMON_RUNTIME_IMAGE=scrapy-sdd-agent:base-11079cb1c85b-codex-0.153.4-node-24.20.0-uv-0.12.10-official-bwrap-path-candidate
+
+FROM ${COMMON_RUNTIME_IMAGE} AS common-runtime
+FROM ${BASELINE_IMAGE}
+
+USER root
+
+COPY --from=common-runtime /opt/agent /opt/agent
+COPY --from=openspec / /opt/build-inputs/openspec/
+COPY --from=ccsdd / /opt/build-inputs/cc-sdd/
+COPY --from=speckit / /opt/build-inputs/speckit/
+COPY entrypoint.sh /usr/local/bin/sdd-stage-entrypoint
+COPY sitecustomize.py /opt/sdd-policy/sitecustomize.py
+
+ENV PATH="/opt/sdd-policy/bin:/opt/sdd-tools/bin:/opt/agent/bwrap/bin:/opt/agent/bin:/opt/agent/node/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin" \
+    PYTHONPATH="/opt/sdd-policy" \
+    HOME="/run/sdd-home" \
+    CODEX_HOME="/run/sdd-home/.codex" \
+    XDG_CACHE_HOME="/run/sdd-home/.cache" \
+    PIP_CACHE_DIR="/run/sdd-home/.cache/pip" \
+    NPM_CONFIG_CACHE="/run/sdd-home/.cache/npm" \
+    UV_CACHE_DIR="/run/sdd-home/.cache/uv" \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    NPM_CONFIG_UPDATE_NOTIFIER=false \
+    NPM_CONFIG_AUDIT=false \
+    NPM_CONFIG_FUND=false \
+    UV_PYTHON_DOWNLOADS=never \
+    SDD_AGENT_NO_TESTS=1 \
+    SDD_RUNTIME_INSTALLS=forbidden
+
+RUN set -eu; \
+    chmod 0755 /usr/local/bin/sdd-stage-entrypoint; \
+    mkdir -p /opt/sdd-tools/openspec /opt/sdd-tools/cc-sdd /opt/sdd-tools/speckit /opt/sdd-tools/bin /opt/sdd-policy/bin /tmp/npm-cache; \
+    cp /opt/build-inputs/openspec/package.json /opt/build-inputs/openspec/package-lock.json /opt/sdd-tools/openspec/; \
+    for archive in /opt/build-inputs/openspec/npm-artifacts/*.tgz; do /opt/agent/node/bin/npm cache add --cache /tmp/npm-cache "$archive"; done; \
+    cd /opt/sdd-tools/openspec; \
+    /opt/agent/node/bin/npm ci --cache /tmp/npm-cache --offline --ignore-scripts --engine-strict --no-audit --no-fund; \
+    cp /opt/build-inputs/cc-sdd/package.json /opt/build-inputs/cc-sdd/package-lock.json /opt/sdd-tools/cc-sdd/; \
+    for archive in /opt/build-inputs/cc-sdd/npm-artifacts/*.tgz; do /opt/agent/node/bin/npm cache add --cache /tmp/npm-cache "$archive"; done; \
+    cd /opt/sdd-tools/cc-sdd; \
+    /opt/agent/node/bin/npm ci --cache /tmp/npm-cache --offline --ignore-scripts --engine-strict --no-audit --no-fund; \
+    /opt/agent/bin/uv venv --python /usr/local/bin/python /opt/sdd-tools/speckit; \
+    /opt/agent/bin/uv pip install --python /opt/sdd-tools/speckit/bin/python --offline --no-index --require-hashes --no-build \
+      --find-links /opt/build-inputs/speckit/wheels \
+      --find-links /opt/build-inputs/speckit/dist \
+      --requirement /opt/build-inputs/speckit/install-requirements.txt; \
+    ln -s /opt/sdd-tools/openspec/node_modules/.bin/openspec /opt/sdd-tools/bin/openspec; \
+    ln -s /opt/sdd-tools/cc-sdd/node_modules/.bin/cc-sdd /opt/sdd-tools/bin/cc-sdd; \
+    ln -s /opt/sdd-tools/speckit/bin/specify /opt/sdd-tools/bin/specify; \
+    printf '%s\n' '#!/bin/sh' 'echo "runtime dependency installation is forbidden" >&2' 'exit 126' > /opt/sdd-policy/bin/deny; \
+    chmod 0755 /opt/sdd-policy/bin/deny; \
+    for command in pip pip3 pytest py.test tox trial npm npx uv uvx; do ln -s deny "/opt/sdd-policy/bin/$command"; done; \
+    rm -rf /tmp/npm-cache /opt/build-inputs
+
+RUN set -eu; \
+    test "$(python -c 'import sys; print(sys.version.split()[0])')" = "3.11.15"; \
+    test "$(python -c 'import importlib.metadata as m; print(m.version("Scrapy"))')" = "$(cat /workspace/scrapy/VERSION)"; \
+    test "$(python -c 'import importlib.metadata as m; print(m.version("pytest"))')" = "9.1.1"; \
+    test "$(/opt/agent/node/bin/node --version)" = "v24.20.0"; \
+    test "$(/opt/agent/node/bin/npm --version)" = "11.19.0"; \
+    test "$(/opt/agent/bin/codex --version)" = "codex-cli 0.153.4"; \
+    test "$(/opt/agent/bin/uv --version)" = "uv 0.12.10 (x86_64-unknown-linux-gnu)"; \
+    test "$(/opt/agent/bwrap/bin/bwrap --version)" = "bubblewrap built for Codex"; \
+    test "$(/opt/sdd-tools/bin/openspec --version)" = "1.12.0"; \
+    test "$(/opt/sdd-tools/bin/specify --version)" = "specify 1.0.4"; \
+    test "$(/opt/sdd-tools/bin/cc-sdd --version)" = "cc-sdd v3.0.2"; \
+    /opt/agent/bin/uv pip check --python /opt/sdd-tools/speckit/bin/python; \
+    cd /opt/sdd-tools/openspec && /opt/agent/node/bin/npm ls --all; \
+    cd /opt/sdd-tools/cc-sdd && /opt/agent/node/bin/npm ls --all
+
+LABEL org.opencontainers.image.title="scrapy-sdd unified detect-update agent" \
+      bench.repository="scrapy/scrapy" \
+      bench.base-sha="4b2b56f3848111d55151ccfefddfc6b3d84d1302" \
+      bench.tree-sha="2d2e2d17c7d2862cbc115dc7b198e86d03f8044f" \
+      bench.python-version="3.11.15" \
+      bench.node-version="24.20.0" \
+      bench.codex-version="0.153.4" \
+      bench.uv-version="0.12.10" \
+      bench.bubblewrap-version="0.12.0-codex-0.153.4" \
+      bench.openspec-version="1.12.0" \
+      bench.speckit-version="1.0.4" \
+      bench.cc-sdd-version="3.0.2"
+
+USER 1007:1007
+WORKDIR /workspace
+ENTRYPOINT ["/usr/local/bin/sdd-stage-entrypoint"]
+CMD ["sleep", "infinity"]

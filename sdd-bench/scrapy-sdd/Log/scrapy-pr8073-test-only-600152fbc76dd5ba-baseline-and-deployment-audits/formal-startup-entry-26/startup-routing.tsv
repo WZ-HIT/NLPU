@@ -1,4 +1,0 @@
-group	agent_service	proxy_service	workspace	home	private_network
-openspec	openspec-agent	openspec-egress	/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/runs/openspec/scrapy	scrapy-sdd-8073-600152fbc76dd5ba-agent_openspec-home	scrapy-sdd-8073-600152fbc76dd5ba-agent_openspec-private
-speckit	speckit-agent	speckit-egress	/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/runs/speckit/scrapy	scrapy-sdd-8073-600152fbc76dd5ba-agent_speckit-home	scrapy-sdd-8073-600152fbc76dd5ba-agent_speckit-private
-cc-sdd	cc-sdd-agent	cc-sdd-egress	/home/wangzuohit/NLPU/sdd-bench/scrapy-sdd/tasks/scrapy__scrapy__8073__test_only__600152fbc76dd5ba/runs/cc-sdd/scrapy	scrapy-sdd-8073-600152fbc76dd5ba-agent_cc-sdd-home	scrapy-sdd-8073-600152fbc76dd5ba-agent_cc-sdd-private

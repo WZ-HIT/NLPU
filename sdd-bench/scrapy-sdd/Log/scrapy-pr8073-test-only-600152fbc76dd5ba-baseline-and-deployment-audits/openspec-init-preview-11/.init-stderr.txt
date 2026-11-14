@@ -1,3 +1,0 @@
-Note: OpenSpec collects anonymous usage stats. Opt out: OPENSPEC_TELEMETRY=0 or openspec config set telemetry.enabled false
-- Setting up Codex...
-✔ Setup complete for Codex

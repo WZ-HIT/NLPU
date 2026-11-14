@@ -1,0 +1,101 @@
+{
+  "base_sha": "d8ba1571e714b069216e5f21804f3754cdc2a032",
+  "complete": true,
+  "document_type": "HOST_TESTCASE_LABELS",
+  "excluded": [
+    {
+      "category": "added",
+      "id": "tests/test_crawler_subprocess.py::TestAsyncCrawlerProcessSubprocess.test_asyncio_custom_loop_custom_settings_different"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_crawler_subprocess.py::TestAsyncCrawlerProcessSubprocess.test_asyncio_custom_loop_custom_settings_same"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_crawler_subprocess.py::TestAsyncCrawlerProcessSubprocess.test_asyncio_enabled_reactor_different_loop"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_crawler_subprocess.py::TestAsyncCrawlerProcessSubprocess.test_asyncio_enabled_reactor_same_loop"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_crawler_subprocess.py::TestAsyncCrawlerProcessSubprocess.test_reactorless_shutdown_forced"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_crawler_subprocess.py::TestAsyncCrawlerProcessSubprocess.test_reactorless_shutdown_graceful"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_crawler_subprocess.py::TestAsyncCrawlerProcessSubprocess.test_reactorless_shutdown_graceful_no_stop"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_crawler_subprocess.py::TestAsyncCrawlerProcessSubprocess.test_shutdown_forced"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_crawler_subprocess.py::TestAsyncCrawlerProcessSubprocess.test_shutdown_graceful"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_crawler_subprocess.py::TestAsyncCrawlerProcessSubprocess.test_shutdown_graceful_reactorless_no_stop"
+    },
+    {
+      "category": "added",
+      "id": "tests/test_downloadermiddleware_redirect.py::TestRedirectMiddleware.test_redirect_307_308_preserve_method"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_downloadermiddleware_redirect.py::TestRedirectMiddleware.test_redirect_3xx_permanent"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_extension_periodic_log.py::TestPeriodicLog.test_extension_enabled"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_http_response_text.py::TestTextResponse.test_follow_all_flags"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_http_response_text.py::TestTextResponse.test_follow_flags"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_linkextractors.py::TestLxmlLinkExtractor.test_link_wrong_href"
+    },
+    {
+      "category": "mechanical_ast_equal",
+      "id": "tests/test_spiderloader/__init__.py::TestDuplicateSpiderNameLoader.test_multiple_dupename_warning"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_utils_iterators.py::TestLxmlXmliter.test_xmliter_objtype_exception"
+    },
+    {
+      "category": "deleted",
+      "id": "tests/test_utils_url.py::test_url_is_from_spider_class_attributes"
+    }
+  ],
+  "excluded_counts": {
+    "added": 6,
+    "deleted": 11,
+    "mechanical_ast_equal": 2
+  },
+  "index_sha256": "ebdce585a6e9af5ba9010d0718af42fdcd8d939eae36a2fca7791397f4874df6",
+  "issues": [],
+  "labels_sha256": "de95b732f903e57bd7f37c70ee6c1724d869e80e82b0a78209cd7871184fed78",
+  "protocol": "testcase-v1",
+  "raw_record_sha256": "f2cbf905efcf16d159e1931fbc17739c0b01111840b20cde5c3446b6264b6fa2",
+  "schema_version": 1,
+  "testcases": [
+    "tests/test_downloader_handlers_http_base.py::TestHttpBase.test_download_without_maxsize_limit",
+    "tests/test_downloadermiddleware_retry.py::TestRetry.test_dont_retry",
+    "tests/test_feedexport.py::TestFeedExport.test_export_no_items_multiple_feeds",
+    "tests/test_spider.py::TestSpider.test_spider_without_name",
+    "tests/test_stats.py::TestCoreStatsExtension.test_core_stats_default_stats_collector"
+  ]
+}

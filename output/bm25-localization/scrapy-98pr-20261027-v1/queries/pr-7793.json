@@ -1,0 +1,4 @@
+{
+  "body": "Fixes #6478 ",
+  "title": "Migrate away from testfixtures."
+}
